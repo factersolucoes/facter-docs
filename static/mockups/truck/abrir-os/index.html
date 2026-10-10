@@ -3,545 +3,628 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Abrir OS · pensado para o consultor de manutenção</title>
+<title>Recepção · dar entrada e abrir OS · mockups</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --background:0 0% 98%;--foreground:240 10% 3.9%;--card:0 0% 100%;
-  --primary:233 65% 50%;--primary-soft:233 85% 96.5%;--primary-foreground:0 0% 100%;
-  --muted:240 4.8% 93.9%;--muted-foreground:240 3.8% 42%;--border:240 5.9% 90%;
-  --toolbar:240 5% 96.5%;--canvas:225 14% 92%;
-  --success-text:160 70% 24%;--warning-text:28 85% 28%;--warning-soft:40 95% 93%;
-  --danger:0 84% 60%;--danger-text:0 72% 42%;--danger-soft:0 90% 96%;
+  --background:0 0% 98%;--foreground:240 10% 4%;--card:0 0% 100%;
+  --primary:233 66% 52%;--primary-ink:233 70% 40%;--primary-soft:233 85% 96.5%;
+  --muted:240 5% 95%;--muted-foreground:240 4% 44%;--border:240 6% 90%;--border-strong:240 6% 83%;
+  --toolbar:240 6% 97%;--canvas:228 16% 90%;
+  --success:160 60% 38%;--success-soft:158 52% 94%;--success-text:160 72% 24%;
+  --warning:36 92% 50%;--warning-soft:40 96% 92%;--warning-text:26 85% 32%;
+  --danger:0 82% 60%;--danger-soft:0 88% 96.5%;--danger-text:0 70% 44%;
+  --plan:266 60% 56%;--plan-soft:266 70% 96.5%;--plan-text:266 48% 46%;
+  --ink:235 20% 14%;
+  --sp:8px;
 }
 *{box-sizing:border-box}
-body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));font:14px/1.5 Sora,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-h1,h2,h3,p{margin:0}
-button,textarea{font:inherit;color:inherit}
+body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));font:14.5px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,p{margin:0}
+button,textarea,input{font:inherit;color:inherit}
 .num{font-variant-numeric:tabular-nums}
-.ic{display:inline-block;width:20px;height:20px;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;flex:none}
-.s12{width:12px;height:12px}.s14{width:14px;height:14px}.s16{width:16px;height:16px}.s18{width:18px;height:18px}.s20{width:20px;height:20px}.s24{width:24px;height:24px}
-.i-x{--i:url(https://api.iconify.design/ph/x.svg)}
+.ic{display:inline-block;width:18px;height:18px;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;flex:none;vertical-align:-3px}
+.s13{width:13px;height:13px}.s14{width:14px;height:14px}.s16{width:16px;height:16px}.s18{width:18px;height:18px}.s20{width:20px;height:20px}.s22{width:22px;height:22px}.s24{width:24px;height:24px}.s28{width:28px;height:28px}
+.i-home{--i:url(https://api.iconify.design/ph/house.svg)}
+.i-truck{--i:url(https://api.iconify.design/ph/truck.svg)}
+.i-trailer{--i:url(https://api.iconify.design/ph/truck-trailer.svg)}
+.i-box{--i:url(https://api.iconify.design/ph/package.svg)}
+.i-tire{--i:url(https://api.iconify.design/ph/tire.svg)}
+.i-wrench{--i:url(https://api.iconify.design/ph/wrench.svg)}
+.i-gear{--i:url(https://api.iconify.design/ph/gear.svg)}
+.i-bell{--i:url(https://api.iconify.design/ph/bell.svg)}
+.i-search{--i:url(https://api.iconify.design/ph/magnifying-glass.svg)}
+.i-scan{--i:url(https://api.iconify.design/ph/scan.svg)}
+.i-mic{--i:url(https://api.iconify.design/ph/microphone.svg)}
+.i-chat{--i:url(https://api.iconify.design/ph/chat-teardrop-dots.svg)}
+.i-clock{--i:url(https://api.iconify.design/ph/clock-countdown.svg)}
+.i-cal{--i:url(https://api.iconify.design/ph/calendar-dots.svg)}
 .i-pin{--i:url(https://api.iconify.design/ph/map-pin.svg)}
+.i-gauge{--i:url(https://api.iconify.design/ph/gauge.svg)}
+.i-checkc{--i:url(https://api.iconify.design/ph/check-circle-fill.svg)}
+.i-check{--i:url(https://api.iconify.design/ph/check.svg)}
+.i-warn{--i:url(https://api.iconify.design/ph/warning-fill.svg)}
+.i-warnc{--i:url(https://api.iconify.design/ph/warning-circle-fill.svg)}
+.i-right{--i:url(https://api.iconify.design/ph/caret-right.svg)}
 .i-down{--i:url(https://api.iconify.design/ph/caret-down.svg)}
 .i-plus{--i:url(https://api.iconify.design/ph/plus.svg)}
-.i-info{--i:url(https://api.iconify.design/ph/info.svg)}
-.i-cal{--i:url(https://api.iconify.design/ph/calendar-blank.svg)}
-.i-mic{--i:url(https://api.iconify.design/ph/microphone.svg)}
-.i-chat{--i:url(https://api.iconify.design/ph/chat-teardrop-text.svg)}
-.i-stetho{--i:url(https://api.iconify.design/ph/first-aid-kit.svg)}
-.i-flag{--i:url(https://api.iconify.design/ph/flag.svg)}
-.i-link{--i:url(https://api.iconify.design/ph/arrow-square-out.svg)}
+.i-x{--i:url(https://api.iconify.design/ph/x.svg)}
 .i-play{--i:url(https://api.iconify.design/ph/play-fill.svg)}
+.i-bolt{--i:url(https://api.iconify.design/ph/lightning-fill.svg)}
+.i-clip{--i:url(https://api.iconify.design/ph/clipboard-text.svg)}
+.i-cam{--i:url(https://api.iconify.design/ph/camera.svg)}
+.i-user{--i:url(https://api.iconify.design/ph/user.svg)}
+.i-return{--i:url(https://api.iconify.design/ph/arrow-u-up-left.svg)}
+.i-tow{--i:url(https://api.iconify.design/ph/tow-truck.svg)}
+.i-hand{--i:url(https://api.iconify.design/ph/hand-tap.svg)}
 
-.doc{max-width:1180px;margin:0 auto;padding:44px 24px 96px}
-.doc h1{font:800 30px/1.15 Sora;letter-spacing:-.02em}
-.doc>p{color:hsl(240 6% 25%);max-width:820px;margin-top:10px}
-.who-strip{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
-.who-card{flex:1;min-width:210px;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:12px;padding:14px 16px}
-.who-card .r{font:700 13px Sora;display:flex;align-items:center;gap:8px}
-.who-card .r .pct{margin-left:auto;font-size:12px;font-weight:700;color:hsl(var(--primary));background:hsl(var(--primary-soft));border-radius:99px;padding:2px 8px}
-.who-card p{font-size:12.5px;color:hsl(var(--muted-foreground));margin-top:6px;line-height:1.45}
-.who-card.lead{border-color:hsl(var(--primary)/.4);box-shadow:0 0 0 1px hsl(var(--primary)/.2)}
+.doc{max-width:1240px;margin:0 auto;padding:40px 22px 80px}
+.doc h1{font:800 29px/1.15 Sora,sans-serif;letter-spacing:-.02em}
+.doc .lead{color:hsl(var(--muted-foreground));max-width:860px;margin-top:10px}
 
-.sec{margin-top:56px}
-.sec-lbl{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
-.sec-num{font:800 13px Sora;color:hsl(var(--primary));background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:99px;width:26px;height:26px;display:grid;place-items:center}
-.sec h2{font:700 20px/1.3 Sora;letter-spacing:-.01em}
-.sec-sub{color:hsl(240 6% 25%);margin:0 0 20px 36px;font-size:14px;max-width:840px}
-.stage{background:hsl(var(--canvas));border:1px solid hsl(var(--border));border-radius:16px;padding:44px;display:grid;place-items:center}
+/* scenario switcher */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.chips button{height:36px;padding:0 14px;border-radius:99px;border:1px solid hsl(var(--border-strong));background:hsl(var(--card));font:600 13px Inter;color:hsl(240 5% 34%);cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.chips button .ic{color:hsl(var(--muted-foreground))}
+.chips button:hover{border-color:hsl(var(--primary))}
+.chips button.on{background:hsl(var(--primary));color:#fff;border-color:hsl(var(--primary))}
+.chips button.on .ic{color:#fff}
+.chips .tag{font:700 10px Sora;background:hsl(var(--warning-soft));color:hsl(var(--warning-text));border-radius:99px;padding:1px 7px;margin-left:2px}
+.chips button.on .tag{background:hsl(0 0% 100%/.22);color:#fff}
 
-.plate{display:inline-flex;flex-direction:column;border:1.5px solid hsl(240 10% 20%);border-radius:5px;overflow:hidden;min-width:96px;background:#fff;flex:none}
-.plate .top{height:8px;background:hsl(220 80% 35%)}
-.plate .pn{font:700 14px/22px Inter;text-align:center;letter-spacing:.06em;padding:0 8px;color:hsl(240 10% 10%)}
-.plate.sm{min-width:78px}.plate.sm .pn{font-size:12.5px;line-height:19px}
+/* ---------- app frame ---------- */
+.app{margin-top:16px;width:100%;height:720px;background:hsl(var(--background));border:1px solid hsl(var(--border));border-radius:16px;overflow:hidden;box-shadow:0 30px 80px -30px hsl(230 35% 20%/.35);display:grid;grid-template-columns:64px 1fr;position:relative}
+.side{background:hsl(235 18% 15%);display:flex;flex-direction:column;align-items:center;padding:16px 0;gap:4px}
+.side .logo{width:38px;height:38px;border-radius:11px;background:hsl(var(--primary));display:grid;place-items:center;color:#fff;font:800 17px Sora;margin-bottom:14px}
+.side a{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;color:hsl(235 12% 62%);cursor:pointer}
+.side a:hover{color:#fff;background:hsl(235 14% 22%)}
+.side a.on{background:hsl(var(--primary));color:#fff}
+.side .sp{flex:1}
+.main{display:flex;flex-direction:column;min-width:0}
+.topbar{display:flex;align-items:center;gap:16px;padding:12px 22px;border-bottom:1px solid hsl(var(--border));background:hsl(var(--card))}
+.wordmark{font:800 16px Sora;letter-spacing:-.01em}.wordmark b{color:hsl(var(--primary))}
+.tb-search{flex:1;max-width:440px;display:flex;align-items:center;gap:9px;height:40px;border:1px solid hsl(var(--border));border-radius:11px;padding:0 13px;background:hsl(var(--toolbar));color:hsl(var(--muted-foreground));font-size:13.5px}
+.tb-right{margin-left:auto;display:flex;align-items:center;gap:16px}
+.tb-right .bell{color:hsl(var(--muted-foreground));cursor:pointer}
+.org{display:flex;align-items:center;gap:8px;font:600 13.5px Inter;color:hsl(240 6% 28%)}
+.avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,hsl(233 55% 58%),hsl(265 55% 58%));color:#fff;display:grid;place-items:center;font:700 12.5px Sora}
+.content{flex:1;overflow:auto;padding:26px 30px}
 
-/* ---- dialog ---- */
-.dx{width:600px;max-width:100%;background:hsl(var(--card));border-radius:18px;box-shadow:0 30px 70px -24px hsl(230 40% 20%/.5),0 0 0 1px hsl(var(--border));overflow:hidden;position:relative}
-.dx.lg{width:860px}
-.dx-x{position:absolute;right:12px;top:12px;width:34px;height:34px;border:0;background:hsl(0 0% 100%/.7);border-radius:8px;display:grid;place-items:center;color:hsl(240 6% 34%);z-index:3;cursor:pointer}
-.band{display:flex;align-items:center;gap:14px;padding:16px 60px 16px 24px;background:linear-gradient(90deg,hsl(var(--primary-soft)),hsl(233 85% 98.5%));border-bottom:1px solid hsl(var(--border))}
-.band .who{min-width:0}
-.band .who .nm{font:650 15px Sora;line-height:1.2}
-.band .who .s{font-size:12.5px;color:hsl(240 6% 34%);margin-top:2px;display:flex;align-items:center;gap:6px}
-.band .who .s .ic{color:hsl(233 45% 52%)}
-.band .plate{margin-left:auto}
-.titlewrap{padding:16px 24px 0}
-.title{font:650 20px/1.25 Sora;letter-spacing:-.01em}
-.desc{font-size:14px;color:hsl(var(--muted-foreground));margin-top:3px}
+/* page header */
+.pagehd{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.pagehd .ttl{font:800 24px/1.1 Sora;letter-spacing:-.02em}
+.pagehd .sub{font-size:13.5px;color:hsl(var(--muted-foreground));margin-top:6px;display:flex;align-items:center;gap:7px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 18px;border-radius:12px;border:1px solid transparent;font:600 14.5px Inter;cursor:pointer;white-space:nowrap}
+.btn-pri{background:hsl(var(--primary));color:#fff;box-shadow:0 1px 2px hsl(233 40% 30%/.25)}
+.btn-pri.danger{background:hsl(var(--danger))}
+.btn-out{background:hsl(var(--card));border-color:hsl(var(--border-strong));color:hsl(var(--foreground))}
+.btn-ghost{background:none;color:hsl(var(--primary-ink));font-weight:600}
 
-.dx-bd{padding:18px 24px 20px;display:flex;flex-direction:column;gap:20px}
+/* kpis */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0 26px}
+.kpi{border:1px solid hsl(var(--border));border-radius:14px;padding:15px 16px;background:hsl(var(--card))}
+.kpi .l{font-size:12px;color:hsl(var(--muted-foreground));display:flex;align-items:center;gap:7px;font-weight:500}
+.kpi .n{font:800 27px/1 Sora;margin-top:9px;letter-spacing:-.02em}
+.kpi .s{font-size:11.5px;color:hsl(var(--muted-foreground));margin-top:6px}
+.kpi.warn .n{color:hsl(var(--warning-text))}
 
-/* target selector */
-.alvo{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.alvo button{display:flex;align-items:center;gap:11px;border:1px solid hsl(240 6% 84%);border-radius:12px;padding:11px 13px;background:hsl(var(--card));text-align:left;cursor:pointer;min-width:0}
-.alvo .rd{width:18px;height:18px;border-radius:99px;border:2px solid hsl(240 6% 70%);flex:none}
-.alvo button[aria-pressed="true"]{border-color:hsl(var(--primary));background:hsl(var(--primary-soft));box-shadow:0 0 0 1px hsl(var(--primary))}
-.alvo button[aria-pressed="true"] .rd{border-color:hsl(var(--primary));background:hsl(var(--primary));box-shadow:inset 0 0 0 3px #fff}
-.alvo .t{display:block;font-weight:600;font-size:13.5px;line-height:1.2}
-.alvo .u{display:block;font-size:12px;color:hsl(var(--muted-foreground));margin-top:2px}
+/* recepção grid */
+.recep{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:24px;align-items:start}
+@media(max-width:1020px){.recep{grid-template-columns:1fr}}
+.sectitle{display:flex;align-items:center;gap:9px;font:700 12.5px Sora;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));margin-bottom:13px}
+.sectitle .ct{background:hsl(var(--muted));color:hsl(240 6% 36%);border-radius:99px;padding:1px 9px;font-size:11px}
+.sectitle .ic{color:hsl(var(--muted-foreground))}
 
-/* HERO problem */
-.hero-lbl{font:650 16px Sora;display:flex;align-items:center;gap:8px}
-.hero-lbl .req{color:hsl(var(--danger))}
-.hero-lbl .aid{margin-left:auto;font-size:12px;font-weight:500;color:hsl(233 65% 42%);display:inline-flex;align-items:center;gap:5px;cursor:pointer}
-.hero-ta{margin-top:9px;width:100%;border:1.5px solid hsl(233 60% 62%);border-radius:12px;padding:13px 15px;font-size:15px;line-height:1.5;min-height:96px;resize:none;box-shadow:0 0 0 4px hsl(233 80% 92%/.7);background:hsl(var(--card))}
-.suggest{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px;align-items:center}
-.suggest .l{font-size:12px;color:hsl(var(--muted-foreground))}
-.suggest button{height:27px;padding:0 11px;border-radius:99px;border:1px dashed hsl(233 55% 74%);background:hsl(var(--primary-soft));color:hsl(233 65% 40%);font-size:12px;font-weight:600;cursor:pointer}
+/* search (page) */
+.search{display:flex;align-items:center;gap:12px;height:52px;border:1.5px solid hsl(233 55% 68%);border-radius:14px;padding:0 16px;background:hsl(var(--card));box-shadow:0 0 0 4px hsl(233 82% 94%/.55);margin-bottom:22px}
+.search .ic{color:hsl(233 58% 52%)}
+.search input{border:0;outline:0;flex:1;font-size:16px;background:none}
+.search input::placeholder{color:hsl(240 5% 55%)}
+.search .scan{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid hsl(var(--border-strong));background:hsl(var(--toolbar));font:600 13px Inter;color:hsl(240 6% 32%);cursor:pointer}
 
-.rule{height:1px;background:hsl(var(--border));margin:2px 0}
+/* aguardando cards — aligned grid */
+.cards{display:flex;flex-direction:column;gap:12px}
+.arr{display:grid;grid-template-columns:46px minmax(0,1fr) 20px;align-items:center;gap:16px;border:1px solid hsl(var(--border));border-radius:16px;padding:16px 18px;background:hsl(var(--card));cursor:pointer;transition:border-color .12s,box-shadow .12s,transform .06s}
+.arr:hover{border-color:hsl(233 55% 70%);box-shadow:0 8px 22px -14px hsl(233 40% 40%/.4)}
+.arr:active{transform:translateY(1px)}
+.arr .avic{width:46px;height:46px;border-radius:13px;background:hsl(var(--muted));color:hsl(240 6% 46%);display:grid;place-items:center}
+.arr .mid{min-width:0}
+.arr .id{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.arr .frota{font:700 16px Sora;letter-spacing:-.01em}
+.arr .id .wait{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font:800 16px Sora;color:hsl(var(--warning-text));letter-spacing:-.01em;white-space:nowrap}
+.arr .id .wait .ic{opacity:.75}
+.arr .rel{font-size:14px;color:hsl(235 12% 26%);margin-top:8px;line-height:1.4}
+.arr .sub{display:flex;align-items:center;gap:7px 16px;flex-wrap:wrap;margin-top:9px;font-size:12px;color:hsl(var(--muted-foreground))}
+.arr .sub .b{display:inline-flex;align-items:center;gap:5px}
+.arr .caret{color:hsl(240 6% 68%);justify-self:center}
 
-/* classification block — quiet, grouped */
-.blk-lbl{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));font-weight:600;margin-bottom:12px}
-.cls{display:grid;grid-template-columns:auto auto 1fr;gap:14px 20px;align-items:center}
-.mini{display:flex;flex-direction:column;gap:6px}
-.mini>span{font-size:12px;color:hsl(240 6% 40%);font-weight:500}
-.seg{display:inline-flex;gap:2px;padding:3px;background:hsl(var(--muted));border-radius:9px;width:max-content}
-.seg button{border:0;background:none;height:30px;padding:0 12px;border-radius:7px;font-size:13px;font-weight:500;color:hsl(240 6% 32%);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
-.seg button[aria-pressed="true"]{background:hsl(var(--card));color:hsl(var(--foreground));box-shadow:0 1px 2px hsl(240 10% 10%/.12);font-weight:600}
-.seg.pri button[aria-pressed="true"].crit{color:hsl(var(--danger-text))}
-.select{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 12px;border:1px solid hsl(240 6% 82%);border-radius:8px;background:hsl(var(--card));font-size:13.5px;font-weight:500;cursor:pointer;width:max-content}
-.select .ic{color:hsl(var(--muted-foreground));margin-left:2px}
+/* plate */
+.plate{display:inline-flex;flex-direction:column;border:1.5px solid hsl(235 14% 24%);border-radius:5px;overflow:hidden;min-width:92px;background:#fff;flex:none}
+.plate .top{height:7px;background:hsl(221 78% 38%)}
+.plate .pn{font:700 13.5px/22px Inter;text-align:center;letter-spacing:.07em;padding:0 9px;color:hsl(235 14% 14%)}
+.plate.sm{min-width:80px}.plate.sm .pn{font-size:12.5px;line-height:19px}
 
-/* optional diagnosis */
-.optbtn{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:hsl(233 65% 42%);background:none;border:0;padding:0;cursor:pointer}
-.optbtn .ic{color:hsl(233 55% 52%)}
+/* chip */
+.chip{display:inline-flex;align-items:center;gap:5px;font:700 11.5px Inter;padding:3px 9px;border-radius:99px;line-height:1.3}
+.c-info{background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.c-warn{background:hsl(var(--warning-soft));color:hsl(var(--warning-text))}
+.c-danger{background:hsl(var(--danger-soft));color:hsl(var(--danger-text))}
+.c-ok{background:hsl(var(--success-soft));color:hsl(var(--success-text))}
+.c-plan{background:hsl(var(--plan-soft));color:hsl(var(--plan-text))}
 
-/* quiet rows */
-.qrow{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.qrow .k{font-size:12.5px;color:hsl(240 6% 40%);font-weight:500}
-.qp{display:inline-flex;gap:2px;padding:3px;background:hsl(var(--muted));border-radius:9px}
-.qp button{border:0;background:none;height:32px;padding:0 13px;border-radius:7px;font-size:13px;font-weight:500;color:hsl(240 6% 32%);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
-.qp button[aria-pressed="true"]{background:hsl(var(--card));color:hsl(var(--foreground));box-shadow:0 1px 2px hsl(240 10% 10%/.12);font-weight:600}
-.hint{font-size:12.5px;color:hsl(var(--muted-foreground))}
+/* right rail */
+.rail-card{border:1px solid hsl(var(--border));border-radius:16px;background:hsl(var(--card));overflow:hidden}
+.rail-card+.rail-card{margin-top:18px}
+.rc-h{padding:14px 16px;border-bottom:1px solid hsl(var(--border));font:700 13.5px Sora;display:flex;align-items:center;gap:8px}
+.rc-h .ic{color:hsl(var(--primary))}
+.rc-b{padding:14px 16px}
+.soon{display:flex;gap:13px;align-items:flex-start}
+.soon .si{width:40px;height:40px;border-radius:11px;background:hsl(var(--plan-soft));color:hsl(var(--plan));display:grid;place-items:center;flex:none}
+.soon b{font:700 13.5px Sora}
+.soon p{font-size:12.5px;color:hsl(235 10% 38%);margin-top:4px;line-height:1.5}
+.ghost{margin-top:12px;display:flex;flex-direction:column;gap:7px;opacity:.5}
+.grow{height:34px;border-radius:9px;background:hsl(266 30% 93%)}
+.mline{display:flex;align-items:center;gap:11px;padding:11px 0}
+.mline+.mline{border-top:1px solid hsl(var(--border))}
+.mbox{width:34px;height:34px;border-radius:9px;background:hsl(var(--primary-soft));color:hsl(var(--primary-ink));display:grid;place-items:center;font:800 12px Sora;flex:none}
+.mline .mt{font:700 13px Sora}
+.mline .ms{font-size:11.5px;color:hsl(var(--muted-foreground));margin-top:2px}
+.mline .prog{margin-left:auto;text-align:right;font-size:11px;color:hsl(var(--muted-foreground))}
+.bar{width:70px;height:6px;border-radius:99px;background:hsl(var(--muted));margin-top:5px;overflow:hidden}
+.bar i{display:block;height:100%;background:hsl(var(--primary));border-radius:99px}
 
-.morebar{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid hsl(var(--border));border-radius:10px;padding:11px 14px;background:hsl(var(--toolbar));cursor:pointer}
-.morebar .l{font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px}
-.morebar .r{font-size:12.5px;color:hsl(var(--muted-foreground));display:flex;align-items:center;gap:10px}
+/* ---------- overlay + dialog ---------- */
+.overlay{position:absolute;inset:0;background:hsl(232 32% 12%/.5);display:flex;align-items:flex-start;justify-content:center;padding:40px 20px;z-index:30;overflow:auto;animation:fade .14s}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
+.dx{width:600px;max-width:100%;background:hsl(var(--card));border-radius:20px;box-shadow:0 40px 90px -30px hsl(232 50% 14%/.6);overflow:hidden;position:relative;animation:pop .2s;display:flex;flex-direction:column;max-height:calc(720px - 80px)}
+.dx-x{position:absolute;right:14px;top:14px;width:34px;height:34px;border:0;background:hsl(0 0% 100%/.65);border-radius:10px;display:grid;place-items:center;color:hsl(240 6% 36%);z-index:3;cursor:pointer}
+.dx-x:hover{background:hsl(var(--muted))}
+.dxhead{position:relative;display:flex;align-items:flex-start;gap:15px;padding:16px 54px 16px 22px;background:linear-gradient(120deg,hsl(233 78% 95.5%),hsl(233 85% 98.5%));border-bottom:1px solid hsl(var(--border))}
+.dxhead::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:hsl(var(--primary))}
+.dxhead.src-emg{background:linear-gradient(120deg,hsl(0 84% 96%),hsl(0 88% 98.5%))}
+.dxhead.src-emg::before{background:hsl(var(--danger))}
+.dxhead.src-chk{background:linear-gradient(120deg,hsl(40 90% 92.5%),hsl(40 96% 98%))}
+.dxhead.src-chk::before{background:hsl(var(--warning))}
+.dxhead .plate{margin-top:2px}
+.dxhead .htxt{min-width:0;flex:1}
+.dxhead .dxtitle{font:800 20px/1.1 Sora;letter-spacing:-.02em;color:hsl(var(--primary-ink))}
+.dxhead.src-emg .dxtitle{color:hsl(var(--danger-text))}
+.dxhead.src-chk .dxtitle{color:hsl(var(--warning-text))}
+.dxhead .hsub{font-size:12.5px;color:hsl(235 10% 38%);margin-top:6px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.dxhead .hsub b{color:hsl(235 14% 20%);font-weight:700}
+.dxhead .hsep{color:hsl(var(--border-strong))}
+.dx-bd{padding:20px 22px;display:flex;flex-direction:column;gap:17px;overflow:auto}
+
+/* field group label */
+.flabel{font:600 14px Sora;display:flex;align-items:center;gap:8px}
+.flabel .ic{color:hsl(233 58% 54%)}
+.flabel .req{color:hsl(var(--danger));font-weight:700}
+.flabel .aid{margin-left:auto;font:600 12.5px Inter;color:hsl(var(--primary-ink));display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.relato-ta{margin-top:11px;width:100%;border:1.5px solid hsl(233 55% 66%);border-radius:13px;padding:14px 16px;font-size:15.5px;line-height:1.55;min-height:84px;resize:none;box-shadow:0 0 0 4px hsl(233 82% 93%/.6);background:hsl(var(--card))}
+.relato-ta.filled{border-color:hsl(var(--border-strong));box-shadow:none}
+.suggest{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;align-items:center}
+.suggest .l{font-size:11.5px;color:hsl(var(--muted-foreground));margin-right:1px}
+.suggest button{height:26px;padding:0 9px;border-radius:8px;border:1px solid hsl(var(--border));background:hsl(var(--toolbar));color:hsl(235 8% 40%);font:500 12px Inter;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+.suggest button::before{content:"+";color:hsl(var(--muted-foreground));font-weight:700;font-size:13px}
+.suggest button:hover{border-color:hsl(var(--primary));color:hsl(var(--primary-ink));background:hsl(var(--primary-soft))}
+.kbd{display:inline-flex;align-items:center;font:600 11px Inter;background:hsl(0 0% 100%/.22);border:1px solid hsl(0 0% 100%/.32);border-radius:5px;padding:1px 5px;margin-left:9px}
+.kbd-d{display:inline-flex;align-items:center;font:600 11px Inter;background:hsl(var(--muted));border:1px solid hsl(var(--border-strong));border-radius:5px;padding:1px 5px;margin-left:9px;color:hsl(var(--muted-foreground))}
+
+/* grouped block */
+.group{border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden}
+.group .gh{padding:11px 15px;background:hsl(var(--toolbar));border-bottom:1px solid hsl(var(--border));font:600 12px Sora;text-transform:uppercase;letter-spacing:.05em;color:hsl(var(--muted-foreground))}
+.group .gb{padding:15px}
+
+/* smart classification */
+.smart{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 13px;border-radius:11px;border:1px solid hsl(var(--border-strong));background:hsl(var(--card));font:600 13.5px Inter;cursor:pointer;color:hsl(var(--foreground))}
+.pill .k{font-size:11px;color:hsl(var(--muted-foreground));font-weight:500}
+.pill .ic{color:hsl(var(--muted-foreground))}
+.pill:hover{border-color:hsl(var(--primary))}
+.pill.det{border-color:hsl(var(--primary));background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.pill.det .k{color:hsl(var(--primary-ink)/.7)}
+.pill.crit{border-color:hsl(var(--danger));background:hsl(var(--danger-soft));color:hsl(var(--danger-text))}
+.pill.warnp{border-color:hsl(38 70% 68%);background:hsl(var(--warning-soft));color:hsl(var(--warning-text))}
+.detnote{width:100%;font-size:12px;color:hsl(var(--primary-ink));display:inline-flex;align-items:center;gap:5px;margin-top:2px}
+.menu{position:absolute;z-index:50;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:12px;box-shadow:0 20px 50px -14px hsl(232 40% 18%/.4);padding:6px;min-width:184px}
+.menu button{display:flex;align-items:center;gap:9px;width:100%;border:0;background:none;border-radius:9px;padding:9px 11px;font-size:14px;text-align:left;cursor:pointer}
+.menu button:hover{background:hsl(var(--muted))}
+.menu button.sel{color:hsl(var(--primary-ink));font-weight:600}
+.menu button.sel .ic{margin-left:auto}
+
+/* km / entrada */
+.kmrow{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.kmfield{display:flex;flex-direction:column;gap:7px}
+.kmfield .fl{font-size:12px;color:hsl(235 8% 40%);font-weight:500;display:flex;align-items:center;gap:6px}
+.kmbox{display:inline-flex;align-items:baseline;gap:6px;height:42px;padding:0 14px;border:1px solid hsl(var(--border-strong));border-radius:11px;background:hsl(var(--card));font:800 17px Sora}
+.kmbox.ro{background:hsl(var(--toolbar));border-style:dashed}
+.kmbox .u{font:500 12px Inter;color:hsl(var(--muted-foreground))}
+.kmtag{font-size:11.5px;color:hsl(var(--success-text));display:inline-flex;align-items:center;gap:5px;align-self:flex-end;margin-bottom:12px}
+
+/* context */
+.ctx{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;font-size:13px;color:hsl(235 8% 36%)}
+.ctx .b{display:inline-flex;align-items:center;gap:7px}
+.ctx .b .ic{color:hsl(var(--muted-foreground))}
+.ret{width:100%;background:hsl(var(--warning-soft));color:hsl(var(--warning-text));border-radius:11px;padding:11px 14px;font-weight:500;font-size:13px;display:flex;align-items:center;gap:9px}
+.ret .ic{flex:none}
+.ret .pull{margin-left:auto;color:hsl(var(--primary-ink));cursor:pointer;font-weight:700;white-space:nowrap}
+
+/* photos */
+.thumbs{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.thumb{width:66px;height:50px;border-radius:10px;background:hsl(220 14% 88%);border:1px solid hsl(var(--border));display:grid;place-items:center;color:hsl(240 6% 52%)}
+.thumbs .cap{font-size:12px;color:hsl(var(--muted-foreground))}
+
+/* checklist findings */
+.finds{display:flex;flex-direction:column;gap:10px}
+.find{display:flex;align-items:center;gap:13px;border:1px solid hsl(var(--border));border-radius:13px;padding:13px 15px;background:hsl(var(--card));cursor:pointer}
+.find .ck{width:24px;height:24px;border-radius:8px;border:2px solid hsl(240 6% 72%);display:grid;place-items:center;color:#fff;flex:none}
+.find.on{border-color:hsl(var(--primary));background:hsl(var(--primary-soft))}
+.find.on .ck{background:hsl(var(--primary));border-color:hsl(var(--primary))}
+.find .nm{font:600 14.5px Inter}
+.find .wh{font-size:12px;color:hsl(var(--muted-foreground));margin-top:3px;display:flex;align-items:center;gap:6px}
+.find .sev{margin-left:auto}
+
+/* emergency */
+.emg{display:flex;gap:14px;align-items:flex-start;border:1px solid hsl(0 68% 86%);border-radius:14px;padding:15px 16px;background:hsl(var(--danger-soft))}
+.emg .ei{width:42px;height:42px;border-radius:12px;background:hsl(0 82% 93%);color:hsl(var(--danger-text));display:grid;place-items:center;flex:none}
+.emg b{font:800 15.5px Sora;color:hsl(var(--danger-text))}
+.emg p{font-size:13px;color:hsl(235 8% 32%);margin-top:5px;line-height:1.5}
+.emg .parou{font-size:12.5px;color:hsl(235 8% 36%);margin-top:10px;display:flex;gap:10px 20px;flex-wrap:wrap}
+.emg .parou b{font:700 12.5px Sora;color:hsl(var(--foreground))}
+
+/* more */
+.morebar{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid hsl(var(--border));border-radius:12px;padding:13px 15px;background:hsl(var(--toolbar));cursor:pointer}
+.morebar .l{font:600 13.5px Inter;display:flex;align-items:center;gap:9px}
+.morebar .r{font-size:12.5px;color:hsl(var(--muted-foreground));display:flex;align-items:center;gap:9px}
+.morebody{border:1px solid hsl(var(--border));border-top:0;border-radius:0 0 12px 12px;margin-top:-12px;padding:16px 15px;display:grid;grid-template-columns:1fr 1fr;gap:14px;background:hsl(var(--card))}
+.fld{display:flex;flex-direction:column;gap:6px}
+.fld .fl{font-size:12px;color:hsl(235 8% 40%);font-weight:500}
+.fake{height:40px;border:1px solid hsl(var(--border-strong));border-radius:10px;background:hsl(var(--card));display:flex;align-items:center;gap:9px;padding:0 13px;font-size:13.5px;color:hsl(240 6% 44%)}
 
 /* footer */
-.dx-ft{padding:14px 24px;border-top:1px solid hsl(var(--border));background:hsl(var(--toolbar));display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.conseq{flex:1 1 240px;display:flex;gap:8px;font-size:12.5px;line-height:1.45;color:hsl(240 6% 30%);align-items:flex-start}
-.dep{display:inline-flex;align-items:center;height:20px;padding:0 6px;border:1px dashed hsl(285 55% 45%);border-radius:5px;background:hsl(285 60% 97%);color:hsl(285 45% 40%);font:600 11px Sora;flex:none}
-.acts{display:flex;gap:8px;margin-left:auto}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:42px;padding:0 16px;border-radius:9px;border:1px solid transparent;font-weight:600;font-size:14px;cursor:pointer;white-space:nowrap}
-.btn-outline{background:hsl(var(--card));border-color:hsl(240 6% 82%);color:hsl(var(--foreground))}
-.btn-primary{background:hsl(var(--primary));color:#fff}
-.split{display:inline-flex}
-.split .p1{border-radius:9px 0 0 9px}
-.split .p2{border-radius:0 9px 9px 0;padding:0 10px;background:hsl(233 65% 43%)}
+.dx-ft{padding:16px 24px;border-top:1px solid hsl(var(--border));background:hsl(var(--toolbar));display:flex;align-items:center;gap:16px;flex-wrap:wrap;flex:none}
+.conseq{flex:1 1 230px;display:flex;gap:8px;font-size:12.5px;line-height:1.5;color:hsl(235 8% 34%);align-items:flex-start}
+.conseq .ic{color:hsl(233 55% 54%);flex:none;margin-top:1px}
+.acts{display:flex;gap:9px;margin-left:auto}
+.split{display:inline-flex;border-radius:12px;overflow:hidden;box-shadow:0 1px 2px hsl(233 40% 30%/.25)}
+.split .btn-pri{border-radius:0;box-shadow:none}
+.split .mn{width:46px;background:hsl(var(--primary-ink));color:#fff;border:0;border-left:1px solid hsl(233 50% 58%);display:grid;place-items:center;cursor:pointer}
+.split .mn.danger{background:hsl(0 70% 48%);border-left-color:hsl(0 60% 62%)}
 
-/* tablet */
-.tabletwrap{display:grid;place-items:center;background:hsl(240 8% 14%);border-radius:18px;padding:36px}
-.tablet{width:900px;max-width:100%;height:600px;background:hsl(var(--background));border-radius:14px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 50px -20px hsl(0 0% 0%/.5)}
-.t-top{display:flex;align-items:center;gap:12px;padding:14px 20px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
-.t-top .plate{transform:scale(1.05);transform-origin:left}
-.t-top .who .nm{font:700 15px Sora}.t-top .who .s{font-size:12.5px;color:hsl(var(--muted-foreground))}
-.t-top .x{margin-left:auto;width:44px;height:44px;border-radius:10px;border:1px solid hsl(var(--border));background:hsl(var(--card));display:grid;place-items:center;color:hsl(240 6% 40%)}
-.t-bd{flex:1;padding:22px 26px;overflow:hidden}
-.t-hero{font:650 20px Sora}
-.t-ta{margin-top:12px;width:100%;border:1.5px solid hsl(233 60% 62%);border-radius:14px;padding:16px 18px;font-size:17px;min-height:96px;resize:none;box-shadow:0 0 0 4px hsl(233 80% 92%/.7)}
-.t-tools{display:flex;gap:10px;margin-top:14px}
-.t-tool{flex:1;height:60px;border:1px solid hsl(240 6% 82%);border-radius:14px;background:hsl(var(--card));display:flex;align-items:center;justify-content:center;gap:9px;font-size:15px;font-weight:600;color:hsl(240 6% 26%)}
-.t-tool .ic{color:hsl(var(--primary))}
-.t-cls{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
-.t-chip{height:56px;padding:0 20px;border-radius:14px;border:1.5px solid hsl(240 6% 82%);background:hsl(var(--card));display:inline-flex;align-items:center;gap:9px;font-size:16px;font-weight:600}
-.t-chip.on{border-color:hsl(var(--primary));background:hsl(var(--primary-soft));color:hsl(var(--primary))}
-.t-ft{padding:16px 26px;border-top:1px solid hsl(var(--border));background:hsl(var(--card));display:flex;gap:12px}
-.t-ft .btn{height:60px;font-size:17px;flex:1;border-radius:14px}
-.t-ft .btn.grow{flex:2}
+/* ===== action compose (not a form) ===== */
+.capture .cap-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:11px}
+.capture .cap-q{font:700 16px Sora;display:flex;align-items:center;gap:7px}
+.capture .cap-q .ic{color:hsl(233 55% 54%)}
+.mic{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 15px;border-radius:99px;border:1px solid hsl(233 50% 76%);background:hsl(var(--primary-soft));color:hsl(var(--primary-ink));font:600 13.5px Inter;cursor:pointer}
+.mic:hover{background:hsl(233 80% 93%)}
+.mic .dot{width:7px;height:7px;border-radius:50%;background:hsl(var(--danger))}
+.cap-ta{width:100%;border:1.5px solid hsl(233 55% 66%);border-radius:14px;padding:14px 16px;font-size:16px;line-height:1.55;min-height:74px;resize:none;box-shadow:0 0 0 4px hsl(233 82% 93%/.55);background:hsl(var(--card))}
+.cap-ta.filled{border-color:hsl(var(--border-strong));box-shadow:none}
+.quick{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.quick button{height:26px;padding:0 9px;border-radius:8px;border:1px solid hsl(var(--border));background:hsl(var(--toolbar));color:hsl(235 8% 40%);font:500 12px Inter;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+.quick button::before{content:"+";color:hsl(var(--muted-foreground));font-weight:700;font-size:13px}
+.quick button:hover{border-color:hsl(var(--primary));color:hsl(var(--primary-ink));background:hsl(var(--primary-soft))}
 
-.notes{margin:22px 0 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px 32px;font-size:13.5px;color:hsl(240 6% 24%)}
-.notes h4{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:hsl(var(--muted-foreground));margin-bottom:8px}
-.notes ul{margin:0;padding-left:18px}.notes li{margin-bottom:7px}
-.notes code{background:hsl(var(--muted));border-radius:4px;padding:1px 5px;font-size:12px}
+/* proposal: the OS the system assembled */
+.propose{border:1px solid hsl(233 42% 88%);border-radius:14px;background:linear-gradient(180deg,hsl(233 82% 98.5%),hsl(var(--card)));padding:16px 18px}
+.propose-h{font:700 11.5px Sora;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--primary-ink));display:flex;align-items:center;gap:8px}
+.propose-h .live{color:hsl(var(--muted-foreground));font-weight:500;text-transform:none;letter-spacing:0;font-size:11px}
+.sentence{margin-top:12px;font:600 16.5px/1.85 Sora;color:hsl(235 12% 22%)}
+.tok{font:inherit;font-weight:800;border:0;background:none;color:hsl(var(--foreground));cursor:pointer;border-bottom:2px dotted hsl(var(--border-strong));padding:1px 4px;border-radius:5px;white-space:nowrap}
+.tok::after{content:"⌄";font-size:11px;color:hsl(var(--muted-foreground));margin-left:4px;font-weight:600}
+.tok:hover{background:hsl(var(--primary-soft));border-bottom-color:hsl(var(--primary))}
+.tok.sys{color:hsl(var(--primary-ink));border-bottom-color:hsl(var(--primary))}
+.tok.crit{color:hsl(var(--danger-text));border-bottom-color:hsl(var(--danger))}
+.facts{display:flex;flex-wrap:wrap;gap:9px 18px;margin-top:14px;font-size:13px;color:hsl(235 8% 38%)}
+.facts .f{display:inline-flex;align-items:center;gap:6px}
+.facts .f .ic{color:hsl(var(--muted-foreground))}
+.facts .f em{font-style:normal;color:hsl(var(--success-text));font-weight:600}
+.dest{margin-top:14px;padding-top:13px;border-top:1px solid hsl(233 42% 91%);font-size:13.5px;color:hsl(235 10% 30%);display:flex;align-items:center;gap:8px}
+.dest .ic{color:hsl(var(--primary-ink))}.dest b{color:hsl(var(--primary-ink))}
+.ret-inline{display:flex;align-items:center;gap:9px;background:hsl(var(--warning-soft));color:hsl(var(--warning-text));border-radius:12px;padding:11px 14px;font-size:13px;font-weight:500}
+.ret-inline .ic{flex:none}.ret-inline .pull{margin-left:auto;color:hsl(var(--primary-ink));cursor:pointer;font-weight:700;white-space:nowrap}
+.adjust{display:inline-flex;align-items:center;gap:7px;border:0;background:none;color:hsl(var(--primary-ink));font:600 13px Inter;cursor:pointer}
 
-/* wide two-column intake */
-.dx.wide{width:980px}
-.dx-2col{display:grid;grid-template-columns:minmax(0,1fr) 340px}
-.dx-2col .mainc{padding:18px 24px 20px;display:flex;flex-direction:column;gap:18px;min-width:0}
-.rail{background:hsl(var(--toolbar));border-left:1px solid hsl(var(--border));padding:18px 20px}
-.rail h4{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:7px}
-.rail .blk+.blk{margin-top:16px;padding-top:16px;border-top:1px solid hsl(var(--border))}
-.kv{display:flex;justify-content:space-between;font-size:13px;padding:3px 0}
-.kv .k{color:hsl(var(--muted-foreground))}
-.kv .v{font-weight:600}
-.retorno{display:flex;gap:9px;background:hsl(var(--warning-soft));border:1px solid hsl(var(--warning)/.35);border-radius:10px;padding:11px 12px;font-size:12.5px;color:hsl(28 55% 24%);margin-top:10px;line-height:1.45}
-.retorno .ic{color:hsl(var(--warning-text));flex:none;margin-top:1px}
-.reqcard{border:1px solid hsl(233 60% 86%);background:hsl(var(--primary-soft));border-radius:10px;padding:12px 13px;margin-top:2px}
-.reqcard .t{font-weight:600;font-size:13px;display:flex;align-items:center;gap:7px}
-.reqcard .t .ic{color:hsl(var(--primary))}
-.reqcard p{font-size:12.5px;color:hsl(240 6% 30%);margin:6px 0 10px;line-height:1.45}
-.reqcard .use{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:8px;background:hsl(var(--primary));color:#fff;font-size:12.5px;font-weight:600;border:0;cursor:pointer}
-.oshist{display:flex;flex-direction:column;gap:9px}
-.osh{display:flex;align-items:center;gap:9px;font-size:13px}
-.osh .dt{width:8px;height:8px;border-radius:99px;flex:none}
-.osh .dt.ok{background:hsl(var(--success-text))}
-.osh .nm{font-weight:600}
-.osh .w{margin-left:auto;font-size:12px;color:hsl(var(--muted-foreground));white-space:nowrap}
-.osh a{color:inherit;text-decoration:none}
-.railband{padding:16px 20px 14px;background:linear-gradient(90deg,hsl(var(--primary-soft)),hsl(233 85% 98.5%));border-bottom:1px solid hsl(var(--border));border-left:1px solid hsl(var(--border))}
-.dx.wide .band{border-top-right-radius:0}
+/* ===== tablet (real landscape proportions) ===== */
+.tabwrap{display:flex;justify-content:center;padding:18px 10px}
+.tab{width:960px;max-width:100%;aspect-ratio:4 / 2.74;background:hsl(235 16% 15%);border-radius:26px;padding:12px;box-shadow:0 44px 100px -34px hsl(232 55% 12%/.6);animation:pop .2s}
+.tab-screen{width:100%;height:100%;background:hsl(var(--card));border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.tab-top{display:flex;align-items:center;gap:11px;padding:12px 18px;background:hsl(235 16% 13%);color:#fff;font:700 14px Sora;flex:none}
+.tab-top .dim{color:hsl(235 12% 64%);font-weight:500}
+.tab-top .me{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:12.5px;color:#c9ccd6}
+.tab-body{flex:1;display:grid;grid-template-columns:1.5fr 1fr;min-height:0}
+.tab-left{padding:22px 24px;overflow:auto;min-width:0}
+.tab-right{padding:22px 24px;border-left:1px solid hsl(var(--border));background:hsl(var(--toolbar));display:flex;flex-direction:column;min-width:0}
+.tab-q{font:800 20px Sora;margin-bottom:14px}
+.tab-ta{width:100%;border:2px solid hsl(233 55% 66%);border-radius:15px;padding:15px;font-size:16.5px;line-height:1.5;min-height:96px;resize:none;box-shadow:0 0 0 5px hsl(233 82% 93%/.5)}
+.tbig{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+.tbig button{height:46px;padding:0 15px;border-radius:12px;border:1.5px solid hsl(233 52% 74%);background:hsl(var(--primary-soft));color:hsl(var(--primary-ink));font:600 14.5px Inter;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.tab-right .rlbl{font:700 11px Sora;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));margin-bottom:10px}
+.tbtns{margin-top:auto;display:flex;flex-direction:column;gap:10px}
+.tbtns .btn{height:56px;font-size:16px;border-radius:14px;width:100%}
 
-/* vehicle picker (no vehicle yet) */
-.searchbig{display:flex;align-items:center;gap:11px;height:54px;border:1.5px solid hsl(233 60% 62%);border-radius:13px;padding:0 16px;font-size:16px;box-shadow:0 0 0 4px hsl(233 80% 92%/.7);color:hsl(240 6% 32%)}
-.searchbig .ic{color:hsl(233 55% 52%)}
-.searchbig .cur{width:2px;height:22px;background:hsl(var(--foreground));margin-left:-4px;animation:none}
-.searchbig .scan{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:hsl(233 65% 42%)}
-.vpick{border:1px solid hsl(var(--border));border-radius:12px;overflow:hidden;margin-top:14px;background:hsl(var(--card))}
-.vpick .grp{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:hsl(var(--muted-foreground));font-weight:600;padding:10px 14px 5px;background:hsl(var(--toolbar));border-bottom:1px solid hsl(var(--border))}
-.vp{display:flex;align-items:center;gap:12px;padding:11px 14px;border-top:1px solid hsl(var(--border));cursor:pointer}
-.vp:first-of-type{border-top:0}
-.vp:hover{background:hsl(233 80% 98.5%)}
-.vp .who{min-width:0}
-.vp .who .nm{font-weight:600;font-size:14px;line-height:1.2}
-.vp .who .s{font-size:12.5px;color:hsl(var(--muted-foreground));margin-top:1px}
-.vp .tag{margin-left:auto;font-size:11.5px;border-radius:99px;padding:3px 9px;font-weight:600;white-space:nowrap}
-.vp .tag.gate{color:hsl(var(--warning-text));background:hsl(var(--warning-soft))}
-.vp .tag.set{color:hsl(233 65% 40%);background:hsl(var(--primary-soft))}
-.vp .arw{color:hsl(240 5% 62%);flex:none}
+/* blocked */
+.blockwrap{display:grid;place-items:start center;padding:48px 20px}
+.blocked{width:580px;max-width:100%;background:hsl(var(--card));border-radius:20px;overflow:hidden;animation:pop .2s;box-shadow:0 40px 90px -30px hsl(232 50% 14%/.5)}
+.blocked .bh{display:flex;gap:15px;align-items:flex-start;padding:24px}
+.blocked .bi{width:46px;height:46px;border-radius:13px;background:hsl(0 82% 93%);color:hsl(var(--danger-text));display:grid;place-items:center;flex:none}
+.blocked h3{font:800 20px Sora}
+.blocked .bh p{font-size:13.5px;color:hsl(235 8% 34%);margin-top:5px;line-height:1.5}
+.blocked .bb{padding:0 24px 22px;display:flex;flex-direction:column;gap:14px}
+.osline{display:flex;align-items:center;gap:14px;border:1px solid hsl(var(--border));border-radius:14px;padding:14px 16px;background:hsl(var(--toolbar))}
+.osline .mid{flex:1;min-width:0}
+.osline .onm{font:700 15px Sora;display:flex;align-items:center;gap:9px}
+.osline .os-sub{font-size:12.5px;color:hsl(var(--muted-foreground));margin-top:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.blocked .bf{display:flex;gap:10px;justify-content:flex-end}
 
-/* aberturas e estados */
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.frag{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden}
-.frag .cap{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:hsl(var(--muted-foreground));font-weight:600;padding:12px 16px 0}
-.frag .in{padding:16px}
-.menu{border:1px solid hsl(var(--border));border-radius:12px;box-shadow:0 16px 40px -16px hsl(230 30% 20%/.35);overflow:hidden;background:hsl(var(--card))}
-.menu-i{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-top:1px solid hsl(var(--border));cursor:pointer}
-.menu-i:first-child{border-top:0}
-.menu-i:hover{background:hsl(233 80% 98.5%)}
-.menu-i .tt{width:32px;height:32px;border-radius:9px;background:hsl(var(--primary-soft));color:hsl(var(--primary));display:grid;place-items:center;flex:none}
-.menu-i .nm{font-weight:600;font-size:14px}
-.menu-i .su{font-size:12.5px;color:hsl(var(--muted-foreground));margin-top:2px;line-height:1.4}
-.menu-i.on{background:hsl(var(--primary-soft))}
-.cl{border:1px solid hsl(var(--border));border-radius:10px;overflow:hidden}
-.cl-q{display:flex;align-items:center;gap:8px;height:40px;padding:0 12px;border-bottom:1px solid hsl(var(--border));font-size:13.5px;color:hsl(240 5% 46%)}
-.cl-r{display:flex;align-items:center;gap:10px;padding:9px 13px;border-top:1px solid hsl(var(--border));font-size:14px;cursor:pointer}
-.cl-r:first-of-type{border-top:0}
-.cl-r:hover{background:hsl(233 80% 98.5%)}
-.cl-r.sel{background:hsl(var(--primary-soft));box-shadow:inset 3px 0 0 hsl(var(--primary))}
-.cl-r .ck{margin-left:auto;color:hsl(var(--primary))}
-.detgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.fld .l{font-size:12.5px;font-weight:600;margin-bottom:7px;display:block}
-.selbox{display:flex;align-items:center;justify-content:space-between;height:42px;padding:0 12px;border:1px solid hsl(240 6% 82%);border-radius:9px;font-size:13.5px;background:hsl(var(--card))}
-.drop{display:flex;gap:10px;margin-top:12px}
-.drop .box{flex:1;height:70px;border:1.5px dashed hsl(240 6% 80%);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;color:hsl(var(--muted-foreground));font-size:12.5px}
-.datemini{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
-.dm{border:1px solid hsl(240 6% 84%);border-radius:9px;padding:8px 10px;font-size:12.5px;cursor:pointer;text-align:left;line-height:1.25}
-.dm b{display:block;font-size:13.5px}
-.dm.on{border-color:hsl(var(--primary));background:hsl(var(--primary-soft));color:hsl(233 65% 38%)}
-.dm.on b{color:hsl(233 65% 38%)}
-.errfld{border:1.5px solid hsl(var(--danger));border-radius:12px;padding:13px 15px;min-height:70px;background:hsl(0 90% 99%)}
-.errmsg{display:flex;gap:7px;align-items:center;font-size:13px;color:hsl(var(--danger-text));margin-top:8px;font-weight:500}
-.blockbanner{display:flex;gap:11px;align-items:flex-start;background:hsl(var(--danger-soft));border:1px solid hsl(var(--danger)/.35);border-radius:11px;padding:13px 15px;font-size:13px;color:hsl(0 55% 30%)}
-.blockbanner .ic{color:hsl(var(--danger-text));flex:none;margin-top:1px}
-.toast{display:flex;align-items:center;gap:11px;background:hsl(240 10% 12%);color:#fff;border-radius:12px;padding:13px 16px;font-size:14px;box-shadow:0 16px 40px -12px hsl(0 0% 0%/.4)}
-.toast .ic{color:hsl(160 60% 62%)}
-.toast a{color:hsl(233 90% 82%);font-weight:600;margin-left:auto;text-decoration:none}
-.permbox{display:flex;flex-direction:column;align-items:center;text-align:center;gap:9px;padding:22px 16px}
-.permbox .big{width:46px;height:46px;border-radius:12px;background:hsl(var(--muted));color:hsl(var(--muted-foreground));display:grid;place-items:center}
-.permbox b{font-size:14.5px}.permbox p{font-size:12.5px;color:hsl(var(--muted-foreground));max-width:260px}
-.btn.loading{background:hsl(233 40% 66%)}
-.spin{width:16px;height:16px;border:2px solid #fff;border-right-color:transparent;border-radius:99px;display:inline-block}
+/* toast */
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(18px);background:hsl(var(--ink));color:#fff;border-radius:13px;padding:13px 18px;font:600 14px Inter;display:flex;align-items:center;gap:10px;box-shadow:0 20px 50px -12px hsl(232 50% 10%/.55);opacity:0;transition:.24s;z-index:80;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast .ic{color:hsl(150 65% 62%)}
 
-/* conjunto selected */
-.setchip{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:99px;background:hsl(var(--primary-soft));color:hsl(233 65% 40%);font:600 11.5px Sora;margin-left:8px}
-.platestack{display:flex;align-items:center;margin-left:auto}
-.platestack .plate{box-shadow:0 0 0 3px hsl(var(--card))}
-.platestack .plate+.plate{margin-left:-40px}
-.platestack .more{margin-left:8px;font-size:12px;font-weight:600;color:hsl(240 6% 40%)}
-.units{border:1px solid hsl(var(--border));border-radius:12px;overflow:hidden;margin-top:12px;background:hsl(var(--card))}
-.uhead{font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:hsl(var(--muted-foreground));font-weight:600;padding:9px 14px;background:hsl(var(--toolbar));border-bottom:1px solid hsl(var(--border))}
-.unit{display:flex;align-items:center;gap:12px;padding:11px 14px;border-top:1px solid hsl(var(--border))}
-.unit:first-of-type{border-top:0}
-.unit .bg{font:600 10.5px Sora;color:hsl(240 6% 40%);background:hsl(var(--muted));border-radius:6px;padding:3px 8px;white-space:nowrap;flex:none}
-.unit .nm{font-weight:600;font-size:13.5px;line-height:1.2}
-.unit .s{font-size:12px;color:hsl(var(--muted-foreground))}
-.unit .lead{margin-left:auto;font-size:11px;color:hsl(233 65% 40%);background:hsl(var(--primary-soft));border-radius:99px;padding:2px 9px;font-weight:600;white-space:nowrap}
-.unit .lock{margin-left:auto;color:hsl(var(--warning-text));font-size:12px;display:inline-flex;align-items:center;gap:5px}
-.infoline{display:flex;gap:9px;align-items:flex-start;background:hsl(var(--primary-soft));border:1px solid hsl(var(--primary)/.2);border-radius:11px;padding:11px 13px;font-size:12.5px;color:hsl(240 6% 28%);line-height:1.5;margin-top:12px}
-.infoline .ic{color:hsl(var(--primary));flex:none;margin-top:1px}
-.infoline b{font-weight:650}
+/* notes */
+.rules{margin:28px 0 0;background:hsl(var(--card));border:1px solid hsl(var(--border));border-left:3px solid hsl(var(--primary));border-radius:14px;padding:18px 22px;max-width:980px}
+.rules h4{font:700 12px Sora;text-transform:uppercase;letter-spacing:.05em;color:hsl(var(--primary-ink));margin-bottom:10px}
+.rules ul{margin:0;padding-left:18px;color:hsl(235 6% 30%);font-size:13.5px}.rules li{margin:6px 0}.rules b{color:hsl(var(--foreground))}
+.dep{display:inline-flex;align-items:center;height:18px;padding:0 6px;border:1px dashed hsl(266 50% 56%);border-radius:5px;background:hsl(var(--plan-soft));color:hsl(var(--plan-text));font:600 10.5px Sora}
 </style>
 </head>
 <body>
 <div class="doc">
-  <h1>Abrir OS · desenhado para quem abre</h1>
-  <p>80% das OS são abertas pelo <b>consultor de manutenção</b>, no balcão da oficina, recebendo o veículo e ouvindo o motorista — dezenas por dia, no teclado. O desenho parte disso: o <b>relato</b> é o herói (é o que ele transcreve ao vivo), a classificação é rápida e quieta, e o resto some até precisar.</p>
-  <div class="who-strip">
-    <div class="who-card lead"><div class="r">Consultor de manutenção <span class="pct">~80%</span></div><p>Balcão da oficina, notebook, com o motorista na frente. Já sabe o problema; precisa registrar, classificar e mandar pra fila — rápido.</p></div>
-    <div class="who-card"><div class="r">Mecânico <span class="pct">tablet</span></div><p>No box, com luva. Abre corretiva do próprio serviço. Alvo grande, foto e voz, quase sem digitar.</p></div>
-    <div class="who-card"><div class="r">Planejador <span class="pct">preventiva</span></div><p>Na mesa, em lote. Não tem "problema": tem qual plano. O formulário se adapta.</p></div>
+  <h1>Recepção — dar entrada e abrir OS</h1>
+  <p class="lead">A ação de todo dia, dezenas de vezes. A Recepção <b>transforma uma chegada em OS</b>: quando o veículo já deu entrada, quase tudo (veículo, km, relato, fotos) vem <b>herdado</b> — o consultor só confirma. A tela começa pelo <b>pátio</b>; abrir é o último passo. Troque de cenário nas abas; na aba <b>Pátio</b>, clique num veículo para ver o diálogo abrir por cima da tela.</p>
+
+  <div class="chips" id="chips">
+    <button data-s="patio" class="on"><i class="ic s16 i-truck"></i>Pátio</button>
+    <button data-s="checkin"><i class="ic s16 i-checkc"></i>Abrir · do check-in<span class="tag">rápido</span></button>
+    <button data-s="balcao"><i class="ic s16 i-user"></i>No balcão</button>
+    <button data-s="emergencia"><i class="ic s16 i-bolt"></i>Emergência</button>
+    <button data-s="checklist"><i class="ic s16 i-clip"></i>Do checklist</button>
+    <button data-s="tablet"><i class="ic s16 i-wrench"></i>Tablet</button>
+    <button data-s="bloqueio"><i class="ic s16 i-warnc"></i>Já tem OS</button>
   </div>
 
-  <!-- ===== 0 · SEM VEÍCULO ===== -->
-  <section class="sec">
-    <div class="sec-lbl"><span class="sec-num">0</span><h2>Entrada · sem veículo escolhido (a partir da Fila)</h2></div>
-    <p class="sec-sub">O caso real do consultor: o veículo chega, ele clica "Abrir OS" e o <b>primeiro passo é achar o veículo</b> — o motorista dá a placa. A busca é o herói, com foco na hora. "Chegaram agora" resolve sem digitar. Ao escolher um veículo acoplado, o próximo passo pergunta o <b>alvo</b> (veículo × conjunto); depois vem a triagem.</p>
-    <div class="stage" style="padding:36px"><div class="dx">
-      <button class="dx-x"><i class="ic s18 i-x"></i></button>
-      <div class="titlewrap"><div class="title">Abrir ordem de serviço</div><div class="desc">Comece pelo veículo que vai para a oficina</div></div>
-      <div class="dx-bd">
-        <div>
-          <div class="hero-lbl"><i class="ic s18 i-pin" style="color:hsl(var(--primary))"></i>Qual veículo?</div>
-          <div class="searchbig" style="margin-top:9px"><i class="ic s20 i-pin" style="opacity:0;width:0"></i><i class="ic s20" style="--i:url(https://api.iconify.design/ph/magnifying-glass.svg)"></i>RTB<span class="cur"></span><span style="color:hsl(var(--muted-foreground))">&nbsp;&nbsp;placa ou número de frota</span><span class="scan"><i class="ic s16" style="--i:url(https://api.iconify.design/ph/scan.svg)"></i>Escanear placa</span></div>
-          <div class="vpick">
-            <div class="grp">Resultados</div>
-            <div class="vp"><span class="plate sm"><span class="top"></span><span class="pn">RTB7F31</span></span><div class="who"><div class="nm">Cavalo · frota 845</div><div class="s">Acoplado ao Rodotrem C-318</div></div><span class="tag set">conjunto</span><i class="ic s18 i-down arw" style="transform:rotate(-90deg)"></i></div>
-            <div class="vp"><span class="plate sm"><span class="top"></span><span class="pn">RTB2K05</span></span><div class="who"><div class="nm">Cavalo · frota 902</div><div class="s">Rodando · Base Mucuri</div></div><i class="ic s18 i-down arw" style="transform:rotate(-90deg)"></i></div>
-          </div>
-          <div class="vpick" style="margin-top:12px">
-            <div class="grp">Chegaram agora</div>
-            <div class="vp"><span class="plate sm"><span class="top"></span><span class="pn">QOP1J88</span></span><div class="who"><div class="nm">Cavalo · frota 817</div><div class="s">Na portaria há 5 min</div></div><span class="tag gate">chegou</span><i class="ic s18 i-down arw" style="transform:rotate(-90deg)"></i></div>
-            <div class="vp"><span class="plate sm"><span class="top"></span><span class="pn">PQA9H12</span></span><div class="who"><div class="nm">Carreta · frota C-31</div><div class="s">Na portaria há 22 min</div></div><span class="tag gate">chegou</span><i class="ic s18 i-down arw" style="transform:rotate(-90deg)"></i></div>
-          </div>
-        </div>
-      </div>
-      <div class="dx-ft">
-        <span class="conseq"><i class="ic s16 i-info"></i>Não achou? Só veículos ativos da empresa aparecem aqui.</span>
-        <div class="acts"><button class="btn btn-outline">Cancelar</button></div>
-      </div>
-    </div></div>
-    <p class="notes" style="margin:14px 0 0 0;max-width:860px"><b>Dois pontos de entrada, um destino.</b> Se o consultor abre do detalhe do veículo (seção 1), esse passo é pulado — o veículo já vem no topo. Se abre da Fila ou de um atalho, começa aqui. Escolhido o veículo acoplado, o próximo passo é o <b>alvo</b> (seção 2), e então a triagem.</p>
-  </section>
+  <div id="stage"></div>
 
-  <!-- ===== 1 · CONSULTOR NO NOTEBOOK ===== -->
-  <section class="sec">
-    <div class="sec-lbl"><span class="sec-num">1</span><h2>Consultor no notebook · triagem com contexto</h2></div>
-    <p class="sec-sub">A tela é larga de propósito: à esquerda, a triagem com o relato do motorista como herói; à direita, o <b>contexto que ajuda a decidir</b> — hodômetro, últimas OS, e o alerta de <b>possível retorno</b> quando o mesmo sistema foi mexido há pouco. E a <b>solicitação do motorista</b> pronta para puxar pro relato num clique. O consultor abre melhor, não só mais rápido.</p>
-    <div class="stage" style="padding:36px"><div class="dx wide">
-      <button class="dx-x"><i class="ic s18 i-x"></i></button>
-      <div class="band">
-        <div class="who"><div class="nm">Cavalo · frota 845</div><div class="s"><i class="ic s14 i-pin"></i>Base Mucuri · puxando o conjunto C-318</div></div>
-        <span class="plate"><span class="top"></span><span class="pn">RTB7F31</span></span>
-      </div>
-      <div class="dx-2col">
-        <div class="mainc">
-          <div class="titlewrap" style="padding:0"><div class="title">Abrir ordem de serviço</div><div class="desc">Vai para a fila da oficina até alguém começar</div></div>
-          <div>
-            <div class="hero-lbl"><i class="ic s18 i-chat" style="color:hsl(var(--primary))"></i>O que o motorista relatou <span class="req">*</span><span class="aid"><i class="ic s14 i-mic"></i>Ditar</span></div>
-            <textarea class="hero-ta">Freio dianteiro puxando para a direita ao frear forte; barulho de ferro quando pisa. Notou hoje de manhã na BR-101.</textarea>
-            <div class="suggest"><span class="l">Frequentes:</span><button>puxando ao frear</button><button>ruído metálico</button><button>não segura</button><button>vazamento de ar</button></div>
-          </div>
-          <button class="optbtn"><i class="ic s16 i-stetho"></i>+ Diagnóstico inicial <span style="color:hsl(var(--muted-foreground));font-weight:400">(opcional)</span></button>
-          <div class="rule"></div>
-          <div>
-            <div class="blk-lbl">Classificação</div>
-            <div class="cls">
-              <div class="mini"><span>Tipo</span>
-                <div class="seg"><button aria-pressed="true">Corretiva</button><button>Preventiva</button><button>Inspeção</button><button>Revisão</button><button>Emergência</button></div>
-              </div>
-              <div class="mini" style="grid-column:1"><span>Prioridade</span>
-                <div class="seg pri"><button>Baixa</button><button aria-pressed="true">Média</button><button>Alta</button><button class="crit">Crítica</button></div>
-              </div>
-              <div class="mini" style="grid-column:2;grid-row:2"><span>Sistema afetado</span>
-                <button class="select">Freio <i class="ic s16 i-down"></i></button>
-              </div>
-            </div>
-          </div>
-          <div class="qrow">
-            <span class="k">O veículo parou</span>
-            <div class="qp"><button aria-pressed="true">Agora</button><button>Ainda rodando</button><button><i class="ic s14 i-cal"></i>Outra hora</button></div>
-          </div>
-          <div class="morebar"><span class="l"><i class="ic s16 i-plus"></i>Mais detalhes</span><span class="r">Base Mucuri · Box: ao começar · foto · anexo <i class="ic s16 i-down"></i></span></div>
-        </div>
-        <aside class="rail">
-          <div class="blk">
-            <div class="reqcard"><div class="t"><i class="ic s16 i-chat"></i>Solicitação do motorista</div><p>#319 · Jonas Pereira · há 15 min — "freio puxando ao frear, barulho de ferro".</p><button class="use"><i class="ic s14 i-plus"></i>Usar no relato</button></div>
-          </div>
-          <div class="blk">
-            <h4>Este veículo</h4>
-            <div class="kv"><span class="k">Hodômetro</span><span class="v num">412.380 km</span></div>
-            <div class="kv"><span class="k">Rodou no mês</span><span class="v num">3.200 km</span></div>
-            <div class="kv"><span class="k">Última manutenção</span><span class="v">há 12 dias</span></div>
-          </div>
-          <div class="blk">
-            <h4>Histórico de freio</h4>
-            <div class="oshist">
-              <div class="osh"><span class="dt ok"></span><a href="#"><span class="nm">OS 0988</span> · Troca de lonas</a><span class="w">há 58 dias</span></div>
-              <div class="osh"><span class="dt ok"></span><a href="#"><span class="nm">OS 0754</span> · Regulagem</a><span class="w">há 7 meses</span></div>
-            </div>
-            <div class="retorno"><i class="ic s16 i-info"></i><span>Freio mexido há <b>58 dias</b> (OS 0988). Pode ser <b>retorno / garantia</b> — confira antes de cobrar as peças.</span></div>
-          </div>
-        </aside>
-      </div>
-      <div class="dx-ft">
-        <span class="conseq"><span class="dep">WO-3</span>Enquanto aberta, este veículo não recebe outra OS.</span>
-        <div class="acts">
-          <button class="btn btn-outline">Cancelar</button>
-          <span class="split"><button class="btn btn-primary p1"><i class="ic s16 i-plus"></i>Abrir OS</button><button class="btn btn-primary p2"><i class="ic s16 i-down"></i></button></span>
-        </div>
-      </div>
-    </div></div>
-    <div class="notes">
-      <div><h4>Por que largo</h4><ul>
-        <li><b>A largura vira contexto, não mais campos.</b> À direita, o que o consultor precisa saber para decidir bem — sem sair do diálogo.</li>
-        <li><b>Alerta de retorno.</b> Se o mesmo sistema foi mexido há pouco, a tela avisa: pode ser garantia. Isso muda quem paga a peça.</li>
-        <li><b>Solicitação do motorista</b> a um clique de virar o relato — nada de redigitar o que já foi dito.</li>
-      </ul></div>
-      <div><h4>A hierarquia</h4><ul>
-        <li><b>O relato é o único herói</b> na coluna da esquerda; classificação fica pequena e agrupada.</li>
-        <li><b>Defaults prontos</b> (corretiva, média, base, parou agora): no comum é relato + Enter.</li>
-      </ul></div>
-      <div><h4>Perguntas em aberto</h4><ul>
-        <li><b>Papel "consultor de manutenção"</b> não está nos 12 padrão — papel novo ou entra no Supervisor?</li>
-        <li><b>Detectar o sistema</b> a partir do relato, pro consultor só confirmar?</li>
-      </ul></div>
-    </div>
-  </section>
-
-  <!-- ===== 2 · ALVO ===== -->
-  <section class="sec">
-    <div class="sec-lbl"><span class="sec-num">2</span><h2>Alvo · veículo ou conjunto</h2></div>
-    <p class="sec-sub">Quando o cavalo puxa um conjunto, a OS pode ser do veículo avulso ou do <b>conjunto inteiro</b> (rodotrem, bitrem…), que trava todos os implementos (WO-3). O consultor decide no topo, antes de tudo, porque muda quem entra na oficina. Só aparece quando o veículo está acoplado.</p>
-    <div class="stage"><div class="dx">
-      <button class="dx-x"><i class="ic s18 i-x"></i></button>
-      <div class="band">
-        <div class="who"><div class="nm">Cavalo · frota 845</div><div class="s"><i class="ic s14 i-pin"></i>Base Mucuri · puxando o conjunto C-318</div></div>
-        <span class="plate"><span class="top"></span><span class="pn">RTB7F31</span></span>
-      </div>
-      <div class="titlewrap"><div class="title">Abrir ordem de serviço</div></div>
-      <div class="dx-bd">
-        <div>
-          <div class="blk-lbl">Abrir para</div>
-          <div class="alvo">
-            <button aria-pressed="true"><span class="rd"></span><span><span class="t">Só este veículo</span><span class="u">Cavalo · RTB7F31</span></span></button>
-            <button><span class="rd"></span><span><span class="t">O conjunto inteiro</span><span class="u">Rodotrem · frota C-318 · 2 carretas + dolly</span></span></button>
-          </div>
-          <p class="hint" style="margin-top:9px"><i class="ic s14 i-info" style="vertical-align:-2px;color:hsl(var(--primary))"></i> O conjunto entra com o cavalo, 2 carretas e o dolly — uma OS só, todos travados juntos.</p>
-        </div>
-        <div class="hero-lbl" style="opacity:.55"><i class="ic s18 i-chat"></i>O que o motorista relatou <span class="req">*</span></div>
-        <div style="height:96px;border:1.5px dashed hsl(240 6% 84%);border-radius:12px;opacity:.5"></div>
-      </div>
-    </div></div>
-  </section>
-
-  <p class="view-cap" style="margin:22px 0 10px 0;text-transform:uppercase;font-size:12px;letter-spacing:.06em;color:hsl(var(--muted-foreground));font-weight:600">Se clicar em "O conjunto" (só as carretas, sem o cavalo)</p>
-    <div class="stage" style="padding:36px"><div class="dx">
-      <button class="dx-x"><i class="ic s18 i-x"></i></button>
-      <div class="band">
-        <div class="who"><div class="nm">Rodotrem · frota C-318 <span class="setchip"><i class="ic s12" style="--i:url(https://api.iconify.design/ph/link-simple.svg)"></i>conjunto · 3 un.</span></div><div class="s"><i class="ic s14 i-pin"></i>Base Mucuri · combinação atual com o cavalo 845</div></div>
-        <span class="platestack"><span class="plate"><span class="top"></span><span class="pn">PQA9H12</span></span><span class="more">+2</span></span>
-      </div>
-      <div class="dx-bd">
-        <div>
-          <div class="blk-lbl">Abrir para</div>
-          <div class="alvo">
-            <button><span class="rd"></span><span><span class="t">Só o cavalo</span><span class="u">RTB7F31 · frota 845</span></span></button>
-            <button aria-pressed="true"><span class="rd"></span><span><span class="t">O conjunto</span><span class="u">Rodotrem · frota C-318 · 2 carretas + dolly</span></span></button>
-          </div>
-          <div class="units">
-            <div class="uhead">O conjunto — entram na OS e ficam travados</div>
-            <div class="unit"><span class="bg">1ª carreta</span><div><div class="nm">Carreta · frota C-31</div><div class="s">PQA9H12</div></div></div>
-            <div class="unit"><span class="bg">2ª carreta</span><div><div class="nm">Carreta · frota C-32</div><div class="s">PQB4L20</div></div></div>
-            <div class="unit"><span class="bg">Dolly</span><div><div class="nm">Dolly · frota D-05</div><div class="s">sem placa</div></div></div>
-          </div>
-          <div class="infoline"><i class="ic s16 i-info"></i><span>O cavalo <b>RTB7F31</b> fica de fora e livre — pode desengatar e puxar outro conjunto. Dentro da OS, cada serviço é lançado na carreta que precisar; a que estiver boa não recebe nada.</span></div>
-        </div>
-        <div class="hero-lbl" style="opacity:.55"><i class="ic s18 i-chat"></i>O que o motorista relatou <span class="req">*</span></div>
-        <div style="height:80px;border:1.5px dashed hsl(240 6% 84%);border-radius:12px;opacity:.5"></div>
-      </div>
-      <div class="dx-ft">
-        <span class="conseq"><span class="dep">WO-3</span><span>Trava o conjunto (3 unidades) enquanto a OS estiver aberta. O cavalo segue livre.</span></span>
-        <div class="acts"><button class="btn btn-outline">Cancelar</button><span class="split"><button class="btn btn-primary p1"><i class="ic s16 i-plus"></i>Abrir OS</button><button class="btn btn-primary p2"><i class="ic s16 i-down"></i></button></span></div>
-      </div>
-    </div></div>
-
-  <!-- ===== 3 · MECÂNICO NO TABLET ===== -->
-  <section class="sec">
-    <div class="sec-lbl"><span class="sec-num">3</span><h2>Mecânico no tablet do box · alvo grande, quase sem digitar</h2></div>
-    <p class="sec-sub">Quando quem abre é o mecânico, no tablet, com luva: alvos grandes, ditar e foto em destaque, classificação em botões grandes. O caminho principal é "Abrir e começar" — ele já está no box e vai mexer agora.</p>
-    <div class="tabletwrap"><div class="tablet">
-      <div class="t-top">
-        <span class="plate"><span class="top"></span><span class="pn">RTB7F31</span></span>
-        <div class="who"><div class="nm">Cavalo · frota 845</div><div class="s">Box 3 · Base Mucuri</div></div>
-        <span class="x"><i class="ic s20 i-x"></i></span>
-      </div>
-      <div class="t-bd">
-        <div class="t-hero">O que você encontrou?</div>
-        <textarea class="t-ta">Pastilha do freio dianteiro no fim, disco marcado.</textarea>
-        <div class="t-tools">
-          <div class="t-tool"><i class="ic s24 i-mic"></i>Ditar</div>
-          <div class="t-tool"><i class="ic s24 i-chat"></i>Frequentes</div>
-          <div class="t-tool"><i class="ic s24 i-info"></i>Foto</div>
-        </div>
-        <div class="t-cls">
-          <span class="t-chip on">Corretiva</span>
-          <span class="t-chip">Média</span>
-          <span class="t-chip">Freio</span>
-        </div>
-      </div>
-      <div class="t-ft">
-        <button class="btn btn-outline">Só abrir (fila)</button>
-        <button class="btn btn-primary grow"><i class="ic s20 i-play"></i>Abrir e começar agora</button>
-      </div>
-    </div></div>
-  </section>
-
-  <!-- ===== 4 · ABERTURAS E ESTADOS ===== -->
-  <section class="sec">
-    <div class="sec-lbl"><span class="sec-num">4</span><h2>Aberturas e estados</h2></div>
-    <p class="sec-sub">Os controles abertos e as situações da tela — o que o consultor vê ao clicar, e quando algo dá certo, falta ou trava.</p>
-
-    <h3 style="font:700 15px Sora;margin:0 0 12px 0;color:hsl(240 6% 30%)">Aberturas de opções</h3>
-    <div class="grid2">
-      <div class="frag"><div class="cap">Botão "Abrir OS" — menu</div><div class="in">
-        <div class="menu">
-          <div class="menu-i on"><span class="tt"><i class="ic s16 i-plus"></i></span><div><div class="nm">Abrir OS</div><div class="su">Vai para a fila da oficina até alguém começar.</div></div></div>
-          <div class="menu-i"><span class="tt"><i class="ic s16 i-play"></i></span><div><div class="nm">Abrir e começar agora</div><div class="su">Escolhe o box e já entra em manutenção — quando o próprio mecânico abre.</div></div></div>
-        </div>
-      </div></div>
-      <div class="frag"><div class="cap">"Sistema afetado" — lista</div><div class="in">
-        <div class="cl">
-          <div class="cl-q"><i class="ic s16" style="--i:url(https://api.iconify.design/ph/magnifying-glass.svg)"></i>Buscar sistema</div>
-          <div class="cl-r sel">Freio <i class="ic s16 i-check ck"></i></div>
-          <div class="cl-r">Motor</div>
-          <div class="cl-r">Suspensão</div>
-          <div class="cl-r">Elétrica</div>
-          <div class="cl-r">Pneus</div>
-        </div>
-      </div></div>
-      <div class="frag"><div class="cap">"Mais detalhes" — expandido</div><div class="in">
-        <div class="detgrid">
-          <div class="fld"><span class="l">Base</span><div class="selbox">Base Mucuri <i class="ic s16 i-down"></i></div></div>
-          <div class="fld"><span class="l">Box <span style="font-weight:400;color:hsl(var(--muted-foreground))">· opcional</span></span><div class="selbox" style="color:hsl(var(--muted-foreground))">Escolher ao começar <i class="ic s16 i-down"></i></div></div>
-        </div>
-        <div class="drop"><div class="box"><i class="ic s20 i-info"></i>Foto</div><div class="box"><i class="ic s20 i-plus"></i>Anexo (NF, laudo)</div></div>
-      </div></div>
-      <div class="frag"><div class="cap">"O veículo parou" — outra hora</div><div class="in">
-        <div class="datemini">
-          <button class="dm">Ontem<b>18:40</b></button>
-          <button class="dm">Hoje<b>06:30</b></button>
-          <button class="dm on">Hoje<b>08:20</b></button>
-          <button class="dm">Hoje<b>agora</b></button>
-          <button class="dm" style="grid-column:span 2;text-align:center"><i class="ic s14 i-cal" style="vertical-align:-2px"></i> Escolher no calendário</button>
-        </div>
-      </div></div>
-    </div>
-
-    <h3 style="font:700 15px Sora;margin:28px 0 12px 0;color:hsl(240 6% 30%)">Estados</h3>
-    <div class="grid2">
-      <div class="frag"><div class="cap">Relato vazio — erro no campo</div><div class="in">
-        <div class="errfld"></div>
-        <div class="errmsg"><i class="ic s16 i-info"></i>Descreva o que o motorista relatou para abrir a OS.</div>
-      </div></div>
-      <div class="frag"><div class="cap">Já tem OS aberta — bloqueado (WO-3)</div><div class="in">
-        <div class="blockbanner"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/warning.svg)"></i><div>Este veículo já tem a <b>OS 1042</b> aberta (na fila, há 20 min). Uma OS por veículo de cada vez.</div></div>
-        <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px"><button class="btn btn-outline">Fechar</button><button class="btn btn-primary">Ver OS 1042 <i class="ic s16" style="--i:url(https://api.iconify.design/ph/arrow-right.svg)"></i></button></div>
-      </div></div>
-      <div class="frag"><div class="cap">Abrindo / sucesso</div><div class="in" style="display:flex;flex-direction:column;gap:12px">
-        <div style="display:flex;justify-content:flex-end"><button class="btn btn-primary loading"><span class="spin"></span>Abrindo…</button></div>
-        <div class="toast"><i class="ic s18 i-check"></i>OS 1042 aberta · Freio · na fila<a href="#">Ver OS</a></div>
-      </div></div>
-      <div class="frag"><div class="cap">Sem permissão de abrir</div><div class="in">
-        <div class="permbox"><span class="big"><i class="ic s20" style="--i:url(https://api.iconify.design/ph/lock-simple.svg)"></i></span><b>Você não abre OS</b><p>Seu papel vê a fila, mas não abre ordens. Peça a quem faz a triagem.</p></div>
-      </div></div>
-    </div>
-  </section>
-
+  <div class="rules">
+    <h4>Princípios da Recepção</h4>
+    <ul>
+      <li><b>Converte chegada em trabalho:</b> a fonte (check-in, checklist, guincho, plano) pré-preenche o máximo; no caso comum o consultor só dá o relato e confirma.</li>
+      <li><b>A parada começa na chegada</b>, não na OS — o cronômetro de "parado" conta do check-in, ou de quando quebrou na estrada. <span class="dep">WO-10</span></li>
+      <li><b>Default enxuto</b>, o resto a 1 toque: alvo, base/box, diagnóstico e anexos ficam recolhidos; o sistema é inferido do relato.</li>
+      <li><b>Uma OS por veículo</b> de cada vez; abrir de novo cai no bloqueio com "ver" / "adicionar na existente". <span class="dep">WO-3</span></li>
+      <li><b>Portaria ≠ Recepção:</b> a Portaria (guarita) controla o acesso e marca a parada; a Recepção abre a OS. <b>Agendadas</b> vêm do <b>Planejamento</b> (próximo mockup) — hoje bloco "em breve".</li>
+    </ul>
+  </div>
 </div>
+
+<div class="toast" id="toast"><i class="ic s16 i-checkc"></i><span id="toastmsg"></span></div>
+
+<script>
+const stage=document.getElementById('stage');
+const NS=' · ';
+let menuEl=null;
+
+function toast(m){const t=document.getElementById('toast');document.getElementById('toastmsg').textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2600);}
+function plate(pn,sm){return '<span class="plate'+(sm?' sm':'')+'"><span class="top"></span><span class="pn">'+pn+'</span></span>';}
+function closeMenu(){if(menuEl){menuEl.remove();menuEl=null;}}
+document.addEventListener('click',e=>{if(menuEl&&!menuEl.contains(e.target)&&!e.target.closest('.pill,.tok'))closeMenu();});
+
+/* ---- app shell ---- */
+function side(){
+  const items=[['i-home'],['i-truck'],['i-box'],['i-tire'],['i-wrench','on'],['i-gear']];
+  return '<div class="side"><div class="logo">F</div>'+
+    items.slice(0,5).map(([ic,on])=>'<a class="'+(on||'')+'"><i class="ic s22 '+ic+'"></i></a>').join('')+
+    '<div class="sp"></div><a><i class="ic s22 i-gear"></i></a></div>';
+}
+function topbar(){
+  return '<div class="topbar"><div class="wordmark">Facter <b>Truck</b></div>'+
+    '<div class="tb-search"><i class="ic s18 i-search"></i>Buscar placa, frota ou OS</div>'+
+    '<div class="tb-right"><i class="ic s20 i-bell bell"></i><div class="org">Transportadora Demo <i class="ic s14 i-down"></i></div><span class="avatar">GD</span></div></div>';
+}
+function appShell(content,overlay){
+  return '<div class="app">'+side()+'<div class="main">'+topbar()+'<div class="content">'+content+'</div></div>'+
+    (overlay?'<div class="overlay" id="ov">'+overlay+'</div>':'')+'</div>';
+}
+
+/* ---- pátio page ---- */
+const AGUARD=[
+  {pn:'QRT4B22',frota:'812',conj:'+ rodotrem C-318',rel:'Freio puxando ao frear, barulho no eixo 3',chk:'#204 · 07:12',km:'412.380',wait:'52 min',sys:'Freio',sev:'c-warn'},
+  {pn:'ORS1E08',frota:'640',conj:'cavalo solto',rel:'Luz de freio no painel acesa',chk:'#205 · 07:40',km:'388.900',wait:'24 min',sys:'Elétrica',sev:'c-info'},
+  {pn:'RTB7F19',frota:'B-318',conj:'carreta florestal',rel:'Vazamento de ar, não enche o sistema',chk:'#206 · 08:03',km:'—',wait:'1 min',sys:'Pneumático',sev:'c-warn'},
+];
+function patioPage(){
+  return ''+
+    '<div class="pagehd"><div><div class="ttl">Recepção</div><div class="sub"><i class="ic s14 i-pin"></i>Pátio Araucária '+NS+'5 veículos no pátio</div></div>'+
+      '<button class="btn btn-pri" data-open="balcao"><i class="ic s18 i-plus"></i>Dar entrada / Abrir OS</button></div>'+
+    '<div class="kpis">'+
+      '<div class="kpi warn"><div class="l"><i class="ic s14 i-clock"></i>Aguardando OS</div><div class="n">3</div><div class="s">há 1 a 52 min</div></div>'+
+      '<div class="kpi"><div class="l"><i class="ic s14 i-wrench"></i>Em manutenção</div><div class="n">2</div><div class="s">2 boxes ocupados</div></div>'+
+      '<div class="kpi"><div class="l"><i class="ic s14 i-clock"></i>Parado médio</div><div class="n">2h20</div><div class="s">últimas 24 h</div></div>'+
+      '<div class="kpi"><div class="l"><i class="ic s14 i-checkc"></i>Liberadas hoje</div><div class="n">4</div><div class="s">previsão cumprida em 3</div></div>'+
+    '</div>'+
+    '<div class="recep"><div>'+
+      '<div class="search"><i class="ic s20 i-search"></i><input placeholder="Placa ou número de frota — ou escaneie"><button class="scan"><i class="ic s16 i-scan"></i>Escanear</button></div>'+
+      '<div class="sectitle"><i class="ic s14 i-clock"></i>Aguardando OS<span class="ct">'+AGUARD.length+'</span></div>'+
+      '<div class="cards">'+AGUARD.map((a,i)=>(
+        '<div class="arr" data-card="'+i+'"><div class="avic"><i class="ic s24 i-truck"></i></div>'+
+          '<div class="mid"><div class="id">'+plate(a.pn,true)+'<span class="frota">Frota '+a.frota+'</span><span class="chip '+a.sev+'">'+a.sys+'</span><span class="wait"><i class="ic s14 i-clock"></i>'+a.wait+'</span></div>'+
+            '<div class="rel">“'+a.rel+'”</div>'+
+            '<div class="sub"><span class="b"><i class="ic s14 i-checkc" style="color:hsl(var(--success-text))"></i>check-in '+a.chk+'</span><span class="b"><i class="ic s14 i-trailer"></i>'+a.conj+'</span><span class="b"><i class="ic s14 i-gauge"></i>'+a.km+' km</span></div>'+
+          '</div>'+
+          '<i class="ic s20 i-right caret"></i>'+
+        '</div>')).join('')+'</div>'+
+    '</div><div>'+
+      '<div class="rail-card"><div class="rc-h"><i class="ic s16 i-cal"></i>Agendadas hoje</div><div class="rc-b">'+
+        '<div class="soon"><span class="si"><i class="ic s20 i-cal"></i></span><div><b>Preventivas do planejamento</b><p>Quando um veículo da agenda dá entrada, a OS já vem com os serviços do plano. Acende quando o módulo de <b>Planejamento</b> existir.</p></div></div>'+
+        '<div class="ghost"><div class="grow"></div><div class="grow"></div></div></div></div>'+
+      '<div class="rail-card"><div class="rc-h"><i class="ic s16 i-wrench"></i>Em manutenção agora</div><div class="rc-b">'+
+        '<div class="mline"><span class="mbox">B3</span><div><div class="mt">OS 1042 '+NS+'Freio</div><div class="ms">QRT4B22 '+NS+'Anderson, desde 08:12</div></div><div class="prog">2 de 6<div class="bar"><i style="width:33%"></i></div></div></div>'+
+        '<div class="mline"><span class="mbox">B1</span><div><div class="mt">OS 1039 '+NS+'Motor</div><div class="ms">MGT9A71 '+NS+'Carla, desde 06:40</div></div><div class="prog">4 de 5<div class="bar"><i style="width:80%"></i></div></div></div>'+
+      '</div></div>'+
+    '</div></div>';
+}
+
+const KBD='<span class="kbd">⌘↵</span>';
+
+/* footer — action verbs + keyboard hints */
+function footer({conseq,primary,danger,split}){
+  return '<div class="dx-ft"><div class="conseq"><i class="ic s16 i-warnc"></i><span>'+conseq+'</span></div>'+
+    '<div class="acts"><button class="btn btn-out" id="cancelbtn">Cancelar<span class="kbd-d">Esc</span></button>'+
+    '<span class="split"><button class="btn btn-pri'+(danger?' danger':'')+'" id="gobtn">'+primary+KBD+'</button>'+
+    (split?'<button class="mn'+(danger?' danger':'')+'" id="splitbtn" title="Abrir e começar agora"><i class="ic s16 i-play"></i></button>':'')+'</span></div></div>';
+}
+function wireGo(msg){const g=stage.querySelector('#gobtn');if(g)g.onclick=()=>toast(msg);const s=stage.querySelector('#splitbtn');if(s)s.onclick=()=>toast('OS aberta e iniciada'+NS+'Box 3');}
+
+/* classification options + system detection */
+const OPTS={tipo:[['Corretiva'],['Preventiva'],['Inspeção'],['Revisão'],['Emergência']],prio:[['Baixa'],['Média'],['Alta'],['Crítica']],sist:[['Freio'],['Motor'],['Suspensão'],['Elétrica'],['Pneu'],['Pneumático'],['Estrutura'],['Outro']],parou:[['Parou agora'],['Ainda rodando'],['Na estrada'],['Outra hora']]};
+function openPillMenu(btn,k,cur,onPick){closeMenu();const m=document.createElement('div');m.className='menu';
+  m.innerHTML=OPTS[k].map(([v])=>'<button data-v="'+v+'" class="'+(v===cur?'sel':'')+'">'+v+(v===cur?'<i class="ic s16 i-check"></i>':'')+'</button>').join('');
+  document.body.appendChild(m);const r=btn.getBoundingClientRect();
+  m.style.left=Math.min(r.left,window.innerWidth-m.offsetWidth-12)+'px';m.style.top=(r.bottom+6+window.scrollY)+'px';
+  m.querySelectorAll('button').forEach(b=>b.onclick=()=>{onPick(b.dataset.v);closeMenu();});menuEl=m;}
+const DET=[[/fre(ar|io)|lona|pastilha|n[aã]o segura|puxando/i,'Freio'],[/ar|press[aã]o|vazament|c[aâ]mara/i,'Pneumático'],[/luz|painel|bateria|el[eé]tric|farol/i,'Elétrica'],[/[oó]leo|motor|fuma[cç]a|superaquec|correia|for[cç]a/i,'Motor'],[/amortec|mola|suspens|batendo/i,'Suspensão'],[/pneu|borrach|sulco|furou/i,'Pneu']];
+function detectSystem(t){for(const [re,s] of DET)if(re.test(t))return s;return null;}
+
+/* integrated primary header: context + action + source, in one block */
+function dxHead(title,o){return '<div class="dxhead'+(o.variant?' '+o.variant:'')+'"><button class="dx-x"><i class="ic s16 i-x"></i></button>'+
+  '<div class="vrow">'+plate(o.pn,true)+'<span class="vt">Frota '+o.frota+'</span>'+(o.chips||'')+'</div>'+
+  '<div class="dxtitle">'+title+'</div>'+(o.src?'<div class="src">'+o.src+'</div>':'')+'</div>';}
+
+/* the action, not a form: capture the problem → the system assembles the OS → confirm.
+   classification is a sentence the system wrote (editable tokens), facts are inherited. */
+function mountCompose(host,{state,prefill,facts,dest,alert,before}){
+  host.innerHTML=(before||'')+
+    '<div class="capture"><div class="cap-top"><div class="cap-q"><i class="ic s16 i-chat"></i>O que houve?</div><button class="mic" type="button"><span class="dot"></span><i class="ic s16 i-mic"></i>Ditar</button></div>'+
+      '<textarea class="cap-ta'+(prefill?' filled':'')+'" id="relato" placeholder="Fale ou escreva o problema do veículo…">'+(prefill||'')+'</textarea>'+
+      '<div class="quick">'+['puxando ao frear','ruído metálico','não segura','vazamento de ar'].map(c=>'<button data-sg="'+c+'">'+c+'</button>').join('')+'</div></div>'+
+    '<div id="propose"></div>'+
+    (alert?'<div class="ret-inline"><i class="ic s16 i-return"></i><span>'+alert+'</span><span class="pull">ver OS</span></div>':'');
+  const prop=host.querySelector('#propose');
+  function tok(k){const sys=(k==='sist'&&state.sistDetected)?' sys':'';const crit=(k==='prio'&&state.prio==='Crítica')?' crit':'';return '<button class="tok'+sys+crit+'" data-k="'+k+'">'+state[k]+'</button>';}
+  function renderProp(){
+    prop.innerHTML='<div class="propose"><div class="propose-h"><i class="ic s14 i-checkc"></i>Vou abrir<span class="live">· atualiza conforme você descreve</span></div>'+
+      '<div class="sentence">OS '+tok('tipo')+' de '+tok('sist')+' · prioridade '+tok('prio')+' · '+tok('parou')+'</div>'+
+      '<div class="facts">'+facts.map(f=>'<span class="f">'+(f.ic?'<i class="ic s14 '+f.ic+'"></i>':'')+f.t+(f.em?' <em>'+f.em+'</em>':'')+'</span>').join('')+'</div>'+
+      '<div class="dest"><i class="ic s16 i-right"></i>'+dest+'</div></div>';
+    prop.querySelectorAll('.tok').forEach(b=>b.onclick=()=>openPillMenu(b,b.dataset.k,state[b.dataset.k],v=>{state[b.dataset.k]=v;if(b.dataset.k==='sist')state.sistDetected=false;renderProp();}));
+  }
+  renderProp();
+  const ta=host.querySelector('#relato');
+  function det(){const s=detectSystem(ta.value);if(s){state.sist=s;state.sistDetected=true;renderProp();}}
+  ta.oninput=()=>{ta.classList.toggle('filled',ta.value.trim().length>0);det();};
+  host.querySelectorAll('[data-sg]').forEach(b=>b.onclick=()=>{ta.value=(ta.value?ta.value+', ':'')+b.dataset.sg;ta.dispatchEvent(new Event('input'));ta.focus();});
+  setTimeout(()=>{try{ta.focus();const l=ta.value.length;ta.setSelectionRange(l,l);}catch(e){}},40);
+}
+function wireClose(){const back=()=>setScenario('patio');const x=stage.querySelector('.dx-x');const c=stage.querySelector('#cancelbtn');if(x)x.onclick=back;if(c)c.onclick=back;const ov=stage.querySelector('#ov');if(ov)ov.onclick=e=>{if(e.target===ov)back();};}
+
+/* ---------- SCENARIOS ---------- */
+const S={};
+S.patio=function(){
+  stage.innerHTML=appShell(patioPage(),null);
+  stage.querySelectorAll('[data-card]').forEach(b=>b.onclick=()=>setScenario('checkin'));
+  const ob=stage.querySelector('[data-open="balcao"]');if(ob)ob.onclick=()=>setScenario('balcao');
+};
+
+S.checkin=function(){
+  const state={tipo:'Corretiva',prio:'Média',sist:'Freio',parou:'Parou agora',sistDetected:true};
+  const dlg='<div class="dx">'+dxHead('Abrir OS',{pn:'QRT4B22',frota:'812',chips:'<span class="chip c-info">rodotrem C-318</span>',src:'<i class="ic s14 i-checkc" style="color:hsl(var(--success-text))"></i>Chegou pela portaria '+NS+'07:12 '+NS+'check-in #204 '+NS+'José'})+
+    '<div class="dx-bd" id="bd"></div>'+
+    footer({conseq:'Enquanto aberta, este veículo não recebe outra OS. <span class="dep">WO-3</span>',primary:'Abrir OS',split:true})+'</div>';
+  stage.innerHTML=appShell(patioPage(),dlg);
+  mountCompose(stage.querySelector('#bd'),{state,prefill:'Freio puxando pro lado ao frear, faz barulho metálico no eixo 3.',
+    facts:[{ic:'i-gauge',t:'412.380 km',em:'do check-in'},{ic:'i-cam',t:'2 fotos'},{ic:'i-pin',t:'Pátio Araucária'}],
+    dest:'Entra na <b>fila</b> — ou use ▸ pra começar agora num box',
+    alert:'Freio mexido há 58 dias (OS 0988) — pode ser retorno/garantia'});
+  wireClose();wireGo('OS 1043 aberta'+NS+'Freio'+NS+'na fila');
+};
+
+S.balcao=function(){
+  const state={tipo:'Corretiva',prio:'Média',sist:'—',parou:'Parou agora',sistDetected:false};
+  const dlg='<div class="dx">'+dxHead('Dar entrada e abrir',{pn:'ORS1E08',frota:'640',chips:'<span class="chip c-info">cavalo solto</span>',src:'<i class="ic s14 i-user" style="color:hsl(233 45% 54%)"></i>Chegou agora '+NS+'sem check-in — o consultor dá entrada'})+
+    '<div class="dx-bd" id="bd"></div>'+
+    footer({conseq:'Registra a chegada e o km, e abre num passo só. <span class="dep">WO-3</span>',primary:'Dar entrada e abrir',split:true})+'</div>';
+  stage.innerHTML=appShell(patioPage(),dlg);
+  mountCompose(stage.querySelector('#bd'),{state,prefill:'',
+    facts:[{ic:'i-gauge',t:'388.900 km',em:'confira'},{ic:'i-wrench',t:'última manutenção há 22 dias'},{ic:'i-pin',t:'Pátio Araucária'}],
+    dest:'Entra na <b>fila</b> do Pátio Araucária'});
+  wireClose();wireGo('OS 1044 aberta'+NS+'na fila');
+};
+
+S.emergencia=function(){
+  const state={tipo:'Emergência',prio:'Crítica',sist:'Motor',parou:'Na estrada',sistDetected:true};
+  const dlg='<div class="dx">'+dxHead('Abrir emergência',{variant:'src-emg',pn:'MGT9A71',frota:'503',chips:'<span class="chip c-danger"><i class="ic s13 i-bolt"></i>Socorro</span>',src:'<i class="ic s14 i-tow" style="color:hsl(var(--danger-text))"></i>Veio de guincho '+NS+'quebrou na BR-153 km 88'})+
+    '<div class="dx-bd" id="bd"></div>'+
+    footer({conseq:'Entra no topo da fila e avisa a supervisão. Tempo parado conta desde a estrada.',primary:'Abrir e começar agora',split:true})+'</div>';
+  stage.innerHTML=appShell(patioPage(),dlg);
+  const emg='<div class="emg"><span class="ei"><i class="ic s22 i-bolt"></i></span><div><b>Parado há 9h40 — desde ontem 22:40</b><p>A parada começou na estrada, não na chegada. Espera e guincho entram no tempo parado. <span class="dep">WO-10</span></p><div class="parou"><span>Parou em: <b>BR-153 km 88</b></span><span>Chegou ao pátio: <b>hoje 08:20</b> (guincho)</span></div></div></div>';
+  mountCompose(stage.querySelector('#bd'),{state,before:emg,prefill:'Superaquecimento, perdeu força e apagou na subida. Veio de reboque.',
+    facts:[{ic:'i-gauge',t:'291.050 km'},{ic:'i-pin',t:'Pátio Araucária'}],
+    dest:'Vai <b>direto pro box</b> — emergência não espera na fila'});
+  wireClose();wireGo('OS 1045 aberta'+NS+'Emergência'+NS+'Box 1');
+};
+
+S.checklist=function(){
+  const state={tipo:'Corretiva',prio:'Alta',sist:'Freio',parou:'Parou agora',sistDetected:true};
+  const finds=[{nm:'Folga na lona de freio',wh:'Eixo 3 '+NS+'lado esquerdo',sev:'c-danger',t:'crítico'},{nm:'Luz de freio queimada',wh:'Lanterna traseira direita',sev:'c-warn',t:'atenção'},{nm:'Sulco do pneu abaixo do limite',wh:'Eixo 2 '+NS+'externo direito',sev:'c-warn',t:'atenção'}];
+  const findsHtml='<div><div class="flabel" style="margin-bottom:12px"><i class="ic s16 i-clip" style="color:hsl(var(--warning-text))"></i>Encontrado no checklist — toque pra incluir como serviço</div>'+
+    '<div class="finds">'+finds.map((f,i)=>'<div class="find on" data-f="'+i+'"><span class="ck"><i class="ic s14 i-check"></i></span><div style="flex:1"><div class="nm">'+f.nm+'</div><div class="wh"><i class="ic s13 i-pin"></i>'+f.wh+'</div></div><span class="sev chip '+f.sev+'">'+f.t+'</span></div>').join('')+'</div></div>';
+  const dlg='<div class="dx">'+dxHead('Abrir do checklist',{variant:'src-chk',pn:'RTB7F19',frota:'B-318',chips:'<span class="chip c-warn"><i class="ic s13 i-clip"></i>Checklist #88</span>',src:'<i class="ic s14 i-clip" style="color:hsl(var(--warning-text))"></i>3 não conformidades '+NS+'inspeção de saída '+NS+'João'})+
+    '<div class="dx-bd" id="bd"></div>'+
+    footer({conseq:'Os itens marcados entram como serviços pendentes. Origem: checklist.',primary:'Abrir OS (3 serviços)',split:false})+'</div>';
+  stage.innerHTML=appShell(patioPage(),dlg);
+  mountCompose(stage.querySelector('#bd'),{state,before:findsHtml,prefill:'Reprovou no checklist de saída (ver itens acima).',
+    facts:[{ic:'i-gauge',t:'205.400 km',em:'do check-in'},{ic:'i-pin',t:'Pátio Araucária'}],
+    dest:'Entra na <b>fila</b> com os serviços já listados'});
+  wireClose();
+  stage.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{b.classList.toggle('on');const n=stage.querySelectorAll('.find.on').length;const g=stage.querySelector('#gobtn');g.innerHTML=(n?('Abrir OS ('+n+' serviço'+(n===1?'':'s')+')'):'Abrir OS (sem serviços)')+KBD;});
+  wireGo('OS 1046 aberta'+NS+'na fila');
+};
+
+S.tablet=function(){
+  const state={tipo:'Corretiva',prio:'Média',sist:'—',parou:'Parou agora',sistDetected:false};
+  const content='<div class="tabwrap"><div class="tab"><div class="tab-screen">'+
+    '<div class="tab-top"><i class="ic s18 i-wrench"></i>Abrir OS<span class="dim">'+NS+'Box 3 '+NS+'ORS1E08</span><span class="me"><span class="avatar" style="width:26px;height:26px;font-size:10px">JB</span>João B. '+NS+'PIN</span></div>'+
+    '<div class="tab-body"><div class="tab-left">'+
+      '<div class="tab-q">O que você encontrou?</div>'+
+      '<textarea class="tab-ta" id="relato" placeholder="Fale ou toque pra escrever…"></textarea>'+
+      '<div class="tbig"><button type="button"><i class="ic s18 i-mic"></i>Ditar</button>'+['puxando ao frear','ruído metálico','vazamento de ar'].map(c=>'<button data-sg="'+c+'">'+c+'</button>').join('')+'<button type="button"><i class="ic s18 i-cam"></i>Foto</button></div>'+
+    '</div><div class="tab-right"><div class="rlbl">Vou abrir</div><div id="tprop"></div>'+
+      '<div class="tbtns"><button class="btn btn-pri" id="tgo"><i class="ic s18 i-play"></i>Abrir e começar</button><button class="btn btn-out" id="tfila">Só abrir (fila)</button></div>'+
+    '</div></div></div></div></div>';
+  stage.innerHTML=appShell(content,null);
+  const tp=stage.querySelector('#tprop');
+  function tok(k){const sys=(k==='sist'&&state.sistDetected)?' sys':'';return '<button class="tok'+sys+'" data-k="'+k+'">'+state[k]+'</button>';}
+  function rp(){tp.innerHTML='<div class="sentence" style="font-size:16.5px;line-height:2.1">OS '+tok('tipo')+'<br>de '+tok('sist')+'<br>· prioridade '+tok('prio')+'</div>';tp.querySelectorAll('.tok').forEach(b=>b.onclick=()=>openPillMenu(b,b.dataset.k,state[b.dataset.k],v=>{state[b.dataset.k]=v;if(b.dataset.k==='sist')state.sistDetected=false;rp();}));}
+  rp();
+  const ta=stage.querySelector('#relato');ta.oninput=()=>{const s=detectSystem(ta.value);if(s){state.sist=s;state.sistDetected=true;rp();}};
+  stage.querySelectorAll('[data-sg]').forEach(b=>b.onclick=()=>{ta.value=(ta.value?ta.value+', ':'')+b.dataset.sg;ta.dispatchEvent(new Event('input'));ta.focus();});
+  stage.querySelector('#tgo').onclick=()=>toast('OS aberta e iniciada'+NS+'Box 3');
+  stage.querySelector('#tfila').onclick=()=>toast('OS aberta'+NS+'na fila');
+};
+
+S.bloqueio=function(){
+  const content='<div class="blockwrap"><div class="blocked">'+
+    '<div class="bh"><span class="bi"><i class="ic s24 i-warnc"></i></span><div><h3>Este veículo já tem OS aberta</h3><p>Uma OS por veículo de cada vez. Para somar serviços, use a OS que já existe — não abra outra.</p></div></div>'+
+    '<div class="bb"><div class="osline"><span class="mbox" style="width:40px;height:40px;border-radius:11px">B3</span><div class="mid"><div class="onm">OS 1042 <span class="chip c-info">Freio</span></div><div class="os-sub">'+plate('QRT4B22',true)+' Frota 812 '+NS+'Em manutenção '+NS+'aberta há 2h10</div></div></div>'+
+      '<div class="bf"><button class="btn btn-out" id="verb">Ver OS 1042</button><button class="btn btn-pri" id="addb"><i class="ic s16 i-plus"></i>Adicionar serviço na OS 1042</button></div></div>'+
+  '</div></div>';
+  stage.innerHTML=appShell(content,null);
+  stage.querySelector('#verb').onclick=()=>toast('Abrindo OS 1042…');
+  stage.querySelector('#addb').onclick=()=>toast('Adicionar serviço na OS 1042');
+};
+
+function setScenario(s){document.querySelectorAll('.chips button').forEach(b=>b.classList.toggle('on',b.dataset.s===s));closeMenu();S[s]();stage.scrollIntoView({block:'nearest'});}
+document.getElementById('chips').addEventListener('click',e=>{const b=e.target.closest('button');if(b)setScenario(b.dataset.s);});
+document.addEventListener('keydown',e=>{
+  if(!stage.querySelector('.dx'))return;
+  if(e.key==='Escape'){setScenario('patio');}
+  else if((e.metaKey||e.ctrlKey)&&e.key==='Enter'){e.preventDefault();const g=stage.querySelector('#gobtn');if(g)g.click();}
+});
+S.patio();
+</script>
 </body>
 </html>

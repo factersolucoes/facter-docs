@@ -36,6 +36,12 @@ Aprovado em 26/09/2026, com as propostas das seis perguntas do fim da página (r
 
 <img src="/mockups/truck/transportadoras/desktop.png" alt="Mockup das transportadoras e do ecossistema" style={{maxHeight: 360, width: '100%', objectFit: 'cover', objectPosition: 'top', borderRadius: 8, border: '1px solid var(--ifm-color-emphasis-300)'}} />
 
+### Ordens de serviço — fila e abertura
+
+Em revisão (27/09/2026). A **fila/listagem** das ordens de serviço e a abertura a partir dela: os estados do quadro (aberta, fila, pausada, concluída), o alvo da OS (veículo, implemento, posição) e o km de entrada. É o ponto de partida da fatia da Oficina; o detalhe de cada OS fica no [Detalhe da OS](/telas/truck/os-detalhe).
+
+[Ver o mockup](/telas/truck/ordens-de-servico)
+
 ### Detalhe da OS
 
 Aprovado em 27/09/2026, opção A no notebook, com as propostas das nove perguntas do fim da página. Decidido junto: além do PIN, cada pessoa pode ter um **crachá com QR code** para entrar e trocar de pessoa no tablet. Notebook com duas opções (A, painel da parada, recomendada; B, faixa de números e abas), tablet do mecânico com "Meus serviços" e pausa em 2 toques, celular da supervisão e estados (aguardando peça, previsão que mudou, retrabalho, OS liberada, papel sem permissão de custo). Fase 2 (Oficina); depende de bases e boxes (1.2) e de matrícula, PIN e crachá (1.4).
@@ -136,6 +142,12 @@ Aprovado em 30/09/2026. A família **fueiro/barrote** (a estrutura da carreta fl
 
 [Ver o mockup](/telas/truck/fueiros)
 
+### Censo da frota — reconhecer e identificar
+
+Em revisão (01/10/2026). O fluxo de **adoção**: como trazer para o sistema uma frota que já roda com fueiros, barrotes e eixos **sem nenhuma identificação**, sem parar a operação. Deixa claras as **duas portas** (peça nova nasce na entrada de NF; o que já existe entra pelo censo) e o **ciclo de vida da identidade** (reconhecida → provisória → identificada, sempre a mesma peça e o mesmo histórico). Três fluxos interativos: **Censo da carreta** (planta da carreta florestal vista de cima — toca na peça tracejada pra marcar que existe, na âmbar pra identificar, com contadores ao vivo), **Identificar peça** (escolhe o método **durável** — placa metálica rebitada / gravação-puncionado / RFID, nunca papel — com antes/depois `provisório → nº fixo`) e **Censo em lote** (uma pilha de sobressalentes no estoque vira N unidades provisórias que se identificam ao instalar). A âncora enquanto não há identidade é a **posição**, e a trava é que peça provisória não faz operação que exige identidade. Mesmo mecanismo para pneu, eixo, fueiro e barrote.
+
+[Ver o mockup](/telas/truck/censo)
+
 ### Estoque
 
 Aprovado em 27/09/2026. **Peças** (SKU, categoria, unidade de estoque e de consumo com fator), **Requisições** vindas das OS, **Movimentações** como livro só-inserção (saldo é a soma, cada linha tem motivo, autor e referência) e **Depósitos** (dono + local, incluindo consignado). Traz os casos de borda com selects abertos e os **estados da lista nova** (skeleton, busca/filtro sem resultado, só inativas, sem permissão, erro e paginação por cursor). O custo por peça segue a [convenção aprovada](propostas/part-cost-convention) (custo na unidade de consumo). Task 2.5.
@@ -188,9 +200,9 @@ Aprovado em 27/09/2026. Três fluxos no mesmo assunto. **Mecânico no tablet do 
 
 <img src="/mockups/truck/solicitar-peca/desktop.png" alt="Mockup de solicitar peça" style={{maxHeight: 360, width: '100%', objectFit: 'cover', objectPosition: 'top', borderRadius: 8, border: '1px solid var(--ifm-color-emphasis-300)'}} />
 
-### Abrir OS
+### Recepção — dar entrada e abrir OS
 
-Aprovado em 27/09/2026, pensado para o consultor de manutenção (abre 80% das OS). Entrada com o veículo ou o conjunto já escolhido e sem — com o seletor de alvo (veículo × conjunto, e o desmembrar para tratar só as carretas). Problema como herói, triagem larga com contexto, retorno e solicitação, tablet do mecânico, e os estados e aberturas de opções. Fase 2; a fila e o detalhe ficam no [Detalhe da OS](/telas/truck/os-detalhe). Task 2.3.
+Em revisão (redesenho 10/10/2026). O balcão da oficina: **transforma uma chegada em OS**. Repensado a partir do abrir-os antigo (denso demais), inspirado em intake rápido (Tekmetric Smart Jobs, progressive disclosure) — default quase vazio (relato + linha inteligente de classificação + Abrir), o resto a 1 toque. A tela começa pelo **pátio** (trilha "Aguardando OS" que a Portaria alimenta; "Agendadas" como bloco futuro do Planejamento). Cobre as **fontes** da OS: do check-in da portaria (caminho rápido), balcão (consultor dá entrada + abre), emergência/guincho (parada antes da chegada, WO-10), checklist reprovado (itens viram serviços) e tablet do mecânico; mais o bloqueio WO-3. **Portaria ≠ Recepção**: Portaria é controle de acesso do pátio e marca a parada; Recepção abre a OS. Fase 2, task 2.3; a fila fica em [Ordens de serviço](/telas/truck/ordens-de-servico) e o detalhe no [Detalhe da OS](/telas/truck/os-detalhe).
 
 [Ver o mockup](/telas/truck/abrir-os)
 

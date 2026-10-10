@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Censo da frota · reconhecer e identificar · mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --background:0 0% 98%;--foreground:240 10% 3.9%;--card:0 0% 100%;
+  --primary:233 65% 50%;--primary-foreground:0 0% 100%;
+  --muted:240 4.8% 94%;--muted-foreground:240 3.8% 40%;--border:240 5.9% 90%;
+  --success:160 60% 38%;--warning:38 92% 45%;--danger:0 84.2% 60.2%;
+  --success-ink:160 70% 24%;--warning-ink:28 85% 30%;--danger-ink:0 72% 38%;
+  --primary-soft:233 85% 96.5%;--success-soft:160 55% 94%;--warning-soft:40 95% 92%;--danger-soft:0 90% 96%;
+  --canvas:225 16% 91%;--ink:240 10% 12%;
+}
+*{box-sizing:border-box}
+body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));font:15px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+.ic{display:inline-block;width:18px;height:18px;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;flex:none;vertical-align:-3px}
+.ic.s14{width:14px}.ic.s16{width:16px}.ic.s20{width:20px}.ic.s24{width:24px}.ic.s28{width:28px}.ic.s40{width:40px;height:40px}
+.i-truck{--i:url(https://api.iconify.design/ph/truck-trailer.svg)}
+.i-scan{--i:url(https://api.iconify.design/ph/scan.svg)}
+.i-tag{--i:url(https://api.iconify.design/ph/tag.svg)}
+.i-box{--i:url(https://api.iconify.design/ph/package.svg)}
+.i-buildings{--i:url(https://api.iconify.design/ph/buildings.svg)}
+.i-check{--i:url(https://api.iconify.design/ph/check.svg)}
+.i-check-c{--i:url(https://api.iconify.design/ph/check-circle-fill.svg)}
+.i-x{--i:url(https://api.iconify.design/ph/x.svg)}
+.i-warn{--i:url(https://api.iconify.design/ph/warning-fill.svg)}
+.i-hand{--i:url(https://api.iconify.design/ph/hand-tap.svg)}
+.i-right{--i:url(https://api.iconify.design/ph/arrow-right.svg)}
+.i-info{--i:url(https://api.iconify.design/ph/info.svg)}
+.i-rfid{--i:url(https://api.iconify.design/ph/broadcast.svg)}
+.i-plate{--i:url(https://api.iconify.design/ph/identification-card.svg)}
+.i-fire-brand{--i:url(https://api.iconify.design/ph/fire-simple.svg)}
+.i-prohibit{--i:url(https://api.iconify.design/ph/prohibit.svg)}
+.i-nf{--i:url(https://api.iconify.design/ph/receipt.svg)}
+.i-plus{--i:url(https://api.iconify.design/ph/plus.svg)}
+
+.doc{max-width:1200px;margin:0 auto;padding:44px 22px 80px}
+.doc h1{font:800 30px/1.15 Sora,sans-serif;letter-spacing:-.02em}
+.doc .lead{color:hsl(var(--muted-foreground));max-width:820px;margin-top:10px}
+.layout{display:grid;grid-template-columns:270px 1fr;gap:22px;margin-top:28px}
+@media(max-width:820px){.layout{grid-template-columns:1fr}}
+.rail{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;padding:8px;height:max-content;position:sticky;top:20px}
+.rail .rh{font:700 11px Sora;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));padding:10px 12px 6px}
+.op{display:flex;align-items:center;gap:11px;width:100%;border:0;background:none;border-radius:10px;padding:11px 12px;text-align:left}
+.op .oi{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:hsl(var(--muted));color:hsl(240 6% 34%);flex:none}
+.op b{font:600 14px Inter}.op span{display:block;font-size:11.5px;color:hsl(var(--muted-foreground))}
+.op:hover{background:hsl(var(--muted)/.6)}
+.op.on{background:hsl(var(--primary-soft))}
+.op.on .oi{background:hsl(var(--primary));color:#fff}
+.op.on b{color:hsl(var(--primary))}
+
+.stage{position:relative;background:
+  radial-gradient(hsl(220 8% 85%) 1px,transparent 1.4px) 0 0/22px 22px,hsl(220 10% 91%);
+  border:1px solid hsl(var(--border));border-radius:16px;min-height:600px;display:flex;align-items:flex-start;justify-content:center;padding:34px 20px}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+
+/* dialog */
+.dialog{width:560px;max-width:100%;background:hsl(var(--card));border-radius:18px;box-shadow:0 24px 70px -20px hsl(230 30% 20%/.45);overflow:hidden;animation:pop .18s ease-out}
+.dialog.lg{width:620px}
+.dh{display:flex;align-items:flex-start;gap:12px;padding:20px 22px 12px}
+.dh h3{font:800 20px Sora;letter-spacing:-.01em;flex:1}
+.dh .x{width:34px;height:34px;border-radius:9px;border:0;background:hsl(var(--muted));color:hsl(240 6% 40%);display:grid;place-items:center;flex:none}
+.db{padding:6px 22px 8px}
+.df{display:flex;align-items:center;gap:10px;padding:16px 22px 20px;border-top:1px solid hsl(var(--border));margin-top:12px}
+.df .hint{font-size:12.5px;color:hsl(var(--muted-foreground));display:flex;align-items:center;gap:7px}
+.df .sp{flex:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 18px;border-radius:11px;border:1px solid transparent;font:600 14.5px Inter;white-space:nowrap}
+.btn-pri{background:hsl(var(--primary));color:#fff}
+.btn-pri:disabled{background:hsl(var(--muted));color:hsl(240 6% 55%);cursor:not-allowed}
+.btn-out{background:hsl(var(--card));border-color:hsl(240 6% 82%);color:hsl(var(--foreground))}
+.btn-sm{height:38px;padding:0 14px;font-size:13.5px}
+.step{font:700 11px Sora;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));margin:10px 0 10px;display:flex;align-items:center;gap:8px}
+.step .n{width:22px;height:22px;border-radius:999px;background:hsl(var(--primary));color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700}
+.step .n.off{background:hsl(var(--muted));color:hsl(240 6% 45%)}
+.badge{display:inline-flex;align-items:center;gap:5px;font:700 11.5px Inter;padding:3px 9px;border-radius:999px}
+.b-info{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+.b-warn{background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+.b-ok{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+
+/* choices */
+.choices{display:grid;grid-template-columns:1fr;gap:10px}
+.choice{border:1.6px solid hsl(var(--border));border-radius:14px;padding:14px;text-align:left;background:hsl(var(--card));display:flex;gap:12px;align-items:flex-start}
+.choice .ci{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;background:hsl(var(--muted));color:hsl(240 6% 34%);flex:none}
+.choice b{font:700 14.5px Sora;display:block}
+.choice small{font-size:12px;color:hsl(var(--muted-foreground))}
+.choice.on{border-color:hsl(var(--primary));background:hsl(var(--primary-soft))}
+.choice.on .ci{background:hsl(var(--primary));color:#fff}
+.urow{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid hsl(var(--border));border-radius:12px;background:hsl(var(--background))}
+.urow .utag{width:40px;height:40px;border-radius:11px;background:hsl(var(--warning-soft));color:hsl(var(--warning-ink));display:grid;place-items:center;flex:none}
+.urow .fire{font:800 16px Sora;line-height:1.2}
+.urow .br{font-size:12px;color:hsl(var(--muted-foreground));margin-top:2px}
+.badge{white-space:nowrap}
+.input{display:flex;align-items:center;gap:8px;height:44px;padding:0 14px;border:1.4px solid hsl(240 6% 82%);border-radius:11px;font:600 14px Sora;color:hsl(var(--foreground));background:hsl(var(--card))}
+.note{font-size:12.5px;line-height:1.55;color:hsl(240 6% 30%);margin-top:12px}
+.note .ic{color:hsl(var(--primary));vertical-align:-3px;margin-right:5px}
+.qrbox{display:flex;gap:16px;align-items:center;margin-top:4px}
+.qr{width:120px;height:120px;border-radius:12px;border:1px solid hsl(var(--border));background:#fff;display:grid;place-items:center;flex:none}
+
+/* before / after */
+.ba{display:flex;align-items:stretch;gap:10px;margin-top:14px}
+.ba .chip{flex:1;border:1px solid hsl(var(--border));border-radius:12px;padding:11px 14px;background:hsl(var(--background))}
+.ba .chip.after{border-color:hsl(var(--success));background:hsl(var(--success-soft))}
+.ba .chip .t{font:700 10px Sora;text-transform:uppercase;letter-spacing:.05em;color:hsl(var(--muted-foreground))}
+.ba .chip .v{font:800 16px Sora;margin-top:4px;display:flex;align-items:center;gap:7px}
+.ba .chip.after .v{color:hsl(var(--success-ink))}
+.ba .arrow{display:flex;align-items:center;color:hsl(var(--muted-foreground))}
+
+/* stepper */
+.press{display:flex;align-items:center;gap:10px;margin-top:14px;padding:12px 14px;border:1px solid hsl(var(--border));border-radius:12px;background:hsl(var(--background))}
+.press .lbl{font-size:13px;color:hsl(240 6% 30%)}.press .lbl b{color:hsl(var(--foreground))}
+.stepper{display:inline-flex;align-items:center;border:1px solid hsl(240 6% 82%);border-radius:10px;overflow:hidden;background:hsl(var(--card));margin-left:auto}
+.stepper button{width:40px;height:40px;border:0;background:none;font:700 18px Sora;color:hsl(240 6% 40%)}
+.stepper .v{width:56px;text-align:center;font:800 16px Sora;border-left:1px solid hsl(240 6% 88%);border-right:1px solid hsl(240 6% 88%);line-height:40px}
+
+/* censo panel */
+.panel{width:680px;max-width:100%;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:18px;box-shadow:0 24px 70px -20px hsl(230 30% 20%/.3);overflow:hidden;animation:pop .18s ease-out}
+.panel .ph{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid hsl(var(--border))}
+.panel .ph h3{font:800 18px Sora;flex:1}
+.carreta{position:relative;height:300px;margin:18px;border-radius:14px;border:1px solid hsl(var(--border));background:radial-gradient(hsl(220 8% 86%) 1px,transparent 1.4px) 0 0/20px 20px,hsl(220 12% 93%)}
+.bed{position:absolute;left:5%;right:22%;top:50%;transform:translateY(-50%);height:50px;border-radius:10px;background:linear-gradient(180deg,#d9dde3,#b7bdc6);border:1px solid #9aa0aa}
+.kingpin{position:absolute;left:3.5%;top:50%;transform:translate(-50%,-50%);width:16px;height:16px;border-radius:50%;background:#c4cad2;border:1px solid #9aa0aa;z-index:2}
+.wheelg{position:absolute;display:flex;gap:3px;z-index:1}
+.wheelg i{width:11px;height:26px;border-radius:4px;background:#1b1d21;display:block}
+.pz{position:absolute;border-radius:8px;font:700 10px Sora;display:flex;align-items:center;justify-content:center;cursor:pointer;background:hsl(var(--card));z-index:3;transition:transform .1s,box-shadow .12s}
+.pz:hover{transform:scale(1.06)}
+.pz.fueiro{width:46px;height:30px}
+.pz.barrote{width:20px;height:96px;top:50%;transform:translateY(-50%);writing-mode:vertical-rl;letter-spacing:.04em}
+.pz.barrote:hover{transform:translateY(-50%) scale(1.06)}
+.pz.unknown{border:1.7px dashed #9aa0aa;color:hsl(var(--muted-foreground))}
+.pz.unknown:hover{border-color:hsl(var(--primary));color:hsl(var(--primary))}
+.pz.prov{border:1.7px solid hsl(var(--warning));background:hsl(var(--warning-soft));color:hsl(var(--warning-ink));box-shadow:0 0 0 3px hsl(var(--warning-soft))}
+.pz.ided{border:1.7px solid hsl(var(--success));background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+.censobar{display:flex;gap:10px;padding:0 20px 16px}
+.cstat{flex:1;border:1px solid hsl(var(--border));border-radius:12px;padding:11px 14px;background:hsl(var(--background))}
+.cstat .n{font:800 24px Sora;line-height:1;font-variant-numeric:tabular-nums}
+.cstat .l{font-size:11.5px;color:hsl(var(--muted-foreground));margin-top:4px;display:flex;align-items:center;gap:5px}
+.cstat.warn .n{color:hsl(var(--warning-ink))}.cstat.ok .n{color:hsl(var(--success-ink))}
+.helper{text-align:center;font-size:12.5px;color:hsl(var(--muted-foreground));padding:0 20px 10px;display:flex;align-items:center;justify-content:center;gap:6px}
+.pf{display:flex;align-items:center;gap:10px;padding:14px 20px;border-top:1px solid hsl(var(--border))}
+.pf .hint{font-size:12px;color:hsl(var(--muted-foreground));display:flex;align-items:center;gap:6px}
+.pf .sp{flex:1}
+
+/* flow doors + lifecycle */
+.flow{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:28px 0 0;max-width:940px}
+@media(max-width:700px){.flow{grid-template-columns:1fr}}
+.door{border:1px solid hsl(var(--border));border-radius:14px;padding:16px 18px;background:hsl(var(--card))}
+.door h4{font:800 15px Sora;display:flex;align-items:center;gap:8px}
+.door p{font-size:13px;color:hsl(240 5% 32%);margin-top:7px}
+.life{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:18px 0 0;font:700 12.5px Sora;max-width:940px}
+.life .st{padding:6px 12px;border-radius:999px;border:1px solid hsl(var(--border));background:hsl(var(--card));display:inline-flex;align-items:center;gap:6px}
+.life .st.prov{border-color:hsl(var(--warning));color:hsl(var(--warning-ink));background:hsl(var(--warning-soft))}
+.life .st.ided{border-color:hsl(var(--success));color:hsl(var(--success-ink));background:hsl(var(--success-soft))}
+.life .sep{color:hsl(var(--muted-foreground))}
+
+.rules{margin:26px 0 0;background:hsl(var(--card));border:1px solid hsl(var(--border));border-left:3px solid hsl(var(--primary));border-radius:12px;padding:16px 20px;max-width:940px}
+.rules h4{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:hsl(var(--primary));margin-bottom:8px}
+.rules ul{margin:0;padding-left:18px;color:hsl(240 5% 30%);font-size:13.5px}.rules li{margin:5px 0}.rules b{color:hsl(var(--foreground))}
+</style>
+</head>
+<body>
+<div class="doc">
+  <h1>Censo da frota — reconhecer e identificar peças</h1>
+  <p class="lead">Ninguém <b>cria</b> um fueiro, barrote ou eixo num formulário. Peça nova nasce na <b>entrada de NF</b>; o que já roda no campo entra por um <b>censo</b>: você reconhece o que existe fisicamente (ainda sem identidade), e cada peça ganha a <b>identidade durável</b> no momento natural — quando passa pela oficina. No intervalo, a âncora é a <b>posição na carreta</b>, nunca um papel que a lama destrói. Escolha um fluxo à esquerda.</p>
+
+  <div class="layout">
+    <nav class="rail" id="rail">
+      <div class="rh">Fluxos de adoção</div>
+      <button class="op on" data-op="censo"><span class="oi"><i class="ic s20 i-truck"></i></span><div><b>Censo da carreta</b><span>marcar o que existe no desenho</span></div></button>
+      <button class="op" data-op="identificar"><span class="oi"><i class="ic s20 i-tag"></i></span><div><b>Identificar peça</b><span>método durável · provisório → fixo</span></div></button>
+      <button class="op" data-op="lote"><span class="oi"><i class="ic s20 i-box"></i></span><div><b>Censo em lote</b><span>pilha de sobressalentes no estoque</span></div></button>
+    </nav>
+    <div class="stage" id="stage"></div>
+  </div>
+
+  <div class="flow">
+    <div class="door">
+      <h4><i class="ic s16 i-nf" style="color:hsl(var(--primary))"></i>Porta 1 · Peça nova</h4>
+      <p>Comprou um fueiro/eixo? Entra pela <b>entrada de NF</b>, já com identidade e custo congelado. Nenhum diálogo de "criar peça" solto.</p>
+      <span class="badge b-ok" style="margin-top:10px"><i class="ic s14 i-check"></i>Nasce identificada</span>
+    </div>
+    <div class="door">
+      <h4><i class="ic s16 i-truck" style="color:hsl(var(--primary))"></i>Porta 2 · Já está rodando</h4>
+      <p>Centenas de peças no campo sem identidade. O <b>censo</b> reconhece o que existe (unidade provisória, ancorada na posição) sem parar a operação.</p>
+      <span class="badge b-warn" style="margin-top:10px"><i class="ic s14 i-tag"></i>Identifica ao passar na oficina</span>
+    </div>
+  </div>
+
+  <div class="life">
+    <span class="st"><i class="ic s14 i-hand"></i>Reconhecida no censo</span>
+    <i class="ic s16 i-right sep"></i>
+    <span class="st prov"><i class="ic s14 i-tag"></i>Provisória · a identificar</span>
+    <i class="ic s16 i-right sep"></i>
+    <span class="st ided"><i class="ic s14 i-check-c"></i>Identificada (nº durável)</span>
+    <span class="sep" style="margin-left:8px;font-weight:500;color:hsl(var(--muted-foreground))">— mesma peça, mesmo histórico o tempo todo</span>
+  </div>
+
+  <div class="rules">
+    <h4>Regras do censo</h4>
+    <ul>
+      <li><b>Reconhecer, não cadastrar:</b> a unidade provisória é um ativo de verdade desde o dia 1 (posição, km de entrada, estado) — só a identidade durável fica pendente.</li>
+      <li><b>A âncora é a posição</b> enquanto não há identidade; na carreta florestal a peça fica parada até ir pra oficina, e é lá que ela se identifica.</li>
+      <li><b>Identificação durável, nunca papel:</b> placa metálica rebitada, gravação/puncionado, RFID — adesivo não sobrevive à lama e ao atrito.</li>
+      <li><b>Trava que faz a frota se identificar sozinha:</b> peça provisória não faz operação que exige identidade (enviar pra terceiro, garantia, transferir) até receber o nº durável.</li>
+      <li>Mesmo mecanismo para <b>fueiro, barrote, eixo e pneu</b> — todos dividem a base serializada.</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+const stage = document.getElementById('stage');
+
+/* carreta florestal: fueiros (postes nas laterais) + barrotes (travessas) + eixos */
+let parts = [
+  {id:'f1', t:'fueiro', x:9,  y:'top', st:'ided', code:'FZ-01'},
+  {id:'f2', t:'fueiro', x:24, y:'top', st:'unknown'},
+  {id:'f3', t:'fueiro', x:39, y:'top', st:'unknown'},
+  {id:'f4', t:'fueiro', x:54, y:'top', st:'ided', code:'FZ-04'},
+  {id:'f5', t:'fueiro', x:9,  y:'bot', st:'prov', code:'TMP-0006'},
+  {id:'f6', t:'fueiro', x:24, y:'bot', st:'unknown'},
+  {id:'f7', t:'fueiro', x:39, y:'bot', st:'unknown'},
+  {id:'f8', t:'fueiro', x:54, y:'bot', st:'unknown'},
+  {id:'b1', t:'barrote', x:16, st:'ided', code:'BR-01'},
+  {id:'b2', t:'barrote', x:33, st:'unknown'},
+  {id:'b3', t:'barrote', x:50, st:'unknown'},
+];
+let tmpSeq = 6;
+
+function setOp(op){ document.querySelectorAll('.op').forEach(o=>o.classList.toggle('on',o.dataset.op===op)); }
+function dialog({title, body, footer, lg}){
+  return '<div class="dialog'+(lg?' lg':'')+'">'
+    +'<div class="dh"><h3>'+title+'</h3><button class="x" aria-label="Fechar"><i class="ic s20 i-x"></i></button></div>'
+    +'<div class="db">'+body+'</div>'
+    +'<div class="df">'+footer+'</div></div>';
+}
+function foot(primary, hint){
+  return (hint?'<span class="hint">'+hint+'</span>':'')+'<span class="sp"></span><button class="btn btn-out">Cancelar</button>'+primary;
+}
+function wireClose(){ const x=stage.querySelector('.x'); if(x)x.onclick=()=>{ setOp('censo'); censo(); }; }
+const FAMILY={fueiro:'Fueiro',barrote:'Barrote',eixo:'Eixo',pneu:'Pneu'};
+
+/* ---------- 1. CENSO DA CARRETA ---------- */
+function censo(){
+  function render(){
+    const ided=parts.filter(p=>p.st==='ided').length;
+    const prov=parts.filter(p=>p.st==='prov').length;
+    const unk=parts.filter(p=>p.st==='unknown').length;
+    const el=(p)=>{
+      const label = p.st==='ided'?p.code : p.st==='prov'?'sem id' : '?';
+      const pos = p.t==='fueiro' ? 'left:'+p.x+'%;'+(p.y==='top'?'top:12px':'bottom:12px') : 'left:'+p.x+'%';
+      return '<button class="pz '+p.t+' '+p.st+'" data-id="'+p.id+'" style="'+pos+'">'+label+'</button>';
+    };
+    const wheels=[70,82].map(x=>
+      '<span class="wheelg" style="left:'+x+'%;top:calc(50% - 40px)"><i></i><i></i></span>'+
+      '<span class="wheelg" style="left:'+x+'%;top:calc(50% + 14px)"><i></i><i></i></span>').join('');
+    stage.innerHTML=
+      '<div class="panel">'
+      +'<div class="ph"><i class="ic s24 i-truck" style="color:hsl(var(--primary))"></i><h3>Censo · Carreta florestal CRT-5567</h3><span class="badge b-info">semirreboque · 3 eixos</span></div>'
+      +'<div class="carreta"><div class="kingpin"></div><div class="bed"></div>'+wheels+parts.map(el).join('')+'</div>'
+      +'<div class="censobar">'
+        +'<div class="cstat ok"><div class="n">'+ided+'</div><div class="l"><i class="ic s14 i-check-c"></i>Identificadas</div></div>'
+        +'<div class="cstat warn"><div class="n">'+prov+'</div><div class="l"><i class="ic s14 i-tag"></i>A identificar</div></div>'
+        +'<div class="cstat"><div class="n">'+unk+'</div><div class="l"><i class="ic s14 i-hand"></i>A reconhecer</div></div>'
+      +'</div>'
+      +'<div class="helper"><i class="ic s14 i-hand"></i>Toque numa peça <b>&nbsp;tracejada&nbsp;</b> pra marcar que existe · numa <b>&nbsp;âmbar&nbsp;</b> pra identificar agora</div>'
+      +'<div class="pf"><span class="hint"><i class="ic s16 i-info"></i>Peça sem identidade não sai da posição até ser identificada.</span><span class="sp"></span>'
+        +'<button class="btn btn-out btn-sm" id="lotebtn"><i class="ic s16 i-box"></i>Censo em lote</button>'
+        +'<button class="btn btn-pri" id="nextid" '+(prov?'':'disabled')+'><i class="ic s16 i-tag"></i>Identificar próxima ('+prov+')</button>'
+      +'</div></div>';
+    stage.querySelectorAll('.pz').forEach(b=>b.onclick=()=>{
+      const p=parts.find(x=>x.id===b.dataset.id);
+      if(p.st==='unknown'){ p.st='prov'; p.code='TMP-00'+(++tmpSeq); render(); }
+      else { setOp('identificar'); identificar(p); }
+    });
+    const nx=stage.querySelector('#nextid'); if(nx)nx.onclick=()=>{ const p=parts.find(x=>x.st==='prov'); if(p){ setOp('identificar'); identificar(p); } };
+    const lb=stage.querySelector('#lotebtn'); if(lb)lb.onclick=()=>{ setOp('lote'); lote(); };
+  }
+  render();
+}
+
+/* ---------- 2. IDENTIFICAR PEÇA (identificação durável) ---------- */
+function identificar(part){
+  const p = part || {t:'fueiro', code:'TMP-0006', st:'prov'};
+  const fam = FAMILY[p.t] || 'Peça';
+  const M=[
+    {k:'placa',ic:'i-plate',b:'Placa metálica rebitada',s:'chapa de aço rebitada na peça',tag:'Permanente · resiste a lama, sol e atrito',rec:1},
+    {k:'grav', ic:'i-fire-brand',b:'Gravação / puncionado',s:'puncionado no aço · queimado na madeira',tag:'Permanente · não descola nem apaga'},
+    {k:'rfid', ic:'i-rfid',b:'RFID embutido',s:'tag na peça · lê por aproximação',tag:'Permanente · sem linha de visão, sem câmera'},
+  ];
+  const READ={
+    placa:'No dia a dia, lê a placa/QR gravado quando a superfície está limpa.',
+    grav:'No dia a dia, lê o número gravado — não por foto de etiqueta.',
+    rfid:'No dia a dia, lê por aproximação do leitor RFID — serve na lama.',
+  };
+  const target = p.t==='barrote' ? 'BR-12' : p.t==='eixo' ? 'EX-12' : 'FZ-12';
+  let sel='placa';
+  function qrSvg(){let r='';for(let y=0;y<9;y++)for(let x=0;x<9;x++){if((x*7+y*3+(x^y))%3===0||(x<3&&y<3)||(x>5&&y<3)||(x<3&&y>5))r+='<rect x="'+(x*11)+'" y="'+(y*11)+'" width="10" height="10" fill="#111"/>';}return '<svg width="88" height="88" viewBox="0 0 99 99">'+r+'</svg>';}
+  function preview(){
+    if(sel==='rfid')return '<div class="qr" style="flex-direction:column;gap:4px"><i class="ic s40 i-rfid" style="color:hsl(var(--primary))"></i><span style="font:700 10px Sora;color:hsl(var(--muted-foreground))">tag RFID</span></div>';
+    if(sel==='grav')return '<div class="qr" style="background:#2a2d33;border-color:#14161a;flex-direction:column;gap:3px"><i class="ic s28 i-fire-brand" style="color:hsl(var(--warning))"></i><span style="font:800 13px Sora;color:#e8dcc8;letter-spacing:.02em">'+target+'</span><span style="font:600 8.5px Sora;color:#8a8f98;text-transform:uppercase;letter-spacing:.08em">gravado</span></div>';
+    return '<div class="qr" style="flex-direction:column;gap:4px;background:#eef1f5">'+qrSvg()+'<span style="font:700 9px Sora;color:hsl(var(--muted-foreground));letter-spacing:.06em">placa · '+target+'</span></div>';
+  }
+  function render(){
+    const body=
+      '<div class="urow"><span class="utag"><i class="ic s20 i-tag"></i></span><div style="flex:1;min-width:0"><div class="fire" style="color:hsl(var(--warning-ink))">'+fam+' '+p.code+'</div><div class="br">provisório · existe fisicamente · carreta CRT-5567</div></div><span class="badge b-warn"><i class="ic s14 i-warn"></i>sem identidade</span></div>'
+      +'<div class="step" style="margin-top:14px"><span class="n">1</span>Como identificar (permanente)</div>'
+      +'<div class="choices">'+M.map(o=>'<button class="choice'+(sel===o.k?' on':'')+'" data-m="'+o.k+'"><span class="ci"><i class="ic s20 '+o.ic+'"></i></span><div><b>'+o.b+(o.rec?' <span class="badge b-info" style="font-size:9px;padding:1px 6px;vertical-align:middle">recomendado</span>':'')+'</b><small>'+o.s+'</small><small style="display:block;color:hsl(var(--success-ink));margin-top:5px"><i class="ic s14 i-check"></i> '+o.tag+'</small></div></button>').join('')+'</div>'
+      +'<div class="step" style="margin-top:16px"><span class="n">2</span>Identidade durável</div>'
+      +'<div class="qrbox">'+preview()
+        +'<div style="flex:1"><div style="font-size:12px;color:hsl(var(--muted-foreground))">Número da peça</div>'
+        +'<div class="input" style="margin-top:6px">'+target+'</div>'
+        +'<div class="ba"><div class="chip"><div class="t">Antes</div><div class="v" style="color:hsl(var(--muted-foreground))"><i class="ic s16 i-tag"></i>'+p.code+'</div></div><div class="arrow"><i class="ic s20 i-right"></i></div><div class="chip after"><div class="t">Depois</div><div class="v"><i class="ic s16 i-check-c"></i>'+target+'</div></div></div>'
+        +'<div class="note" style="margin-top:12px"><i class="ic s16 i-info"></i> '+READ[sel]+' <b>Mesma peça, mesmo histórico</b> — a identificação só preenche o nº durável; nada é recriado.</div></div>'
+      +'</div>';
+    const footer=foot('<button class="btn btn-pri" id="doid"><i class="ic s16 i-check"></i>Identificar '+fam.toLowerCase()+'</button>','');
+    stage.innerHTML=dialog({title:'Identificar '+fam.toLowerCase(), body, footer, lg:true});
+    stage.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{sel=b.dataset.m;render();});
+    const go=stage.querySelector('#doid'); if(go)go.onclick=()=>{ if(part){ part.st='ided'; part.code=target; } setOp('censo'); censo(); };
+    wireClose();
+  }
+  render();
+}
+
+/* ---------- 3. CENSO EM LOTE (estoque) ---------- */
+function lote(){
+  let qty=24, mat='madeira';
+  const MAT=[{k:'madeira',ic:'i-box',b:'Madeira',s:'eucalipto · troca por inspeção'},{k:'aco',ic:'i-buildings',b:'Aço',s:'estrutural · maior durabilidade'}];
+  function render(){
+    const body=
+      '<div class="note" style="margin-top:0"><i class="ic s16 i-info"></i> Uma <b>pilha de sobressalentes</b> no depósito, sem identidade. O censo em lote cria as unidades provisórias de uma vez; cada uma se identifica <b>ao ser instalada</b>.</div>'
+      +'<div class="step" style="margin-top:16px"><span class="n">1</span>Quantas peças existem na pilha</div>'
+      +'<div class="press"><span class="lbl">Fueiros <b>sem identidade</b> · Depósito Mucuri</span><span class="stepper"><button data-q="-1">−</button><span class="v">'+qty+'</span><button data-q="1">+</button></span></div>'
+      +'<div class="step" style="margin-top:16px"><span class="n">2</span>Material</div>'
+      +'<div class="choices" style="grid-template-columns:1fr 1fr">'+MAT.map(o=>'<button class="choice'+(mat===o.k?' on':'')+'" data-mat="'+o.k+'"><span class="ci"><i class="ic s20 '+o.ic+'"></i></span><div><b>'+o.b+'</b><small>'+o.s+'</small></div></button>').join('')+'</div>'
+      +'<div class="note"><i class="ic s16 i-tag"></i> Cria <b>'+qty+' unidades provisórias</b> ('+mat+') no estoque. Cada uma recebe o nº durável no momento de montar.</div>';
+    const footer=foot('<button class="btn btn-pri"><i class="ic s16 i-plus"></i>Criar '+qty+' provisórias</button>','<i class="ic s16 i-info"></i>Sem custo até a 1ª NF vincular');
+    stage.innerHTML=dialog({title:'Censo em lote', body, footer, lg:true});
+    stage.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>{qty=Math.max(1,qty+Number(b.dataset.q));render();});
+    stage.querySelectorAll('[data-mat]').forEach(b=>b.onclick=()=>{mat=b.dataset.mat;render();});
+    wireClose();
+  }
+  render();
+}
+
+const OPS={censo,identificar:()=>identificar(null),lote};
+document.getElementById('rail').addEventListener('click',e=>{
+  const b=e.target.closest('.op'); if(!b)return;
+  setOp(b.dataset.op);
+  OPS[b.dataset.op]();
+});
+censo();
+</script>
+</body>
+</html>
