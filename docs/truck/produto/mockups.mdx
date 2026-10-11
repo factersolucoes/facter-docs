@@ -216,6 +216,12 @@ Aprovado em 27/09/2026. O checking do veículo na oficina: o movimento do dia e 
 
 <img src="/mockups/truck/portaria/desktop.png" alt="Mockup da portaria" style={{maxHeight: 360, width: '100%', objectFit: 'cover', objectPosition: 'top', borderRadius: 8, border: '1px solid var(--ifm-color-emphasis-300)'}} />
 
+### Socorro mecânico — abrir chamado
+
+Aprovado em 11/10/2026. Não é a triagem da oficina — é **despacho de incidente na estrada**, por isso um **console** (não um wizard): **mapa na frente** (veículo pinado, rota e distância/ETA até a base), **SLA** ("parado há") correndo, **segurança primeiro** (via interditada, ferido, acidente, fogo/vazamento → banner "Acione 190/192"), **veículo & carga** (conjunto, carga, transbordo), **situação** (imobilizado / anda) e **despacho** (guincho pesado, prancha, mecânico, peça — com prestador, ETA, custo estimado e autorização), mais contato do motorista. Três origens: motorista pelo app, torre/telemetria e acidente grave. Ao abrir, grava a **parada** (local + hora, WO-10); quando o veículo chega, a **emergência da OS nasce deste chamado, já preenchida** (fonte "Guincho" do [Abrir OS](/telas/truck/abrir-os)). Fatia futura (módulo de socorro), desenhada antes do código.
+
+[Ver o mockup](/telas/truck/socorro-mecanico)
+
 ## Componente de datas
 
 Aprovado em 28/09/2026, e implementado no DS (`DateRangePicker`, intervalo com presets), já em uso no filtro de período das Movimentações. O componente de datas do DS em cenários, opções e níveis: data única, intervalo, data e hora, atalhos ("hoje", "últimos 7 dias"), estados de erro e vazio, e o comportamento no celular. Base para os filtros de período dos relatórios e para os campos de data das OS e movimentações.
