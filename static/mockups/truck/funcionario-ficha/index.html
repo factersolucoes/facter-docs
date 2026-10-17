@@ -413,6 +413,7 @@ mark{background:hsl(50 100% 80%);border-radius:2px;padding:0 1px;color:inherit}
 .mv .mwho .avatar{width:18px;height:18px;font-size:8px;border-radius:6px}
 .mv-card{background:linear-gradient(180deg,hsl(233 46% 99.2%),hsl(0 0% 100%) 60%);border:1px solid hsl(var(--border));border-radius:16px;padding:4px 18px;box-shadow:0 1px 2px hsl(230 20% 20%/.04),0 18px 40px -26px hsl(230 32% 26%/.26)}
 .mv-card .mv li{border-top-color:hsl(240 6% 93%)}
+.sk{background:hsl(240 6% 91%);border-radius:7px;display:block}
 
 .soon{display:flex;align-items:center;gap:13px;padding:18px;color:hsl(var(--muted-foreground));font-size:14px;margin-top:30px;background:hsl(var(--card));border:1px dashed hsl(var(--border-strong));border-radius:14px}
 .soon .si{width:40px;height:40px;border-radius:12px;background:hsl(var(--muted));display:grid;place-items:center;color:hsl(240 5% 44%);flex:none}
@@ -434,7 +435,7 @@ mark{background:hsl(50 100% 80%);border-radius:2px;padding:0 1px;color:inherit}
   </header>
 
   <nav class="toc">
-    <a href="#s1">1 · A ficha</a><a href="#s2">2 · Celular</a><a href="#s3">3 · Perguntas</a>
+    <a href="#s1">1 · A ficha</a><a href="#s2">2 · Estados e ações</a><a href="#s3">3 · Celular</a><a href="#s4">4 · Perguntas</a>
   </nav>
 
   <!-- =============== 1. A FICHA =============== -->
@@ -489,9 +490,68 @@ mark{background:hsl(50 100% 80%);border-radius:2px;padding:0 1px;color:inherit}
     </div>
   </section>
 
-  <!-- =============== 2. CELULAR =============== -->
+  <!-- =============== 2. ESTADOS E AÇÕES =============== -->
   <section class="sec" id="s2">
-    <div class="sec-label"><span class="sec-num">2</span><h2>Celular</h2></div>
+    <div class="sec-label"><span class="sec-num">2</span><h2>Estados e ações</h2></div>
+    <p class="sec-sub">Não só o caminho feliz: o que o ⋮ abre, o carregando, a movimentação vazia, o custo sem permissão, o inativo e o não encontrado.</p>
+    <div class="states">
+
+      <div class="st-card">
+        <div class="st-cap">O ⋮ da ficha</div>
+        <div class="menu" style="position:static;min-width:auto;box-shadow:0 10px 28px -18px hsl(230 30% 20%/.3)">
+          <a href="#"><i class="ic s16" style="--i:url(https://api.iconify.design/ph/hash.svg)"></i>Corrigir matrícula</a>
+          <hr>
+          <a href="#" class="danger"><i class="ic s16" style="--i:url(https://api.iconify.design/ph/prohibit.svg)"></i>Desativar</a>
+        </div>
+        <p class="st-note">O essencial está nos campos (Mudar cargo/base/turno, Corrigir nome). O ⋮ guarda o resto: <b>corrigir matrícula</b> e <b>desativar</b> — vira Reativar quando já está inativo.</p>
+      </div>
+
+      <div class="st-card">
+        <div class="st-cap">Carregando</div>
+        <div style="display:flex;gap:13px;align-items:center"><span class="sk" style="width:52px;height:52px;border-radius:15px"></span><span style="flex:1"><span class="sk" style="width:62%;height:17px;margin-bottom:9px"></span><span class="sk" style="width:44%;height:12px"></span></span></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:14px"><span class="sk" style="height:56px"></span><span class="sk" style="height:56px"></span></div>
+        <p class="st-note">Skeleton no formato da ficha — hero e faixa de dados — até os dados chegarem.</p>
+      </div>
+
+      <div class="st-card">
+        <div class="st-cap">Sem movimentação</div>
+        <div class="mv-card" style="box-shadow:none;background:hsl(var(--card))">
+          <div class="empty" style="border:0;background:none;padding:20px 8px">
+            <div class="ei"><i class="ic s20" style="--i:url(https://api.iconify.design/ph/clock-counter-clockwise.svg)"></i></div>
+            <h4>Nada mudou ainda</h4>
+            <p>Aparece aqui quando você mexer no cargo, base, turno, nome ou situação.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="st-card">
+        <div class="st-cap">Custo sem permissão</div>
+        <div class="fcell" style="max-width:230px"><div class="fl2">Valor/hora</div><div class="fv2" style="color:hsl(var(--muted-foreground))"><i class="ic s16" style="--i:url(https://api.iconify.design/ph/lock-key.svg)"></i>Sem acesso</div></div>
+        <p class="st-note">Sem <code>labor_rate.view</code>, o valor nem sai da API — a célula fica trancada e o resto da ficha continua.</p>
+      </div>
+
+      <div class="st-card">
+        <div class="st-cap">Inativo</div>
+        <div class="fhero" style="gap:13px"><span class="fav" style="opacity:.7;filter:grayscale(.4)">RS</span><div class="fhead"><h1 style="font-size:20px">Rafael Souza <span class="st st-off">Inativo</span></h1><div class="fsub" style="font-size:13px">Mecânico · Oficina · desativado em 02/10/2026</div></div></div>
+        <p class="st-note">Fora das listas de ativos e das novas designações; o ⋮ passa a mostrar <b>Reativar</b>. O histórico fica guardado.</p>
+      </div>
+
+      <div class="st-card">
+        <div class="st-cap">Não encontrado</div>
+        <div class="empty" style="align-items:center;text-align:center">
+          <div class="ei"><i class="ic s20" style="--i:url(https://api.iconify.design/ph/user-focus.svg)"></i></div>
+          <h4>Funcionário não encontrado</h4>
+          <p>Pode ter sido removido, ou o link está errado.</p>
+          <a href="#" class="btn btn-outline btn-sm" style="margin-top:10px"><i class="ic s16" style="--i:url(https://api.iconify.design/ph/arrow-left.svg)"></i>Voltar à lista</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =============== 3. CELULAR =============== -->
+  <section class="sec" id="s3">
+    <div class="sec-label"><span class="sec-num">3</span><h2>Celular</h2></div>
     <p class="sec-sub">A ficha empilhada: pessoa, os dados em dois por linha e a movimentação. As ações abrem em folha de baixo.</p>
     <div class="phones">
       <div class="phone"><div class="screen">
@@ -510,9 +570,9 @@ mark{background:hsl(50 100% 80%);border-radius:2px;padding:0 1px;color:inherit}
     </div>
   </section>
 
-  <!-- =============== 3. PERGUNTAS =============== -->
-  <section class="sec" id="s3">
-    <div class="sec-label"><span class="sec-num">3</span><h2>Perguntas em aberto</h2></div>
+  <!-- =============== 4. PERGUNTAS =============== -->
+  <section class="sec" id="s4">
+    <div class="sec-label"><span class="sec-num">4</span><h2>Perguntas em aberto</h2></div>
     <div class="qs">
       <div class="q"><span class="qi"><i class="ic s16" style="--i:url(https://api.iconify.design/ph/user.svg)"></i></span><div><h3>Mostrar quem fez?</h3><p>Hoje gravamos o id de quem mudou. Pra exibir "por Marina Duarte" com avatar, precisa do nome.</p><p class="prop"><b>Proposta:</b> resolver o nome do ator na leitura do histórico (join em membros). Barato e completa a timeline.</p></div></div>
       <div class="q"><span class="qi"><i class="ic s16" style="--i:url(https://api.iconify.design/ph/link.svg)"></i></span><div><h3>Ficha × Membros?</h3><p>Se a pessoa também acessa o sistema (login), a ficha e o perfil de membro são a mesma pessoa.</p><p class="prop"><b>Proposta:</b> quando a matrícula casar com um login, um elo discreto "também é membro"; sem fundir os cadastros.</p></div></div>
