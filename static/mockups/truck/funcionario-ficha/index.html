@@ -361,34 +361,61 @@ mark{background:hsl(50 100% 80%);border-radius:2px;padding:0 1px;color:inherit}
 }
 
 /* ---------- ficha do funcionário ---------- */
-.fpage{background:hsl(var(--background));padding:26px 30px 34px}
-.fbread{display:flex;align-items:center;gap:7px;font-size:13px;color:hsl(var(--muted-foreground));margin-bottom:20px}
+.fpage{background:hsl(var(--background));padding:26px 32px 36px}
+.fbread{display:flex;align-items:center;gap:7px;font-size:13px;color:hsl(var(--muted-foreground));margin-bottom:22px}
 .fbread a{color:hsl(var(--muted-foreground));text-decoration:none}
 .fbread a:hover{color:hsl(var(--primary))}
 .fbread .sep{color:hsl(240 5% 72%)}
 .fbread b{color:hsl(var(--foreground))}
-.fhero{display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap}
-.fav{width:60px;height:60px;border-radius:17px;background:hsl(233 45% 90%);color:hsl(233 60% 32%);display:grid;place-items:center;font:800 21px Sora;flex:none}
-.fhead h1{font:800 23px/1.15 Sora;letter-spacing:-.02em;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.fhead .fsub{color:hsl(var(--muted-foreground));margin-top:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13.5px}
+
+/* hero */
+.fhero{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.fav{width:66px;height:66px;border-radius:20px;background:linear-gradient(145deg,hsl(233 50% 92%),hsl(233 45% 86%));color:hsl(233 60% 32%);display:grid;place-items:center;font:800 23px Sora;flex:none;box-shadow:inset 0 0 0 1px hsl(233 40% 82%)}
+.fhead{min-width:0}
+.fhead h1{font:800 25px/1.1 Sora;letter-spacing:-.02em;display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+.status-dot{display:inline-flex;align-items:center;gap:6px;font:600 12.5px Inter;color:hsl(var(--success-text));background:hsl(var(--success-soft));padding:3px 10px;border-radius:999px}
+.status-dot i{width:7px;height:7px;border-radius:99px;background:hsl(var(--success))}
+.fhead .fsub{color:hsl(var(--muted-foreground));margin-top:7px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:14px}
 .facts2{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
-.fgrid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:20px;margin-top:24px}
-.card2{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden}
-.c2hd{display:flex;align-items:center;gap:8px;padding:13px 18px;border-bottom:1px solid hsl(var(--border));font:700 12px Sora;text-transform:uppercase;letter-spacing:.05em;color:hsl(240 5% 36%)}
-.c2hd .r{margin-left:auto;text-transform:none;letter-spacing:0;font-weight:500;font-size:12.5px;color:hsl(var(--muted-foreground))}
-.drow{display:flex;align-items:center;gap:12px;padding:12px 18px;border-top:1px solid hsl(var(--border))}
-.drow:first-of-type{border-top:0}
-.drow .dk{font-size:13px;color:hsl(var(--muted-foreground));width:96px;flex:none}
-.drow .dv{font-weight:600;flex:1;min-width:0;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.drow .da{color:hsl(var(--primary-ink));font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;gap:5px}
-.drow .da:hover{text-decoration:underline}
-.lockv{display:inline-flex;align-items:center;gap:5px;color:hsl(var(--muted-foreground));font-size:12.5px;font-weight:500}
-.soon{display:flex;align-items:center;gap:12px;padding:18px;color:hsl(var(--muted-foreground));font-size:13.5px;margin-top:20px;background:hsl(var(--card));border:1px dashed hsl(var(--border-strong));border-radius:14px}
-.soon .si{width:38px;height:38px;border-radius:11px;background:hsl(var(--muted));display:grid;place-items:center;color:hsl(240 5% 42%);flex:none}
-.soon b{color:hsl(240 6% 28%)}
-.tfield{display:inline-flex;align-items:center;gap:6px;font:700 11px Sora;text-transform:uppercase;letter-spacing:.04em;color:hsl(var(--muted-foreground))}
-.tlp .t .ar{color:hsl(240 5% 58%)}
-@media (max-width:860px){ .fgrid{grid-template-columns:1fr} }
+
+/* placement summary strip (no uppercase card title) */
+.fstat{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:26px}
+.fcell{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;padding:14px 16px 12px;position:relative;min-width:0}
+.fcell .fl2{font-size:12.5px;color:hsl(var(--muted-foreground));margin-bottom:8px}
+.fcell .fv2{font:700 16px Sora;letter-spacing:-.01em;display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0}
+.fcell .fv2 .sm{font:500 12.5px Inter;color:hsl(var(--muted-foreground))}
+.fcell .fmudar{margin-top:10px;display:inline-flex;align-items:center;gap:5px;color:hsl(var(--primary-ink));font-size:12.5px;font-weight:600;text-decoration:none}
+.fcell .fmudar:hover{text-decoration:underline}
+.fcell.locked .lk{display:inline-flex;align-items:center;gap:5px;margin-top:10px;color:hsl(var(--muted-foreground));font-size:12px}
+
+/* section heading (clean, sentence case) */
+.fsec{margin-top:30px}
+.fsec-hd{display:flex;align-items:center;gap:9px;margin-bottom:4px}
+.fsec-hd h3{font:700 17px Sora;letter-spacing:-.01em}
+.fsec-hd .hi{color:hsl(240 5% 52%)}
+.fsec-hd .r{margin-left:auto;font-size:13px;color:hsl(var(--muted-foreground))}
+.fsec-sub{font-size:13px;color:hsl(var(--muted-foreground));margin-bottom:14px}
+
+/* movement timeline */
+.mv{list-style:none;margin:0;padding:0}
+.mv li{display:flex;gap:14px;padding:14px 2px;border-top:1px solid hsl(var(--border))}
+.mv li:first-child{border-top:0}
+.mv .mic{width:36px;height:36px;border-radius:11px;background:hsl(var(--muted));color:hsl(240 5% 44%);display:grid;place-items:center;flex:none}
+.mv li.recent .mic{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+.mv .mmain{flex:1;min-width:0}
+.mv .mtag{display:inline-flex;align-items:center;gap:5px;height:20px;padding:0 8px;border-radius:999px;background:hsl(var(--muted));color:hsl(240 6% 36%);font:600 11px Inter;margin-right:8px;vertical-align:1px}
+.mv .mline{font-size:14.5px;line-height:1.5}
+.mv .mline .ar{color:hsl(240 5% 60%);margin:0 2px}
+.mv .mline b{font-weight:650}
+.mv .mline .was{color:hsl(240 5% 50%)}
+.mv .mmeta{display:flex;align-items:center;gap:7px;margin-top:5px;font-size:12.5px;color:hsl(var(--muted-foreground))}
+.mv .mwho{display:inline-flex;align-items:center;gap:5px}
+.mv .mwho .avatar{width:18px;height:18px;font-size:8px;border-radius:6px}
+
+.soon{display:flex;align-items:center;gap:13px;padding:18px;color:hsl(var(--muted-foreground));font-size:14px;margin-top:30px;background:hsl(var(--card));border:1px dashed hsl(var(--border-strong));border-radius:14px}
+.soon .si{width:40px;height:40px;border-radius:12px;background:hsl(var(--muted));display:grid;place-items:center;color:hsl(240 5% 44%);flex:none}
+.soon b{color:hsl(240 6% 26%)}
+@media (max-width:860px){ .fstat{grid-template-columns:1fr 1fr} }
 </style>
 </head>
 <body>
@@ -400,105 +427,78 @@ mark{background:hsl(50 100% 80%);border-radius:2px;padding:0 1px;color:inherit}
   <header class="doc-head">
     <div>
       <h1>Ficha do funcionário</h1>
-      <p>A página da pessoa — onde o ⋮ leva. Reúne os dados (cargo, valor, base, turno, matrícula), as <b>ações nomeadas</b> por campo (sem "editar" solto) e a <b>movimentação</b>: a linha do tempo do que mudou, de onde pra onde, quando e por quem — lendo o histórico que a gente grava a cada mudança.</p>
+      <p>A página da pessoa — onde o ⋮ leva. Hero com a situação, os dados como uma faixa de resumo (cada um com a sua ação nomeada, sem "editar" solto), e a <b>movimentação</b>: a linha do tempo do que mudou, de onde pra onde, quando e por quem — lendo o histórico que a gente grava a cada mudança.</p>
     </div>
   </header>
 
   <nav class="toc">
-    <a href="#s1">1 · A ficha</a><a href="#s2">2 · Movimentação</a><a href="#s3">3 · Celular</a><a href="#s4">4 · Notas e perguntas</a>
+    <a href="#s1">1 · A ficha</a><a href="#s2">2 · Celular</a><a href="#s3">3 · Perguntas</a>
   </nav>
 
   <!-- =============== 1. A FICHA =============== -->
   <section class="sec" id="s1">
     <div class="sec-label"><span class="sec-num">1</span><h2>A ficha</h2></div>
-    <p class="sec-sub">Pessoa no topo com a situação e as ações. À esquerda os dados, cada um com a sua ação nomeada (Mudar cargo, Mudar base, Mudar turno, Corrigir matrícula) — nada de editar tudo de uma vez. À direita a movimentação. O valor da hora é leitura sensível (gated) e vem do cargo, não é editado por pessoa.</p>
+    <p class="sec-sub">Sem cara de formulário: a pessoa no topo, os dados numa faixa clara e a movimentação logo abaixo. Cada dado muda pela sua ação (Mudar cargo, base, turno; Corrigir matrícula) — nada de editar tudo junto. Valor da hora é leitura sensível e vem do cargo.</p>
     <div class="frame"><div class="fpage">
       <div class="fbread"><a href="#">Pessoas</a><span class="sep">›</span><a href="#">Oficina</a><span class="sep">›</span><b>Rafael Souza</b></div>
+
       <div class="fhero">
         <span class="fav">RS</span>
         <div class="fhead">
-          <h1>Rafael Souza <span class="st st-on">Ativo</span></h1>
-          <div class="fsub"><span class="grp grp-shop"><i class="ic s14" style="--i:url(https://api.iconify.design/ph/wrench.svg)"></i>Oficina</span><span>Mecânico</span><span class="sep">·</span><span>Matrícula 1042</span><span class="sep">·</span><span>Na equipe desde 12/08/2026</span></div>
+          <h1>Rafael Souza <span class="status-dot"><i></i>Ativo</span></h1>
+          <div class="fsub"><span>Mecânico</span><span class="grp grp-shop">Oficina</span><span class="sep">·</span><span class="num">Matrícula 1042</span><span class="sep">·</span><span>na equipe desde ago/2026</span></div>
         </div>
         <div class="facts2">
           <button class="btn btn-outline btn-sm"><i class="ic s16" style="--i:url(https://api.iconify.design/ph/pencil-simple.svg)"></i>Corrigir nome</button>
-          <button class="btn btn-outline btn-sm" style="color:hsl(var(--danger-text));border-color:hsl(0 70% 84%)"><i class="ic s16" style="--i:url(https://api.iconify.design/ph/prohibit.svg)"></i>Desativar</button>
+          <button class="btn btn-outline btn-sm"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/dots-three-vertical.svg)"></i></button>
         </div>
       </div>
 
-      <div class="fgrid">
-        <div class="card2">
-          <div class="c2hd"><i class="ic s16" style="--i:url(https://api.iconify.design/ph/identification-card.svg)"></i>Dados</div>
-          <div class="drow"><span class="dk">Cargo</span><span class="dv">Mecânico <span class="grp grp-shop">Oficina</span></span><a href="#" class="da"><i class="ic s14" style="--i:url(https://api.iconify.design/ph/arrows-left-right.svg)"></i>Mudar</a></div>
-          <div class="drow"><span class="dk">Valor/hora</span><span class="dv">R$ 44,00 <span class="lockv"><i class="ic s14" style="--i:url(https://api.iconify.design/ph/lock-key.svg)"></i>pelo cargo</span></span></div>
-          <div class="drow"><span class="dk">Base</span><span class="dv">Base Curitiba</span><a href="#" class="da"><i class="ic s14" style="--i:url(https://api.iconify.design/ph/map-pin.svg)"></i>Mudar</a></div>
-          <div class="drow"><span class="dk">Turno</span><span class="dv">Diurno <span class="meta">07:00–17:00</span></span><a href="#" class="da"><i class="ic s14" style="--i:url(https://api.iconify.design/ph/clock.svg)"></i>Mudar</a></div>
-          <div class="drow"><span class="dk">Matrícula</span><span class="dv num">1042</span><a href="#" class="da"><i class="ic s14" style="--i:url(https://api.iconify.design/ph/hash.svg)"></i>Corrigir</a></div>
-        </div>
+      <div class="fstat">
+        <div class="fcell"><div class="fl2">Cargo</div><div class="fv2">Mecânico <span class="grp grp-shop">Oficina</span></div><a href="#" class="fmudar"><i class="ic s14" style="--i:url(https://api.iconify.design/ph/arrows-left-right.svg)"></i>Mudar cargo</a></div>
+        <div class="fcell locked"><div class="fl2">Valor/hora</div><div class="fv2">R$ 44,00</div><span class="lk"><i class="ic s14" style="--i:url(https://api.iconify.design/ph/lock-key.svg)"></i>definido pelo cargo</span></div>
+        <div class="fcell"><div class="fl2">Base</div><div class="fv2">Base Curitiba</div><a href="#" class="fmudar"><i class="ic s14" style="--i:url(https://api.iconify.design/ph/map-pin.svg)"></i>Mudar base</a></div>
+        <div class="fcell"><div class="fl2">Turno</div><div class="fv2">Diurno <span class="sm">07:00–17:00</span></div><a href="#" class="fmudar"><i class="ic s14" style="--i:url(https://api.iconify.design/ph/clock.svg)"></i>Mudar turno</a></div>
+      </div>
 
-        <div class="card2">
-          <div class="c2hd"><i class="ic s16" style="--i:url(https://api.iconify.design/ph/clock-counter-clockwise.svg)"></i>Movimentação<span class="r">o que mudou, por quem</span></div>
-          <div style="padding:16px 18px 10px">
-            <ul class="tlp">
-              <li class="new"><div class="t"><span class="tfield"><i class="ic s12" style="--i:url(https://api.iconify.design/ph/clock.svg)"></i>Turno</span> Diurno <span class="ar">→</span> <b>Noturno</b></div><div class="w">há 2 dias · Marina Duarte</div></li>
-              <li><div class="t"><span class="tfield"><i class="ic s12" style="--i:url(https://api.iconify.design/ph/map-pin.svg)"></i>Base</span> Pátio Araucária <span class="ar">→</span> <b>Base Curitiba</b></div><div class="w">há 1 semana · Ricardo Melo</div></li>
-              <li><div class="t"><span class="tfield"><i class="ic s12" style="--i:url(https://api.iconify.design/ph/identification-badge.svg)"></i>Cargo</span> Auxiliar de mecânico <span class="ar">→</span> <b>Mecânico</b></div><div class="w">há 1 mês · Marina Duarte</div></li>
-              <li><div class="t"><span class="tfield"><i class="ic s12" style="--i:url(https://api.iconify.design/ph/hash.svg)"></i>Matrícula</span> — <span class="ar">→</span> <b>1042</b></div><div class="w">há 1 mês · Marina Duarte</div></li>
-              <li class="old"><div class="t"><span class="tfield"><i class="ic s12" style="--i:url(https://api.iconify.design/ph/user-plus.svg)"></i>Entrou</span> na equipe · Oficina</div><div class="w">12/08/2026 · Marina Duarte</div></li>
-            </ul>
-          </div>
-        </div>
+      <div class="fsec">
+        <div class="fsec-hd"><i class="ic s18 hi" style="--i:url(https://api.iconify.design/ph/clock-counter-clockwise.svg)"></i><h3>Movimentação</h3><span class="r">o que mudou com o Rafael</span></div>
+        <p class="fsec-sub">Toda mudança fica registrada — campo, de onde pra onde, quando e por quem.</p>
+        <ul class="mv">
+          <li class="recent"><span class="mic"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/clock.svg)"></i></span><div class="mmain"><div class="mline"><span class="mtag">Turno</span><span class="was">Diurno</span> <span class="ar">→</span> <b>Noturno</b></div><div class="mmeta">há 2 dias · <span class="mwho"><span class="avatar av-sm av-lead">MD</span>Marina Duarte</span></div></div></li>
+          <li><span class="mic"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/map-pin.svg)"></i></span><div class="mmain"><div class="mline"><span class="mtag">Base</span><span class="was">Pátio Araucária</span> <span class="ar">→</span> <b>Base Curitiba</b></div><div class="mmeta">há 1 semana · <span class="mwho"><span class="avatar av-sm av-lead">RM</span>Ricardo Melo</span></div></div></li>
+          <li><span class="mic"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/identification-badge.svg)"></i></span><div class="mmain"><div class="mline"><span class="mtag">Cargo</span><span class="was">Auxiliar de mecânico</span> <span class="ar">→</span> <b>Mecânico</b></div><div class="mmeta">15/09/2026 · <span class="mwho"><span class="avatar av-sm av-lead">MD</span>Marina Duarte</span></div></div></li>
+          <li><span class="mic"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/hash.svg)"></i></span><div class="mmain"><div class="mline"><span class="mtag">Matrícula</span><span class="was">—</span> <span class="ar">→</span> <b class="num">1042</b></div><div class="mmeta">15/09/2026 · <span class="mwho"><span class="avatar av-sm av-lead">MD</span>Marina Duarte</span></div></div></li>
+          <li><span class="mic"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/user-plus.svg)"></i></span><div class="mmain"><div class="mline"><span class="mtag">Entrou</span>na equipe, na Oficina como <b>Auxiliar de mecânico</b></div><div class="mmeta">12/08/2026 · <span class="mwho"><span class="avatar av-sm av-lead">MD</span>Marina Duarte</span></div></div></li>
+        </ul>
       </div>
 
       <div class="soon">
-        <span class="si"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/wrench.svg)"></i></span>
+        <span class="si"><i class="ic s20" style="--i:url(https://api.iconify.design/ph/wrench.svg)"></i></span>
         <div><b>Trabalho</b> — serviços executados, horas e custo de mão de obra desta pessoa <span class="dep"><i class="ic s12" style="--i:url(https://api.iconify.design/ph/plug.svg)"></i>com as sessões · 2.4</span></div>
       </div>
     </div></div>
     <div class="notes">
-      <div><h4>Ações por campo</h4><ul><li>Cada dado tem a sua ação nomeada ali do lado — muda um sem tocar no resto. Igual ao ⋮ da lista, só que no lugar.</li></ul></div>
-      <div><h4>Valor é do cargo</h4><ul><li>O valor/hora vem do cargo e é leitura sensível (<code>labor_rate.view</code>); reajustar é ação do cargo, não da pessoa.</li></ul></div>
-      <div><h4>Trabalho vem depois</h4><ul><li>Serviços, horas e custo ligam com as sessões (2.4); o espaço já fica reservado.</li></ul></div>
+      <div><h4>Faixa, não formulário</h4><ul><li>Os dados numa régua de 4 — cargo, valor, base, turno. Matrícula e admissão no hero. Cada um com a sua ação.</li></ul></div>
+      <div><h4>Movimentação com rosto</h4><ul><li>Cada mudança tem o campo, o de→para e quem fez, com avatar. É a leitura que o gestor abre pra entender a pessoa.</li></ul></div>
+      <div><h4>Valor é do cargo</h4><ul><li>Vem do cargo, leitura sensível (<code>labor_rate.view</code>); reajustar é ação do cargo, não da pessoa.</li></ul></div>
     </div>
   </section>
 
-  <!-- =============== 2. MOVIMENTAÇÃO =============== -->
+  <!-- =============== 2. CELULAR =============== -->
   <section class="sec" id="s2">
-    <div class="sec-label"><span class="sec-num">2</span><h2>Movimentação</h2></div>
-    <p class="sec-sub">A linha do tempo lê o histórico que gravamos a cada mudança (<code>employee_changes</code>, append-only): campo, de→para, quando e por quem. É o que o gestor abre pra entender "o que andou mudando com essa pessoa" — e a matéria-prima do organograma e dos relatórios de rotatividade.</p>
-    <div class="frame indent" style="max-width:640px">
-      <div class="card2" style="margin:0">
-        <div class="c2hd"><i class="ic s16" style="--i:url(https://api.iconify.design/ph/clock-counter-clockwise.svg)"></i>Movimentação</div>
-        <div style="padding:16px 18px 10px">
-          <ul class="tlp">
-            <li class="new"><div class="t"><span class="tfield"><i class="ic s12" style="--i:url(https://api.iconify.design/ph/clock.svg)"></i>Turno</span> Diurno <span class="ar">→</span> <b>Noturno</b></div><div class="w">17/10/2026 09:12 · Marina Duarte</div></li>
-            <li><div class="t"><span class="tfield"><i class="ic s12" style="--i:url(https://api.iconify.design/ph/map-pin.svg)"></i>Base</span> Pátio Araucária <span class="ar">→</span> <b>Base Curitiba</b></div><div class="w">10/10/2026 14:03 · Ricardo Melo</div></li>
-            <li><div class="t"><span class="tfield"><i class="ic s12" style="--i:url(https://api.iconify.design/ph/identification-badge.svg)"></i>Cargo</span> Auxiliar de mecânico <span class="ar">→</span> <b>Mecânico</b></div><div class="w">15/09/2026 10:40 · Marina Duarte</div></li>
-            <li class="old"><div class="t"><span class="tfield"><i class="ic s12" style="--i:url(https://api.iconify.design/ph/user-plus.svg)"></i>Entrou</span> na equipe · Oficina</div><div class="w">12/08/2026 08:00 · Marina Duarte</div></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="notes">
-      <div><h4>Fato imutável</h4><ul><li>Cada linha é um insert; não se edita nem apaga. Os rótulos ficam congelados no momento (o nome do turno de então, mesmo que renomeie depois).</li></ul></div>
-      <div><h4>De onde vem</h4><ul><li>Toda ação de mudança (cargo, base, turno, nome, matrícula, situação) grava um fato na mesma transação. Nada se perde.</li></ul></div>
-    </div>
-  </section>
-
-  <!-- =============== 3. CELULAR =============== -->
-  <section class="sec" id="s3">
-    <div class="sec-label"><span class="sec-num">3</span><h2>Celular</h2></div>
-    <p class="sec-sub">A mesma ficha empilhada: pessoa, dados com ações e a movimentação. As ações abrem em folha de baixo, no padrão.</p>
+    <div class="sec-label"><span class="sec-num">2</span><h2>Celular</h2></div>
+    <p class="sec-sub">A ficha empilhada: pessoa, os dados em dois por linha e a movimentação. As ações abrem em folha de baixo.</p>
     <div class="phones">
       <div class="phone"><div class="screen">
         <div class="status"><span>9:41</span><span class="isl"></span><span>100%</span></div>
         <div class="m-top"><h1>Rafael Souza</h1><span class="avatar">MD</span></div>
         <div class="m-body">
-          <div class="mc"><div class="t"><div class="mav"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/wrench.svg)"></i></div><div class="mi"><div class="nm">Mecânico <span class="grp grp-shop">Oficina</span></div><div class="role"><span class="st st-on">Ativo</span>Matrícula 1042</div></div></div><div class="foot"><span class="mt"><i class="ic s14" style="--i:url(https://api.iconify.design/ph/map-pin.svg)"></i>Base Curitiba</span><span class="mt"><i class="ic s14" style="--i:url(https://api.iconify.design/ph/clock.svg)"></i>Noturno</span></div></div>
-          <p class="view-cap" style="margin:16px 0 8px 0">Movimentação</p>
-          <ul class="tlp" style="margin-left:4px">
-            <li class="new"><div class="t" style="font-size:13.5px"><span class="tfield"><i class="ic s12" style="--i:url(https://api.iconify.design/ph/clock.svg)"></i>Turno</span> → <b>Noturno</b></div><div class="w">há 2 dias · Marina</div></li>
-            <li><div class="t" style="font-size:13.5px"><span class="tfield"><i class="ic s12" style="--i:url(https://api.iconify.design/ph/map-pin.svg)"></i>Base</span> → <b>Curitiba</b></div><div class="w">há 1 semana · Ricardo</div></li>
+          <div class="mc"><div class="t"><div class="mav"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/wrench.svg)"></i></div><div class="mi"><div class="nm">Mecânico <span class="grp grp-shop">Oficina</span></div><div class="role"><span class="status-dot" style="padding:2px 8px"><i></i>Ativo</span><span class="num">1042</span></div></div></div><div class="foot"><span class="mt"><i class="ic s14" style="--i:url(https://api.iconify.design/ph/map-pin.svg)"></i>Base Curitiba</span><span class="mt"><i class="ic s14" style="--i:url(https://api.iconify.design/ph/clock.svg)"></i>Noturno</span><span class="mt"><i class="ic s14" style="--i:url(https://api.iconify.design/ph/currency-circle-dollar.svg)"></i>R$ 44,00</span></div></div>
+          <p class="view-cap" style="margin:18px 0 10px 0">Movimentação</p>
+          <ul class="mv">
+            <li class="recent"><span class="mic"><i class="ic s16" style="--i:url(https://api.iconify.design/ph/clock.svg)"></i></span><div class="mmain"><div class="mline" style="font-size:13.5px"><span class="mtag">Turno</span><span class="ar">→</span> <b>Noturno</b></div><div class="mmeta">há 2 dias · Marina</div></div></li>
+            <li><span class="mic"><i class="ic s16" style="--i:url(https://api.iconify.design/ph/map-pin.svg)"></i></span><div class="mmain"><div class="mline" style="font-size:13.5px"><span class="mtag">Base</span><span class="ar">→</span> <b>Curitiba</b></div><div class="mmeta">há 1 semana · Ricardo</div></div></li>
           </ul>
         </div>
         <div class="m-fab"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/dots-three.svg)"></i>Ações</div>
@@ -506,13 +506,13 @@ mark{background:hsl(50 100% 80%);border-radius:2px;padding:0 1px;color:inherit}
     </div>
   </section>
 
-  <!-- =============== 4. NOTAS E PERGUNTAS =============== -->
-  <section class="sec" id="s4">
-    <div class="sec-label"><span class="sec-num">4</span><h2>Perguntas em aberto</h2></div>
+  <!-- =============== 3. PERGUNTAS =============== -->
+  <section class="sec" id="s3">
+    <div class="sec-label"><span class="sec-num">3</span><h2>Perguntas em aberto</h2></div>
     <div class="qs">
-      <div class="q"><span class="qi"><i class="ic s16" style="--i:url(https://api.iconify.design/ph/user.svg)"></i></span><div><h3>Mostrar quem fez?</h3><p>Hoje gravamos só o id de quem mudou (o ator). Pra exibir "por Marina Duarte", precisa do nome.</p><p class="prop"><b>Proposta:</b> resolver o nome do ator na leitura do histórico (join em membros). Barato e já deixa a timeline completa.</p></div></div>
-      <div class="q"><span class="qi"><i class="ic s16" style="--i:url(https://api.iconify.design/ph/link.svg)"></i></span><div><h3>Ficha × Membros?</h3><p>Se a pessoa também acessa o sistema (tem login), a ficha do funcionário e o perfil de membro são a mesma pessoa.</p><p class="prop"><b>Proposta:</b> quando a matrícula casar com um login, mostrar um elo discreto "também é membro"; sem fundir os cadastros.</p></div></div>
-      <div class="q"><span class="qi"><i class="ic s16" style="--i:url(https://api.iconify.design/ph/funnel.svg)"></i></span><div><h3>Filtrar a timeline?</h3><p>Em alguém com muita mudança, a lista cresce.</p><p class="prop"><b>Proposta:</b> por ora, as últimas com "carregar mais"; filtro por campo (só turno, só base) se virar dor.</p></div></div>
+      <div class="q"><span class="qi"><i class="ic s16" style="--i:url(https://api.iconify.design/ph/user.svg)"></i></span><div><h3>Mostrar quem fez?</h3><p>Hoje gravamos o id de quem mudou. Pra exibir "por Marina Duarte" com avatar, precisa do nome.</p><p class="prop"><b>Proposta:</b> resolver o nome do ator na leitura do histórico (join em membros). Barato e completa a timeline.</p></div></div>
+      <div class="q"><span class="qi"><i class="ic s16" style="--i:url(https://api.iconify.design/ph/link.svg)"></i></span><div><h3>Ficha × Membros?</h3><p>Se a pessoa também acessa o sistema (login), a ficha e o perfil de membro são a mesma pessoa.</p><p class="prop"><b>Proposta:</b> quando a matrícula casar com um login, um elo discreto "também é membro"; sem fundir os cadastros.</p></div></div>
+      <div class="q"><span class="qi"><i class="ic s16" style="--i:url(https://api.iconify.design/ph/funnel.svg)"></i></span><div><h3>Filtrar a timeline?</h3><p>Em alguém com muita mudança, a lista cresce.</p><p class="prop"><b>Proposta:</b> as últimas com "carregar mais"; filtro por campo (só turno, só base) se virar dor.</p></div></div>
     </div>
   </section>
 
