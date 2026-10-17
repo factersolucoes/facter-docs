@@ -100,6 +100,30 @@ Aprovado em 27/09/2026. A base que os serviços e as peças da OS usam, em quatr
 
 <img src="/mockups/truck/catalogos/desktop.png" alt="Mockup dos catálogos da oficina" style={{maxHeight: 360, width: '100%', objectFit: 'cover', objectPosition: 'top', borderRadius: 8, border: '1px solid var(--ifm-color-emphasis-300)'}} />
 
+### Funcionários
+
+Aprovado em 17/10/2026. O cadastro de quem trabalha na oficina — a base do custo de mão de obra e de quem executa cada serviço. Separado de **Membros** (quem acessa o sistema): funcionário tem cargo, valor/hora e turno. A área abre em **grupo na sidebar** (`Sidebar.NavGroup`): **Oficina** e **Liderança** listam gente pelo grupo do cargo; **Cargos** define grupo + valor/hora **com histórico** (congela na sessão, não recalcula o passado; ler pede `labor_rate.view`, definir pede `labor_rate.manage`); **Turnos** define dias/horário, intervalos, pausa automática e o **responsável** (um da Liderança). O diálogo de adicionar lidera pelo título, obrigatório só nome e cargo (que já traz grupo e valor/hora), matrícula opcional. Cobre os estados (vazio, sem permissão de custo, busca sem resultado, desativar), o celular com segmento e FAB, e as perguntas em aberto (matrícula × login por PIN, responsável no turno, ajuste de valor por pessoa, comportamento do turno). Task 2.2; o comportamento do turno (horas, hora extra, pausa no tablet) entra com as sessões (2.4).
+
+[Ver o mockup](/telas/truck/funcionarios)
+
+### Escala e plantão
+
+Em revisão · 17/10/2026. A camada de **exceção planejada** sobre o turno: o plantão de **domingo** e o de **feriado**. O turno cobre a semana normal; a escala só marca o que foge. A tela é a **escala do mês** num calendário — domingos em azul, feriados em âmbar, hoje em destaque, quem está de plantão no dia e o que está **descoberto** em vermelho (clicável, abre o escalar já na data). O diálogo **Escalar plantão** traz a data pronta nos atalhos (próximo domingo, feriado do mês), escolhe quem fica (**equipe toda**, não só Liderança), a janela, e o rodapé **soma o custo do adicional ao vivo** — o tipo domingo/feriado sai da data. Mais a leitura de **cobertura e custo** (previsão do adicional do mês), o **esperado × realizado** (escalado × quem bateu ponto: cumpriu, furou, sem planejar — liga com as sessões em 2.4), o celular "Meus plantões" e as perguntas em aberto (de onde vêm os feriados, rodízio automático, aviso de plantão, regra do adicional). Direção de produto; vira ADR e entra depois do núcleo de Pessoas, junto do calendário de feriados.
+
+[Ver o mockup](/telas/truck/escala-plantao)
+
+### Organograma
+
+Em revisão · 17/10/2026. A estrutura da manutenção numa tela só — gerente → encarregado por base → equipe. É uma tela de **console**: o canvas ocupa tudo, com fundo pontilhado, **zoom** e **arrastar**; o título e os controles (zoom, "editar estrutura") sobem pra **navbar** (o modo console do shell). O componente novo no DS seria o `OrgChart` (árvore + conectores + zoom, cards arrastáveis via `@dnd-kit`, que já é dependência), **controlado**: arrastar só emite a intenção `{ pessoa, de, para }` — soltar numa coluna abre a confirmação da ação (mudar base/encarregado) com permissão (`employee.assign`) e concorrência no back; nada muda sozinho no cliente, e sem permissão os cards não arrastam (`canDrop`). Reaproveita o padrão de board controlado que já existe (`Kanban`); o novo é a árvore hierárquica e o zoom/pan. Depende de um "responde a quem" (campo novo no funcionário) e, para custo por área, de `labor_rate.view` (2.4). Perguntas em aberto: eixo da hierarquia (base × encarregado × área), o que o soltar altera, custo por coluna e colapsar equipes quando fica grande.
+
+[Ver o mockup](/telas/truck/organograma)
+
+### Planejar turnos
+
+Em revisão · 17/10/2026. A evolução do organograma para um **workflow real**: a mesa onde o gestor e a equipe sentam pra **remanejar turno**. Tela de **console** — colunas por turno (ou por base, alterna na navbar), cards de pessoas que se **arrastam** entre as colunas, dá pra projetar numa TV na reunião. As mudanças ficam num **rascunho**: nada toca o sistema até o **Aplicar**; quem foi movido fica marcado e uma barra conta quantas mudanças esperam. O que faz valer é o **impacto ao vivo** por coluna — contagem e **custo/hora** com o *delta* da proposta (gated por `labor_rate.view`; adicional de noturno/feriado entra na 2.4) e a **cobertura** (poucos / sem responsável / ok). O **Aplicar** lista o que muda, mostra o efeito e roda as ações de verdade (cada uma um "Mudar turno" com `employee.assign` e concorrência) — conflito é avisado por pessoa, nunca sobrescreve calado; e cada aplicação **grava a movimentação** (quem, de→para, quando), pra próxima reunião já ver o que mudou. Reaproveita o board controlado do DS (`Kanban`, `onDragEnd`, `canDrop`) + Turnos + "Mudar turno"; o novo é o modo rascunho e o painel de impacto.
+
+[Ver o mockup](/telas/truck/planejar-turnos)
+
 ### Tipos de eixo
 
 Em revisão (30/09/2026). O cadastro/catálogo dos tipos de eixo usados na configuração de veículos e carretas (inclusive a carreta florestal): lista com busca e filtro por função, controle e origem, os quatro estados (skeleton, vazio, busca sem resultado, sem permissão), o diálogo de cadastrar/editar e a versão celular. Destaque para o campo **Controle** (por quantidade × individual/rastreável), o mesmo padrão de `parts.tracking` hoje só usado pelo pneu — eixo montado, fueiro e barrote são candidatos à mesma família rastreável.
@@ -219,6 +243,18 @@ Aprovado em 27/09/2026. O checking do veículo na oficina: o movimento do dia e 
 Aprovado em 11/10/2026. Não é a triagem da oficina — é **despacho de incidente na estrada**, por isso um **console** (não um wizard): **mapa na frente** (veículo pinado, rota e distância/ETA até a base), **SLA** ("parado há") correndo, **segurança primeiro** (via interditada, ferido, acidente, fogo/vazamento → banner "Acione 190/192"), **veículo & carga** (conjunto, carga, transbordo), **situação** (imobilizado / anda) e **despacho** (guincho pesado, prancha, mecânico, peça — com prestador, ETA, custo estimado e autorização), mais contato do motorista. Três origens: motorista pelo app, torre/telemetria e acidente grave. Ao abrir, grava a **parada** (local + hora, WO-10); quando o veículo chega, a **emergência da OS nasce deste chamado, já preenchida** (fonte "Guincho" do [Abrir OS](/telas/truck/abrir-os)). Fatia futura (módulo de socorro), desenhada antes do código.
 
 [Ver o mockup](/telas/truck/socorro-mecanico)
+
+### Pátio da oficina — console vivo
+
+Proposta (11/10/2026). A tela da Recepção como **console vivo** (página, não diálogo): o **fluxo físico da oficina da esquerda pra direita** — **entrada** (aguardando OS, o que a Portaria deixou) → **boxes** (em manutenção, ocupação ao vivo de cada box + os livres) → **saída** (pronto pra retirada). Pulso no topo (aguardando, em manutenção, pausadas, pronto, boxes livres) e o **tempo** em cada ponto: parada desde `stopped_at` (WO-10) e o **tempo de retirada** (oficina liberou × motorista pegou) na saída. Mostra o conceito de **console em página** × o socorro, que é **console em modal**. Fatia 2 (Oficina), junto com a Portaria/Recepção.
+
+[Ver o mockup](/telas/truck/patio-oficina)
+
+### Pátio — estudos de arranjo
+
+Estudo (11/10/2026). A mesma tela do pátio (dia cheio, 8 boxes) em **quatro arranjos**, pra decidir qual é mais confortável como **visão de tela**: **grade de boxes** (todos numa tela, detalhe no clique — a sugestão), **faixa que rola de lado** (baia rica no comprimento real, rola lateral), **nariz pra cima** (planta do galpão, caminhões em pé) e **empilhado** (o arranjo atual, que estica a tela pra baixo num dia cheio). Cabeçalho, KPIs e filas de entrada/saída iguais em todos; muda só o arranjo dos boxes. Base pra fechar o layout do [Pátio da oficina](/telas/truck/patio-oficina) antes de codar.
+
+[Ver o mockup](/telas/truck/patio-arranjos)
 
 ## Componente de datas
 

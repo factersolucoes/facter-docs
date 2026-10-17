@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Baia longa · conjunto · mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--mf:240 4% 44%;--border:240 6% 90%}
+*{box-sizing:border-box}
+body{margin:0;background:hsl(228 16% 90%);color:hsl(240 10% 6%);font:14.5px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,p{margin:0}
+.doc{max-width:1120px;margin:0 auto;padding:40px 22px 90px}
+.doc h1{font:800 29px/1.15 Sora;letter-spacing:-.02em}
+.doc .lead{color:hsl(var(--mf));max-width:900px;margin-top:10px}
+.doc .lead b{color:hsl(235 14% 22%)}
+.panel{margin-top:22px;background:hsl(0 0% 100%);border:1px solid hsl(var(--border));border-radius:16px;padding:18px 20px;box-shadow:0 20px 50px -38px hsl(232 48% 20%/.4)}
+.row{margin-bottom:22px}.row:last-child{margin-bottom:0}
+.rlbl{font:700 12px Sora;display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.rlbl .t{color:hsl(235 12% 22%)}.rlbl .s{font:500 12px Inter;color:hsl(var(--mf))}
+.baywrap{position:relative;display:inline-block;max-width:100%}
+.baywrap svg{display:block;height:134px;width:auto;max-width:100%}
+
+/* status chip — over the box number (top-left) */
+.schip{position:absolute;left:14px;top:12px;display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 11px;border-radius:99px;font:700 11.5px Inter;box-shadow:0 2px 6px -2px hsl(232 30% 40%/.25);backdrop-filter:blur(2px)}
+.schip .d{width:7px;height:7px;border-radius:50%}
+.st-run{background:hsl(233 60% 97%);color:hsl(233 60% 42%)}.st-run .d{background:hsl(233 60% 56%)}
+.st-pause{background:hsl(40 72% 94%);color:hsl(28 70% 34%)}.st-pause .d{background:hsl(36 72% 52%)}
+
+/* info card — right side, in the free space */
+.icard{position:absolute;right:16px;top:50%;transform:translateY(-50%);width:168px;display:flex;flex-direction:column;gap:5px}
+.icard .nm{font:800 16.5px Sora;color:hsl(235 14% 18%);display:flex;align-items:center;gap:7px;line-height:1.1}
+.plate{display:inline-flex;flex-direction:column;border:1.3px solid hsl(235 16% 38%);border-radius:4px;overflow:hidden;background:#fff;flex:none}
+.plate .pt{height:5px;background:linear-gradient(180deg,hsl(221 72% 44%),hsl(221 74% 38%))}
+.plate .pn{font:800 10.5px/14px ui-monospace,Menlo,monospace;letter-spacing:.07em;padding:0 5px;color:hsl(235 22% 15%)}
+.icard .kind{font-size:11px;color:hsl(var(--mf))}
+.icard .osb{align-self:flex-start;margin-top:5px;display:inline-flex;align-items:center;gap:5px;background:hsl(233 50% 97%);border:1px solid hsl(233 48% 92%);border-radius:7px;padding:2.5px 9px;font:700 10.5px Sora;color:hsl(233 52% 50%);letter-spacing:.02em}
+.icard .osb::before{content:"";width:5px;height:5px;border-radius:50%;background:hsl(233 60% 60%)}
+.icard .timeline{display:flex;align-items:baseline;gap:7px;margin-top:2px}
+.icard .time{font:800 23px Sora;color:hsl(235 14% 18%);font-variant-numeric:tabular-nums}
+.icard .svc{font-size:10.5px;color:hsl(var(--mf))}
+.avs{display:flex;align-items:center;margin-top:3px}
+.av{width:25px;height:25px;border-radius:50%;display:grid;place-items:center;font:800 9.5px Inter;color:#fff;border:2px solid #fff;margin-left:-7px;box-shadow:0 1px 3px hsl(232 30% 30%/.25)}
+.av:first-child{margin-left:0}
+.avlbl{font-size:10.5px;color:hsl(var(--mf));margin-left:8px}
+
+/* popover (hover) */
+.pop{position:absolute;right:10px;top:10px;width:316px;background:hsl(0 0% 100%);border:1px solid hsl(var(--border));border-radius:14px;box-shadow:0 30px 70px -24px hsl(232 48% 20%/.45);padding:0;opacity:0;visibility:hidden;transform:translateY(-6px);transition:.16s;z-index:30;overflow:hidden}
+.baywrap:hover .pop{opacity:1;visibility:visible;transform:none}
+.pop .ph{padding:13px 15px;background:linear-gradient(120deg,hsl(233 70% 97%),hsl(0 0% 100%));border-bottom:1px solid hsl(var(--border))}
+.pop .ph .r1{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.pop .ph .pos{font:700 12px Sora;color:hsl(233 55% 48%)}
+.pop .ph .nm{font:800 17px Sora;margin-top:3px;display:flex;align-items:center;gap:8px}
+.pop .ph .sub{font-size:11.5px;color:hsl(var(--mf));margin-top:2px}
+.pop .pb{padding:12px 15px;max-height:300px;overflow:auto}
+.pop .plbl{font:700 10px Sora;text-transform:uppercase;letter-spacing:.05em;color:hsl(var(--mf));margin:2px 0 7px}
+.pop .pbk+.pbk{margin-top:13px}
+.pop .pc{display:flex;align-items:center;gap:9px;padding:6px 0;border-top:1px solid hsl(240 6% 94%)}
+.pop .pc:first-of-type{border-top:0}
+.pop .pc .dd{width:8px;height:8px;border-radius:50%;flex:none}
+.pop .pc .pcn{font:700 12.5px Sora;flex:1;min-width:0}
+.pop .pc .pcs{font-size:11px;color:hsl(var(--mf))}
+.pop .svc{display:flex;align-items:center;gap:9px;padding:5px 0}
+.pop .svc .bar{flex:1;height:6px;border-radius:3px;background:hsl(240 6% 92%);overflow:hidden}
+.pop .svc .bar i{display:block;height:100%;border-radius:3px;background:hsl(233 60% 58%)}
+.pop .svc .pct{font:700 11px Sora;color:hsl(235 10% 34%);width:30px;text-align:right}
+.pop .team{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.pop .tm{display:inline-flex;align-items:center;gap:6px;background:hsl(240 6% 96%);border-radius:99px;padding:3px 10px 3px 3px;font:600 11.5px Inter}
+.pop .tm .av{width:20px;height:20px;margin:0;border:0;font-size:8.5px}
+.pop .pf{padding:11px 15px;border-top:1px solid hsl(var(--border));display:flex;gap:8px}
+.pop .btn{flex:1;height:34px;border-radius:9px;border:1px solid transparent;font:700 12.5px Inter;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.pop .btn-pri{background:hsl(233 66% 52%);color:#fff}.pop .btn-out{background:#fff;border-color:hsl(var(--border));color:hsl(235 10% 28%)}
+.hint{font-size:12px;color:hsl(var(--mf));margin-top:14px}
+.note{font-size:12.5px;color:hsl(var(--mf));margin-top:6px}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="floorg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="hsl(240 12% 99%)"/><stop offset="1" stop-color="hsl(240 9% 96.5%)"/></linearGradient>
+  <linearGradient id="body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="hsl(240 10% 88%)"/><stop offset="0.16" stop-color="hsl(0 0% 100%)"/><stop offset="0.84" stop-color="hsl(0 0% 100%)"/><stop offset="1" stop-color="hsl(240 10% 87%)"/></linearGradient>
+  <linearGradient id="glass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="hsl(212 28% 46%)"/><stop offset="1" stop-color="hsl(214 32% 32%)"/></linearGradient>
+  <linearGradient id="steel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="hsl(235 9% 91%)"/><stop offset="0.5" stop-color="hsl(235 7% 80%)"/><stop offset="1" stop-color="hsl(235 8% 71%)"/></linearGradient>
+  <filter id="sh" x="-5%" y="-30%" width="110%" height="170%"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="hsl(232 30% 28%)" flood-opacity="0.14"/></filter>
+</defs></svg>
+
+<div class="doc">
+  <h1>Baia longa — conjunto, com estado e equipe</h1>
+  <p class="lead">A baia mostra o ocupante no comprimento real; o <b>estado</b> fica sobre o número do box, a <b>identificação</b> (frota/placa ou conjunto) e o <b>tempo</b> à direita, e quem trabalha vira <b>avatares</b>. <b>Passe o mouse</b> numa baia ocupada pro <b>popover com os detalhes</b> — peças do conjunto, serviços em andamento e equipe.</p>
+  <div class="panel" id="bays"></div>
+  <p class="note">Cavalo e implementos são OS separadas. Carreta florestal vem vazia (fueiros e barrotes). Passe o mouse nas baias ocupadas.</p>
+</div>
+
+<script>
+const CY=78;
+const SC={run:{d:'hsl(233 60% 56%)',cls:'st-run',label:'Em manutenção'},pause:{d:'hsl(36 72% 52%)',cls:'st-pause',label:'Pausada'}};
+const AVC=['hsl(233 55% 58%)','hsl(170 45% 42%)','hsl(28 65% 56%)','hsl(280 40% 58%)'];
+
+/* ---------- vehicle drawing (SVG) ---------- */
+function tire(x,y){return '<rect x="'+x+'" y="'+y+'" width="24" height="10" rx="3" fill="hsl(235 13% 23%)"/>';}
+function axleV(x,kind){
+  const beam='<rect x="'+(x-3)+'" y="'+(CY-40)+'" width="6" height="80" rx="3" fill="hsl(235 10% 56%)"/>';
+  const diff=kind==='drive'?'<ellipse cx="'+x+'" cy="'+CY+'" rx="9" ry="13" fill="hsl(235 12% 42%)"/><circle cx="'+x+'" cy="'+CY+'" r="4" fill="hsl(235 12% 30%)"/>':'';
+  const t=kind==='steer'?tire(x-12,CY-45)+tire(x-12,CY+35):tire(x-12,CY-50)+tire(x-12,CY-38)+tire(x-12,CY+28)+tire(x-12,CY+40);
+  return '<g>'+beam+diff+t+'</g>';
+}
+function hCavalo(x){
+  const g=axleV(x+30,'steer')+axleV(x+102,'drive')+axleV(x+130,'drive')+
+    '<rect x="'+(x+66)+'" y="'+(CY-20)+'" width="78" height="40" rx="8" fill="url(#body)" stroke="hsl(240 7% 85%)" stroke-width="1.3"/>'+
+    '<rect x="'+(x+122)+'" y="'+(CY-11)+'" width="22" height="22" rx="5" fill="hsl(240 6% 84%)"/><circle cx="'+(x+133)+'" cy="'+CY+'" r="5" fill="hsl(240 6% 70%)"/>'+
+    '<rect x="'+x+'" y="'+(CY-34)+'" width="70" height="68" rx="16" fill="url(#body)" stroke="hsl(240 7% 84%)" stroke-width="1.3"/>'+
+    '<path d="M'+(x+14)+' '+(CY-26)+' q-12 26 0 52 l8 0 q-10 -26 0 -52 Z" fill="url(#glass)"/>'+
+    '<rect x="'+(x-2)+'" y="'+(CY-30)+'" width="8" height="12" rx="2" fill="url(#body)" stroke="hsl(240 6% 82%)"/><rect x="'+(x-2)+'" y="'+(CY+18)+'" width="8" height="12" rx="2" fill="url(#body)" stroke="hsl(240 6% 82%)"/>';
+  return ['<g filter="url(#sh)">'+g+'</g>',146];
+}
+function barroteH(x){return '<rect x="'+(x-4)+'" y="'+(CY-25)+'" width="8" height="50" rx="2" fill="url(#steel)" stroke="hsl(235 9% 64%)" stroke-width="0.7"/><line x1="'+x+'" y1="'+(CY-22)+'" x2="'+x+'" y2="'+(CY+22)+'" stroke="hsl(235 7% 72%)" stroke-width="0.7" opacity=".55"/><rect x="'+(x-6)+'" y="'+(CY-29)+'" width="12" height="5" rx="1.5" fill="hsl(235 9% 72%)" stroke="hsl(235 9% 60%)" stroke-width="0.6"/><rect x="'+(x-6)+'" y="'+(CY+24)+'" width="12" height="5" rx="1.5" fill="hsl(235 9% 72%)" stroke="hsl(235 9% 60%)" stroke-width="0.6"/><circle cx="'+(x-3)+'" cy="'+(CY-26.5)+'" r="1" fill="hsl(235 12% 48%)"/><circle cx="'+(x+3)+'" cy="'+(CY-26.5)+'" r="1" fill="hsl(235 12% 48%)"/><circle cx="'+(x-3)+'" cy="'+(CY+26.5)+'" r="1" fill="hsl(235 12% 48%)"/><circle cx="'+(x+3)+'" cy="'+(CY+26.5)+'" r="1" fill="hsl(235 12% 48%)"/>';}
+function fueiroH(x){const post=(y0)=>'<rect x="'+(x-2.2)+'" y="'+y0+'" width="4.4" height="18" rx="1.4" fill="url(#steel)" stroke="hsl(235 9% 58%)" stroke-width="0.6"/><line x1="'+x+'" y1="'+(y0+1.5)+'" x2="'+x+'" y2="'+(y0+16.5)+'" stroke="hsl(235 7% 73%)" stroke-width="0.6" opacity=".6"/>';return post(CY-49)+post(CY+31)+'<rect x="'+(x-2.8)+'" y="'+(CY-50.5)+'" width="5.6" height="2.6" rx="1" fill="hsl(235 11% 54%)"/><rect x="'+(x-2.8)+'" y="'+(CY+47.9)+'" width="5.6" height="2.6" rx="1" fill="hsl(235 11% 54%)"/>';}
+function hCarreta(x){
+  let s='<rect x="'+x+'" y="'+(CY-3)+'" width="20" height="6" rx="2" fill="hsl(235 8% 70%)"/>'+
+    '<rect x="'+(x+16)+'" y="'+(CY-30.5)+'" width="152" height="6.5" rx="2.5" fill="url(#steel)" stroke="hsl(235 8% 66%)" stroke-width="0.7"/>'+
+    '<rect x="'+(x+16)+'" y="'+(CY+24)+'" width="152" height="6.5" rx="2.5" fill="url(#steel)" stroke="hsl(235 8% 66%)" stroke-width="0.7"/>';
+  for(const bx of [x+40,x+90,x+140]){ s+=barroteH(bx)+fueiroH(bx); }
+  s+=axleV(x+118,'trailer')+axleV(x+146,'trailer');
+  return ['<g filter="url(#sh)">'+s+'</g>',172];
+}
+function hDolly(x){const s='<rect x="'+x+'" y="'+(CY-4)+'" width="20" height="8" rx="3" fill="hsl(235 8% 72%)"/>'+axleV(x+26,'trailer')+'<rect x="'+(x+18)+'" y="'+(CY-14)+'" width="18" height="28" rx="5" fill="hsl(240 8% 88%)" stroke="hsl(240 7% 80%)"/>';return ['<g filter="url(#sh)">'+s+'</g>',40];}
+function hLanding(x){const s='<rect x="'+(x+5)+'" y="'+(CY-26)+'" width="5" height="12" rx="1.5" fill="hsl(235 8% 66%)"/><rect x="'+(x+5)+'" y="'+(CY+14)+'" width="5" height="12" rx="1.5" fill="hsl(235 8% 66%)"/><rect x="'+x+'" y="'+(CY-3)+'" width="18" height="6" rx="2" fill="hsl(235 8% 72%)"/>';return ['<g filter="url(#sh)">'+s+'</g>',18];}
+function compose(parts){let x=parts.start,out='';for(const k of parts.seq){let r;if(k==='dolly')r=hDolly(x);else if(k==='cavalo')r=hCavalo(x);else if(k==='landing')r=hLanding(x);else r=hCarreta(x);out+=r[0];x+=(k==='carreta')?r[1]-6:r[1];}return out;}
+function baySvg(num,occupant,w){
+  return '<svg viewBox="0 0 '+w+' 156">'+
+    '<rect x="6" y="8" width="'+(w-12)+'" height="140" rx="16" fill="url(#floorg)" stroke="hsl(240 6% 88%)" stroke-width="1.5"/>'+
+    '<rect x="16" y="18" width="'+(w-32)+'" height="120" rx="10" fill="none" stroke="hsl(43 42% 76%)" stroke-width="2" stroke-dasharray="2 9" opacity=".6"/>'+
+    '<text x="54" y="104" text-anchor="middle" font-family="Sora,sans-serif" font-weight="800" font-size="60" fill="hsl(235 10% 54% / .09)">'+num+'</text>'+
+    '<g stroke="hsl(240 6% 86%)" stroke-width="3" stroke-linecap="round"><line x1="8" y1="40" x2="8" y2="60"/><line x1="8" y1="96" x2="8" y2="116"/></g>'+
+    occupant+'</svg>';
+}
+
+/* ---------- HTML overlay ---------- */
+function avatars(team,extra){
+  let s='<div class="avs">';
+  team.slice(0,2).forEach((m,i)=>s+='<span class="av" title="'+m.n+'" style="background:'+AVC[i%AVC.length]+'">'+m.i+'</span>');
+  if(team.length>2)s+='<span class="av" style="background:hsl(240 5% 66%)">+'+(team.length-2)+'</span>';
+  s+='<span class="avlbl">'+(extra||(team.length>1?team.length+' no box':team[0].n.split(' ')[0]))+'</span></div>';
+  return s;
+}
+function plateHtml(pn){return '<span class="plate"><span class="pt"></span><span class="pn">'+pn+'</span></span>';}
+function popover(d){
+  const sc=SC[d.st];
+  const pieces=d.pieces.map(p=>'<div class="pc"><span class="dd" style="background:'+SC[p.st].d+'"></span><span class="pcn">'+p.nm+'</span><span class="pcs">'+p.sub+'</span></div>').join('');
+  const svcs=d.services.map(v=>'<div class="svc"><span style="flex:1;font-size:11.5px">'+v.n+'</span><span class="bar"><i style="width:'+Math.round(v.p*100)+'%"></i></span><span class="pct">'+Math.round(v.p*100)+'%</span></div>').join('');
+  const team=d.team.map((m,i)=>'<span class="tm"><span class="av" style="background:'+AVC[i%AVC.length]+'">'+m.i+'</span>'+m.n+'</span>').join('');
+  return '<div class="pop"><div class="ph"><div class="r1"><span class="pos">'+d.os+'</span><span class="schip '+sc.cls+'" style="position:static;box-shadow:none"><span class="d"></span>'+sc.label+'</span></div>'+
+    '<div class="nm">'+d.id.name+(d.id.plate?plateHtml(d.id.plate):'')+'</div><div class="sub">'+(d.id.kind?d.id.kind+' · ':'')+'aberta há '+d.time+' · '+d.base+'</div></div>'+
+    '<div class="pb"><div class="pbk"><div class="plbl">'+(d.pieces.length>1?'Peças do conjunto':'Veículo')+'</div>'+pieces+'</div>'+
+    '<div class="pbk"><div class="plbl">Serviços em andamento</div>'+svcs+'</div>'+
+    '<div class="pbk"><div class="plbl">Equipe no box</div><div class="team">'+team+'</div></div></div>'+
+    '<div class="pf"><button class="btn btn-pri">Ver OS</button><button class="btn btn-out">Linha do tempo</button></div></div>';
+}
+function overlay(d){
+  const sc=SC[d.st];
+  const idHtml='<div class="nm">'+d.id.name+(d.id.plate?plateHtml(d.id.plate):'')+'</div>'+
+    '<div class="timeline"><span class="time">'+d.time+'</span><span class="svc">'+d.service+'</span></div>'+
+    '<div class="osb">'+d.os+'</div>';
+  return '<div class="schip '+sc.cls+'"><span class="d"></span>'+sc.label+'</div>'+
+    '<div class="icard">'+idHtml+'</div>'+popover(d);
+}
+
+const ROWS=[
+  {num:'07',t:'Box de cavalo (menor)',s:'a tratora tem a OS DELA',w:540,seq:['cavalo'],start:40,st:'run',
+   id:{name:'Frota 503',plate:'MGT9A71',kind:'Volvo FH'},os:'OS-001044',time:'1h12',service:'Motor · revisão',base:'Base Imperatriz',
+   team:[{i:'JP',n:'João Pereira'}],
+   pieces:[{nm:'Frota 503 · MGT9A71',sub:'Tratora',st:'run'}],
+   services:[{n:'Motor · óleo e filtros',p:0.65},{n:'Motor · válvulas',p:0.25}]},
+  {num:'03',t:'Box longo — implementos do conjunto',s:'as 3 carretas acopladas, SEM o cavalo · OS separada',w:940,seq:['landing','carreta','dolly','carreta','dolly','carreta'],start:60,st:'run',
+   id:{name:'Conjunto FRT-1234'},os:'OS-001045',time:'2h40',service:'Freio + suspensão',base:'Base Imperatriz',
+   team:[{i:'CA',n:'Carlos Lima'},{i:'PD',n:'Pedro Alves'}],
+   pieces:[{nm:'Carreta 1 · QRT4B22',sub:'florestal',st:'run'},{nm:'Carreta 2 · QRT4B23',sub:'florestal',st:'pause'},{nm:'Carreta 3 · QRT4B24',sub:'florestal',st:'run'}],
+   services:[{n:'Freio · lona eixo 3 (c.1)',p:0.5},{n:'Suspensão · feixe de mola (c.2)',p:0.3},{n:'Fueiro · troca (c.3)',p:0.8}]},
+  {num:'04',t:'Box longo — vazio',s:'pronto pra receber',w:940,seq:[],start:0}
+];
+document.getElementById('bays').innerHTML=ROWS.map(r=>
+  '<div class="row"><div class="rlbl"><span class="t">'+r.t+'</span><span class="s">· '+r.s+'</span></div>'+
+  '<div class="baywrap">'+baySvg(r.num,r.seq.length?compose(r):'',r.w)+(r.seq.length?overlay(r):'')+'</div></div>'
+).join('');
+</script>
+</body>
+</html>

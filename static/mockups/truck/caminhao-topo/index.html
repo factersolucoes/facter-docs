@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caminhão top-down · vetor · mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--muted-foreground:240 4% 44%;--border:240 6% 90%}
+*{box-sizing:border-box}
+body{margin:0;background:hsl(228 16% 90%);color:hsl(240 10% 6%);font:14.5px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,p{margin:0}
+.doc{max-width:1120px;margin:0 auto;padding:40px 22px 90px}
+.doc h1{font:800 29px/1.15 Sora;letter-spacing:-.02em}
+.doc .lead{color:hsl(var(--muted-foreground));max-width:880px;margin-top:10px}
+.doc .lead b{color:hsl(235 14% 22%)}
+.stage{margin-top:24px;background:linear-gradient(160deg,hsl(44 30% 97%),hsl(150 14% 95%));border:1px solid hsl(var(--border));border-radius:20px;padding:40px 30px;display:flex;flex-wrap:wrap;gap:34px;justify-content:center;align-items:flex-end}
+.piece{display:flex;flex-direction:column;align-items:center;gap:14px}
+.piece svg{display:block;height:360px;width:auto}
+.cap{font:700 14px Sora}.capsub{font-size:12px;color:hsl(var(--muted-foreground));margin-top:-10px}
+.row2{margin-top:22px;background:hsl(0 0% 100%);border:1px solid hsl(var(--border));border-radius:16px;padding:22px 24px;display:flex;flex-wrap:wrap;gap:26px;justify-content:center;align-items:flex-end}
+.row2 .piece svg{height:200px}
+.row2 .cap{font:700 12.5px Sora}
+.note{margin-top:20px;font-size:13px;color:hsl(var(--muted-foreground));max-width:880px}
+.badge{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:3px 10px;font:700 11.5px Inter}
+.badge.run{background:hsl(233 55% 96%);color:hsl(233 60% 44%)}
+.badge.pause{background:hsl(40 70% 93%);color:hsl(28 70% 36%)}
+.badge.ready{background:hsl(150 45% 93%);color:hsl(152 55% 28%)}
+.badge.wait{background:hsl(240 8% 94%);color:hsl(235 8% 40%)}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="body" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="hsl(240 10% 88%)"/><stop offset="0.14" stop-color="hsl(0 0% 100%)"/>
+    <stop offset="0.5" stop-color="hsl(0 0% 100%)"/><stop offset="0.86" stop-color="hsl(0 0% 100%)"/><stop offset="1" stop-color="hsl(240 10% 87%)"/>
+  </linearGradient>
+  <linearGradient id="cab" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="hsl(240 10% 86%)"/><stop offset="0.16" stop-color="hsl(0 0% 100%)"/>
+    <stop offset="0.5" stop-color="hsl(0 0% 100%)"/><stop offset="0.84" stop-color="hsl(0 0% 100%)"/><stop offset="1" stop-color="hsl(240 10% 85%)"/>
+  </linearGradient>
+  <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="hsl(212 28% 46%)"/><stop offset="1" stop-color="hsl(214 32% 32%)"/>
+  </linearGradient>
+  <linearGradient id="bed" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="hsl(30 10% 80%)"/><stop offset="0.5" stop-color="hsl(30 12% 90%)"/><stop offset="1" stop-color="hsl(30 10% 79%)"/>
+  </linearGradient>
+  <linearGradient id="steel" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="hsl(235 8% 71%)"/><stop offset="0.5" stop-color="hsl(235 9% 91%)"/><stop offset="1" stop-color="hsl(235 8% 72%)"/>
+  </linearGradient>
+  <filter id="shadow" x="-40%" y="-30%" width="180%" height="170%"><feDropShadow dx="0" dy="7" stdDeviation="9" flood-color="hsl(230 30% 30%)" flood-opacity="0.18"/></filter>
+</defs></svg>
+
+<div class="doc">
+  <h1>Caminhão top-down — protótipo em vetor</h1>
+  <p class="lead">Visto de cima, no nível da referência: <b>branco limpo</b>, volume suave (gradiente + sombra leve), sem peso. Em <b>vetor</b>: grátis, escala, recolorível e <b>dirigido por dado</b> — desenha o tipo real (cavalo, carreta baú, <b>carreta florestal</b> vazia — fueiros e barrotes, como chega na oficina). O estado entra como um <b>tom suave</b>, sem perder o branco. Nenhuma imagem comprada.</p>
+
+  <div class="stage" id="stage"></div>
+
+  <div class="note">O mesmo veículo carregando estado — tinta leve no teto da cabine + faixa discreta, sem virar bloco colorido:</div>
+  <div class="row2" id="row2"></div>
+
+  <p class="note">Se te agradar, troco as silhuetas simples do pátio por este desenho (baú/florestal conforme o cadastro) e aplico o tom de estado.</p>
+</div>
+
+<script>
+// ---- realistic axles (nose down) ----
+// a single tire, top-down: footprint long in the travel direction
+function tire(x,y){return '<rect x="'+x+'" y="'+(y-14)+'" width="12" height="28" rx="3.5" fill="hsl(235 13% 22%)"/><rect x="'+(x+2.5)+'" y="'+(y-8)+'" width="7" height="16" rx="2" fill="none" stroke="hsl(235 9% 40%)" stroke-width="1.3"/>';}
+// an axle: beam across + tires. steer=single tires; drive=dual tires + differential; trailer=dual tires
+function axle(y,kind){
+  const beam='<rect x="42" y="'+(y-3.5)+'" width="136" height="7" rx="3.5" fill="hsl(235 10% 55%)"/>';
+  const diff=kind==='drive'?'<ellipse cx="110" cy="'+y+'" rx="15" ry="10" fill="hsl(235 12% 42%)"/><circle cx="110" cy="'+y+'" r="5" fill="hsl(235 12% 30%)"/>':'';
+  const tires=kind==='steer'?tire(33,y)+tire(175,y):tire(27,y)+tire(41,y)+tire(167,y)+tire(181,y);
+  return '<g>'+beam+diff+tires+'</g>';
+}
+// ---- shared cab (nose down: front at the bottom), top of cab at cabTop ----
+function cab(ct,accent){
+  const roofDot=accent?'<circle cx="110" cy="'+(ct+30)+'" r="9" fill="'+accent+'" opacity="0.9"/><circle cx="110" cy="'+(ct+30)+'" r="9" fill="none" stroke="#fff" stroke-width="2"/>':'';
+  return '<g>'+
+    // mirrors
+    '<line x1="42" y1="'+(ct+86)+'" x2="30" y2="'+(ct+84)+'" stroke="hsl(235 8% 60%)" stroke-width="3"/><rect x="20" y="'+(ct+78)+'" width="10" height="15" rx="3" fill="url(#cab)" stroke="hsl(240 6% 80%)" stroke-width="1.5"/>'+
+    '<line x1="178" y1="'+(ct+86)+'" x2="190" y2="'+(ct+84)+'" stroke="hsl(235 8% 60%)" stroke-width="3"/><rect x="190" y="'+(ct+78)+'" width="10" height="15" rx="3" fill="url(#cab)" stroke="hsl(240 6% 80%)" stroke-width="1.5"/>'+
+    // cab body
+    '<rect x="40" y="'+ct+'" width="140" height="120" rx="20" fill="url(#cab)" stroke="hsl(240 7% 84%)" stroke-width="1.5"/>'+
+    // roof spoiler / aero
+    '<path d="M50 '+(ct+16)+' q60 -16 120 0 l0 10 q-60 -12 -120 0 Z" fill="#fff" opacity="0.9"/>'+
+    '<line x1="56" y1="'+(ct+52)+'" x2="164" y2="'+(ct+52)+'" stroke="hsl(240 6% 92%)" stroke-width="2"/>'+
+    roofDot+
+    // windshield
+    '<path d="M60 '+(ct+88)+' L160 '+(ct+88)+' L150 '+(ct+106)+' L70 '+(ct+106)+' Z" fill="url(#glass)"/>'+
+    '<line x1="110" y1="'+(ct+88)+'" x2="110" y2="'+(ct+106)+'" stroke="hsl(214 30% 26%)" stroke-width="1.5" opacity=".5"/>'+
+    // hood + headlights
+    '<rect x="58" y="'+(ct+106)+'" width="104" height="12" rx="6" fill="hsl(240 9% 96%)" stroke="hsl(240 6% 86%)" stroke-width="1"/>'+
+    '<rect x="64" y="'+(ct+112)+'" width="16" height="6" rx="2" fill="hsl(44 80% 72%)"/><rect x="140" y="'+(ct+112)+'" width="16" height="6" rx="2" fill="hsl(44 80% 72%)"/>'+
+  '</g>';
+}
+function trailerBox(accent){
+  const strip=accent?'<rect x="52" y="286" width="116" height="7" rx="3.5" fill="'+accent+'" opacity="0.85"/>':'';
+  let ribs='';for(let y=60;y<=250;y+=38)ribs+='<line x1="52" y1="'+y+'" x2="168" y2="'+y+'" stroke="hsl(240 6% 93%)" stroke-width="2"/>';
+  return '<g>'+
+    '<rect x="45" y="22" width="130" height="272" rx="15" fill="url(#body)" stroke="hsl(240 7% 85%)" stroke-width="1.5"/>'+
+    // rear doors line + handles
+    '<line x1="110" y1="26" x2="110" y2="60" stroke="hsl(240 6% 90%)" stroke-width="2"/><rect x="100" y="30" width="6" height="3" rx="1.5" fill="hsl(240 6% 82%)"/><rect x="114" y="30" width="6" height="3" rx="1.5" fill="hsl(240 6% 82%)"/>'+
+    ribs+strip+
+  '</g>';
+}
+// fueiro: a slim steel stanchion (top-down), centered at x
+function fueiroV(x,y){
+  return '<rect x="'+(x-3)+'" y="'+(y-11)+'" width="6" height="22" rx="1.6" fill="url(#steel)" stroke="hsl(235 9% 58%)" stroke-width="0.7"/>'+
+    '<line x1="'+x+'" y1="'+(y-9)+'" x2="'+x+'" y2="'+(y+9)+'" stroke="hsl(235 7% 73%)" stroke-width="0.6" opacity=".6"/>'+
+    '<rect x="'+(x-3.6)+'" y="'+(y-12.5)+'" width="7.2" height="2.6" rx="1" fill="hsl(235 11% 54%)"/>';
+}
+// barrote: slim steel cross-bolster with end brackets + bolts
+function barroteV(y){
+  return '<rect x="52" y="'+(y-4)+'" width="116" height="8" rx="2" fill="url(#steel)" stroke="hsl(235 9% 64%)" stroke-width="0.7"/>'+
+    '<line x1="60" y1="'+y+'" x2="160" y2="'+y+'" stroke="hsl(235 7% 72%)" stroke-width="0.7" opacity=".5"/>'+
+    '<rect x="49" y="'+(y-5)+'" width="6" height="10" rx="1.5" fill="hsl(235 9% 72%)" stroke="hsl(235 9% 60%)" stroke-width="0.6"/>'+
+    '<rect x="165" y="'+(y-5)+'" width="6" height="10" rx="1.5" fill="hsl(235 9% 72%)" stroke="hsl(235 9% 60%)" stroke-width="0.6"/>'+
+    '<circle cx="53" cy="'+(y-2)+'" r="1" fill="hsl(235 12% 48%)"/><circle cx="53" cy="'+(y+2)+'" r="1" fill="hsl(235 12% 48%)"/>'+
+    '<circle cx="167" cy="'+(y-2)+'" r="1" fill="hsl(235 12% 48%)"/><circle cx="167" cy="'+(y+2)+'" r="1" fill="hsl(235 12% 48%)"/>';
+}
+// empty forestry trailer (how it arrives at the oficina): skeletal — slim steel rails, barrotes, fueiros. No logs.
+function trailerFlorestal(accent){
+  const strip=accent?'<rect x="54" y="250" width="112" height="7" rx="3.5" fill="'+accent+'" opacity="0.85"/>':'';
+  let s='<rect x="58" y="30" width="9" height="236" rx="3" fill="url(#steel)" stroke="hsl(235 8% 66%)" stroke-width="0.8"/>'+
+        '<rect x="153" y="30" width="9" height="236" rx="3" fill="url(#steel)" stroke="hsl(235 8% 66%)" stroke-width="0.8"/>'+
+        '<rect x="104" y="34" width="12" height="230" rx="3" fill="url(#steel)" stroke="hsl(235 8% 68%)" stroke-width="0.7" opacity=".9"/>';
+  for(const y of [42,104,172,236]){ s+=barroteV(y)+fueiroV(62.5,y)+fueiroV(157.5,y); }
+  s+='<rect x="48" y="266" width="124" height="28" rx="9" fill="url(#body)" stroke="hsl(240 7% 85%)" stroke-width="1.5"/>'+
+     '<circle cx="110" cy="284" r="5.5" fill="hsl(240 6% 74%)"/>';
+  return '<g>'+s+strip+'</g>';
+}
+function coupling(){return '<rect x="94" y="294" width="32" height="26" rx="5" fill="hsl(240 6% 72%)"/><circle cx="110" cy="307" r="6" fill="hsl(240 6% 60%)"/>';}
+
+function truck(kind,accent){
+  if(kind==='cavalo'){
+    // tractor: 2 rear drive axles (tandem, dual + diff) + chassis + fifth wheel + cab + front steer axle
+    const inner=axle(84,'drive')+axle(120,'drive')+axle(240,'steer')+
+      '<rect x="78" y="40" width="64" height="152" rx="12" fill="url(#body)" stroke="hsl(240 7% 85%)" stroke-width="1.5"/>'+
+      '<rect x="90" y="150" width="40" height="32" rx="7" fill="hsl(240 7% 87%)" stroke="hsl(240 6% 80%)" stroke-width="1"/><circle cx="110" cy="166" r="7" fill="hsl(240 6% 72%)"/>'+
+      cab(196,accent);
+    return '<svg viewBox="0 0 220 340"><g filter="url(#shadow)">'+inner+'</g></svg>';
+  }
+  // trailer bogie (tri-axle tandem, dual) near the rear + body + coupling + cab + front steer axle
+  const tr=kind==='florestal'?trailerFlorestal(accent):trailerBox(accent);
+  const inner=axle(78,'trailer')+axle(114,'trailer')+axle(150,'trailer')+tr+coupling()+axle(362,'steer')+cab(318,accent);
+  return '<svg viewBox="0 0 220 456"><g filter="url(#shadow)">'+inner+'</g></svg>';
+}
+
+const PIECES=[
+  {k:'cavalo',cap:'Cavalo (unidade tratora)',sub:'só a tratora'},
+  {k:'box',cap:'Cavalo + carreta baú',sub:'carga seca'},
+  {k:'florestal',cap:'Cavalo + carreta florestal',sub:'fueiros e barrotes · vazia (sem toras)'}
+];
+document.getElementById('stage').innerHTML=PIECES.map(p=>'<div class="piece">'+truck(p.k)+'<div class="cap">'+p.cap+'</div><div class="capsub">'+p.sub+'</div></div>').join('');
+
+const STATES=[
+  {a:'hsl(233 60% 58%)',cap:'Em manutenção',b:'run'},
+  {a:'hsl(36 70% 56%)',cap:'Pausada',b:'pause'},
+  {a:'hsl(150 44% 46%)',cap:'Pronto',b:'ready'},
+  {a:null,cap:'Aguardando',b:'wait'}
+];
+document.getElementById('row2').innerHTML=STATES.map(s=>'<div class="piece">'+truck('box',s.a)+'<div class="cap"><span class="badge '+s.b+'">'+s.cap+'</span></div></div>').join('');
+</script>
+</body>
+</html>

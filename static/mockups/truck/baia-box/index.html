@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Baia de box · estudo realista · mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --foreground:240 10% 4%;--card:0 0% 100%;--muted-foreground:240 4% 44%;--border:240 6% 90%;
+  --primary:233 66% 52%;--primary-ink:233 70% 40%;
+  --warning-text:26 85% 32%;--success-text:152 64% 26%;--danger-text:0 70% 44%;
+}
+*{box-sizing:border-box}
+body{margin:0;background:hsl(228 16% 90%);color:hsl(var(--foreground));font:14.5px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,p{margin:0}
+.doc{max-width:1160px;margin:0 auto;padding:40px 22px 90px}
+.doc h1{font:800 29px/1.15 Sora;letter-spacing:-.02em}
+.doc .lead{color:hsl(var(--muted-foreground));max-width:900px;margin-top:10px}
+.doc .lead b{color:hsl(235 14% 22%)}
+.stage{margin-top:24px;background:radial-gradient(hsl(220 8% 85%) 1px,transparent 1.4px) 0 0/22px 22px,hsl(220 10% 91.5%);border:1px solid hsl(var(--border));border-radius:18px;padding:30px 24px;display:flex;flex-wrap:wrap;gap:26px;justify-content:center}
+.baycard{background:hsl(var(--card));border-radius:16px;padding:14px;box-shadow:0 30px 70px -34px hsl(232 48% 15%/.5);width:340px}
+.baycard svg{display:block;width:100%;height:auto;border-radius:10px}
+.caphd{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.caphd .cn{font:800 16px Sora}
+.badge{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:3px 10px;font:700 11.5px Inter}
+.badge.run{background:hsl(233 85% 96.5%);color:hsl(var(--primary-ink))}
+.badge.pause{background:hsl(40 96% 92%);color:hsl(var(--warning-text))}
+.badge.free{background:hsl(150 52% 94%);color:hsl(var(--success-text))}
+.capsub{font-size:12.5px;color:hsl(var(--muted-foreground));margin-top:5px}
+.legend{margin-top:26px;display:flex;flex-wrap:wrap;gap:16px 22px;font-size:12.5px;color:hsl(var(--muted-foreground))}
+.legend b{color:hsl(235 12% 24%)}
+</style>
+</head>
+<body>
+<!-- shared defs -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <pattern id="hazard" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <rect width="14" height="14" fill="hsl(45 92% 52%)"/>
+    <rect width="7" height="14" fill="hsl(235 16% 22%)"/>
+  </pattern>
+  <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="hsl(240 6% 89%)"/><stop offset="1" stop-color="hsl(240 7% 82%)"/>
+  </linearGradient>
+  <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="hsl(235 30% 25%)" flood-opacity="0.22"/></filter>
+</defs></svg>
+
+<div class="doc">
+  <h1>Baia de box — estudo realista</h1>
+  <p class="lead">A baia desenhada como <b>é no chão</b>, vista de cima: piso de concreto com juntas, <b>zebrado de segurança</b> na moldura, <b>vala de inspeção</b> com borda amarela e degraus, número <b>estêncil</b> gasto, <b>carro de ferramentas</b>, <b>carretel de ar</b>, <b>ralo</b>, trilhos do <b>portão</b> e a viga da <b>ponte rolante</b>. Três estados — o veículo entra pela frente (embaixo). Depois isso vira a baia do <a href="/telas/truck/patio-oficina">pátio</a>.</p>
+  <div class="stage" id="stage"></div>
+  <div class="legend">
+    <span><b>Vala de inspeção</b> — onde o mecânico acessa o veículo por baixo (borda amarela, degraus).</span>
+    <span><b>Zebrado</b> — moldura de segurança do box.</span>
+    <span><b>Estêncil</b> — número do box pintado e gasto no piso.</span>
+    <span><b>Carro de ferramentas</b> (vermelho) · <b>carretel de ar</b> · <b>ralo</b> · <b>viga da ponte rolante</b>.</span>
+  </div>
+</div>
+
+<script>
+const COL={
+  run:{body:'hsl(233 84% 95%)',cab:'hsl(233 66% 55%)',stroke:'hsl(233 56% 60%)'},
+  pause:{body:'hsl(40 94% 93%)',cab:'hsl(36 86% 54%)',stroke:'hsl(36 74% 60%)'}
+};
+function truckV(c){
+  return '<g filter="url(#soft)">'+
+    '<g fill="#2b2f3a">'+
+      '<rect x="116" y="60" width="8" height="15" rx="2"/><rect x="196" y="60" width="8" height="15" rx="2"/>'+
+      '<rect x="116" y="84" width="8" height="15" rx="2"/><rect x="196" y="84" width="8" height="15" rx="2"/>'+
+      '<rect x="116" y="150" width="8" height="15" rx="2"/><rect x="196" y="150" width="8" height="15" rx="2"/>'+
+      '<rect x="118" y="214" width="7" height="13" rx="2"/><rect x="195" y="214" width="7" height="13" rx="2"/>'+
+    '</g>'+
+    '<rect x="123" y="52" width="74" height="146" rx="9" fill="'+c.body+'" stroke="'+c.stroke+'" stroke-width="2.5"/>'+
+    '<line x1="123" y1="118" x2="197" y2="118" stroke="'+c.stroke+'" stroke-width="1.5" opacity=".6"/>'+
+    '<rect x="127" y="200" width="66" height="52" rx="11" fill="'+c.cab+'"/>'+
+    '<rect x="135" y="242" width="50" height="8" rx="4" fill="#fff" opacity=".55"/>'+
+    '<circle cx="138" cy="214" r="3.5" fill="#fff" opacity=".4"/><circle cx="182" cy="214" r="3.5" fill="#fff" opacity=".4"/>'+
+  '</g>';
+}
+function bay(num,state){
+  const occ=state!=='free';
+  const stencil=state==='free'?'hsl(45 70% 55% / .55)':'hsl(0 0% 100% / .18)';
+  return '<svg viewBox="0 0 320 300">'+
+    // ground outside / door apron
+    '<rect x="0" y="0" width="320" height="300" fill="hsl(240 6% 84%)"/>'+
+    // walls (3 sides: left, back-top, right), open bottom = door
+    '<rect x="0" y="0" width="320" height="16" fill="hsl(235 10% 46%)"/>'+
+    '<rect x="0" y="0" width="16" height="286" fill="hsl(235 10% 46%)"/>'+
+    '<rect x="304" y="0" width="16" height="286" fill="hsl(235 10% 46%)"/>'+
+    '<rect x="0" y="0" width="320" height="4" fill="hsl(235 10% 56%)"/>'+
+    // floor
+    '<rect x="16" y="16" width="288" height="270" fill="url(#floor)"/>'+
+    // expansion joints
+    '<g stroke="hsl(240 6% 74%)" stroke-width="1.5">'+
+      '<line x1="16" y1="104" x2="304" y2="104"/><line x1="16" y1="196" x2="304" y2="196"/><line x1="160" y1="16" x2="160" y2="286"/>'+
+    '</g>'+
+    // hazard frame (safety striping band inside walls)
+    '<g>'+
+      '<rect x="16" y="16" width="288" height="11" fill="url(#hazard)"/>'+
+      '<rect x="16" y="16" width="11" height="248" fill="url(#hazard)"/>'+
+      '<rect x="293" y="16" width="11" height="248" fill="url(#hazard)"/>'+
+    '</g>'+
+    // bay number stencil (worn)
+    '<text x="160" y="92" text-anchor="middle" font-family="Sora,sans-serif" font-weight="800" font-size="52" fill="'+stencil+'" letter-spacing="2">'+String(num).padStart(2,'0')+'</text>'+
+    // inspection pit (dark, yellow edge, rungs)
+    '<rect x="131" y="40" width="58" height="176" rx="4" fill="hsl(235 18% 20%)" stroke="hsl(45 95% 52%)" stroke-width="3"/>'+
+    '<g stroke="hsl(235 14% 34%)" stroke-width="2">'+
+      '<line x1="131" y1="72" x2="189" y2="72"/><line x1="131" y1="108" x2="189" y2="108"/><line x1="131" y1="144" x2="189" y2="144"/><line x1="131" y1="180" x2="189" y2="180"/>'+
+    '</g>'+
+    // tool cart (red) on the left wall
+    '<g filter="url(#soft)"><rect x="30" y="150" width="34" height="58" rx="5" fill="hsl(2 70% 52%)"/>'+
+      '<rect x="33" y="156" width="28" height="9" rx="2" fill="hsl(2 60% 44%)"/><rect x="33" y="169" width="28" height="9" rx="2" fill="hsl(2 60% 44%)"/><rect x="33" y="182" width="28" height="9" rx="2" fill="hsl(2 60% 44%)"/>'+
+      '<circle cx="36" cy="206" r="3.5" fill="#1c1f26"/><circle cx="58" cy="206" r="3.5" fill="#1c1f26"/>'+
+      '<rect x="40" y="195" width="14" height="4" rx="2" fill="hsl(0 0% 100% / .6)"/></g>'+
+    // air hose reel (top-left) + hose
+    '<g><circle cx="42" cy="54" r="13" fill="hsl(235 10% 92%)" stroke="hsl(235 10% 60%)" stroke-width="3"/><circle cx="42" cy="54" r="4" fill="hsl(235 10% 55%)"/>'+
+      '<path d="M42 67 q6 22 -4 40 q-8 14 2 26" fill="none" stroke="hsl(200 20% 55%)" stroke-width="3" stroke-linecap="round" opacity=".8"/></g>'+
+    // workbench (back wall, right)
+    '<g><rect x="214" y="22" width="78" height="20" rx="3" fill="hsl(28 30% 60%)"/><rect x="214" y="22" width="78" height="6" fill="hsl(28 28% 52%)"/>'+
+      '<rect x="222" y="27" width="10" height="10" rx="2" fill="hsl(235 10% 40%)"/><rect x="238" y="28" width="8" height="9" rx="2" fill="hsl(2 60% 50%)"/><rect x="252" y="27" width="12" height="10" rx="2" fill="hsl(235 10% 46%)"/></g>'+
+    // floor drain near the door
+    '<g><rect x="146" y="252" width="28" height="18" rx="3" fill="hsl(235 12% 64%)" stroke="hsl(235 12% 46%)" stroke-width="1.5"/>'+
+      '<g stroke="hsl(235 14% 40%)" stroke-width="1.5"><line x1="152" y1="252" x2="152" y2="270"/><line x1="160" y1="252" x2="160" y2="270"/><line x1="168" y1="252" x2="168" y2="270"/></g></g>'+
+    // the vehicle
+    (occ?truckV(COL[state]):'')+
+    // overhead crane beam (semi-transparent, above everything)
+    '<g opacity=".5"><rect x="16" y="130" width="288" height="9" fill="hsl(235 14% 50%)"/><rect x="150" y="128" width="20" height="13" rx="2" fill="hsl(235 16% 38%)"/><line x1="160" y1="141" x2="160" y2="152" stroke="hsl(235 16% 38%)" stroke-width="2"/><circle cx="160" cy="155" r="4" fill="none" stroke="hsl(235 16% 38%)" stroke-width="2"/></g>'+
+    // garage door tracks (open) at the bottom
+    '<rect x="10" y="286" width="300" height="4" fill="hsl(235 10% 56%)"/>'+
+    '<rect x="8" y="270" width="8" height="20" fill="hsl(235 10% 50%)"/><rect x="304" y="270" width="8" height="20" fill="hsl(235 10% 50%)"/>'+
+  '</svg>';
+}
+const BAYS=[{n:3,st:'free',sub:'livre · pronta pra receber'},{n:1,st:'run',sub:'Frota 812 · OS-001043 · Freio'},{n:4,st:'pause',sub:'Frota 158 · OS-001038 · esperando peça'}];
+const badge={free:'<span class="badge free">Livre</span>',run:'<span class="badge run">Em manutenção</span>',pause:'<span class="badge pause">Pausada</span>'};
+document.getElementById('stage').innerHTML=BAYS.map(b=>
+  '<div class="baycard">'+bay(b.n,b.st)+'<div class="caphd"><span class="cn">Box '+b.n+'</span>'+badge[b.st]+'</div><div class="capsub">'+b.sub+'</div></div>'
+).join('');
+</script>
+</body>
+</html>
