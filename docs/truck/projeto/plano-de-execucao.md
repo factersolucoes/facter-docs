@@ -113,3 +113,15 @@ Saída: metas de performance atingidas e nenhum achado crítico aberto.
 | Doc de pneus (resposta aos comentários) | 3.1 | Semana 11 |
 | Preço por módulo | 3.4 | Semana 12 |
 | Unidade em que o custo da peça é guardado ([proposta](../produto/propostas/part-cost-convention.mdx)) | 2.5 | Semana 6 |
+
+## Backlog desenhado (aprovado, aguardando janela)
+
+Telas com mockup pronto mas sem janela de implementação ainda. Ficam aqui pra **não se perder** — quando abrir espaço, saem daqui pra uma task numerada.
+
+| Item | Mockup | Situação |
+| --- | --- | --- |
+| **Planejar turnos** | [mockup](/telas/truck/planejar-turnos) | **Aprovado · backlog.** Console de remanejar turno (colunas por turno/base, cards que arrastam, rascunho + Aplicar, impacto ao vivo por coluna). Reaproveita o board controlado do DS (`Kanban`) + Turnos + "Mudar turno" (`employee.assign`, concorrência) e grava a movimentação. **Não esquecer.** |
+| Organograma de pessoas | [mockup](/telas/truck/organograma) | Aprovado · backlog. Depende de um "responde a quem" (campo novo no funcionário) e, para custo por área, de `labor_rate.view` (2.4). |
+| Escala e plantão | [mockup](/telas/truck/escala-plantao) | Em revisão (direção de produto). Exceção planejada sobre o turno (domingo/feriado); entra depois do núcleo de Pessoas, junto do calendário de feriados; vira ADR. |
+| Estados de página (telas de sistema) | [mockup](/telas/truck/estados-de-pagina) | Em revisão. Família Hero (404, recurso, 403, 500, sessão, offline, manutenção, plano). Implementa já os que já acontecem — 404 (logado+deslogado), recurso, 403, 500 — com a rota catch-all `*` e o fim do crash `[object Object]`; o resto com o PWA e o ecossistema. |
+| Boxes (baias) da oficina | — | Leftover da 2.2: cadastro de boxes por base, usado pela OS e pelo pátio. |

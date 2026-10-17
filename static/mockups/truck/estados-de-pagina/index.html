@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estados de página · mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --background:0 0% 98%;--foreground:240 10% 4%;--card:0 0% 100%;
+  --primary:233 66% 52%;--primary-ink:233 70% 40%;--primary-soft:233 85% 96.5%;
+  --muted:240 5% 95%;--muted-foreground:240 4% 44%;--border:240 6% 90%;--border-strong:240 6% 83%;--toolbar:240 6% 97%;
+  --warning:36 92% 50%;--warning-soft:40 96% 92%;--warning-text:26 85% 32%;
+  --danger:0 82% 60%;--danger-soft:0 88% 96.5%;--danger-text:0 70% 44%;
+  --canvas:228 16% 90%;--ring:233 66% 52%;
+  --accent:120 78% 72%;--accent-deep:120 52% 44%;
+  --blue-soft:233 82% 95%;--ink:240 6% 55%;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));font:14.5px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4,p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:hsl(var(--primary))}
+:focus-visible{outline:2px solid hsl(var(--ring));outline-offset:2px;border-radius:6px}
+.ic{display:inline-block;width:18px;height:18px;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;flex:none;vertical-align:-3px}
+.s14{width:14px;height:14px}.s16{width:16px;height:16px}.s18{width:18px;height:18px}.s20{width:20px;height:20px}
+.muted{color:hsl(var(--muted-foreground))}
+
+/* presentation */
+.doc{max-width:1328px;margin:0 auto;padding:48px 24px 96px}
+.doc-head h1{font:800 32px/1.15 Sora,Inter,sans-serif;letter-spacing:-.02em}
+.doc-head p{color:hsl(var(--muted-foreground));max-width:860px;margin-top:10px}
+.toc{display:flex;flex-wrap:wrap;gap:6px;margin-top:22px}
+.toc a{font-size:12.5px;text-decoration:none;color:hsl(240 6% 26%);background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:999px;padding:5px 12px}
+.toc a:hover{border-color:hsl(233 60% 78%);color:hsl(var(--primary))}
+.sec{margin-top:60px}
+.sec-label{display:flex;align-items:baseline;gap:12px;margin-bottom:6px;flex-wrap:wrap}
+.sec-num{font:800 13px Sora,sans-serif;color:hsl(var(--primary));background:hsl(var(--card));border-radius:999px;min-width:28px;height:28px;padding:0 8px;display:inline-grid;place-items:center;flex:none}
+.sec h2{font:700 21px/1.3 Inter,sans-serif;letter-spacing:-.01em}
+.tag{display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 9px;border-radius:999px;font:700 11px/1 Inter,sans-serif;text-transform:uppercase;letter-spacing:.05em}
+.tag.on{background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.tag.later{background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.tag.ctxt{background:hsl(240 6% 96%);color:hsl(240 5% 38%);text-transform:none;letter-spacing:0;font-weight:600}
+.sec-sub{color:hsl(var(--muted-foreground));margin:0 0 18px 40px;max-width:900px}
+.frame{background:hsl(var(--background));border-radius:16px;box-shadow:0 1px 2px hsl(230 20% 20%/.06),0 16px 48px -16px hsl(230 30% 20%/.22);overflow:hidden;border:1px solid hsl(var(--border));max-width:1120px;margin-left:40px}
+.notes{margin:16px 0 0 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:8px 32px;font-size:13px;color:hsl(240 6% 28%)}
+.notes b{color:hsl(240 8% 20%)}
+
+/* ===== one skeleton, equal height ===== */
+.STAGE{min-height:468px}
+.shell{display:grid;grid-template-columns:68px 1fr;min-height:468px;background:hsl(var(--background))}
+.rail{background:hsl(var(--primary));display:flex;flex-direction:column;align-items:center;gap:10px;padding:14px 0;color:#fff}
+.rail .logo{width:34px;height:34px;border-radius:9px;background:hsl(0 0% 100%/.18);display:grid;place-items:center;margin-bottom:6px}
+.rail .d{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:hsl(0 0% 100%/.6)}
+.rail .d.on{background:hsl(0 0% 100%/.2);color:#fff}
+.content{position:relative;display:grid;place-items:center;padding:40px 24px}
+.full{position:relative;min-height:468px;display:grid;place-items:center;overflow:hidden;background:hsl(var(--background))}
+.lock{display:inline-flex;align-items:center;gap:9px;margin-bottom:14px}
+.lock svg{color:hsl(var(--primary))}.lock .wm{font:400 16px/1 Sora,sans-serif}.lock .wm b{font-weight:800}
+
+.hero{position:relative;z-index:1;text-align:center;max-width:430px}
+.illus{width:176px;height:132px;margin:0 auto 14px}.illus svg{width:100%;height:100%;display:block}
+.code{font:800 12px Sora,sans-serif;letter-spacing:.16em;color:hsl(var(--primary));text-transform:uppercase}
+.code.dng{color:hsl(var(--danger-text))}
+.hero h3,.glass h3{font:800 23px/1.22 Sora,Inter,sans-serif;letter-spacing:-.02em;margin-top:9px}
+.hero p,.glass p{color:hsl(var(--muted-foreground));margin:11px auto 0;max-width:340px}
+.cta{display:flex;flex-wrap:wrap;gap:11px;justify-content:center;margin-top:22px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:43px;padding:0 19px;border-radius:11px;font:600 14px Inter,sans-serif;border:1px solid transparent;text-decoration:none}
+.btn-primary{background:hsl(var(--primary));color:#fff;box-shadow:0 1px 2px hsl(233 60% 30%/.25),0 8px 20px -10px hsl(var(--primary)/.7)}
+.btn-ghost{background:hsl(var(--card));color:hsl(240 8% 22%);border-color:hsl(var(--border-strong))}
+.ctx{display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 12px;border-radius:999px;background:hsl(var(--muted));border:1px solid hsl(var(--border));color:hsl(var(--muted-foreground));font:500 12.5px/1 ui-monospace,Menlo,monospace;margin-top:18px}
+.ctx b{color:hsl(240 8% 30%);font-weight:600}
+.queue{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:7px 13px;border-radius:10px;background:hsl(var(--warning-soft));color:hsl(var(--warning-text));font:600 12.5px Inter,sans-serif}
+.devbox{margin:16px auto 0;max-width:420px;text-align:left;border:1px solid hsl(var(--border));border-radius:10px;background:hsl(var(--toolbar));overflow:hidden}
+.devbox summary{list-style:none;cursor:pointer;padding:8px 12px;font:600 12px Inter,sans-serif;color:hsl(240 6% 35%);display:flex;align-items:center;gap:6px}
+.devbox pre{margin:0;padding:10px 12px;border-top:1px solid hsl(var(--border));font:11.5px/1.5 ui-monospace,Menlo,monospace;color:hsl(240 6% 32%);white-space:pre-wrap}
+
+/* phones */
+.phones{display:flex;flex-wrap:wrap;gap:22px;margin-left:40px}
+.phone{width:286px;border-radius:30px;border:9px solid hsl(240 9% 13%);background:hsl(var(--background));overflow:hidden;box-shadow:0 20px 50px -24px hsl(230 30% 20%/.5)}
+.phone .scr{height:512px;position:relative;display:grid;place-items:center;padding:24px 18px;overflow:hidden}
+.phone .nav{position:absolute;left:0;right:0;bottom:0;height:54px;background:hsl(var(--card));border-top:1px solid hsl(var(--border));display:flex;align-items:center;justify-content:space-around;color:hsl(var(--muted-foreground))}
+.phone .nav .on{color:hsl(var(--primary))}
+.phone .illus{width:140px;height:106px}.phone .hero{max-width:230px}.phone h3{font-size:20px}.phone .cta{flex-direction:column}.phone .btn{width:100%}
+.pcap{font:600 12px Inter,sans-serif;color:hsl(var(--muted-foreground));margin:8px 0 0 2px;text-align:center;width:286px}
+
+@media(max-width:760px){.frame,.sec-sub,.notes,.phones{margin-left:0}.doc{padding:32px 16px 72px}}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="doc-head">
+    <h1>Estados de página · telas de sistema</h1>
+    <p>A família de <b>páginas inteiras de feedback</b>. Um esqueleto só: <b>ilustração</b> (mesmo tamanho e posição) → código → título → texto → ação. Muda a ilustração, a copy, a ação e o <b>contexto</b> — logado (área de conteúdo, sidebar fica) ou deslogado (tela cheia com a logo). Mesma altura, mesma linguagem visual (azul + verde). Vazio, busca sem resultado e custo oculto <b>não entram</b> — são do <code>EmptyState</code> por tela.</p>
+    <div class="toc"><a href="#s1">1 · 404 logado</a><a href="#s2">2 · 404 deslogado</a><a href="#s3">3 · Recurso</a><a href="#s4">4 · 403</a><a href="#s5">5 · 500</a><a href="#s6">6 · Sessão</a><a href="#s7">7 · Offline</a><a href="#s8">8 · Manutenção</a><a href="#s9">9 · Plano</a><a href="#s10">10 · Celular</a><a href="#s11">Comportamento</a></div>
+  </div>
+
+  <!-- 1 · 404 logado -->
+  <section class="sec" id="s1">
+    <div class="sec-label"><span class="sec-num">1</span><h2>404 · página não encontrada</h2><span class="tag on">Implementa já</span><span class="tag ctxt">Logado · área de conteúdo</span></div>
+    <p class="sec-sub">A URL não existe. A sidebar continua; o Hero ocupa a área de conteúdo, com a ilustração da rota que sai do mapa.</p>
+    <div class="frame"><div class="shell">
+      <div class="rail"><div class="logo"><svg width="20" height="20" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#fff" opacity=".9"/><path d="M7 15.5V8.5h2.2l2.3 3.1 2.3-3.1H16v7h-2.1v-3.7l-2.4 3.2-2.4-3.2v3.7H7Z" fill="hsl(233 66% 52%)"/></svg></div><div class="d"><i class="ic s20" style="--i:url(https://api.iconify.design/ph/house.svg)"></i></div><div class="d"><i class="ic s20" style="--i:url(https://api.iconify.design/ph/truck.svg)"></i></div><div class="d"><i class="ic s20" style="--i:url(https://api.iconify.design/ph/wrench.svg)"></i></div><div class="d on"><i class="ic s20" style="--i:url(https://api.iconify.design/ph/users-three.svg)"></i></div></div>
+      <div class="content"><div class="hero">
+        <div class="illus">
+          <svg viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="road1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="hsl(233 40% 74%)"/><stop offset="1" stop-color="hsl(233 55% 58%)"/></linearGradient></defs>
+            <ellipse cx="100" cy="140" rx="74" ry="8" fill="hsl(233 30% 70%)" opacity=".22"/>
+            <path d="M80 134 L95 50 L105 50 L120 134 Z" fill="url(#road1)"/>
+            <path d="M100 126 V114 M100 100 V88 M100 76 V66" stroke="#fff" stroke-width="3.5" stroke-linecap="round" opacity=".9"/>
+            <path d="M46 50 H154" stroke="hsl(233 45% 72%)" stroke-width="2" stroke-dasharray="1.5 7" stroke-linecap="round" opacity=".6"/>
+            <path d="M150 50 V104" stroke="hsl(var(--ink))" stroke-width="5" stroke-linecap="round"/>
+            <g transform="rotate(-8 150 62)"><rect x="120" y="52" width="52" height="20" rx="5" fill="hsl(var(--accent))"/><path d="M172 52 l12 10 l-12 10 Z" fill="hsl(var(--accent))"/><rect x="128" y="60" width="30" height="4" rx="2" fill="#fff" opacity=".85"/></g>
+            <g transform="translate(44 66)"><path d="M15 0 C6.7 0 0 6.7 0 15 C0 25 15 40 15 40 C15 40 30 25 30 15 C30 6.7 23.3 0 15 0 Z" fill="hsl(var(--primary))"/><circle cx="15" cy="14.5" r="6" fill="#fff"/></g>
+            <path d="M60 96 Q78 118 98 126" stroke="hsl(var(--primary))" stroke-width="2.2" stroke-dasharray="2 6" stroke-linecap="round" opacity=".7"/>
+          </svg>
+        </div>
+        <div class="code">Erro 404</div>
+        <h3>Essa página não existe</h3>
+        <p>O endereço pode ter mudado de lugar ou saído do ar. Volte ao início ou à tela anterior.</p>
+        <div class="cta"><a class="btn btn-primary" href="#s1"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/house.svg)"></i>Ir para o início</a><a class="btn btn-ghost" href="#s1"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/arrow-left.svg)"></i>Voltar</a></div>
+        <div class="ctx"><i class="ic s14" style="--i:url(https://api.iconify.design/ph/link-break.svg)"></i><b>/workforce/turnos</b></div>
+      </div></div>
+    </div></div>
+    <div class="notes"><div><b>Rota:</b> catch-all <code>*</code> no shell → <code>PageState</code>, sem cair no error boundary.</div><div><b>Saídas:</b> início (primária) e voltar; foco no botão principal.</div></div>
+  </section>
+
+  <!-- 2 · 404 deslogado -->
+  <section class="sec" id="s2">
+    <div class="sec-label"><span class="sec-num">2</span><h2>404 · fora do app</h2><span class="tag on">Implementa já</span><span class="tag ctxt">Deslogado · tela cheia</span></div>
+    <p class="sec-sub">Mesmo 404 sem sessão: tela cheia, cartão de vidro com a logo. Leva pra entrar.</p>
+    <div class="frame"><div class="full"><div class="hero">
+      <div class="lock"><svg width="22" height="22" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="currentColor"/><path d="M7 15.5V8.5h2.2l2.3 3.1 2.3-3.1H16v7h-2.1v-3.7l-2.4 3.2-2.4-3.2v3.7H7Z" fill="#fff"/></svg><span class="wm">Facter <b>Truck</b></span></div>
+      <div class="illus">
+        <svg viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs><linearGradient id="road2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="hsl(233 40% 74%)"/><stop offset="1" stop-color="hsl(233 55% 58%)"/></linearGradient></defs>
+          <ellipse cx="100" cy="140" rx="74" ry="8" fill="hsl(233 30% 70%)" opacity=".22"/>
+          <path d="M80 134 L95 50 L105 50 L120 134 Z" fill="url(#road2)"/>
+          <path d="M100 126 V114 M100 100 V88 M100 76 V66" stroke="#fff" stroke-width="3.5" stroke-linecap="round" opacity=".9"/>
+          <path d="M46 50 H154" stroke="hsl(233 45% 72%)" stroke-width="2" stroke-dasharray="1.5 7" stroke-linecap="round" opacity=".6"/>
+          <path d="M150 50 V104" stroke="hsl(var(--ink))" stroke-width="5" stroke-linecap="round"/>
+          <g transform="rotate(-8 150 62)"><rect x="120" y="52" width="52" height="20" rx="5" fill="hsl(var(--accent))"/><path d="M172 52 l12 10 l-12 10 Z" fill="hsl(var(--accent))"/><rect x="128" y="60" width="30" height="4" rx="2" fill="#fff" opacity=".85"/></g>
+          <g transform="translate(44 66)"><path d="M15 0 C6.7 0 0 6.7 0 15 C0 25 15 40 15 40 C15 40 30 25 30 15 C30 6.7 23.3 0 15 0 Z" fill="hsl(var(--primary))"/><circle cx="15" cy="14.5" r="6" fill="#fff"/></g>
+          <path d="M60 96 Q78 118 98 126" stroke="hsl(var(--primary))" stroke-width="2.2" stroke-dasharray="2 6" stroke-linecap="round" opacity=".7"/>
+        </svg>
+      </div>
+      <div class="code">Erro 404</div>
+      <h3>Página não encontrada</h3>
+      <p>Esse endereço não leva a nenhuma tela. Entre para continuar de onde você precisa.</p>
+      <div class="cta"><a class="btn btn-primary" href="#s2"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/sign-in.svg)"></i>Entrar</a></div>
+    </div></div></div>
+  </section>
+
+  <!-- 3 · recurso -->
+  <section class="sec" id="s3">
+    <div class="sec-label"><span class="sec-num">3</span><h2>Recurso não encontrado</h2><span class="tag on">Implementa já</span><span class="tag ctxt">Logado</span></div>
+    <p class="sec-sub">A rota existe, o item não: deep link pra uma OS/veículo/pessoa removida. A saída leva pra lista daquele tipo.</p>
+    <div class="frame"><div class="shell">
+      <div class="rail"><div class="logo"><svg width="20" height="20" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#fff" opacity=".9"/><path d="M7 15.5V8.5h2.2l2.3 3.1 2.3-3.1H16v7h-2.1v-3.7l-2.4 3.2-2.4-3.2v3.7H7Z" fill="hsl(233 66% 52%)"/></svg></div><div class="d on"><i class="ic s20" style="--i:url(https://api.iconify.design/ph/wrench.svg)"></i></div><div class="d"><i class="ic s20" style="--i:url(https://api.iconify.design/ph/truck.svg)"></i></div></div>
+      <div class="content"><div class="hero">
+        <div class="illus">
+          <svg viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="100" cy="140" rx="62" ry="8" fill="hsl(233 30% 70%)" opacity=".22"/>
+            <rect x="58" y="30" width="68" height="92" rx="10" fill="#fff" stroke="hsl(var(--primary))" stroke-width="2.5" stroke-dasharray="5 6"/>
+            <rect x="72" y="48" width="40" height="6" rx="3" fill="hsl(var(--blue-soft))"/>
+            <rect x="72" y="63" width="28" height="6" rx="3" fill="hsl(var(--blue-soft))"/>
+            <g transform="translate(104 94)"><circle r="26" fill="hsl(233 85% 96%)" stroke="hsl(var(--primary))" stroke-width="3.5"/><circle r="5" cx="-3" cy="-3" fill="hsl(var(--accent))"/><path d="M18 18 L36 36" stroke="hsl(var(--primary))" stroke-width="7" stroke-linecap="round"/></g>
+          </svg>
+        </div>
+        <div class="code">Não encontrado</div>
+        <h3>Essa ordem de serviço não existe mais</h3>
+        <p>Pode ter sido removida ou o link está desatualizado.</p>
+        <div class="cta"><a class="btn btn-primary" href="#s3"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/list-bullets.svg)"></i>Ir para ordens de serviço</a><a class="btn btn-ghost" href="#s3"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/arrow-left.svg)"></i>Voltar</a></div>
+        <div class="ctx"><i class="ic s14" style="--i:url(https://api.iconify.design/ph/hash.svg)"></i><b>OS-1042</b></div>
+      </div></div>
+    </div></div>
+  </section>
+
+  <!-- 4 · 403 -->
+  <section class="sec" id="s4">
+    <div class="sec-label"><span class="sec-num">4</span><h2>403 · sem permissão</h2><span class="tag on">Implementa já</span><span class="tag ctxt">Logado</span></div>
+    <p class="sec-sub">A tela existe, a pessoa não tem acesso. Aponta pra quem resolve, sem culpar.</p>
+    <div class="frame"><div class="shell">
+      <div class="rail"><div class="logo"><svg width="20" height="20" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#fff" opacity=".9"/><path d="M7 15.5V8.5h2.2l2.3 3.1 2.3-3.1H16v7h-2.1v-3.7l-2.4 3.2-2.4-3.2v3.7H7Z" fill="hsl(233 66% 52%)"/></svg></div><div class="d on"><i class="ic s20" style="--i:url(https://api.iconify.design/ph/package.svg)"></i></div><div class="d"><i class="ic s20" style="--i:url(https://api.iconify.design/ph/house.svg)"></i></div></div>
+      <div class="content"><div class="hero">
+        <div class="illus">
+          <svg viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="100" cy="140" rx="56" ry="8" fill="hsl(233 30% 70%)" opacity=".22"/>
+            <path d="M76 72 V56 a24 24 0 0 1 48 0 V72" fill="none" stroke="hsl(var(--primary))" stroke-width="8" stroke-linecap="round"/>
+            <rect x="62" y="70" width="76" height="58" rx="13" fill="hsl(var(--primary))"/>
+            <circle cx="100" cy="93" r="9" fill="hsl(var(--accent))"/>
+            <rect x="96" y="97" width="8" height="18" rx="4" fill="hsl(var(--accent))"/>
+          </svg>
+        </div>
+        <div class="code">Sem permissão</div>
+        <h3>Você não tem acesso a esta tela</h3>
+        <p>Se precisar, peça ao gestor da sua empresa pra liberar seu acesso.</p>
+        <div class="cta"><a class="btn btn-primary" href="#s4"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/house.svg)"></i>Ir para o início</a><a class="btn btn-ghost" href="#s4"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/arrow-left.svg)"></i>Voltar</a></div>
+      </div></div>
+    </div></div>
+  </section>
+
+  <!-- 5 · 500 -->
+  <section class="sec" id="s5">
+    <div class="sec-label"><span class="sec-num">5</span><h2>500 · erro inesperado</h2><span class="tag on">Implementa já</span><span class="tag ctxt">Logado · substitui o crash atual</span></div>
+    <p class="sec-sub">Algo quebrou de verdade. É o error boundary de hoje (o do <code>[object Object]</code>), agora na família e com o erro serializado no detalhe de dev.</p>
+    <div class="frame"><div class="shell">
+      <div class="rail"><div class="logo"><svg width="20" height="20" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#fff" opacity=".9"/><path d="M7 15.5V8.5h2.2l2.3 3.1 2.3-3.1H16v7h-2.1v-3.7l-2.4 3.2-2.4-3.2v3.7H7Z" fill="hsl(233 66% 52%)"/></svg></div><div class="d on"><i class="ic s20" style="--i:url(https://api.iconify.design/ph/truck.svg)"></i></div></div>
+      <div class="content"><div class="hero">
+        <div class="illus">
+          <svg viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="100" cy="140" rx="60" ry="8" fill="hsl(233 30% 70%)" opacity=".22"/>
+            <rect x="52" y="40" width="96" height="66" rx="11" fill="#fff" stroke="hsl(var(--primary))" stroke-width="2.5"/>
+            <rect x="52" y="40" width="96" height="16" rx="8" fill="hsl(var(--primary))"/>
+            <circle cx="62" cy="48" r="2.4" fill="#fff"/><circle cx="70" cy="48" r="2.4" fill="#fff"/>
+            <path d="M104 64 L86 92 L99 92 L94 112 L118 82 L104 82 Z" fill="hsl(var(--accent))" stroke="hsl(var(--accent-deep))" stroke-width="1.5" stroke-linejoin="round"/>
+            <rect x="92" y="106" width="16" height="12" fill="hsl(var(--primary))"/><rect x="80" y="118" width="40" height="7" rx="3.5" fill="hsl(var(--primary))"/>
+          </svg>
+        </div>
+        <div class="code dng">Erro inesperado</div>
+        <h3>Não conseguimos abrir esta tela</h3>
+        <p>Tente recarregar. Se continuar, fale com o suporte.</p>
+        <div class="cta"><a class="btn btn-primary" href="#s5"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/arrow-clockwise.svg)"></i>Recarregar</a><a class="btn btn-ghost" href="#s5"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/house.svg)"></i>Ir para o início</a></div>
+        <details class="devbox"><summary><i class="ic s14" style="--i:url(https://api.iconify.design/ph/caret-right.svg)"></i>Detalhes do erro (dev)</summary><pre>TypeError: Cannot read properties of null (reading 'name')
+  at EmployeeHero (employee-profile-page.tsx:243:18)</pre></details>
+      </div></div>
+    </div></div>
+    <div class="notes"><div><b>Correção:</b> o boundary serializa <code>Error</code> (mensagem + stack); fim do <code>[object Object]</code>.</div><div><b>Dev-only:</b> o detalhe só aparece fora de produção.</div></div>
+  </section>
+
+  <!-- 6 · sessão -->
+  <section class="sec" id="s6">
+    <div class="sec-label"><span class="sec-num">6</span><h2>Sessão expirada</h2><span class="tag later">Depois</span><span class="tag ctxt">Deslogado · tela cheia</span></div>
+    <p class="sec-sub">O token caiu ou o papel mudou. Pede pra entrar de novo e volta pra onde estava.</p>
+    <div class="frame"><div class="full"><div class="hero">
+      <div class="lock"><svg width="22" height="22" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="currentColor"/><path d="M7 15.5V8.5h2.2l2.3 3.1 2.3-3.1H16v7h-2.1v-3.7l-2.4 3.2-2.4-3.2v3.7H7Z" fill="#fff"/></svg><span class="wm">Facter <b>Truck</b></span></div>
+      <div class="illus">
+        <svg viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="100" cy="140" rx="52" ry="8" fill="hsl(233 30% 70%)" opacity=".22"/>
+          <rect x="60" y="26" width="80" height="11" rx="5" fill="hsl(var(--primary-ink))"/>
+          <rect x="60" y="115" width="80" height="11" rx="5" fill="hsl(var(--primary-ink))"/>
+          <path d="M68 39 H132 L104 76 H96 Z" fill="hsl(233 80% 96%)" stroke="hsl(var(--primary))" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M96 76 H104 L132 113 H68 Z" fill="hsl(233 80% 96%)" stroke="hsl(var(--primary))" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M86 47 H114 L103 62 H97 Z" fill="hsl(var(--accent))"/>
+          <rect x="98.3" y="74" width="3.4" height="19" rx="1.5" fill="hsl(var(--accent))"/>
+          <path d="M74 111 H126 L100 92 Z" fill="hsl(var(--accent))"/>
+        </svg>
+      </div>
+      <div class="code">Sessão expirada</div>
+      <h3>Sua sessão expirou</h3>
+      <p>Por segurança, entre de novo pra continuar. Você volta pra onde parou.</p>
+      <div class="cta"><a class="btn btn-primary" href="#s6"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/sign-in.svg)"></i>Entrar de novo</a></div>
+    </div></div></div>
+  </section>
+
+  <!-- 7 · offline -->
+  <section class="sec" id="s7">
+    <div class="sec-label"><span class="sec-num">7</span><h2>Sem conexão</h2><span class="tag later">Depois · PWA</span><span class="tag ctxt">Logado · tablet do pátio</span></div>
+    <p class="sec-sub">Sinal ruim. O app abre sem rede; o que a pessoa fez fica em fila e envia quando voltar.</p>
+    <div class="frame"><div class="shell">
+      <div class="rail"><div class="logo"><svg width="20" height="20" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#fff" opacity=".9"/><path d="M7 15.5V8.5h2.2l2.3 3.1 2.3-3.1H16v7h-2.1v-3.7l-2.4 3.2-2.4-3.2v3.7H7Z" fill="hsl(233 66% 52%)"/></svg></div><div class="d on"><i class="ic s20" style="--i:url(https://api.iconify.design/ph/wrench.svg)"></i></div></div>
+      <div class="content"><div class="hero">
+        <div class="illus">
+          <svg viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="100" cy="140" rx="58" ry="8" fill="hsl(233 30% 70%)" opacity=".22"/>
+            <g stroke="hsl(var(--primary))" fill="none" stroke-linecap="round"><path d="M64 96 a36 36 0 0 1 72 0" stroke-width="7"/><path d="M76 96 a24 24 0 0 1 48 0" stroke-width="7"/><path d="M88 96 a12 12 0 0 1 24 0" stroke-width="7"/></g>
+            <circle cx="100" cy="100" r="5.5" fill="hsl(var(--primary))"/>
+            <line x1="62" y1="54" x2="138" y2="110" stroke="#fff" stroke-width="12" stroke-linecap="round"/>
+            <line x1="62" y1="54" x2="138" y2="110" stroke="hsl(var(--accent))" stroke-width="7" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="code">Sem conexão</div>
+        <h3>Você está sem internet</h3>
+        <p>Dá pra continuar — o que você fizer vai pra fila e envia sozinho quando a rede voltar.</p>
+        <div class="cta"><a class="btn btn-primary" href="#s7"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/arrow-clockwise.svg)"></i>Tentar de novo</a></div>
+        <div class="queue"><i class="ic s16" style="--i:url(https://api.iconify.design/ph/clock-clockwise.svg)"></i>3 ações aguardando envio</div>
+      </div></div>
+    </div></div>
+  </section>
+
+  <!-- 8 · manutenção -->
+  <section class="sec" id="s8">
+    <div class="sec-label"><span class="sec-num">8</span><h2>Manutenção programada</h2><span class="tag later">Depois</span><span class="tag ctxt">Deslogado · tela cheia</span></div>
+    <p class="sec-sub">Janela de deploy. Tom tranquilo, com a previsão de volta.</p>
+    <div class="frame"><div class="full"><div class="hero">
+      <div class="lock"><svg width="22" height="22" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="currentColor"/><path d="M7 15.5V8.5h2.2l2.3 3.1 2.3-3.1H16v7h-2.1v-3.7l-2.4 3.2-2.4-3.2v3.7H7Z" fill="#fff"/></svg><span class="wm">Facter <b>Truck</b></span></div>
+      <div class="illus">
+        <svg viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs><pattern id="stripe" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="18" height="18" fill="hsl(var(--accent))"/><rect width="9" height="18" fill="#fff"/></pattern></defs>
+          <ellipse cx="100" cy="138" rx="74" ry="9" fill="hsl(233 30% 70%)" opacity=".22"/>
+          <g transform="translate(140 58)"><g fill="hsl(var(--primary))"><rect x="-5" y="-30" width="10" height="11" rx="2.5"/><rect x="-5" y="19" width="10" height="11" rx="2.5"/><rect x="19" y="-5" width="11" height="10" rx="2.5"/><rect x="-30" y="-5" width="11" height="10" rx="2.5"/><g transform="rotate(45)"><rect x="-5" y="-30" width="10" height="11" rx="2.5"/><rect x="-5" y="19" width="10" height="11" rx="2.5"/><rect x="19" y="-5" width="11" height="10" rx="2.5"/><rect x="-30" y="-5" width="11" height="10" rx="2.5"/></g></g><circle r="23" fill="hsl(var(--primary))"/><circle r="9" fill="hsl(233 80% 96%)"/></g>
+          <path d="M40 98 L52 128 M94 98 L82 128" stroke="hsl(var(--ink))" stroke-width="5" stroke-linecap="round"/>
+          <rect x="28" y="82" width="78" height="18" rx="4" fill="url(#stripe)" stroke="hsl(var(--accent-deep))" stroke-width="1.5"/>
+          <g transform="translate(70 62)"><rect x="0" y="56" width="36" height="9" rx="2.5" fill="hsl(var(--accent-deep))"/><path d="M18 2 L31 58 L5 58 Z" fill="hsl(var(--accent))" stroke="hsl(var(--accent-deep))" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 26 L24 26 L26.5 40 L9.5 40 Z" fill="#fff" opacity=".92"/></g>
+        </svg>
+      </div>
+      <div class="code">Manutenção</div>
+      <h3>Voltamos já</h3>
+      <p>Estamos fazendo uma atualização rápida. A previsão é voltar às 23h40.</p>
+      <div class="cta"><a class="btn btn-primary" href="#s8"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/arrow-clockwise.svg)"></i>Tentar de novo</a></div>
+    </div></div></div>
+  </section>
+
+  <!-- 9 · plano -->
+  <section class="sec" id="s9">
+    <div class="sec-label"><span class="sec-num">9</span><h2>Módulo fora do plano</h2><span class="tag later">Depois · ecossistema</span><span class="tag ctxt">Logado</span></div>
+    <p class="sec-sub">A empresa não contratou o módulo. Em vez de 403 seco, explica e abre caminho pra contratar.</p>
+    <div class="frame"><div class="shell">
+      <div class="rail"><div class="logo"><svg width="20" height="20" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#fff" opacity=".9"/><path d="M7 15.5V8.5h2.2l2.3 3.1 2.3-3.1H16v7h-2.1v-3.7l-2.4 3.2-2.4-3.2v3.7H7Z" fill="hsl(233 66% 52%)"/></svg></div><div class="d on"><i class="ic s20" style="--i:url(https://api.iconify.design/ph/package.svg)"></i></div></div>
+      <div class="content"><div class="hero">
+        <div class="illus">
+          <svg viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="100" cy="140" rx="48" ry="8" fill="hsl(233 30% 70%)" opacity=".22"/>
+            <path d="M72 92 L62 104 L78 100 Z" fill="hsl(var(--accent))"/><path d="M128 92 L138 104 L122 100 Z" fill="hsl(var(--accent))"/>
+            <path d="M100 26 C118 44 120 76 110 100 H90 C80 76 82 44 100 26 Z" fill="hsl(var(--primary))"/>
+            <circle cx="100" cy="58" r="9" fill="#fff"/>
+            <path d="M92 100 Q100 122 108 100 Z" fill="hsl(var(--accent))"/>
+            <circle cx="56" cy="46" r="2.5" fill="hsl(var(--accent-deep))"/><circle cx="146" cy="60" r="2.5" fill="hsl(var(--accent-deep))"/><circle cx="60" cy="78" r="2" fill="hsl(var(--primary))"/>
+          </svg>
+        </div>
+        <div class="code">No seu plano</div>
+        <h3>O Estoque não está no seu plano</h3>
+        <p>Esse módulo entra ligando o plano certo pra sua empresa. Fale com a gente pra ativar.</p>
+        <div class="cta"><a class="btn btn-primary" href="#s9"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/rocket-launch.svg)"></i>Ver planos</a><a class="btn btn-ghost" href="#s9"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/arrow-left.svg)"></i>Voltar</a></div>
+      </div></div>
+    </div></div>
+  </section>
+
+  <!-- 10 · celular -->
+  <section class="sec" id="s10">
+    <div class="sec-label"><span class="sec-num">10</span><h2>Celular</h2><span class="tag ctxt">Mesmo esqueleto, coluna única</span></div>
+    <p class="sec-sub">No celular tudo vira coluna; os botões ocupam a largura. Logado mantém a barra inferior; deslogado é tela cheia.</p>
+    <div class="phones">
+      <div>
+        <div class="phone"><div class="scr">
+          <div class="hero">
+            <div class="illus"><svg viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs><linearGradient id="road3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="hsl(233 40% 74%)"/><stop offset="1" stop-color="hsl(233 55% 58%)"/></linearGradient></defs>
+              <ellipse cx="100" cy="140" rx="74" ry="8" fill="hsl(233 30% 70%)" opacity=".22"/>
+              <path d="M80 134 L95 50 L105 50 L120 134 Z" fill="url(#road3)"/>
+              <path d="M100 126 V114 M100 100 V88 M100 76 V66" stroke="#fff" stroke-width="3.5" stroke-linecap="round" opacity=".9"/>
+              <path d="M150 50 V104" stroke="hsl(var(--ink))" stroke-width="5" stroke-linecap="round"/>
+              <g transform="rotate(-8 150 62)"><rect x="120" y="52" width="52" height="20" rx="5" fill="hsl(var(--accent))"/><path d="M172 52 l12 10 l-12 10 Z" fill="hsl(var(--accent))"/></g>
+              <g transform="translate(44 66)"><path d="M15 0 C6.7 0 0 6.7 0 15 C0 25 15 40 15 40 C15 40 30 25 30 15 C30 6.7 23.3 0 15 0 Z" fill="hsl(var(--primary))"/><circle cx="15" cy="14.5" r="6" fill="#fff"/></g>
+            </svg></div>
+            <div class="code">Erro 404</div>
+            <h3>Essa página não existe</h3>
+            <p>O endereço mudou ou saiu do ar.</p>
+            <div class="cta"><a class="btn btn-primary" href="#s10">Ir para o início</a><a class="btn btn-ghost" href="#s10">Voltar</a></div>
+          </div>
+          <div class="nav"><i class="ic s20 on" style="--i:url(https://api.iconify.design/ph/house.svg)"></i><i class="ic s20" style="--i:url(https://api.iconify.design/ph/truck.svg)"></i><i class="ic s20" style="--i:url(https://api.iconify.design/ph/wrench.svg)"></i><i class="ic s20" style="--i:url(https://api.iconify.design/ph/list.svg)"></i></div>
+        </div></div>
+        <p class="pcap">404 logado · barra inferior fica</p>
+      </div>
+      <div>
+        <div class="phone"><div class="scr">
+          <div class="hero">
+            <div class="illus"><svg viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="100" cy="140" rx="52" ry="8" fill="hsl(233 30% 70%)" opacity=".22"/>
+              <rect x="60" y="26" width="80" height="11" rx="5" fill="hsl(var(--primary-ink))"/><rect x="60" y="115" width="80" height="11" rx="5" fill="hsl(var(--primary-ink))"/>
+              <path d="M68 39 H132 L104 76 H96 Z" fill="hsl(233 80% 96%)" stroke="hsl(var(--primary))" stroke-width="2.5" stroke-linejoin="round"/>
+              <path d="M96 76 H104 L132 113 H68 Z" fill="hsl(233 80% 96%)" stroke="hsl(var(--primary))" stroke-width="2.5" stroke-linejoin="round"/>
+              <path d="M86 47 H114 L103 62 H97 Z" fill="hsl(var(--accent))"/><rect x="98.3" y="74" width="3.4" height="19" rx="1.5" fill="hsl(var(--accent))"/><path d="M74 111 H126 L100 92 Z" fill="hsl(var(--accent))"/>
+            </svg></div>
+            <div class="code">Sessão expirada</div>
+            <h3>Sua sessão expirou</h3>
+            <p>Entre de novo pra continuar.</p>
+            <div class="cta"><a class="btn btn-primary" href="#s10">Entrar de novo</a></div>
+          </div>
+        </div></div>
+        <p class="pcap">Sessão expirada · tela cheia</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 · comportamento -->
+  <section class="sec" id="s11">
+    <div class="sec-label"><span class="sec-num">★</span><h2>Como se comporta</h2></div>
+    <p class="sec-sub">O que vale pra família inteira.</p>
+    <div class="notes">
+      <div><b>Componente:</b> um <code>PageState</code> (o Hero) que recebe ilustração, código, título, texto e ações; cada estado é uma config dele.</div>
+      <div><b>Contexto:</b> logado na área de conteúdo (sidebar fica); deslogado é tela cheia com a logo.</div>
+      <div><b>Rota:</b> catch-all <code>*</code> no shell → 404; o error boundary fica só pro 500 e serializa o erro.</div>
+      <div><b>Copy (pt-BR, i18n):</b> título curto; ação é verbo; mostra o endereço/id tentado, nunca código cru.</div>
+      <div><b>Linguagem visual:</b> azul (marca) + verde (acento), mesmo chão, traço e escala; os slots de ilustração aceitam Storyset na mesma medida.</div>
+      <div><b>Implementa já:</b> 404 (logado + deslogado), recurso, 403 e 500. Sessão, offline, manutenção e plano entram com o PWA e o ecossistema.</div>
+    </div>
+  </section>
+</div>
+</body>
+</html>

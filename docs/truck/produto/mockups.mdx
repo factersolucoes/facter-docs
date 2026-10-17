@@ -90,6 +90,12 @@ Aprovado em 27/09/2026, com a busca suave, com a estrelinha e no centro da barra
 
 <img src="/mockups/truck/navbar/desktop.png" alt="Mockup da barra do topo" style={{maxHeight: 360, width: '100%', objectFit: 'cover', objectPosition: 'top', borderRadius: 8, border: '1px solid var(--ifm-color-emphasis-300)'}} />
 
+## Estados de página — telas de sistema
+
+Aprovado em 17/10/2026. A família de **páginas inteiras de feedback**, quando o app não tem o que mostrar na rota e precisa explicar e dar uma saída. Todas partem do mesmo **Hero** (ícone/código grande em marca-d'água, título curto, texto, saída); muda ícone, código, tom, copy, ação e se é **logado** (na área de conteúdo, sidebar fica) ou **deslogado** (tela cheia com a logo). Oito estados: **404** (logado e deslogado), **recurso não encontrado** (deep link pra item removido), **403 sem permissão**, **500 erro inesperado** (substitui o crash atual do `[object Object]` e serializa o erro), **sessão expirada**, **sem conexão/offline** (tablet do pátio, com a fila de pendências), **manutenção programada** e **módulo fora do plano** (ecossistema). Mais o celular e as regras da família. Vazio, busca sem resultado e custo oculto **não entram** — são do `EmptyState` por tela. Vira um componente `PageState` + rota catch-all `*` no router; implementa já 404, recurso, 403 e 500 (os que já acontecem), o resto entra com o PWA e o ecossistema.
+
+[Ver o mockup](/telas/truck/estados-de-pagina)
+
 ## Oficina · Fase 2
 
 ### Catálogos da oficina
