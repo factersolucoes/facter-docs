@@ -12,11 +12,11 @@ A OS pertence à organização que executa ([ECO-1](../invariantes.md)). O tempo
 erDiagram
   work_orders ||--o{ work_order_vehicles : "atende"
   work_orders ||--o{ work_order_transitions : "histórico"
-  work_orders ||--o{ service_executions : contém
-  service_types ||--o{ service_executions : tipifica
-  components ||--o{ service_executions : "no componente"
-  service_executions ||--o| service_executions : "retorno de"
-  service_executions ||--o{ execution_assignments : executores
+  work_orders ||--o{ work_order_services : contém
+  service_types ||--o{ work_order_services : tipifica
+  components ||--o{ work_order_services : "no componente"
+  work_order_services ||--o| work_order_services : "retorno de"
+  work_order_services ||--o{ execution_assignments : executores
   execution_assignments ||--o{ work_sessions : "sessões"
   work_orders ||--o{ external_services : "serviço externo"
   work_orders ||--o{ work_order_cost_lines : custos
@@ -153,7 +153,7 @@ create table work_order_vehicles (             -- o que está na OS: veículo av
 ## Serviços
 
 ```sql
-create table service_executions (
+create table work_order_services (
   id                uuid primary key,
   org_id            uuid not null references organizations(id),
   work_order_id     uuid not null references work_orders(id),
@@ -164,7 +164,7 @@ create table service_executions (
   wheel_position_id uuid references wheel_positions(id),
   side              text check (side in ('left','right','front','rear')),
   structural_position smallint,
-  rework_of_id      uuid references service_executions(id),   -- retrabalho (indicador 10)
+  rework_of_id      uuid references work_order_services(id),   -- retrabalho (indicador 10)
   status            text not null check (status in ('pending','in_progress','paused','completed','canceled')),
   created_by        uuid not null references actors(id),
   created_at        timestamptz not null default now(),
@@ -174,6 +174,10 @@ create table service_executions (
 ```
 
 `status` é derivado das sessões e das designações por uma função única (SVC-1), recalculada na mesma transação de cada comando. Fica gravado para leitura rápida, mas nunca é escrito diretamente.
+
+:::info[Implementado — fatia 1 (migration 0036)]
+`work_order_services` foi implementado com anexar (`addService`) e cancelar (`cancelService`, status `canceled` — remoção preserva histórico), detalhe da OS com `services[]` e permissões `work_order.add_service`/`work_order.cancel_service`. `axle_id`, `wheel_position_id`, `side` e `structural_position` ficaram de fora por ora (as tabelas `axles`/`wheel_positions` ainda não existem); entram com eixos/pneus. Sessões/executores (as tabelas abaixo) são a fatia 2.
+:::
 
 ## Executores e sessões de trabalho
 
@@ -187,13 +191,13 @@ create table pause_reasons (                   -- uma lista só para OS e sessã
 create table execution_assignments (
   id                  uuid primary key,
   org_id              uuid not null references organizations(id),
-  service_execution_id uuid not null references service_executions(id),
+  work_order_service_id uuid not null references work_order_services(id),
   employee_id         uuid not null references employees(id),
   assigned_at         timestamptz not null default now(),
   removed_at          timestamptz,
   assigned_by         uuid not null references actors(id)
 );
-create unique index on execution_assignments (service_execution_id, employee_id) where removed_at is null;
+create unique index on execution_assignments (work_order_service_id, employee_id) where removed_at is null;
 
 create table work_sessions (                   -- intervalo em que a pessoa trabalhou de fato
   id                uuid primary key,
@@ -226,7 +230,7 @@ create table external_services (
   id              uuid primary key,
   org_id          uuid not null references organizations(id),
   work_order_id   uuid not null references work_orders(id),
-  service_execution_id uuid references service_executions(id),
+  work_order_service_id uuid references work_order_services(id),
   supplier_id     uuid not null references suppliers(id),
   description     text not null,
   cost            numeric(14,2) not null check (cost >= 0),
@@ -254,7 +258,7 @@ create table attachments (
   id              uuid primary key,
   org_id          uuid not null references organizations(id),
   work_order_id   uuid references work_orders(id),
-  service_execution_id uuid references service_executions(id),
+  work_order_service_id uuid references work_order_services(id),
   vehicle_id      uuid references vehicles(id),
   checklist_result_id uuid references checklist_results(id),   -- foto de um item de checklist (CHK-2)
   storage_key     text not null,               -- objeto no R2, já comprimido no aparelho
