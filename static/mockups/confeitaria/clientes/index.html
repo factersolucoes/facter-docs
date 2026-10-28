@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Clientes · Confeitaria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* Tema confeitaria (chocolate) do DS: mesmas variáveis do produto. */
+  :root{
+    --background:0 0% 98%;
+    --foreground:240 10% 3.9%;
+    --card:0 0% 100%;
+    --primary:20 45% 32%;
+    --primary-soft:20 45% 95%;
+    --muted:240 4.8% 93.9%;
+    --muted-foreground:240 3.8% 46%;
+    --border:240 5.9% 90%;
+    --success:160 60% 38%;
+    --success-ink:160 70% 24%;
+    --success-soft:160 55% 94%;
+    --warning:38 92% 45%;
+    --warning-ink:28 85% 28%;
+    --warning-soft:40 95% 93%;
+    --danger-ink:0 72% 38%;
+    --danger-soft:0 86% 96%;
+    --info-ink:217 91% 38%;
+    --info-soft:217 85% 96%;
+    --canvas:225 14% 92%;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));
+    font:14px/1.45 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3,h4,p,ul{margin:0}
+  ul{padding:0;list-style:none}
+  button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
+  a{color:inherit;text-decoration:none}
+  .i{display:inline-block;width:16px;height:16px;flex:none;background:currentColor;
+    -webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat}
+  .tab{font-variant-numeric:tabular-nums}
+  .mut{color:hsl(var(--muted-foreground))}
+
+  /* ---------- apresentação ---------- */
+  .doc{max-width:1400px;margin:0 auto;padding:48px 24px 96px}
+  .doc h1{font:800 32px/1.15 Sora,Inter,sans-serif;letter-spacing:-.02em}
+  .lead{color:hsl(var(--muted-foreground));max-width:84ch;margin-top:10px;font-size:14.5px;line-height:1.55}
+  .pecas{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
+  .pecas code{font:600 12px ui-monospace,Consolas,monospace;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:6px;padding:3px 7px}
+  .opcao{margin-top:64px;display:flex;flex-direction:column;gap:14px}
+  .opcao-topo{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .letra{font:800 13px Sora,Inter,sans-serif;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:hsl(var(--primary));color:#fff}
+  .opcao h2{font:800 22px/1.2 Sora,Inter,sans-serif;letter-spacing:-.01em}
+  .opcao .sub{font-size:14px;color:hsl(var(--muted-foreground));max-width:92ch}
+  .pros{display:flex;gap:24px;flex-wrap:wrap;font-size:13px}
+  .pros div{display:flex;flex-direction:column;gap:4px;max-width:48ch}
+  .pros b{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+  .rotulo{font-size:12px;font-weight:600;color:hsl(var(--muted-foreground));letter-spacing:.03em;text-transform:uppercase;margin-bottom:8px}
+  .api{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:hsl(var(--info-ink));background:hsl(var(--info-soft));border-radius:999px;padding:1px 7px;vertical-align:middle}
+
+  /* ---------- moldura ---------- */
+  .tela{display:flex;border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;background:hsl(var(--background));box-shadow:0 8px 30px -12px rgb(0 0 0 / .15)}
+  .menu{width:210px;flex:none;display:flex;flex-direction:column;background:hsl(var(--card));border-right:1px solid hsl(var(--border))}
+  .menu-topo{display:flex;align-items:center;gap:10px;height:60px;padding:0 14px;background:hsl(var(--primary));color:#fff;font:700 13px Inter}
+  .menu-topo small{display:block;font-weight:500;opacity:.8;font-size:11px}
+  .menu nav{padding:10px;display:flex;flex-direction:column;gap:2px;font-size:13px}
+  .menu nav p{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding:10px 8px 4px}
+  .menu nav a{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:8px}
+  .menu nav a.on{background:hsl(var(--primary-soft));color:hsl(var(--primary));font-weight:600;box-shadow:inset 3px 0 0 hsl(var(--primary))}
+  .corpo{flex:1;min-width:0;display:flex;flex-direction:column}
+  .barra{height:60px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border));font-weight:700}
+  .avatar{width:32px;height:32px;border-radius:999px;background:hsl(var(--primary));color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700}
+  .conteudo{padding:24px 28px;display:flex;flex-direction:column;gap:14px}
+  .cabeca{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .cabeca h3{font:800 24px/1.15 Sora,Inter,sans-serif;letter-spacing:-.015em}
+
+  /* ---------- DS ---------- */
+  .card{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 14px;border-radius:8px;font-size:13px;font-weight:600;white-space:nowrap}
+  .btn.pri{background:hsl(var(--primary));color:#fff}
+  .btn.out{border:1px solid hsl(var(--border));background:hsl(var(--card))}
+  .btn.sm{height:32px;font-size:12.5px;padding:0 10px}
+  .btn.ico{width:32px;padding:0}
+  .btn.ghost{color:hsl(var(--muted-foreground))}
+  .cap{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+  .chip{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:6px;font-size:11.5px;font-weight:600;white-space:nowrap}
+  .c-warn{background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+  .c-pri{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+  .c-mut{background:hsl(var(--muted));color:hsl(var(--foreground) / .7)}
+  .c-ok{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+  .ini{width:30px;height:30px;border-radius:999px;display:grid;place-items:center;font-size:12px;font-weight:700;background:hsl(var(--primary-soft));color:hsl(var(--primary));flex:none}
+
+  /* DataTable */
+  .dt{overflow:hidden}
+  .dt-tool{display:flex;flex-direction:column;gap:10px;padding:4px 16px 12px}
+  .dt-tabs{display:flex;gap:4px;border-bottom:1px solid hsl(var(--border))}
+  .dt-tabs button{position:relative;padding:10px 14px;font-size:13px;font-weight:500;color:hsl(var(--muted-foreground));display:flex;gap:8px;align-items:center}
+  .dt-tabs button b{min-width:20px;height:20px;padding:0 6px;border-radius:4px;font-size:11.5px;font-weight:600;display:grid;place-items:center;background:hsl(var(--muted))}
+  .dt-tabs button.on{color:hsl(var(--primary))}
+  .dt-tabs button.on b{background:hsl(var(--primary) / .1);color:hsl(var(--primary))}
+  .dt-tabs button.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:hsl(var(--primary))}
+  .dt-linha{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .busca{display:flex;align-items:center;gap:8px;height:36px;padding:0 10px;border:2px solid hsl(var(--border));border-radius:8px;background:hsl(var(--background));color:hsl(var(--muted-foreground));font-size:13px;width:320px;max-width:100%}
+  .filtro{display:inline-flex;flex:none;white-space:nowrap;align-items:center;gap:6px;height:32px;padding:0 10px;border:1px dashed hsl(var(--border));border-radius:8px;font-size:12.5px;font-weight:600;color:hsl(var(--foreground) / .8);background:hsl(var(--card))}
+  .filtro.on{border-style:solid;border-color:hsl(var(--primary) / .4);background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+  .limpar{font-size:12.5px;font-weight:600;color:hsl(var(--primary))}
+  table.t{width:100%;border-collapse:collapse;font-size:13px}
+  table.t th{height:38px;padding:0 12px;text-align:left;font-size:11.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:hsl(var(--muted-foreground));background:hsl(var(--muted) / .45);border-top:1px solid hsl(var(--border));border-bottom:1px solid hsl(var(--border));white-space:nowrap}
+  table.t th .ord{display:inline-flex;align-items:center;gap:4px}
+  table.t td{height:52px;padding:0 12px;border-bottom:1px solid hsl(var(--border));vertical-align:middle}
+  table.t tr:hover td{background:hsl(var(--muted) / .35)}
+  table.t tr.sel td{background:hsl(var(--primary-soft))}
+  table.t tr.marcada td{background:hsl(var(--primary) / .05)}
+  table.t td.num,table.t th.num{text-align:right;font-variant-numeric:tabular-nums}
+  .nome{display:flex;align-items:center;gap:10px;min-width:0}
+  .nome b{font-weight:600;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .nome small{display:block;font-size:12px;color:hsl(var(--muted-foreground));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .zap{display:inline-flex;align-items:center;gap:6px}
+  .zap .i{color:hsl(var(--success))}
+  .check{width:16px;height:16px;border-radius:4px;border:1.5px solid hsl(var(--border));display:inline-grid;place-items:center;background:hsl(var(--card))}
+  .check.on{background:hsl(var(--primary));border-color:hsl(var(--primary));color:#fff}
+  .pag{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 16px;font-size:12.5px;color:hsl(var(--muted-foreground));flex-wrap:wrap}
+  .pag .dir{display:flex;align-items:center;gap:6px}
+  .massa{display:flex;align-items:center;gap:10px;padding:8px 12px;margin:0 16px 10px;border-radius:10px;background:hsl(var(--foreground));color:#fff;font-size:13px}
+  .massa .btn{height:30px;background:rgb(255 255 255 / .12);color:#fff;font-size:12.5px}
+  .menuzinho{position:absolute;right:16px;top:44px;width:200px;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:10px;box-shadow:0 12px 30px -10px rgb(0 0 0 / .25);padding:4px;z-index:2}
+  .menuzinho a{display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:6px;font-size:13px}
+  .menuzinho a:hover{background:hsl(var(--muted))}
+  .menuzinho hr{border:0;border-top:1px solid hsl(var(--border));margin:4px 0}
+
+  /* KPIs (B) */
+  .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));overflow:hidden}
+  .kpis div{padding:13px 16px;border-left:1px solid hsl(var(--border))}
+  .kpis div:first-child{border-left:0}
+  .kpis p{font-size:12.5px;color:hsl(var(--muted-foreground))}
+  .kpis b{display:block;font:800 22px Sora,Inter,sans-serif;font-variant-numeric:tabular-nums;margin-top:2px}
+
+  /* Console (C) */
+  .c-grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:14px;align-items:start}
+  .ficha .sec{padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+  .ficha .sec + .sec{border-top:1px solid hsl(var(--border))}
+  .ficha .topo{display:flex;align-items:center;gap:12px}
+  .ficha .topo .ini{width:44px;height:44px;font-size:16px}
+  .ficha h4{font:800 18px Sora,Inter,sans-serif;letter-spacing:-.01em}
+  .fatos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .fatos small{display:block;font-size:12px;color:hsl(var(--muted-foreground))}
+  .fatos span{font-weight:600;font-size:13px}
+  .numeros{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .numeros div{background:hsl(var(--muted) / .5);border-radius:10px;padding:8px 10px}
+  .numeros small{display:block;font-size:11.5px;color:hsl(var(--muted-foreground))}
+  .numeros b{font:800 15px Sora,Inter,sans-serif;font-variant-numeric:tabular-nums}
+  .hist li{display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:8px;align-items:center;padding:7px 0;border-top:1px solid hsl(var(--border));font-size:13px}
+  .hist li:first-child{border-top:0}
+  .acoes-ficha{display:flex;gap:8px;padding:12px 16px;border-top:1px solid hsl(var(--border));background:hsl(var(--muted) / .35)}
+  .acoes-ficha .btn{flex:1}
+
+  /* celular */
+  .cel{width:360px;max-width:100%;border:1px solid hsl(var(--border));border-radius:28px;overflow:hidden;background:hsl(var(--background));box-shadow:0 8px 30px -12px rgb(0 0 0 / .2);display:flex;flex-direction:column;height:700px;position:relative}
+  .cel-topo{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border));font-weight:700;flex:none}
+  .cel-corpo{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+  .cel-corpo>*{flex:none}
+  .cel-nav{height:60px;flex:none;display:grid;grid-template-columns:repeat(5,1fr);background:hsl(var(--card));border-top:1px solid hsl(var(--border));font-size:10.5px;color:hsl(var(--muted-foreground))}
+  .cel-nav span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
+  .cel-nav span.on{color:hsl(var(--primary));font-weight:600}
+  .lista-cel li{display:flex;align-items:center;gap:10px;padding:10px 12px;border-top:1px solid hsl(var(--border))}
+  .lista-cel li:first-child{border-top:0}
+  .fab{position:absolute;right:16px;bottom:76px;width:52px;height:52px;border-radius:16px;background:hsl(var(--primary));color:#fff;display:grid;place-items:center;box-shadow:0 6px 16px -4px hsl(var(--primary) / .6)}
+  .quadros{display:flex;flex-direction:column;gap:24px}
+
+  table.cmp{width:100%;border-collapse:collapse;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;font-size:13.5px}
+  table.cmp th,table.cmp td{padding:10px 14px;text-align:left;border-top:1px solid hsl(var(--border));vertical-align:top}
+  table.cmp thead th{border-top:0;background:hsl(var(--muted) / .5);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:hsl(var(--muted-foreground))}
+  .reco{margin-top:16px;padding:16px 18px;border-radius:14px;background:hsl(var(--primary-soft));color:hsl(var(--primary));font-size:14px;line-height:1.55}
+</style>
+</head>
+<body>
+<main class="doc">
+  <p class="cap">Confeitaria · Clientes · Aprovado em 24/10/2026 · A ao abrir + C ao clicar</p>
+  <p class="reco" style="margin:0 0 18px"><b>Aprovado em 24/10/2026: as opções A e C juntas.</b> A tela abre como a <b>A</b> (tabela larga, com aniversário, restrição, encomendas, última e o menu ⋯). Ao clicar numa cliente, a tabela encolhe para cliente, WhatsApp e última, e a ficha da <b>C</b> aparece ao lado; o X da ficha volta para a tabela larga. No celular, a lista abre a ficha em tela cheia, como na C. No computador a tela não rola: a tabela mostra as linhas que cabem e pagina o resto.</p>
+  <h1>Clientes: 3 caminhos com a tabela do DS</h1>
+  <p class="lead">Hoje Clientes é uma pilha de cartões, um por pessoa, com muito espaço e pouca informação: dá para ver o telefone, mas não quem compra, quando comprou pela última vez ou quem faz aniversário. Os três caminhos usam o <b>DataTable do Design System</b> (o mesmo das listas do Truck), no Conteiner padrão. O que precisa de dado novo da API está marcado com <span class="api">API</span>.</p>
+  <div class="pecas"><code>DataTable</code><code>.Toolbar</code><code>.Tabs</code><code>.Search</code><code>.Filters</code><code>.Filter</code><code>.Content</code><code>.ColumnHeader</code><code>.RowActions</code><code>.BulkActions</code><code>.DensityToggle</code><code>.Export</code><code>.Pagination</code><code>.EmptyState</code><code>.Loading</code></div>
+
+  <!-- ==================== A ==================== -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">A</span><h2>Tabela direta: as colunas que importam</h2></div>
+    <p class="sub">O DataTable como no Truck: abas Ativas/Arquivadas com contador (no lugar do “Ver arquivadas”), busca, e uma linha por cliente com WhatsApp clicável, aniversário (destacado quando é neste mês), restrição e quantas encomendas ela já fez. A linha abre a cliente; o menu ⋯ tem os atalhos.</p>
+    <div class="pros">
+      <div><b>Ganha</b>Cabe 3× mais gente na tela; acha alguém e manda mensagem em um clique; aniversário e restrição à vista.</div>
+      <div><b>Precisa</b><span>Encomendas e Última encomenda por cliente <span class="api">API</span> (contagem simples, já temos as encomendas).</span></div>
+    </div>
+    <div class="quadros">
+      <div>
+        <p class="rotulo">Notebook · o menu ⋯ aberto na Carla</p>
+        <div class="tela">
+          <div class="menu" data-menu></div>
+          <div class="corpo">
+            <div class="barra">Clientes <span class="avatar">AD</span></div>
+            <div class="conteudo">
+              <div class="cabeca"><h3>Clientes</h3><button class="btn pri" data-ico="plus-bold">Nova cliente</button></div>
+              <div class="card dt" style="position:relative">
+                <div class="dt-tool">
+                  <div class="dt-tabs"><button class="on">Ativas <b>18</b></button><button>Arquivadas <b>3</b></button></div>
+                  <div class="busca" data-ico-busca>Buscar por nome ou telefone…</div>
+                </div>
+                <table class="t" id="a-tabela"></table>
+                <div class="pag"><span>Mostrando 1–8 de 18</span><span class="dir"><span>Por página</span><span class="btn out sm">10 ▾</span><span class="btn out sm ico" data-ico="caret-left-bold"></span><span class="btn out sm ico" data-ico="caret-right-bold"></span></span></div>
+                <div class="menuzinho" style="top:154px;right:22px">
+                  <a data-ico="plus">Nova encomenda para ela</a>
+                  <a data-ico="whatsapp-logo">Abrir no WhatsApp</a>
+                  <a data-ico="pencil-simple">Editar</a>
+                  <hr><a data-ico="archive" style="color:hsl(var(--danger-ink))">Arquivar</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="rotulo">Celular · a tabela vira lista (mesmos dados, 2 linhas)</p>
+        <div class="cel">
+          <div class="cel-topo">🎂 Doces da Ana <span class="avatar">AD</span></div>
+          <div class="cel-corpo">
+            <h3 style="font:800 22px Sora,Inter,sans-serif">Clientes</h3>
+            <div class="dt-tabs"><button class="on">Ativas <b>18</b></button><button>Arquivadas <b>3</b></button></div>
+            <div class="busca" style="width:100%" data-ico-busca>Buscar por nome ou telefone…</div>
+            <ul class="card lista-cel" id="a-cel"></ul>
+          </div>
+          <span class="fab" data-ico-g="plus-bold"></span>
+          <div class="cel-nav" data-nav></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== B ==================== -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">B</span><h2>Tabela de relacionamento: números, filtros e ações em lote</h2></div>
+    <p class="sub">A mesma tabela, pensada para vender mais: uma faixa de números no topo (aniversariantes do mês, quem sumiu), filtros em chip do DataTable, ordenar por quem mais compra, e seleção em lote para exportar a lista ou arquivar. Exemplo da tela: filtro “Aniversário: este mês” ligado, 2 selecionadas.</p>
+    <div class="pros">
+      <div><b>Ganha</b>Vira ferramenta de venda: “quem faz aniversário este mês?”, “quem não compra há 90 dias?”, exportar para uma campanha.</div>
+      <div><b>Precisa</b><span>Total gasto, encomendas e última encomenda por cliente <span class="api">API</span>; filtros no servidor <span class="api">API</span>. Mais densa: exige mais da tela.</span></div>
+    </div>
+    <div class="quadros">
+      <div>
+        <p class="rotulo">Notebook</p>
+        <div class="tela">
+          <div class="menu" data-menu></div>
+          <div class="corpo">
+            <div class="barra">Clientes <span class="avatar">AD</span></div>
+            <div class="conteudo">
+              <div class="cabeca"><h3>Clientes</h3><div style="display:flex;gap:8px"><button class="btn out" data-ico="download-simple">Exportar</button><button class="btn pri" data-ico="plus-bold">Nova cliente</button></div></div>
+              <div class="card kpis">
+                <div><p>Clientes ativas</p><b>18</b></div>
+                <div><p>Aniversário este mês</p><b style="color:hsl(var(--primary))">3</b></div>
+                <div><p>Com restrição</p><b>4</b></div>
+                <div><p>Sem comprar há 90 dias</p><b style="color:hsl(var(--warning-ink))">5</b></div>
+              </div>
+              <div class="card dt">
+                <div class="dt-tool">
+                  <div class="dt-tabs"><button class="on">Ativas <b>18</b></button><button>Arquivadas <b>3</b></button></div>
+                  <div class="dt-linha">
+                    <div class="busca" style="width:260px" data-ico-busca>Buscar…</div>
+                    <span class="filtro on" data-ico="cake">Aniversário: este mês ✕</span>
+                    <span class="filtro" data-ico="plus-circle">Restrição</span>
+                    <span class="filtro" data-ico="plus-circle">Última compra</span>
+                    <span class="limpar">Limpar filtros</span>
+                    <span style="margin-left:auto" class="btn out sm ico" title="Densidade" data-ico="rows"></span>
+                    <span class="btn out sm ico" title="Colunas" data-ico="columns"></span>
+                  </div>
+                </div>
+                <div class="massa"><span class="check on" data-ico-c></span><b>2 selecionadas</b><span class="btn" data-ico="download-simple">Exportar</span><span class="btn" data-ico="archive">Arquivar</span><span style="margin-left:auto;opacity:.7">Cancelar</span></div>
+                <table class="t" id="b-tabela"></table>
+                <div class="pag"><span>3 de 18 clientes</span><span class="dir"><span class="btn out sm ico" data-ico="caret-left-bold"></span><span class="btn out sm ico" data-ico="caret-right-bold"></span></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="rotulo">Celular · números em faixa rolável, filtros em chip</p>
+        <div class="cel">
+          <div class="cel-topo">🎂 Doces da Ana <span class="avatar">AD</span></div>
+          <div class="cel-corpo">
+            <h3 style="font:800 22px Sora,Inter,sans-serif">Clientes</h3>
+            <div style="display:flex;gap:8px;overflow:auto">
+              <div class="card" style="padding:9px 12px;min-width:130px"><p class="mut" style="font-size:12px">Aniversário este mês</p><b style="font:800 18px Sora">3</b></div>
+              <div class="card" style="padding:9px 12px;min-width:130px"><p class="mut" style="font-size:12px">Sem comprar há 90 dias</p><b style="font:800 18px Sora;color:hsl(var(--warning-ink))">5</b></div>
+            </div>
+            <div style="display:flex;gap:6px;overflow:auto"><span class="filtro on" data-ico="cake">Este mês ✕</span><span class="filtro" data-ico="plus-circle">Restrição</span><span class="filtro" data-ico="plus-circle">Última compra</span></div>
+            <ul class="card lista-cel" id="b-cel"></ul>
+          </div>
+          <span class="fab" data-ico-g="plus-bold"></span>
+          <div class="cel-nav" data-nav></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== C ==================== -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">C</span><h2>Console: tabela compacta + ficha da cliente ao lado</h2></div>
+    <p class="sub">O mesmo console da Agenda e do detalhe da encomenda: a tabela à esquerda, só com o essencial, e a ficha de quem está selecionada à direita, sem sair da lista. A ficha mostra contato, aniversário, restrição, endereço, quanto ela já comprou e as últimas encomendas, com Nova encomenda e WhatsApp à mão.</p>
+    <div class="pros">
+      <div><b>Ganha</b>Atender ao telefone: acha a cliente, vê o histórico e já abre a encomenda, tudo na mesma tela. Segue o padrão das outras telas.</div>
+      <div><b>Precisa</b><span>Encomendas e totais por cliente <span class="api">API</span>; últimas encomendas da cliente (a rota de encomendas já filtra). Menos colunas na tabela.</span></div>
+    </div>
+    <div class="quadros">
+      <div>
+        <p class="rotulo">Notebook · Carla selecionada</p>
+        <div class="tela">
+          <div class="menu" data-menu></div>
+          <div class="corpo">
+            <div class="barra">Clientes <span class="avatar">AD</span></div>
+            <div class="conteudo">
+              <div class="cabeca"><h3>Clientes</h3><button class="btn pri" data-ico="plus-bold">Nova cliente</button></div>
+              <div class="c-grid">
+                <div class="card dt">
+                  <div class="dt-tool">
+                    <div class="dt-tabs"><button class="on">Ativas <b>18</b></button><button>Arquivadas <b>3</b></button></div>
+                    <div class="busca" style="width:100%" data-ico-busca>Buscar por nome ou telefone…</div>
+                  </div>
+                  <table class="t" id="c-tabela"></table>
+                  <div class="pag"><span>1–8 de 18</span><span class="dir"><span class="btn out sm ico" data-ico="caret-left-bold"></span><span class="btn out sm ico" data-ico="caret-right-bold"></span></span></div>
+                </div>
+                <aside class="card ficha">
+                  <div class="sec">
+                    <div class="topo"><span class="ini">C</span><div><h4>Carla Mendes</h4><p class="mut" style="font-size:12.5px">Cliente desde mar/2025</p></div></div>
+                    <p class="chip c-warn" style="height:auto;padding:6px 10px;font-size:12.5px" data-ico="warning-bold">Sem lactose</p>
+                    <div class="fatos">
+                      <div><small>WhatsApp</small><span class="zap" data-ico-z>(11) 95432-1098</span></div>
+                      <div><small>Aniversário</small><span>30/10 <span class="chip c-pri" style="height:18px;font-size:10.5px">em 6 dias</span></span></div>
+                      <div style="grid-column:1/-1"><small>Endereço</small><span>Rua das Flores, 100 · Vila Mariana</span></div>
+                    </div>
+                  </div>
+                  <div class="sec">
+                    <p class="cap">Com você</p>
+                    <div class="numeros"><div><small>Encomendas</small><b>7</b></div><div><small>Já comprou</small><b>R$ 1.240</b></div><div><small>Última</small><b>24/10</b></div></div>
+                  </div>
+                  <div class="sec">
+                    <p class="cap">Últimas encomendas</p>
+                    <ul class="hist">
+                      <li><b class="tab" style="color:hsl(var(--primary))">nº 10</b><span>Bolo de chocolate 2 kg<br><small class="mut">sáb., 24/10</small></span><span class="chip c-ok">Pronta</span></li>
+                      <li><b class="tab" style="color:hsl(var(--primary))">nº 6</b><span>Brigadeiro 1 cento<br><small class="mut">sáb., 03/10</small></span><span class="chip c-mut">Entregue</span></li>
+                      <li><b class="tab" style="color:hsl(var(--primary))">nº 2</b><span>Bolo de nozes 1,5 kg<br><small class="mut">dom., 13/09</small></span><span class="chip c-mut">Entregue</span></li>
+                    </ul>
+                  </div>
+                  <div class="acoes-ficha"><span class="btn out" data-ico="whatsapp-logo">WhatsApp</span><span class="btn pri" data-ico="plus-bold">Nova encomenda</span></div>
+                </aside>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="rotulo">Celular · tocar abre a ficha (a lista volta pelo ←)</p>
+        <div style="display:flex;gap:24px;flex-wrap:wrap">
+          <div class="cel">
+            <div class="cel-topo">🎂 Doces da Ana <span class="avatar">AD</span></div>
+            <div class="cel-corpo">
+              <h3 style="font:800 22px Sora,Inter,sans-serif">Clientes</h3>
+              <div class="busca" style="width:100%" data-ico-busca>Buscar por nome ou telefone…</div>
+              <ul class="card lista-cel" id="c-cel"></ul>
+            </div>
+            <span class="fab" data-ico-g="plus-bold"></span>
+            <div class="cel-nav" data-nav></div>
+          </div>
+          <div class="cel">
+            <div class="cel-topo">🎂 Doces da Ana <span class="avatar">AD</span></div>
+            <div class="cel-corpo">
+              <span style="color:hsl(var(--primary));font-weight:600;font-size:13px" data-ico="arrow-left-bold">Clientes</span>
+              <div class="card ficha">
+                <div class="sec">
+                  <div class="topo"><span class="ini">C</span><div><h4>Carla Mendes</h4><p class="mut" style="font-size:12.5px">(11) 95432-1098</p></div></div>
+                  <p class="chip c-warn" style="height:auto;padding:6px 10px;font-size:12.5px" data-ico="warning-bold">Sem lactose</p>
+                  <div class="numeros"><div><small>Encomendas</small><b>7</b></div><div><small>Comprou</small><b>R$ 1.240</b></div><div><small>Aniversário</small><b>30/10</b></div></div>
+                </div>
+                <div class="sec"><p class="cap">Últimas encomendas</p>
+                  <ul class="hist">
+                    <li><b class="tab" style="color:hsl(var(--primary))">nº 10</b><span>Bolo de chocolate 2 kg</span><span class="chip c-ok">Pronta</span></li>
+                    <li><b class="tab" style="color:hsl(var(--primary))">nº 6</b><span>Brigadeiro 1 cento</span><span class="chip c-mut">Entregue</span></li>
+                  </ul>
+                </div>
+                <div class="acoes-ficha"><span class="btn out" data-ico="whatsapp-logo">WhatsApp</span><span class="btn pri" data-ico="plus-bold">Encomenda</span></div>
+              </div>
+            </div>
+            <div class="cel-nav" data-nav></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Comparação ==================== -->
+  <section class="opcao">
+    <div class="opcao-topo"><h2>Comparação</h2></div>
+    <table class="cmp">
+      <thead><tr><th></th><th>A · Tabela direta</th><th>B · Relacionamento</th><th>C · Console com ficha</th></tr></thead>
+      <tbody>
+        <tr><th>Melhor para</th><td>Achar alguém e falar com ela</td><td>Campanhas: aniversário, quem sumiu</td><td>Atender: ver o histórico e abrir a encomenda</td></tr>
+        <tr><th>Peças do DataTable</th><td>Tabs, Search, Content, RowActions, Pagination</td><td>+ Filters, ColumnHeader (ordenar), BulkActions, DensityToggle, Export</td><td>Tabs, Search, Content (linha selecionada), Pagination</td></tr>
+        <tr><th>API nova</th><td>Pequena: nº de encomendas e última</td><td>Média: totais + filtros no servidor</td><td>Pequena: totais da cliente (histórico já existe)</td></tr>
+        <tr><th>Celular</th><td>Lista de 2 linhas</td><td>Lista + números em faixa + chips</td><td>Lista → ficha em tela cheia</td></tr>
+      </tbody>
+    </table>
+    <p class="reco"><b>Recomendação: A agora, com o menu ⋯ e as abas; os filtros do B depois.</b> A troca a pilha de cartões pela tabela do DS com o menor custo (só a contagem de encomendas por cliente) e já resolve o espaço. O filtro “Aniversário: este mês” do B é o próximo passo mais valioso; a ficha do C faz mais sentido quando a cliente tiver histórico para mostrar.</p>
+  </section>
+</main>
+
+<script>
+  const ico = (nome, extra = "") => `<i class="i" style="--ico:url(https://api.iconify.design/ph/${nome}.svg);${extra}"></i>`;
+  // ícone antes do texto em qualquer elemento com data-ico
+  document.querySelectorAll("[data-ico]").forEach((el) => el.insertAdjacentHTML("afterbegin", ico(el.dataset.ico)));
+  document.querySelectorAll("[data-ico-busca]").forEach((el) => el.insertAdjacentHTML("afterbegin", ico("magnifying-glass")));
+  document.querySelectorAll("[data-ico-g]").forEach((el) => (el.innerHTML = ico(el.dataset.icoG, "width:22px;height:22px")));
+  document.querySelectorAll("[data-ico-c]").forEach((el) => (el.innerHTML = ico("check-bold", "width:10px;height:10px")));
+  document.querySelectorAll("[data-ico-z]").forEach((el) => el.insertAdjacentHTML("afterbegin", ico("whatsapp-logo")));
+
+  const MENU = `<div class="menu-topo"><span style="font-size:18px">🎂</span><span>Doces da Ana<small>Confeitaria</small></span></div>
+    <nav><p>Principal</p><a>${ico("squares-four")}Início</a>
+    <p>Vendas</p><a>${ico("clipboard-text")}Encomendas</a><a>${ico("calendar-blank")}Agenda</a><a class="on">${ico("users")}Clientes</a>
+    <p>Produção</p><a>${ico("cake")}Produtos</a><a>${ico("book-open")}Receitas</a><a>${ico("grains")}Insumos</a>
+    <p>Gestão</p><a>${ico("calculator")}Precificação</a><a>${ico("wallet")}Financeiro</a><a>${ico("gear")}Configurações</a></nav>`;
+  document.querySelectorAll("[data-menu]").forEach((el) => (el.innerHTML = MENU));
+  const NAV = [["squares-four", "Início"], ["clipboard-text", "Encomendas"], ["calendar-blank", "Agenda"], ["users", "Clientes", 1], ["dots-three", "Mais"]];
+  document.querySelectorAll("[data-nav]").forEach((el) => (el.innerHTML = NAV.map(([i, t, on]) => `<span class="${on ? "on" : ""}">${ico(i, "width:20px;height:20px")}${t}</span>`).join("")));
+
+  // ---------- dados (hoje: 24/10/2026) ----------
+  const C = (nome, email, zap, aniv, restr, encs, ultima, total) => ({ nome, email, zap, aniv, restr, encs, ultima, total });
+  const CLIENTES = [
+    C("Carla Mendes", "carla.mendes@gmail.com", "(11) 95432-1098", "30/10", "Sem lactose", 7, "24/10/2026", "R$ 1.240,00"),
+    C("Escola Pequeno Príncipe", "compras@pequenoprincipe.edu.br", "(11) 3456-7890", null, null, 4, "12/10/2026", "R$ 2.180,00"),
+    C("Fernanda Rocha", null, "(11) 94321-0987", "15/10", null, 2, "28/10/2026", "R$ 360,00"),
+    C("Joana Lima", "joana.lima@hotmail.com", "(11) 97654-3210", "02/03", null, 3, "20/10/2026", "R$ 410,00"),
+    C("Luciana Martins", null, "(11) 93210-9876", "27/10", "Alergia a nozes", 1, "25/10/2026", "R$ 160,00"),
+    C("Maria Souza", "maria.s@gmail.com", "(11) 98765-4321", "11/07", null, 5, "24/10/2026", "R$ 905,00"),
+    C("Patrícia Alves", null, "(11) 91234-5678", "19/01", "Diabética: pouco açúcar", 1, "02/06/2026", "R$ 120,00"),
+    C("Renata Costa", "renata.costa@gmail.com", "(11) 92345-6789", "08/12", null, 2, "17/10/2026", "R$ 330,00"),
+  ];
+  const mesAtual = (a) => a && a.endsWith("/10");
+  const sumiu = (c) => c.ultima.endsWith("/06/2026");
+  const inicial = (n) => n.trim()[0];
+  const nomeCel = (c) => `<span class="nome"><span class="ini">${inicial(c.nome)}</span><span style="min-width:0"><b>${c.nome}</b><small>${c.zap}</small></span></span>`;
+  const aniv = (c) => c.aniv ? (mesAtual(c.aniv) ? `<span class="chip c-pri">${ico("cake", "width:12px;height:12px")}${c.aniv}</span>` : `<span class="tab">${c.aniv}</span>`) : `<span class="mut">—</span>`;
+  const restr = (c) => c.restr ? `<span class="chip c-warn" title="${c.restr}" style="max-width:150px;overflow:hidden;text-overflow:ellipsis">${ico("warning-bold", "width:12px;height:12px")}${c.restr}</span>` : `<span class="mut">—</span>`;
+  const mais = `<span class="btn ghost sm ico" title="Ações">${ico("dots-three-bold")}</span>`;
+
+  // A
+  document.getElementById("a-tabela").innerHTML = `<thead><tr><th>Cliente</th><th>WhatsApp</th><th>Aniversário</th><th>Restrição</th><th class="num">Encomendas <span class="api">API</span></th><th class="num">Última</th><th></th></tr></thead><tbody>${
+    CLIENTES.map((c, i) => `<tr class="${i === 0 ? "sel" : ""}"><td><span class="nome"><span class="ini">${inicial(c.nome)}</span><span style="min-width:0;max-width:220px"><b title="${c.nome}">${c.nome}</b>${c.email ? `<small title="${c.email}">${c.email}</small>` : ""}</span></span></td><td><span class="zap">${ico("whatsapp-logo")}${c.zap}</span></td><td>${aniv(c)}</td><td>${restr(c)}</td><td class="num">${c.encs}</td><td class="num">${c.ultima.slice(0, 5)}</td><td style="width:44px">${mais}</td></tr>`).join("")
+  }</tbody>`;
+  document.getElementById("a-cel").innerHTML = CLIENTES.slice(0, 7).map((c) => `<li>${nomeCel(c)}<span style="margin-left:auto;display:flex;align-items:center;gap:6px">${c.restr ? `<span class="chip c-warn" title="${c.restr}">${ico("warning-bold", "width:12px;height:12px")}</span>` : ""}${mesAtual(c.aniv) ? `<span class="chip c-pri">${ico("cake", "width:12px;height:12px")}${c.aniv}</span>` : ""}${ico("caret-right", "color:hsl(var(--muted-foreground))")}</span></li>`).join("");
+
+  // B: filtro "Aniversário: este mês" ligado → 3 clientes
+  const doMes = CLIENTES.filter((c) => mesAtual(c.aniv));
+  document.getElementById("b-tabela").innerHTML = `<thead><tr><th style="width:36px"><span class="check" style="background:hsl(var(--primary));border-color:hsl(var(--primary));color:#fff">${ico("minus-bold", "width:10px;height:10px")}</span></th><th><span class="ord">Cliente ${ico("caret-up-down", "width:12px;height:12px")}</span></th><th>WhatsApp</th><th><span class="ord">Aniversário ${ico("caret-up-down", "width:12px;height:12px")}</span></th><th>Restrição</th><th class="num"><span class="ord">Encomendas</span></th><th class="num"><span class="ord" style="color:hsl(var(--foreground))">Já comprou ${ico("caret-down-bold", "width:12px;height:12px")}</span> <span class="api">API</span></th><th class="num">Última compra</th><th></th></tr></thead><tbody>${
+    doMes.map((c, i) => `<tr class="${i < 2 ? "marcada" : ""}"><td><span class="check ${i < 2 ? "on" : ""}">${i < 2 ? ico("check-bold", "width:10px;height:10px") : ""}</span></td><td><span class="nome"><span class="ini">${inicial(c.nome)}</span><span><b>${c.nome}</b></span></span></td><td><span class="zap">${ico("whatsapp-logo")}${c.zap}</span></td><td>${aniv(c)}</td><td>${restr(c)}</td><td class="num">${c.encs}</td><td class="num"><b>${c.total}</b></td><td class="num">${c.ultima.slice(0, 5)}${sumiu(c) ? ` <span class="chip c-warn">há 4 meses</span>` : ""}</td><td style="width:44px">${mais}</td></tr>`).join("")
+  }</tbody>`;
+  document.getElementById("b-cel").innerHTML = doMes.map((c) => `<li>${nomeCel(c)}<span style="margin-left:auto;text-align:right;font-size:12px"><b class="tab" style="font-size:13px">${c.total}</b><br><span class="chip c-pri" style="height:18px">${ico("cake", "width:11px;height:11px")}${c.aniv}</span></span></li>`).join("");
+
+  // C
+  document.getElementById("c-tabela").innerHTML = `<thead><tr><th>Cliente</th><th>WhatsApp</th><th class="num">Última</th><th></th></tr></thead><tbody>${
+    CLIENTES.map((c, i) => `<tr class="${i === 0 ? "sel" : ""}"><td><span class="nome"><span class="ini">${inicial(c.nome)}</span><span style="min-width:0;max-width:220px"><b title="${c.nome}">${c.nome}</b></span>${c.restr ? `<span class="chip c-warn" title="${c.restr}">${ico("warning-bold", "width:12px;height:12px")}</span>` : ""}${mesAtual(c.aniv) ? `<span class="chip c-pri" title="Aniversário ${c.aniv}">${ico("cake", "width:12px;height:12px")}</span>` : ""}</span></td><td><span class="zap">${ico("whatsapp-logo")}${c.zap}</span></td><td class="num">${c.ultima.slice(0, 5)}</td><td style="width:30px">${ico("caret-right", "color:hsl(var(--muted-foreground))")}</td></tr>`).join("")
+  }</tbody>`;
+  document.getElementById("c-cel").innerHTML = CLIENTES.slice(0, 8).map((c) => `<li>${nomeCel(c)}<span style="margin-left:auto">${ico("caret-right", "color:hsl(var(--muted-foreground))")}</span></li>`).join("");
+</script>
+</body>
+</html>

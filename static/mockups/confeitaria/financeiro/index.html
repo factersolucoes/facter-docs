@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Financeiro · Confeitaria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* Tema confeitaria (chocolate) do DS: mesmas variáveis do produto. */
+  :root{
+    --background:0 0% 98%;
+    --foreground:240 10% 3.9%;
+    --card:0 0% 100%;
+    --primary:20 45% 32%;
+    --primary-soft:20 45% 95%;
+    --muted:240 4.8% 93.9%;
+    --muted-foreground:240 3.8% 46%;
+    --border:240 5.9% 90%;
+    --success:160 60% 38%;
+    --success-ink:160 70% 24%;
+    --success-soft:160 55% 94%;
+    --warning-ink:28 85% 28%;
+    --warning-soft:40 95% 93%;
+    --danger-ink:0 72% 38%;
+    --danger-soft:0 86% 96%;
+    --info-ink:217 91% 38%;
+    --info-soft:217 85% 96%;
+    --canvas:225 14% 92%;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));
+    font:14px/1.45 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3,h4,p,ul{margin:0}
+  ul{padding:0;list-style:none}
+  button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
+  .i{display:inline-block;width:16px;height:16px;flex:none;background:currentColor;
+    -webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat}
+  .tab{font-variant-numeric:tabular-nums}
+  .mut{color:hsl(var(--muted-foreground))}
+
+  /* ---------- apresentação ---------- */
+  .doc{max-width:1400px;margin:0 auto;padding:48px 24px 96px}
+  .doc h1{font:800 32px/1.15 Sora,Inter,sans-serif;letter-spacing:-.02em}
+  .lead{color:hsl(var(--muted-foreground));max-width:84ch;margin-top:10px;font-size:14.5px;line-height:1.55}
+  .pecas{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
+  .pecas code{font:600 12px ui-monospace,Consolas,monospace;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:6px;padding:3px 7px}
+  .opcao{margin-top:64px;display:flex;flex-direction:column;gap:14px}
+  .opcao-topo{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .letra{font:800 13px Sora,Inter,sans-serif;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:hsl(var(--primary));color:#fff}
+  .opcao h2{font:800 22px/1.2 Sora,Inter,sans-serif;letter-spacing:-.01em}
+  .opcao .sub{font-size:14px;color:hsl(var(--muted-foreground));max-width:92ch}
+  .pros{display:flex;gap:24px;flex-wrap:wrap;font-size:13px}
+  .pros div{display:flex;flex-direction:column;gap:4px;max-width:48ch}
+  .pros b{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+  .rotulo{font-size:12px;font-weight:600;color:hsl(var(--muted-foreground));letter-spacing:.03em;text-transform:uppercase;margin-bottom:8px}
+  .quadros{display:flex;flex-direction:column;gap:24px}
+  .lado{display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start}
+
+  /* ---------- moldura (notebook 1366 × 720) ---------- */
+  .tela{position:relative;display:flex;height:720px;border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;background:hsl(var(--background));box-shadow:0 8px 30px -12px rgb(0 0 0 / .15)}
+  .menu{width:210px;flex:none;display:flex;flex-direction:column;background:hsl(var(--card));border-right:1px solid hsl(var(--border))}
+  .menu-topo{display:flex;align-items:center;gap:10px;height:60px;padding:0 14px;background:hsl(var(--primary));color:#fff;font:700 13px Inter}
+  .menu-topo small{display:block;font-weight:500;opacity:.8;font-size:11px}
+  .menu nav{padding:10px;display:flex;flex-direction:column;gap:2px;font-size:13px}
+  .menu nav p{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding:10px 8px 4px}
+  .menu nav a{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:8px}
+  .menu nav a.on{background:hsl(var(--primary-soft));color:hsl(var(--primary));font-weight:600;box-shadow:inset 3px 0 0 hsl(var(--primary))}
+  .corpo{flex:1;min-width:0;display:flex;flex-direction:column}
+  .barra{height:60px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border));font-weight:700}
+  .avatar{width:32px;height:32px;border-radius:999px;background:hsl(var(--primary));color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700}
+  .conteudo{padding:24px 28px;display:flex;flex-direction:column;gap:14px}
+  .cabeca{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .cabeca h3{font:800 24px/1.15 Sora,Inter,sans-serif;letter-spacing:-.015em}
+  .prod{display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px solid hsl(var(--border));border-radius:10px;background:hsl(var(--card))}
+  .prod .ic{padding:8px;border-radius:8px;background:hsl(var(--primary-soft));color:hsl(var(--primary));display:grid}
+  .prod b{font-weight:600}
+  .prod .preco{margin-left:auto;text-align:right;font-weight:600;color:hsl(var(--primary))}
+  .prod .preco small{display:block;font-weight:400;font-size:12px;color:hsl(var(--muted-foreground))}
+
+  /* véu + janela (Dialog do DS) */
+  .veu{position:absolute;inset:0;background:rgb(0 0 0 / .5);backdrop-filter:blur(1px)}
+  .janela{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;max-height:calc(100% - 48px);background:hsl(var(--card));border-radius:16px;box-shadow:0 24px 60px -16px rgb(0 0 0 / .45);overflow:hidden}
+  .j-topo{display:flex;align-items:center;gap:10px;padding:18px 22px 14px;flex:none}
+  .j-topo h4{font:800 19px Sora,Inter,sans-serif;letter-spacing:-.01em}
+  .j-topo .x{margin-left:auto;color:hsl(var(--muted-foreground));width:32px;height:32px;display:grid;place-items:center;border-radius:8px}
+  .j-rodape{display:flex;align-items:center;gap:8px;padding:12px 22px;border-top:1px solid hsl(var(--border));background:hsl(var(--muted) / .35);flex:none}
+  .rola{overflow:auto;min-height:0}
+
+  /* ---------- DS ---------- */
+  .card{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:38px;padding:0 16px;border-radius:8px;font-size:13.5px;font-weight:600;white-space:nowrap}
+  .btn.pri{background:hsl(var(--primary));color:#fff}
+  .btn.out{border:1px solid hsl(var(--border));background:hsl(var(--card))}
+  .btn.sm{height:32px;font-size:12.5px;padding:0 10px}
+  .btn.ico{width:32px;padding:0}
+  .btn.ghost{color:hsl(var(--muted-foreground))}
+  .btn.perigo{color:hsl(var(--danger-ink))}
+  .btn.sec{background:hsl(var(--card));color:hsl(var(--primary));border:1px solid hsl(var(--primary) / .25)}
+  .cap{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+  .chip{display:inline-flex;align-items:center;gap:4px;height:20px;padding:0 7px;border-radius:6px;font-size:11px;font-weight:600;white-space:nowrap}
+  .c-mut{background:hsl(var(--muted));color:hsl(var(--foreground) / .7)}
+  .c-ok{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+  .c-pri{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+  .api{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:hsl(var(--info-ink));background:hsl(var(--info-soft));border-radius:999px;padding:1px 7px;vertical-align:middle}
+
+  /* campos (Form.Input do DS: rótulo na borda) */
+  .campo{position:relative;display:flex;align-items:center;height:44px;padding:0 12px;border:2px solid hsl(var(--border));border-radius:8px;background:hsl(var(--background));font-size:14px;min-width:0}
+  .campo label{position:absolute;top:-9px;left:9px;padding:0 4px;background:hsl(var(--card));font-size:12px;font-weight:600;line-height:16px;white-space:nowrap}
+  .campo.sm{height:36px;font-size:13px}
+  .campo .un{margin-left:auto;color:hsl(var(--muted-foreground));font-size:12.5px}
+  .campo .sel{margin-left:auto;color:hsl(var(--muted-foreground))}
+  .campo.vazio{color:hsl(var(--muted-foreground))}
+  .dica{font-size:11.5px;color:hsl(var(--muted-foreground));margin-top:4px;padding-left:4px}
+  .radios{display:flex;gap:8px}
+  .radio{display:flex;align-items:center;gap:8px;height:40px;padding:0 14px;border:2px solid hsl(var(--border));border-radius:8px;font-size:13.5px;font-weight:600;white-space:nowrap}
+  .radio::before{content:"";width:14px;height:14px;border-radius:99px;border:1.5px solid hsl(var(--border))}
+  .radio.on{border-color:hsl(var(--primary))}
+  .radio.on::before{border:4px solid hsl(var(--primary))}
+  .rot-radio{font-size:13px;font-weight:600;margin-bottom:6px}
+
+  /* seções do formulário */
+  .sec{padding:14px 22px;display:flex;flex-direction:column;gap:14px}
+  .sec + .sec{border-top:1px solid hsl(var(--border))}
+  .sec-topo{display:flex;align-items:center;justify-content:space-between;min-height:32px}
+  .linha2{display:grid;gap:12px}
+
+  /* composição */
+  .comp-cab,.comp li{display:grid;grid-template-columns:minmax(0,1fr) 120px 76px 28px;gap:10px;align-items:center}
+  .comp-cab{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding-bottom:2px}
+  .comp li{padding:6px 0;border-top:1px solid hsl(var(--border));font-size:13.5px}
+  .comp li:first-child{border-top:0}
+  .comp b{font-weight:600;display:flex;align-items:center;gap:6px;min-width:0}
+  .comp .custo{text-align:right;font-weight:600}
+  .rende{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;border-top:1px solid hsl(var(--border));padding-top:12px}
+  .total-comp{text-align:right}
+  .total-comp small{display:block;color:hsl(var(--muted-foreground));font-size:12.5px}
+  .total-comp b{font:800 18px Sora,Inter,sans-serif}
+
+  /* preço */
+  .linhas li{display:flex;justify-content:space-between;font-size:13px;padding:2px 0}
+  .linhas li span:first-child{color:hsl(var(--muted-foreground))}
+  .linhas li.forte{border-top:1px solid hsl(var(--border));margin-top:4px;padding-top:6px;font-weight:600}
+  .linhas li.forte span:first-child{color:inherit}
+  .sugerido{border-radius:10px;background:hsl(var(--primary-soft));padding:12px 14px}
+  .sugerido small{font-size:12.5px;color:hsl(var(--muted-foreground))}
+  .sugerido .v{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .sugerido b{font:800 22px Sora,Inter,sans-serif;color:hsl(var(--primary))}
+  .margem{display:flex;justify-content:space-between;align-items:center;font-size:13px}
+
+  /* resumo do preço no pé (B e C) */
+  .resumo{display:flex;align-items:center;gap:18px;font-size:12.5px;margin-right:auto}
+  .resumo small{display:block;color:hsl(var(--muted-foreground));font-size:11.5px}
+  .resumo b{font:800 15px Sora,Inter,sans-serif}
+  .resumo .sep{width:1px;height:28px;background:hsl(var(--border))}
+
+  /* passos (Wizard do DS) */
+  .passos{display:flex;align-items:center;gap:10px;padding:0 22px 14px;font-size:13px;flex:none;border-bottom:1px solid hsl(var(--border))}
+  .passo{display:flex;align-items:center;gap:8px;color:hsl(var(--muted-foreground));font-weight:500}
+  .passo i.n{font-style:normal;width:22px;height:22px;border-radius:99px;display:grid;place-items:center;font-size:11.5px;font-weight:700;border:1.5px solid hsl(var(--border))}
+  .passo.feito i.n{background:hsl(var(--success-soft));border-color:transparent;color:hsl(var(--success-ink))}
+  .passo.agora{color:hsl(var(--foreground));font-weight:600}
+  .passo.agora i.n{background:hsl(var(--primary));border-color:hsl(var(--primary));color:#fff}
+  .passos .traco{flex:1;max-width:48px;height:1.5px;background:hsl(var(--border))}
+
+  /* painel lateral (C) */
+  .lateral{position:absolute;top:0;right:0;bottom:0;width:620px;display:flex;flex-direction:column;background:hsl(var(--card));box-shadow:-24px 0 60px -20px rgb(0 0 0 / .35)}
+  .dobra{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:hsl(var(--primary))}
+
+  /* celular */
+  .cel{width:360px;max-width:100%;border:1px solid hsl(var(--border));border-radius:28px;overflow:hidden;background:hsl(var(--background));box-shadow:0 8px 30px -12px rgb(0 0 0 / .2);display:flex;flex-direction:column;height:720px;position:relative}
+  .cel .veu{border-radius:28px}
+  .folha{position:absolute;left:0;right:0;bottom:0;top:28px;display:flex;flex-direction:column;background:hsl(var(--card));border-radius:20px 20px 0 0}
+  .folha .alca{width:40px;height:4px;border-radius:9px;background:hsl(var(--border));margin:8px auto 0;flex:none}
+  .folha .sec{padding:12px 16px}
+  .folha .j-topo{padding:10px 16px 8px}
+  .folha .j-rodape{padding:10px 16px 16px}
+  .folha .comp-cab,.folha .comp li{grid-template-columns:minmax(0,1fr) 92px 62px}
+  .folha .passos{padding:0 16px 10px;gap:6px;font-size:12px}
+
+  table.cmp{width:100%;border-collapse:collapse;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;font-size:13.5px}
+  table.cmp th,table.cmp td{padding:10px 14px;text-align:left;border-top:1px solid hsl(var(--border));vertical-align:top}
+  table.cmp thead th{border-top:0;background:hsl(var(--muted) / .5);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:hsl(var(--muted-foreground))}
+  .reco{margin-top:16px;padding:16px 18px;border-radius:14px;background:hsl(var(--primary-soft));color:hsl(var(--primary));font-size:14px;line-height:1.55}
+</style>
+<style>
+  :root{--entrou:#1f8a70;--saiu:#c2652e}
+  .mes{display:flex;align-items:center;gap:6px;border:1px solid hsl(var(--border));border-radius:10px;background:hsl(var(--card));padding:3px}
+  .mes b{min-width:120px;text-align:center;font-size:13.5px}
+  .mes .btn{height:30px;width:30px;padding:0}
+  .kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+  .kpis div{padding:12px 16px;border-left:1px solid hsl(var(--border))}
+  .kpis div:first-child{border-left:0}
+  .kpis p{font-size:12px;color:hsl(var(--muted-foreground));display:flex;align-items:center;gap:6px}
+  .kpis b{display:block;font:800 20px Sora,Inter,sans-serif;font-variant-numeric:tabular-nums;margin-top:2px}
+  .kpis small{font-size:11.5px;color:hsl(var(--muted-foreground))}
+  .bola{width:9px;height:9px;border-radius:3px;display:inline-block;flex:none}
+  .cascata li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;padding:8px 0;border-top:1px solid hsl(var(--border));font-size:13px}
+  .cascata li:first-child{border-top:0}
+  .cascata .trilho{grid-column:1/-1;height:8px;border-radius:9px;background:hsl(var(--muted));position:relative;overflow:hidden}
+  .cascata .trilho i{position:absolute;top:0;bottom:0;border-radius:9px}
+  .cascata b{font-variant-numeric:tabular-nums}
+  .cascata li.total{font-weight:600}
+  .cat li{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:4px 10px;font-size:13px;padding:5px 0}
+  .cat .trilho{grid-column:1/-1;height:6px;border-radius:9px;background:hsl(var(--muted));overflow:hidden}
+  .cat .trilho i{display:block;height:100%;background:hsl(var(--primary) / .7);border-radius:9px}
+  .mei-barra{height:8px;border-radius:9px;background:hsl(var(--muted));overflow:hidden}
+  .mei-barra i{display:block;height:100%;background:hsl(var(--success));border-radius:9px}
+  table.t{width:100%;border-collapse:collapse;font-size:13px}
+  table.t th{height:34px;padding:0 12px;text-align:left;font-size:11px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:hsl(var(--muted-foreground));background:hsl(var(--muted) / .45);border-top:1px solid hsl(var(--border));border-bottom:1px solid hsl(var(--border));white-space:nowrap}
+  table.t td{height:40px;padding:0 12px;border-bottom:1px solid hsl(var(--border));white-space:nowrap}
+  table.t .num{text-align:right;font-variant-numeric:tabular-nums}
+  .dt-tabs{display:flex;gap:4px;border-bottom:1px solid hsl(var(--border));padding:0 16px}
+  .dt-tabs span{position:relative;padding:10px 12px;font-size:13px;font-weight:500;color:hsl(var(--muted-foreground));display:flex;gap:6px;align-items:center}
+  .dt-tabs span b{min-width:20px;height:20px;padding:0 6px;border-radius:4px;font-size:11.5px;display:grid;place-items:center;background:hsl(var(--muted))}
+  .dt-tabs span.on{color:hsl(var(--primary))}
+  .dt-tabs span.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:hsl(var(--primary))}
+  .filtro{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px;border:1px solid hsl(var(--border));border-radius:8px;font-size:12.5px;font-weight:600;background:hsl(var(--card))}
+  .filtro.on{border-color:hsl(var(--primary) / .4);background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+  .extrato .dia{display:flex;justify-content:space-between;padding:8px 16px;background:hsl(var(--muted) / .45);font-size:12px;font-weight:600;color:hsl(var(--muted-foreground));border-top:1px solid hsl(var(--border))}
+  .extrato li{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 16px;border-top:1px solid hsl(var(--border));font-size:13px}
+  .extrato .ic{width:28px;height:28px;border-radius:8px;display:grid;place-items:center}
+  .extrato small{display:block;font-size:12px;color:hsl(var(--muted-foreground))}
+  .grafico text{font:11px Inter,sans-serif;fill:hsl(var(--muted-foreground))}
+  .leg{display:flex;gap:14px;font-size:12px;color:hsl(var(--muted-foreground));align-items:center}
+  .leg span{display:inline-flex;align-items:center;gap:6px}
+  .c-warn{background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+</style>
+</head>
+<body>
+<main class="doc">
+  <p class="cap">Confeitaria · Financeiro · Aprovado em 27/10/2026 · opção A, com o ajuste A+ (comparação) implementado</p>
+  <h1>Financeiro: 3 caminhos</h1>
+  <p class="lead">Hoje o Financeiro é uma pilha de cartões numa coluna estreita: quatro números, uma faixa “depois do pró-labore”, o MEI, a lista de despesas, “para onde foi o dinheiro” e uma tabela de fluxo de caixa dia a dia lá embaixo. Tudo está lá, mas não conta uma história: dá trabalho ver <b>como 2.635 que entraram viraram 560 que sobraram</b>. Os três caminhos usam o Conteiner largo e os mesmos dados de hoje. Exemplo: outubro de 2026.</p>
+  <div class="pecas"><code>DataTable</code><code>.Tabs</code><code>Dialog</code><code>Form</code><code>Conteiner</code><code>calcularResumoFinanceiro</code></div>
+
+  <!-- ==================== Ajuste 27/10 ==================== -->
+  <section class="opcao" style="margin-top:28px">
+    <div class="opcao-topo"><span class="letra">A+</span><h2>Ajuste: no lugar da cascata, “comparado com o mês passado”</h2></div>
+    <p class="sub"><b>Pedido de 27/10.</b> A cascata repetia os cinco números da faixa do topo. No lugar dela, o painel abre com a comparação com o mês anterior: quanto <b>entrou</b>, quanto <b>gastou</b> e quanto <b>sobrou</b>, cada um com a seta e a diferença em %, e a cor dizendo se foi bom ou ruim (gastar mais é vermelho, entrar mais é verde). Embaixo, <b>o que mais mudou</b> nas despesas (a categoria que mais subiu ou caiu, em reais). O resto do painel continua: para onde foi o dinheiro, MEI e a receber.</p>
+    <div class="pros"><div><b>Ganha</b>Tira a repetição e responde “estou melhor ou pior que no mês passado, e por quê?”. Usa a mesma busca de mês que a tela já tem (só pede também o mês anterior).</div><div><b>Cuidado</b>No primeiro mês de uso não há com o que comparar: o bloco avisa “sem mês anterior para comparar”.</div></div>
+    <div class="quadros"><div class="lado">
+      <div><p class="rotulo">Painel da direita · outubro comparado com setembro</p><div class="card" style="width:340px;overflow:hidden" data-comparacao></div></div>
+      <div><p class="rotulo">Mês ruim · gastou mais do que entrou a mais</p><div class="card" style="width:340px;overflow:hidden" data-comparacao-ruim></div></div>
+      <div><p class="rotulo">Primeiro mês de uso</p><div class="card" style="width:340px;overflow:hidden" data-comparacao-vazio></div></div>
+    </div></div>
+  </section>
+
+  <!-- ==================== A ==================== -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">A</span><h2>Console do mês: do que entrou ao que sobrou</h2></div>
+    <p class="sub">Igual às outras telas: uma faixa de números no topo (com o que sobrou em destaque) e, embaixo, o mês em gráfico (entrou e saiu por dia, na mesma escala) e a tabela de despesas. À direita, um painel fixo conta a história do mês em cascata: <b>entrou → despesas → lucro do negócio → pró-labore → sobrou</b>, para onde foi o dinheiro, o limite do MEI e o que ainda tem a receber.</p>
+    <div class="pros">
+      <div><b>Ganha</b>Lê o mês de cima para baixo em 5 segundos. O fluxo de caixa vira gráfico (a tabela dia a dia vira o “ver como tabela”). Nova despesa sempre à mão.</div>
+      <div><b>Cuidado</b>Tela mais cheia: no notebook pequeno a coluna da esquerda rola; o painel fica parado.</div>
+    </div>
+    <div class="quadros">
+      <div>
+        <p class="rotulo">Notebook · outubro de 2026</p>
+        <div class="tela" data-menu-so style="height:auto;min-height:720px">
+          <div class="corpo">
+            <div class="barra">Financeiro<span class="avatar">AD</span></div>
+            <div style="padding:16px 28px;display:flex;flex-direction:column;gap:12px">
+              <div class="cabeca"><div><h3>Financeiro</h3></div><div style="display:flex;gap:10px;align-items:center"><div class="mes"><span class="btn ghost" data-i="caret-left"></span><b>Outubro de 2026</b><span class="btn ghost" data-i="caret-right"></span></div><span class="btn pri" data-ico="plus">Nova despesa</span></div></div>
+              <div class="card kpis tab" data-kpis></div>
+              <div style="display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:14px;align-items:start">
+                <div style="display:flex;flex-direction:column;gap:12px">
+                  <div class="card" style="padding:14px 16px" data-grafico></div>
+                  <div class="card" style="overflow:hidden" data-despesas></div>
+                </div>
+                <div class="card" style="overflow:hidden" data-painel></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="rotulo">Celular · o que sobrou primeiro, a cascata logo depois</p>
+        <div class="cel" data-cel-a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== B ==================== -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">B</span><h2>Abas: Resumo, Despesas e Fluxo de caixa</h2></div>
+    <p class="sub">Os números ficam no topo e o resto se divide em três abas, sem rolar: <b>Resumo</b> (a cascata do mês, para onde foi e o MEI lado a lado), <b>Despesas</b> (a tabela do DS com filtro por categoria e busca) e <b>Fluxo de caixa</b> (o gráfico e a tabela dia a dia).</p>
+    <div class="pros">
+      <div><b>Ganha</b>Cada coisa no seu lugar, sem rolagem. A aba Despesas vira uma lista de verdade (filtrar “ingredientes” do mês, buscar “luz”).</div>
+      <div><b>Cuidado</b>Um clique a mais para ver despesas ou o fluxo; o resumo e a lista não aparecem juntos.</div>
+    </div>
+    <div class="quadros">
+      <div>
+        <p class="rotulo">Notebook · aba Resumo</p>
+        <div class="tela" data-menu-so style="height:auto;min-height:680px">
+          <div class="corpo">
+            <div class="barra">Financeiro<span class="avatar">AD</span></div>
+            <div style="padding:16px 28px;display:flex;flex-direction:column;gap:12px">
+              <div class="cabeca"><div><h3>Financeiro</h3></div><div style="display:flex;gap:10px;align-items:center"><div class="mes"><span class="btn ghost" data-i="caret-left"></span><b>Outubro de 2026</b><span class="btn ghost" data-i="caret-right"></span></div><span class="btn pri" data-ico="plus">Nova despesa</span></div></div>
+              <div class="card kpis tab" data-kpis></div>
+              <div class="card" style="overflow:hidden">
+                <div class="dt-tabs"><span class="on">Resumo</span><span>Despesas <b>8</b></span><span>Fluxo de caixa</span></div>
+                <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0">
+                  <div style="padding:14px 16px;border-right:1px solid hsl(var(--border))" data-cascata></div>
+                  <div style="padding:14px 16px;border-right:1px solid hsl(var(--border))" data-categorias></div>
+                  <div style="padding:14px 16px" data-mei></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="rotulo">Aba Despesas · filtro por categoria</p>
+        <div class="card" style="overflow:hidden;max-width:900px" data-despesas-b></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== C ==================== -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">C</span><h2>Extrato: tudo o que entrou e saiu, como no banco</h2></div>
+    <p class="sub">A tela principal vira um extrato do mês, do jeito que ela já conhece do app do banco: cada pagamento de encomenda e cada despesa numa linha, agrupados por dia, com o saldo do dia. Filtros por Entradas / Saídas / categoria. À direita, o resumo (cascata), o MEI e o que falta receber.</p>
+    <div class="pros">
+      <div><b>Ganha</b>Familiar e completo: dá para conferir com o extrato do banco. As entradas mostram de qual encomenda veio o dinheiro.</div>
+      <div><b>Precisa</b><span>Listar os pagamentos do mês com cliente e encomenda <span class="api">API</span> (hoje o painel só manda os totais por dia). Lista longa em mês movimentado.</span></div>
+    </div>
+    <div class="quadros">
+      <div>
+        <p class="rotulo">Notebook · outubro de 2026</p>
+        <div class="tela" data-menu-so style="height:auto;min-height:720px">
+          <div class="corpo">
+            <div class="barra">Financeiro<span class="avatar">AD</span></div>
+            <div style="padding:16px 28px;display:flex;flex-direction:column;gap:12px">
+              <div class="cabeca"><div><h3>Financeiro</h3></div><div style="display:flex;gap:10px;align-items:center"><div class="mes"><span class="btn ghost" data-i="caret-left"></span><b>Outubro de 2026</b><span class="btn ghost" data-i="caret-right"></span></div><span class="btn pri" data-ico="plus">Nova despesa</span></div></div>
+              <div style="display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:14px;align-items:start">
+                <div class="card" style="overflow:hidden">
+                  <div style="display:flex;gap:8px;padding:12px 16px;flex-wrap:wrap"><span class="filtro on">Tudo <b class="tab">20</b></span><span class="filtro"><i class="bola" style="background:var(--entrou)"></i>Entradas <b class="tab">12</b></span><span class="filtro"><i class="bola" style="background:var(--saiu)"></i>Saídas <b class="tab">8</b></span><span class="filtro" data-ico="funnel">Categoria</span></div>
+                  <div class="extrato" data-extrato></div>
+                </div>
+                <div class="card" style="overflow:hidden" data-painel-c></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="opcao">
+    <div class="opcao-topo"><h2>Comparando</h2></div>
+    <table class="cmp">
+      <thead><tr><th></th><th>A · Console do mês</th><th>B · Abas</th><th>C · Extrato</th></tr></thead>
+      <tbody>
+        <tr><th>Entender o mês</th><td>Cascata sempre à vista + gráfico</td><td>Aba Resumo</td><td>Cascata no painel; o extrato mostra o detalhe</td></tr>
+        <tr><th>Ver e mexer nas despesas</th><td>Tabela embaixo do gráfico</td><td>Aba própria com filtro e busca</td><td>Misturadas com as entradas, com filtro</td></tr>
+        <tr><th>Fluxo de caixa</th><td>Gráfico (tabela sob demanda)</td><td>Aba própria</td><td>O próprio extrato (saldo por dia)</td></tr>
+        <tr><th>Rolagem no notebook</th><td>Um pouco, só à esquerda</td><td>Nenhuma</td><td>A lista rola</td></tr>
+        <tr><th>Precisa de API nova</th><td>Não</td><td>Não</td><td>Sim: pagamentos do mês com cliente</td></tr>
+        <tr><th>Parecida com</th><td>Encomendas, Receita, Produto</td><td>Clientes (abas do DataTable)</td><td>App do banco</td></tr>
+      </tbody>
+    </table>
+    <p class="reco"><b>Recomendação: A.</b> Mesma família das outras telas, sem API nova, e resolve o principal: em 5 segundos ela vê quanto entrou, para onde foi e quanto sobrou, com o gráfico substituindo a tabela dia a dia. O extrato da <b>C</b> é um bom passo seguinte (dá para entrar como “ver extrato” dentro da A quando a API listar os pagamentos).</p>
+  </section>
+</main>
+
+<script>
+  const ico = (nome, extra = "") => `<i class="i" style="--ico:url(https://api.iconify.design/ph/${nome}.svg);${extra}"></i>`;
+  const R = (c) => "R$ " + (c / 100).toLocaleString("pt-BR", { minimumFractionDigits: 2 });
+
+  // ---------- outubro de 2026 (centavos) ----------
+  const ENTRADAS = [[2, "Maria Souza", "sinal da nº 41", 9000], [5, "Carla Mendes", "nº 38", 24000], [8, "Joana Lima", "nº 42", 15000], [10, "Escola Pequeno Príncipe", "sinal da nº 44", 48000], [12, "Fernanda Rocha", "nº 45", 18000], [15, "Luciana Martins", "nº 46", 16000], [18, "Maria Souza", "restante da nº 41", 9000], [20, "Renata Costa", "nº 47", 33000], [22, "Patrícia Alves", "nº 48", 12000], [24, "Carla Mendes", "nº 49", 39500], [25, "Joana Lima", "nº 50", 20000], [27, "Escola Pequeno Príncipe", "restante da nº 44", 20000]];
+  const SAIDAS = [[3, "Atacadão", "Ingredientes", 41230], [6, "Caixas e fitas", "Embalagens", 15600], [10, "Conta de luz", "Contas fixas", 18990], [14, "Internet", "Contas fixas", 9990], [20, "DAS de outubro", "DAS (imposto do MEI)", 7660], [21, "Mercado do bairro", "Ingredientes", 24010], [28, "Forma 25 cm", "Equipamentos", 10000], [30, "Pró-labore", "Pró-labore", 80000]];
+  const ENTROU = 263500, DESPESAS = 127480, LUCRO = 136020, PRO = 80000, SOBRA = 56020;
+
+  const kpis = `<div><p><i class="bola" style="background:var(--entrou)"></i>Entrou</p><b>${R(ENTROU)}</b><small>12 pagamentos</small></div>
+    <div><p><i class="bola" style="background:var(--saiu)"></i>Despesas</p><b>${R(DESPESAS)}</b><small>sem o pró-labore</small></div>
+    <div><p>Lucro do negócio</p><b>${R(LUCRO)}</b><small>52% do que entrou</small></div>
+    <div><p>Pró-labore</p><b>${R(PRO)}</b><small>o que você tirou</small></div>
+    <div style="background:hsl(var(--success-soft) / .6)"><p style="color:hsl(var(--success-ink))">${ico("check-circle", "width:14px;height:14px")}Sobrou no caixa</p><b style="color:hsl(var(--success-ink))">${R(SOBRA)}</b><small>depois de tudo</small></div>`;
+  document.querySelectorAll("[data-kpis]").forEach((el) => (el.innerHTML = kpis));
+
+  // cascata: entrou → despesas → lucro → pró-labore → sobrou
+  const W = (v) => (v / ENTROU) * 100;
+  const cascata = `<p class="rot-radio">Do que entrou ao que sobrou</p><ul class="cascata">
+    <li><span>Entrou</span><b>${R(ENTROU)}</b><span class="trilho"><i style="left:0;width:100%;background:var(--entrou)"></i></span></li>
+    <li><span class="mut">− Despesas</span><b class="mut">− ${R(DESPESAS)}</b><span class="trilho"><i style="left:${W(LUCRO)}%;width:${W(DESPESAS)}%;background:var(--saiu)"></i></span></li>
+    <li class="total"><span>= Lucro do negócio</span><b>${R(LUCRO)}</b><span class="trilho"><i style="left:0;width:${W(LUCRO)}%;background:hsl(var(--foreground) / .55)"></i></span></li>
+    <li><span class="mut">− Pró-labore</span><b class="mut">− ${R(PRO)}</b><span class="trilho"><i style="left:${W(SOBRA)}%;width:${W(PRO)}%;background:hsl(var(--primary) / .55)"></i></span></li>
+    <li class="total"><span style="color:hsl(var(--success-ink))">= Sobrou no caixa</span><b style="color:hsl(var(--success-ink))">${R(SOBRA)}</b><span class="trilho"><i style="left:0;width:${W(SOBRA)}%;background:hsl(var(--success))"></i></span></li></ul>`;
+  const CATS = [["Ingredientes", 65240], ["Contas fixas", 28980], ["Embalagens", 15600], ["Equipamentos", 10000], ["DAS (imposto do MEI)", 7660]];
+  const categorias = `<p class="rot-radio">Para onde foi o dinheiro</p><ul class="cat tab">${CATS.map(([n, v]) => `<li><span>${n}</span><span class="mut">${Math.round((v / DESPESAS) * 100)}%</span><b>${R(v)}</b><span class="trilho"><i style="width:${(v / CATS[0][1]) * 100}%"></i></span></li>`).join("")}</ul>`;
+  const mei = `<p class="rot-radio">Limite do MEI em 2026</p><p class="tab" style="font-size:13px"><b>${R(3148000)}</b> <span class="mut">de R$ 81.000,00 · 39%</span></p><div class="mei-barra" style="margin:8px 0 4px"><i style="width:39%"></i></div><p class="mut" style="font-size:12px">Tranquilo: no ritmo de hoje, fecha o ano em ~R$ 37.800.</p>
+    <div style="margin-top:14px;padding-top:12px;border-top:1px solid hsl(var(--border))"><p class="rot-radio" style="margin-bottom:2px">A receber</p><p style="font:800 20px Sora" class="tab">R$ 1.100,00</p><p class="mut" style="font-size:12px">de 5 encomendas confirmadas</p></div>`;
+  document.querySelectorAll("[data-cascata]").forEach((el) => (el.innerHTML = cascata));
+  document.querySelectorAll("[data-categorias]").forEach((el) => (el.innerHTML = categorias));
+  document.querySelectorAll("[data-mei]").forEach((el) => (el.innerHTML = mei));
+  document.querySelector("[data-painel]").innerHTML = `<section class="sec">${cascata}</section><section class="sec" style="border-top:1px solid hsl(var(--border))">${categorias}</section><section class="sec" style="border-top:1px solid hsl(var(--border))">${mei}</section>`;
+  document.querySelector("[data-painel-c]").innerHTML = `<section class="sec">${cascata}</section><section class="sec" style="border-top:1px solid hsl(var(--border))">${mei}</section>`;
+
+  // gráfico: barras entrou (acima) e saiu (abaixo) por dia + linha do saldo acumulado
+  function grafico(largura = 640) {
+    // Uma escala só, para entrou (acima do zero) e saiu (abaixo): o mesmo real tem a mesma altura nos dois lados.
+    const altura = 236, topo = 12, meio = 114, esq = 52, dir = 8, dias = 31, max = 80000;
+    const passo = (largura - esq - dir) / dias, bw = Math.max(4, passo - 4);
+    const esc = (meio - topo) / max;
+    let barras = "";
+    for (let d = 1; d <= dias; d++) {
+      const e = ENTRADAS.filter((x) => x[0] === d).reduce((s, x) => s + x[3], 0);
+      const s = SAIDAS.filter((x) => x[0] === d).reduce((t, x) => t + x[3], 0);
+      const x = esq + (d - 1) * passo + (passo - bw) / 2;
+      if (e) barras += `<rect x="${x}" y="${meio - e * esc}" width="${bw}" height="${e * esc - 1}" rx="2" fill="var(--entrou)"><title>${d}/10 · entrou ${R(e)}</title></rect>`;
+      if (s) barras += `<rect x="${x}" y="${meio + 1}" width="${bw}" height="${s * esc - 1}" rx="2" fill="var(--saiu)"><title>${d}/10 · saiu ${R(s)}</title></rect>`;
+    }
+    const marcas = [[80000, "R$ 800"], [40000, "R$ 400"], [0, "0"], [-40000, "R$ 400"], [-80000, "R$ 800"]];
+    const grade = marcas.map(([v, t]) => `<line x1="${esq}" x2="${largura - dir}" y1="${meio - v * esc}" y2="${meio - v * esc}" stroke="hsl(240 5.9% ${v ? 92 : 80}%)" stroke-width="1"/><text x="${esq - 6}" y="${meio - v * esc + 4}" text-anchor="end">${t}</text>`).join("");
+    const eixo = [1, 8, 15, 22, 29].map((d) => `<text x="${esq + (d - 1) * passo + passo / 2}" y="${altura - 2}" text-anchor="middle">${d}/10</text>`).join("");
+    const pro = esq + 29 * passo + passo / 2;
+    return `<svg class="grafico" viewBox="0 0 ${largura} ${altura}" width="100%" role="img" aria-label="Entrou e saiu por dia em outubro">${grade}${barras}<text x="${pro - 8}" y="${meio + 80000 * esc - 4}" text-anchor="end" style="font-weight:600;fill:hsl(240 10% 3.9%)">pró-labore</text>${eixo}</svg>`;
+  }
+  document.querySelector("[data-grafico]").innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><p class="rot-radio" style="margin:0">O mês dia a dia</p><div class="leg"><span><i class="bola" style="background:var(--entrou)"></i>Entrou</span><span><i class="bola" style="background:var(--saiu)"></i>Saiu</span><span>saldo no fim: <b style="color:hsl(var(--foreground))">${R(SOBRA)}</b></span><a style="color:hsl(var(--primary));font-weight:600">Ver como tabela</a></div></div>${grafico()}`;
+
+  // tabela de despesas
+  const linhasDesp = SAIDAS.map(([d, n, c, v]) => `<tr><td class="tab" style="color:hsl(var(--primary));font-weight:600;width:56px">${String(d).padStart(2, "0")}/10</td><td><b style="font-weight:600">${n}</b></td><td><span class="chip c-mut">${c}</span></td><td class="num"><b>${R(v)}</b></td><td style="width:40px">${ico("dots-three-bold", "color:hsl(var(--muted-foreground))")}</td></tr>`).join("");
+  document.querySelector("[data-despesas]").innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px"><p class="rot-radio" style="margin:0">Despesas do mês <span class="mut" style="font-weight:500">· 8</span></p><span class="btn out sm" data-ico="plus">Nova despesa</span></div><table class="t"><thead><tr><th>Dia</th><th>Descrição</th><th>Categoria</th><th class="num">Valor</th><th></th></tr></thead><tbody>${linhasDesp}</tbody></table>`;
+  document.querySelector("[data-despesas-b]").innerHTML = `<div style="display:flex;gap:8px;padding:12px 16px;flex-wrap:wrap;align-items:center"><span class="busca" style="display:flex;align-items:center;gap:8px;height:34px;padding:0 10px;border:2px solid hsl(var(--border));border-radius:8px;color:hsl(var(--muted-foreground));font-size:13px;width:240px">${ico("magnifying-glass")}Buscar despesa…</span><span class="filtro on">Todas <b>8</b></span><span class="filtro">Ingredientes <b>2</b></span><span class="filtro">Contas fixas <b>2</b></span><span class="filtro">Embalagens <b>1</b></span><span class="filtro">Mais…</span></div><table class="t"><thead><tr><th>Dia</th><th>Descrição</th><th>Categoria</th><th class="num">Valor</th><th></th></tr></thead><tbody>${linhasDesp}</tbody></table>`;
+
+  // extrato (C)
+  const MOV = [...ENTRADAS.map(([d, n, e, v]) => ({ d, n, sub: `Encomenda ${e}`, v, tipo: "e" })), ...SAIDAS.map(([d, n, c, v]) => ({ d, n, sub: c, v: -v, tipo: "s" }))].sort((a, b) => b.d - a.d);
+  const porDia = {}; MOV.forEach((m) => (porDia[m.d] ??= []).push(m));
+  let saldo = 0; const saldos = {}; for (let d = 1; d <= 31; d++) { saldo += (porDia[d] ?? []).reduce((s, m) => s + m.v, 0); saldos[d] = saldo; }
+  document.querySelector("[data-extrato]").innerHTML = Object.keys(porDia).map(Number).sort((a, b) => b - a).slice(0, 8).map((d) => `<div class="dia"><span>${String(d).padStart(2, "0")}/10</span><span class="tab">saldo ${R(saldos[d])}</span></div><ul>${porDia[d].map((m) => `<li><span class="ic" style="background:${m.tipo === "e" ? "rgb(31 138 112 / .12)" : "rgb(194 101 46 / .12)"};color:${m.tipo === "e" ? "var(--entrou)" : "var(--saiu)"}">${ico(m.tipo === "e" ? "arrow-down-left" : "arrow-up-right", "width:15px;height:15px")}</span><span style="min-width:0"><b style="font-weight:600">${m.n}</b><small>${m.sub}</small></span><b class="tab" style="color:${m.tipo === "e" ? "hsl(160 70% 24%)" : "hsl(var(--foreground))"}">${m.v > 0 ? "+ " : "− "}${R(Math.abs(m.v))}</b></li>`).join("")}</ul>`).join("");
+
+
+  // ---------- Ajuste 27/10: comparação com o mês passado ----------
+  const linhaComp = (rotulo, valor, anterior, bomQuandoSobe) => {
+    const dif = valor - anterior;
+    const pct = anterior ? Math.round((dif / anterior) * 100) : null;
+    const subiu = dif > 0;
+    const bom = dif === 0 ? null : subiu === bomQuandoSobe;
+    const cor = bom === null ? "hsl(var(--muted-foreground))" : bom ? "hsl(var(--success-ink))" : "hsl(var(--danger-ink))";
+    const fundo = bom === null ? "hsl(var(--muted))" : bom ? "hsl(var(--success-soft))" : "hsl(var(--danger-soft))";
+    return `<li style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;padding:9px 0;border-top:1px solid hsl(var(--border));font-size:13px">
+      <span class="mut">${rotulo}</span><b class="tab">${R(valor)}</b>
+      <span class="mut tab" style="font-size:12px">em setembro: ${R(anterior)}</span>
+      <span class="tab" style="justify-self:end;display:inline-flex;align-items:center;gap:3px;font-size:11.5px;font-weight:700;border-radius:999px;padding:1px 8px;background:${fundo};color:${cor}">${ico(subiu ? "arrow-up" : "arrow-down", "width:11px;height:11px")}${pct === null ? "" : Math.abs(pct) + "%"}</span></li>`;
+  };
+  const blocoComp = ({ entrou, entrouAnt, gastou, gastouAnt, sobrou, sobrouAnt, mudou }) => `<section class="sec"><div style="display:flex;justify-content:space-between;align-items:baseline"><p class="rot-radio" style="margin:0">Comparado com setembro</p><a style="font-size:12px;color:hsl(var(--primary));font-weight:600">Ver setembro</a></div>
+      <ul style="margin:4px 0 0;padding:0;list-style:none" class="comp-lista">${linhaComp("Entrou", entrou, entrouAnt, true)}${linhaComp("Despesas", gastou, gastouAnt, false)}${linhaComp("Sobrou no caixa", sobrou, sobrouAnt, true)}</ul>
+      <div style="margin-top:6px;border-radius:10px;background:hsl(var(--muted) / .5);padding:10px 12px;font-size:12.5px"><p class="cap" style="margin-bottom:6px">O que mais mudou</p>${mudou.map(([n, v, sobe]) => `<p style="display:flex;justify-content:space-between;gap:8px;padding:2px 0"><span>${n}</span><b class="tab" style="color:${sobe ? "hsl(var(--danger-ink))" : "hsl(var(--success-ink))"}">${sobe ? "+" : "−"} ${R(v)}</b></p>`).join("")}</div></section>`;
+  const restoPainel = `<section class="sec" style="border-top:1px solid hsl(var(--border))">${categorias}</section>`;
+  document.querySelector("[data-comparacao]").innerHTML = blocoComp({ entrou: 263500, entrouAnt: 244000, gastou: 127480, gastouAnt: 131020, sobrou: 56020, sobrouAnt: 32980, mudou: [["Ingredientes", 8540, false], ["Contas fixas", 4120, true]] }) + restoPainel;
+  document.querySelector("[data-comparacao-ruim]").innerHTML = blocoComp({ entrou: 272000, entrouAnt: 252000, gastou: 167480, gastouAnt: 127480, sobrou: 104520, sobrouAnt: 124520, mudou: [["Ingredientes", 28000, true], ["Equipamentos", 10000, true]] });
+  document.querySelector("[data-comparacao-vazio]").innerHTML = `<section class="sec"><p class="rot-radio" style="margin:0">Comparado com setembro</p><p class="mut" style="font-size:13px;margin-top:6px">Sem mês anterior para comparar ainda. No mês que vem, aqui aparece se você entrou, gastou e sobrou mais ou menos.</p></section>`;
+
+  // celular (A)
+  document.querySelector("[data-cel-a]").innerHTML = `<div style="height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border));font-weight:700;flex:none">Financeiro<span class="btn pri sm" data-ico="plus">Despesa</span></div>
+    <div class="rola" style="flex:1;padding:12px 14px;display:flex;flex-direction:column;gap:12px">
+      <div class="mes" style="justify-content:space-between;flex:none"><span class="btn ghost">${ico("caret-left")}</span><b>Outubro de 2026</b><span class="btn ghost">${ico("caret-right")}</span></div>
+      <div class="card" style="padding:14px;flex:none;background:hsl(var(--success-soft) / .6)"><p class="mut" style="font-size:12px">Sobrou no caixa</p><p style="font:800 26px Sora;color:hsl(var(--success-ink))" class="tab">${R(SOBRA)}</p><p class="mut tab" style="font-size:12px">Entrou ${R(ENTROU)} · despesas ${R(DESPESAS)} · pró-labore ${R(PRO)}</p></div>
+      <div class="card" style="padding:14px;flex:none">${cascata}</div>
+      <div class="card" style="padding:14px;flex:none">${categorias}</div>
+    </div><div style="height:60px;flex:none;background:hsl(var(--card));border-top:1px solid hsl(var(--border))"></div>`;
+
+  const MENU = `<div class="menu-topo"><span style="font-size:18px">🎂</span><span>Doces da Ana<small>Confeitaria</small></span></div>
+    <nav><p>Principal</p><a>${ico("squares-four")}Início</a>
+    <p>Vendas</p><a>${ico("clipboard-text")}Encomendas</a><a>${ico("calendar-blank")}Agenda</a><a>${ico("users")}Clientes</a>
+    <p>Produção</p><a>${ico("cake")}Produtos</a><a>${ico("book-open")}Receitas</a><a>${ico("grains")}Insumos</a>
+    <p>Gestão</p><a>${ico("calculator")}Precificação</a><a class="on">${ico("wallet")}Financeiro</a><a>${ico("gear")}Configurações</a></nav>`;
+  document.querySelectorAll("[data-menu-so]").forEach((el) => el.insertAdjacentHTML("afterbegin", `<div class="menu">${MENU}</div>`));
+  document.querySelectorAll("[data-i]").forEach((el) => (el.innerHTML = ico(el.dataset.i)));
+  document.querySelectorAll("[data-ico]").forEach((el) => el.insertAdjacentHTML("afterbegin", ico(el.dataset.ico)));
+</script>
+</body>
+</html>

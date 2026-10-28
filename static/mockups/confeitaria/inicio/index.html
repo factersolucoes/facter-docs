@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Início · Confeitaria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* Tema confeitaria (chocolate) do DS: mesmas variáveis do produto. */
+  :root{
+    --background:0 0% 98%;
+    --foreground:240 10% 3.9%;
+    --card:0 0% 100%;
+    --primary:20 45% 32%;
+    --primary-soft:20 45% 95%;
+    --muted:240 4.8% 93.9%;
+    --muted-foreground:240 3.8% 46%;
+    --border:240 5.9% 90%;
+    --success:160 60% 38%;
+    --success-ink:160 70% 24%;
+    --success-soft:160 55% 94%;
+    --warning-ink:28 85% 28%;
+    --warning-soft:40 95% 93%;
+    --danger-ink:0 72% 38%;
+    --danger-soft:0 86% 96%;
+    --info-ink:217 91% 38%;
+    --info-soft:217 85% 96%;
+    --canvas:225 14% 92%;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));
+    font:14px/1.45 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3,h4,p,ul{margin:0}
+  ul{padding:0;list-style:none}
+  button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
+  .i{display:inline-block;width:16px;height:16px;flex:none;background:currentColor;
+    -webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat}
+  .tab{font-variant-numeric:tabular-nums}
+  .mut{color:hsl(var(--muted-foreground))}
+
+  /* ---------- apresentação ---------- */
+  .doc{max-width:1400px;margin:0 auto;padding:48px 24px 96px}
+  .doc h1{font:800 32px/1.15 Sora,Inter,sans-serif;letter-spacing:-.02em}
+  .lead{color:hsl(var(--muted-foreground));max-width:84ch;margin-top:10px;font-size:14.5px;line-height:1.55}
+  .pecas{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
+  .pecas code{font:600 12px ui-monospace,Consolas,monospace;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:6px;padding:3px 7px}
+  .opcao{margin-top:64px;display:flex;flex-direction:column;gap:14px}
+  .opcao-topo{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .letra{font:800 13px Sora,Inter,sans-serif;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:hsl(var(--primary));color:#fff}
+  .opcao h2{font:800 22px/1.2 Sora,Inter,sans-serif;letter-spacing:-.01em}
+  .opcao .sub{font-size:14px;color:hsl(var(--muted-foreground));max-width:92ch}
+  .pros{display:flex;gap:24px;flex-wrap:wrap;font-size:13px}
+  .pros div{display:flex;flex-direction:column;gap:4px;max-width:48ch}
+  .pros b{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+  .rotulo{font-size:12px;font-weight:600;color:hsl(var(--muted-foreground));letter-spacing:.03em;text-transform:uppercase;margin-bottom:8px}
+  .quadros{display:flex;flex-direction:column;gap:24px}
+  .lado{display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start}
+
+  /* ---------- moldura (notebook 1366 × 720) ---------- */
+  .tela{position:relative;display:flex;height:720px;border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;background:hsl(var(--background));box-shadow:0 8px 30px -12px rgb(0 0 0 / .15)}
+  .menu{width:210px;flex:none;display:flex;flex-direction:column;background:hsl(var(--card));border-right:1px solid hsl(var(--border))}
+  .menu-topo{display:flex;align-items:center;gap:10px;height:60px;padding:0 14px;background:hsl(var(--primary));color:#fff;font:700 13px Inter}
+  .menu-topo small{display:block;font-weight:500;opacity:.8;font-size:11px}
+  .menu nav{padding:10px;display:flex;flex-direction:column;gap:2px;font-size:13px}
+  .menu nav p{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding:10px 8px 4px}
+  .menu nav a{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:8px}
+  .menu nav a.on{background:hsl(var(--primary-soft));color:hsl(var(--primary));font-weight:600;box-shadow:inset 3px 0 0 hsl(var(--primary))}
+  .corpo{flex:1;min-width:0;display:flex;flex-direction:column}
+  .barra{height:60px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border));font-weight:700}
+  .avatar{width:32px;height:32px;border-radius:999px;background:hsl(var(--primary));color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700}
+  .conteudo{padding:24px 28px;display:flex;flex-direction:column;gap:14px}
+  .cabeca{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .cabeca h3{font:800 24px/1.15 Sora,Inter,sans-serif;letter-spacing:-.015em}
+  .prod{display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px solid hsl(var(--border));border-radius:10px;background:hsl(var(--card))}
+  .prod .ic{padding:8px;border-radius:8px;background:hsl(var(--primary-soft));color:hsl(var(--primary));display:grid}
+  .prod b{font-weight:600}
+  .prod .preco{margin-left:auto;text-align:right;font-weight:600;color:hsl(var(--primary))}
+  .prod .preco small{display:block;font-weight:400;font-size:12px;color:hsl(var(--muted-foreground))}
+
+  /* véu + janela (Dialog do DS) */
+  .veu{position:absolute;inset:0;background:rgb(0 0 0 / .5);backdrop-filter:blur(1px)}
+  .janela{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;max-height:calc(100% - 48px);background:hsl(var(--card));border-radius:16px;box-shadow:0 24px 60px -16px rgb(0 0 0 / .45);overflow:hidden}
+  .j-topo{display:flex;align-items:center;gap:10px;padding:18px 22px 14px;flex:none}
+  .j-topo h4{font:800 19px Sora,Inter,sans-serif;letter-spacing:-.01em}
+  .j-topo .x{margin-left:auto;color:hsl(var(--muted-foreground));width:32px;height:32px;display:grid;place-items:center;border-radius:8px}
+  .j-rodape{display:flex;align-items:center;gap:8px;padding:12px 22px;border-top:1px solid hsl(var(--border));background:hsl(var(--muted) / .35);flex:none}
+  .rola{overflow:auto;min-height:0}
+
+  /* ---------- DS ---------- */
+  .card{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:38px;padding:0 16px;border-radius:8px;font-size:13.5px;font-weight:600;white-space:nowrap}
+  .btn.pri{background:hsl(var(--primary));color:#fff}
+  .btn.out{border:1px solid hsl(var(--border));background:hsl(var(--card))}
+  .btn.sm{height:32px;font-size:12.5px;padding:0 10px}
+  .btn.ico{width:32px;padding:0}
+  .btn.ghost{color:hsl(var(--muted-foreground))}
+  .btn.perigo{color:hsl(var(--danger-ink))}
+  .btn.sec{background:hsl(var(--card));color:hsl(var(--primary));border:1px solid hsl(var(--primary) / .25)}
+  .cap{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+  .chip{display:inline-flex;align-items:center;gap:4px;height:20px;padding:0 7px;border-radius:6px;font-size:11px;font-weight:600;white-space:nowrap}
+  .c-mut{background:hsl(var(--muted));color:hsl(var(--foreground) / .7)}
+  .c-ok{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+  .c-pri{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+  .api{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:hsl(var(--info-ink));background:hsl(var(--info-soft));border-radius:999px;padding:1px 7px;vertical-align:middle}
+
+  /* campos (Form.Input do DS: rótulo na borda) */
+  .campo{position:relative;display:flex;align-items:center;height:44px;padding:0 12px;border:2px solid hsl(var(--border));border-radius:8px;background:hsl(var(--background));font-size:14px;min-width:0}
+  .campo label{position:absolute;top:-9px;left:9px;padding:0 4px;background:hsl(var(--card));font-size:12px;font-weight:600;line-height:16px;white-space:nowrap}
+  .campo.sm{height:36px;font-size:13px}
+  .campo .un{margin-left:auto;color:hsl(var(--muted-foreground));font-size:12.5px}
+  .campo .sel{margin-left:auto;color:hsl(var(--muted-foreground))}
+  .campo.vazio{color:hsl(var(--muted-foreground))}
+  .dica{font-size:11.5px;color:hsl(var(--muted-foreground));margin-top:4px;padding-left:4px}
+  .radios{display:flex;gap:8px}
+  .radio{display:flex;align-items:center;gap:8px;height:40px;padding:0 14px;border:2px solid hsl(var(--border));border-radius:8px;font-size:13.5px;font-weight:600;white-space:nowrap}
+  .radio::before{content:"";width:14px;height:14px;border-radius:99px;border:1.5px solid hsl(var(--border))}
+  .radio.on{border-color:hsl(var(--primary))}
+  .radio.on::before{border:4px solid hsl(var(--primary))}
+  .rot-radio{font-size:13px;font-weight:600;margin-bottom:6px}
+
+  /* seções do formulário */
+  .sec{padding:14px 22px;display:flex;flex-direction:column;gap:14px}
+  .sec + .sec{border-top:1px solid hsl(var(--border))}
+  .sec-topo{display:flex;align-items:center;justify-content:space-between;min-height:32px}
+  .linha2{display:grid;gap:12px}
+
+  /* composição */
+  .comp-cab,.comp li{display:grid;grid-template-columns:minmax(0,1fr) 120px 76px 28px;gap:10px;align-items:center}
+  .comp-cab{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding-bottom:2px}
+  .comp li{padding:6px 0;border-top:1px solid hsl(var(--border));font-size:13.5px}
+  .comp li:first-child{border-top:0}
+  .comp b{font-weight:600;display:flex;align-items:center;gap:6px;min-width:0}
+  .comp .custo{text-align:right;font-weight:600}
+  .rende{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;border-top:1px solid hsl(var(--border));padding-top:12px}
+  .total-comp{text-align:right}
+  .total-comp small{display:block;color:hsl(var(--muted-foreground));font-size:12.5px}
+  .total-comp b{font:800 18px Sora,Inter,sans-serif}
+
+  /* preço */
+  .linhas li{display:flex;justify-content:space-between;font-size:13px;padding:2px 0}
+  .linhas li span:first-child{color:hsl(var(--muted-foreground))}
+  .linhas li.forte{border-top:1px solid hsl(var(--border));margin-top:4px;padding-top:6px;font-weight:600}
+  .linhas li.forte span:first-child{color:inherit}
+  .sugerido{border-radius:10px;background:hsl(var(--primary-soft));padding:12px 14px}
+  .sugerido small{font-size:12.5px;color:hsl(var(--muted-foreground))}
+  .sugerido .v{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .sugerido b{font:800 22px Sora,Inter,sans-serif;color:hsl(var(--primary))}
+  .margem{display:flex;justify-content:space-between;align-items:center;font-size:13px}
+
+  /* resumo do preço no pé (B e C) */
+  .resumo{display:flex;align-items:center;gap:18px;font-size:12.5px;margin-right:auto}
+  .resumo small{display:block;color:hsl(var(--muted-foreground));font-size:11.5px}
+  .resumo b{font:800 15px Sora,Inter,sans-serif}
+  .resumo .sep{width:1px;height:28px;background:hsl(var(--border))}
+
+  /* passos (Wizard do DS) */
+  .passos{display:flex;align-items:center;gap:10px;padding:0 22px 14px;font-size:13px;flex:none;border-bottom:1px solid hsl(var(--border))}
+  .passo{display:flex;align-items:center;gap:8px;color:hsl(var(--muted-foreground));font-weight:500}
+  .passo i.n{font-style:normal;width:22px;height:22px;border-radius:99px;display:grid;place-items:center;font-size:11.5px;font-weight:700;border:1.5px solid hsl(var(--border))}
+  .passo.feito i.n{background:hsl(var(--success-soft));border-color:transparent;color:hsl(var(--success-ink))}
+  .passo.agora{color:hsl(var(--foreground));font-weight:600}
+  .passo.agora i.n{background:hsl(var(--primary));border-color:hsl(var(--primary));color:#fff}
+  .passos .traco{flex:1;max-width:48px;height:1.5px;background:hsl(var(--border))}
+
+  /* painel lateral (C) */
+  .lateral{position:absolute;top:0;right:0;bottom:0;width:620px;display:flex;flex-direction:column;background:hsl(var(--card));box-shadow:-24px 0 60px -20px rgb(0 0 0 / .35)}
+  .dobra{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:hsl(var(--primary))}
+
+  /* celular */
+  .cel{width:360px;max-width:100%;border:1px solid hsl(var(--border));border-radius:28px;overflow:hidden;background:hsl(var(--background));box-shadow:0 8px 30px -12px rgb(0 0 0 / .2);display:flex;flex-direction:column;height:720px;position:relative}
+  .cel .veu{border-radius:28px}
+  .folha{position:absolute;left:0;right:0;bottom:0;top:28px;display:flex;flex-direction:column;background:hsl(var(--card));border-radius:20px 20px 0 0}
+  .folha .alca{width:40px;height:4px;border-radius:9px;background:hsl(var(--border));margin:8px auto 0;flex:none}
+  .folha .sec{padding:12px 16px}
+  .folha .j-topo{padding:10px 16px 8px}
+  .folha .j-rodape{padding:10px 16px 16px}
+  .folha .comp-cab,.folha .comp li{grid-template-columns:minmax(0,1fr) 92px 62px}
+  .folha .passos{padding:0 16px 10px;gap:6px;font-size:12px}
+
+  table.cmp{width:100%;border-collapse:collapse;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;font-size:13.5px}
+  table.cmp th,table.cmp td{padding:10px 14px;text-align:left;border-top:1px solid hsl(var(--border));vertical-align:top}
+  table.cmp thead th{border-top:0;background:hsl(var(--muted) / .5);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:hsl(var(--muted-foreground))}
+  .reco{margin-top:16px;padding:16px 18px;border-radius:14px;background:hsl(var(--primary-soft));color:hsl(var(--primary));font-size:14px;line-height:1.55}
+</style>
+<style>
+  :root{--fat:#c2652e;--rec:#1f8a70}
+  .hero{position:relative;overflow:hidden;border-radius:18px;padding:22px 24px;color:#fff;background:radial-gradient(120% 140% at 100% 0%,hsl(20 45% 42%) 0%,hsl(20 45% 30%) 45%,hsl(20 40% 22%) 100%)}
+  .hero::after{content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:999px;background:radial-gradient(circle,hsl(35 80% 70% / .25),transparent 70%)}
+  .hero small{opacity:.8;font-size:13px}
+  .hero h3{font:800 26px Sora,Inter,sans-serif;letter-spacing:-.02em;margin-top:2px}
+  .hero .hoje{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;position:relative;z-index:1}
+  .hero .pill{display:flex;align-items:center;gap:10px;background:rgb(255 255 255 / .12);border:1px solid rgb(255 255 255 / .16);border-radius:12px;padding:9px 12px;font-size:13px}
+  .hero .pill b{font:800 20px Sora,Inter,sans-serif;font-variant-numeric:tabular-nums}
+  .hero .pill.alerta{background:hsl(0 80% 60% / .22);border-color:hsl(0 80% 70% / .4)}
+  .hero .acoes{position:absolute;right:22px;top:22px;display:flex;gap:8px;z-index:1}
+  .btn.claro{background:#fff;color:hsl(var(--primary))}
+  .btn.vidro{background:rgb(255 255 255 / .14);color:#fff;border:1px solid rgb(255 255 255 / .2)}
+  .cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+  .kpi{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+  .kpi p{font-size:12.5px;color:hsl(var(--muted-foreground));display:flex;align-items:center;gap:8px}
+  .kpi .ic{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+  .kpi b{font:800 21px Sora,Inter,sans-serif;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .kpi small{font-size:12px;color:hsl(var(--muted-foreground))}
+  .kpi .var{font-size:11.5px;font-weight:600;border-radius:999px;padding:1px 7px}
+  .up{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+  .down{background:hsl(var(--danger-soft));color:hsl(var(--danger-ink))}
+  .grafico text{font:11px Inter,sans-serif;fill:hsl(240 3.8% 46%)}
+  .bloco-t{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+  .bloco-t h4{font:700 14.5px Inter,sans-serif}
+  .leg{display:flex;gap:12px;font-size:12px;color:hsl(var(--muted-foreground));align-items:center}
+  .leg span{display:inline-flex;align-items:center;gap:6px}
+  .bola{width:9px;height:9px;border-radius:3px;display:inline-block;flex:none}
+  .lista li{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 0;border-top:1px solid hsl(var(--border));font-size:13px}
+  .lista li:first-child{border-top:0}
+  .lista .quando{font-weight:600;font-size:12px;line-height:1.3}
+  .lista .quando.atraso{color:hsl(var(--danger-ink))}
+  .lista small{display:block;color:hsl(var(--muted-foreground));font-size:12px}
+  .st{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:6px;font-size:11.5px;font-weight:600;white-space:nowrap}
+  .st-orc{background:hsl(var(--muted));color:hsl(var(--foreground) / .7)}
+  .st-conf{background:hsl(var(--info-soft));color:hsl(var(--info-ink))}
+  .st-prod{background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+  .st-pronta{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+  .vend li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;font-size:13px;padding:6px 0}
+  .vend .trilho{grid-column:1/-1;height:6px;border-radius:9px;background:hsl(var(--muted));overflow:hidden}
+  .vend .trilho i{display:block;height:100%;border-radius:9px;background:hsl(var(--primary) / .75)}
+  .aniv li{display:flex;align-items:center;gap:10px;padding:7px 0;font-size:13px;border-top:1px solid hsl(var(--border))}
+  .aniv li:first-child{border-top:0}
+  .av{width:30px;height:30px;border-radius:99px;display:grid;place-items:center;background:hsl(var(--primary-soft));color:hsl(var(--primary));font-weight:700;font-size:12px;flex:none}
+  .pipe{display:flex;height:12px;border-radius:999px;overflow:hidden;gap:2px}
+  .pipe i{display:block;height:100%}
+  .meta{height:10px;border-radius:999px;background:hsl(var(--muted));overflow:hidden}
+  .meta i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,hsl(var(--primary) / .7),hsl(var(--primary)))}
+  .producao li{display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid hsl(var(--border));font-size:13px}
+  .producao li:first-child{border-top:0}
+</style>
+</head>
+<body>
+<main class="doc">
+  <p class="cap">Confeitaria · Início · Em discussão · 26/10/2026</p>
+  <h1>Início: 3 caminhos</h1>
+  <p class="lead">O Início é a primeira tela que ela vê todo dia. Hoje é um “Olá” num fundo cinza, quatro cartões e uma lista: tudo do mesmo tamanho e da mesma cor, nada chama o olho para o que importa. Os três caminhos <b>mantêm os quatro cartões</b> e acrescentam uma faixa de destaque e gráficos. O que precisa de dado novo da API está marcado com <span class="api">API</span>. Exemplo: segunda, 26 de outubro de 2026.</p>
+  <div class="pecas"><code>Conteiner</code><code>StatsCard</code><code>Card</code><code>EtiquetaStatus</code><code>Sparkline</code><code>gráficos em SVG</code></div>
+
+  <!-- ==================== A ==================== -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">A</span><h2>O dia em primeiro lugar</h2></div>
+    <p class="sub">Uma faixa chocolate no topo responde “o que eu tenho hoje?”: entregas de hoje, atrasadas e quanto entra hoje, com Nova encomenda à mão. Embaixo, os quatro cartões, o gráfico dos <b>próximos 14 dias</b> (encomendas por dia, com a linha do seu limite diário) e a lista de hoje e amanhã. À direita, o que produzir nesta semana.</p>
+    <div class="pros"><div><b>Ganha</b>Operacional: abre e já sabe o dia. Vê na hora os dias cheios das próximas duas semanas. Tudo com dados que já temos.</div><div><b>Cuidado</b>Fala pouco de dinheiro além dos cartões (não mostra tendência do mês).</div></div>
+    <div class="quadros"><div><p class="rotulo">Notebook</p><div class="tela" data-menu style="height:auto;min-height:760px"><div class="corpo"><div class="barra">Início<span class="avatar">AD</span></div><div style="padding:18px 28px;display:flex;flex-direction:column;gap:14px" data-a></div></div></div></div></div>
+  </section>
+
+  <!-- ==================== B ==================== -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">B</span><h2>Como vai o negócio</h2></div>
+    <p class="sub">Puxado para o dinheiro: os quatro cartões ganham a <b>comparação com o mês passado</b> e uma mini-linha de tendência. O destaque é o gráfico <b>faturado × recebido dos últimos 6 meses</b>. Ao lado, a meta do mês (barra de progresso) e os produtos que mais venderam. As próximas encomendas ficam numa lista compacta embaixo.</p>
+    <div class="pros"><div><b>Ganha</b>Ela enxerga se o negócio está crescendo e se está recebendo o que fatura. Ótimo para quem olha o Início uma vez por semana.</div><div><b>Precisa</b><span>Faturamento por mês, produtos mais vendidos e comparação com o mês anterior <span class="api">API</span>; meta do mês em Configurações <span class="api">API</span>.</span></div></div>
+    <div class="quadros"><div><p class="rotulo">Notebook</p><div class="tela" data-menu style="height:auto;min-height:760px"><div class="corpo"><div class="barra">Início<span class="avatar">AD</span></div><div style="padding:18px 28px;display:flex;flex-direction:column;gap:14px" data-b></div></div></div></div></div>
+  </section>
+
+  <!-- ==================== C ==================== -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">C</span><h2>Painel de comando: o dia e o mês juntos</h2></div>
+    <p class="sub">A faixa da A (o dia), os quatro cartões com a mini-linha da B, e dois gráficos lado a lado: <b>próximos 14 dias</b> e <b>faturado × recebido</b>. Embaixo, três blocos curtos: as próximas encomendas, <b>em que pé estão</b> as encomendas abertas (uma barra por status) e as <b>aniversariantes da semana</b> (para mandar um parabéns e oferecer um bolo).</p>
+    <div class="pros"><div><b>Ganha</b>A tela mais “viva”: o dia, o mês e uma ideia de venda (aniversário) num lugar só. A maioria com dados que já temos.</div><div><b>Precisa</b><span>Só o faturado × recebido por mês e a mini-linha dos cartões <span class="api">API</span>. Aniversários e status já existem.</span></div></div>
+    <div class="quadros">
+      <div><p class="rotulo">Notebook</p><div class="tela" data-menu style="height:auto;min-height:760px"><div class="corpo"><div class="barra">Início<span class="avatar">AD</span></div><div style="padding:18px 28px;display:flex;flex-direction:column;gap:14px" data-c></div></div></div></div>
+      <div><p class="rotulo">Celular · a faixa e os cartões primeiro, gráficos em seguida</p><div class="cel" data-cel></div></div>
+    </div>
+  </section>
+
+  <section class="opcao">
+    <div class="opcao-topo"><h2>Comparando</h2></div>
+    <table class="cmp"><thead><tr><th></th><th>A · O dia primeiro</th><th>B · Como vai o negócio</th><th>C · Painel de comando</th></tr></thead><tbody>
+      <tr><th>Responde</th><td>“O que eu tenho hoje e nos próximos dias?”</td><td>“O negócio está crescendo? Estou recebendo?”</td><td>Os dois</td></tr>
+      <tr><th>Gráficos</th><td>Próximos 14 dias</td><td>6 meses faturado × recebido, produtos mais vendidos, meta</td><td>Próximos 14 dias, 6 meses, status das abertas</td></tr>
+      <tr><th>Chama atenção</th><td>Faixa do dia</td><td>Gráfico grande</td><td>Faixa + gráficos + aniversariantes</td></tr>
+      <tr><th>Precisa de API nova</th><td>Não</td><td>Sim (várias)</td><td>Sim (uma: série dos 6 meses)</td></tr>
+    </tbody></table>
+    <p class="reco"><b>Recomendação: C.</b> É a que mais muda a cara da tela sem perder o uso diário: a faixa chocolate dá a identidade, os próximos 14 dias ajudam a aceitar ou recusar encomenda, e o gráfico de 6 meses mostra a saúde do negócio. Só precisa de uma consulta nova na API (faturado e recebido por mês). Dá para entregar em duas etapas: primeiro tudo menos o gráfico de 6 meses, depois ele.</p>
+  </section>
+</main>
+
+<script>
+  const ico = (nome, extra = "") => `<i class="i" style="--ico:url(https://api.iconify.design/ph/${nome}.svg);${extra}"></i>`;
+  const R = (v) => "R$ " + (v / 100).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  // ---------- dados (hoje: segunda, 26/10/2026) ----------
+  const DIAS = ["26", "27", "28", "29", "30", "31", "01", "02", "03", "04", "05", "06", "07", "08"];
+  const SEM = ["seg", "ter", "qua", "qui", "sex", "sáb", "dom"];
+  const QTD = [2, 1, 3, 1, 4, 4, 0, 0, 1, 2, 0, 3, 1, 0];
+  const LIMITE = 4;
+  const MESES = [["mai", 210000, 198000], ["jun", 245000, 240000], ["jul", 228000, 221000], ["ago", 276000, 262000], ["set", 291000, 270000], ["out", 305000, 272000]];
+  const PROX = [["Atrasada", "sáb., 24/10", "nº 22 · Luciana Martins", "Bolo de ninho 1,5 kg", "st-orc", "Orçamento", 1], ["Hoje", "15:00", "nº 41 · Maria Souza", "Bolo de chocolate com brigadeiro", "st-pronta", "Pronta"], ["Hoje", "17:30", "nº 43 · Carla Mendes", "Cento de brigadeiro gourmet", "st-prod", "Em produção"], ["Amanhã", "10:00", "nº 44 · Escola Pequeno Príncipe", "3 bolos de festa", "st-conf", "Confirmada"], ["Qua., 28/10", "14:00", "nº 45 · Fernanda Rocha", "Torta de limão", "st-conf", "Confirmada"]];
+
+  const hero = (comAcoes = true) => `<div class="hero"><small>Segunda, 26 de outubro</small><h3>Boa tarde, Ana 👋</h3>
+    ${comAcoes ? `<div class="acoes"><span class="btn vidro sm" data-ico2="calendar-blank">Agenda</span><span class="btn claro sm" data-ico2="plus">Nova encomenda</span></div>` : ""}
+    <div class="hoje"><span class="pill">${ico("truck", "width:18px;height:18px")}<span><b>2</b> entregas hoje</span></span><span class="pill">${ico("cooking-pot", "width:18px;height:18px")}<span><b>1</b> em produção</span></span><span class="pill alerta">${ico("warning", "width:18px;height:18px")}<span><b>1</b> atrasada</span></span><span class="pill">${ico("wallet", "width:18px;height:18px")}<span><b>R$ 340</b> a receber hoje</span></span></div></div>`;
+
+  const spark = (pts, cor = "hsl(20 45% 32%)") => { const max = Math.max(...pts), min = Math.min(...pts); const d = pts.map((v, i) => `${i ? "L" : "M"}${(i / (pts.length - 1)) * 70},${22 - ((v - min) / (max - min || 1)) * 18}`).join(" "); return `<svg width="72" height="24" viewBox="0 0 72 24" aria-hidden="true"><path d="${d}" fill="none" stroke="${cor}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>`; };
+  const cards = (comTendencia) => `<div class="cards">
+    ${[["calendar-blank", "Esta semana", "3 encomendas", "R$ 790,00 em pedidos", [2, 4, 3, 5, 3], "+1 que a semana passada", "up"], ["trend-up", "Faturamento de outubro", R(305000), "10 encomendas com entrega no mês", MESES.map((m) => m[1]), "+5% que setembro", "up"], ["hand-coins", "Recebido em outubro", R(272000), "pagamentos registrados no mês", MESES.map((m) => m[2]), "+1% que setembro", "up"], ["wallet", "A receber", R(157500), "de 9 encomendas em aberto", [900, 1200, 1100, 1400, 1575], "", ""]].map(([i, t, v, d, s, vr, cls]) => `<div class="kpi"><p><span class="ic">${ico(i, "width:16px;height:16px")}</span>${t}</p><div style="display:flex;align-items:end;justify-content:space-between;gap:8px"><b>${v}</b>${comTendencia ? spark(s) : ""}</div><small>${d}${comTendencia && vr ? ` · <span class="var ${cls}">${vr}</span>` : ""}</small></div>`).join("")}</div>`;
+
+  function proximos14(largura = 620) {
+    const alt = 180, topo = 14, base = 142, esq = 28, dir = 8, passo = (largura - esq - dir) / 14, bw = passo - 8, max = 5, esc = (base - topo) / max;
+    const grade = [0, 2, 4].map((v) => `<line x1="${esq}" x2="${largura - dir}" y1="${base - v * esc}" y2="${base - v * esc}" stroke="hsl(240 5.9% ${v ? 93 : 82}%)"/><text x="${esq - 8}" y="${base - v * esc + 4}" text-anchor="end">${v}</text>`).join("");
+    const barras = QTD.map((q, i) => { const x = esq + i * passo + 4; const cheio = q >= LIMITE; const cor = i === 0 ? "hsl(20 45% 32%)" : cheio ? "hsl(20 45% 32% / .85)" : "hsl(20 45% 32% / .45)"; return (q ? `<rect x="${x}" y="${base - q * esc}" width="${bw}" height="${q * esc}" rx="4" fill="${cor}"><title>${DIAS[i]}/${i < 6 ? "10" : "11"} · ${q} encomenda${q > 1 ? "s" : ""}${cheio ? " · dia cheio" : ""}</title></rect>` : "") + `<text x="${x + bw / 2}" y="${base + 14}" text-anchor="middle" style="${i === 0 ? "font-weight:700;fill:hsl(20 45% 32%)" : ""}">${DIAS[i]}</text><text x="${x + bw / 2}" y="${base + 27}" text-anchor="middle" style="font-size:10px">${i === 0 ? "hoje" : SEM[i % 7]}</text>`; }).join("");
+    const lim = `<line x1="${esq}" x2="${largura - dir}" y1="${base - LIMITE * esc}" y2="${base - LIMITE * esc}" stroke="hsl(0 72% 38%)" stroke-dasharray="4 4" stroke-width="1.5"/><text x="${largura - dir}" y="${base - LIMITE * esc - 5}" text-anchor="end" style="fill:hsl(0 72% 38%);font-weight:600">seu limite: 4 por dia</text>`;
+    return `<svg class="grafico" viewBox="0 0 ${largura} ${alt}" width="100%" role="img" aria-label="Encomendas por dia nos próximos 14 dias">${grade}${lim}${barras}</svg>`;
+  }
+  function seisMeses(largura = 620) {
+    const alt = 190, topo = 14, base = 160, esq = 52, dir = 8, grupo = (largura - esq - dir) / 6, bw = (grupo - 22) / 2, max = 350000, esc = (base - topo) / max;
+    const grade = [0, 100000, 200000, 300000].map((v) => `<line x1="${esq}" x2="${largura - dir}" y1="${base - v * esc}" y2="${base - v * esc}" stroke="hsl(240 5.9% ${v ? 93 : 82}%)"/><text x="${esq - 8}" y="${base - v * esc + 4}" text-anchor="end">${v ? "R$ " + v / 100000 + " mil" : "0"}</text>`).join("");
+    const barras = MESES.map(([m, f, r], i) => { const x = esq + i * grupo + 9; return `<rect x="${x}" y="${base - f * esc}" width="${bw}" height="${f * esc}" rx="4" fill="var(--fat)"><title>${m} · faturado ${R(f)}</title></rect><rect x="${x + bw + 2}" y="${base - r * esc}" width="${bw}" height="${r * esc}" rx="4" fill="var(--rec)"><title>${m} · recebido ${R(r)}</title></rect><text x="${x + bw + 1}" y="${base + 16}" text-anchor="middle" style="${i === 5 ? "font-weight:700;fill:hsl(240 10% 3.9%)" : ""}">${m}</text>`; }).join("");
+    return `<svg class="grafico" viewBox="0 0 ${largura} ${alt}" width="100%" role="img" aria-label="Faturado e recebido nos últimos 6 meses">${grade}${barras}</svg>`;
+  }
+  const leg6 = `<div class="leg"><span><i class="bola" style="background:var(--fat)"></i>Faturado</span><span><i class="bola" style="background:var(--rec)"></i>Recebido</span></div>`;
+  const lista = (n = 5) => `<ul class="lista">${PROX.slice(0, n).map(([q, h, t, s, cls, st, atraso]) => `<li><span class="quando ${atraso ? "atraso" : ""}">${q}<br><span class="mut" style="font-weight:500">${h}</span></span><span style="min-width:0"><b style="font-weight:600">${t}</b><small style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s}</small></span><span class="st ${cls}">${st}</span></li>`).join("")}</ul>`;
+  const producao = `<ul class="producao tab">${[["Massa de chocolate", "3,6 kg"], ["Brigadeiro", "2,1 kg"], ["Massa branca", "2,4 kg"], ["Ninho com morango", "1,2 kg"], ["Brigadeiro gourmet (enrolado)", "150 un"]].map(([n, q]) => `<li><span>${n}</span><b>${q}</b></li>`).join("")}</ul>`;
+  const STATUS = [["Orçamento", 2, "hsl(240 5% 70%)"], ["Confirmada", 3, "hsl(217 70% 55%)"], ["Em produção", 2, "hsl(38 92% 50%)"], ["Pronta", 2, "hsl(160 60% 38%)"]];
+  const pipe = `<div class="pipe">${STATUS.map(([n, q, c]) => `<i style="width:${(q / 9) * 100}%;background:${c}" title="${n}: ${q}"></i>`).join("")}</div><ul style="margin:10px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;font-size:12.5px">${STATUS.map(([n, q, c]) => `<li style="display:flex;align-items:center;gap:7px"><i class="bola" style="background:${c}"></i><span class="mut">${n}</span><b style="margin-left:auto" class="tab">${q}</b></li>`).join("")}</ul>`;
+  const aniv = `<ul class="aniv">${[["C", "Carla Mendes", "quinta, 29/10", "7 encomendas"], ["L", "Luciana Martins", "sábado, 31/10", "1 encomenda"], ["R", "Renata Costa", "domingo, 01/11", "2 encomendas"]].map(([i, n, d, e]) => `<li><span class="av">${i}</span><span style="min-width:0;flex:1"><b style="font-weight:600">${n}</b><small class="mut" style="display:block;font-size:12px">${d} · ${e}</small></span><span class="btn out sm" style="height:28px" data-ico2="whatsapp-logo">Parabéns</span></li>`).join("")}</ul>`;
+
+  // A
+  document.querySelector("[data-a]").innerHTML = `${hero()}${cards(false)}
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:14px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="card" style="padding:16px 18px"><div class="bloco-t"><h4>Próximos 14 dias</h4><span class="mut" style="font-size:12px">encomendas por dia de entrega</span></div>${proximos14()}</div>
+        <div class="card" style="padding:16px 18px"><div class="bloco-t"><h4>Hoje e amanhã</h4><a style="color:hsl(var(--primary));font-weight:600;font-size:12.5px">Ver todas</a></div>${lista(4)}</div>
+      </div>
+      <div class="card" style="padding:16px 18px"><div class="bloco-t"><h4>Para produzir esta semana</h4></div>${producao}<p class="mut" style="font-size:12px;margin-top:8px">Somado das encomendas confirmadas até domingo.</p><span class="btn out sm" style="margin-top:10px;width:100%">Ver na Agenda</span></div>
+    </div>`;
+
+  // B
+  document.querySelector("[data-b]").innerHTML = `<div class="cabeca"><div><h3 style="font:800 24px Sora">Boa tarde, Ana 👋</h3><p class="mut" style="font-size:13.5px">Segunda, 26 de outubro</p></div><span class="btn pri" data-ico2="plus">Nova encomenda</span></div>${cards(true)}
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:14px;align-items:start">
+      <div class="card" style="padding:16px 18px"><div class="bloco-t"><h4>Faturado × recebido · últimos 6 meses</h4>${leg6}</div>${seisMeses()}<p class="mut" style="font-size:12px">Outubro: faturou R$ 3.050 e recebeu R$ 2.720 (89%). <a style="color:hsl(var(--primary));font-weight:600">Ver como tabela</a></p></div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="card" style="padding:16px 18px"><div class="bloco-t"><h4>Meta de outubro</h4><b class="tab" style="font-size:13px">61%</b></div><div class="meta"><i style="width:61%"></i></div><p class="mut tab" style="font-size:12.5px;margin-top:8px">${R(305000)} de R$ 5.000,00 · faltam 5 dias</p></div>
+        <div class="card" style="padding:16px 18px"><div class="bloco-t"><h4>Mais vendidos no mês</h4></div><ul class="vend tab" style="margin:0;padding:0;list-style:none">${[["Bolo de chocolate com brigadeiro", 6, "R$ 900"], ["Brigadeiro gourmet (cento)", 4, "R$ 720"], ["Bolo de ninho com morango", 3, "R$ 495"], ["Torta de limão", 2, "R$ 190"]].map(([n, q, v]) => `<li><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${n}</span><b>${v}</b><span class="trilho"><i style="width:${(q / 6) * 100}%"></i></span></li>`).join("")}</ul></div>
+      </div>
+    </div>
+    <div class="card" style="padding:16px 18px"><div class="bloco-t"><h4>Próximas encomendas</h4><a style="color:hsl(var(--primary));font-weight:600;font-size:12.5px">Ver todas</a></div>${lista(4)}</div>`;
+
+  // C
+  document.querySelector("[data-c]").innerHTML = `${hero()}${cards(true)}
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px">
+      <div class="card" style="padding:16px 18px"><div class="bloco-t"><h4>Próximos 14 dias</h4><span class="mut" style="font-size:12px">encomendas por dia</span></div>${proximos14(560)}</div>
+      <div class="card" style="padding:16px 18px"><div class="bloco-t"><h4>Faturado × recebido</h4>${leg6}</div>${seisMeses(560)}</div>
+    </div>
+    <div style="display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:start">
+      <div class="card" style="padding:16px 18px"><div class="bloco-t"><h4>Próximas encomendas</h4><a style="color:hsl(var(--primary));font-weight:600;font-size:12.5px">Ver todas</a></div>${lista(5)}</div>
+      <div class="card" style="padding:16px 18px"><div class="bloco-t"><h4>Em que pé estão</h4><span class="mut tab" style="font-size:12px">9 abertas</span></div>${pipe}</div>
+      <div class="card" style="padding:16px 18px"><div class="bloco-t"><h4>Aniversariantes da semana</h4></div>${aniv}</div>
+    </div>`;
+
+  document.querySelector("[data-cel]").innerHTML = `<div style="height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border));font-weight:700;flex:none">🎂 Doces da Ana<span class="avatar">AD</span></div>
+    <div class="rola" style="flex:1;padding:12px;display:flex;flex-direction:column;gap:12px">
+      <div style="flex:none">${hero(false).replace('class="hoje"', 'class="hoje" style="display:grid;grid-template-columns:1fr 1fr;gap:8px"')}</div>
+      <div style="flex:none;display:flex;gap:10px;overflow:hidden">${cards(true).replace('class="cards"', 'class="cards" style="display:flex;gap:10px;width:max-content"').replaceAll('class="kpi"', 'class="kpi" style="width:220px;flex:none"')}</div>
+      <div class="card" style="padding:14px;flex:none"><div class="bloco-t"><h4>Próximos 14 dias</h4></div>${proximos14(330)}</div>
+      <div class="card" style="padding:14px;flex:none"><div class="bloco-t"><h4>Próximas encomendas</h4></div>${lista(3)}</div>
+    </div><div style="height:60px;flex:none;background:hsl(var(--card));border-top:1px solid hsl(var(--border))"></div>`;
+
+  const MENU = `<div class="menu-topo"><span style="font-size:18px">🎂</span><span>Doces da Ana<small>Confeitaria</small></span></div>
+    <nav><p>Principal</p><a class="on">${ico("squares-four")}Início</a><p>Vendas</p><a>${ico("clipboard-text")}Encomendas</a><a>${ico("calendar-blank")}Agenda</a><a>${ico("users")}Clientes</a>
+    <p>Produção</p><a>${ico("cake")}Produtos</a><a>${ico("book-open")}Receitas</a><a>${ico("grains")}Insumos</a>
+    <p>Gestão</p><a>${ico("calculator")}Precificação</a><a>${ico("wallet")}Financeiro</a><a>${ico("gear")}Configurações</a></nav>`;
+  document.querySelectorAll("[data-menu]").forEach((el) => el.insertAdjacentHTML("afterbegin", `<div class="menu">${MENU}</div>`));
+  document.querySelectorAll("[data-ico2]").forEach((el) => el.insertAdjacentHTML("afterbegin", ico(el.dataset.ico2)));
+</script>
+</body>
+</html>

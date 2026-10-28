@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Precificação · Confeitaria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* Tema confeitaria (chocolate) do DS: mesmas variáveis do produto. */
+  :root{
+    --background:0 0% 98%;
+    --foreground:240 10% 3.9%;
+    --card:0 0% 100%;
+    --primary:20 45% 32%;
+    --primary-soft:20 45% 95%;
+    --muted:240 4.8% 93.9%;
+    --muted-foreground:240 3.8% 46%;
+    --border:240 5.9% 90%;
+    --success:160 60% 38%;
+    --success-ink:160 70% 24%;
+    --success-soft:160 55% 94%;
+    --warning-ink:28 85% 28%;
+    --warning-soft:40 95% 93%;
+    --danger-ink:0 72% 38%;
+    --danger-soft:0 86% 96%;
+    --info-ink:217 91% 38%;
+    --info-soft:217 85% 96%;
+    --canvas:225 14% 92%;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));
+    font:14px/1.45 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3,h4,p,ul{margin:0}
+  ul{padding:0;list-style:none}
+  button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
+  .i{display:inline-block;width:16px;height:16px;flex:none;background:currentColor;
+    -webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat}
+  .tab{font-variant-numeric:tabular-nums}
+  .mut{color:hsl(var(--muted-foreground))}
+
+  /* ---------- apresentação ---------- */
+  .doc{max-width:1400px;margin:0 auto;padding:48px 24px 96px}
+  .doc h1{font:800 32px/1.15 Sora,Inter,sans-serif;letter-spacing:-.02em}
+  .lead{color:hsl(var(--muted-foreground));max-width:84ch;margin-top:10px;font-size:14.5px;line-height:1.55}
+  .pecas{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
+  .pecas code{font:600 12px ui-monospace,Consolas,monospace;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:6px;padding:3px 7px}
+  .opcao{margin-top:64px;display:flex;flex-direction:column;gap:14px}
+  .opcao-topo{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .letra{font:800 13px Sora,Inter,sans-serif;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:hsl(var(--primary));color:#fff}
+  .opcao h2{font:800 22px/1.2 Sora,Inter,sans-serif;letter-spacing:-.01em}
+  .opcao .sub{font-size:14px;color:hsl(var(--muted-foreground));max-width:92ch}
+  .pros{display:flex;gap:24px;flex-wrap:wrap;font-size:13px}
+  .pros div{display:flex;flex-direction:column;gap:4px;max-width:48ch}
+  .pros b{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+  .rotulo{font-size:12px;font-weight:600;color:hsl(var(--muted-foreground));letter-spacing:.03em;text-transform:uppercase;margin-bottom:8px}
+  .quadros{display:flex;flex-direction:column;gap:24px}
+  .lado{display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start}
+
+  /* ---------- moldura (notebook 1366 × 720) ---------- */
+  .tela{position:relative;display:flex;height:720px;border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;background:hsl(var(--background));box-shadow:0 8px 30px -12px rgb(0 0 0 / .15)}
+  .menu{width:210px;flex:none;display:flex;flex-direction:column;background:hsl(var(--card));border-right:1px solid hsl(var(--border))}
+  .menu-topo{display:flex;align-items:center;gap:10px;height:60px;padding:0 14px;background:hsl(var(--primary));color:#fff;font:700 13px Inter}
+  .menu-topo small{display:block;font-weight:500;opacity:.8;font-size:11px}
+  .menu nav{padding:10px;display:flex;flex-direction:column;gap:2px;font-size:13px}
+  .menu nav p{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding:10px 8px 4px}
+  .menu nav a{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:8px}
+  .menu nav a.on{background:hsl(var(--primary-soft));color:hsl(var(--primary));font-weight:600;box-shadow:inset 3px 0 0 hsl(var(--primary))}
+  .corpo{flex:1;min-width:0;display:flex;flex-direction:column}
+  .barra{height:60px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border));font-weight:700}
+  .avatar{width:32px;height:32px;border-radius:999px;background:hsl(var(--primary));color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700}
+  .conteudo{padding:24px 28px;display:flex;flex-direction:column;gap:14px}
+  .cabeca{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .cabeca h3{font:800 24px/1.15 Sora,Inter,sans-serif;letter-spacing:-.015em}
+  .prod{display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px solid hsl(var(--border));border-radius:10px;background:hsl(var(--card))}
+  .prod .ic{padding:8px;border-radius:8px;background:hsl(var(--primary-soft));color:hsl(var(--primary));display:grid}
+  .prod b{font-weight:600}
+  .prod .preco{margin-left:auto;text-align:right;font-weight:600;color:hsl(var(--primary))}
+  .prod .preco small{display:block;font-weight:400;font-size:12px;color:hsl(var(--muted-foreground))}
+
+  /* véu + janela (Dialog do DS) */
+  .veu{position:absolute;inset:0;background:rgb(0 0 0 / .5);backdrop-filter:blur(1px)}
+  .janela{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;max-height:calc(100% - 48px);background:hsl(var(--card));border-radius:16px;box-shadow:0 24px 60px -16px rgb(0 0 0 / .45);overflow:hidden}
+  .j-topo{display:flex;align-items:center;gap:10px;padding:18px 22px 14px;flex:none}
+  .j-topo h4{font:800 19px Sora,Inter,sans-serif;letter-spacing:-.01em}
+  .j-topo .x{margin-left:auto;color:hsl(var(--muted-foreground));width:32px;height:32px;display:grid;place-items:center;border-radius:8px}
+  .j-rodape{display:flex;align-items:center;gap:8px;padding:12px 22px;border-top:1px solid hsl(var(--border));background:hsl(var(--muted) / .35);flex:none}
+  .rola{overflow:auto;min-height:0}
+
+  /* ---------- DS ---------- */
+  .card{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:38px;padding:0 16px;border-radius:8px;font-size:13.5px;font-weight:600;white-space:nowrap}
+  .btn.pri{background:hsl(var(--primary));color:#fff}
+  .btn.out{border:1px solid hsl(var(--border));background:hsl(var(--card))}
+  .btn.sm{height:32px;font-size:12.5px;padding:0 10px}
+  .btn.ico{width:32px;padding:0}
+  .btn.ghost{color:hsl(var(--muted-foreground))}
+  .btn.perigo{color:hsl(var(--danger-ink))}
+  .btn.sec{background:hsl(var(--card));color:hsl(var(--primary));border:1px solid hsl(var(--primary) / .25)}
+  .cap{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+  .chip{display:inline-flex;align-items:center;gap:4px;height:20px;padding:0 7px;border-radius:6px;font-size:11px;font-weight:600;white-space:nowrap}
+  .c-mut{background:hsl(var(--muted));color:hsl(var(--foreground) / .7)}
+  .c-ok{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+  .c-pri{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+  .api{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:hsl(var(--info-ink));background:hsl(var(--info-soft));border-radius:999px;padding:1px 7px;vertical-align:middle}
+
+  /* campos (Form.Input do DS: rótulo na borda) */
+  .campo{position:relative;display:flex;align-items:center;height:44px;padding:0 12px;border:2px solid hsl(var(--border));border-radius:8px;background:hsl(var(--background));font-size:14px;min-width:0}
+  .campo label{position:absolute;top:-9px;left:9px;padding:0 4px;background:hsl(var(--card));font-size:12px;font-weight:600;line-height:16px;white-space:nowrap}
+  .campo.sm{height:36px;font-size:13px}
+  .campo .un{margin-left:auto;color:hsl(var(--muted-foreground));font-size:12.5px}
+  .campo .sel{margin-left:auto;color:hsl(var(--muted-foreground))}
+  .campo.vazio{color:hsl(var(--muted-foreground))}
+  .dica{font-size:11.5px;color:hsl(var(--muted-foreground));margin-top:4px;padding-left:4px}
+  .radios{display:flex;gap:8px}
+  .radio{display:flex;align-items:center;gap:8px;height:40px;padding:0 14px;border:2px solid hsl(var(--border));border-radius:8px;font-size:13.5px;font-weight:600;white-space:nowrap}
+  .radio::before{content:"";width:14px;height:14px;border-radius:99px;border:1.5px solid hsl(var(--border))}
+  .radio.on{border-color:hsl(var(--primary))}
+  .radio.on::before{border:4px solid hsl(var(--primary))}
+  .rot-radio{font-size:13px;font-weight:600;margin-bottom:6px}
+
+  /* seções do formulário */
+  .sec{padding:14px 22px;display:flex;flex-direction:column;gap:14px}
+  .sec + .sec{border-top:1px solid hsl(var(--border))}
+  .sec-topo{display:flex;align-items:center;justify-content:space-between;min-height:32px}
+  .linha2{display:grid;gap:12px}
+
+  /* composição */
+  .comp-cab,.comp li{display:grid;grid-template-columns:minmax(0,1fr) 120px 76px 28px;gap:10px;align-items:center}
+  .comp-cab{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding-bottom:2px}
+  .comp li{padding:6px 0;border-top:1px solid hsl(var(--border));font-size:13.5px}
+  .comp li:first-child{border-top:0}
+  .comp b{font-weight:600;display:flex;align-items:center;gap:6px;min-width:0}
+  .comp .custo{text-align:right;font-weight:600}
+  .rende{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;border-top:1px solid hsl(var(--border));padding-top:12px}
+  .total-comp{text-align:right}
+  .total-comp small{display:block;color:hsl(var(--muted-foreground));font-size:12.5px}
+  .total-comp b{font:800 18px Sora,Inter,sans-serif}
+
+  /* preço */
+  .linhas li{display:flex;justify-content:space-between;font-size:13px;padding:2px 0}
+  .linhas li span:first-child{color:hsl(var(--muted-foreground))}
+  .linhas li.forte{border-top:1px solid hsl(var(--border));margin-top:4px;padding-top:6px;font-weight:600}
+  .linhas li.forte span:first-child{color:inherit}
+  .sugerido{border-radius:10px;background:hsl(var(--primary-soft));padding:12px 14px}
+  .sugerido small{font-size:12.5px;color:hsl(var(--muted-foreground))}
+  .sugerido .v{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .sugerido b{font:800 22px Sora,Inter,sans-serif;color:hsl(var(--primary))}
+  .margem{display:flex;justify-content:space-between;align-items:center;font-size:13px}
+
+  /* resumo do preço no pé (B e C) */
+  .resumo{display:flex;align-items:center;gap:18px;font-size:12.5px;margin-right:auto}
+  .resumo small{display:block;color:hsl(var(--muted-foreground));font-size:11.5px}
+  .resumo b{font:800 15px Sora,Inter,sans-serif}
+  .resumo .sep{width:1px;height:28px;background:hsl(var(--border))}
+
+  /* passos (Wizard do DS) */
+  .passos{display:flex;align-items:center;gap:10px;padding:0 22px 14px;font-size:13px;flex:none;border-bottom:1px solid hsl(var(--border))}
+  .passo{display:flex;align-items:center;gap:8px;color:hsl(var(--muted-foreground));font-weight:500}
+  .passo i.n{font-style:normal;width:22px;height:22px;border-radius:99px;display:grid;place-items:center;font-size:11.5px;font-weight:700;border:1.5px solid hsl(var(--border))}
+  .passo.feito i.n{background:hsl(var(--success-soft));border-color:transparent;color:hsl(var(--success-ink))}
+  .passo.agora{color:hsl(var(--foreground));font-weight:600}
+  .passo.agora i.n{background:hsl(var(--primary));border-color:hsl(var(--primary));color:#fff}
+  .passos .traco{flex:1;max-width:48px;height:1.5px;background:hsl(var(--border))}
+
+  /* painel lateral (C) */
+  .lateral{position:absolute;top:0;right:0;bottom:0;width:620px;display:flex;flex-direction:column;background:hsl(var(--card));box-shadow:-24px 0 60px -20px rgb(0 0 0 / .35)}
+  .dobra{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:hsl(var(--primary))}
+
+  /* celular */
+  .cel{width:360px;max-width:100%;border:1px solid hsl(var(--border));border-radius:28px;overflow:hidden;background:hsl(var(--background));box-shadow:0 8px 30px -12px rgb(0 0 0 / .2);display:flex;flex-direction:column;height:720px;position:relative}
+  .cel .veu{border-radius:28px}
+  .folha{position:absolute;left:0;right:0;bottom:0;top:28px;display:flex;flex-direction:column;background:hsl(var(--card));border-radius:20px 20px 0 0}
+  .folha .alca{width:40px;height:4px;border-radius:9px;background:hsl(var(--border));margin:8px auto 0;flex:none}
+  .folha .sec{padding:12px 16px}
+  .folha .j-topo{padding:10px 16px 8px}
+  .folha .j-rodape{padding:10px 16px 16px}
+  .folha .comp-cab,.folha .comp li{grid-template-columns:minmax(0,1fr) 92px 62px}
+  .folha .passos{padding:0 16px 10px;gap:6px;font-size:12px}
+
+  table.cmp{width:100%;border-collapse:collapse;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;font-size:13.5px}
+  table.cmp th,table.cmp td{padding:10px 14px;text-align:left;border-top:1px solid hsl(var(--border));vertical-align:top}
+  table.cmp thead th{border-top:0;background:hsl(var(--muted) / .5);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:hsl(var(--muted-foreground))}
+  .reco{margin-top:16px;padding:16px 18px;border-radius:14px;background:hsl(var(--primary-soft));color:hsl(var(--primary));font-size:14px;line-height:1.55}
+</style>
+<style>
+  .cel .rola>*{flex:none}
+  .grande{font:800 34px Sora,Inter,sans-serif;color:hsl(var(--primary));letter-spacing:-.02em}
+  .barra-r{display:flex;height:14px;border-radius:7px;overflow:hidden}
+  .barra-r i{display:block;height:100%}
+  .leg li{display:grid;grid-template-columns:10px minmax(0,1fr) auto 72px;gap:8px;align-items:center;font-size:13px;padding:4px 0}
+  .leg .bola{width:9px;height:9px;border-radius:9px}
+  .leg b{text-align:right;font-weight:600}
+  .t1{background:hsl(240 5% 70%)}.t2{background:hsl(var(--primary) / .35)}.t3{background:hsl(var(--primary) / .55)}.t4{background:hsl(var(--primary) / .75)}.t5{background:hsl(var(--success))}
+  .pct{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+  .origem{display:flex;align-items:center;gap:8px;font-size:12.5px;color:hsl(var(--muted-foreground));background:hsl(var(--muted) / .5);border-radius:8px;padding:8px 10px}
+  .origem a{color:hsl(var(--primary));font-weight:600;margin-left:auto;white-space:nowrap}
+  .simula{border:1.5px dashed hsl(var(--border));border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:10px}
+  .nota{font-size:12.5px;color:hsl(var(--muted-foreground))}
+  .c-warn{background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+  .c-danger{background:hsl(var(--danger-soft));color:hsl(var(--danger-ink))}
+  table.t{width:100%;border-collapse:collapse;font-size:13px}
+  table.t th{height:36px;padding:0 12px;text-align:left;font-size:11px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:hsl(var(--muted-foreground));background:hsl(var(--muted) / .45);border-top:1px solid hsl(var(--border));border-bottom:1px solid hsl(var(--border));white-space:nowrap}
+  table.t td{height:46px;padding:0 12px;border-bottom:1px solid hsl(var(--border));white-space:nowrap}
+  table.t .num{text-align:right;font-variant-numeric:tabular-nums}
+  table.t tr.sel td{background:hsl(var(--primary-soft))}
+  .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+  .kpis div{padding:12px 16px;border-left:1px solid hsl(var(--border))}
+  .kpis div:first-child{border-left:0}
+  .kpis p{font-size:12.5px;color:hsl(var(--muted-foreground))}
+  .kpis b{display:block;font:800 22px Sora,Inter,sans-serif;font-variant-numeric:tabular-nums}
+  .dt-tabs{display:flex;gap:4px;border-bottom:1px solid hsl(var(--border));padding:0 16px}
+  .dt-tabs span{position:relative;padding:10px 12px;font-size:13px;font-weight:500;color:hsl(var(--muted-foreground));display:flex;gap:6px;align-items:center}
+  .dt-tabs span b{min-width:20px;height:20px;padding:0 6px;border-radius:4px;font-size:11.5px;display:grid;place-items:center;background:hsl(var(--muted))}
+  .dt-tabs span.on{color:hsl(var(--primary))}
+  .dt-tabs span.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:hsl(var(--primary))}
+  .cards3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .cen{border:1px solid hsl(var(--border));border-radius:14px;background:hsl(var(--card));padding:16px;display:flex;flex-direction:column;gap:6px}
+  .cen.on{border:2px solid hsl(var(--primary));box-shadow:0 8px 24px -14px hsl(var(--primary) / .6)}
+  .cen b.v{font:800 26px Sora,Inter,sans-serif;font-variant-numeric:tabular-nums}
+  .degraus li{display:grid;grid-template-columns:70px minmax(0,1fr) 90px 90px;gap:10px;align-items:center;padding:7px 0;border-top:1px solid hsl(var(--border));font-size:13px}
+  .degraus li:first-child{border-top:0}
+  .degraus .trilho{height:8px;border-radius:9px;background:hsl(var(--muted));overflow:hidden}
+  .degraus .trilho i{display:block;height:100%;background:hsl(var(--primary) / .7)}
+</style>
+</head>
+<body>
+<main class="doc">
+  <p class="cap">Confeitaria · Precificação · Em discussão · 26/10/2026</p>
+  <p class="reco" style="margin:0 0 18px"><b>26/10: pedido de modal.</b> Nada de console: a calculadora vira um modalzinho aberto pelo menu, por cima da tela atual. Desenhado como a opção <b>D</b>, logo abaixo; A, B e C ficam como referência.</p>
+  <h1>Precificação: 3 caminhos</h1>
+  <p class="lead">Hoje a tela é um formulário com um botão “Calcular preço” e o resultado aparece embaixo, sem explicar de onde veio. E tem um problema escondido: os percentuais começam em 10 / 5 / 5 / 30 fixos, <b>ignorando o que ela salvou em Configurações</b> (que é o que os produtos usam). Então o preço daqui pode não bater com o da tela de Produtos. Os três caminhos usam os números de Configurações e calculam enquanto ela digita, sem botão. Exemplo: custo de R$ 25,90.</p>
+  <div class="pecas"><code>Form</code><code>Input</code><code>DataTable</code><code>.Tabs</code><code>Badge</code><code>Conteiner</code><code>calcularPrecoProduto</code><code>analisarMargem</code></div>
+
+  <!-- ==================== Modalzinho ==================== -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">D</span><h2>Modalzinho: a calculadora numa janela pequena</h2></div>
+    <p class="reco" style="margin:0"><b>Ajuste depois de implementada (26/10):</b> a janela ficou mais larga (~768px) em duas colunas, com o custo, “E se eu cobrar…?” e os percentuais à esquerda e o resultado sempre à vista à direita. Antes de digitar o custo, o resultado já mostra a divisão de cada R$ 100,00 cobrados. O desenho abaixo é o da primeira versão (480px).</p>
+    <p class="sub"><b>O pedido de 26/10.</b> Precificação deixa de ser uma página. O item do menu abre uma janela pequena (~480px) <b>por cima da tela em que ela está</b> (Produtos, uma encomenda…), e fechar volta para onde estava. Dentro, o essencial da A: o custo, o preço sugerido calculado enquanto digita, para onde vai cada real, e “E se eu cobrar…?”. Os percentuais vêm de Configurações e ficam resumidos numa linha, com “Mudar” para ajustar só nesta conta.</p>
+    <div class="pros">
+      <div><b>Ganha</b>Rápido de abrir no meio de qualquer coisa (ex.: fechando uma encomenda no WhatsApp). Usa os números certos de Configurações. Sem botão “Calcular”.</div>
+      <div><b>Cuidado</b>Janela pequena: a barra “para onde vai cada real” fica mais compacta; os percentuais só aparecem ao clicar em “Mudar”.</div>
+    </div>
+    <div class="quadros">
+      <div>
+        <p class="rotulo">Notebook · aberta por cima de Produtos</p>
+        <div class="tela" data-fundo-d>
+          <div class="veu"></div>
+          <div class="janela" style="width:480px" data-modal-d></div>
+        </div>
+      </div>
+      <div class="lado">
+        <div>
+          <p class="rotulo">“Mudar” aberto: os percentuais só desta conta</p>
+          <div class="card" style="width:480px;max-width:100%;overflow:hidden;box-shadow:0 24px 60px -16px rgb(0 0 0 / .25)" data-modal-d-mudar></div>
+        </div>
+        <div>
+          <p class="rotulo">Celular · folha de baixo</p>
+          <div class="cel" data-cel-d></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== A ==================== -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">A</span><h2>Calculadora ao vivo: para onde vai cada real</h2></div>
+    <p class="sub">Console: à esquerda o custo e os percentuais (já preenchidos com os de Configurações, dá para mexer só aqui sem mudar lá). À direita o preço sugerido grande, uma barra mostrando para onde vai cada real do preço (custo, fixos, impostos, taxas, lucro) e um campo “E se eu cobrar…?” que mostra o lucro de verdade de outro preço, e o preço mínimo para não ter prejuízo.</p>
+    <div class="pros">
+      <div><b>Ganha</b>Entende o preço em vez de só receber um número. Responde a dúvida de todo dia: “se eu cobrar menos, ainda lucro?”. Sem botão: muda um número, muda tudo.</div>
+      <div><b>Cuidado</b>Continua sendo uma calculadora solta: não olha os produtos que ela já tem.</div>
+    </div>
+    <div class="quadros">
+      <div>
+        <p class="rotulo">Notebook</p>
+        <div class="tela" data-menu-so>
+          <div class="corpo">
+            <div class="barra">Precificação<span class="avatar">AD</span></div>
+            <div style="padding:20px 28px;display:flex;flex-direction:column;gap:14px">
+              <div class="cabeca"><div><h3>Precificação</h3><p class="mut" style="font-size:13.5px">Descubra quanto cobrar para ter lucro de verdade.</p></div></div>
+              <div style="display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:14px;align-items:start">
+                <div class="card" data-entrada-a></div>
+                <div class="card" data-resultado-a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="rotulo">Celular · o resultado sobe para logo depois do custo</p>
+        <div class="cel" data-cel-a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== B ==================== -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">B</span><h2>Painel dos preços: quem está cobrando pouco</h2></div>
+    <p class="sub">A tela deixa de ser uma calculadora e vira um raio-x dos produtos que ela já cadastrou: custo, preço que cobra, preço sugerido e o lucro de verdade de cada um, com os que estão abaixo do lucro desejado em destaque. Um clique em “Usar sugerido” corrige o preço. A calculadora da A continua num botão “Simular um preço”, para produto que ainda não existe.</p>
+    <div class="pros">
+      <div><b>Ganha</b>Mostra onde ela está perdendo dinheiro hoje, sem ela ter que perguntar produto por produto. Usa o que já calculamos em Produtos (sem dado novo da API).</div>
+      <div><b>Cuidado</b>Parece com a lista de Produtos (que já mostra a margem); o ganho é a visão “o que corrigir primeiro”. Com poucos produtos, fica vazio.</div>
+    </div>
+    <div class="quadros">
+      <div>
+        <p class="rotulo">Notebook · 7 produtos, 2 abaixo do lucro desejado</p>
+        <div class="tela" data-menu-so>
+          <div class="corpo">
+            <div class="barra">Precificação<span class="avatar">AD</span></div>
+            <div style="padding:20px 28px;display:flex;flex-direction:column;gap:12px">
+              <div class="cabeca"><div><h3>Precificação</h3><p class="mut" style="font-size:13.5px">Seus preços, com o lucro de verdade de cada produto.</p></div><span class="btn out" data-ico="calculator">Simular um preço</span></div>
+              <div class="card kpis tab"><div><p>Lucro desejado</p><b>30%</b></div><div><p>Lucro médio dos produtos</p><b>35%</b></div><div><p>Abaixo do desejado</p><b style="color:hsl(var(--warning-ink))">2</b></div><div><p>No prejuízo</p><b>0</b></div></div>
+              <div class="card" style="overflow:hidden">
+                <div class="dt-tabs"><span class="on">Todos <b>7</b></span><span>Abaixo do desejado <b>2</b></span></div>
+                <table class="t" id="b-tabela"></table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== C ==================== -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">C</span><h2>Três preços para comparar</h2></div>
+    <p class="sub">Ela digita só o custo e a tela mostra três preços lado a lado: o <b>mínimo</b> (empata, lucro zero), o <b>sugerido</b> (com o lucro de Configurações) e um <b>preço caprichado</b> (lucro maior). Embaixo, uma escada mostrando o preço e o lucro em cada degrau (20%, 30%, 40%, 50%), para ela escolher com segurança.</p>
+    <div class="pros">
+      <div><b>Ganha</b>Muito simples: um campo só. Ajuda a decidir o preço de festa/encomenda especial, onde dá para cobrar mais.</div>
+      <div><b>Cuidado</b>Esconde os percentuais (ficam em Configurações); não responde “e se eu cobrar R$ 45?”.</div>
+    </div>
+    <div class="quadros">
+      <div>
+        <p class="rotulo">Notebook</p>
+        <div class="tela" data-menu-so>
+          <div class="corpo">
+            <div class="barra">Precificação<span class="avatar">AD</span></div>
+            <div style="padding:20px 28px;display:flex;flex-direction:column;gap:14px" data-c></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="opcao">
+    <div class="opcao-topo"><h2>Comparando</h2></div>
+    <table class="cmp">
+      <thead><tr><th></th><th>A · Calculadora ao vivo</th><th>B · Painel dos preços</th><th>C · Três preços</th></tr></thead>
+      <tbody>
+        <tr><th>Usa os números de Configurações</th><td>Sim (e dá para mexer só aqui)</td><td>Sim</td><td>Sim</td></tr>
+        <tr><th>Explica o preço</th><td>Sim: para onde vai cada real</td><td>Por produto</td><td>Pelo lucro de cada degrau</td></tr>
+        <tr><th>“E se eu cobrar X?”</th><td>Sim</td><td>Pela calculadora no botão</td><td>Não</td></tr>
+        <tr><th>Olha os produtos dela</th><td>Não</td><td>Sim, mostra o que corrigir</td><td>Não</td></tr>
+        <tr><th>Esforço</th><td>Baixo: mesma conta de hoje, ao vivo</td><td>Médio: tabela + reaproveitar a calculadora</td><td>Baixo</td></tr>
+      </tbody>
+    </table>
+    <p class="reco"><b>Recomendação: A.</b> Corrige o problema dos percentuais fixos, tira o botão e explica o preço, que é o que falta hoje. O “E se eu cobrar…?” resolve a dúvida mais comum na hora de fechar uma encomenda. O painel da B é uma boa evolução depois, quando ela tiver muitos produtos (e a calculadora da A vira o “Simular um preço” dele).</p>
+  </section>
+</main>
+
+<script>
+  const ico = (nome, extra = "") => `<i class="i" style="--ico:url(https://api.iconify.design/ph/${nome}.svg);${extra}"></i>`;
+  // custo 25,90 | fixos 10 | impostos 5 | taxas 5 | lucro 30 → preço 51,80
+  const PARTES = [["t1", "Custo do produto", "50%", "R$ 25,90"], ["t2", "Custos fixos", "10%", "R$ 5,18"], ["t3", "Impostos", "5%", "R$ 2,59"], ["t4", "Taxas de cartão/app", "5%", "R$ 2,59"], ["t5", "Seu lucro", "30%", "R$ 15,54"]];
+  const pcts = (cel) => `<div class="pct" style="${cel ? "grid-template-columns:1fr 1fr" : ""}">
+      <div class="campo"><label>Custos fixos</label>10<span class="un">%</span></div>
+      <div class="campo"><label>Impostos</label>5<span class="un">%</span></div>
+      <div class="campo"><label>Taxas cartão/app</label>5<span class="un">%</span></div>
+      <div class="campo"><label>Lucro desejado</label>30<span class="un">%</span></div></div>`;
+  const origem = `<div class="origem">${ico("gear-six")}Números de Configurações. Mudar aqui vale só para esta conta.<a>Editar em Configurações</a></div>`;
+  const barra = `<div class="barra-r">${PARTES.map(([c, , p]) => `<i class="${c}" style="width:${p}"></i>`).join("")}</div>
+      <ul class="leg tab">${PARTES.map(([c, n, p, v]) => `<li><span class="bola ${c}"></span><span>${n}</span><span class="mut">${p}</span><b${c === "t5" ? ' style="color:hsl(var(--success-ink))"' : ""}>${v}</b></li>`).join("")}</ul>`;
+  const simula = `<div class="simula"><p class="rot-radio" style="margin:0">E se eu cobrar…?</p>
+      <div class="linha2" style="grid-template-columns:minmax(0,1fr) auto;align-items:center"><div class="campo"><label>Outro preço (R$)</label>45,00</div><span class="chip c-warn" style="height:26px;font-size:12px">Lucro R$ 10,10 · 22%</span></div>
+      <p class="nota">Abaixo dos 30% que você quer. Para não ter prejuízo, o mínimo é <b class="tab" style="color:hsl(var(--foreground))">R$ 32,38</b>.</p></div>`;
+
+  document.querySelector("[data-entrada-a]").innerHTML = `<section class="sec"><span class="cap">Quanto custa fazer</span>
+      <div class="campo" style="flex:none;height:52px;font-size:18px;font-weight:600"><label>Custo do produto (R$)</label>25,90</div>
+      <p class="nota">Ingredientes, embalagem, seu trabalho e forno. Nos produtos cadastrados a gente já calcula sozinho.</p></section>
+      <section class="sec"><span class="cap">O que entra no preço</span>${pcts()}${origem}</section>`;
+  document.querySelector("[data-resultado-a]").innerHTML = `<section class="sec"><span class="cap">Preço sugerido</span><p class="grande tab">R$ 51,80</p><p class="nota">Com ele, sobram <b style="color:hsl(var(--success-ink))">R$ 15,54 de lucro (30%)</b> depois de pagar tudo.</p></section>
+      <section class="sec"><p class="rot-radio" style="margin:0">Para onde vai cada real</p>${barra}</section>
+      <section class="sec">${simula}</section>`;
+
+  document.querySelector("[data-cel-a]").innerHTML = `<div style="height:52px;display:flex;align-items:center;padding:0 14px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border));font-weight:700;flex:none">Precificação</div>
+    <div class="rola" style="flex:1;padding:14px;display:flex;flex-direction:column;gap:12px">
+      <div class="campo" style="flex:none;height:52px;font-size:18px;font-weight:600"><label>Custo do produto (R$)</label>25,90</div>
+      <div class="card" style="padding:14px"><span class="cap">Preço sugerido</span><p class="grande tab" style="font-size:30px">R$ 51,80</p><p class="nota">Lucro de <b style="color:hsl(var(--success-ink))">R$ 15,54 (30%)</b></p><div style="margin-top:10px">${barra}</div></div>
+      <div class="card" style="padding:12px">${simula}</div>
+      <div class="card" style="padding:14px;display:flex;flex-direction:column;gap:12px"><span class="cap">O que entra no preço</span>${pcts(true)}</div>
+    </div><div style="height:60px;flex:none;background:hsl(var(--card));border-top:1px solid hsl(var(--border))"></div>`;
+
+  // B
+  const P = [["Torta de limão", "un", "R$ 52,00", "R$ 95,00", "R$ 104,00", 25, "baixo"], ["Brigadeiro gourmet", "cento", "R$ 48,00", "R$ 80,00", "R$ 96,00", 20, "baixo"], ["Bolo de chocolate com brigadeiro", "un", "R$ 72,90", "R$ 150,00", "R$ 145,80", 31, "ok"], ["Bolo de ninho com morango", "un", "R$ 81,00", "R$ 165,00", "R$ 162,00", 31, "ok"], ["Cupcake de baunilha", "un", "R$ 4,10", "R$ 9,00", "R$ 8,20", 34, "ok"], ["Bolo red velvet", "kg", "R$ 38,00", "R$ 120,00", "R$ 76,00", 48, "ok"], ["Beijinho", "cento", "R$ 45,00", "R$ 170,00", "R$ 90,00", 54, "ok"]];
+  document.getElementById("b-tabela").innerHTML = `<thead><tr><th>Produto</th><th class="num">Custo</th><th class="num">Você cobra</th><th class="num">Sugerido</th><th class="num">Lucro de verdade</th><th></th></tr></thead><tbody>${
+    P.map(([n, por, c, p, s, m, st]) => `<tr><td><b style="font-weight:600">${n}</b> <span class="mut" style="font-size:12px">por ${por}</span></td><td class="num">${c}</td><td class="num"><b>${p}</b></td><td class="num">${s}</td><td class="num"><span class="chip ${st === "baixo" ? "c-warn" : "c-ok"}">${m}%</span></td><td style="width:150px;text-align:right">${st === "baixo" ? `<span class="btn out sm">Usar ${s}</span>` : ""}</td></tr>`).join("")
+  }</tbody>`;
+
+  // C
+  document.querySelector("[data-c]").innerHTML = `<div class="cabeca"><div><h3>Precificação</h3><p class="mut" style="font-size:13.5px">Descubra quanto cobrar para ter lucro de verdade.</p></div></div>
+    <div class="card" style="padding:16px 18px;display:flex;align-items:center;gap:16px"><div class="campo" style="flex:none;height:52px;font-size:18px;font-weight:600;width:280px"><label>Custo do produto (R$)</label>25,90</div><p class="nota" style="flex:1">Ingredientes, embalagem, seu trabalho e forno. Custos fixos 10%, impostos 5% e taxas 5% vêm de <a style="color:hsl(var(--primary));font-weight:600">Configurações</a>.</p></div>
+    <div class="cards3">
+      <div class="cen"><span class="cap">Mínimo</span><b class="v tab">R$ 32,38</b><span class="nota">Empata: paga tudo, lucro zero. Abaixo disso é prejuízo.</span></div>
+      <div class="cen on"><span class="cap" style="color:hsl(var(--primary))">Sugerido · 30% de lucro</span><b class="v tab" style="color:hsl(var(--primary))">R$ 51,80</b><span class="nota">Lucro de <b style="color:hsl(var(--success-ink))">R$ 15,54</b> por unidade.</span></div>
+      <div class="cen"><span class="cap">Caprichado · 45% de lucro</span><b class="v tab">R$ 74,00</b><span class="nota">Para festa e encomenda especial. Lucro de R$ 33,30.</span></div>
+    </div>
+    <div class="card" style="padding:14px 18px"><p class="rot-radio">Quanto mais lucro, qual o preço</p><ul class="degraus tab">
+      ${[["20%", 43.17, "R$ 43,17", "R$ 8,63"], ["30%", 51.8, "R$ 51,80", "R$ 15,54"], ["40%", 64.75, "R$ 64,75", "R$ 25,90"], ["50%", 86.33, "R$ 86,33", "R$ 43,17"]].map(([l, v, p, g]) => `<li><b>${l}</b><span class="trilho"><i style="width:${(v / 86.33) * 100}%"></i></span><span style="text-align:right;font-weight:600">${p}</span><span style="text-align:right;color:hsl(var(--success-ink))">+${g}</span></li>`).join("")}
+    </ul></div>`;
+
+  const MENU = `<div class="menu-topo"><span style="font-size:18px">🎂</span><span>Doces da Ana<small>Confeitaria</small></span></div>
+    <nav><p>Principal</p><a>${ico("squares-four")}Início</a>
+    <p>Vendas</p><a>${ico("clipboard-text")}Encomendas</a><a>${ico("calendar-blank")}Agenda</a><a>${ico("users")}Clientes</a>
+    <p>Produção</p><a>${ico("cake")}Produtos</a><a>${ico("book-open")}Receitas</a><a>${ico("grains")}Insumos</a>
+    <p>Gestão</p><a class="on">${ico("calculator")}Precificação</a><a>${ico("wallet")}Financeiro</a><a>${ico("gear")}Configurações</a></nav>`;
+  document.querySelectorAll("[data-menu-so]").forEach((el) => el.insertAdjacentHTML("afterbegin", `<div class="menu">${MENU}</div>`));
+
+  // D · modalzinho
+  const resumoPct = `<div class="origem">${ico("gear-six")}Fixos 10% · impostos 5% · taxas 5% · lucro 30%<a>Mudar</a></div>`;
+  const corpoD = (cel) => `<div class="j-topo" style="${cel ? "padding:10px 16px 6px" : ""}"><div><h4>Quanto cobrar?</h4><p class="nota">Com os números de Configurações.</p></div><span class="x">${ico("x")}</span></div>
+    <div style="padding:4px ${cel ? 16 : 22}px 16px;display:flex;flex-direction:column;gap:14px;overflow:auto;flex:1">
+      <div class="campo" style="flex:none;height:52px;font-size:18px;font-weight:600"><label>Custo do produto (R$)</label>25,90</div>
+      <div style="flex:none;border-radius:12px;background:hsl(var(--primary-soft));padding:14px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:10px"><div><span class="cap">Preço sugerido</span><p class="grande tab" style="font-size:30px;line-height:1.1">R$ 51,80</p></div><p class="nota" style="text-align:right">Lucro de<br><b style="color:hsl(var(--success-ink));font-size:14px" class="tab">R$ 15,54 (30%)</b></p></div>
+        <div class="barra-r" style="height:10px">${PARTES.map(([c, , p]) => `<i class="${c}" style="width:${p}"></i>`).join("")}</div>
+        <p class="nota tab" style="display:flex;flex-wrap:wrap;gap:4px 12px">${PARTES.map(([c, n, , v]) => `<span style="display:inline-flex;align-items:center;gap:5px"><span class="${c}" style="width:8px;height:8px;border-radius:9px;display:inline-block"></span>${n.replace(" do produto", "").replace(" de cartão/app", "")} <b style="color:hsl(var(--foreground))">${v}</b></span>`).join("")}</p>
+      </div>
+      <div style="flex:none">${simula}</div>
+      <div style="flex:none">${resumoPct}</div>
+    </div>
+    <div class="j-rodape" style="${cel ? "padding:10px 16px 16px" : ""}"><span style="margin-left:auto"></span><span class="btn out" style="${cel ? "flex:1" : ""}">Fechar</span></div>`;
+  document.querySelector("[data-modal-d]").innerHTML = corpoD(false);
+  document.querySelector("[data-modal-d-mudar]").innerHTML = `<div class="j-topo"><div><h4>Quanto cobrar?</h4><p class="nota">Com os números de Configurações.</p></div><span class="x">${ico("x")}</span></div>
+    <div style="padding:4px 22px 16px;display:flex;flex-direction:column;gap:14px"><div class="campo" style="flex:none;height:52px;font-size:18px;font-weight:600"><label>Custo do produto (R$)</label>25,90</div>
+    <div style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;justify-content:space-between;align-items:center"><span class="cap">Só nesta conta</span><a class="nota" style="color:hsl(var(--primary));font-weight:600">Voltar aos de Configurações</a></div>${pcts(true)}</div>
+    <p class="nota">O preço sugerido muda enquanto você digita. Para valer em todos os produtos, mude em <a style="color:hsl(var(--primary));font-weight:600">Configurações</a>.</p></div>
+    <div class="j-rodape"><span style="margin-left:auto"></span><span class="btn out">Fechar</span></div>`;
+  document.querySelector("[data-cel-d]").innerHTML = `<div style="height:52px;display:flex;align-items:center;padding:0 14px;background:hsl(var(--card));font-weight:700">Produtos</div><div class="veu"></div><div class="folha" style="top:60px"><span class="alca"></span>${corpoD(true)}</div>`;
+  const PRODS = [["Bolo de chocolate com brigadeiro", "R$ 150,00", "unidade"], ["Bolo de ninho com morango", "R$ 165,00", "unidade"], ["Brigadeiro gourmet", "R$ 80,00", "cento"], ["Cupcake de baunilha", "R$ 9,00", "unidade"], ["Torta de limão", "R$ 95,00", "unidade"], ["Bolo red velvet", "R$ 120,00", "kg"], ["Beijinho", "R$ 170,00", "cento"]];
+  const menuProdutos = MENU.replace('<a class="on">', "<a>").replace(`<a>${ico("cake")}Produtos</a>`, `<a class="on">${ico("cake")}Produtos</a>`);
+  document.querySelector("[data-fundo-d]").insertAdjacentHTML("afterbegin", `<div class="menu">${menuProdutos}</div><div class="corpo"><div class="barra">Produtos<span class="avatar">AD</span></div>
+    <div class="conteudo"><div class="cabeca"><h3>Produtos</h3><span class="btn pri" style="height:36px">${ico("plus")}Novo produto</span></div>
+    ${PRODS.map(([n, p, por]) => `<div class="prod"><span class="ic">${ico("cake", "width:20px;height:20px")}</span><span><b>${n}</b></span><span class="preco tab">${p}<small>por ${por}</small></span></div>`).join("")}</div></div>`);
+  document.querySelectorAll("[data-ico]").forEach((el) => el.insertAdjacentHTML("afterbegin", ico(el.dataset.ico)));
+</script>
+</body>
+</html>

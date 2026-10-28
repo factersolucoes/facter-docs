@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Receita · Confeitaria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* Tema confeitaria (chocolate) do DS: mesmas variáveis do produto. */
+  :root{
+    --background:0 0% 98%;
+    --foreground:240 10% 3.9%;
+    --card:0 0% 100%;
+    --primary:20 45% 32%;
+    --primary-soft:20 45% 95%;
+    --muted:240 4.8% 93.9%;
+    --muted-foreground:240 3.8% 46%;
+    --border:240 5.9% 90%;
+    --success:160 60% 38%;
+    --success-ink:160 70% 24%;
+    --success-soft:160 55% 94%;
+    --warning-ink:28 85% 28%;
+    --warning-soft:40 95% 93%;
+    --danger-ink:0 72% 38%;
+    --danger-soft:0 86% 96%;
+    --info-ink:217 91% 38%;
+    --info-soft:217 85% 96%;
+    --canvas:225 14% 92%;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));
+    font:14px/1.45 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3,h4,p,ul{margin:0}
+  ul{padding:0;list-style:none}
+  button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
+  .i{display:inline-block;width:16px;height:16px;flex:none;background:currentColor;
+    -webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat}
+  .tab{font-variant-numeric:tabular-nums}
+  .mut{color:hsl(var(--muted-foreground))}
+
+  /* ---------- apresentação ---------- */
+  .doc{max-width:1400px;margin:0 auto;padding:48px 24px 96px}
+  .doc h1{font:800 32px/1.15 Sora,Inter,sans-serif;letter-spacing:-.02em}
+  .lead{color:hsl(var(--muted-foreground));max-width:84ch;margin-top:10px;font-size:14.5px;line-height:1.55}
+  .pecas{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
+  .pecas code{font:600 12px ui-monospace,Consolas,monospace;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:6px;padding:3px 7px}
+  .opcao{margin-top:64px;display:flex;flex-direction:column;gap:14px}
+  .opcao-topo{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .letra{font:800 13px Sora,Inter,sans-serif;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:hsl(var(--primary));color:#fff}
+  .opcao h2{font:800 22px/1.2 Sora,Inter,sans-serif;letter-spacing:-.01em}
+  .opcao .sub{font-size:14px;color:hsl(var(--muted-foreground));max-width:92ch}
+  .pros{display:flex;gap:24px;flex-wrap:wrap;font-size:13px}
+  .pros div{display:flex;flex-direction:column;gap:4px;max-width:48ch}
+  .pros b{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+  .rotulo{font-size:12px;font-weight:600;color:hsl(var(--muted-foreground));letter-spacing:.03em;text-transform:uppercase;margin-bottom:8px}
+  .quadros{display:flex;flex-direction:column;gap:24px}
+  .lado{display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start}
+
+  /* ---------- moldura (notebook 1366 × 720) ---------- */
+  .tela{position:relative;display:flex;height:720px;border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;background:hsl(var(--background));box-shadow:0 8px 30px -12px rgb(0 0 0 / .15)}
+  .menu{width:210px;flex:none;display:flex;flex-direction:column;background:hsl(var(--card));border-right:1px solid hsl(var(--border))}
+  .menu-topo{display:flex;align-items:center;gap:10px;height:60px;padding:0 14px;background:hsl(var(--primary));color:#fff;font:700 13px Inter}
+  .menu-topo small{display:block;font-weight:500;opacity:.8;font-size:11px}
+  .menu nav{padding:10px;display:flex;flex-direction:column;gap:2px;font-size:13px}
+  .menu nav p{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding:10px 8px 4px}
+  .menu nav a{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:8px}
+  .menu nav a.on{background:hsl(var(--primary-soft));color:hsl(var(--primary));font-weight:600;box-shadow:inset 3px 0 0 hsl(var(--primary))}
+  .corpo{flex:1;min-width:0;display:flex;flex-direction:column}
+  .barra{height:60px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border));font-weight:700}
+  .avatar{width:32px;height:32px;border-radius:999px;background:hsl(var(--primary));color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700}
+  .conteudo{padding:24px 28px;display:flex;flex-direction:column;gap:14px}
+  .cabeca{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .cabeca h3{font:800 24px/1.15 Sora,Inter,sans-serif;letter-spacing:-.015em}
+  .prod{display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px solid hsl(var(--border));border-radius:10px;background:hsl(var(--card))}
+  .prod .ic{padding:8px;border-radius:8px;background:hsl(var(--primary-soft));color:hsl(var(--primary));display:grid}
+  .prod b{font-weight:600}
+  .prod .preco{margin-left:auto;text-align:right;font-weight:600;color:hsl(var(--primary))}
+  .prod .preco small{display:block;font-weight:400;font-size:12px;color:hsl(var(--muted-foreground))}
+
+  /* véu + janela (Dialog do DS) */
+  .veu{position:absolute;inset:0;background:rgb(0 0 0 / .5);backdrop-filter:blur(1px)}
+  .janela{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;max-height:calc(100% - 48px);background:hsl(var(--card));border-radius:16px;box-shadow:0 24px 60px -16px rgb(0 0 0 / .45);overflow:hidden}
+  .j-topo{display:flex;align-items:center;gap:10px;padding:18px 22px 14px;flex:none}
+  .j-topo h4{font:800 19px Sora,Inter,sans-serif;letter-spacing:-.01em}
+  .j-topo .x{margin-left:auto;color:hsl(var(--muted-foreground));width:32px;height:32px;display:grid;place-items:center;border-radius:8px}
+  .j-rodape{display:flex;align-items:center;gap:8px;padding:12px 22px;border-top:1px solid hsl(var(--border));background:hsl(var(--muted) / .35);flex:none}
+  .rola{overflow:auto;min-height:0}
+
+  /* ---------- DS ---------- */
+  .card{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:38px;padding:0 16px;border-radius:8px;font-size:13.5px;font-weight:600;white-space:nowrap}
+  .btn.pri{background:hsl(var(--primary));color:#fff}
+  .btn.out{border:1px solid hsl(var(--border));background:hsl(var(--card))}
+  .btn.sm{height:32px;font-size:12.5px;padding:0 10px}
+  .btn.ico{width:32px;padding:0}
+  .btn.ghost{color:hsl(var(--muted-foreground))}
+  .btn.perigo{color:hsl(var(--danger-ink))}
+  .btn.sec{background:hsl(var(--card));color:hsl(var(--primary));border:1px solid hsl(var(--primary) / .25)}
+  .cap{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+  .chip{display:inline-flex;align-items:center;gap:4px;height:20px;padding:0 7px;border-radius:6px;font-size:11px;font-weight:600;white-space:nowrap}
+  .c-mut{background:hsl(var(--muted));color:hsl(var(--foreground) / .7)}
+  .c-ok{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+  .c-pri{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+  .api{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:hsl(var(--info-ink));background:hsl(var(--info-soft));border-radius:999px;padding:1px 7px;vertical-align:middle}
+
+  /* campos (Form.Input do DS: rótulo na borda) */
+  .campo{position:relative;display:flex;align-items:center;height:44px;padding:0 12px;border:2px solid hsl(var(--border));border-radius:8px;background:hsl(var(--background));font-size:14px;min-width:0}
+  .campo label{position:absolute;top:-9px;left:9px;padding:0 4px;background:hsl(var(--card));font-size:12px;font-weight:600;line-height:16px;white-space:nowrap}
+  .campo.sm{height:36px;font-size:13px}
+  .campo .un{margin-left:auto;color:hsl(var(--muted-foreground));font-size:12.5px}
+  .campo .sel{margin-left:auto;color:hsl(var(--muted-foreground))}
+  .campo.vazio{color:hsl(var(--muted-foreground))}
+  .dica{font-size:11.5px;color:hsl(var(--muted-foreground));margin-top:4px;padding-left:4px}
+  .radios{display:flex;gap:8px}
+  .radio{display:flex;align-items:center;gap:8px;height:40px;padding:0 14px;border:2px solid hsl(var(--border));border-radius:8px;font-size:13.5px;font-weight:600;white-space:nowrap}
+  .radio::before{content:"";width:14px;height:14px;border-radius:99px;border:1.5px solid hsl(var(--border))}
+  .radio.on{border-color:hsl(var(--primary))}
+  .radio.on::before{border:4px solid hsl(var(--primary))}
+  .rot-radio{font-size:13px;font-weight:600;margin-bottom:6px}
+
+  /* seções do formulário */
+  .sec{padding:14px 22px;display:flex;flex-direction:column;gap:14px}
+  .sec + .sec{border-top:1px solid hsl(var(--border))}
+  .sec-topo{display:flex;align-items:center;justify-content:space-between;min-height:32px}
+  .linha2{display:grid;gap:12px}
+
+  /* composição */
+  .comp-cab,.comp li{display:grid;grid-template-columns:minmax(0,1fr) 120px 76px 28px;gap:10px;align-items:center}
+  .comp-cab{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding-bottom:2px}
+  .comp li{padding:6px 0;border-top:1px solid hsl(var(--border));font-size:13.5px}
+  .comp li:first-child{border-top:0}
+  .comp b{font-weight:600;display:flex;align-items:center;gap:6px;min-width:0}
+  .comp .custo{text-align:right;font-weight:600}
+  .rende{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;border-top:1px solid hsl(var(--border));padding-top:12px}
+  .total-comp{text-align:right}
+  .total-comp small{display:block;color:hsl(var(--muted-foreground));font-size:12.5px}
+  .total-comp b{font:800 18px Sora,Inter,sans-serif}
+
+  /* preço */
+  .linhas li{display:flex;justify-content:space-between;font-size:13px;padding:2px 0}
+  .linhas li span:first-child{color:hsl(var(--muted-foreground))}
+  .linhas li.forte{border-top:1px solid hsl(var(--border));margin-top:4px;padding-top:6px;font-weight:600}
+  .linhas li.forte span:first-child{color:inherit}
+  .sugerido{border-radius:10px;background:hsl(var(--primary-soft));padding:12px 14px}
+  .sugerido small{font-size:12.5px;color:hsl(var(--muted-foreground))}
+  .sugerido .v{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .sugerido b{font:800 22px Sora,Inter,sans-serif;color:hsl(var(--primary))}
+  .margem{display:flex;justify-content:space-between;align-items:center;font-size:13px}
+
+  /* resumo do preço no pé (B e C) */
+  .resumo{display:flex;align-items:center;gap:18px;font-size:12.5px;margin-right:auto}
+  .resumo small{display:block;color:hsl(var(--muted-foreground));font-size:11.5px}
+  .resumo b{font:800 15px Sora,Inter,sans-serif}
+  .resumo .sep{width:1px;height:28px;background:hsl(var(--border))}
+
+  /* passos (Wizard do DS) */
+  .passos{display:flex;align-items:center;gap:10px;padding:0 22px 14px;font-size:13px;flex:none;border-bottom:1px solid hsl(var(--border))}
+  .passo{display:flex;align-items:center;gap:8px;color:hsl(var(--muted-foreground));font-weight:500}
+  .passo i.n{font-style:normal;width:22px;height:22px;border-radius:99px;display:grid;place-items:center;font-size:11.5px;font-weight:700;border:1.5px solid hsl(var(--border))}
+  .passo.feito i.n{background:hsl(var(--success-soft));border-color:transparent;color:hsl(var(--success-ink))}
+  .passo.agora{color:hsl(var(--foreground));font-weight:600}
+  .passo.agora i.n{background:hsl(var(--primary));border-color:hsl(var(--primary));color:#fff}
+  .passos .traco{flex:1;max-width:48px;height:1.5px;background:hsl(var(--border))}
+
+  /* painel lateral (C) */
+  .lateral{position:absolute;top:0;right:0;bottom:0;width:620px;display:flex;flex-direction:column;background:hsl(var(--card));box-shadow:-24px 0 60px -20px rgb(0 0 0 / .35)}
+  .dobra{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:hsl(var(--primary))}
+
+  /* celular */
+  .cel{width:360px;max-width:100%;border:1px solid hsl(var(--border));border-radius:28px;overflow:hidden;background:hsl(var(--background));box-shadow:0 8px 30px -12px rgb(0 0 0 / .2);display:flex;flex-direction:column;height:720px;position:relative}
+  .cel .veu{border-radius:28px}
+  .folha{position:absolute;left:0;right:0;bottom:0;top:28px;display:flex;flex-direction:column;background:hsl(var(--card));border-radius:20px 20px 0 0}
+  .folha .alca{width:40px;height:4px;border-radius:9px;background:hsl(var(--border));margin:8px auto 0;flex:none}
+  .folha .sec{padding:12px 16px}
+  .folha .j-topo{padding:10px 16px 8px}
+  .folha .j-rodape{padding:10px 16px 16px}
+  .folha .comp-cab,.folha .comp li{grid-template-columns:minmax(0,1fr) 92px 62px}
+  .folha .passos{padding:0 16px 10px;gap:6px;font-size:12px}
+
+  table.cmp{width:100%;border-collapse:collapse;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;font-size:13.5px}
+  table.cmp th,table.cmp td{padding:10px 14px;text-align:left;border-top:1px solid hsl(var(--border));vertical-align:top}
+  table.cmp thead th{border-top:0;background:hsl(var(--muted) / .5);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:hsl(var(--muted-foreground))}
+  .reco{margin-top:16px;padding:16px 18px;border-radius:14px;background:hsl(var(--primary-soft));color:hsl(var(--primary));font-size:14px;line-height:1.55}
+</style>
+<style>
+  .ing-cab,.ing li{display:grid;grid-template-columns:minmax(0,1fr) 112px 84px 76px 28px;gap:10px;align-items:center}
+  .ing-cab{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding-bottom:2px}
+  .ing li{padding:6px 0;border-top:1px solid hsl(var(--border));font-size:13.5px}
+  .ing li:first-child{border-top:0}
+  .ing b{font-weight:600;display:flex;align-items:center;gap:6px;min-width:0}
+  .ing .custo{text-align:right;font-weight:600}
+  .ing .nada{color:hsl(var(--muted-foreground));font-size:12px;text-align:center}
+  .peso{height:6px;border-radius:9px;background:hsl(var(--muted));overflow:hidden;display:flex}
+  .peso i{display:block;height:100%}
+  .fatias li{display:grid;grid-template-columns:10px minmax(0,1fr) auto auto;gap:8px;align-items:center;font-size:12.5px;padding:3px 0}
+  .fatias .bola{width:8px;height:8px;border-radius:9px}
+  .grande{font:800 26px Sora,Inter,sans-serif;color:hsl(var(--primary))}
+  .passos-preparo{counter-reset:p;display:flex;flex-direction:column;gap:10px;font-size:13.5px;line-height:1.5}
+  .passos-preparo li{counter-increment:p;display:grid;grid-template-columns:24px minmax(0,1fr);gap:10px}
+  .passos-preparo li::before{content:counter(p);width:22px;height:22px;border-radius:99px;background:hsl(var(--primary-soft));color:hsl(var(--primary));font-size:11.5px;font-weight:700;display:grid;place-items:center}
+  .area{border:2px solid hsl(var(--border));border-radius:8px;background:hsl(var(--background));padding:12px;position:relative}
+  .area label{position:absolute;top:-9px;left:9px;padding:0 4px;background:hsl(var(--card));font-size:12px;font-weight:600;line-height:16px}
+  .faixa{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,.9fr) minmax(0,.8fr) auto minmax(0,.6fr) minmax(0,.6fr);gap:10px;align-items:end}
+  .seg{display:flex;height:44px;border:2px solid hsl(var(--border));border-radius:8px;overflow:hidden;font-size:13px;font-weight:600}
+  .seg span{padding:0 12px;display:grid;place-items:center;color:hsl(var(--muted-foreground))}
+  .seg span.on{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+  .barra-pe{display:flex;align-items:center;gap:18px;padding:12px 20px;border-top:1px solid hsl(var(--border));background:hsl(var(--card))}
+  .abas{display:flex;gap:4px;border-bottom:1px solid hsl(var(--border));padding:0 20px}
+  .abas span{position:relative;padding:10px 12px;font-size:13px;font-weight:500;color:hsl(var(--muted-foreground));display:flex;gap:6px;align-items:center}
+  .abas span b{min-width:20px;height:20px;padding:0 6px;border-radius:4px;font-size:11.5px;display:grid;place-items:center;background:hsl(var(--muted))}
+  .abas span.on{color:hsl(var(--primary))}
+  .abas span.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:hsl(var(--primary))}
+</style>
+</head>
+<body>
+<main class="doc">
+  <p class="cap">Confeitaria · Receitas · Em discussão · 26/10/2026</p>
+  <h1>Nova receita: 3 caminhos</h1>
+  <p class="lead">Hoje a receita é uma coluna estreita com três cartões empilhados: os dados (cada campo numa linha, com muito ar), os ingredientes (cada um ocupando três linhas: nome, quantidade, perda) e o modo de preparo lá embaixo, e o botão Salvar só aparece depois de rolar tudo. Uma receita de 8 ingredientes passa de duas telas. Os três caminhos seguem o que já fizemos em Nova encomenda e Produto. Todos mostram o mesmo brigadeiro, num notebook de 1366 × 720.</p>
+  <div class="pecas"><code>Form</code><code>Form.Select</code><code>Form.RadioGroup</code><code>Input inputSize="sm"</code><code>Textarea textareaSize="sm"</code><code>Dialog</code><code>Tabs</code><code>EscolherItem</code><code>Conteiner</code></div>
+
+  <!-- ==================== A ==================== -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">A</span><h2>Console: igual ao Produto</h2></div>
+    <p class="sub">A mesma tela de Produto e Nova encomenda. À esquerda, um cartão com os dados (nome; tipo, rende e “em” na mesma linha) e os ingredientes numa tabela baixa: item, quantidade, perda e custo numa linha só. Embaixo, o modo de preparo num campo mais baixo, que cresce se ela escrever. À direita, um painel fixo com o tempo, o custo (total e por kg/unidade, com uma barrinha mostrando o que pesa mais) e Cancelar/Salvar sempre à vista.</p>
+    <div class="pros">
+      <div><b>Ganha</b>Uma família só de telas: quem aprendeu Produto já sabe Receita. Ingrediente cabe numa linha: 8 itens sem rolar. O custo fica sempre à vista.</div>
+      <div><b>Cuidado</b>Receita longa com modo de preparo grande ainda rola (só a coluna da esquerda; o painel fica parado).</div>
+    </div>
+    <div class="quadros">
+      <div>
+        <p class="rotulo">Notebook · nova receita com 5 ingredientes</p>
+        <div class="tela" data-fundo-vazio>
+          <div class="corpo-a" style="flex:1;min-width:0;display:flex;flex-direction:column">
+            <div class="barra">Receitas<span class="avatar">AD</span></div>
+            <div style="padding:16px 28px;display:flex;flex-direction:column;gap:12px;min-height:0;flex:1">
+              <div style="display:flex;align-items:center;gap:12px"><span style="display:flex;align-items:center;gap:4px;color:hsl(var(--primary));font-weight:500;font-size:13.5px" data-ico="arrow-left">Receitas</span><span style="width:1px;height:20px;background:hsl(var(--border))"></span><h3 style="font:800 24px Sora,Inter,sans-serif">Nova receita</h3></div>
+              <div style="display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:14px;align-items:start;min-height:0">
+                <div class="card" style="overflow:hidden" data-dados-a data-ing data-modo-curto></div>
+                <div class="card" style="overflow:hidden;display:flex;flex-direction:column">
+                  <div data-tempo-r></div>
+                  <div data-custo style="border-top:1px solid hsl(var(--border))"></div>
+                  <div class="j-rodape"><span style="margin-left:auto"></span><span class="btn out">Cancelar</span><span class="btn pri">Salvar receita</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="rotulo">Celular · uma coluna, custo e Salvar presos embaixo</p>
+        <div class="cel" data-cel-a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== B ==================== -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">B</span><h2>Janela larga por cima da lista</h2></div>
+    <p class="sub">O mesmo console da A, mas dentro de uma janela (<code>Dialog</code>, ~1000px) aberta por cima da lista de receitas, pela URL (<code>/receitas?nova=1</code>, <code>?editar=&lt;id&gt;</code>), como Clientes e a opção A do Produto. O modo de preparo vira uma aba ao lado de Ingredientes, para a janela não crescer.</p>
+    <div class="pros">
+      <div><b>Ganha</b>Não sai da lista nem perde a busca. Se você escolher janela para o Produto, Receita fica igual.</div>
+      <div><b>Cuidado</b>Modo de preparo fica escondido numa aba. Receita é cadastro grande; janela faz mais sentido para quem cadastra rápido.</div>
+    </div>
+    <div class="quadros">
+      <div>
+        <p class="rotulo">Notebook · editando o brigadeiro, aba Ingredientes</p>
+        <div class="tela" data-fundo>
+          <div class="veu"></div>
+          <div class="janela" style="width:1000px">
+            <div class="j-topo"><h4>Editar receita</h4><span class="x" data-i="x"></span></div>
+            <div style="display:grid;grid-template-columns:minmax(0,1fr) 320px;border-top:1px solid hsl(var(--border));min-height:0;flex:1">
+              <div class="rola" data-dados-a data-abas data-ing-sem-cab></div>
+              <div class="rola" style="border-left:1px solid hsl(var(--border));background:hsl(var(--muted) / .25)" data-tempo-r data-custo></div>
+            </div>
+            <div class="j-rodape"><span class="btn ghost sm perigo" data-ico="archive">Arquivar</span><span style="margin-left:auto"></span><span class="btn out">Cancelar</span><span class="btn pri">Salvar receita</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== C ==================== -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">C</span><h2>Ficha técnica: ingredientes e preparo lado a lado</h2></div>
+    <p class="sub">Pensada como a folha que fica na bancada. Os dados viram uma faixa de uma linha só no topo (nome, tipo, rende, em, preparo, forno). Embaixo, duas colunas do mesmo peso: ingredientes à esquerda, modo de preparo à direita, com espaço de verdade para escrever. O custo e Salvar ficam numa barra presa no pé da tela.</p>
+    <div class="pros">
+      <div><b>Ganha</b>O modo de preparo deixa de ser o patinho feio: dá para escrever e conferir com os ingredientes ao lado. Tela inteira sem rolar.</div>
+      <div><b>Cuidado</b>Diferente do Produto (sem painel à direita); o detalhe do custo fica menor, só total e por kg no pé.</div>
+    </div>
+    <div class="quadros">
+      <div>
+        <p class="rotulo">Notebook · editando o brigadeiro</p>
+        <div class="tela" data-fundo-vazio>
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column">
+            <div class="barra">Receitas<span class="avatar">AD</span></div>
+            <div style="padding:16px 28px;display:flex;flex-direction:column;gap:12px;min-height:0;flex:1">
+              <div style="display:flex;align-items:center;gap:12px"><span style="display:flex;align-items:center;gap:4px;color:hsl(var(--primary));font-weight:500;font-size:13.5px" data-ico="arrow-left">Receitas</span><span style="width:1px;height:20px;background:hsl(var(--border))"></span><h3 style="font:800 24px Sora,Inter,sans-serif">Editar receita</h3></div>
+              <div class="card" style="padding:16px 18px" data-faixa></div>
+              <div style="display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:14px;min-height:0;flex:1">
+                <div class="card" style="overflow:hidden" data-ing-c></div>
+                <div class="card" style="overflow:hidden" data-modo-longo></div>
+              </div>
+            </div>
+            <div class="barra-pe" data-pe-c></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== comparação ==================== -->
+  <section class="opcao">
+    <div class="opcao-topo"><h2>Comparando</h2></div>
+    <table class="cmp">
+      <thead><tr><th></th><th>A · Console</th><th>B · Janela larga</th><th>C · Ficha técnica</th></tr></thead>
+      <tbody>
+        <tr><th>Parecida com</th><td>Produto e Nova encomenda</td><td>Clientes (janela) + Produto</td><td>Nenhuma outra tela</td></tr>
+        <tr><th>Ingrediente por linha</th><td>1 linha (hoje são 3)</td><td>1 linha</td><td>1 linha</td></tr>
+        <tr><th>Custo à vista</th><td>Sempre, detalhado, com o que pesa mais</td><td>Sempre, detalhado</td><td>Só total e por kg, no pé</td></tr>
+        <tr><th>Modo de preparo</th><td>Campo baixo embaixo dos ingredientes</td><td>Numa aba</td><td>Coluna inteira, ao lado</td></tr>
+        <tr><th>Rolagem no notebook</th><td>Só com receita bem longa</td><td>Só dentro da aba</td><td>Nenhuma (cada coluna rola por dentro)</td></tr>
+        <tr><th>Esforço</th><td>Baixo: mesmo molde do Produto</td><td>Baixo, se o Produto virar janela</td><td>Médio: layout novo</td></tr>
+      </tbody>
+    </table>
+    <p class="reco"><b>Recomendação: A, e seguir o Produto.</b> Receita e Produto são irmãos (os dois têm composição, tempo e custo), então devem ter a mesma cara. Se você escolher a janela para o Produto, a Receita vira a B; se o Produto ficar como página, a Receita fica na A. A barrinha “o que pesa mais no custo” da A vale levar para o Produto também.</p>
+  </section>
+</main>
+
+<script>
+  const ico = (nome, extra = "") => `<i class="i" style="--ico:url(https://api.iconify.design/ph/${nome}.svg);${extra}"></i>`;
+
+  // ---------- o mesmo brigadeiro em todas ----------
+  const CORES = ["hsl(20 45% 32%)", "hsl(28 60% 52%)", "hsl(35 70% 66%)", "hsl(20 25% 75%)", "hsl(240 5% 82%)"];
+  const ING = [
+    ["Leite condensado", 0, "790", "g", "", "R$ 22,10", 60],
+    ["Chocolate 50%", 0, "120", "g", "2", "R$ 7,85", 21],
+    ["Creme de leite", 0, "200", "g", "", "R$ 4,90", 13],
+    ["Manteiga sem sal", 0, "30", "g", "", "R$ 1,65", 4],
+    ["Granulado (receita)", 1, "60", "g", "", "R$ 0,40", 1],
+  ];
+  const lixeira = `<span class="btn ghost ico" style="height:28px;width:28px">${ico("trash")}</span>`;
+  const dadosA = (cel) => `<section class="sec">
+      <div class="sec-topo"><span class="cap">Dados da receita</span></div>
+      <div class="campo"><label>Nome</label>Brigadeiro tradicional</div>
+      <div class="linha2" style="grid-template-columns:${cel ? "1fr 1fr" : "minmax(0,1fr) minmax(0,.8fr) auto"};align-items:end">
+        <div class="campo"><label>Tipo</label>Recheio<span class="sel">${ico("caret-down")}</span></div>
+        <div class="campo"><label>Rende</label>1.000</div>
+        ${cel ? "" : `<div><p class="rot-radio">Em</p><div class="radios"><span class="radio on">g</span><span class="radio">ml</span><span class="radio">un</span></div></div>`}
+      </div>
+      ${cel ? `<div><p class="rot-radio">Rende em</p><div class="radios"><span class="radio on">gramas</span><span class="radio">ml</span><span class="radio">unidades</span></div></div>` : ""}
+    </section>`;
+  const linhasIng = (cel) => ING.map(([n, rec, q, u, p, c]) => cel
+    ? `<li><b><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${n}</span></b><span class="campo sm">${q}<span class="un">${u}</span></span><span class="custo tab">${c}</span></li>`
+    : `<li><b><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${n.replace(" (receita)", "")}</span>${rec ? '<span class="chip c-mut">Receita</span>' : ""}</b><span class="campo sm">${q}<span class="un">${u}</span></span>${rec ? '<span class="nada">—</span>' : `<span class="campo sm ${p ? "" : "vazio"}">${p || "0"}<span class="un">%</span></span>`}<span class="custo tab">${c}</span>${lixeira}</li>`).join("");
+  const ing = (titulo = true) => `<section class="sec">
+      ${titulo ? `<div class="sec-topo"><span class="cap">Ingredientes</span><span class="btn out sm" data-ico="plus">Adicionar ingrediente</span></div>` : ""}
+      <div><div class="ing-cab"><span>Item</span><span>Quantidade</span><span>Perda</span><span style="text-align:right">Custo</span><span></span></div>
+      <ul class="ing">${linhasIng(false)}</ul></div>
+    </section>`;
+  const modoCurto = `<section class="sec"><div class="area" style="min-height:64px;font-size:13.5px"><label>Modo de preparo (opcional)</label><span>Leve tudo ao fogo baixo, mexendo sempre, até desgrudar do fundo da panela (uns 15 min)…</span></div></section>`;
+  const tempoR = `<section class="sec">
+      <div class="sec-topo"><span class="cap">Tempo</span></div>
+      <div class="linha2" style="grid-template-columns:1fr 1fr"><div class="campo"><label>Preparo (min)</label>25</div><div class="campo vazio"><label>Forno (min)</label>0</div></div>
+    </section>`;
+  const custo = `<section class="sec">
+      <div class="sec-topo"><span class="cap">Custo</span></div>
+      <div><p class="grande tab">R$ 36,90</p><p class="mut" style="font-size:13px">a receita inteira · <b class="tab" style="color:hsl(var(--foreground))">R$ 36,90 por kg</b></p></div>
+      <div class="peso">${ING.map((x, i) => `<i style="width:${x[6]}%;background:${CORES[i]}"></i>`).join("")}</div>
+      <ul class="fatias tab">${ING.slice(0, 3).map((x, i) => `<li><span class="bola" style="background:${CORES[i]}"></span><span>${x[0]}</span><span class="mut">${x[6]}%</span><span style="font-weight:600">${x[5]}</span></li>`).join("")}<li><span class="bola" style="background:${CORES[3]}"></span><span class="mut">Outros 2</span><span class="mut">5%</span><span style="font-weight:600">R$ 2,05</span></li></ul>
+    </section>`;
+
+  document.querySelectorAll("[data-dados-a]").forEach((el) => (el.innerHTML += dadosA(false)));
+  document.querySelectorAll("[data-abas]").forEach((el) => (el.innerHTML += `<div class="abas"><span class="on">Ingredientes <b>5</b></span><span>Modo de preparo</span><span style="margin-left:auto;padding-right:0"><span class="btn out sm" data-ico="plus">Adicionar ingrediente</span></span></div>`));
+  document.querySelectorAll("[data-ing]").forEach((el) => (el.innerHTML += ing()));
+  document.querySelectorAll("[data-ing-sem-cab]").forEach((el) => (el.innerHTML += ing(false)));
+  document.querySelectorAll("[data-modo-curto]").forEach((el) => (el.innerHTML += modoCurto));
+  document.querySelectorAll("[data-tempo-r]").forEach((el) => (el.innerHTML += tempoR));
+  document.querySelectorAll("[data-custo]").forEach((el) => (el.innerHTML += custo));
+
+  // C
+  document.querySelector("[data-faixa]").innerHTML = `<div class="faixa">
+      <div class="campo"><label>Nome</label>Brigadeiro tradicional</div>
+      <div class="campo"><label>Tipo</label>Recheio<span class="sel">${ico("caret-down")}</span></div>
+      <div class="campo"><label>Rende</label>1.000</div>
+      <div class="seg"><span class="on">g</span><span>ml</span><span>un</span></div>
+      <div class="campo"><label>Preparo</label>25<span class="un">min</span></div>
+      <div class="campo vazio"><label>Forno</label>0<span class="un">min</span></div></div>`;
+  document.querySelector("[data-ing-c]").innerHTML = ing();
+  document.querySelector("[data-modo-longo]").innerHTML = `<section class="sec" style="height:100%">
+      <div class="sec-topo"><span class="cap">Modo de preparo</span><span class="mut" style="font-size:12px">Cada linha vira um passo</span></div>
+      <ol class="passos-preparo" style="margin:0;padding:0;list-style:none">
+        <li>Numa panela de fundo grosso, junte o leite condensado, o chocolate picado e a manteiga.</li>
+        <li>Leve ao fogo baixo, mexendo sempre, até o chocolate derreter por completo.</li>
+        <li>Continue mexendo até desgrudar do fundo da panela (uns 15 min).</li>
+        <li>Desligue, acrescente o creme de leite e misture bem.</li>
+        <li>Passe para um refratário, cubra com filme em contato e deixe esfriar.</li>
+      </ol></section>`;
+  document.querySelector("[data-pe-c]").innerHTML = `<div class="resumo"><div><small>Custo da receita</small><b class="tab">R$ 36,90</b></div><span class="sep"></span><div><small>Por kg</small><b class="tab" style="color:hsl(var(--primary))">R$ 36,90</b></div><span class="sep"></span><div><small>Leite condensado pesa</small><b class="tab">60%</b></div></div>
+    <span class="btn ghost sm perigo" data-ico="archive">Arquivar</span><span class="btn out">Cancelar</span><span class="btn pri">Salvar receita</span>`;
+
+  // fundos
+  const MENU = `<div class="menu-topo"><span style="font-size:18px">🎂</span><span>Doces da Ana<small>Confeitaria</small></span></div>
+    <nav><p>Principal</p><a>${ico("squares-four")}Início</a>
+    <p>Vendas</p><a>${ico("clipboard-text")}Encomendas</a><a>${ico("calendar-blank")}Agenda</a><a>${ico("users")}Clientes</a>
+    <p>Produção</p><a>${ico("cake")}Produtos</a><a class="on">${ico("book-open")}Receitas</a><a>${ico("grains")}Insumos</a>
+    <p>Gestão</p><a>${ico("calculator")}Precificação</a><a>${ico("wallet")}Financeiro</a><a>${ico("gear")}Configurações</a></nav>`;
+  const RECEITAS = [["Brigadeiro tradicional", "Recheio", "R$ 36,90", "kg"], ["Massa de chocolate", "Massa", "R$ 15,30", "kg"], ["Massa branca", "Massa", "R$ 11,80", "kg"], ["Ganache meio amargo", "Cobertura", "R$ 48,20", "kg"], ["Beijinho", "Docinho", "R$ 0,31", "un"], ["Mousse de maracujá", "Recheio", "R$ 29,40", "kg"], ["Granulado", "Outra", "R$ 6,60", "kg"]];
+  document.querySelectorAll("[data-fundo-vazio]").forEach((el) => el.insertAdjacentHTML("afterbegin", `<div class="menu">${MENU}</div>`));
+  document.querySelectorAll("[data-fundo]").forEach((el) => el.insertAdjacentHTML("afterbegin", `<div class="menu">${MENU}</div><div class="corpo"><div class="barra">Receitas<span class="avatar">AD</span></div>
+    <div class="conteudo"><div class="cabeca"><h3>Receitas</h3><span class="btn pri" style="height:36px">${ico("plus")}Nova receita</span></div>
+    ${RECEITAS.map(([n, t, p, por]) => `<div class="prod"><span class="ic">${ico("book-open", "width:20px;height:20px")}</span><span><b>${n}</b> <span class="chip c-mut">${t}</span></span><span class="preco tab">${p}<small>por ${por}</small></span></div>`).join("")}
+    </div></div>`));
+
+  // celular (A)
+  document.querySelector("[data-cel-a]").innerHTML = `<div style="height:52px;display:flex;align-items:center;gap:8px;padding:0 14px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border));font-weight:700;flex:none">${ico("arrow-left")}Nova receita</div>
+    <div class="rola" style="flex:1;background:hsl(var(--card))">${dadosA(true)}
+      <section class="sec"><div class="sec-topo"><span class="cap">Ingredientes</span><span class="btn out sm" data-ico="plus">Adicionar</span></div>
+      <div><div class="ing-cab" style="grid-template-columns:minmax(0,1fr) 92px 62px"><span>Item</span><span>Qtd.</span><span style="text-align:right">Custo</span></div>
+      <ul class="ing">${linhasIng(true).replaceAll("<li>", '<li style="grid-template-columns:minmax(0,1fr) 92px 62px">')}</ul></div></section></div>
+    <div style="flex:none;border-top:1px solid hsl(var(--border));padding:10px 16px;display:flex;justify-content:space-between;align-items:center;background:hsl(var(--primary-soft) / .6)"><span><small class="mut" style="display:block;font-size:11.5px">Custo · por kg</small><b class="tab" style="font:800 15px Sora">R$ 36,90 · R$ 36,90</b></span><span class="btn pri">Salvar</span></div>
+    <div style="height:60px;flex:none;background:hsl(var(--card));border-top:1px solid hsl(var(--border))"></div>`;
+
+  document.querySelectorAll("[data-i]").forEach((el) => (el.innerHTML = ico(el.dataset.i)));
+  document.querySelectorAll("[data-ico]").forEach((el) => el.insertAdjacentHTML("afterbegin", ico(el.dataset.ico)));
+</script>
+</body>
+</html>

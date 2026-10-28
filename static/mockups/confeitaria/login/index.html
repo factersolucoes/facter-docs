@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Tela de entrar · Facter Chef</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* Tema confeitaria (chocolate) do DS: mesmas variáveis do produto. */
+  :root{
+    --background:0 0% 98%;
+    --foreground:240 10% 3.9%;
+    --card:0 0% 100%;
+    --primary:20 45% 32%;
+    --primary-soft:20 45% 95%;
+    --faixa:20 45% 32%;
+    --muted-foreground:240 3.8% 46%;
+    --border:240 5.9% 90%;
+    --canvas:225 14% 92%;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));
+    font:14px/1.45 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3,h4,p{margin:0}
+
+  /* ---------- apresentação ---------- */
+  .doc{max-width:1400px;margin:0 auto;padding:48px 24px 96px}
+  .doc h1{font:800 32px/1.15 Sora,Inter,sans-serif;letter-spacing:-.02em}
+  .lead{color:hsl(var(--muted-foreground));max-width:84ch;margin-top:10px;font-size:14.5px;line-height:1.55}
+  .lead a{color:hsl(var(--primary));font-weight:600}
+  .opcao{margin-top:64px;display:flex;flex-direction:column;gap:14px}
+  .opcao-topo{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .letra{font:800 13px Sora,Inter,sans-serif;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:hsl(var(--primary));color:#fff}
+  .opcao h2{font:800 22px/1.2 Sora,Inter,sans-serif;letter-spacing:-.01em}
+  .opcao .sub{font-size:14px;color:hsl(var(--muted-foreground));max-width:92ch}
+  .pros{display:flex;gap:24px;flex-wrap:wrap;font-size:13px}
+  .pros div{display:flex;flex-direction:column;gap:4px;max-width:48ch}
+  .pros b{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+  .recomendo{margin-top:64px;padding:20px 22px;border-radius:14px;background:hsl(var(--card));border:1px solid hsl(var(--border))}
+  .recomendo h2{font:800 20px Sora,Inter,sans-serif;margin-bottom:8px}
+  .recomendo p+p{margin-top:8px}
+  .mut{color:hsl(var(--muted-foreground))}
+
+  /* ---------- moldura (notebook 1366 × 720) ---------- */
+  .moldura{overflow-x:auto;border-radius:14px}
+  .tela{position:relative;display:flex;width:1340px;height:720px;border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;background:hsl(var(--background));box-shadow:0 8px 30px -12px rgb(0 0 0 / .15)}
+  .lado-esq{position:relative;width:50%;flex:none;overflow:hidden;color:#fff;
+    background:linear-gradient(155deg,hsl(20 45% 34%) 0%,hsl(20 45% 28%) 55%,hsl(20 42% 20%) 100%)}
+  .lado-dir{position:relative;flex:1;display:flex;align-items:center;justify-content:center}
+
+  /* Formulário de hoje (igual nas 3 opções) */
+  .marca{position:absolute;top:32px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:12px}
+  .marca svg{width:26px;height:38px;color:hsl(var(--primary))}
+  .marca .traco{width:1px;height:36px;background:currentColor;opacity:.3}
+  .marca b{font:400 20px/1 Sora,Inter,sans-serif;letter-spacing:-.02em;white-space:nowrap}
+  .marca b strong{font-weight:800}
+  .marca small{display:block;margin-top:4px;font-size:11px;font-weight:500;color:hsl(var(--muted-foreground))}
+  .form{width:384px;text-align:center}
+  .form h3{font:800 24px Sora,Inter,sans-serif}
+  .form .ola{margin-top:6px;color:hsl(var(--muted-foreground))}
+  .campo{margin-top:16px;height:46px;border:1px solid hsl(var(--border));border-radius:8px;position:relative;background:hsl(var(--card))}
+  .campo:first-of-type{margin-top:28px;border-color:hsl(var(--primary));box-shadow:0 0 0 1px hsl(var(--primary))}
+  .campo span{position:absolute;top:-8px;left:12px;padding:0 4px;background:hsl(var(--background));font-size:12px;font-weight:600}
+  .botao{margin-top:16px;height:40px;border-radius:8px;background:hsl(var(--primary));color:#fff;display:grid;place-items:center;font-weight:600}
+  .suporte{margin-top:24px;font-size:14px;color:hsl(var(--muted-foreground))}
+
+  /* ===== 1 · Ilustração ===== */
+  .um::before{content:"";position:absolute;left:50%;top:44%;width:560px;height:560px;transform:translate(-50%,-50%);border-radius:50%;
+    background:radial-gradient(circle,rgb(255 236 220 / .16) 0%,rgb(255 236 220 / .06) 45%,transparent 70%)}
+  .um svg.cena{position:absolute;left:50%;top:60px;transform:translateX(-50%);width:600px;height:460px}
+  .um .texto{position:absolute;left:64px;right:64px;bottom:56px;text-align:center}
+  .um h4{font:800 30px/1.15 Sora,Inter,sans-serif;letter-spacing:-.02em}
+  .um p{margin:10px auto 0;max-width:44ch;opacity:.8;font-size:15px}
+
+  /* ===== 2 · Limpo ===== */
+  .dois{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+  .dois::before{content:"";position:absolute;right:-180px;top:-180px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgb(255 255 255 / .09),transparent 65%)}
+  .dois::after{content:"";position:absolute;left:-160px;bottom:-200px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgb(0 0 0 / .18),transparent 65%)}
+  .dois svg.logo{width:84px;height:124px;color:#F3D9C6;position:relative}
+  .dois h4{position:relative;margin-top:28px;font:400 46px/1 Sora,Inter,sans-serif;letter-spacing:-.03em}
+  .dois h4 strong{font-weight:800}
+  .dois .linha{position:relative;width:48px;height:2px;border-radius:2px;background:#F3D9C6;opacity:.7;margin:22px 0}
+  .dois p{position:relative;max-width:34ch;opacity:.82;font-size:16px;line-height:1.55}
+  .dois .pe{position:absolute;left:0;right:0;bottom:32px;font-size:12px;opacity:.55;letter-spacing:.04em}
+
+  /* ===== 3 · Padrão de doces ===== */
+  .tres svg.padrao{position:absolute;inset:0;width:100%;height:100%}
+  .tres .centro{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:430px;padding:40px 36px;text-align:center;
+    border-radius:20px;background:hsl(20 42% 22% / .94);border:1px solid rgb(255 255 255 / .10);backdrop-filter:blur(2px);box-shadow:0 30px 60px -30px rgb(0 0 0 / .6)}
+  .tres .centro svg{width:40px;height:58px;color:#F3D9C6}
+  .tres h4{margin-top:18px;font:800 30px/1.15 Sora,Inter,sans-serif;letter-spacing:-.02em}
+  .tres p{margin-top:10px;opacity:.8;font-size:15px}
+</style>
+</head>
+<body>
+<!-- Logo da Facter (o mesmo do DS), usado com <use href="#logo"> -->
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="logo" viewBox="0 0 207 304"><path fill="currentColor" d="M25.8384 196.911L15.4739 183.729C-10.7189 150.411 0.44781 101.422 38.4895 82.7344L206.266 0.307297V34.2396C206.266 60.1875 191.448 83.8698 168.12 95.2396L56.578 149.594C48.4634 153.547 41.3489 159.344 35.9791 166.609C30.5936 173.901 25.9582 183.906 26.3176 196.526C29.9947 193.609 34.0624 191.026 38.4843 188.854L206.26 106.432V140.359C206.26 166.313 191.437 189.995 168.109 201.365L56.578 255.708C48.4634 259.667 41.3489 265.464 35.9791 272.724C30.4426 280.224 25.6978 290.578 26.3593 303.693L15.4739 289.854C-7.54698 260.568 -1.72407 219.193 25.8384 196.911ZM134.818 266.526L206.208 303.724L206.187 210.802L134.953 246.661C126.828 250.755 126.755 262.323 134.818 266.526Z"/></symbol>
+  <!-- Ícones finos de confeitaria (traço), para o padrão da opção 3 -->
+  <symbol id="i-bolo" viewBox="0 0 24 24"><path d="M3.5 20.5h17M5 20.5v-6.5h14v6.5M7 14v-3.5h10V14M12 10.5V8M12 4.6c1 1 1 2 0 3-1-1-1-2 0-3zM5 16.8c1.2 1 2.3 1 3.5 0s2.3-1 3.5 0 2.3 1 3.5 0 2.3-1 3.5 0"/></symbol>
+  <symbol id="i-cupcake" viewBox="0 0 24 24"><path d="M6 12.5h12l-1.8 8H7.8zM10 12.5l.6 8M14 12.5l-.6 8M6 12.5c-1.4 0-2-1-2-2.2 0-1.6 1.4-2.6 3-2.3.3-2 2.4-3.5 5-3.5s4.7 1.5 5 3.5c1.6-.3 3 .7 3 2.3 0 1.2-.6 2.2-2 2.2M12 4.5V3"/></symbol>
+  <symbol id="i-batedor" viewBox="0 0 24 24"><path d="M12 21.5v-7M12 14.5c-3 0-4.5-4.2-4.5-7.5a4.5 4.5 0 0 1 9 0c0 3.3-1.5 7.5-4.5 7.5zM12 14.5c-1.3 0-1.8-4.2-1.8-7.5S11 2.5 12 2.5s1.8 1.2 1.8 4.5-.5 7.5-1.8 7.5z"/></symbol>
+  <symbol id="i-colher" viewBox="0 0 24 24"><path d="M12 13.5v8M12 13.5c-2.2 0-3.3-2.3-3.3-5S10 2.5 12 2.5s3.3 3.3 3.3 6-1.1 5-3.3 5z"/></symbol>
+  <symbol id="i-rolo" viewBox="0 0 24 24"><path d="M2.8 17.5l3-3M18.2 6.5l3-3M5.3 14.3l9-9 4.4 4.4-9 9z"/></symbol>
+  <symbol id="i-biscoito" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9 9h.01M14.5 8.5h.01M15 14h.01M9.5 15h.01M12 12h.01"/></symbol>
+  <symbol id="i-coracao" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.4-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.6-7.5 10-7.5 10z"/></symbol>
+  <symbol id="i-cereja" viewBox="0 0 24 24"><circle cx="8" cy="16.5" r="3.5"/><circle cx="16" cy="17.5" r="3.5"/><path d="M8 13c1-4 3.5-7 7-9M16 14c-.5-4 0-7-1-10M15 4l3 1"/></symbol>
+</svg>
+
+<div class="doc">
+  <h1>Tela de entrar · o lado esquerdo (2ª rodada)</h1>
+  <p class="lead">A 1ª rodada (pedaços do sistema: vitrine, prévia do Início e caminho da encomenda) <a href="v1.html">não agradou</a>. Aqui, três caminhos sem sistema nenhum: <b>1 · Ilustração</b> de confeitaria, <b>2 · Limpo</b> (só a marca) e <b>3 · Padrão de doces</b>. O lado direito (logo centralizado, Entrar e "Fale com o suporte") fica igual. No celular o lado esquerdo não aparece, como hoje.</p>
+
+  <!-- ================= 1 ================= -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">1</span><h2>Ilustração de confeitaria</h2></div>
+    <p class="sub">Fundo chocolate com um brilho suave atrás de uma ilustração: bolo de dois andares com calda e cereja no suporte, cupcake e macarons. Embaixo, a frase do produto. A ilustração é desenho (SVG) feito para o Facter Chef, sem foto de banco de imagens.</p>
+    <div class="moldura"><div class="tela">
+      <div class="lado-esq um">
+        <svg class="cena" viewBox="0 0 600 460" aria-hidden="true">
+          <g opacity=".8">
+            <rect x="96" y="70" width="14" height="5" rx="2.5" fill="#F2B8A6" transform="rotate(30 103 72)"/>
+            <rect x="480" y="58" width="14" height="5" rx="2.5" fill="#F7E3CF" transform="rotate(-20 487 60)"/>
+            <rect x="520" y="150" width="12" height="5" rx="2.5" fill="#E8A0A0" transform="rotate(50 526 152)"/>
+            <rect x="70" y="190" width="12" height="5" rx="2.5" fill="#F7E3CF" transform="rotate(-40 76 192)"/>
+            <circle cx="150" cy="120" r="4" fill="#F7E3CF"/><circle cx="440" cy="110" r="3" fill="#F2B8A6"/>
+            <circle cx="545" cy="240" r="3.5" fill="#F7E3CF"/><circle cx="58" cy="290" r="3" fill="#F2B8A6"/>
+          </g>
+          <ellipse cx="300" cy="440" rx="250" ry="12" fill="rgb(0 0 0 / .18)"/>
+
+          <ellipse cx="300" cy="432" rx="70" ry="9" fill="#E3CDB6"/>
+          <rect x="289" y="372" width="22" height="60" rx="4" fill="#E3CDB6"/>
+          <ellipse cx="300" cy="372" rx="160" ry="15" fill="#F1E2D2"/>
+          <ellipse cx="300" cy="368" rx="160" ry="13" fill="#FAF1E7"/>
+
+          <rect x="180" y="258" width="240" height="108" rx="12" fill="#F6E8DA"/>
+          <rect x="378" y="258" width="42" height="108" rx="12" fill="#EBD6C2"/>
+          <g fill="#E7B9A0"><circle cx="208" cy="330" r="5"/><circle cx="240" cy="330" r="5"/><circle cx="272" cy="330" r="5"/><circle cx="304" cy="330" r="5"/><circle cx="336" cy="330" r="5"/><circle cx="368" cy="330" r="5"/><circle cx="398" cy="330" r="5"/></g>
+          <path d="M180 270a12 12 0 0 1 12-12h216a12 12 0 0 1 12 12v8c0 4-6 4-6 10v14a6 6 0 0 1-12 0v-20c0-5-4-6-8-6h-24c-5 0-6 3-6 8v28a6 6 0 0 1-12 0v-28c0-5-3-8-8-8h-30c-5 0-6 3-6 8v8a6 6 0 0 1-12 0v-8c0-5-3-8-8-8h-34c-5 0-6 3-6 8v22a6 6 0 0 1-12 0v-22c0-5-3-8-8-8h-14c-5 0-8 3-8 8v4a6 6 0 0 1-12 0z" fill="#5B3321"/>
+
+          <rect x="222" y="176" width="156" height="86" rx="12" fill="#F2BCA8"/>
+          <rect x="344" y="176" width="34" height="86" rx="12" fill="#E5A893"/>
+          <path d="M222 188a12 12 0 0 1 12-12h132a12 12 0 0 1 12 12v6c0 4-5 4-5 9v10a5 5 0 0 1-10 0v-14c0-4-3-5-6-5h-20c-4 0-5 2-5 6v20a5 5 0 0 1-10 0v-20c0-4-3-6-6-6h-26c-4 0-5 2-5 6v6a5 5 0 0 1-10 0v-6c0-4-3-6-6-6h-22c-4 0-5 2-5 6v14a5 5 0 0 1-10 0z" fill="#5B3321"/>
+          <g fill="#FFF8F1"><circle cx="262" cy="176" r="9"/><circle cx="300" cy="172" r="11"/><circle cx="338" cy="176" r="9"/></g>
+          <path d="M300 150c2-14 10-22 20-26" stroke="#6E8B4E" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <circle cx="300" cy="156" r="14" fill="#C2413B"/>
+          <circle cx="295" cy="151" r="4" fill="#fff" opacity=".55"/>
+
+          <path d="M452 330h84l-10 64h-64z" fill="#C98B62"/>
+          <path d="M472 330l4 64M494 330v64M516 330l-4 64" stroke="#B4764F" stroke-width="3"/>
+          <path d="M444 332c-10 0-12-14-2-18-6-16 10-26 22-20 4-14 26-18 34-6 10-8 28-2 28 12 12 2 14 18 4 26 6 6 0 14-8 14z" fill="#F7D6CB"/>
+          <path d="M470 300c8-18 30-22 44-8" stroke="#EDBFB0" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <g><rect x="470" y="312" width="9" height="3.5" rx="1.75" fill="#C2413B" transform="rotate(25 474 314)"/><rect x="500" y="306" width="9" height="3.5" rx="1.75" fill="#7DA7C9" transform="rotate(-30 504 308)"/><rect x="516" y="320" width="9" height="3.5" rx="1.75" fill="#E7C04F" transform="rotate(15 520 322)"/><rect x="456" y="322" width="9" height="3.5" rx="1.75" fill="#7DA7C9" transform="rotate(-10 460 324)"/></g>
+          <circle cx="490" cy="282" r="8" fill="#C2413B"/>
+
+          <g>
+            <ellipse cx="108" cy="398" rx="42" ry="14" fill="#E9A5A0"/><rect x="66" y="386" width="84" height="8" rx="4" fill="#FFF3EA"/><ellipse cx="108" cy="384" rx="42" ry="14" fill="#F2B8B2"/>
+            <ellipse cx="112" cy="360" rx="38" ry="13" fill="#C9B2DA"/><rect x="74" y="349" width="76" height="7" rx="3.5" fill="#FFF3EA"/><ellipse cx="112" cy="347" rx="38" ry="13" fill="#D9C6E6"/>
+            <ellipse cx="106" cy="325" rx="34" ry="12" fill="#B9D3B0"/><rect x="72" y="315" width="68" height="7" rx="3.5" fill="#FFF3EA"/><ellipse cx="106" cy="313" rx="34" ry="12" fill="#CFE3C7"/>
+          </g>
+        </svg>
+        <div class="texto">
+          <h4>Feito para quem faz doce.</h4>
+          <p>Encomendas, agenda, preço certo e o dinheiro do mês da sua confeitaria, num lugar só.</p>
+        </div>
+      </div>
+      <div class="lado-dir">
+        <div class="marca"><svg><use href="#logo"/></svg><span class="traco"></span><span><b>Facter <strong>Chef</strong></b><small>Gestão para confeitarias</small></span></div>
+        <div class="form"><h3>Entrar</h3><p class="ola">Que bom te ver de novo!</p><div class="campo"><span>E-mail</span></div><div class="campo"><span>Senha</span></div><div class="botao">Entrar</div><p class="suporte">Ainda não tem acesso? Fale com o suporte da Facter.</p></div>
+      </div>
+    </div></div>
+    <div class="pros">
+      <div><b>A favor</b>A mais acolhedora: deixa claro na hora que é um sistema de confeitaria. Desenho próprio, sem foto de terceiros e leve para carregar.</div>
+      <div><b>Contra</b>É a que mais dá trabalho para ficar caprichada; uma foto profissional (com licença) pode substituir a ilustração depois.</div>
+    </div>
+  </section>
+
+  <!-- ================= 2 ================= -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">2</span><h2>Limpo: só a marca</h2></div>
+    <p class="sub">Fundo chocolate com duas luzes bem suaves nos cantos e, no centro, o logo da Facter grande, "Facter Chef" e uma frase curta. Nada mais.</p>
+    <div class="moldura"><div class="tela">
+      <div class="lado-esq dois">
+        <svg class="logo"><use href="#logo"/></svg>
+        <h4>Facter <strong>Chef</strong></h4>
+        <span class="linha"></span>
+        <p>A gestão da sua confeitaria, do pedido ao lucro.</p>
+        <span class="pe">FACTER · GESTÃO PARA CONFEITARIAS</span>
+      </div>
+      <div class="lado-dir">
+        <div class="marca"><svg><use href="#logo"/></svg><span class="traco"></span><span><b>Facter <strong>Chef</strong></b><small>Gestão para confeitarias</small></span></div>
+        <div class="form"><h3>Entrar</h3><p class="ola">Que bom te ver de novo!</p><div class="campo"><span>E-mail</span></div><div class="campo"><span>Senha</span></div><div class="botao">Entrar</div><p class="suporte">Ainda não tem acesso? Fale com o suporte da Facter.</p></div>
+      </div>
+    </div></div>
+    <div class="pros">
+      <div><b>A favor</b>Elegante e "de marca", envelhece bem e é a mais simples de fazer e manter.</div>
+      <div><b>Contra</b>A marca aparece duas vezes (aqui e em cima do formulário): no computador dá para tirar a de cima e deixar só no celular. Fala pouco sobre confeitaria.</div>
+    </div>
+  </section>
+
+  <!-- ================= 3 ================= -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">3</span><h2>Padrão de doces</h2></div>
+    <p class="sub">Fundo chocolate coberto por um desenho repetido de ícones finos de confeitaria (bolo, cupcake, batedor, colher, rolo, biscoito, coração, cereja), como papel de embrulho de doceria. No centro, um cartão escuro com o logo e a frase.</p>
+    <div class="moldura"><div class="tela">
+      <div class="lado-esq tres">
+        <svg class="padrao" aria-hidden="true">
+          <defs>
+            <pattern id="doces" width="180" height="180" patternUnits="userSpaceOnUse">
+              <g fill="none" stroke="#F3D9C6" stroke-opacity=".22" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                <use href="#i-bolo" x="14" y="12" width="34" height="34"/>
+                <use href="#i-batedor" x="96" y="20" width="30" height="30" transform="rotate(-18 111 35)"/>
+                <use href="#i-coracao" x="146" y="70" width="22" height="22"/>
+                <use href="#i-cupcake" x="56" y="66" width="34" height="34"/>
+                <use href="#i-colher" x="10" y="110" width="28" height="28" transform="rotate(24 24 124)"/>
+                <use href="#i-biscoito" x="108" y="112" width="30" height="30"/>
+                <use href="#i-rolo" x="60" y="138" width="30" height="30"/>
+                <use href="#i-cereja" x="148" y="148" width="26" height="26"/>
+              </g>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#doces)"/>
+        </svg>
+        <div class="centro">
+          <svg><use href="#logo"/></svg>
+          <h4>Cada doce no seu tempo.</h4>
+          <p>Encomendas, agenda, preços e o financeiro da sua confeitaria, organizados para você.</p>
+        </div>
+      </div>
+      <div class="lado-dir">
+        <div class="marca"><svg><use href="#logo"/></svg><span class="traco"></span><span><b>Facter <strong>Chef</strong></b><small>Gestão para confeitarias</small></span></div>
+        <div class="form"><h3>Entrar</h3><p class="ola">Que bom te ver de novo!</p><div class="campo"><span>E-mail</span></div><div class="campo"><span>Senha</span></div><div class="botao">Entrar</div><p class="suporte">Ainda não tem acesso? Fale com o suporte da Facter.</p></div>
+      </div>
+    </div></div>
+    <div class="pros">
+      <div><b>A favor</b>Tem cara de confeitaria sem pesar: o padrão fica no fundo, quase como textura. Fácil de fazer (são ícones de traço) e funciona igual no modo escuro.</div>
+      <div><b>Contra</b>Menos impacto que a ilustração; o cartão do centro precisa de contraste bom com o padrão.</div>
+    </div>
+  </section>
+
+  <div class="recomendo">
+    <h2>Recomendação: 3, com a 1 como evolução</h2>
+    <p>O <b>padrão de doces</b> dá identidade de confeitaria com pouco risco: é leve, não envelhece e fica bonito no claro e no escuro. Se quiser algo mais marcante depois, a <b>ilustração</b> pode entrar no lugar do cartão do centro.</p>
+    <p class="mut">Como fazer: o <code>AuthLayout.Image</code> do DS só aceita foto ou o desenho de exemplo; o lado esquerdo vira um painel nosso com as mesmas medidas (<code>hidden xl:block w-1/2</code>), com o fundo pelo token <code>faixa</code>. No celular não aparece.</p>
+  </div>
+</div>
+</body>
+</html>

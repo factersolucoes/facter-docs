@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Melhorias da planilha · Confeitaria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* Tema confeitaria (chocolate) do DS: mesmas variáveis do produto. */
+  :root{
+    --background:0 0% 98%;
+    --foreground:240 10% 3.9%;
+    --card:0 0% 100%;
+    --primary:20 45% 32%;
+    --primary-soft:20 45% 95%;
+    --muted:240 4.8% 93.9%;
+    --muted-foreground:240 3.8% 46%;
+    --border:240 5.9% 90%;
+    --success:160 60% 38%;
+    --success-ink:160 70% 24%;
+    --success-soft:160 55% 94%;
+    --warning-ink:28 85% 28%;
+    --warning-soft:40 95% 93%;
+    --danger-ink:0 72% 38%;
+    --danger-soft:0 86% 96%;
+    --info-ink:217 91% 38%;
+    --info-soft:217 85% 96%;
+    --canvas:225 14% 92%;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));
+    font:14px/1.45 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3,h4,p,ul{margin:0}
+  ul{padding:0;list-style:none}
+  button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
+  .i{display:inline-block;width:16px;height:16px;flex:none;background:currentColor;
+    -webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat}
+  .tab{font-variant-numeric:tabular-nums}
+  .mut{color:hsl(var(--muted-foreground))}
+
+  /* ---------- apresentação ---------- */
+  .doc{max-width:1400px;margin:0 auto;padding:48px 24px 96px}
+  .doc h1{font:800 32px/1.15 Sora,Inter,sans-serif;letter-spacing:-.02em}
+  .lead{color:hsl(var(--muted-foreground));max-width:84ch;margin-top:10px;font-size:14.5px;line-height:1.55}
+  .pecas{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
+  .pecas code{font:600 12px ui-monospace,Consolas,monospace;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:6px;padding:3px 7px}
+  .opcao{margin-top:64px;display:flex;flex-direction:column;gap:14px}
+  .opcao-topo{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .letra{font:800 13px Sora,Inter,sans-serif;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:hsl(var(--primary));color:#fff}
+  .opcao h2{font:800 22px/1.2 Sora,Inter,sans-serif;letter-spacing:-.01em}
+  .opcao .sub{font-size:14px;color:hsl(var(--muted-foreground));max-width:92ch}
+  .pros{display:flex;gap:24px;flex-wrap:wrap;font-size:13px}
+  .pros div{display:flex;flex-direction:column;gap:4px;max-width:48ch}
+  .pros b{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+  .rotulo{font-size:12px;font-weight:600;color:hsl(var(--muted-foreground));letter-spacing:.03em;text-transform:uppercase;margin-bottom:8px}
+  .quadros{display:flex;flex-direction:column;gap:24px}
+  .lado{display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start}
+
+  /* ---------- moldura (notebook 1366 × 720) ---------- */
+  .tela{position:relative;display:flex;height:720px;border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;background:hsl(var(--background));box-shadow:0 8px 30px -12px rgb(0 0 0 / .15)}
+  .menu{width:210px;flex:none;display:flex;flex-direction:column;background:hsl(var(--card));border-right:1px solid hsl(var(--border))}
+  .menu-topo{display:flex;align-items:center;gap:10px;height:60px;padding:0 14px;background:hsl(var(--primary));color:#fff;font:700 13px Inter}
+  .menu-topo small{display:block;font-weight:500;opacity:.8;font-size:11px}
+  .menu nav{padding:10px;display:flex;flex-direction:column;gap:2px;font-size:13px}
+  .menu nav p{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding:10px 8px 4px}
+  .menu nav a{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:8px}
+  .menu nav a.on{background:hsl(var(--primary-soft));color:hsl(var(--primary));font-weight:600;box-shadow:inset 3px 0 0 hsl(var(--primary))}
+  .corpo{flex:1;min-width:0;display:flex;flex-direction:column}
+  .barra{height:60px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border));font-weight:700}
+  .avatar{width:32px;height:32px;border-radius:999px;background:hsl(var(--primary));color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700}
+  .conteudo{padding:24px 28px;display:flex;flex-direction:column;gap:14px}
+  .cabeca{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .cabeca h3{font:800 24px/1.15 Sora,Inter,sans-serif;letter-spacing:-.015em}
+  .prod{display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px solid hsl(var(--border));border-radius:10px;background:hsl(var(--card))}
+  .prod .ic{padding:8px;border-radius:8px;background:hsl(var(--primary-soft));color:hsl(var(--primary));display:grid}
+  .prod b{font-weight:600}
+  .prod .preco{margin-left:auto;text-align:right;font-weight:600;color:hsl(var(--primary))}
+  .prod .preco small{display:block;font-weight:400;font-size:12px;color:hsl(var(--muted-foreground))}
+
+  /* véu + janela (Dialog do DS) */
+  .veu{position:absolute;inset:0;background:rgb(0 0 0 / .5);backdrop-filter:blur(1px)}
+  .janela{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;max-height:calc(100% - 48px);background:hsl(var(--card));border-radius:16px;box-shadow:0 24px 60px -16px rgb(0 0 0 / .45);overflow:hidden}
+  .j-topo{display:flex;align-items:center;gap:10px;padding:18px 22px 14px;flex:none}
+  .j-topo h4{font:800 19px Sora,Inter,sans-serif;letter-spacing:-.01em}
+  .j-topo .x{margin-left:auto;color:hsl(var(--muted-foreground));width:32px;height:32px;display:grid;place-items:center;border-radius:8px}
+  .j-rodape{display:flex;align-items:center;gap:8px;padding:12px 22px;border-top:1px solid hsl(var(--border));background:hsl(var(--muted) / .35);flex:none}
+  .rola{overflow:auto;min-height:0}
+
+  /* ---------- DS ---------- */
+  .card{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:38px;padding:0 16px;border-radius:8px;font-size:13.5px;font-weight:600;white-space:nowrap}
+  .btn.pri{background:hsl(var(--primary));color:#fff}
+  .btn.out{border:1px solid hsl(var(--border));background:hsl(var(--card))}
+  .btn.sm{height:32px;font-size:12.5px;padding:0 10px}
+  .btn.ico{width:32px;padding:0}
+  .btn.ghost{color:hsl(var(--muted-foreground))}
+  .btn.perigo{color:hsl(var(--danger-ink))}
+  .btn.sec{background:hsl(var(--card));color:hsl(var(--primary));border:1px solid hsl(var(--primary) / .25)}
+  .cap{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+  .chip{display:inline-flex;align-items:center;gap:4px;height:20px;padding:0 7px;border-radius:6px;font-size:11px;font-weight:600;white-space:nowrap}
+  .c-mut{background:hsl(var(--muted));color:hsl(var(--foreground) / .7)}
+  .c-ok{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+  .c-pri{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+  .api{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:hsl(var(--info-ink));background:hsl(var(--info-soft));border-radius:999px;padding:1px 7px;vertical-align:middle}
+
+  /* campos (Form.Input do DS: rótulo na borda) */
+  .campo{position:relative;display:flex;align-items:center;height:44px;padding:0 12px;border:2px solid hsl(var(--border));border-radius:8px;background:hsl(var(--background));font-size:14px;min-width:0}
+  .campo label{position:absolute;top:-9px;left:9px;padding:0 4px;background:hsl(var(--card));font-size:12px;font-weight:600;line-height:16px;white-space:nowrap}
+  .campo.sm{height:36px;font-size:13px}
+  .campo .un{margin-left:auto;color:hsl(var(--muted-foreground));font-size:12.5px}
+  .campo .sel{margin-left:auto;color:hsl(var(--muted-foreground))}
+  .campo.vazio{color:hsl(var(--muted-foreground))}
+  .dica{font-size:11.5px;color:hsl(var(--muted-foreground));margin-top:4px;padding-left:4px}
+  .radios{display:flex;gap:8px}
+  .radio{display:flex;align-items:center;gap:8px;height:40px;padding:0 14px;border:2px solid hsl(var(--border));border-radius:8px;font-size:13.5px;font-weight:600;white-space:nowrap}
+  .radio::before{content:"";width:14px;height:14px;border-radius:99px;border:1.5px solid hsl(var(--border))}
+  .radio.on{border-color:hsl(var(--primary))}
+  .radio.on::before{border:4px solid hsl(var(--primary))}
+  .rot-radio{font-size:13px;font-weight:600;margin-bottom:6px}
+
+  /* seções do formulário */
+  .sec{padding:14px 22px;display:flex;flex-direction:column;gap:14px}
+  .sec + .sec{border-top:1px solid hsl(var(--border))}
+  .sec-topo{display:flex;align-items:center;justify-content:space-between;min-height:32px}
+  .linha2{display:grid;gap:12px}
+
+  /* composição */
+  .comp-cab,.comp li{display:grid;grid-template-columns:minmax(0,1fr) 120px 76px 28px;gap:10px;align-items:center}
+  .comp-cab{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding-bottom:2px}
+  .comp li{padding:6px 0;border-top:1px solid hsl(var(--border));font-size:13.5px}
+  .comp li:first-child{border-top:0}
+  .comp b{font-weight:600;display:flex;align-items:center;gap:6px;min-width:0}
+  .comp .custo{text-align:right;font-weight:600}
+  .rende{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;border-top:1px solid hsl(var(--border));padding-top:12px}
+  .total-comp{text-align:right}
+  .total-comp small{display:block;color:hsl(var(--muted-foreground));font-size:12.5px}
+  .total-comp b{font:800 18px Sora,Inter,sans-serif}
+
+  /* preço */
+  .linhas li{display:flex;justify-content:space-between;font-size:13px;padding:2px 0}
+  .linhas li span:first-child{color:hsl(var(--muted-foreground))}
+  .linhas li.forte{border-top:1px solid hsl(var(--border));margin-top:4px;padding-top:6px;font-weight:600}
+  .linhas li.forte span:first-child{color:inherit}
+  .sugerido{border-radius:10px;background:hsl(var(--primary-soft));padding:12px 14px}
+  .sugerido small{font-size:12.5px;color:hsl(var(--muted-foreground))}
+  .sugerido .v{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .sugerido b{font:800 22px Sora,Inter,sans-serif;color:hsl(var(--primary))}
+  .margem{display:flex;justify-content:space-between;align-items:center;font-size:13px}
+
+  /* resumo do preço no pé (B e C) */
+  .resumo{display:flex;align-items:center;gap:18px;font-size:12.5px;margin-right:auto}
+  .resumo small{display:block;color:hsl(var(--muted-foreground));font-size:11.5px}
+  .resumo b{font:800 15px Sora,Inter,sans-serif}
+  .resumo .sep{width:1px;height:28px;background:hsl(var(--border))}
+
+  /* passos (Wizard do DS) */
+  .passos{display:flex;align-items:center;gap:10px;padding:0 22px 14px;font-size:13px;flex:none;border-bottom:1px solid hsl(var(--border))}
+  .passo{display:flex;align-items:center;gap:8px;color:hsl(var(--muted-foreground));font-weight:500}
+  .passo i.n{font-style:normal;width:22px;height:22px;border-radius:99px;display:grid;place-items:center;font-size:11.5px;font-weight:700;border:1.5px solid hsl(var(--border))}
+  .passo.feito i.n{background:hsl(var(--success-soft));border-color:transparent;color:hsl(var(--success-ink))}
+  .passo.agora{color:hsl(var(--foreground));font-weight:600}
+  .passo.agora i.n{background:hsl(var(--primary));border-color:hsl(var(--primary));color:#fff}
+  .passos .traco{flex:1;max-width:48px;height:1.5px;background:hsl(var(--border))}
+
+  /* painel lateral (C) */
+  .lateral{position:absolute;top:0;right:0;bottom:0;width:620px;display:flex;flex-direction:column;background:hsl(var(--card));box-shadow:-24px 0 60px -20px rgb(0 0 0 / .35)}
+  .dobra{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:hsl(var(--primary))}
+
+  /* celular */
+  .cel{width:360px;max-width:100%;border:1px solid hsl(var(--border));border-radius:28px;overflow:hidden;background:hsl(var(--background));box-shadow:0 8px 30px -12px rgb(0 0 0 / .2);display:flex;flex-direction:column;height:720px;position:relative}
+  .cel .veu{border-radius:28px}
+  .folha{position:absolute;left:0;right:0;bottom:0;top:28px;display:flex;flex-direction:column;background:hsl(var(--card));border-radius:20px 20px 0 0}
+  .folha .alca{width:40px;height:4px;border-radius:9px;background:hsl(var(--border));margin:8px auto 0;flex:none}
+  .folha .sec{padding:12px 16px}
+  .folha .j-topo{padding:10px 16px 8px}
+  .folha .j-rodape{padding:10px 16px 16px}
+  .folha .comp-cab,.folha .comp li{grid-template-columns:minmax(0,1fr) 92px 62px}
+  .folha .passos{padding:0 16px 10px;gap:6px;font-size:12px}
+
+  table.cmp{width:100%;border-collapse:collapse;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;font-size:13.5px}
+  table.cmp th,table.cmp td{padding:10px 14px;text-align:left;border-top:1px solid hsl(var(--border));vertical-align:top}
+  table.cmp thead th{border-top:0;background:hsl(var(--muted) / .5);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:hsl(var(--muted-foreground))}
+  .reco{margin-top:16px;padding:16px 18px;border-radius:14px;background:hsl(var(--primary-soft));color:hsl(var(--primary));font-size:14px;line-height:1.55}
+</style>
+<style>
+  .bloco{margin-top:72px;padding-top:24px;border-top:2px solid hsl(var(--border))}
+  .bloco>h2{font:800 26px/1.2 Sora,Inter,sans-serif;letter-spacing:-.015em}
+  .bloco>.lead{margin-top:6px}
+  table.t{width:100%;border-collapse:collapse;font-size:13px}
+  table.t th{height:34px;padding:0 12px;text-align:left;font-size:11px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:hsl(var(--muted-foreground));background:hsl(var(--muted) / .45);border-top:1px solid hsl(var(--border));border-bottom:1px solid hsl(var(--border));white-space:nowrap}
+  table.t td{height:42px;padding:0 12px;border-bottom:1px solid hsl(var(--border));white-space:nowrap}
+  table.t .num{text-align:right;font-variant-numeric:tabular-nums}
+  .canal{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px 12px;align-items:center;padding:9px 0;border-top:1px solid hsl(var(--border));font-size:13px}
+  .canal:first-child{border-top:0}
+  .canal small{display:block;font-size:12px;color:hsl(var(--muted-foreground))}
+  .canal b{font-variant-numeric:tabular-nums}
+  .preco-canal{font:800 16px Sora,Inter,sans-serif;font-variant-numeric:tabular-nums;text-align:right}
+  .ic-canal{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+  .item-fixo{display:grid;grid-template-columns:minmax(0,1fr) 120px 28px;gap:10px;align-items:center;padding:5px 0}
+  .soma{display:flex;justify-content:space-between;align-items:center;border-top:1px solid hsl(var(--border));padding-top:10px;font-size:13.5px}
+  .ajudante{border:1.5px dashed hsl(var(--primary) / .35);border-radius:12px;padding:12px;background:hsl(var(--primary-soft) / .4);display:flex;flex-direction:column;gap:10px}
+  .resposta{display:flex;justify-content:space-between;align-items:center;border-radius:10px;background:hsl(var(--card));padding:10px 12px;font-size:13px}
+  .resposta b{font:800 18px Sora,Inter,sans-serif;color:hsl(var(--primary))}
+  .pessoa{display:grid;grid-template-columns:36px minmax(0,1fr) auto auto;gap:10px;align-items:center;padding:10px 0;border-top:1px solid hsl(var(--border));font-size:13px}
+  .pessoa:first-child{border-top:0}
+  .av{width:36px;height:36px;border-radius:99px;display:grid;place-items:center;background:hsl(var(--primary-soft));color:hsl(var(--primary));font-weight:700}
+  .seg{display:flex;height:38px;border:2px solid hsl(var(--border));border-radius:8px;overflow:hidden;font-size:12.5px;font-weight:600}
+  .seg span{flex:1;padding:0 10px;display:flex;align-items:center;justify-content:center;color:hsl(var(--muted-foreground))}
+  .seg span.on{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+  .passos-w{display:flex;gap:8px;align-items:center;font-size:12.5px}
+  .passos-w span{display:flex;align-items:center;gap:6px;color:hsl(var(--muted-foreground))}
+  .passos-w i{font-style:normal;width:22px;height:22px;border-radius:99px;display:grid;place-items:center;border:1.5px solid hsl(var(--border));font-size:11px;font-weight:700}
+  .passos-w .feito i{background:hsl(var(--success-soft));color:hsl(var(--success-ink));border-color:transparent}
+  .passos-w .agora{color:hsl(var(--foreground));font-weight:600}
+  .passos-w .agora i{background:hsl(var(--primary));color:#fff;border-color:hsl(var(--primary))}
+  .passos-w .tr{width:24px;height:1.5px;background:hsl(var(--border))}
+  .media li{display:grid;grid-template-columns:minmax(0,1fr) repeat(3,64px) 84px;gap:8px;font-size:12.5px;padding:6px 0;border-top:1px solid hsl(var(--border));font-variant-numeric:tabular-nums}
+  .media li:first-child{border-top:0;font-size:11px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+  .media li span:not(:first-child){text-align:right}
+  .tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;border-radius:999px;padding:1px 8px;background:hsl(var(--muted));color:hsl(var(--foreground) / .7)}
+</style>
+</head>
+<body>
+<main class="doc">
+  <p class="cap">Confeitaria · Melhorias da planilha · Em discussão · 26/10/2026</p>
+  <h1>O que a planilha tem e o sistema ainda não</h1>
+  <p class="lead">A planilha “DEZ_23 – Precificação” mostrou cinco coisas que faltam: <b>taxa por canal de venda</b> (iFood, cartão), <b>funcionários</b>, um <b>ajudante para o valor da hora</b>, <b>custos fixos item a item</b> e o <b>desconto para revenda</b> (mais a fita por <b>centímetro</b>). Os dois assuntos grandes têm 3 caminhos cada; os pequenos, uma proposta só. Exemplos com os números da planilha.</p>
+
+  <!-- =================================== 1. CANAIS =================================== -->
+  <section class="bloco">
+    <p class="cap">Assunto 1</p>
+    <h2>Taxa por canal de venda</h2>
+    <p class="lead">Hoje existe uma “taxa” só em Configurações. Na planilha, o mesmo produto tem um preço no balcão, outro no cartão e outro no iFood (16% no Básico, 27% no Entrega Plus). Exemplo: um bolo com custo de R$ 72,90, custos fixos 10%, impostos 5% e lucro 30%.</p>
+
+    <section class="opcao">
+      <div class="opcao-topo"><span class="letra">A</span><h2>Canais em Configurações, preço de cada canal à vista</h2></div>
+      <p class="sub">Ela cadastra os canais uma vez (nome + taxa). Onde hoje aparece o preço sugerido (Precificação e Produto), aparece também a lista “em cada canal”, já com a taxa embutida. O preço que fica salvo no produto continua sendo o do balcão.</p>
+      <div class="pros"><div><b>Ganha</b>Simples, sem mudar encomenda nem produto. Ela vê na hora quanto cobrar no iFood para não perder lucro.</div><div><b>Cuidado</b>O sistema não sabe por qual canal cada encomenda veio (o Financeiro não separa).</div></div>
+      <div class="quadros"><div class="lado">
+        <div><p class="rotulo">Configurações · canais de venda</p><div class="card" style="width:460px;padding:16px 18px" data-canais-config></div></div>
+        <div><p class="rotulo">Precificação · preço em cada canal</p><div class="card" style="width:420px;padding:16px 18px" data-canais-preco></div></div>
+      </div></div>
+    </section>
+
+    <section class="opcao">
+      <div class="opcao-topo"><span class="letra">B</span><h2>Tabela de preços por canal no produto</h2></div>
+      <p class="sub">Além da A, cada produto guarda um preço por canal (sugerido pelo sistema, ela pode arredondar). Na lista de Produtos dá para ver as colunas Balcão / Cartão / iFood. Bom para quem tem cardápio no iFood com preço diferente.</p>
+      <div class="pros"><div><b>Ganha</b>Cardápio do iFood pronto; o preço arredondado de cada canal fica guardado.</div><div><b>Precisa</b><span>Guardar preço por canal no produto <span class="api">API</span> e manter atualizado quando o custo muda.</span></div></div>
+      <div class="quadros"><div><p class="rotulo">Produtos · colunas por canal</p><div class="card" style="overflow:hidden;max-width:960px" data-tabela-canais></div></div></div>
+    </section>
+
+    <section class="opcao">
+      <div class="opcao-topo"><span class="letra">C</span><h2>Canal na encomenda: a taxa entra na conta do pedido</h2></div>
+      <p class="sub">Além da A, a encomenda ganha “Por onde veio” (WhatsApp, iFood, balcão…). O pedido mostra a taxa que a plataforma vai levar e quanto chega de verdade; o Financeiro passa a mostrar quanto entrou por canal e quanto foi em taxas.</p>
+      <div class="pros"><div><b>Ganha</b>Ela descobre quanto o iFood leva por mês e qual canal dá mais lucro.</div><div><b>Precisa</b><span>Canal na encomenda e taxa no pagamento <span class="api">API</span>. Mexe em Encomendas e Financeiro.</span></div></div>
+      <div class="quadros"><div class="lado">
+        <div><p class="rotulo">Nova encomenda · resumo à direita</p><div class="card" style="width:340px;padding:16px 18px" data-canal-encomenda></div></div>
+        <div><p class="rotulo">Financeiro · por canal</p><div class="card" style="width:420px;padding:16px 18px" data-canal-financeiro></div></div>
+      </div></div>
+    </section>
+
+    <table class="cmp" style="margin-top:28px"><thead><tr><th></th><th>A · Canais + preço por canal</th><th>B · + tabela no produto</th><th>C · + canal na encomenda</th></tr></thead><tbody>
+      <tr><th>Mostra o preço no iFood</th><td>Sim</td><td>Sim, e guarda</td><td>Sim</td></tr>
+      <tr><th>Sabe quanto o iFood levou no mês</th><td>Não</td><td>Não</td><td>Sim</td></tr>
+      <tr><th>Muda</th><td>Configurações, Precificação, Produto</td><td>+ Produtos (lista e cadastro)</td><td>+ Encomendas e Financeiro</td></tr>
+      <tr><th>Esforço</th><td>Baixo</td><td>Médio</td><td>Médio/alto</td></tr>
+    </tbody></table>
+    <p class="reco"><b>Recomendação: A agora.</b> Resolve o que a planilha faz (preço por canal) com pouca mudança. A C é o passo seguinte natural quando ela começar a vender pelo iFood de verdade.</p>
+  </section>
+
+  <!-- =================================== 2. SEUS NÚMEROS =================================== -->
+  <section class="bloco">
+    <p class="cap">Assunto 2</p>
+    <h2>Seus números: valor da hora, equipe e custos fixos</h2>
+    <p class="lead">Na planilha ela responde perguntas simples (“quanto quero ganhar? quantas horas por dia? quantos dias?”), cadastra a funcionária e lista os custos fixos um a um. No sistema hoje é preciso digitar o valor da hora pronto e um total de custos fixos já somado. Números da planilha: quer ganhar R$ 1.500, 6 h por dia, 6 dias por semana; funcionária R$ 800, 4 h por dia, 6 dias; custos fixos de R$ 1.950 (sem o salário, para não contar a funcionária duas vezes como na planilha).</p>
+
+    <section class="opcao">
+      <div class="opcao-topo"><span class="letra">A</span><h2>Configurações em seções, com ajudantes</h2></div>
+      <p class="sub">A tela de Configurações vira um console: à esquerda as seções <b>Sua hora</b> (com o ajudante “calcular para mim”), <b>Equipe</b>, <b>Custos fixos</b> (lista item a item, soma sozinha) e <b>Canais</b>; à direita um painel fixo mostra o resultado: quanto custa 1 hora de produção (você + equipe), o custo fixo e como ele entra no preço.</p>
+      <div class="pros"><div><b>Ganha</b>Tudo num lugar, com a conta explicada. Quem já sabe o valor da hora digita direto; quem não sabe usa o ajudante.</div><div><b>Precisa</b><span>Guardar equipe e itens de custo fixo <span class="api">API</span>. Uma tela mais longa (rola à esquerda).</span></div></div>
+      <div class="quadros"><div><p class="rotulo">Notebook · Configurações</p><div class="tela" data-menu-cfg style="height:auto;min-height:760px"><div class="corpo"><div class="barra">Configurações<span class="avatar">AD</span></div><div style="padding:16px 28px;display:flex;flex-direction:column;gap:12px"><div class="cabeca"><h3>Configurações</h3><span class="btn pri">Salvar</span></div><div style="display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:14px;align-items:start"><div class="card" style="overflow:hidden" data-cfg-esq></div><div class="card" style="overflow:hidden" data-cfg-dir></div></div></div></div></div></div></div>
+    </section>
+
+    <section class="opcao">
+      <div class="opcao-topo"><span class="letra">B</span><h2>“Monte seus números” em 4 passos</h2></div>
+      <p class="sub">Um passo a passo (Wizard do DS) que aparece no primeiro uso e pode ser refeito: <b>1 · Sua hora</b> → <b>2 · Equipe</b> → <b>3 · Custos fixos</b> → <b>4 · Lucro e canais</b>. No fim, mostra o resumo e salva tudo em Configurações. A tela de Configurações continua simples para ajustes.</p>
+      <div class="pros"><div><b>Ganha</b>Ótimo para quem está começando: uma pergunta de cada vez, como a planilha.</div><div><b>Cuidado</b>Para mudar um número só, ela volta para a tela de Configurações (que continua existindo).</div></div>
+      <div class="quadros"><div><p class="rotulo">Passo 1 · Sua hora</p><div class="card" style="width:620px;max-width:100%;overflow:hidden;box-shadow:0 24px 60px -16px rgb(0 0 0 / .2)" data-wizard></div></div></div>
+    </section>
+
+    <section class="opcao">
+      <div class="opcao-topo"><span class="letra">C</span><h2>Custos fixos vindos do Financeiro</h2></div>
+      <p class="sub">Em vez de digitar os custos fixos, o sistema usa a <b>média dos últimos 3 meses</b> das despesas que ela já lança no Financeiro (contas fixas, DAS, aluguel…), e o faturamento médio também sai de lá. Ela só confere. A hora e a equipe ficam como na A.</p>
+      <div class="pros"><div><b>Ganha</b>Ninguém digita o mesmo número duas vezes; o preço acompanha a vida real (a luz subiu, o preço sugerido sobe).</div><div><b>Cuidado</b>Precisa de uns meses de despesas lançadas; antes disso, ela digita como hoje.</div></div>
+      <div class="quadros"><div><p class="rotulo">Configurações · seção Custos fixos</p><div class="card" style="width:560px;padding:16px 18px" data-fixos-financeiro></div></div></div>
+    </section>
+
+    <section class="opcao" style="margin-top:36px">
+      <div class="opcao-topo"><h2>E o jeito de repartir o custo fixo?</h2></div>
+      <p class="sub">A planilha reparte o custo fixo <b>por hora trabalhada</b> (R$ 1.950 ÷ 156 h = R$ 12,50 por hora de produção): receita demorada paga mais. O sistema reparte <b>como % do faturamento</b> (R$ 1.950 ÷ faturamento médio): todo produto paga a mesma fatia. Proposta: deixar ela escolher em Configurações, com o nosso jeito como padrão.</p>
+      <div class="card" style="max-width:640px;padding:14px 16px;display:flex;flex-direction:column;gap:10px"><p class="rot-radio" style="margin:0">Como repartir os custos fixos no preço</p><div class="seg"><span class="on">Pelo faturamento (% do preço)</span><span>Pelas horas de produção</span></div><p class="nota mut" style="font-size:12.5px">Pelo faturamento: com R$ 1.950 de custos e R$ 8.000 de faturamento, cada venda reserva 24% para os custos fixos.</p></div>
+    </section>
+
+    <table class="cmp" style="margin-top:28px"><thead><tr><th></th><th>A · Seções com ajudantes</th><th>B · Passo a passo</th><th>C · Do Financeiro</th></tr></thead><tbody>
+      <tr><th>Valor da hora</th><td>Ajudante dentro da seção</td><td>Passo 1</td><td>Como na A</td></tr>
+      <tr><th>Equipe</th><td>Lista de pessoas</td><td>Passo 2</td><td>Como na A</td></tr>
+      <tr><th>Custos fixos</th><td>Lista item a item</td><td>Passo 3, item a item</td><td>Média do Financeiro</td></tr>
+      <tr><th>Para quem</th><td>Todo mundo</td><td>Quem está começando</td><td>Quem já lança despesas</td></tr>
+    </tbody></table>
+    <p class="reco"><b>Recomendação: A, com a C como opção dentro da seção Custos fixos</b> (“usar a média do Financeiro” quando houver 3 meses de despesas). O passo a passo da B pode vir depois, para o primeiro acesso.</p>
+  </section>
+
+  <!-- =================================== 3. PEQUENOS =================================== -->
+  <section class="bloco">
+    <p class="cap">Assuntos 3 e 4 · uma proposta cada</p>
+    <h2>Desconto para revenda e fita por centímetro</h2>
+    <div class="quadros" style="margin-top:18px"><div class="lado">
+      <div><p class="rotulo">Precificação · “Vender para revenda”</p><p class="sub" style="max-width:420px;margin-bottom:10px">Ao lado do “E se eu cobrar…?”, um campo de desconto: ela diz quanto quer dar para um café revender e vê o preço e o lucro que sobra.</p><div class="card" style="width:420px;padding:14px" data-revenda></div></div>
+      <div><p class="rotulo">Insumo · comprar por metro, usar por cm</p><p class="sub" style="max-width:420px;margin-bottom:10px">Novas unidades de compra <b>metro (m)</b> e <b>centímetro (cm)</b>, para fita, laço, papel em rolo. Comprou 10 m por R$ 12,00 → custa R$ 0,012 o cm; no produto, “40 cm de fita”.</p><div class="card" style="width:420px;padding:14px" data-fita></div></div>
+    </div></div>
+  </section>
+
+  <section class="bloco">
+    <h2>Ordem sugerida</h2>
+    <p class="reco"><b>1.</b> Canais de venda (A) · <b>2.</b> Seus números (A, com a média do Financeiro como opção) · <b>3.</b> Desconto para revenda · <b>4.</b> Metro/centímetro. O estoque, que a planilha tem como coluna vazia, segue na fase 2.</p>
+  </section>
+</main>
+
+<script>
+  const ico = (nome, extra = "") => `<i class="i" style="--ico:url(https://api.iconify.design/ph/${nome}.svg);${extra}"></i>`;
+  const R = (v) => "R$ " + v.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const CANAIS = [["chat-circle-dots", "WhatsApp e balcão", "Pix e dinheiro", 0], ["credit-card", "Cartão de crédito", "maquininha", 3.99], ["moped", "iFood Básico", "ela entrega", 16], ["moped-front", "iFood Entrega Plus", "o iFood entrega", 27]];
+  const custo = 72.9, base = 45; // fixos 10 + impostos 5 + lucro 30
+  const preco = (t) => custo / (1 - (base + t) / 100);
+
+  document.querySelector("[data-canais-config]").innerHTML = `<div class="sec-topo" style="margin-bottom:6px"><span class="cap">Canais de venda</span><span class="btn out sm" data-ico="plus">Novo canal</span></div>
+    ${CANAIS.map(([i, n, s, t]) => `<div class="canal" style="grid-template-columns:30px minmax(0,1fr) 110px 28px"><span class="ic-canal">${ico(i)}</span><span><b style="font-weight:600">${n}</b><small>${s}</small></span><span class="campo sm">${t.toLocaleString("pt-BR")}<span class="un">%</span></span>${ico("trash", "color:hsl(var(--muted-foreground))")}</div>`).join("")}
+    <p class="mut" style="font-size:12px;margin-top:8px">A taxa é o que a maquininha ou a plataforma leva de cada venda. O primeiro canal é o padrão dos produtos.</p>`;
+  document.querySelector("[data-canais-preco]").innerHTML = `<span class="cap">Preço sugerido em cada canal</span><p class="mut" style="font-size:12.5px;margin:2px 0 6px">Custo R$ 72,90 · mesmo lucro de 30% em todos</p>
+    ${CANAIS.map(([i, n, s, t], k) => `<div class="canal"><span style="display:flex;align-items:center;gap:10px"><span class="ic-canal">${ico(i)}</span><span><b style="font-weight:600">${n}</b><small>taxa ${t.toLocaleString("pt-BR")}%</small></span></span><span class="mut tab" style="font-size:12px">${k ? "+" + R(preco(t) - preco(0)) : ""}</span><span class="preco-canal" style="${k ? "" : "color:hsl(var(--primary))"}">${R(preco(t))}</span></div>`).join("")}`;
+
+  const PRODS = [["Bolo de chocolate com brigadeiro", 72.9, 150], ["Bolo de ninho com morango", 81, 165], ["Mini Mimo", 8.77, 25], ["Cupcake de baunilha", 4.1, 9], ["Torta de limão", 52, 95]];
+  document.querySelector("[data-tabela-canais]").innerHTML = `<table class="t"><thead><tr><th>Produto</th><th class="num">Custo</th><th class="num">WhatsApp e balcão</th><th class="num">Cartão</th><th class="num">iFood Básico</th><th class="num">iFood Entrega</th></tr></thead><tbody>${PRODS.map(([n, c, p]) => { const pr = (t) => p / (1 - t / 100); return `<tr><td><b style="font-weight:600">${n}</b></td><td class="num mut">${R(c)}</td><td class="num"><b>${R(p)}</b></td><td class="num">${R(Math.ceil(pr(3.99)))}</td><td class="num">${R(Math.ceil(pr(16)))}</td><td class="num">${R(Math.ceil(pr(27)))}</td></tr>`; }).join("")}</tbody></table><p class="mut" style="font-size:12px;padding:10px 12px">Os outros canais partem do preço do balcão com a taxa embutida (para chegar o mesmo dinheiro), arredondado para cima. Ela pode mudar.</p>`;
+
+  document.querySelector("[data-canal-encomenda]").innerHTML = `<span class="cap">Resumo</span>
+    <div style="margin:10px 0"><p class="rot-radio">Por onde veio</p><div class="seg" style="height:34px"><span>WhatsApp</span><span class="on">iFood</span><span>Balcão</span></div></div>
+    <ul class="linhas tab" style="margin:0;padding:0;list-style:none;font-size:13px">
+      <li style="display:flex;justify-content:space-between;padding:3px 0"><span class="mut">Total do pedido</span><b>R$ 187,00</b></li>
+      <li style="display:flex;justify-content:space-between;padding:3px 0"><span class="mut">Taxa do iFood (16%)</span><span>− R$ 29,92</span></li>
+      <li style="display:flex;justify-content:space-between;padding:6px 0 0;border-top:1px solid hsl(var(--border));margin-top:4px"><b>Chega para você</b><b style="color:hsl(var(--success-ink))">R$ 157,08</b></li></ul>`;
+  document.querySelector("[data-canal-financeiro]").innerHTML = `<span class="cap">Entrou por canal · outubro</span>
+    ${[["WhatsApp e balcão", 1835, 0], ["iFood", 640, 102.4], ["Cartão de crédito", 160, 6.38]].map(([n, v, t]) => `<div class="canal"><span><b style="font-weight:600">${n}</b><small>${t ? "taxas " + R(t) : "sem taxa"}</small></span><span></span><span class="preco-canal" style="font-size:14px">${R(v)}</span></div>`).join("")}
+    <div class="soma" style="margin-top:6px"><span>Pago em taxas no mês</span><b style="color:hsl(var(--danger-ink))">${R(108.78)}</b></div>`;
+
+  // Seus números (A)
+  const fixos = [["Água", 135], ["Luz", 600], ["Aluguel", 600], ["Transporte", 200], ["Gás", 130], ["Internet", 100], ["Materiais de limpeza", 100], ["MEI (DAS)", 85]];
+  document.querySelector("[data-cfg-esq]").innerHTML = `
+    <section class="sec"><div class="sec-topo"><span class="cap">Sua hora</span></div>
+      <div class="linha2" style="grid-template-columns:minmax(0,1fr) auto;align-items:center"><div class="campo"><label>Valor da sua hora (R$)</label>9,62</div><span class="btn out sm" data-ico="magic-wand">Calcular para mim</span></div>
+      <div class="ajudante"><p class="rot-radio" style="margin:0">Calcular pelo que você quer ganhar</p>
+        <div class="linha2" style="grid-template-columns:repeat(3,minmax(0,1fr))"><div class="campo sm"><label>Quero ganhar por mês</label>1.500,00</div><div class="campo sm"><label>Horas por dia</label>6</div><div class="campo sm"><label>Dias por semana</label>6</div></div>
+        <div class="resposta"><span class="mut">6 h × 6 dias × 4,33 semanas = <b style="font:600 13px Inter;color:hsl(var(--foreground))">156 h</b> por mês</span><span>R$ <b>9,62</b>/h</span></div>
+        <div style="display:flex;justify-content:flex-end"><span class="btn pri sm">Usar R$ 9,62</span></div></div>
+      <div class="campo"><label>Custo do forno por hora (R$)</label>3,00</div></section>
+    <section class="sec" style="border-top:1px solid hsl(var(--border))"><div class="sec-topo"><span class="cap">Equipe</span><span class="btn out sm" data-ico="plus">Pessoa</span></div>
+      <div class="pessoa"><span class="av">J</span><span><b style="font-weight:600">Júlia</b><small class="mut" style="display:block;font-size:12px">R$ 800,00 por mês · 4 h por dia · 6 dias</small></span><span class="tag">R$ 7,69/h</span>${ico("pencil-simple", "color:hsl(var(--muted-foreground))")}</div>
+      <p class="mut" style="font-size:12px">O salário da equipe entra no custo da hora de produção, não nos custos fixos (assim não conta duas vezes).</p></section>
+    <section class="sec" style="border-top:1px solid hsl(var(--border))"><div class="sec-topo"><span class="cap">Custos fixos do mês</span><span class="btn out sm" data-ico="plus">Item</span></div>
+      ${fixos.map(([n, v]) => `<div class="item-fixo"><span class="campo sm" style="height:34px">${n}</span><span class="campo sm" style="height:34px">${v.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}<span class="un">R$</span></span>${ico("trash", "color:hsl(var(--muted-foreground))")}</div>`).join("")}
+      <div class="soma"><span>Total por mês</span><b class="tab">R$ 1.950,00</b></div>
+      <div class="campo"><label>Faturamento médio por mês (R$)</label>8.000,00</div></section>`;
+  document.querySelector("[data-cfg-dir]").innerHTML = `<section class="sec"><span class="cap">1 hora de produção custa</span><p style="font:800 28px Sora;color:hsl(var(--primary))" class="tab">R$ 17,31</p>
+      <ul style="margin:0;padding:0;list-style:none;font-size:13px" class="tab"><li style="display:flex;justify-content:space-between;padding:3px 0"><span class="mut">Você</span><span>R$ 9,62</span></li><li style="display:flex;justify-content:space-between;padding:3px 0"><span class="mut">Júlia</span><span>R$ 7,69</span></li></ul>
+      <p class="mut" style="font-size:12px">Entra no produto pelo tempo de trabalho (ex.: 90 min = R$ 25,97).</p></section>
+    <section class="sec" style="border-top:1px solid hsl(var(--border))"><span class="cap">Custos fixos no preço</span><p style="font:800 22px Sora" class="tab">24%</p><p class="mut" style="font-size:12.5px">R$ 1.950 de custos ÷ R$ 8.000 de faturamento. Cada venda reserva 24% para pagar as contas do mês.</p></section>
+    <section class="sec" style="border-top:1px solid hsl(var(--border))"><span class="cap">Percentuais sobre a venda</span><div class="linha2" style="grid-template-columns:1fr 1fr"><div class="campo sm"><label>Impostos</label>5<span class="un">%</span></div><div class="campo sm"><label>Lucro</label>30<span class="un">%</span></div></div><p class="mut" style="font-size:12px">As taxas agora vêm de cada canal de venda.</p></section>`;
+
+  // Wizard (B)
+  document.querySelector("[data-wizard]").innerHTML = `<div class="j-topo"><h4>Monte seus números</h4><span class="x">${ico("x")}</span></div>
+    <div style="padding:0 22px 14px;border-bottom:1px solid hsl(var(--border))"><div class="passos-w"><span class="agora"><i>1</i>Sua hora</span><span class="tr"></span><span><i>2</i>Equipe</span><span class="tr"></span><span><i>3</i>Custos fixos</span><span class="tr"></span><span><i>4</i>Lucro e canais</span></div></div>
+    <div style="padding:16px 22px;display:flex;flex-direction:column;gap:14px"><p style="font-size:15px;font-weight:600">Quanto você quer ganhar com a confeitaria por mês?</p><div class="campo" style="height:52px;font-size:18px;font-weight:600"><label>Quero ganhar por mês (R$)</label>1.500,00</div>
+      <div class="linha2" style="grid-template-columns:1fr 1fr"><div class="campo"><label>Horas de trabalho por dia</label>6</div><div class="campo"><label>Dias por semana</label>6</div></div>
+      <div class="resposta" style="background:hsl(var(--primary-soft))"><span class="mut">São <b style="font:600 13px Inter;color:hsl(var(--foreground))">156 horas</b> por mês. Sua hora vale</span><span>R$ <b>9,62</b></span></div></div>
+    <div class="j-rodape"><span class="btn ghost sm" style="margin-right:auto">Pular</span><span class="btn pri">Continuar${ico("arrow-right")}</span></div>`;
+
+  // Do Financeiro (C)
+  const M = [["Contas fixas (luz, água, internet)", 835, 810, 860], ["Aluguel", 600, 600, 600], ["DAS (imposto do MEI)", 76.6, 76.6, 76.6], ["Outras fixas (gás, transporte, limpeza)", 410, 455, 425]];
+  document.querySelector("[data-fixos-financeiro]").innerHTML = `<div class="sec-topo" style="margin-bottom:6px"><span class="cap">Custos fixos do mês</span><div class="seg" style="height:32px;width:280px"><span>Digitar</span><span class="on">Média do Financeiro</span></div></div>
+    <ul class="media" style="margin:0;padding:0;list-style:none"><li><span>Despesa</span><span>Ago</span><span>Set</span><span>Out</span><span>Média</span></li>${M.map(([n, a, s, o]) => `<li><span>${n}</span><span>${a.toLocaleString("pt-BR")}</span><span>${s.toLocaleString("pt-BR")}</span><span>${o.toLocaleString("pt-BR")}</span><b>${R((a + s + o) / 3)}</b></li>`).join("")}</ul>
+    <div class="soma" style="margin-top:6px"><span>Custos fixos (média de 3 meses)</span><b class="tab">${R(M.reduce((t, [, a, s, o]) => t + (a + s + o) / 3, 0))}</b></div>
+    <div class="soma" style="border-top:0;padding-top:4px"><span class="mut">Faturamento médio (o que entrou)</span><b class="tab">R$ 7.840,00</b></div>
+    <p class="mut" style="font-size:12px;margin-top:8px">Atualiza sozinho todo mês. Ingredientes, embalagens e pró-labore não entram (já estão no custo do produto ou no seu lucro).</p>`;
+
+  // revenda
+  document.querySelector("[data-revenda]").innerHTML = `<p class="rot-radio">Vender para revenda</p><div class="linha2" style="grid-template-columns:120px minmax(0,1fr);align-items:center"><div class="campo sm"><label>Desconto</label>20<span class="un">%</span></div><span class="tab" style="font-size:13px">Preço para o café: <b>R$ 20,60</b> <span class="mut">(de R$ 25,75)</span></span></div>
+    <div class="resposta" style="background:hsl(var(--warning-soft));margin-top:10px"><span style="color:hsl(var(--warning-ink));font-size:12.5px">Lucro cai para <b style="font:700 13px Inter;color:inherit">R$ 5,15 · 25%</b> por unidade</span><span class="mut" style="font-size:12px">custo R$ 15,45</span></div>`;
+  document.querySelector("[data-fita]").innerHTML = `<p class="rot-radio">Como você compra?</p><div class="linha2" style="grid-template-columns:minmax(0,1fr) 110px minmax(0,1fr)"><div class="campo"><label>Quantidade</label>10</div><div class="campo"><label>Unidade</label>m<span class="sel">${ico("caret-down")}</span></div><div class="campo"><label>Preço pago (R$)</label>12,00</div></div>
+    <div class="faixa-custo" style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;border-radius:10px;background:hsl(var(--primary-soft));padding:10px 14px"><div><small class="mut" style="font-size:12px">Custo calculado</small><br><b style="font:800 18px Sora;color:hsl(var(--primary))">R$ 1,20</b> <span style="font-weight:600;color:hsl(var(--primary))">por metro</span></div><small class="mut tab">R$ 0,012 por cm</small></div>`;
+
+  const MENU = `<div class="menu-topo"><span style="font-size:18px">🎂</span><span>Doces da Ana<small>Confeitaria</small></span></div>
+    <nav><p>Principal</p><a>${ico("squares-four")}Início</a><p>Vendas</p><a>${ico("clipboard-text")}Encomendas</a><a>${ico("calendar-blank")}Agenda</a><a>${ico("users")}Clientes</a>
+    <p>Produção</p><a>${ico("cake")}Produtos</a><a>${ico("book-open")}Receitas</a><a>${ico("grains")}Insumos</a>
+    <p>Gestão</p><a>${ico("calculator")}Precificação</a><a>${ico("wallet")}Financeiro</a><a class="on">${ico("gear")}Configurações</a></nav>`;
+  document.querySelectorAll("[data-menu-cfg]").forEach((el) => el.insertAdjacentHTML("afterbegin", `<div class="menu">${MENU}</div>`));
+  document.querySelectorAll("[data-ico]").forEach((el) => el.insertAdjacentHTML("afterbegin", ico(el.dataset.ico)));
+</script>
+</body>
+</html>

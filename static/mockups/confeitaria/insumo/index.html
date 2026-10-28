@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Insumo · Confeitaria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* Tema confeitaria (chocolate) do DS: mesmas variáveis do produto. */
+  :root{
+    --background:0 0% 98%;
+    --foreground:240 10% 3.9%;
+    --card:0 0% 100%;
+    --primary:20 45% 32%;
+    --primary-soft:20 45% 95%;
+    --muted:240 4.8% 93.9%;
+    --muted-foreground:240 3.8% 46%;
+    --border:240 5.9% 90%;
+    --success:160 60% 38%;
+    --success-ink:160 70% 24%;
+    --success-soft:160 55% 94%;
+    --warning-ink:28 85% 28%;
+    --warning-soft:40 95% 93%;
+    --danger-ink:0 72% 38%;
+    --danger-soft:0 86% 96%;
+    --info-ink:217 91% 38%;
+    --info-soft:217 85% 96%;
+    --canvas:225 14% 92%;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));
+    font:14px/1.45 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3,h4,p,ul{margin:0}
+  ul{padding:0;list-style:none}
+  button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
+  .i{display:inline-block;width:16px;height:16px;flex:none;background:currentColor;
+    -webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat}
+  .tab{font-variant-numeric:tabular-nums}
+  .mut{color:hsl(var(--muted-foreground))}
+
+  /* ---------- apresentação ---------- */
+  .doc{max-width:1400px;margin:0 auto;padding:48px 24px 96px}
+  .doc h1{font:800 32px/1.15 Sora,Inter,sans-serif;letter-spacing:-.02em}
+  .lead{color:hsl(var(--muted-foreground));max-width:84ch;margin-top:10px;font-size:14.5px;line-height:1.55}
+  .pecas{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
+  .pecas code{font:600 12px ui-monospace,Consolas,monospace;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:6px;padding:3px 7px}
+  .opcao{margin-top:64px;display:flex;flex-direction:column;gap:14px}
+  .opcao-topo{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .letra{font:800 13px Sora,Inter,sans-serif;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:hsl(var(--primary));color:#fff}
+  .opcao h2{font:800 22px/1.2 Sora,Inter,sans-serif;letter-spacing:-.01em}
+  .opcao .sub{font-size:14px;color:hsl(var(--muted-foreground));max-width:92ch}
+  .pros{display:flex;gap:24px;flex-wrap:wrap;font-size:13px}
+  .pros div{display:flex;flex-direction:column;gap:4px;max-width:48ch}
+  .pros b{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+  .rotulo{font-size:12px;font-weight:600;color:hsl(var(--muted-foreground));letter-spacing:.03em;text-transform:uppercase;margin-bottom:8px}
+  .quadros{display:flex;flex-direction:column;gap:24px}
+  .lado{display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start}
+
+  /* ---------- moldura (notebook 1366 × 720) ---------- */
+  .tela{position:relative;display:flex;height:720px;border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;background:hsl(var(--background));box-shadow:0 8px 30px -12px rgb(0 0 0 / .15)}
+  .menu{width:210px;flex:none;display:flex;flex-direction:column;background:hsl(var(--card));border-right:1px solid hsl(var(--border))}
+  .menu-topo{display:flex;align-items:center;gap:10px;height:60px;padding:0 14px;background:hsl(var(--primary));color:#fff;font:700 13px Inter}
+  .menu-topo small{display:block;font-weight:500;opacity:.8;font-size:11px}
+  .menu nav{padding:10px;display:flex;flex-direction:column;gap:2px;font-size:13px}
+  .menu nav p{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding:10px 8px 4px}
+  .menu nav a{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:8px}
+  .menu nav a.on{background:hsl(var(--primary-soft));color:hsl(var(--primary));font-weight:600;box-shadow:inset 3px 0 0 hsl(var(--primary))}
+  .corpo{flex:1;min-width:0;display:flex;flex-direction:column}
+  .barra{height:60px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border));font-weight:700}
+  .avatar{width:32px;height:32px;border-radius:999px;background:hsl(var(--primary));color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700}
+  .conteudo{padding:24px 28px;display:flex;flex-direction:column;gap:14px}
+  .cabeca{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .cabeca h3{font:800 24px/1.15 Sora,Inter,sans-serif;letter-spacing:-.015em}
+  .prod{display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px solid hsl(var(--border));border-radius:10px;background:hsl(var(--card))}
+  .prod .ic{padding:8px;border-radius:8px;background:hsl(var(--primary-soft));color:hsl(var(--primary));display:grid}
+  .prod b{font-weight:600}
+  .prod .preco{margin-left:auto;text-align:right;font-weight:600;color:hsl(var(--primary))}
+  .prod .preco small{display:block;font-weight:400;font-size:12px;color:hsl(var(--muted-foreground))}
+
+  /* véu + janela (Dialog do DS) */
+  .veu{position:absolute;inset:0;background:rgb(0 0 0 / .5);backdrop-filter:blur(1px)}
+  .janela{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;max-height:calc(100% - 48px);background:hsl(var(--card));border-radius:16px;box-shadow:0 24px 60px -16px rgb(0 0 0 / .45);overflow:hidden}
+  .j-topo{display:flex;align-items:center;gap:10px;padding:18px 22px 14px;flex:none}
+  .j-topo h4{font:800 19px Sora,Inter,sans-serif;letter-spacing:-.01em}
+  .j-topo .x{margin-left:auto;color:hsl(var(--muted-foreground));width:32px;height:32px;display:grid;place-items:center;border-radius:8px}
+  .j-rodape{display:flex;align-items:center;gap:8px;padding:12px 22px;border-top:1px solid hsl(var(--border));background:hsl(var(--muted) / .35);flex:none}
+  .rola{overflow:auto;min-height:0}
+
+  /* ---------- DS ---------- */
+  .card{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:38px;padding:0 16px;border-radius:8px;font-size:13.5px;font-weight:600;white-space:nowrap}
+  .btn.pri{background:hsl(var(--primary));color:#fff}
+  .btn.out{border:1px solid hsl(var(--border));background:hsl(var(--card))}
+  .btn.sm{height:32px;font-size:12.5px;padding:0 10px}
+  .btn.ico{width:32px;padding:0}
+  .btn.ghost{color:hsl(var(--muted-foreground))}
+  .btn.perigo{color:hsl(var(--danger-ink))}
+  .btn.sec{background:hsl(var(--card));color:hsl(var(--primary));border:1px solid hsl(var(--primary) / .25)}
+  .cap{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+  .chip{display:inline-flex;align-items:center;gap:4px;height:20px;padding:0 7px;border-radius:6px;font-size:11px;font-weight:600;white-space:nowrap}
+  .c-mut{background:hsl(var(--muted));color:hsl(var(--foreground) / .7)}
+  .c-ok{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+  .c-pri{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+  .api{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:hsl(var(--info-ink));background:hsl(var(--info-soft));border-radius:999px;padding:1px 7px;vertical-align:middle}
+
+  /* campos (Form.Input do DS: rótulo na borda) */
+  .campo{position:relative;display:flex;align-items:center;height:44px;padding:0 12px;border:2px solid hsl(var(--border));border-radius:8px;background:hsl(var(--background));font-size:14px;min-width:0}
+  .campo label{position:absolute;top:-9px;left:9px;padding:0 4px;background:hsl(var(--card));font-size:12px;font-weight:600;line-height:16px;white-space:nowrap}
+  .campo.sm{height:36px;font-size:13px}
+  .campo .un{margin-left:auto;color:hsl(var(--muted-foreground));font-size:12.5px}
+  .campo .sel{margin-left:auto;color:hsl(var(--muted-foreground))}
+  .campo.vazio{color:hsl(var(--muted-foreground))}
+  .dica{font-size:11.5px;color:hsl(var(--muted-foreground));margin-top:4px;padding-left:4px}
+  .radios{display:flex;gap:8px}
+  .radio{display:flex;align-items:center;gap:8px;height:40px;padding:0 14px;border:2px solid hsl(var(--border));border-radius:8px;font-size:13.5px;font-weight:600;white-space:nowrap}
+  .radio::before{content:"";width:14px;height:14px;border-radius:99px;border:1.5px solid hsl(var(--border))}
+  .radio.on{border-color:hsl(var(--primary))}
+  .radio.on::before{border:4px solid hsl(var(--primary))}
+  .rot-radio{font-size:13px;font-weight:600;margin-bottom:6px}
+
+  /* seções do formulário */
+  .sec{padding:14px 22px;display:flex;flex-direction:column;gap:14px}
+  .sec + .sec{border-top:1px solid hsl(var(--border))}
+  .sec-topo{display:flex;align-items:center;justify-content:space-between;min-height:32px}
+  .linha2{display:grid;gap:12px}
+
+  /* composição */
+  .comp-cab,.comp li{display:grid;grid-template-columns:minmax(0,1fr) 120px 76px 28px;gap:10px;align-items:center}
+  .comp-cab{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding-bottom:2px}
+  .comp li{padding:6px 0;border-top:1px solid hsl(var(--border));font-size:13.5px}
+  .comp li:first-child{border-top:0}
+  .comp b{font-weight:600;display:flex;align-items:center;gap:6px;min-width:0}
+  .comp .custo{text-align:right;font-weight:600}
+  .rende{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;border-top:1px solid hsl(var(--border));padding-top:12px}
+  .total-comp{text-align:right}
+  .total-comp small{display:block;color:hsl(var(--muted-foreground));font-size:12.5px}
+  .total-comp b{font:800 18px Sora,Inter,sans-serif}
+
+  /* preço */
+  .linhas li{display:flex;justify-content:space-between;font-size:13px;padding:2px 0}
+  .linhas li span:first-child{color:hsl(var(--muted-foreground))}
+  .linhas li.forte{border-top:1px solid hsl(var(--border));margin-top:4px;padding-top:6px;font-weight:600}
+  .linhas li.forte span:first-child{color:inherit}
+  .sugerido{border-radius:10px;background:hsl(var(--primary-soft));padding:12px 14px}
+  .sugerido small{font-size:12.5px;color:hsl(var(--muted-foreground))}
+  .sugerido .v{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .sugerido b{font:800 22px Sora,Inter,sans-serif;color:hsl(var(--primary))}
+  .margem{display:flex;justify-content:space-between;align-items:center;font-size:13px}
+
+  /* resumo do preço no pé (B e C) */
+  .resumo{display:flex;align-items:center;gap:18px;font-size:12.5px;margin-right:auto}
+  .resumo small{display:block;color:hsl(var(--muted-foreground));font-size:11.5px}
+  .resumo b{font:800 15px Sora,Inter,sans-serif}
+  .resumo .sep{width:1px;height:28px;background:hsl(var(--border))}
+
+  /* passos (Wizard do DS) */
+  .passos{display:flex;align-items:center;gap:10px;padding:0 22px 14px;font-size:13px;flex:none;border-bottom:1px solid hsl(var(--border))}
+  .passo{display:flex;align-items:center;gap:8px;color:hsl(var(--muted-foreground));font-weight:500}
+  .passo i.n{font-style:normal;width:22px;height:22px;border-radius:99px;display:grid;place-items:center;font-size:11.5px;font-weight:700;border:1.5px solid hsl(var(--border))}
+  .passo.feito i.n{background:hsl(var(--success-soft));border-color:transparent;color:hsl(var(--success-ink))}
+  .passo.agora{color:hsl(var(--foreground));font-weight:600}
+  .passo.agora i.n{background:hsl(var(--primary));border-color:hsl(var(--primary));color:#fff}
+  .passos .traco{flex:1;max-width:48px;height:1.5px;background:hsl(var(--border))}
+
+  /* painel lateral (C) */
+  .lateral{position:absolute;top:0;right:0;bottom:0;width:620px;display:flex;flex-direction:column;background:hsl(var(--card));box-shadow:-24px 0 60px -20px rgb(0 0 0 / .35)}
+  .dobra{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:hsl(var(--primary))}
+
+  /* celular */
+  .cel{width:360px;max-width:100%;border:1px solid hsl(var(--border));border-radius:28px;overflow:hidden;background:hsl(var(--background));box-shadow:0 8px 30px -12px rgb(0 0 0 / .2);display:flex;flex-direction:column;height:720px;position:relative}
+  .cel .veu{border-radius:28px}
+  .folha{position:absolute;left:0;right:0;bottom:0;top:28px;display:flex;flex-direction:column;background:hsl(var(--card));border-radius:20px 20px 0 0}
+  .folha .alca{width:40px;height:4px;border-radius:9px;background:hsl(var(--border));margin:8px auto 0;flex:none}
+  .folha .sec{padding:12px 16px}
+  .folha .j-topo{padding:10px 16px 8px}
+  .folha .j-rodape{padding:10px 16px 16px}
+  .folha .comp-cab,.folha .comp li{grid-template-columns:minmax(0,1fr) 92px 62px}
+  .folha .passos{padding:0 16px 10px;gap:6px;font-size:12px}
+
+  table.cmp{width:100%;border-collapse:collapse;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;font-size:13.5px}
+  table.cmp th,table.cmp td{padding:10px 14px;text-align:left;border-top:1px solid hsl(var(--border));vertical-align:top}
+  table.cmp thead th{border-top:0;background:hsl(var(--muted) / .5);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:hsl(var(--muted-foreground))}
+  .reco{margin-top:16px;padding:16px 18px;border-radius:14px;background:hsl(var(--primary-soft));color:hsl(var(--primary));font-size:14px;line-height:1.55}
+</style>
+<style>
+  .seg{display:flex;height:40px;border:2px solid hsl(var(--border));border-radius:8px;overflow:hidden;font-size:13px;font-weight:600}
+  .seg span{flex:1;padding:0 14px;display:flex;align-items:center;justify-content:center;gap:6px;color:hsl(var(--muted-foreground))}
+  .seg span.on{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+  .faixa-custo{display:flex;align-items:center;justify-content:space-between;gap:12px;border-radius:10px;background:hsl(var(--primary-soft));padding:10px 14px}
+  .faixa-custo b{font:800 20px Sora,Inter,sans-serif;color:hsl(var(--primary))}
+  .faixa-custo small{font-size:12px;color:hsl(var(--muted-foreground))}
+  .mais{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:hsl(var(--primary))}
+  .hist li{display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-top:1px solid hsl(var(--border))}
+  .hist li:first-child{border-top:0}
+  .sobe{color:hsl(var(--danger-ink));font-weight:600;font-size:12px}
+  table.t{width:100%;border-collapse:collapse;font-size:13px}
+  table.t th{height:36px;padding:0 12px;text-align:left;font-size:11px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:hsl(var(--muted-foreground));background:hsl(var(--muted) / .45);border-top:1px solid hsl(var(--border));border-bottom:1px solid hsl(var(--border));white-space:nowrap}
+  table.t td{height:44px;padding:0 12px;border-bottom:1px solid hsl(var(--border));white-space:nowrap}
+  table.t tr.sel td{background:hsl(var(--primary-soft))}
+  table.t .num{text-align:right;font-variant-numeric:tabular-nums}
+  .dt-tabs{display:flex;gap:4px;border-bottom:1px solid hsl(var(--border));padding:0 16px}
+  .dt-tabs span{position:relative;padding:10px 12px;font-size:13px;font-weight:500;color:hsl(var(--muted-foreground));display:flex;gap:6px;align-items:center}
+  .dt-tabs span b{min-width:20px;height:20px;padding:0 6px;border-radius:4px;font-size:11.5px;display:grid;place-items:center;background:hsl(var(--muted))}
+  .dt-tabs span.on{color:hsl(var(--primary))}
+  .dt-tabs span.on b{background:hsl(var(--primary) / .1)}
+  .dt-tabs span.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:hsl(var(--primary))}
+  .busca{display:flex;align-items:center;gap:8px;height:36px;padding:0 10px;border:2px solid hsl(var(--border));border-radius:8px;background:hsl(var(--background));color:hsl(var(--muted-foreground));font-size:13px;width:300px}
+  .ini{width:24px;height:24px;border-radius:6px;display:grid;place-items:center;background:hsl(var(--primary-soft));color:hsl(var(--primary));flex:none}
+  .nome-i{display:flex;align-items:center;gap:10px;font-weight:600}
+  .ficha{display:flex;flex-direction:column;overflow:hidden}
+  .ficha .sec{padding:14px 16px}
+  .fatos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .fatos small{display:block;font-size:12px;color:hsl(var(--muted-foreground))}
+  .fatos span{font-weight:600;font-size:13px}
+  .atualizar{border:1.5px dashed hsl(var(--primary) / .35);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:10px;background:hsl(var(--primary-soft) / .4)}
+  .api{display:inline-flex;align-items:center;font-size:11px;font-weight:600;color:hsl(var(--info-ink));background:hsl(var(--info-soft));border-radius:999px;padding:1px 7px;vertical-align:middle}
+</style>
+</head>
+<body>
+<main class="doc">
+  <p class="cap">Confeitaria · Insumos · Em discussão · 26/10/2026</p>
+  <h1>Insumo: 3 caminhos</h1>
+  <p class="lead">Hoje Novo/Editar insumo é uma página inteira para poucos campos: nome, tipo, como compra (quantidade, unidade, preço) e uns detalhes opcionais. O botão Salvar fica fora da tela, e ao editar o histórico de preços e o Arquivar ficam lá embaixo. E o que ela mais faz nessa tela não é cadastrar: é <b>atualizar o preço</b> depois de ir ao mercado. Os exemplos usam o mesmo leite condensado, num notebook de 1366 × 720.</p>
+  <div class="pecas"><code>Dialog</code><code>Form</code><code>Form.Select</code><code>Form.RadioGroup</code><code>DataTable</code><code>.Tabs</code><code>.Search</code><code>.Content</code><code>Conteiner</code></div>
+
+  <!-- ==================== A ==================== -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">A</span><h2>Janela por cima da lista, como Clientes</h2></div>
+    <p class="sub">Cadastro curto abre em janela (<code>/insumos?novo=1</code>, <code>?editar=&lt;id&gt;</code>), a regra que já seguimos em Clientes. Tudo numa tela só: nome, tipo em duas opções, e “como você compra” numa linha (quantidade, unidade, preço) com o custo calculado logo embaixo. Marca, onde compra e observações ficam recolhidos. Ao editar, os últimos preços aparecem na própria janela e Arquivar vai para o rodapé.</p>
+    <div class="pros">
+      <div><b>Ganha</b>Não sai da lista nem perde a busca; Salvar sempre à vista; segue a regra de cadastro curto do projeto. A lista fica como está hoje.</div>
+      <div><b>Cuidado</b>Atualizar preço continua sendo “abrir, achar o campo, salvar”.</div>
+    </div>
+    <div class="quadros">
+      <div class="lado">
+        <div style="flex:1;min-width:0">
+          <p class="rotulo">Notebook · editando o leite condensado</p>
+          <div class="tela" data-fundo>
+            <div class="veu"></div>
+            <div class="janela" style="width:560px">
+              <div class="j-topo"><h4>Editar insumo</h4><span class="x" data-i="x"></span></div>
+              <div class="rola" style="padding:4px 22px 16px;display:flex;flex-direction:column;gap:16px" data-form-a></div>
+              <div class="j-rodape"><span class="btn ghost sm perigo" data-ico="archive">Arquivar</span><span style="margin-left:auto"></span><span class="btn out">Cancelar</span><span class="btn pri">Salvar</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="rotulo">Celular · folha de baixo</p>
+        <div class="cel" data-cel-a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== B ==================== -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">B</span><h2>Tabela + ficha ao lado, com “Atualizar preço”</h2></div>
+    <p class="sub">A lista vira a tabela do DS (como Clientes): insumo, embalagem, preço pago, custo por kg/un e quando o preço mudou. Clicar num insumo abre a ficha ao lado com o atalho que ela mais usa: <b>Atualizar preço</b> (só preço e, se mudou, a embalagem), o histórico com quanto subiu, e os dados. Editar o resto e cadastrar um novo abrem a janela da A.</p>
+    <div class="pros">
+      <div><b>Ganha</b>Atualizar o preço de 10 insumos depois do mercado vira clicar e digitar, sem sair da tela. Vê de cara o que encareceu.</div>
+      <div><b>Precisa</b><span>Mexer na lista também (é a maior mudança). “Mudou em” e “subiu X%” saem do histórico que já temos; <span class="api">API</span> só para mandar a data da última mudança na lista.</span></div>
+    </div>
+    <div class="quadros">
+      <div>
+        <p class="rotulo">Notebook · leite condensado aberto na ficha</p>
+        <div class="tela" data-menu-so>
+          <div class="corpo">
+            <div class="barra">Insumos<span class="avatar">AD</span></div>
+            <div style="padding:16px 28px;display:flex;flex-direction:column;gap:12px;min-height:0;flex:1">
+              <div class="cabeca"><h3>Insumos</h3><span class="btn pri" data-ico="plus">Novo insumo</span></div>
+              <div style="display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:14px;min-height:0;flex:1">
+                <div class="card" style="overflow:hidden">
+                  <div class="dt-tabs"><span class="on">Todos <b>24</b></span><span>Ingredientes <b>17</b></span><span>Embalagens <b>7</b></span><span>Arquivados <b>2</b></span></div>
+                  <div style="padding:10px 16px"><span class="busca" data-ico="magnifying-glass">Buscar pelo nome…</span></div>
+                  <table class="t" id="b-tabela"></table>
+                </div>
+                <div class="card ficha" data-ficha></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== C ==================== -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">C</span><h2>Console, como Receita e Produto</h2></div>
+    <p class="sub">A página continua, mas no mesmo molde das outras: dados e “como você compra” num cartão à esquerda (com os detalhes abertos), e um painel à direita com o custo calculado, o histórico de preços e Cancelar/Salvar.</p>
+    <div class="pros">
+      <div><b>Ganha</b>Mesma família de Receita e Produto; o histórico ganha espaço e destaque.</div>
+      <div><b>Cuidado</b>Muito espaço para poucos campos: metade da tela vazia no cadastro novo. Vai contra a regra de cadastro curto em janela.</div>
+    </div>
+    <div class="quadros">
+      <div>
+        <p class="rotulo">Notebook · editando o leite condensado</p>
+        <div class="tela" data-menu-so>
+          <div class="corpo">
+            <div class="barra">Insumos<span class="avatar">AD</span></div>
+            <div style="padding:16px 28px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;align-items:center;gap:12px"><span style="display:flex;align-items:center;gap:4px;color:hsl(var(--primary));font-weight:500;font-size:13.5px" data-ico="arrow-left">Insumos</span><span style="width:1px;height:20px;background:hsl(var(--border))"></span><h3 style="font:800 24px Sora,Inter,sans-serif">Editar insumo</h3></div>
+              <div style="display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:14px;align-items:start">
+                <div class="card" style="padding:16px 18px;display:flex;flex-direction:column;gap:16px" data-form-c></div>
+                <div class="card" style="overflow:hidden" data-painel-c></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="opcao">
+    <div class="opcao-topo"><h2>Comparando</h2></div>
+    <table class="cmp">
+      <thead><tr><th></th><th>A · Janela</th><th>B · Tabela + ficha</th><th>C · Console</th></tr></thead>
+      <tbody>
+        <tr><th>Cadastrar um novo</th><td>Janela, sem sair da lista</td><td>Janela (a mesma da A)</td><td>Página</td></tr>
+        <tr><th>Atualizar o preço</th><td>Abrir, mudar, salvar</td><td>Clicar na linha e digitar na ficha</td><td>Abrir a página, mudar, salvar</td></tr>
+        <tr><th>Ver o que encareceu</th><td>Últimos preços na janela</td><td>Coluna “mudou em” + % na ficha</td><td>Histórico no painel</td></tr>
+        <tr><th>Segue a regra do projeto</th><td>Sim (cadastro curto em janela)</td><td>Sim</td><td>Não</td></tr>
+        <tr><th>Esforço</th><td>Baixo: o padrão de Clientes</td><td>Médio: lista nova + ficha</td><td>Baixo</td></tr>
+      </tbody>
+    </table>
+    <p class="reco"><b>Recomendação: A agora.</b> É o padrão de cadastro curto que já usamos em Clientes, resolve o Salvar escondido e não mexe na lista. A <b>B</b> é o próximo passo natural: quando a lista de insumos crescer, a tabela com “Atualizar preço” na ficha economiza muito clique na volta do mercado, e a janela da A continua servindo para ela.</p>
+  </section>
+</main>
+
+<script>
+  const ico = (nome, extra = "") => `<i class="i" style="--ico:url(https://api.iconify.design/ph/${nome}.svg);${extra}"></i>`;
+  const HIST = [["20/10/2026", "395 g", "R$ 7,99", "+6,7%"], ["15/09/2026", "395 g", "R$ 7,49", "+7,2%"], ["02/08/2026", "395 g", "R$ 6,99", ""]];
+  const tipo = (cel) => `<div><p class="rot-radio">Tipo</p><div class="seg"><span class="on">${ico("grains")}Ingrediente</span><span>${ico("package")}Embalagem</span></div></div>`;
+  const compra = (cel) => `<div style="display:flex;flex-direction:column;gap:8px"><p class="rot-radio" style="margin:0">Como você compra</p>
+      <div class="linha2" style="grid-template-columns:${cel ? "1fr 96px" : "minmax(0,1fr) 110px minmax(0,1fr)"}">
+        <div class="campo"><label>Quantidade na embalagem</label>395</div>
+        <div class="campo"><label>Unidade</label>g<span class="sel">${ico("caret-down")}</span></div>
+        ${cel ? "" : `<div class="campo"><label>Preço pago (R$)</label>7,99</div>`}
+      </div>
+      ${cel ? `<div class="campo"><label>Preço pago (R$)</label>7,99</div>` : ""}
+      <div class="faixa-custo"><div><small>Custo calculado</small><br><b class="tab">R$ 20,23</b> <span style="font-weight:600;color:hsl(var(--primary))">por kg</span></div><small class="tab">R$ 2,02 a cada 100 g</small></div></div>`;
+  const mais = (aberto) => aberto
+    ? `<div style="display:flex;flex-direction:column;gap:12px"><span class="mais">${ico("caret-down")}Mais detalhes (opcional)</span><div class="linha2" style="grid-template-columns:1fr 1fr"><div class="campo"><label>Marca</label>Moça</div><div class="campo"><label>Onde compra</label>Atacadão</div></div><div class="campo vazio" style="height:64px;align-items:flex-start;padding-top:12px"><label>Observações</label>Comprar a caixa com 12, sai mais barato</div></div>`
+    : `<span class="mais">${ico("caret-right")}Mais detalhes: marca, onde compra, observações</span>`;
+  const ultimos = `<div><p class="rot-radio" style="display:flex;justify-content:space-between">Últimos preços</p><ul class="hist tab">${HIST.map(([d, q, p, s]) => `<li><span class="mut">${d}</span><span>${q} por <b>${p}</b> ${s ? `<span class="sobe">${s}</span>` : ""}</span></li>`).join("")}</ul></div>`;
+
+  document.querySelector("[data-form-a]").innerHTML = `<div class="campo"><label>Nome</label>Leite condensado</div>${tipo()}${compra()}${mais(false)}<div style="border-top:1px solid hsl(var(--border));padding-top:12px">${ultimos}</div>`;
+  document.querySelector("[data-form-c]").innerHTML = `<span class="cap">Dados do insumo</span><div class="campo"><label>Nome</label>Leite condensado</div>${tipo()}${compra()}${mais(true)}`;
+  document.querySelector("[data-painel-c]").innerHTML = `<section class="sec"><span class="cap">Custo</span><p style="font:800 26px Sora;color:hsl(var(--primary))" class="tab">R$ 20,23 <span style="font:600 14px Inter">por kg</span></p><p class="mut" style="font-size:13px">R$ 2,02 a cada 100 g · subiu 14% desde agosto</p></section>
+      <section class="sec" style="border-top:1px solid hsl(var(--border))">${ultimos}</section>
+      <div class="j-rodape"><span class="btn ghost sm perigo" data-ico="archive">Arquivar</span><span style="margin-left:auto"></span><span class="btn out">Cancelar</span><span class="btn pri">Salvar</span></div>`;
+
+  // B
+  const INS = [["Leite condensado", "grains", "395 g", "R$ 7,99", "R$ 20,23 / kg", "20/10", "+6,7%"], ["Chocolate em pó 50%", "grains", "1 kg", "R$ 42,90", "R$ 42,90 / kg", "02/10", ""], ["Creme de leite", "grains", "200 g", "R$ 3,49", "R$ 17,45 / kg", "20/10", "+4%"], ["Manteiga sem sal", "grains", "200 g", "R$ 12,00", "R$ 60,00 / kg", "11/09", ""], ["Farinha de trigo", "grains", "1 kg", "R$ 6,00", "R$ 6,00 / kg", "28/08", ""], ["Caixa 25 × 25", "package", "10 un", "R$ 32,00", "R$ 3,20 / un", "15/09", ""], ["Forminha nº 4", "package", "1 cento", "R$ 8,50", "R$ 0,09 / un", "15/09", ""], ["Ovos", "grains", "1 dúzia", "R$ 11,90", "R$ 0,99 / un", "20/10", "+9%"], ["Açúcar refinado", "grains", "1 kg", "R$ 4,79", "R$ 4,79 / kg", "02/08", ""]];
+  document.getElementById("b-tabela").innerHTML = `<thead><tr><th>Insumo</th><th>Embalagem</th><th class="num">Preço pago</th><th class="num">Custo</th><th class="num">Mudou em <span class="api">API</span></th></tr></thead><tbody>${INS.map(([n, i, q, p, c, d, s], k) => `<tr class="${k === 0 ? "sel" : ""}"><td><span class="nome-i"><span class="ini">${ico(i, "width:14px;height:14px")}</span>${n}</span></td><td>${q}</td><td class="num">${p}</td><td class="num"><b>${c}</b></td><td class="num">${d}${s ? ` <span class="sobe">${s}</span>` : ""}</td></tr>`).join("")}</tbody>`;
+  document.querySelector("[data-ficha]").innerHTML = `<section class="sec" style="flex-direction:row;align-items:center;gap:10px"><span class="ini" style="width:40px;height:40px;border-radius:10px">${ico("grains", "width:20px;height:20px")}</span><div style="min-width:0;flex:1"><h4 style="font:800 17px Sora">Leite condensado</h4><p class="mut" style="font-size:12.5px">Ingrediente · Moça · Atacadão</p></div><span class="btn ghost ico" data-i="pencil-simple"></span><span class="btn ghost ico" data-i="x"></span></section>
+    <section class="sec" style="border-top:1px solid hsl(var(--border))"><div style="display:flex;align-items:baseline;justify-content:space-between"><p style="font:800 24px Sora;color:hsl(var(--primary))" class="tab">R$ 20,23 <span style="font:600 13px Inter">por kg</span></p><span class="sobe">+14% desde ago.</span></div><p class="mut" style="font-size:12.5px">395 g por R$ 7,99</p></section>
+    <section class="sec" style="border-top:1px solid hsl(var(--border))"><div class="atualizar"><span class="cap" style="color:hsl(var(--primary))">Atualizar preço</span><div class="linha2" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)"><div class="campo sm"><label>Embalagem</label>395<span class="un">g</span></div><div class="campo sm"><label>Novo preço (R$)</label>8,49</div></div><div style="display:flex;align-items:center;justify-content:space-between"><span class="mut" style="font-size:12.5px">Vai para <b class="tab" style="color:hsl(var(--foreground))">R$ 21,49 / kg</b></span><span class="btn pri sm">Salvar preço</span></div></div></section>
+    <section class="sec" style="border-top:1px solid hsl(var(--border))"><p class="rot-radio">Histórico</p><ul class="hist tab">${HIST.map(([d, q, p, s]) => `<li><span class="mut">${d}</span><span>${q} por <b>${p}</b> ${s ? `<span class="sobe">${s}</span>` : ""}</span></li>`).join("")}</ul></section>`;
+
+  // fundos
+  const MENU = `<div class="menu-topo"><span style="font-size:18px">🎂</span><span>Doces da Ana<small>Confeitaria</small></span></div>
+    <nav><p>Principal</p><a>${ico("squares-four")}Início</a>
+    <p>Vendas</p><a>${ico("clipboard-text")}Encomendas</a><a>${ico("calendar-blank")}Agenda</a><a>${ico("users")}Clientes</a>
+    <p>Produção</p><a>${ico("cake")}Produtos</a><a>${ico("book-open")}Receitas</a><a class="on">${ico("grains")}Insumos</a>
+    <p>Gestão</p><a>${ico("calculator")}Precificação</a><a>${ico("wallet")}Financeiro</a><a>${ico("gear")}Configurações</a></nav>`;
+  document.querySelectorAll("[data-menu-so]").forEach((el) => el.insertAdjacentHTML("afterbegin", `<div class="menu">${MENU}</div>`));
+  document.querySelectorAll("[data-fundo]").forEach((el) => el.insertAdjacentHTML("afterbegin", `<div class="menu">${MENU}</div><div class="corpo"><div class="barra">Insumos<span class="avatar">AD</span></div>
+    <div class="conteudo"><div class="cabeca"><h3>Insumos</h3><span class="btn pri" style="height:36px">${ico("plus")}Novo insumo</span></div>
+    ${INS.slice(0, 7).map(([n, i, q, p, c]) => `<div class="prod"><span class="ic">${ico(i, "width:20px;height:20px")}</span><span><b>${n}</b> <span class="mut" style="font-size:12.5px">${q} por ${p}</span></span><span class="preco tab">${c.split(" / ")[0]}<small>por ${c.split(" / ")[1]}</small></span></div>`).join("")}
+    </div></div>`));
+
+  document.querySelector("[data-cel-a]").innerHTML = `<div style="height:52px;display:flex;align-items:center;padding:0 14px;background:hsl(var(--card));font-weight:700">Insumos</div><div class="veu"></div>
+    <div class="folha" style="top:70px"><span class="alca"></span><div class="j-topo"><h4>Novo insumo</h4><span class="x" data-i="x"></span></div>
+    <div class="rola" style="flex:1;padding:4px 16px 12px;display:flex;flex-direction:column;gap:14px"><div class="campo"><label>Nome</label>Leite condensado</div>${tipo(true)}${compra(true)}${mais(false)}</div>
+    <div class="j-rodape"><span class="btn out" style="flex:1">Cancelar</span><span class="btn pri" style="flex:1">Salvar</span></div></div>`;
+
+  document.querySelectorAll("[data-i]").forEach((el) => (el.innerHTML = ico(el.dataset.i)));
+  document.querySelectorAll("[data-ico]").forEach((el) => el.insertAdjacentHTML("afterbegin", ico(el.dataset.ico)));
+</script>
+</body>
+</html>

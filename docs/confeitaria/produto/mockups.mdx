@@ -1,0 +1,95 @@
+---
+title: Mockups
+sidebar_position: 1
+tags: [mockups, produto, telas, confeitaria]
+---
+
+# Mockups
+
+Cada mockup é uma página HTML guardada como foi discutida ou aprovada. "Ver o mockup" abre em tela cheia dentro deste site. A implementação segue o mockup aprovado; mudança de tela depois de aprovada atualiza o mockup antes do código.
+
+Arquivos em `static/mockups/confeitaria/<nome>/index.html`, página em `src/pages/telas/confeitaria/<nome>.tsx`. O passo a passo é o mesmo do Truck: [Como fazer mockups](../../truck/produto/como-fazer-mockups.md).
+
+## Em discussão
+
+### Tela de entrar (lado esquerdo)
+
+**2ª rodada em 28/10/2026.** O lado esquerdo do login deixa de ser o desenho de exemplo do DS. A 1ª rodada (pedaços do sistema: vitrine, prévia do Início, caminho da encomenda; guardada em `login/v1.html`) não agradou. Agora: **1 · Ilustração** de confeitaria (bolo, cupcake e macarons em SVG próprio, sobre o chocolate); **2 · Limpo** (só o logo grande, "Facter Chef" e uma frase); **3 · Padrão de doces** (ícones finos repetidos no fundo chocolate e um cartão com logo e frase). No celular o lado esquerdo não aparece. Recomendação: 3, com a 1 como evolução.
+
+[Ver o mockup](/telas/confeitaria/login)
+
+### Melhorias da planilha de precificação
+
+**Em andamento: “Seus números” opção A aprovada e implementada em 26/10/2026** (Configurações em console com ajudante da hora, equipe e custos fixos item a item). Canais, revenda e metro/cm ainda em discussão. O que a planilha “DEZ_23 – Precificação” tem e o sistema ainda não. **Canais de venda** (A: canais com taxa em Configurações e o preço de cada canal na Precificação e no Produto; B: + tabela de preços por canal no produto; C: + canal na encomenda e taxas por canal no Financeiro). **Seus números** (A: Configurações em seções com ajudante do valor da hora, equipe e custos fixos item a item; B: passo a passo “monte seus números”; C: custos fixos pela média do Financeiro), e a escolha de repartir o custo fixo pelo faturamento ou pelas horas. Mais o desconto para revenda e as unidades metro/centímetro. Recomendação: canais A, seus números A com a média do Financeiro como opção.
+
+[Ver o mockup](/telas/confeitaria/melhorias-planilha)
+
+## Discutidos e não seguidos
+
+### Produto em janela
+
+**Decidido em 26/10/2026: continua como página** (o console sem rolagem). Nenhuma das janelas foi escolhida. Novo/Editar produto deixa de ser uma página inteira e abre por cima da lista, como a janela de cliente. **A · Janela larga**: o console de hoje (dados e composição à esquerda, tempo e preço ao lado) dentro de um Dialog de ~1000px, com rodapé Arquivar | Cancelar, Salvar. **B · 3 passos**: janela média com o Wizard do DS (Dados → Composição → Tempo e preço), sem rolagem, custo no pé. **C · Painel lateral**: Sheet do DS 1.39 pela direita, coluna única e o preço resumido no pé. Com celular, comparação e recomendação (A).
+
+[Ver o mockup](/telas/confeitaria/produto)
+
+## Aprovados
+
+### Início
+
+**Aprovado em 27/10/2026: opção C, com duas trocas** (no lugar de “em que pé estão”, **para produzir esta semana**; no lugar das aniversariantes, **mais vendidos no mês**), implementada. Mockup feito em 26/10/2026. A primeira tela do dia, hoje sem destaque. Os três caminhos mantêm os quatro cartões. **A · O dia primeiro**: faixa chocolate com as entregas de hoje, atrasadas e o que entra hoje; gráfico dos próximos 14 dias com a linha do limite diário; hoje e amanhã; o que produzir na semana. **B · Como vai o negócio**: cartões com comparação ao mês passado e mini-linha, faturado × recebido dos últimos 6 meses, meta do mês e mais vendidos (precisa de API). **C · Painel de comando**: a faixa da A, os cartões da B, os dois gráficos lado a lado, status das abertas e aniversariantes da semana. Recomendação: C.
+
+[Ver o mockup](/telas/confeitaria/inicio)
+
+### Sidebar e navbar
+
+**Aprovado em 27/10/2026: opção A (igual ao Truck)**, implementada com o logo e o ícone da Facter (sem o item Ajuda, que ainda não tem destino público). A casca das telas no modelo do DS (histórias Sidebar/Navbar Complete, do app-shell do facter-truck). **A · Igual ao Truck**: sidebar recolhida que abre no mouse (alfinete fixa), cabeçalho chocolate com logo e nome, Configurações e Ajuda no pé, trilha + busca (Ctrl+K) + empresa + perfil com Aparência na navbar. **B · Aberta + avisos**: sidebar fixada com o perfil no pé (Sidebar.Footer) e sino de avisos (atrasadas, entregas de hoje, a receber). **C · O mínimo**: só arrumar cabeçalho, pé, trilha e perfil. Recomendação: A, em duas etapas (casca, depois busca).
+
+[Ver o mockup](/telas/confeitaria/sidebar-navbar)
+
+### Financeiro
+
+**Aprovado em 27/10/2026: opção A (console do mês)**, implementada: faixa de números, gráfico entrou × saiu na mesma escala (com “ver como tabela”), despesas em tabela e, à direita, para onde foi, MEI e a receber. Ajuste aprovado no mesmo dia (A+): a cascata, que repetia a faixa do topo, virou “Comparado com o mês passado” (entrou, despesas e sobrou com a mudança em %, e o que mais mudou nas despesas). Hoje é uma pilha de cartões numa coluna estreita que não conta como o que entrou virou o que sobrou. **A · Console do mês**: faixa de números (com “sobrou no caixa” em destaque), gráfico entrou/saiu por dia com a linha do saldo, tabela de despesas e, à direita, a cascata entrou → despesas → lucro → pró-labore → sobrou, para onde foi e o MEI. **B · Abas**: números no topo e abas Resumo / Despesas (com filtro e busca) / Fluxo de caixa, sem rolar. **C · Extrato**: cada pagamento e despesa do mês por dia, como no app do banco (precisa da API listar os pagamentos). Recomendação: A.
+
+[Ver o mockup](/telas/confeitaria/financeiro)
+
+### Precificação
+
+**Aprovado em 26/10/2026: opção D (modalzinho)**, o menu abre a calculadora por cima da tela atual. Ajustada no mesmo dia: mais larga, em duas colunas, e já mostrando a divisão de cada R$ 100,00 antes do custo. Depois, por decisão em 26/10, voltou a ser uma **página** (o modal aberto pelo menu mostrava o fundo de outra tela): o mesmo cartão em duas colunas, centralizado. Hoje é um formulário com botão “Calcular preço” e percentuais fixos (10/5/5/30) que ignoram Configurações. **A · Calculadora ao vivo**: console com custo e percentuais (de Configurações) à esquerda e, à direita, o preço sugerido, para onde vai cada real e “E se eu cobrar…?” com o preço mínimo. **B · Painel dos preços**: tabela dos produtos com custo, preço, sugerido e lucro de verdade, destacando os abaixo do desejado, com “Usar sugerido”. **C · Três preços**: só o custo, e mínimo / sugerido / caprichado lado a lado com a escada de lucro. **D · Modalzinho** (pedido em 26/10, sem console): o menu abre uma janela pequena por cima da tela atual, com custo, preço sugerido ao vivo, para onde vai cada real, “E se eu cobrar…?” e os percentuais de Configurações resumidos (com “Mudar” só nesta conta).
+
+[Ver o mockup](/telas/confeitaria/precificacao)
+
+### Insumo
+
+**Aprovado em 26/10/2026: opção A** (janela por cima da lista, como Clientes), implementada como desenhada. Novo/Editar insumo é uma página inteira para poucos campos, com o Salvar fora da tela. **A · Janela**: cadastro curto em Dialog por cima da lista, como Clientes (como compra numa linha, custo logo embaixo, últimos preços ao editar, Arquivar no rodapé). **B · Tabela + ficha**: a lista vira o DataTable e a ficha ao lado tem “Atualizar preço” e o histórico com quanto subiu. **C · Console**: o molde de Receita e Produto. Recomendação: A agora, B depois.
+
+[Ver o mockup](/telas/confeitaria/insumo)
+
+### Receita
+
+**Aprovado em 26/10/2026: opção A** (console igual ao Produto), implementada como desenhada. Hoje é uma coluna estreita com cartões empilhados, cada ingrediente em três linhas e o Salvar no fim da rolagem. **A · Console**: o molde do Produto (dados e ingredientes numa tabela baixa à esquerda; tempo, custo com o que pesa mais e Salvar num painel fixo à direita). **B · Janela larga**: o mesmo console num Dialog por cima da lista, com o modo de preparo numa aba. **C · Ficha técnica**: dados numa faixa de uma linha, ingredientes e modo de preparo lado a lado, custo e Salvar presos no pé. Recomendação: seguir o que for escolhido para o Produto.
+
+[Ver o mockup](/telas/confeitaria/receita)
+
+### Clientes
+
+**Aprovado em 24/10/2026: A ao abrir + C ao clicar.** A tela abre como a opção A (tabela larga do DataTable com aniversário, restrição, encomendas, última e menu ⋯); ao clicar numa cliente, a tabela encolhe e a ficha da opção C aparece ao lado (o X volta para a tabela larga). Sem rolagem no computador: a tabela pagina o que não cabe. Três caminhos para trocar a pilha de cartões pelo **DataTable do DS** (o mesmo das listas do Truck), no Conteiner padrão. **A · Tabela direta**: abas Ativas/Arquivadas com contador, busca, colunas cliente, WhatsApp, aniversário (destacado no mês), restrição, encomendas e última, menu ⋯ com atalhos. **B · Relacionamento**: faixa de números (aniversariantes, quem sumiu), filtros em chip, ordenar por quem mais compra, seleção em lote para exportar/arquivar. **C · Console**: tabela compacta + ficha da cliente ao lado (contato, restrição, quanto já comprou, últimas encomendas, Nova encomenda e WhatsApp). Cada um com o celular, a comparação e a recomendação (A agora, filtros do B depois). O que pede dado novo da API está marcado.
+
+[Ver o mockup](/telas/confeitaria/clientes)
+
+### Detalhe da encomenda
+
+**Aprovado em 23/10/2026** e implementado como desenhado. A tela sai da coluna estreita e passa a usar o **Conteiner padrão** (até 1280px) com o console da Nova encomenda e da Agenda: o pedido à esquerda (cliente com WhatsApp e restrições, produtos em tabela, observações) e o dinheiro num painel fixo à direita (total, barra do que já entrou, quanto falta, pagamentos com desfazer, registrar pagamento). O status vira uma linha de passos (Orçamento → Entregue) com a próxima ação ao lado, do tamanho de um botão; Editar no topo e Cancelar no pé do painel. Mostra também as janelas de registrar pagamento (com a consequência ao vivo) e de cancelar, e o celular com a ação principal presa embaixo.
+
+[Ver o mockup](/telas/confeitaria/detalhe-encomenda)
+
+### Agenda
+
+**Aprovado em 23/10/2026: opção A** (console: mês + painel do dia ao lado), implementada como desenhada, inclusive no celular (mês compacto com pontinho de ocupação + o painel do dia embaixo). Três caminhos para a Agenda, que hoje é um mês esticado com células vazias, um “1/4” enigmático e o painel do dia escondido embaixo. **A · Console**: mês à esquerda com hora e nome em cada dia e a ocupação em barrinha, painel do dia ao lado (o que produzir, encomendas, bloquear, nova encomenda). **B · Semana**: uma coluna por dia com os pedidos em cartõezinhos e o que produzir no pé; o mês fica num segmentado. **C · Lista + calor**: os próximos dias em lista (produção em pílulas, valor e quanto falta) e um mini calendário de calor para achar dia livre. Mais o celular de cada um, a comparação e a recomendação (A, com a faixa de dias do B no celular).
+
+[Ver o mockup](/telas/confeitaria/agenda)
+
+### Cor da marca
+
+**Aprovado em 23/10/2026: chocolate** (`20 45% 32%`, `#76452D`). O verde menta antigo era o mesmo tom de outro sistema da Facter. A comparação mostra a mesma tela do Início nos 4 temas do Design System (Techcare, Truck, Vagas e Default) e em 4 cores novas no mesmo padrão (rosa doce, rosa antigo, chocolate e azul Tiffany). A escolhida virou o tema `confeitaria.css` do DS: as superfícies do Truck com o azul trocado pelo chocolate.
+
+[Ver o mockup](/telas/confeitaria/cores)

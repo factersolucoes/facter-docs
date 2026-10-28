@@ -6,9 +6,11 @@ interface MockupScreenProps {
   title: string;
   status: string;
   file: string;
+  /** Galeria do projeto, para o link "Mockups" (padrão: a do Truck). */
+  gallery?: string;
 }
 
-export default function MockupScreen({ title, status, file }: MockupScreenProps) {
+export default function MockupScreen({ title, status, file, gallery = '/docs/truck/produto/mockups' }: MockupScreenProps) {
   const src = useBaseUrl(file);
   return (
     <Layout title={title} noFooter>
@@ -23,7 +25,7 @@ export default function MockupScreen({ title, status, file }: MockupScreenProps)
             fontSize: 14,
           }}
         >
-          <Link to="/docs/truck/produto/mockups">Mockups</Link>
+          <Link to={gallery}>Mockups</Link>
           <strong>{title}</strong>
           <span style={{ color: 'var(--ifm-color-emphasis-700)' }}>{status}</span>
           <a href={src} target="_blank" rel="noreferrer" style={{ marginLeft: 'auto' }}>

@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Sidebar e navbar · Confeitaria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* Tema confeitaria (chocolate) do DS: mesmas variáveis do produto. */
+  :root{
+    --background:0 0% 98%;
+    --foreground:240 10% 3.9%;
+    --card:0 0% 100%;
+    --primary:20 45% 32%;
+    --primary-soft:20 45% 95%;
+    --muted:240 4.8% 93.9%;
+    --muted-foreground:240 3.8% 46%;
+    --border:240 5.9% 90%;
+    --success:160 60% 38%;
+    --success-ink:160 70% 24%;
+    --success-soft:160 55% 94%;
+    --warning-ink:28 85% 28%;
+    --warning-soft:40 95% 93%;
+    --danger-ink:0 72% 38%;
+    --danger-soft:0 86% 96%;
+    --info-ink:217 91% 38%;
+    --info-soft:217 85% 96%;
+    --canvas:225 14% 92%;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));
+    font:14px/1.45 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3,h4,p,ul{margin:0}
+  ul{padding:0;list-style:none}
+  button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
+  .i{display:inline-block;width:16px;height:16px;flex:none;background:currentColor;
+    -webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat}
+  .tab{font-variant-numeric:tabular-nums}
+  .mut{color:hsl(var(--muted-foreground))}
+
+  /* ---------- apresentação ---------- */
+  .doc{max-width:1400px;margin:0 auto;padding:48px 24px 96px}
+  .doc h1{font:800 32px/1.15 Sora,Inter,sans-serif;letter-spacing:-.02em}
+  .lead{color:hsl(var(--muted-foreground));max-width:84ch;margin-top:10px;font-size:14.5px;line-height:1.55}
+  .pecas{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
+  .pecas code{font:600 12px ui-monospace,Consolas,monospace;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:6px;padding:3px 7px}
+  .opcao{margin-top:64px;display:flex;flex-direction:column;gap:14px}
+  .opcao-topo{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .letra{font:800 13px Sora,Inter,sans-serif;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:hsl(var(--primary));color:#fff}
+  .opcao h2{font:800 22px/1.2 Sora,Inter,sans-serif;letter-spacing:-.01em}
+  .opcao .sub{font-size:14px;color:hsl(var(--muted-foreground));max-width:92ch}
+  .pros{display:flex;gap:24px;flex-wrap:wrap;font-size:13px}
+  .pros div{display:flex;flex-direction:column;gap:4px;max-width:48ch}
+  .pros b{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+  .rotulo{font-size:12px;font-weight:600;color:hsl(var(--muted-foreground));letter-spacing:.03em;text-transform:uppercase;margin-bottom:8px}
+  .quadros{display:flex;flex-direction:column;gap:24px}
+  .lado{display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start}
+
+  /* ---------- moldura (notebook 1366 × 720) ---------- */
+  .tela{position:relative;display:flex;height:720px;border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;background:hsl(var(--background));box-shadow:0 8px 30px -12px rgb(0 0 0 / .15)}
+  .menu{width:210px;flex:none;display:flex;flex-direction:column;background:hsl(var(--card));border-right:1px solid hsl(var(--border))}
+  .menu-topo{display:flex;align-items:center;gap:10px;height:60px;padding:0 14px;background:hsl(var(--primary));color:#fff;font:700 13px Inter}
+  .menu-topo small{display:block;font-weight:500;opacity:.8;font-size:11px}
+  .menu nav{padding:10px;display:flex;flex-direction:column;gap:2px;font-size:13px}
+  .menu nav p{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding:10px 8px 4px}
+  .menu nav a{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:8px}
+  .menu nav a.on{background:hsl(var(--primary-soft));color:hsl(var(--primary));font-weight:600;box-shadow:inset 3px 0 0 hsl(var(--primary))}
+  .corpo{flex:1;min-width:0;display:flex;flex-direction:column}
+  .barra{height:60px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border));font-weight:700}
+  .avatar{width:32px;height:32px;border-radius:999px;background:hsl(var(--primary));color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700}
+  .conteudo{padding:24px 28px;display:flex;flex-direction:column;gap:14px}
+  .cabeca{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .cabeca h3{font:800 24px/1.15 Sora,Inter,sans-serif;letter-spacing:-.015em}
+  .prod{display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px solid hsl(var(--border));border-radius:10px;background:hsl(var(--card))}
+  .prod .ic{padding:8px;border-radius:8px;background:hsl(var(--primary-soft));color:hsl(var(--primary));display:grid}
+  .prod b{font-weight:600}
+  .prod .preco{margin-left:auto;text-align:right;font-weight:600;color:hsl(var(--primary))}
+  .prod .preco small{display:block;font-weight:400;font-size:12px;color:hsl(var(--muted-foreground))}
+
+  /* véu + janela (Dialog do DS) */
+  .veu{position:absolute;inset:0;background:rgb(0 0 0 / .5);backdrop-filter:blur(1px)}
+  .janela{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;max-height:calc(100% - 48px);background:hsl(var(--card));border-radius:16px;box-shadow:0 24px 60px -16px rgb(0 0 0 / .45);overflow:hidden}
+  .j-topo{display:flex;align-items:center;gap:10px;padding:18px 22px 14px;flex:none}
+  .j-topo h4{font:800 19px Sora,Inter,sans-serif;letter-spacing:-.01em}
+  .j-topo .x{margin-left:auto;color:hsl(var(--muted-foreground));width:32px;height:32px;display:grid;place-items:center;border-radius:8px}
+  .j-rodape{display:flex;align-items:center;gap:8px;padding:12px 22px;border-top:1px solid hsl(var(--border));background:hsl(var(--muted) / .35);flex:none}
+  .rola{overflow:auto;min-height:0}
+
+  /* ---------- DS ---------- */
+  .card{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:38px;padding:0 16px;border-radius:8px;font-size:13.5px;font-weight:600;white-space:nowrap}
+  .btn.pri{background:hsl(var(--primary));color:#fff}
+  .btn.out{border:1px solid hsl(var(--border));background:hsl(var(--card))}
+  .btn.sm{height:32px;font-size:12.5px;padding:0 10px}
+  .btn.ico{width:32px;padding:0}
+  .btn.ghost{color:hsl(var(--muted-foreground))}
+  .btn.perigo{color:hsl(var(--danger-ink))}
+  .btn.sec{background:hsl(var(--card));color:hsl(var(--primary));border:1px solid hsl(var(--primary) / .25)}
+  .cap{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+  .chip{display:inline-flex;align-items:center;gap:4px;height:20px;padding:0 7px;border-radius:6px;font-size:11px;font-weight:600;white-space:nowrap}
+  .c-mut{background:hsl(var(--muted));color:hsl(var(--foreground) / .7)}
+  .c-ok{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+  .c-pri{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+  .api{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:hsl(var(--info-ink));background:hsl(var(--info-soft));border-radius:999px;padding:1px 7px;vertical-align:middle}
+
+  /* campos (Form.Input do DS: rótulo na borda) */
+  .campo{position:relative;display:flex;align-items:center;height:44px;padding:0 12px;border:2px solid hsl(var(--border));border-radius:8px;background:hsl(var(--background));font-size:14px;min-width:0}
+  .campo label{position:absolute;top:-9px;left:9px;padding:0 4px;background:hsl(var(--card));font-size:12px;font-weight:600;line-height:16px;white-space:nowrap}
+  .campo.sm{height:36px;font-size:13px}
+  .campo .un{margin-left:auto;color:hsl(var(--muted-foreground));font-size:12.5px}
+  .campo .sel{margin-left:auto;color:hsl(var(--muted-foreground))}
+  .campo.vazio{color:hsl(var(--muted-foreground))}
+  .dica{font-size:11.5px;color:hsl(var(--muted-foreground));margin-top:4px;padding-left:4px}
+  .radios{display:flex;gap:8px}
+  .radio{display:flex;align-items:center;gap:8px;height:40px;padding:0 14px;border:2px solid hsl(var(--border));border-radius:8px;font-size:13.5px;font-weight:600;white-space:nowrap}
+  .radio::before{content:"";width:14px;height:14px;border-radius:99px;border:1.5px solid hsl(var(--border))}
+  .radio.on{border-color:hsl(var(--primary))}
+  .radio.on::before{border:4px solid hsl(var(--primary))}
+  .rot-radio{font-size:13px;font-weight:600;margin-bottom:6px}
+
+  /* seções do formulário */
+  .sec{padding:14px 22px;display:flex;flex-direction:column;gap:14px}
+  .sec + .sec{border-top:1px solid hsl(var(--border))}
+  .sec-topo{display:flex;align-items:center;justify-content:space-between;min-height:32px}
+  .linha2{display:grid;gap:12px}
+
+  /* composição */
+  .comp-cab,.comp li{display:grid;grid-template-columns:minmax(0,1fr) 120px 76px 28px;gap:10px;align-items:center}
+  .comp-cab{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding-bottom:2px}
+  .comp li{padding:6px 0;border-top:1px solid hsl(var(--border));font-size:13.5px}
+  .comp li:first-child{border-top:0}
+  .comp b{font-weight:600;display:flex;align-items:center;gap:6px;min-width:0}
+  .comp .custo{text-align:right;font-weight:600}
+  .rende{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;border-top:1px solid hsl(var(--border));padding-top:12px}
+  .total-comp{text-align:right}
+  .total-comp small{display:block;color:hsl(var(--muted-foreground));font-size:12.5px}
+  .total-comp b{font:800 18px Sora,Inter,sans-serif}
+
+  /* preço */
+  .linhas li{display:flex;justify-content:space-between;font-size:13px;padding:2px 0}
+  .linhas li span:first-child{color:hsl(var(--muted-foreground))}
+  .linhas li.forte{border-top:1px solid hsl(var(--border));margin-top:4px;padding-top:6px;font-weight:600}
+  .linhas li.forte span:first-child{color:inherit}
+  .sugerido{border-radius:10px;background:hsl(var(--primary-soft));padding:12px 14px}
+  .sugerido small{font-size:12.5px;color:hsl(var(--muted-foreground))}
+  .sugerido .v{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .sugerido b{font:800 22px Sora,Inter,sans-serif;color:hsl(var(--primary))}
+  .margem{display:flex;justify-content:space-between;align-items:center;font-size:13px}
+
+  /* resumo do preço no pé (B e C) */
+  .resumo{display:flex;align-items:center;gap:18px;font-size:12.5px;margin-right:auto}
+  .resumo small{display:block;color:hsl(var(--muted-foreground));font-size:11.5px}
+  .resumo b{font:800 15px Sora,Inter,sans-serif}
+  .resumo .sep{width:1px;height:28px;background:hsl(var(--border))}
+
+  /* passos (Wizard do DS) */
+  .passos{display:flex;align-items:center;gap:10px;padding:0 22px 14px;font-size:13px;flex:none;border-bottom:1px solid hsl(var(--border))}
+  .passo{display:flex;align-items:center;gap:8px;color:hsl(var(--muted-foreground));font-weight:500}
+  .passo i.n{font-style:normal;width:22px;height:22px;border-radius:99px;display:grid;place-items:center;font-size:11.5px;font-weight:700;border:1.5px solid hsl(var(--border))}
+  .passo.feito i.n{background:hsl(var(--success-soft));border-color:transparent;color:hsl(var(--success-ink))}
+  .passo.agora{color:hsl(var(--foreground));font-weight:600}
+  .passo.agora i.n{background:hsl(var(--primary));border-color:hsl(var(--primary));color:#fff}
+  .passos .traco{flex:1;max-width:48px;height:1.5px;background:hsl(var(--border))}
+
+  /* painel lateral (C) */
+  .lateral{position:absolute;top:0;right:0;bottom:0;width:620px;display:flex;flex-direction:column;background:hsl(var(--card));box-shadow:-24px 0 60px -20px rgb(0 0 0 / .35)}
+  .dobra{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:hsl(var(--primary))}
+
+  /* celular */
+  .cel{width:360px;max-width:100%;border:1px solid hsl(var(--border));border-radius:28px;overflow:hidden;background:hsl(var(--background));box-shadow:0 8px 30px -12px rgb(0 0 0 / .2);display:flex;flex-direction:column;height:720px;position:relative}
+  .cel .veu{border-radius:28px}
+  .folha{position:absolute;left:0;right:0;bottom:0;top:28px;display:flex;flex-direction:column;background:hsl(var(--card));border-radius:20px 20px 0 0}
+  .folha .alca{width:40px;height:4px;border-radius:9px;background:hsl(var(--border));margin:8px auto 0;flex:none}
+  .folha .sec{padding:12px 16px}
+  .folha .j-topo{padding:10px 16px 8px}
+  .folha .j-rodape{padding:10px 16px 16px}
+  .folha .comp-cab,.folha .comp li{grid-template-columns:minmax(0,1fr) 92px 62px}
+  .folha .passos{padding:0 16px 10px;gap:6px;font-size:12px}
+
+  table.cmp{width:100%;border-collapse:collapse;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;font-size:13.5px}
+  table.cmp th,table.cmp td{padding:10px 14px;text-align:left;border-top:1px solid hsl(var(--border));vertical-align:top}
+  table.cmp thead th{border-top:0;background:hsl(var(--muted) / .5);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:hsl(var(--muted-foreground))}
+  .reco{margin-top:16px;padding:16px 18px;border-radius:14px;background:hsl(var(--primary-soft));color:hsl(var(--primary));font-size:14px;line-height:1.55}
+</style>
+<style>
+  .shell{position:relative;display:flex;height:640px;border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;background:hsl(var(--background));box-shadow:0 8px 30px -12px rgb(0 0 0 / .15)}
+  .sb{flex:none;display:flex;flex-direction:column;background:hsl(var(--card));border-right:1px solid hsl(var(--border))}
+  .sb.aberta{width:232px}.sb.fechada{width:64px}
+  .sb-topo{height:60px;flex:none;display:flex;align-items:center;gap:10px;padding:0 14px;background:hsl(var(--primary));color:#fff}
+  .logo{width:30px;height:30px;border-radius:9px;background:rgb(255 255 255 / .16);display:grid;place-items:center;font-size:17px;flex:none}
+  .lockup{display:flex;flex-direction:column;line-height:1.1;min-width:0}
+  .lockup b{font:800 15px Sora,Inter,sans-serif;letter-spacing:-.02em;white-space:nowrap}
+  .lockup small{font-size:10.5px;opacity:.78;margin-top:3px;white-space:nowrap}
+  .sb .sep{width:1px;height:28px;background:rgb(255 255 255 / .3)}
+  .pin{margin-left:auto;opacity:.8}
+  .sb nav{padding:10px;display:flex;flex-direction:column;gap:2px;font-size:13px;flex:1}
+  .sb nav p{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding:10px 8px 4px}
+  .sb nav a{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:8px;white-space:nowrap;position:relative}
+  .sb nav a.on{background:hsl(var(--primary-soft));color:hsl(var(--primary));font-weight:600;box-shadow:inset 3px 0 0 hsl(var(--primary))}
+  .sb nav a .badge{margin-left:auto;min-width:18px;height:18px;border-radius:999px;background:hsl(var(--danger-ink));color:#fff;font-size:10.5px;font-weight:700;display:grid;place-items:center;padding:0 5px}
+  .sb.fechada nav a{justify-content:center;padding:9px 0}
+  .sb.fechada nav a .badge{position:absolute;top:2px;right:6px;min-width:14px;height:14px;font-size:9px}
+  .sb .fim{border-top:1px solid hsl(var(--border));padding:8px 10px;display:flex;flex-direction:column;gap:2px;font-size:13px}
+  .sb .fim a{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:8px}
+  .pe-user{display:flex;align-items:center;gap:10px;padding:10px 12px;border-top:1px solid hsl(var(--border))}
+  .av{width:34px;height:34px;border-radius:99px;display:grid;place-items:center;background:hsl(var(--primary));color:#fff;font-weight:700;font-size:12px;flex:none;box-shadow:0 0 0 2px hsl(var(--primary) / .15)}
+  .corpo2{flex:1;min-width:0;display:flex;flex-direction:column}
+  .nb{height:60px;flex:none;display:flex;align-items:center;gap:14px;padding:0 20px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
+  .trilha{display:flex;align-items:center;gap:6px;font-size:13px;color:hsl(var(--muted-foreground));white-space:nowrap}
+  .trilha b{font:700 15px Sora,Inter,sans-serif;color:hsl(var(--foreground));letter-spacing:-.01em}
+  .busca{flex:1;max-width:420px;margin:0 auto;display:flex;align-items:center;gap:8px;height:38px;border-radius:999px;background:hsl(var(--muted) / .7);padding:0 14px;font-size:13px;color:hsl(var(--muted-foreground))}
+  .busca kbd{margin-left:auto;font:600 11px Inter;border:1px solid hsl(var(--border));border-radius:6px;padding:1px 6px;background:hsl(var(--card))}
+  .chip-emp{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;padding:4px 8px;border-radius:8px}
+  .chip-emp i.ini{font-style:normal;width:28px;height:28px;border-radius:7px;display:grid;place-items:center;background:hsl(var(--primary) / .12);color:hsl(var(--primary));font-weight:700;font-size:11px}
+  .vsep{width:1px;height:26px;background:hsl(var(--border))}
+  .sino{position:relative;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;color:hsl(var(--foreground) / .75)}
+  .sino b{position:absolute;top:4px;right:4px;min-width:16px;height:16px;border-radius:999px;background:hsl(var(--danger-ink));color:#fff;font-size:10px;display:grid;place-items:center;padding:0 4px}
+  .conteudo2{flex:1;padding:18px 22px;display:flex;flex-direction:column;gap:12px;overflow:hidden}
+  .fake{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:12px;height:64px}
+  .pop{position:absolute;z-index:3;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:12px;box-shadow:0 16px 40px -12px rgb(0 0 0 / .3);width:280px;overflow:hidden}
+  .pop .cab{display:flex;align-items:center;gap:10px;padding:12px;border-bottom:1px solid hsl(var(--border))}
+  .pop .cab b{display:block;font-size:13.5px}
+  .pop .cab small{font-size:12px;color:hsl(var(--muted-foreground))}
+  .seg3{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid hsl(var(--border));border-radius:8px;overflow:hidden;font-size:12px;font-weight:600}
+  .seg3 span{display:flex;align-items:center;justify-content:center;gap:5px;height:30px;color:hsl(var(--muted-foreground))}
+  .seg3 span.on{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+  .pop .item{display:flex;align-items:center;gap:8px;padding:10px 12px;font-size:13px}
+  .noti li{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;padding:10px 12px;border-top:1px solid hsl(var(--border));font-size:12.5px}
+  .noti .ic{width:30px;height:30px;border-radius:8px;display:grid;place-items:center}
+  .hover-tip{position:absolute;left:70px;top:150px;background:hsl(var(--foreground));color:#fff;font-size:12px;padding:5px 9px;border-radius:7px;white-space:nowrap}
+  .atual{display:flex;gap:14px;flex-wrap:wrap}
+  .atual .card{padding:14px 16px;font-size:13px;max-width:420px}
+</style>
+</head>
+<body>
+<main class="doc">
+  <p class="cap">Confeitaria · Sidebar e navbar · Em discussão · 27/10/2026</p>
+  <h1>Sidebar e navbar no modelo do DS</h1>
+  <p class="lead">O Design System já tem o modelo de casca das telas (histórias “Sidebar Complete” e “Navbar Complete”, tiradas do app-shell do facter-truck): <b>cabeçalho chocolate com logo, nome e slogan</b>, seções com título, itens de rodapé no fim da sidebar e, na navbar, <b>trilha de navegação</b>, <b>busca</b>, a empresa e o <b>menu do perfil com aparência (claro/escuro)</b>. Hoje a Confeitaria usa só parte disso: emoji no lugar do logo, o nome do e-mail no cabeçalho, título solto na navbar e o perfil só com “Sair”. Os três caminhos usam esse modelo; mudam o quanto fica aberto e onde fica o perfil.</p>
+  <div class="pecas"><code>Sidebar.Root</code><code>Sidebar.Aside</code><code>Sidebar.Section</code><code>Sidebar.NavItem (badge)</code><code>Sidebar.NavEnd</code><code>Sidebar.Footer</code><code>Navbar</code><code>Breadcrumb</code><code>NavbarNotification</code><code>Popover</code><code>MobileNav</code></div>
+
+  <section class="opcao" style="margin-top:36px">
+    <div class="opcao-topo"><h2>Como está hoje</h2></div>
+    <div class="atual">
+      <div class="card"><b>Sidebar</b><br>Cabeçalho com 🎂 e o nome da confeitaria, que na sua conta ficou “admin.conf@gmail.com” (foi o nome digitado no cadastro, e hoje não há onde trocar). Sempre fixada aberta. Configurações misturada no meio das seções.</div>
+      <div class="card"><b>Navbar</b><br>Só o nome da tela e o avatar. O menu do avatar tem nome, e-mail e “Sair”. Sem busca, sem atalhos, sem aviso de nada.</div>
+    </div>
+  </section>
+
+  <!-- A -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">A</span><h2>Igual ao Truck: sidebar recolhida, busca e perfil na navbar</h2></div>
+    <p class="sub">A casca do facter-truck, com a cor da Confeitaria. A sidebar começa <b>recolhida (só ícones)</b> e abre ao passar o mouse; o alfinete fixa aberta. Cabeçalho chocolate com logo, “Doces da Ana” e o slogan “Confeitaria”. Configurações e Ajuda (o guia de uso) ficam no pé. Na navbar: a trilha (“Produtos › Editar produto”), a <b>busca</b> no meio (Ctrl+K: clientes, encomendas, produtos) e, à direita, a confeitaria e o perfil com <b>Aparência</b> (Sistema / Claro / Escuro) e Sair.</p>
+    <div class="pros"><div><b>Ganha</b>Mais espaço para as telas (64px em vez de 232px). Mesma casca dos outros sistemas Facter. A busca acha qualquer cliente ou encomenda de qualquer tela.</div><div><b>Cuidado</b>Quem está começando não vê o nome dos itens até passar o mouse. A busca é uma funcionalidade nova (dá para deixar para uma segunda etapa).</div></div>
+    <div class="quadros">
+      <div><p class="rotulo">Notebook · sidebar recolhida, menu do perfil aberto</p><div class="shell" data-a></div></div>
+      <div><p class="rotulo">Passando o mouse: abre por cima, sem empurrar a tela</p><div class="shell" data-a2></div></div>
+    </div>
+  </section>
+
+  <!-- B -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">B</span><h2>Sidebar aberta com o perfil no pé, avisos na navbar</h2></div>
+    <p class="sub">A versão “Sidebar Complete” do DS: sidebar <b>fixada aberta</b> (como hoje, bom para quem está aprendendo), com o <b>perfil no pé da sidebar</b> (Sidebar.Footer: nome, e-mail, Aparência e Sair). A navbar fica com a trilha, a busca e um <b>sino de avisos</b> (NavbarNotification): encomendas atrasadas, entregas de hoje e pagamentos que faltam receber. Encomendas ganha um contador vermelho com as atrasadas.</p>
+    <div class="pros"><div><b>Ganha</b>Nomes sempre à vista; o sino puxa a atenção para o que está atrasado sem ela precisar abrir o Início.</div><div><b>Precisa</b><span>Montar os avisos a partir das encomendas <span class="api">API</span> (atrasadas, de hoje, saldo a receber).</span></div></div>
+    <div class="quadros"><div><p class="rotulo">Notebook · avisos abertos</p><div class="shell" data-b></div></div></div>
+  </section>
+
+  <!-- C -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">C</span><h2>O mínimo: só arrumar o que existe</h2></div>
+    <p class="sub">Mantém a sidebar aberta e a navbar simples, só ajustando ao modelo: cabeçalho com logo e “Doces da Ana · Confeitaria” (em vez do e-mail), Configurações no pé, trilha de navegação no lugar do título solto, e o perfil com Aparência e Sair. Sem busca e sem avisos.</p>
+    <div class="pros"><div><b>Ganha</b>Rápido de fazer e sem nada novo para aprender.</div><div><b>Cuidado</b>Não traz nada de útil além da aparência (sem busca, sem avisos).</div></div>
+    <div class="quadros"><div><p class="rotulo">Notebook</p><div class="shell" data-c></div></div></div>
+  </section>
+
+  <section class="opcao">
+    <div class="opcao-topo"><h2>Celular (igual nos três)</h2></div>
+    <p class="sub">A barra de baixo continua (Início, Encomendas, Agenda, Clientes, Mais). Em cima: logo e nome à esquerda, busca (ícone) e avatar à direita. Avisos (na B) entram como um sino ao lado do avatar.</p>
+    <div class="cel" data-cel style="height:420px"></div>
+  </section>
+
+  <section class="opcao">
+    <div class="opcao-topo"><h2>Comparando</h2></div>
+    <table class="cmp"><thead><tr><th></th><th>A · Igual ao Truck</th><th>B · Aberta + avisos</th><th>C · O mínimo</th></tr></thead><tbody>
+      <tr><th>Sidebar</th><td>Recolhida, abre no mouse, alfinete</td><td>Fixada aberta</td><td>Fixada aberta</td></tr>
+      <tr><th>Perfil (Aparência, Sair)</th><td>Avatar na navbar</td><td>Pé da sidebar</td><td>Avatar na navbar</td></tr>
+      <tr><th>Busca (Ctrl+K)</th><td>Sim</td><td>Sim</td><td>Não</td></tr>
+      <tr><th>Avisos</th><td>Não</td><td>Sino + contador em Encomendas</td><td>Não</td></tr>
+      <tr><th>Espaço para as telas</th><td>Maior</td><td>Como hoje</td><td>Como hoje</td></tr>
+      <tr><th>Esforço</th><td>Médio (busca é nova)</td><td>Médio/alto (busca + avisos)</td><td>Baixo</td></tr>
+    </tbody></table>
+    <p class="reco"><b>Recomendação: A, em duas etapas.</b> Primeiro a casca (cabeçalho com logo e nome, sidebar recolhida com alfinete, Configurações e Ajuda no pé, trilha na navbar, perfil com Aparência e Sair); depois a busca. É o mesmo modelo do Truck e do DS, e devolve espaço para as telas em console (Produtos, Receitas, Configurações). Se preferir que quem está começando veja os nomes, dá para começar fixada aberta e ela recolhe no alfinete.</p>
+  </section>
+</main>
+
+<script>
+  const ico = (nome, extra = "") => `<i class="i" style="--ico:url(https://api.iconify.design/ph/${nome}.svg);${extra}"></i>`;
+  const ITENS = [["Principal", [["squares-four", "Início"]]], ["Vendas", [["clipboard-text", "Encomendas", "badge"], ["calendar-blank", "Agenda"], ["users", "Clientes"]]], ["Produção", [["cake", "Produtos", "", "on"], ["book-open", "Receitas"], ["grains", "Insumos"]]], ["Gestão", [["calculator", "Precificação"], ["wallet", "Financeiro"]]]];
+  const sidebar = ({ aberta, badge = false, fim = true, perfilNoPe = false, pin = true }) => `<aside class="sb ${aberta ? "aberta" : "fechada"}">
+    <div class="sb-topo"><span class="logo">🎂</span>${aberta ? `<span class="sep"></span><span class="lockup"><b>Doces da Ana</b><small>Confeitaria</small></span>${pin ? `<span class="pin">${ico("push-pin")}</span>` : ""}` : ""}</div>
+    <nav>${ITENS.map(([g, its]) => `${aberta ? `<p>${g}</p>` : `<div style="height:10px"></div>`}${its.map(([i, n, b, on]) => `<a class="${on ? "on" : ""}" title="${n}">${ico(i, "width:18px;height:18px")}${aberta ? n : ""}${b && badge ? `<span class="badge">1</span>` : ""}</a>`).join("")}`).join("")}</nav>
+    ${fim ? `<div class="fim">${[["gear", "Configurações"], ["question", "Ajuda"]].map(([i, n]) => `<a title="${n}" style="${aberta ? "" : "justify-content:center;padding:9px 0"}">${ico(i, "width:18px;height:18px")}${aberta ? n : ""}</a>`).join("")}</div>` : ""}
+    ${perfilNoPe ? `<div class="pe-user"><span class="av">AN</span><span style="min-width:0;flex:1"><b style="font-size:13px;display:block">Ana Lima</b><small class="mut" style="font-size:11.5px">ana@docesdaana.com</small></span>${ico("dots-three-vertical", "color:hsl(var(--muted-foreground))")}</div>` : ""}
+  </aside>`;
+  const navbar = ({ busca = true, sino = false, perfil = true, empresa = true }) => `<div class="nb">
+    <div class="trilha">Produtos ${ico("caret-right", "width:12px;height:12px")} <b>Editar produto</b></div>
+    ${busca ? `<div class="busca">${ico("sparkle", "color:hsl(var(--primary))")}Buscar cliente, encomenda ou produto…<kbd>Ctrl K</kbd></div>` : `<div style="flex:1"></div>`}
+    <div style="display:flex;align-items:center;gap:10px">${sino ? `<span class="sino">${ico("bell", "width:20px;height:20px")}<b>3</b></span>` : ""}${empresa ? `<span class="chip-emp"><i class="ini">DA</i>Doces da Ana</span>` : ""}${perfil ? `<span class="vsep"></span><span class="av">AN</span>` : ""}</div></div>`;
+  const conteudo = `<div class="conteudo2"><div style="display:flex;gap:12px"><div style="flex:1;display:flex;flex-direction:column;gap:12px"><div class="fake" style="height:120px"></div><div class="fake" style="height:200px"></div></div><div class="fake" style="width:280px;height:332px"></div></div></div>`;
+  const perfilPop = (direita, topo) => `<div class="pop" style="right:${direita}px;top:${topo}px"><div class="cab"><span class="av">AN</span><span><b>Ana Lima</b><small>ana@docesdaana.com</small><br><small>Doces da Ana</small></span></div>
+    <div style="padding:12px;border-bottom:1px solid hsl(var(--border))"><p class="cap" style="margin-bottom:8px">Aparência</p><div class="seg3"><span class="on">${ico("desktop", "width:13px;height:13px")}Sistema</span><span>${ico("sun", "width:13px;height:13px")}Claro</span><span>${ico("moon", "width:13px;height:13px")}Escuro</span></div></div>
+    <div class="item" style="color:hsl(var(--danger-ink));font-weight:600">${ico("sign-out")}Sair</div></div>`;
+
+  document.querySelector("[data-a]").innerHTML = `${sidebar({ aberta: false })}<div class="corpo2">${navbar({})}${conteudo}</div>${perfilPop(14, 56)}`;
+  document.querySelector("[data-a2]").innerHTML = `<div style="position:absolute;left:0;top:0;bottom:0;z-index:2;display:flex;box-shadow:12px 0 30px -12px rgb(0 0 0 / .25)">${sidebar({ aberta: true })}</div><div style="width:64px;flex:none"></div><div class="corpo2">${navbar({})}${conteudo}</div>`;
+  document.querySelector("[data-b]").innerHTML = `${sidebar({ aberta: true, badge: true, fim: true, perfilNoPe: true })}<div class="corpo2">${navbar({ sino: true, perfil: false, empresa: false })}${conteudo}</div>
+    <div class="pop" style="right:14px;top:56px;width:320px"><div style="display:flex;justify-content:space-between;align-items:center;padding:12px"><b style="font-size:13.5px">Avisos</b><a style="font-size:12px;color:hsl(var(--primary));font-weight:600">Marcar como lidos</a></div><ul class="noti" style="margin:0;padding:0;list-style:none">
+      <li><span class="ic" style="background:hsl(var(--danger-soft));color:hsl(var(--danger-ink))">${ico("warning")}</span><span><b>Encomenda nº 22 atrasada</b><br><span class="mut">Luciana Martins · era para sáb., 24/10</span></span></li>
+      <li><span class="ic" style="background:hsl(var(--primary-soft));color:hsl(var(--primary))">${ico("truck")}</span><span><b>2 entregas hoje</b><br><span class="mut">15:00 Maria Souza · 17:30 Carla Mendes</span></span></li>
+      <li><span class="ic" style="background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))">${ico("wallet")}</span><span><b>Falta receber R$ 210,00</b><br><span class="mut">nº 41 · Maria Souza · entrega hoje</span></span></li></ul></div>`;
+  document.querySelector("[data-c]").innerHTML = `${sidebar({ aberta: true, pin: false })}<div class="corpo2">${navbar({ busca: false, empresa: false })}${conteudo}</div>`;
+  document.querySelector("[data-cel]").innerHTML = `<div style="height:56px;display:flex;align-items:center;gap:10px;padding:0 14px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border));flex:none"><span class="logo" style="background:hsl(var(--primary));color:#fff">🎂</span><b style="font:800 15px Sora">Doces da Ana</b><span style="margin-left:auto;display:flex;gap:6px;align-items:center"><span class="sino">${ico("magnifying-glass", "width:20px;height:20px")}</span><span class="av">AN</span></span></div>
+    <div style="flex:1;padding:14px;display:flex;flex-direction:column;gap:10px"><div class="fake"></div><div class="fake"></div><div class="fake"></div></div>
+    <div style="height:60px;flex:none;display:grid;grid-template-columns:repeat(5,1fr);background:hsl(var(--card));border-top:1px solid hsl(var(--border));font-size:10.5px;color:hsl(var(--muted-foreground))">${[["squares-four", "Início"], ["clipboard-text", "Encomendas"], ["calendar-blank", "Agenda"], ["users", "Clientes"], ["dots-three", "Mais"]].map(([i, n], k) => `<span style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;${k === 0 ? "color:hsl(var(--primary));font-weight:600" : ""}">${ico(i, "width:20px;height:20px")}${n}</span>`).join("")}</div>`;
+  document.querySelectorAll("[data-ico]").forEach((el) => el.insertAdjacentHTML("afterbegin", ico(el.dataset.ico)));
+</script>
+</body>
+</html>

@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Produto em janela · Confeitaria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* Tema confeitaria (chocolate) do DS: mesmas variáveis do produto. */
+  :root{
+    --background:0 0% 98%;
+    --foreground:240 10% 3.9%;
+    --card:0 0% 100%;
+    --primary:20 45% 32%;
+    --primary-soft:20 45% 95%;
+    --muted:240 4.8% 93.9%;
+    --muted-foreground:240 3.8% 46%;
+    --border:240 5.9% 90%;
+    --success:160 60% 38%;
+    --success-ink:160 70% 24%;
+    --success-soft:160 55% 94%;
+    --warning-ink:28 85% 28%;
+    --warning-soft:40 95% 93%;
+    --danger-ink:0 72% 38%;
+    --danger-soft:0 86% 96%;
+    --info-ink:217 91% 38%;
+    --info-soft:217 85% 96%;
+    --canvas:225 14% 92%;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));
+    font:14px/1.45 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3,h4,p,ul{margin:0}
+  ul{padding:0;list-style:none}
+  button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
+  .i{display:inline-block;width:16px;height:16px;flex:none;background:currentColor;
+    -webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat}
+  .tab{font-variant-numeric:tabular-nums}
+  .mut{color:hsl(var(--muted-foreground))}
+
+  /* ---------- apresentação ---------- */
+  .doc{max-width:1400px;margin:0 auto;padding:48px 24px 96px}
+  .doc h1{font:800 32px/1.15 Sora,Inter,sans-serif;letter-spacing:-.02em}
+  .lead{color:hsl(var(--muted-foreground));max-width:84ch;margin-top:10px;font-size:14.5px;line-height:1.55}
+  .pecas{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
+  .pecas code{font:600 12px ui-monospace,Consolas,monospace;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:6px;padding:3px 7px}
+  .opcao{margin-top:64px;display:flex;flex-direction:column;gap:14px}
+  .opcao-topo{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .letra{font:800 13px Sora,Inter,sans-serif;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:hsl(var(--primary));color:#fff}
+  .opcao h2{font:800 22px/1.2 Sora,Inter,sans-serif;letter-spacing:-.01em}
+  .opcao .sub{font-size:14px;color:hsl(var(--muted-foreground));max-width:92ch}
+  .pros{display:flex;gap:24px;flex-wrap:wrap;font-size:13px}
+  .pros div{display:flex;flex-direction:column;gap:4px;max-width:48ch}
+  .pros b{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+  .rotulo{font-size:12px;font-weight:600;color:hsl(var(--muted-foreground));letter-spacing:.03em;text-transform:uppercase;margin-bottom:8px}
+  .quadros{display:flex;flex-direction:column;gap:24px}
+  .lado{display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start}
+
+  /* ---------- moldura (notebook 1366 × 720) ---------- */
+  .tela{position:relative;display:flex;height:720px;border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;background:hsl(var(--background));box-shadow:0 8px 30px -12px rgb(0 0 0 / .15)}
+  .menu{width:210px;flex:none;display:flex;flex-direction:column;background:hsl(var(--card));border-right:1px solid hsl(var(--border))}
+  .menu-topo{display:flex;align-items:center;gap:10px;height:60px;padding:0 14px;background:hsl(var(--primary));color:#fff;font:700 13px Inter}
+  .menu-topo small{display:block;font-weight:500;opacity:.8;font-size:11px}
+  .menu nav{padding:10px;display:flex;flex-direction:column;gap:2px;font-size:13px}
+  .menu nav p{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding:10px 8px 4px}
+  .menu nav a{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:8px}
+  .menu nav a.on{background:hsl(var(--primary-soft));color:hsl(var(--primary));font-weight:600;box-shadow:inset 3px 0 0 hsl(var(--primary))}
+  .corpo{flex:1;min-width:0;display:flex;flex-direction:column}
+  .barra{height:60px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border));font-weight:700}
+  .avatar{width:32px;height:32px;border-radius:999px;background:hsl(var(--primary));color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700}
+  .conteudo{padding:24px 28px;display:flex;flex-direction:column;gap:14px}
+  .cabeca{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .cabeca h3{font:800 24px/1.15 Sora,Inter,sans-serif;letter-spacing:-.015em}
+  .prod{display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px solid hsl(var(--border));border-radius:10px;background:hsl(var(--card))}
+  .prod .ic{padding:8px;border-radius:8px;background:hsl(var(--primary-soft));color:hsl(var(--primary));display:grid}
+  .prod b{font-weight:600}
+  .prod .preco{margin-left:auto;text-align:right;font-weight:600;color:hsl(var(--primary))}
+  .prod .preco small{display:block;font-weight:400;font-size:12px;color:hsl(var(--muted-foreground))}
+
+  /* véu + janela (Dialog do DS) */
+  .veu{position:absolute;inset:0;background:rgb(0 0 0 / .5);backdrop-filter:blur(1px)}
+  .janela{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;max-height:calc(100% - 48px);background:hsl(var(--card));border-radius:16px;box-shadow:0 24px 60px -16px rgb(0 0 0 / .45);overflow:hidden}
+  .j-topo{display:flex;align-items:center;gap:10px;padding:18px 22px 14px;flex:none}
+  .j-topo h4{font:800 19px Sora,Inter,sans-serif;letter-spacing:-.01em}
+  .j-topo .x{margin-left:auto;color:hsl(var(--muted-foreground));width:32px;height:32px;display:grid;place-items:center;border-radius:8px}
+  .j-rodape{display:flex;align-items:center;gap:8px;padding:12px 22px;border-top:1px solid hsl(var(--border));background:hsl(var(--muted) / .35);flex:none}
+  .rola{overflow:auto;min-height:0}
+
+  /* ---------- DS ---------- */
+  .card{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:38px;padding:0 16px;border-radius:8px;font-size:13.5px;font-weight:600;white-space:nowrap}
+  .btn.pri{background:hsl(var(--primary));color:#fff}
+  .btn.out{border:1px solid hsl(var(--border));background:hsl(var(--card))}
+  .btn.sm{height:32px;font-size:12.5px;padding:0 10px}
+  .btn.ico{width:32px;padding:0}
+  .btn.ghost{color:hsl(var(--muted-foreground))}
+  .btn.perigo{color:hsl(var(--danger-ink))}
+  .btn.sec{background:hsl(var(--card));color:hsl(var(--primary));border:1px solid hsl(var(--primary) / .25)}
+  .cap{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+  .chip{display:inline-flex;align-items:center;gap:4px;height:20px;padding:0 7px;border-radius:6px;font-size:11px;font-weight:600;white-space:nowrap}
+  .c-mut{background:hsl(var(--muted));color:hsl(var(--foreground) / .7)}
+  .c-ok{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+  .c-pri{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+  .api{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:hsl(var(--info-ink));background:hsl(var(--info-soft));border-radius:999px;padding:1px 7px;vertical-align:middle}
+
+  /* campos (Form.Input do DS: rótulo na borda) */
+  .campo{position:relative;display:flex;align-items:center;height:44px;padding:0 12px;border:2px solid hsl(var(--border));border-radius:8px;background:hsl(var(--background));font-size:14px;min-width:0}
+  .campo label{position:absolute;top:-9px;left:9px;padding:0 4px;background:hsl(var(--card));font-size:12px;font-weight:600;line-height:16px;white-space:nowrap}
+  .campo.sm{height:36px;font-size:13px}
+  .campo .un{margin-left:auto;color:hsl(var(--muted-foreground));font-size:12.5px}
+  .campo .sel{margin-left:auto;color:hsl(var(--muted-foreground))}
+  .campo.vazio{color:hsl(var(--muted-foreground))}
+  .dica{font-size:11.5px;color:hsl(var(--muted-foreground));margin-top:4px;padding-left:4px}
+  .radios{display:flex;gap:8px}
+  .radio{display:flex;align-items:center;gap:8px;height:40px;padding:0 14px;border:2px solid hsl(var(--border));border-radius:8px;font-size:13.5px;font-weight:600;white-space:nowrap}
+  .radio::before{content:"";width:14px;height:14px;border-radius:99px;border:1.5px solid hsl(var(--border))}
+  .radio.on{border-color:hsl(var(--primary))}
+  .radio.on::before{border:4px solid hsl(var(--primary))}
+  .rot-radio{font-size:13px;font-weight:600;margin-bottom:6px}
+
+  /* seções do formulário */
+  .sec{padding:14px 22px;display:flex;flex-direction:column;gap:14px}
+  .sec + .sec{border-top:1px solid hsl(var(--border))}
+  .sec-topo{display:flex;align-items:center;justify-content:space-between;min-height:32px}
+  .linha2{display:grid;gap:12px}
+
+  /* composição */
+  .comp-cab,.comp li{display:grid;grid-template-columns:minmax(0,1fr) 120px 76px 28px;gap:10px;align-items:center}
+  .comp-cab{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding-bottom:2px}
+  .comp li{padding:6px 0;border-top:1px solid hsl(var(--border));font-size:13.5px}
+  .comp li:first-child{border-top:0}
+  .comp b{font-weight:600;display:flex;align-items:center;gap:6px;min-width:0}
+  .comp .custo{text-align:right;font-weight:600}
+  .rende{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;border-top:1px solid hsl(var(--border));padding-top:12px}
+  .total-comp{text-align:right}
+  .total-comp small{display:block;color:hsl(var(--muted-foreground));font-size:12.5px}
+  .total-comp b{font:800 18px Sora,Inter,sans-serif}
+
+  /* preço */
+  .linhas li{display:flex;justify-content:space-between;font-size:13px;padding:2px 0}
+  .linhas li span:first-child{color:hsl(var(--muted-foreground))}
+  .linhas li.forte{border-top:1px solid hsl(var(--border));margin-top:4px;padding-top:6px;font-weight:600}
+  .linhas li.forte span:first-child{color:inherit}
+  .sugerido{border-radius:10px;background:hsl(var(--primary-soft));padding:12px 14px}
+  .sugerido small{font-size:12.5px;color:hsl(var(--muted-foreground))}
+  .sugerido .v{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .sugerido b{font:800 22px Sora,Inter,sans-serif;color:hsl(var(--primary))}
+  .margem{display:flex;justify-content:space-between;align-items:center;font-size:13px}
+
+  /* resumo do preço no pé (B e C) */
+  .resumo{display:flex;align-items:center;gap:18px;font-size:12.5px;margin-right:auto}
+  .resumo small{display:block;color:hsl(var(--muted-foreground));font-size:11.5px}
+  .resumo b{font:800 15px Sora,Inter,sans-serif}
+  .resumo .sep{width:1px;height:28px;background:hsl(var(--border))}
+
+  /* passos (Wizard do DS) */
+  .passos{display:flex;align-items:center;gap:10px;padding:0 22px 14px;font-size:13px;flex:none;border-bottom:1px solid hsl(var(--border))}
+  .passo{display:flex;align-items:center;gap:8px;color:hsl(var(--muted-foreground));font-weight:500}
+  .passo i.n{font-style:normal;width:22px;height:22px;border-radius:99px;display:grid;place-items:center;font-size:11.5px;font-weight:700;border:1.5px solid hsl(var(--border))}
+  .passo.feito i.n{background:hsl(var(--success-soft));border-color:transparent;color:hsl(var(--success-ink))}
+  .passo.agora{color:hsl(var(--foreground));font-weight:600}
+  .passo.agora i.n{background:hsl(var(--primary));border-color:hsl(var(--primary));color:#fff}
+  .passos .traco{flex:1;max-width:48px;height:1.5px;background:hsl(var(--border))}
+
+  /* painel lateral (C) */
+  .lateral{position:absolute;top:0;right:0;bottom:0;width:620px;display:flex;flex-direction:column;background:hsl(var(--card));box-shadow:-24px 0 60px -20px rgb(0 0 0 / .35)}
+  .dobra{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:hsl(var(--primary))}
+
+  /* celular */
+  .cel{width:360px;max-width:100%;border:1px solid hsl(var(--border));border-radius:28px;overflow:hidden;background:hsl(var(--background));box-shadow:0 8px 30px -12px rgb(0 0 0 / .2);display:flex;flex-direction:column;height:720px;position:relative}
+  .cel .veu{border-radius:28px}
+  .folha{position:absolute;left:0;right:0;bottom:0;top:28px;display:flex;flex-direction:column;background:hsl(var(--card));border-radius:20px 20px 0 0}
+  .folha .alca{width:40px;height:4px;border-radius:9px;background:hsl(var(--border));margin:8px auto 0;flex:none}
+  .folha .sec{padding:12px 16px}
+  .folha .j-topo{padding:10px 16px 8px}
+  .folha .j-rodape{padding:10px 16px 16px}
+  .folha .comp-cab,.folha .comp li{grid-template-columns:minmax(0,1fr) 92px 62px}
+  .folha .passos{padding:0 16px 10px;gap:6px;font-size:12px}
+
+  table.cmp{width:100%;border-collapse:collapse;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;font-size:13.5px}
+  table.cmp th,table.cmp td{padding:10px 14px;text-align:left;border-top:1px solid hsl(var(--border));vertical-align:top}
+  table.cmp thead th{border-top:0;background:hsl(var(--muted) / .5);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:hsl(var(--muted-foreground))}
+  .reco{margin-top:16px;padding:16px 18px;border-radius:14px;background:hsl(var(--primary-soft));color:hsl(var(--primary));font-size:14px;line-height:1.55}
+</style>
+</head>
+<body>
+<main class="doc">
+  <p class="cap">Confeitaria · Produtos · Em discussão · 26/10/2026</p>
+  <h1>Produto em janela: 3 caminhos</h1>
+  <p class="lead">Hoje Novo/Editar produto é uma página inteira (o console: dados e composição à esquerda, tempo e preço à direita). A ideia é abrir por cima da lista de produtos, como já fazemos com Clientes (<code>/produtos?novo=1</code>, <code>?editar=&lt;id&gt;</code>). O produto tem muito mais coisa que a cliente (composição que cresce, tempo, o cálculo do preço), então a janela precisa ser maior ou dividir o trabalho. Todos os exemplos mostram o mesmo bolo sendo editado, num notebook de 1366 × 720.</p>
+  <div class="pecas"><code>Dialog</code><code>DialogContent size="2xl" / className="max-w-5xl"</code><code>DialogHeader</code><code>DialogFooter</code><code>Form</code><code>Form.Select</code><code>Form.RadioGroup</code><code>Input inputSize="sm"</code><code>Wizard</code><code>Sheet (DS 1.39)</code><code>EscolherItem</code></div>
+
+  <!-- ==================== A ==================== -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">A</span><h2>Janela larga: o console inteiro dentro do Dialog</h2></div>
+    <p class="sub">A tela de hoje cabe numa janela grande (<code>DialogContent className="max-w-5xl"</code>, ~1000px; o maior tamanho pronto do DS é <code>4xl</code>, 896px). À esquerda, dados e composição, que rolam quando a lista cresce. À direita, uma coluna fixa com tempo e o preço calculado ao vivo. O rodapé fica sempre à vista: Arquivar à esquerda, Cancelar e Salvar à direita (o mesmo padrão da janela de cliente).</p>
+    <div class="pros">
+      <div><b>Ganha</b>Tudo à vista de uma vez, como hoje: mexe na quantidade e vê o preço mudar ao lado. A lista continua atrás, sem perder a busca.</div>
+      <div><b>Cuidado</b>É a janela mais pesada: em telas mais baixas a coluna da esquerda rola por dentro. No celular vira folha de tela cheia.</div>
+    </div>
+    <div class="quadros">
+      <div>
+        <p class="rotulo">Notebook · editando um bolo com 4 itens</p>
+        <div class="tela" data-fundo>
+          <div class="veu"></div>
+          <div class="janela" style="width:1000px">
+            <div class="j-topo"><h4>Editar produto</h4><span class="x" data-i="x"></span></div>
+            <div style="display:grid;grid-template-columns:minmax(0,1fr) 340px;border-top:1px solid hsl(var(--border));min-height:0;flex:1">
+              <div class="rola" data-dados data-comp></div>
+              <div class="rola" style="border-left:1px solid hsl(var(--border));background:hsl(var(--muted) / .25)" data-tempo data-preco></div>
+            </div>
+            <div class="j-rodape"><span class="btn ghost sm perigo" data-ico="archive">Arquivar</span><span style="margin-left:auto"></span><span class="btn out">Cancelar</span><span class="btn pri">Salvar produto</span></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="rotulo">Celular · folha de tela cheia, uma coluna, preço no pé</p>
+        <div class="cel" data-cel-a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== B ==================== -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">B</span><h2>Janela média em 3 passos</h2></div>
+    <p class="sub">Uma janela do tamanho da de cliente, um pouco maior (<code>size="2xl"</code>, 672px), com o <code>Wizard</code> do DS: <b>1 · Dados</b> → <b>2 · Composição</b> → <b>3 · Tempo e preço</b>. Cada passo cabe sem rolar. O pé mostra o custo até ali, para não perder a conta. Ao editar, os passos viram abas: dá para pular direto para o preço.</p>
+    <div class="pros">
+      <div><b>Ganha</b>Janela leve, nunca rola, ótimo no celular. Guia quem está cadastrando o primeiro produto.</div>
+      <div><b>Cuidado</b>Mais cliques: para ajustar a quantidade e ver o preço, troca de passo. O preço só aparece no fim.</div>
+    </div>
+    <div class="quadros">
+      <div>
+        <p class="rotulo">Notebook · passo 2, composição</p>
+        <div class="tela" data-fundo>
+          <div class="veu"></div>
+          <div class="janela" style="width:672px">
+            <div class="j-topo"><h4>Novo produto</h4><span class="x" data-i="x"></span></div>
+            <div class="passos" data-passos="2"></div>
+            <div class="rola" data-comp></div>
+            <div class="j-rodape"><div class="resumo"><div><small>Custo da composição</small><b class="tab">R$ 39,30</b></div></div><span class="btn out" data-ico="arrow-left">Voltar</span><span class="btn pri">Continuar<i data-i2="arrow-right"></i></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="lado">
+        <div>
+          <p class="rotulo">Passo 3 · tempo e preço</p>
+          <div class="card" style="width:672px;max-width:100%;overflow:hidden;box-shadow:0 24px 60px -16px rgb(0 0 0 / .25)">
+            <div class="j-topo"><h4>Novo produto</h4><span class="x" data-i="x"></span></div>
+            <div class="passos" data-passos="3"></div>
+            <div style="display:grid;grid-template-columns:240px minmax(0,1fr)">
+              <div data-tempo style="border-right:1px solid hsl(var(--border))"></div>
+              <div data-preco></div>
+            </div>
+            <div class="j-rodape"><span class="btn out" data-ico="arrow-left" style="margin-right:auto">Voltar</span><span class="btn out">Cancelar</span><span class="btn pri">Salvar produto</span></div>
+          </div>
+        </div>
+        <div>
+          <p class="rotulo">Celular · passo 1, dados</p>
+          <div class="cel" data-cel-b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== C ==================== -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">C</span><h2>Painel lateral: o produto abre pela direita</h2></div>
+    <p class="sub">Em vez de uma janela no meio, um painel alto que desliza da direita (o <code>Sheet</code> do DS 1.39, ~620px), com a lista ainda visível à esquerda. Uma coluna só: dados, composição e tempo. O preço vira um resumo preso no pé (custo, sugerido, seu preço e margem) e o detalhe do cálculo abre só quando ela quer.</p>
+    <div class="pros">
+      <div><b>Ganha</b>Altura toda da tela para a composição; o preço sempre à vista no pé. Parece com a ficha da cliente (mesma família).</div>
+      <div><b>Precisa</b><span>O <code>Sheet</code> só existe no DS 1.39, que ainda não foi publicado no npm (dá para imitar com o Dialog até lá). Coluna única rola mais que a A.</span></div>
+    </div>
+    <div class="quadros">
+      <div>
+        <p class="rotulo">Notebook · editando o mesmo bolo</p>
+        <div class="tela" data-fundo>
+          <div class="veu" style="background:rgb(0 0 0 / .3)"></div>
+          <div class="lateral">
+            <div class="j-topo" style="border-bottom:1px solid hsl(var(--border))"><h4>Editar produto</h4><span class="x" data-i="x"></span></div>
+            <div class="rola" style="flex:1" data-dados data-comp data-tempo-c></div>
+            <div style="flex:none;border-top:1px solid hsl(var(--border))">
+              <div style="display:flex;align-items:center;gap:16px;padding:12px 22px;background:hsl(var(--primary-soft) / .6)" data-resumo-c></div>
+              <div class="j-rodape"><span class="btn ghost sm perigo" data-ico="archive">Arquivar</span><span style="margin-left:auto"></span><span class="btn out">Cancelar</span><span class="btn pri">Salvar produto</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sub">No celular a C fica igual à A: folha de tela cheia com o preço no pé.</p>
+    </div>
+  </section>
+
+  <!-- ==================== comparação ==================== -->
+  <section class="opcao">
+    <div class="opcao-topo"><h2>Comparando</h2></div>
+    <table class="cmp">
+      <thead><tr><th></th><th>A · Janela larga</th><th>B · 3 passos</th><th>C · Painel lateral</th></tr></thead>
+      <tbody>
+        <tr><th>Ver o preço enquanto mexe</th><td>Sim, ao lado, detalhado</td><td>Só o custo no pé; preço no passo 3</td><td>Resumo no pé; detalhe ao abrir</td></tr>
+        <tr><th>Rolagem no notebook</th><td>Só a composição, se tiver muitos itens</td><td>Nenhuma</td><td>A coluna rola com 4+ itens</td></tr>
+        <tr><th>Cliques para salvar um bolo novo</th><td>Os mesmos de hoje</td><td>+2 (Continuar, Continuar)</td><td>Os mesmos de hoje</td></tr>
+        <tr><th>Celular</th><td>Folha de tela cheia</td><td>Melhor dos três: um passo por vez</td><td>Igual à A</td></tr>
+        <tr><th>O que precisa</th><td>Só o DS 1.38.1 que já usamos</td><td>Wizard do DS (já temos)</td><td>Sheet do DS 1.39 (publicar no npm)</td></tr>
+        <tr><th>Esforço</th><td>Baixo: o formulário de hoje entra na janela</td><td>Médio: dividir validação por passo</td><td>Médio: refazer o bloco do preço</td></tr>
+      </tbody>
+    </table>
+    <p class="reco"><b>Recomendação: A.</b> É o console que você já aprovou, só que por cima da lista: mesma conta ao vivo, mesmos cliques, rodapé igual ao da janela de cliente, e não depende de publicar o DS 1.39. A B é melhor no celular; se a folha de tela cheia ficar longa demais lá, dá para usar os passos só no celular.</p>
+  </section>
+</main>
+
+<script>
+  const ico = (nome, extra = "") => `<i class="i" style="--ico:url(https://api.iconify.design/ph/${nome}.svg);${extra}"></i>`;
+
+  // ---------- pedaços do formulário (mesmo bolo em todas) ----------
+  const ITENS = [
+    ["Massa de chocolate", 1, "1.200", "g", "R$ 18,40"],
+    ["Recheio de brigadeiro", 1, "600", "g", "R$ 14,10"],
+    ["Caixa 25 × 25", 0, "1", "un", "R$ 4,50"],
+    ["Base laminada", 0, "1", "un", "R$ 2,30"],
+  ];
+  const lixeira = `<span class="btn ghost ico" style="height:28px;width:28px">${ico("trash")}</span>`;
+  const dados = (cel) => `<section class="sec">
+      <div class="sec-topo"><span class="cap">Dados do produto</span></div>
+      <div class="campo"><label>Nome</label>Bolo de chocolate com brigadeiro</div>
+      <div class="linha2" style="grid-template-columns:${cel ? "1fr" : "minmax(0,1fr) auto"};align-items:end">
+        <div class="campo"><label>Tipo</label>Bolo<span class="sel">${ico("caret-down")}</span></div>
+        <div><p class="rot-radio">Como você vende</p><div class="radios"><span class="radio on">${cel ? "Unidade" : "Por unidade"}</span><span class="radio">${cel ? "Kg" : "Por kg"}</span><span class="radio">${cel ? "Cento" : "Por cento"}</span></div></div>
+      </div>
+      <div class="campo"><label>Descrição (opcional)</label>Massa fofinha, recheio de brigadeiro</div>
+    </section>`;
+  const comp = (cel) => `<section class="sec">
+      <div class="sec-topo"><span class="cap">Composição</span><span class="btn out sm" data-ico="plus">Adicionar item</span></div>
+      <div><div class="comp-cab"><span>Item</span><span>Quantidade</span><span style="text-align:right">Custo</span>${cel ? "" : "<span></span>"}</div>
+      <ul class="comp">${ITENS.map(([n, rec, q, u, c]) => `<li><b><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${n}</span>${rec && !cel ? '<span class="chip c-mut">Receita</span>' : ""}</b><span class="campo sm">${q}<span class="un">${u}</span></span><span class="custo tab">${c}</span>${cel ? "" : lixeira}</li>`).join("")}</ul></div>
+      <div class="rende"><div><div class="campo"><label>Rende quantas unidades?</label>1</div><p class="dica">Ex.: faz 1 bolo → 1; faz 12 cupcakes → 12</p></div>
+        <div class="total-comp"><small>Custo da composição</small><b class="tab">R$ 39,30</b></div></div>
+    </section>`;
+  const tempo = `<section class="sec">
+      <div class="sec-topo"><span class="cap">Tempo</span></div>
+      <div class="linha2" style="grid-template-columns:1fr 1fr"><div class="campo"><label>Trabalho (min)</label>90</div><div class="campo"><label>Forno (min)</label>45</div></div>
+    </section>`;
+  const preco = `<section class="sec">
+      <div class="sec-topo"><span class="cap">Preço</span></div>
+      <ul class="linhas tab"><li><span>Ingredientes e embalagens</span><span>R$ 39,30</span></li><li><span>Seu trabalho</span><span>R$ 30,00</span></li><li><span>Forno</span><span>R$ 3,60</span></li><li class="forte"><span>Custo direto</span><span>R$ 72,90</span></li></ul>
+      <div class="sugerido"><small>Preço sugerido por unidade</small><div class="v"><b class="tab">R$ 145,00</b><span class="btn sec sm">Usar este preço</span></div></div>
+      <div class="campo"><label>Seu preço de venda (R$)</label>150,00</div>
+      <div class="margem"><span class="mut">Margem</span><span class="chip c-ok">51% · R$ 77,10 por bolo</span></div>
+    </section>`;
+  const resumo = (dobra) => `<div class="resumo">
+      <div><small>Custo</small><b class="tab">R$ 72,90</b></div><span class="sep"></span>
+      <div><small>Sugerido</small><b class="tab" style="color:hsl(var(--primary))">R$ 145,00</b></div><span class="sep"></span>
+      <div><small>Seu preço</small><b class="tab">R$ 150,00</b></div><span class="sep"></span>
+      <div><small>Margem</small><span class="chip c-ok">51%</span></div></div>${dobra ? `<span class="dobra">Ver o cálculo ${ico("caret-up")}</span>` : ""}`;
+
+  document.querySelectorAll("[data-dados]").forEach((el) => (el.innerHTML += dados(false)));
+  document.querySelectorAll("[data-comp]").forEach((el) => (el.innerHTML += comp(false)));
+  document.querySelectorAll("[data-tempo]").forEach((el) => (el.innerHTML += tempo));
+  document.querySelectorAll("[data-preco]").forEach((el) => (el.innerHTML += preco));
+  document.querySelectorAll("[data-tempo-c]").forEach((el) => (el.innerHTML += tempo));
+  document.querySelectorAll("[data-resumo-c]").forEach((el) => (el.innerHTML = resumo(true)));
+
+  // passos (B)
+  const PASSOS = ["Dados", "Composição", "Tempo e preço"];
+  document.querySelectorAll("[data-passos]").forEach((el) => {
+    const agora = Number(el.dataset.passos);
+    el.innerHTML = PASSOS.map((t, i) => {
+      const n = i + 1, cls = n < agora ? "feito" : n === agora ? "agora" : "";
+      return `<span class="passo ${cls}"><i class="n">${n < agora ? ico("check-bold", "width:11px;height:11px") : n}</i>${t}</span>`;
+    }).join('<span class="traco"></span>');
+  });
+
+  // fundo: a lista de produtos atrás da janela
+  const MENU = `<div class="menu-topo"><span style="font-size:18px">🎂</span><span>Doces da Ana<small>Confeitaria</small></span></div>
+    <nav><p>Principal</p><a>${ico("squares-four")}Início</a>
+    <p>Vendas</p><a>${ico("clipboard-text")}Encomendas</a><a>${ico("calendar-blank")}Agenda</a><a>${ico("users")}Clientes</a>
+    <p>Produção</p><a class="on">${ico("cake")}Produtos</a><a>${ico("book-open")}Receitas</a><a>${ico("grains")}Insumos</a>
+    <p>Gestão</p><a>${ico("calculator")}Precificação</a><a>${ico("wallet")}Financeiro</a><a>${ico("gear")}Configurações</a></nav>`;
+  const PRODUTOS = [["Bolo de chocolate com brigadeiro", "Bolo", "R$ 150,00", "unidade"], ["Bolo de ninho com morango", "Bolo", "R$ 165,00", "unidade"], ["Brigadeiro gourmet", "Docinho", "R$ 180,00", "cento"], ["Cupcake de baunilha", "Cupcake", "R$ 9,00", "unidade"], ["Torta de limão", "Torta", "R$ 95,00", "unidade"], ["Bolo red velvet", "Bolo", "R$ 120,00", "kg"], ["Beijinho", "Docinho", "R$ 170,00", "cento"]];
+  const FUNDO = `<div class="menu">${MENU}</div><div class="corpo"><div class="barra">Produtos<span class="avatar">AD</span></div>
+    <div class="conteudo"><div class="cabeca"><h3>Produtos</h3><span class="btn pri" style="height:36px">${ico("plus")}Novo produto</span></div>
+    ${PRODUTOS.map(([n, t, p, por]) => `<div class="prod"><span class="ic">${ico("cake", "width:20px;height:20px")}</span><span><b>${n}</b> <span class="chip c-mut">${t}</span></span><span class="preco tab">${p}<small>por ${por}</small></span></div>`).join("")}
+    </div></div>`;
+  document.querySelectorAll("[data-fundo]").forEach((el) => el.insertAdjacentHTML("afterbegin", FUNDO));
+
+  // celulares
+  const CEL_FUNDO = `<div style="height:52px;display:flex;align-items:center;padding:0 14px;background:hsl(var(--card));font-weight:700">Produtos</div><div class="veu"></div>`;
+  document.querySelector("[data-cel-a]").innerHTML = `${CEL_FUNDO}<div class="folha"><span class="alca"></span>
+      <div class="j-topo"><h4>Editar produto</h4><span class="x" data-i="x"></span></div>
+      <div class="rola" style="flex:1;border-top:1px solid hsl(var(--border))">${dados(true)}${comp(true)}${tempo}</div>
+      <div style="flex:none;border-top:1px solid hsl(var(--border));padding:10px 16px;display:flex;justify-content:space-between;align-items:center;background:hsl(var(--primary-soft) / .6);font-size:12.5px"><span><small class="mut" style="display:block;font-size:11.5px">Sugerido · seu preço</small><b class="tab" style="font:800 15px Sora">R$ 145 · R$ 150</b></span><span class="dobra">Ver o cálculo ${ico("caret-up")}</span></div>
+      <div class="j-rodape"><span class="btn out" style="flex:1">Cancelar</span><span class="btn pri" style="flex:1">Salvar</span></div></div>`;
+  document.querySelector("[data-cel-b]").innerHTML = `${CEL_FUNDO}<div class="folha" style="top:auto;height:560px"><span class="alca"></span>
+      <div class="j-topo"><h4>Novo produto</h4><span class="x" data-i="x"></span></div>
+      <div class="passos" data-passos-cel></div>
+      <div class="rola" style="flex:1">${dados(true)}</div>
+      <div class="j-rodape"><span class="btn out" style="flex:1">Cancelar</span><span class="btn pri" style="flex:1">Continuar</span></div></div>`;
+  document.querySelector("[data-passos-cel]").innerHTML = PASSOS.map((t, i) => `<span class="passo ${i === 0 ? "agora" : ""}"><i class="n">${i + 1}</i>${i === 0 ? t : ""}</span>`).join('<span class="traco"></span>');
+
+  // ícones soltos (depois de montar tudo)
+  document.querySelectorAll("[data-i]").forEach((el) => (el.innerHTML = ico(el.dataset.i)));
+  document.querySelectorAll("[data-i2]").forEach((el) => el.replaceWith(document.createRange().createContextualFragment(ico(el.dataset.i2))));
+  document.querySelectorAll("[data-ico]").forEach((el) => el.insertAdjacentHTML("afterbegin", ico(el.dataset.ico)));
+</script>
+</body>
+</html>

@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Agenda · Confeitaria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* Tema confeitaria (chocolate) do DS: mesmas variáveis do produto. */
+  :root{
+    --background:0 0% 98%;
+    --foreground:240 10% 3.9%;
+    --card:0 0% 100%;
+    --primary:20 45% 32%;
+    --primary-foreground:0 0% 100%;
+    --primary-soft:20 45% 95%;
+    --muted:240 4.8% 93.9%;
+    --muted-foreground:240 3.8% 46%;
+    --border:240 5.9% 90%;
+    --success:160 60% 38%;
+    --success-ink:160 70% 24%;
+    --success-soft:160 55% 94%;
+    --warning:38 92% 45%;
+    --warning-ink:28 85% 28%;
+    --warning-soft:40 95% 93%;
+    --danger:0 84.2% 60.2%;
+    --danger-ink:0 72% 38%;
+    --danger-soft:0 86% 96%;
+    --canvas:225 14% 92%;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));
+    font:14px/1.45 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3,h4,p,ul{margin:0}
+  ul{padding:0;list-style:none}
+  button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
+  :focus-visible{outline:2px solid hsl(var(--primary));outline-offset:2px;border-radius:6px}
+  .i{display:inline-block;width:16px;height:16px;flex:none;background:currentColor;
+    -webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat}
+  .tab{font-variant-numeric:tabular-nums}
+
+  /* ---------- página de apresentação ---------- */
+  .doc{max-width:1320px;margin:0 auto;padding:48px 24px 96px}
+  .doc h1{font:800 32px/1.15 Sora,Inter,sans-serif;letter-spacing:-.02em}
+  .lead{color:hsl(var(--muted-foreground));max-width:78ch;margin-top:10px;font-size:14.5px;line-height:1.55}
+  .problemas{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+  .problemas span{font-size:12.5px;padding:4px 10px;border-radius:999px;background:hsl(var(--card));border:1px solid hsl(var(--border));color:hsl(var(--muted-foreground))}
+  .opcao{margin-top:64px;display:flex;flex-direction:column;gap:14px}
+  .opcao-topo{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .letra{font:800 13px Sora,Inter,sans-serif;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:hsl(var(--primary));color:#fff}
+  .opcao h2{font:800 22px/1.2 Sora,Inter,sans-serif;letter-spacing:-.01em}
+  .opcao .sub{font-size:14px;color:hsl(var(--muted-foreground));max-width:90ch}
+  .pros{display:flex;gap:24px;flex-wrap:wrap;font-size:13px}
+  .pros div{display:flex;flex-direction:column;gap:4px;max-width:46ch}
+  .pros b{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+  .quadros{display:grid;grid-template-columns:minmax(0,1fr);gap:28px;align-items:start}
+  @media (max-width:1100px){.quadros{grid-template-columns:minmax(0,1fr)}}
+  .rotulo{font-size:12px;font-weight:600;color:hsl(var(--muted-foreground));margin-bottom:8px;letter-spacing:.03em;text-transform:uppercase}
+
+  /* ---------- moldura do sistema (notebook) ---------- */
+  .tela{display:flex;border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;background:hsl(var(--background));min-height:640px;box-shadow:0 8px 30px -12px rgb(0 0 0 / .15)}
+  .menu{width:196px;flex:none;display:flex;flex-direction:column;background:hsl(var(--card));border-right:1px solid hsl(var(--border))}
+  .menu-topo{display:flex;align-items:center;gap:10px;height:56px;padding:0 14px;background:hsl(var(--primary));color:#fff;font:700 13px Inter}
+  .menu-topo small{display:block;font-weight:500;opacity:.8;font-size:11px}
+  .menu nav{padding:10px;display:flex;flex-direction:column;gap:2px;font-size:13px}
+  .menu nav p{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding:10px 8px 4px}
+  .menu nav a{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:8px;color:inherit;text-decoration:none}
+  .menu nav a.on{background:hsl(var(--primary-soft));color:hsl(var(--primary));font-weight:600;box-shadow:inset 3px 0 0 hsl(var(--primary))}
+  .corpo{flex:1;min-width:0;display:flex;flex-direction:column}
+  .barra{height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border));font-weight:700}
+  .avatar{width:32px;height:32px;border-radius:999px;background:hsl(var(--primary));color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700}
+  .conteudo{padding:20px 24px;display:flex;flex-direction:column;gap:14px}
+  .cabeca{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .cabeca h3{font:800 24px/1.15 Sora,Inter,sans-serif;letter-spacing:-.015em}
+  .cabeca p{color:hsl(var(--muted-foreground));font-size:13px}
+
+  /* ---------- peças do DS ---------- */
+  .card{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px}
+  .btn{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px;border-radius:8px;font-size:13px;font-weight:600;white-space:nowrap}
+  .btn.pri{background:hsl(var(--primary));color:#fff}
+  .btn.out{border:1px solid hsl(var(--border));background:hsl(var(--card))}
+  .btn.ico{width:34px;padding:0;justify-content:center}
+  .btn.sm{height:30px;font-size:12.5px;padding:0 10px}
+  .seg{display:inline-flex;padding:3px;border-radius:9px;background:hsl(var(--muted));gap:2px}
+  .seg button{height:28px;padding:0 12px;border-radius:7px;font-size:12.5px;font-weight:600;color:hsl(var(--muted-foreground))}
+  .seg button[aria-pressed="true"]{background:hsl(var(--card));color:hsl(var(--foreground));box-shadow:0 1px 2px rgb(0 0 0 / .08)}
+  .cap{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+  .status{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:6px;font-size:11.5px;font-weight:600;white-space:nowrap}
+  .s-orc{background:hsl(var(--muted));color:hsl(var(--foreground) / .7)}
+  .s-conf{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+  .s-prod{background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+  .s-pronta{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+  .s-ent{background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+  .vaga{font-size:11px;font-weight:600;white-space:nowrap}
+  .v-livre{color:hsl(var(--success-ink))}
+  .v-quase{color:hsl(var(--warning-ink))}
+  .v-cheio{color:hsl(var(--danger-ink))}
+  .v-bloq{color:hsl(var(--muted-foreground))}
+  /* barrinha de ocupação: 4 tracinhos = limite do dia */
+  .ocup{display:flex;gap:2px;width:56px;flex:none}
+  .ocup i{height:4px;flex:1;border-radius:2px;background:hsl(var(--muted))}
+  .ocup.livre i.on{background:hsl(var(--success))}
+  .ocup.quase i.on{background:hsl(var(--warning))}
+  .ocup.cheio i.on{background:hsl(var(--danger))}
+  .legenda{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:hsl(var(--muted-foreground))}
+  .legenda span{display:inline-flex;align-items:center;gap:6px}
+  .legenda i{width:10px;height:10px;border-radius:3px}
+
+  /* ---------- painel do dia (A e C) ---------- */
+  .dia{display:flex;flex-direction:column}
+  .dia-topo{padding:16px;display:flex;flex-direction:column;gap:10px}
+  .dia-topo h4{font:800 18px/1.2 Sora,Inter,sans-serif;letter-spacing:-.01em}
+  .dia-sec{border-top:1px solid hsl(var(--border));padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+  .producao li{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:3px 0}
+  .producao b{font-variant-numeric:tabular-nums}
+  .pedido{display:grid;grid-template-columns:46px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 0;border-top:1px solid hsl(var(--border));font-size:13px}
+  .pedido:first-child{border-top:0}
+  .pedido .h{font:700 13px Sora,Inter,sans-serif;color:hsl(var(--primary))}
+  .pedido small{display:block;color:hsl(var(--muted-foreground));font-size:12px}
+  .dia-acoes{margin-top:auto;border-top:1px solid hsl(var(--border));background:hsl(var(--muted) / .35);padding:12px 16px;display:flex;gap:8px}
+  .dia-acoes .btn{flex:1;justify-content:center}
+
+  /* ---------- A: mês + painel ---------- */
+  .a-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:14px;align-items:start}
+  .mes-topo{display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid hsl(var(--border))}
+  .mes-topo h4{font:700 15px Sora,Inter,sans-serif;flex:1}
+  .semana{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));font-size:11px;font-weight:600;color:hsl(var(--muted-foreground));text-align:left}
+  .semana div{padding:8px 8px 6px}
+  .a-mes{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+  .a-cel{min-height:92px;padding:6px 7px;border-top:1px solid hsl(var(--border));border-left:1px solid hsl(var(--border));display:flex;flex-direction:column;gap:3px;text-align:left;min-width:0}
+  .a-cel:nth-child(7n+1){border-left:0}
+  .a-cel.fora{background:hsl(var(--muted) / .3);color:hsl(var(--muted-foreground))}
+  .a-cel.fora .n{opacity:.5}
+  .a-cel.passado .n{color:hsl(var(--muted-foreground))}
+  .a-cel.sel{box-shadow:inset 0 0 0 2px hsl(var(--primary))}
+  .a-cel.bloq{background:repeating-linear-gradient(-45deg,hsl(var(--muted) / .55) 0 6px,transparent 6px 12px)}
+  .a-cel .top{display:flex;align-items:center;justify-content:space-between;gap:4px}
+  .n{font-size:12px;font-weight:600;width:22px;height:22px;display:grid;place-items:center;border-radius:999px}
+  .n.hoje{background:hsl(var(--primary));color:#fff}
+  .chip{display:block;font-size:11px;line-height:1.3;padding:2px 5px;border-radius:4px;background:hsl(var(--primary-soft));color:hsl(var(--primary));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .chip b{font-weight:700;font-variant-numeric:tabular-nums}
+  .chip.mais{background:transparent;color:hsl(var(--muted-foreground));padding-left:2px}
+  .chip.ok{background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+
+  /* ---------- B: semana ---------- */
+  .b-topo{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .b-topo h4{font:700 15px Sora,Inter,sans-serif;margin-right:auto}
+  .b-sem{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px}
+  .col{display:flex;flex-direction:column;min-width:0;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:12px;overflow:hidden;min-height:430px}
+  .col.hoje{border-color:hsl(var(--primary));box-shadow:0 0 0 1px hsl(var(--primary))}
+  .col.bloq{background:repeating-linear-gradient(-45deg,hsl(var(--muted) / .5) 0 6px,hsl(var(--card)) 6px 12px)}
+  .col-topo{padding:10px 10px 8px;display:flex;flex-direction:column;gap:6px;border-bottom:1px solid hsl(var(--border))}
+  .col-topo .d{display:flex;align-items:baseline;justify-content:space-between}
+  .col-topo .d span{font-size:11.5px;font-weight:600;color:hsl(var(--muted-foreground));text-transform:uppercase;letter-spacing:.04em}
+  .col-topo .d b{font:800 20px Sora,Inter,sans-serif}
+  .col.hoje .col-topo .d b{color:hsl(var(--primary))}
+  .col-corpo{padding:8px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .mini{border:1px solid hsl(var(--border));border-radius:8px;padding:7px 8px;background:hsl(var(--card));display:flex;flex-direction:column;gap:4px;font-size:12px}
+  .mini .h{font:700 12px Sora,Inter,sans-serif;color:hsl(var(--primary))}
+  .mini .nome{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mini .it{color:hsl(var(--muted-foreground));font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .col-pe{border-top:1px dashed hsl(var(--border));padding:8px 10px;font-size:11.5px;color:hsl(var(--muted-foreground))}
+  .col-pe b{color:hsl(var(--foreground))}
+  .add{display:flex;align-items:center;justify-content:center;gap:4px;height:28px;border-radius:7px;border:1px dashed hsl(var(--border));font-size:12px;color:hsl(var(--muted-foreground))}
+  .vazio-col{flex:1;display:grid;place-items:center;text-align:center;font-size:12px;color:hsl(var(--muted-foreground));padding:10px}
+
+  /* ---------- C: lista + mini calendário ---------- */
+  .c-grid{display:grid;grid-template-columns:280px minmax(0,1fr);gap:14px;align-items:start}
+  .mini-mes{padding:12px}
+  .mini-mes .semana div{padding:4px 0;text-align:center}
+  .mm{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}
+  .mm button{aspect-ratio:1;border-radius:7px;font-size:12px;font-weight:600;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;position:relative}
+  .mm button.fora{opacity:.35}
+  .mm button.h1{background:hsl(var(--primary) / .10)}
+  .mm button.h2{background:hsl(var(--primary) / .22)}
+  .mm button.h3{background:hsl(var(--primary) / .38)}
+  .mm button.h4{background:hsl(var(--primary) / .62);color:#fff}
+  .mm button.bloq{background:repeating-linear-gradient(-45deg,hsl(var(--muted)) 0 4px,transparent 4px 8px);color:hsl(var(--muted-foreground))}
+  .mm button.hoje{box-shadow:inset 0 0 0 2px hsl(var(--primary))}
+  .lista-dia{display:flex;flex-direction:column}
+  .ld-topo{display:flex;align-items:center;gap:10px;padding:12px 16px;background:hsl(var(--muted) / .4);border-top:1px solid hsl(var(--border))}
+  .ld-topo:first-child{border-top:0;border-radius:14px 14px 0 0}
+  .ld-topo h4{font:700 14px Sora,Inter,sans-serif}
+  .ld-topo .ocup{width:64px;margin-left:auto}
+  .ld-prod{padding:8px 16px;font-size:12.5px;color:hsl(var(--muted-foreground));border-top:1px solid hsl(var(--border));display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+  .ld-prod .pill{background:hsl(var(--primary-soft));color:hsl(var(--primary));border-radius:999px;padding:2px 8px;font-weight:600;font-size:12px}
+  .ld-ped{display:grid;grid-template-columns:52px minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:10px 16px;border-top:1px solid hsl(var(--border));font-size:13px}
+  .ld-ped .h{font:700 13px Sora,Inter,sans-serif;color:hsl(var(--primary))}
+  .ld-ped small{display:block;color:hsl(var(--muted-foreground));font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ld-ped .valor{font:700 13.5px Sora,Inter,sans-serif;text-align:right}
+  .ld-ped .valor small{font:500 11px Inter;color:hsl(var(--warning-ink))}
+  .ld-bloq{padding:10px 16px;border-top:1px solid hsl(var(--border));font-size:13px;color:hsl(var(--muted-foreground));display:flex;align-items:center;gap:8px}
+
+  /* ---------- celular ---------- */
+  .cel{width:360px;max-width:100%;border:1px solid hsl(var(--border));border-radius:28px;overflow:hidden;background:hsl(var(--background));box-shadow:0 8px 30px -12px rgb(0 0 0 / .2);display:flex;flex-direction:column;height:720px}
+  .cel-topo{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border));font-weight:700;flex:none}
+  .cel-corpo{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:12px}
+  .cel-corpo>*{flex:none}
+  .cel-nav{height:60px;flex:none;display:grid;grid-template-columns:repeat(5,1fr);background:hsl(var(--card));border-top:1px solid hsl(var(--border));font-size:10.5px;color:hsl(var(--muted-foreground))}
+  .cel-nav span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
+  .cel-nav span.on{color:hsl(var(--primary));font-weight:600}
+  .faixa{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+  .faixa button{flex:none;width:46px;padding:6px 0 7px;border-radius:10px;border:1px solid hsl(var(--border));background:hsl(var(--card));display:flex;flex-direction:column;align-items:center;gap:3px}
+  .faixa button span{font-size:10px;font-weight:600;color:hsl(var(--muted-foreground));text-transform:uppercase}
+  .faixa button b{font:800 15px Sora,Inter,sans-serif}
+  .faixa button .ocup{width:28px}
+  .faixa button[aria-pressed="true"]{background:hsl(var(--primary));border-color:hsl(var(--primary));color:#fff}
+  .faixa button[aria-pressed="true"] span{color:#fff;opacity:.85}
+  .faixa button.bloq{background:repeating-linear-gradient(-45deg,hsl(var(--muted)) 0 4px,hsl(var(--card)) 4px 8px)}
+  .fab{position:absolute;right:16px;bottom:76px;width:52px;height:52px;border-radius:16px;background:hsl(var(--primary));color:#fff;display:grid;place-items:center;box-shadow:0 6px 16px -4px hsl(var(--primary) / .6)}
+  .cel-wrap{position:relative;width:360px;max-width:100%}
+
+  /* ---------- comparação ---------- */
+  table.cmp{width:100%;border-collapse:collapse;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;font-size:13.5px}
+  table.cmp th,table.cmp td{padding:10px 14px;text-align:left;border-top:1px solid hsl(var(--border));vertical-align:top}
+  table.cmp thead th{border-top:0;background:hsl(var(--muted) / .5);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:hsl(var(--muted-foreground))}
+  .reco{margin-top:16px;padding:16px 18px;border-radius:14px;background:hsl(var(--primary-soft));color:hsl(var(--primary));font-size:14px;line-height:1.55}
+  .reco b{font-weight:700}
+</style>
+</head>
+<body>
+<main class="doc">
+  <p class="cap">Confeitaria · Agenda · Em revisão · 23/10/2026</p>
+  <h1>Agenda: 3 caminhos</h1>
+  <p class="lead">Hoje a Agenda é um mês inteiro esticado na largura, com células grandes e quase vazias, um “1/4” que ninguém entende de primeira, e o que importa (o que produzir e quem vem buscar) fica num painel lá embaixo, depois de rolar. Os três caminhos usam os mesmos dados: hoje é sexta, 23/10; limite de 4 encomendas por dia; segunda, 26/10, bloqueada (folga); sábado, 31/10, cheio (Halloween).</p>
+  <div class="problemas">
+    <span>Células grandes e vazias</span><span>“1/4” enigmático</span><span>Painel do dia escondido embaixo</span><span>Não mostra quem é nem o quê</span><span>Bloqueio só se descobre clicando</span>
+  </div>
+
+  <!-- ==================== A ==================== -->
+  <section class="opcao" id="a">
+    <div class="opcao-topo"><span class="letra">A</span><h2>Console: mês + painel do dia ao lado</h2></div>
+    <p class="sub">O mesmo console da Nova encomenda: o mês à esquerda, o dia escolhido à direita, sem rolar. Cada célula mostra as encomendas pelo horário e nome (até 2, depois “+N”), e a ocupação vira uma barrinha de 4 tracinhos (verde, âmbar, vermelho) no lugar do “1/4”. Dia bloqueado aparece hachurado.</p>
+    <div class="pros">
+      <div><b>Ganha</b>Vê o mês e o dia juntos; a célula já diz quem vem; capacidade bate o olho.</div>
+      <div><b>Perde</b>No celular, o mês vira pontinhos e o painel desce para baixo (igual hoje, só mais limpo).</div>
+    </div>
+    <div class="quadros">
+      <div>
+        <p class="rotulo">Notebook</p>
+        <div class="tela">
+          <div class="menu" data-menu></div>
+          <div class="corpo">
+            <div class="barra">Agenda <span class="avatar">AN</span></div>
+            <div class="conteudo">
+              <div class="cabeca">
+                <div><h3>Agenda</h3><p>Entregas, produção e folgas.</p></div>
+                <div class="legenda">
+                  <span><i style="background:hsl(var(--success))"></i>Com vaga</span>
+                  <span><i style="background:hsl(var(--warning))"></i>Quase cheio</span>
+                  <span><i style="background:hsl(var(--danger))"></i>Cheio</span>
+                  <span><i style="background:repeating-linear-gradient(-45deg,hsl(var(--muted-foreground) / .5) 0 2px,transparent 2px 4px)"></i>Bloqueado</span>
+                </div>
+              </div>
+              <div class="a-grid">
+                <div class="card" style="overflow:hidden">
+                  <div class="mes-topo">
+                    <button class="btn ico out" aria-label="Mês anterior"><i class="i" style="--ico:url(https://api.iconify.design/ph/caret-left-bold.svg)"></i></button>
+                    <button class="btn ico out" aria-label="Próximo mês"><i class="i" style="--ico:url(https://api.iconify.design/ph/caret-right-bold.svg)"></i></button>
+                    <h4>Outubro de 2026</h4>
+                    <button class="btn sm out">Hoje</button>
+                  </div>
+                  <div class="semana"><div>Dom</div><div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div></div>
+                  <div class="a-mes" id="a-mes"></div>
+                </div>
+                <div class="card dia" data-painel="2026-10-24" style="min-height:560px"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="rotulo">Celular</p>
+        <div class="cel-wrap">
+          <div class="cel">
+            <div class="cel-topo">🎂 Doces da Ana <span class="avatar">AN</span></div>
+            <div class="cel-corpo">
+              <div class="card" style="overflow:hidden">
+                <div class="mes-topo" style="padding:10px 12px">
+                  <h4>Outubro de 2026</h4>
+                  <button class="btn ico out sm" aria-label="Mês anterior" style="width:30px"><i class="i" style="--ico:url(https://api.iconify.design/ph/caret-left-bold.svg)"></i></button>
+                  <button class="btn ico out sm" aria-label="Próximo mês" style="width:30px"><i class="i" style="--ico:url(https://api.iconify.design/ph/caret-right-bold.svg)"></i></button>
+                </div>
+                <div class="semana" style="text-align:center"><div>D</div><div>S</div><div>T</div><div>Q</div><div>Q</div><div>S</div><div>S</div></div>
+                <div class="mm" id="a-cel-mes" style="padding:0 8px 10px"></div>
+              </div>
+              <div class="card dia" data-painel="2026-10-24" data-compacto></div>
+            </div>
+            <div class="cel-nav" data-nav></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== B ==================== -->
+  <section class="opcao" id="b">
+    <div class="opcao-topo"><span class="letra">B</span><h2>Semana de trabalho: uma coluna por dia</h2></div>
+    <p class="sub">A confeiteira pensa na semana, não no mês. Sete colunas a partir de hoje (o que passou sai da frente), cada uma com os pedidos em cartõezinhos (hora, cliente, o que leva, status). No topo da coluna, a ocupação; no pé, o resumo do que produzir. O mês fica num botão “Mês” do segmentado, para quem precisa olhar longe.</p>
+    <div class="pros">
+      <div><b>Ganha</b>É o quadro da cozinha: abre e já sabe o que fazer hoje e amanhã. Nova encomenda direto no dia.</div>
+      <div><b>Perde</b>Olhar 3 semanas à frente exige trocar para “Mês”. Coluna estreita corta nomes longos (com tooltip).</div>
+    </div>
+    <div class="quadros">
+      <div>
+        <p class="rotulo">Notebook</p>
+        <div class="tela">
+          <div class="menu" data-menu></div>
+          <div class="corpo">
+            <div class="barra">Agenda <span class="avatar">AN</span></div>
+            <div class="conteudo">
+              <div class="cabeca">
+                <div><h3>Agenda</h3><p>Entregas, produção e folgas.</p></div>
+                <button class="btn pri"><i class="i" style="--ico:url(https://api.iconify.design/ph/plus-bold.svg)"></i>Nova encomenda</button>
+              </div>
+              <div class="b-topo">
+                <h4>Próximos 7 dias · 23 a 29 de outubro</h4>
+                <div class="seg" role="group" aria-label="Visão"><button aria-pressed="true">Semana</button><button aria-pressed="false">Mês</button></div>
+                <button class="btn ico out" aria-label="Semana anterior"><i class="i" style="--ico:url(https://api.iconify.design/ph/caret-left-bold.svg)"></i></button>
+                <button class="btn sm out">Hoje</button>
+                <button class="btn ico out" aria-label="Próxima semana"><i class="i" style="--ico:url(https://api.iconify.design/ph/caret-right-bold.svg)"></i></button>
+              </div>
+              <div class="b-sem" id="b-sem"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="rotulo">Celular</p>
+        <div class="cel-wrap">
+          <div class="cel">
+            <div class="cel-topo">🎂 Doces da Ana <span class="avatar">AN</span></div>
+            <div class="cel-corpo">
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <h4 style="font:700 15px Sora,Inter,sans-serif">Outubro de 2026</h4>
+                <div class="seg"><button aria-pressed="true">Semana</button><button aria-pressed="false">Mês</button></div>
+              </div>
+              <div class="faixa" id="b-faixa"></div>
+              <div class="card dia" data-painel="2026-10-24" data-compacto data-sem-acoes></div>
+            </div>
+            <div class="cel-nav" data-nav></div>
+          </div>
+          <span class="fab" aria-label="Nova encomenda"><i class="i" style="--ico:url(https://api.iconify.design/ph/plus-bold.svg);width:22px;height:22px"></i></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== C ==================== -->
+  <section class="opcao" id="c">
+    <div class="opcao-topo"><span class="letra">C</span><h2>Próximos dias em lista + mini calendário de calor</h2></div>
+    <p class="sub">A lista vem primeiro: os próximos dias em ordem, só os que têm algo (pedido ou bloqueio), cada um com o que produzir em pílulas e os pedidos com valor e quanto falta receber. O mês vira um mini calendário de calor à esquerda (mais escuro = mais cheio): serve para achar um dia livre e pular para ele.</p>
+    <div class="pros">
+      <div><b>Ganha</b>Densa e rápida de ler; funciona igual no celular; dá o dinheiro junto. Achar dia livre é olhar o claro.</div>
+      <div><b>Perde</b>Some a ideia de “grade do mês”; dias vazios não aparecem na lista (só no mini calendário).</div>
+    </div>
+    <div class="quadros">
+      <div>
+        <p class="rotulo">Notebook</p>
+        <div class="tela">
+          <div class="menu" data-menu></div>
+          <div class="corpo">
+            <div class="barra">Agenda <span class="avatar">AN</span></div>
+            <div class="conteudo">
+              <div class="cabeca">
+                <div><h3>Agenda</h3><p>Entregas, produção e folgas.</p></div>
+                <button class="btn pri"><i class="i" style="--ico:url(https://api.iconify.design/ph/plus-bold.svg)"></i>Nova encomenda</button>
+              </div>
+              <div class="c-grid">
+                <div style="display:flex;flex-direction:column;gap:14px">
+                  <div class="card mini-mes">
+                    <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+                      <h4 style="font:700 14px Sora,Inter,sans-serif;flex:1">Outubro de 2026</h4>
+                      <button class="btn ico out sm" style="width:28px;height:28px" aria-label="Mês anterior"><i class="i" style="--ico:url(https://api.iconify.design/ph/caret-left-bold.svg)"></i></button>
+                      <button class="btn ico out sm" style="width:28px;height:28px" aria-label="Próximo mês"><i class="i" style="--ico:url(https://api.iconify.design/ph/caret-right-bold.svg)"></i></button>
+                    </div>
+                    <div class="semana"><div>D</div><div>S</div><div>T</div><div>Q</div><div>Q</div><div>S</div><div>S</div></div>
+                    <div class="mm" id="c-mes"></div>
+                    <div class="legenda" style="margin-top:10px;font-size:11px">
+                      <span><i style="background:hsl(var(--primary) / .1)"></i>1</span>
+                      <span><i style="background:hsl(var(--primary) / .38)"></i>3</span>
+                      <span><i style="background:hsl(var(--primary) / .62)"></i>Cheio</span>
+                      <span><i style="background:repeating-linear-gradient(-45deg,hsl(var(--muted-foreground) / .5) 0 2px,transparent 2px 4px)"></i>Folga</span>
+                    </div>
+                  </div>
+                  <div class="card" style="padding:12px 14px;display:flex;flex-direction:column;gap:6px;font-size:13px">
+                    <p class="cap">Próximos 7 dias</p>
+                    <p style="display:flex;justify-content:space-between"><span>Encomendas</span><b class="tab">9</b></p>
+                    <p style="display:flex;justify-content:space-between"><span>A receber</span><b class="tab">R$ 1.240,00</b></p>
+                    <p style="display:flex;justify-content:space-between"><span>Dias com vaga</span><b class="tab">4</b></p>
+                  </div>
+                </div>
+                <div class="card lista-dia" id="c-lista"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="rotulo">Celular</p>
+        <div class="cel-wrap">
+          <div class="cel">
+            <div class="cel-topo">🎂 Doces da Ana <span class="avatar">AN</span></div>
+            <div class="cel-corpo">
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <h3 style="font:800 20px Sora,Inter,sans-serif">Agenda</h3>
+                <button class="btn sm out"><i class="i" style="--ico:url(https://api.iconify.design/ph/calendar-blank.svg)"></i>Outubro</button>
+              </div>
+              <div class="card lista-dia" id="c-lista-cel"></div>
+            </div>
+            <div class="cel-nav" data-nav></div>
+          </div>
+          <span class="fab" aria-label="Nova encomenda"><i class="i" style="--ico:url(https://api.iconify.design/ph/plus-bold.svg);width:22px;height:22px"></i></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Comparação ==================== -->
+  <section class="opcao">
+    <div class="opcao-topo"><h2>Comparação</h2></div>
+    <table class="cmp">
+      <thead><tr><th></th><th>A · Mês + painel</th><th>B · Semana</th><th>C · Lista + calor</th></tr></thead>
+      <tbody>
+        <tr><th>Pergunta que responde melhor</th><td>“Como está o mês e o que tem nesse dia?”</td><td>“O que faço esta semana?”</td><td>“O que vem aí e quanto entra?”</td></tr>
+        <tr><th>Achar dia livre para encaixar pedido</th><td>Bom (barrinha em cada dia)</td><td>Médio (só a semana; mês num clique)</td><td>Bom (calor no mini mês)</td></tr>
+        <tr><th>Celular</th><td>Médio (mês em pontinhos + painel)</td><td>Bom (faixa de dias + o dia)</td><td>Ótimo (a mesma lista)</td></tr>
+        <tr><th>Mudança no código</th><td>Pequena: mesma API, novo layout</td><td>Média: visão semanal nova</td><td>Média: lista + mini mês</td></tr>
+        <tr><th>Reaproveita do DS</th><td>Card, Button, layout console</td><td>Card, SegmentedControl (1.39), Button</td><td>Card, MonthCalendar (1.39), Button</td></tr>
+      </tbody>
+    </table>
+    <p class="reco"><b>Recomendação: A agora, com a faixa de dias do B no celular.</b> A resolve os cinco problemas sem API nova (mesmos dados de hoje) e segue o console que já usamos na Nova encomenda. No celular, em vez do mês em pontinhos, usar a faixa de dias rolável do B, que é o melhor dos três no toque. A visão “Semana” do B pode entrar depois como um segmentado, se ela sentir falta.</p>
+  </section>
+</main>
+
+<script>
+  // ---------- dados de exemplo (iguais nos três caminhos) ----------
+  const LIMITE = 4;
+  const HOJE = "2026-10-23";
+  const P = (h, n, nome, itens, st, total, falta) => ({ h, n, nome, itens, st, total, falta });
+  const DIAS = {
+    "2026-10-03": { ped: [P("10:00", 1, "Patrícia Lima", "Bolo de cenoura 1,5 kg", "ent", "R$ 105,00", "")] },
+    "2026-10-10": { ped: [P("15:00", 2, "Renata Alves", "Brigadeiro 1 cento", "ent", "R$ 120,00", "")] },
+    "2026-10-12": { ped: [P("09:00", 3, "Camila Rocha", "Bolo de chocolate 2 kg", "ent", "R$ 160,00", "")] },
+    "2026-10-17": { ped: [P("16:00", 4, "Bruna Costa", "Bolo de morango 2 kg", "ent", "R$ 180,00", "")] },
+    "2026-10-20": { ped: [P("11:00", 5, "Paula Dias", "Beijinho 50 un", "ent", "R$ 75,00", "")] },
+    "2026-10-23": { ped: [P("17:00", 9, "Sílvia Prado", "Bolo de limão 1 kg", "pronta", "R$ 90,00", "")],
+                    prod: [["1 kg", "Bolo de limão"]] },
+    "2026-10-24": { ped: [P("09:00", 14, "Juliana Reis", "Bolo de morango 3 kg", "conf", "R$ 270,00", "R$ 135,00"),
+                          P("14:00", 10, "Carla Mendes", "Bolo de chocolate 2 kg", "pronta", "R$ 180,00", "R$ 90,00"),
+                          P("16:30", 11, "Maria Souza", "Brigadeiro 1 cento + beijinho 50 un", "prod", "R$ 225,00", "R$ 120,00")],
+                    prod: [["3 kg", "Bolo de morango"], ["2 kg", "Bolo de chocolate"], ["1 cento", "Brigadeiro"], ["50 un", "Beijinho"]] },
+    "2026-10-25": { ped: [P("11:00", 12, "Luciana Martins", "Bolo de nozes 1,5 kg", "conf", "R$ 160,00", "R$ 80,00")],
+                    prod: [["1,5 kg", "Bolo de nozes"]] },
+    "2026-10-26": { bloq: "Folga" },
+    "2026-10-28": { ped: [P("15:00", 13, "Fernanda Rocha", "Bolo de chocolate 2 kg", "orc", "R$ 180,00", "R$ 180,00")],
+                    prod: [["2 kg", "Bolo de chocolate"]] },
+    "2026-10-30": { ped: [P("10:00", 19, "Débora Nunes", "Cupcake 24 un", "conf", "R$ 144,00", "R$ 72,00"),
+                          P("18:00", 20, "Aline Moura", "Brownie 30 un", "orc", "R$ 135,00", "R$ 135,00")] },
+    "2026-10-31": { ped: [P("09:00", 15, "Escola Arco-Íris", "Cupcake Halloween 60 un", "conf", "R$ 360,00", "R$ 180,00"),
+                          P("11:00", 16, "Tânia Freitas", "Bolo abóbora 2 kg", "conf", "R$ 170,00", "R$ 85,00"),
+                          P("14:00", 17, "Lívia Matos", "Doces Halloween 1 cento", "orc", "R$ 130,00", "R$ 130,00"),
+                          P("17:00", 18, "Marina Teles", "Bolo de chocolate 3 kg", "conf", "R$ 240,00", "R$ 120,00")],
+                    prod: [["60 un", "Cupcake Halloween"], ["5 kg", "Bolo (chocolate, abóbora)"], ["1 cento", "Doces Halloween"]] },
+    "2026-11-02": { ped: [P("10:00", 21, "Rita Gomes", "Bolo de coco 1,5 kg", "orc", "R$ 120,00", "R$ 120,00")] },
+  };
+  const NOME_ST = { orc: "Orçamento", conf: "Confirmada", prod: "Em produção", pronta: "Pronta", ent: "Entregue" };
+  const SEM = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+  const SEM_LONGA = ["domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado"];
+
+  const d = (iso) => new Date(iso + "T12:00:00Z");
+  const iso = (dt) => dt.toISOString().slice(0, 10);
+  const soma = (s, n) => { const x = d(s); x.setUTCDate(x.getUTCDate() + n); return iso(x); };
+  const info = (s) => DIAS[s] || {};
+  const qtd = (s) => (info(s).ped || []).length;
+  const sit = (s) => info(s).bloq ? "bloq" : qtd(s) >= LIMITE ? "cheio" : qtd(s) >= LIMITE - 1 ? "quase" : "livre";
+  const ocup = (s, cls = "") => {
+    const q = qtd(s), st = sit(s);
+    return `<span class="ocup ${st} ${cls}" title="${q} de ${LIMITE}">${Array.from({ length: LIMITE }, (_, i) => `<i class="${i < q ? "on" : ""}"></i>`).join("")}</span>`;
+  };
+  const vagaTexto = (s) => {
+    const st = sit(s), q = qtd(s);
+    if (st === "bloq") return `<span class="vaga v-bloq">${info(s).bloq}</span>`;
+    if (st === "cheio") return `<span class="vaga v-cheio">Cheio</span>`;
+    const livres = LIMITE - q;
+    return `<span class="vaga v-${st}">${livres} ${livres === 1 ? "vaga" : "vagas"}</span>`;
+  };
+  const nomeDia = (s) => { const x = d(s); return `${SEM_LONGA[x.getUTCDay()].replace(/^./, (c) => c.toUpperCase())}, ${x.getUTCDate()} de outubro`; };
+  const rotuloDia = (s) => s === HOJE ? "Hoje" : s === soma(HOJE, 1) ? "Amanhã" : nomeDia(s);
+  const ico = (nome, extra = "") => `<i class="i" style="--ico:url(https://api.iconify.design/ph/${nome}.svg);${extra}"></i>`;
+
+  // ---------- moldura: menu, barra de baixo ----------
+  const MENU = `<div class="menu-topo"><span style="font-size:18px">🎂</span><span>Doces da Ana<small>Confeitaria</small></span></div>
+    <nav><p>Principal</p><a>${ico("squares-four")}Início</a>
+    <p>Vendas</p><a>${ico("clipboard-text")}Encomendas</a><a class="on">${ico("calendar-blank")}Agenda</a><a>${ico("users")}Clientes</a>
+    <p>Produção</p><a>${ico("cake")}Produtos</a><a>${ico("book-open")}Receitas</a><a>${ico("grains")}Insumos</a>
+    <p>Gestão</p><a>${ico("calculator")}Precificação</a><a>${ico("wallet")}Financeiro</a></nav>`;
+  document.querySelectorAll("[data-menu]").forEach((el) => (el.innerHTML = MENU));
+  const NAV = [["squares-four", "Início"], ["clipboard-text", "Encomendas"], ["calendar-blank", "Agenda", 1], ["users", "Clientes"], ["dots-three", "Mais"]];
+  document.querySelectorAll("[data-nav]").forEach((el) => (el.innerHTML = NAV.map(([i, t, on]) => `<span class="${on ? "on" : ""}">${ico(i, "width:20px;height:20px")}${t}</span>`).join("")));
+
+  // ---------- painel do dia (A, B no celular) ----------
+  function painel(s, compacto, semAcoes) {
+    const x = info(s), peds = x.ped || [];
+    const prod = (x.prod || []).map(([q, o]) => `<li><span>${o}</span><b>${q}</b></li>`).join("");
+    return `<div class="dia-topo">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
+          <div><p class="cap">${s === soma(HOJE, 1) ? "Amanhã" : s === HOJE ? "Hoje" : ""}</p><h4>${nomeDia(s)}</h4></div>
+          ${compacto ? "" : `<button class="btn ico out sm" style="width:30px" aria-label="Mais ações do dia">${ico("dots-three-bold")}</button>`}
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">${ocup(s, "")}<span style="white-space:nowrap">${vagaTexto(s)}</span></div>
+      </div>
+      ${prod ? `<div class="dia-sec"><p class="cap">O que produzir</p><ul class="producao">${prod}</ul></div>` : ""}
+      <div class="dia-sec"><p class="cap">Encomendas · ${peds.length}</p>
+        <ul>${peds.map((p) => `<li class="pedido"><span class="h">${p.h}</span><span style="min-width:0"><span style="display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">nº ${p.n} · ${p.nome}</span><small style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.itens}</small></span><span class="status s-${p.st}">${NOME_ST[p.st]}</span></li>`).join("") || `<li style="font-size:13px;color:hsl(var(--muted-foreground))">Nenhuma encomenda.</li>`}</ul>
+      </div>
+      ${semAcoes ? "" : `<div class="dia-acoes"><button class="btn out">${ico("calendar-x")}Bloquear dia</button><button class="btn pri">${ico("plus-bold")}Nova encomenda</button></div>`}`;
+  }
+  document.querySelectorAll("[data-painel]").forEach((el) => (el.innerHTML = painel(el.dataset.painel, el.hasAttribute("data-compacto"), el.hasAttribute("data-sem-acoes"))));
+
+  // ---------- grade do mês (outubro de 2026: começa numa quinta) ----------
+  const inicioGrade = soma("2026-10-01", -d("2026-10-01").getUTCDay());
+  const grade = Array.from({ length: 35 }, (_, i) => soma(inicioGrade, i));
+
+  // A · notebook
+  document.getElementById("a-mes").innerHTML = grade.map((s) => {
+    const x = info(s), peds = x.ped || [], fora = s.slice(5, 7) !== "10", passado = s < HOJE;
+    const chips = x.bloq ? `<span class="chip ok">${ico("lock-simple", "width:10px;height:10px;vertical-align:-1px")} ${x.bloq}</span>`
+      : peds.slice(0, 2).map((p) => `<span class="chip ${p.st === "ent" ? "ok" : ""}" title="${p.h} ${p.nome}"><b>${p.h}</b> ${p.nome.split(" ")[0]}</span>`).join("")
+        + (peds.length > 2 ? `<span class="chip mais">+${peds.length - 2} mais</span>` : "");
+    return `<button class="a-cel ${fora ? "fora" : ""} ${passado ? "passado" : ""} ${s === "2026-10-24" ? "sel" : ""} ${x.bloq ? "bloq" : ""}">
+      <span class="top"><span class="n ${s === HOJE ? "hoje" : ""}">${d(s).getUTCDate()}</span>${!passado && !fora && !x.bloq && peds.length ? ocup(s, "") .replace('class="ocup', 'style="width:34px" class="ocup') : ""}</span>${chips}</button>`;
+  }).join("");
+
+  // A · celular (mês compacto com pontinho de ocupação)
+  document.getElementById("a-cel-mes").innerHTML = grade.map((s) => {
+    const fora = s.slice(5, 7) !== "10", st = sit(s), q = qtd(s);
+    const cor = st === "cheio" ? "--danger" : st === "quase" ? "--warning" : "--success";
+    const ponto = info(s).bloq ? ico("lock-simple", "width:9px;height:9px") : q && s >= HOJE ? `<i style="width:5px;height:5px;border-radius:9px;background:hsl(var(${cor}))"></i>` : `<i style="height:5px"></i>`;
+    return `<button class="${fora ? "fora" : ""} ${s === HOJE ? "hoje" : ""}" style="${s === "2026-10-24" ? "background:hsl(var(--primary));color:#fff" : ""}">${d(s).getUTCDate()}${ponto}</button>`;
+  }).join("");
+
+  // B · semana: 7 dias a partir de hoje (não domingo a sábado: o que passou não interessa)
+  const semana = Array.from({ length: 7 }, (_, i) => soma(HOJE, i));
+  document.getElementById("b-sem").innerHTML = semana.map((s) => {
+    const x = info(s), peds = x.ped || [], passado = s < HOJE;
+    const prodTxt = (x.prod || []).map(([q, o]) => `<b>${q}</b> ${o.toLowerCase()}`).join(" · ");
+    return `<div class="col ${s === HOJE ? "hoje" : ""} ${x.bloq ? "bloq" : ""}">
+      <div class="col-topo"><div class="d"><span>${SEM[d(s).getUTCDay()]}</span><b>${d(s).getUTCDate()}</b></div>${passado ? `<span class="vaga v-bloq">Passou</span>` : ocup(s) + vagaTexto(s)}</div>
+      <div class="col-corpo">${peds.map((p) => `<div class="mini" title="${p.nome} · ${p.itens}"><div style="display:flex;justify-content:space-between;align-items:center;gap:4px"><span class="h">${p.h}</span><span class="status s-${p.st}" style="height:18px;font-size:10.5px;padding:0 5px">${NOME_ST[p.st]}</span></div><span class="nome">${p.nome}</span><span class="it">${p.itens}</span></div>`).join("")
+        || `<div class="vazio-col">${passado ? "Nada neste dia" : "Livre"}</div>`}
+        ${!passado && !x.bloq && qtd(s) < LIMITE ? `<button class="add">${ico("plus", "width:12px;height:12px")}Encomenda</button>` : ""}</div>
+      ${prodTxt ? `<div class="col-pe">Produzir: ${prodTxt}</div>` : ""}
+    </div>`;
+  }).join("");
+
+  // B · celular (faixa de dias)
+  const faixa = Array.from({ length: 10 }, (_, i) => soma("2026-10-22", i));
+  document.getElementById("b-faixa").innerHTML = faixa.map((s) => `<button aria-pressed="${s === "2026-10-24"}" class="${info(s).bloq ? "bloq" : ""}"><span>${SEM[d(s).getUTCDay()]}</span><b>${d(s).getUTCDate()}</b>${info(s).bloq ? ico("lock-simple", "width:10px;height:10px") : ocup(s)}</button>`).join("");
+
+  // C · mini calendário de calor
+  document.getElementById("c-mes").innerHTML = grade.map((s) => {
+    const fora = s.slice(5, 7) !== "10", q = qtd(s);
+    const calor = info(s).bloq ? "bloq" : q ? `h${Math.min(q, 4)}` : "";
+    return `<button class="${fora ? "fora" : ""} ${calor} ${s === HOJE ? "hoje" : ""}" title="${info(s).bloq || q + " de " + LIMITE}">${d(s).getUTCDate()}</button>`;
+  }).join("");
+
+  // C · lista dos próximos dias com algo
+  function lista(compacto) {
+    const proximos = Object.keys(DIAS).filter((s) => s >= HOJE).sort().slice(0, compacto ? 4 : 6);
+    return proximos.map((s) => {
+      const x = info(s);
+      const topo = `<div class="ld-topo"><h4>${rotuloDia(s)}${s === HOJE || s === soma(HOJE, 1) ? ` <span style="font:500 12px Inter;color:hsl(var(--muted-foreground))">${nomeDia(s).split(",")[0]}, ${d(s).getUTCDate()}/10</span>` : ""}</h4>${x.bloq ? "" : ocup(s)}${vagaTexto(s)}</div>`;
+      if (x.bloq) return topo + `<div class="ld-bloq">${ico("lock-simple")}Dia bloqueado: ${x.bloq}<button class="btn sm out" style="margin-left:auto">Desbloquear</button></div>`;
+      const prod = x.prod ? `<div class="ld-prod">${ico("cooking-pot")}${x.prod.map(([q, o]) => `<span class="pill">${q} ${o.toLowerCase()}</span>`).join("")}</div>` : "";
+      const peds = x.ped.map((p) => compacto
+        ? `<div class="ld-ped" style="grid-template-columns:44px minmax(0,1fr) auto;gap:10px;padding:9px 14px"><span class="h">${p.h}</span><span style="min-width:0"><span style="display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.nome}</span><small>${p.itens}</small></span><span class="valor">${p.total}${p.falta ? `<small>Falta ${p.falta}</small>` : ""}</span></div>`
+        : `<div class="ld-ped"><span class="h">${p.h}</span><span style="min-width:0"><span style="display:block;font-weight:600">nº ${p.n} · ${p.nome}</span><small>${p.itens}</small></span><span class="status s-${p.st}">${NOME_ST[p.st]}</span><span class="valor">${p.total}${p.falta ? `<small>Falta ${p.falta}</small>` : ""}</span></div>`).join("");
+      return topo + prod + peds;
+    }).join("");
+  }
+  document.getElementById("c-lista").innerHTML = lista(false);
+  document.getElementById("c-lista-cel").innerHTML = lista(true);
+</script>
+</body>
+</html>

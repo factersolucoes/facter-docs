@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Detalhe da encomenda · Confeitaria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* Tema confeitaria (chocolate) do DS: mesmas variáveis do produto. */
+  :root{
+    --background:0 0% 98%;
+    --foreground:240 10% 3.9%;
+    --card:0 0% 100%;
+    --primary:20 45% 32%;
+    --primary-foreground:0 0% 100%;
+    --primary-soft:20 45% 95%;
+    --muted:240 4.8% 93.9%;
+    --muted-foreground:240 3.8% 46%;
+    --border:240 5.9% 90%;
+    --success:160 60% 38%;
+    --success-ink:160 70% 24%;
+    --success-soft:160 55% 94%;
+    --warning:38 92% 45%;
+    --warning-ink:28 85% 28%;
+    --warning-soft:40 95% 93%;
+    --danger:0 84.2% 60.2%;
+    --danger-ink:0 72% 38%;
+    --danger-soft:0 86% 96%;
+    --canvas:225 14% 92%;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));
+    font:14px/1.45 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3,h4,p,ul{margin:0}
+  ul{padding:0;list-style:none}
+  button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
+  a{color:inherit;text-decoration:none}
+  .i{display:inline-block;width:16px;height:16px;flex:none;background:currentColor;
+    -webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat}
+  .tab{font-variant-numeric:tabular-nums}
+
+  /* ---------- página de apresentação ---------- */
+  .doc{max-width:1400px;margin:0 auto;padding:48px 24px 96px}
+  .doc h1{font:800 32px/1.15 Sora,Inter,sans-serif;letter-spacing:-.02em}
+  .lead{color:hsl(var(--muted-foreground));max-width:80ch;margin-top:10px;font-size:14.5px;line-height:1.55}
+  .notas{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+  .nota{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:12px;padding:12px 14px;font-size:13px}
+  .nota b{display:block;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground));margin-bottom:4px}
+  .bloco{margin-top:56px;display:flex;flex-direction:column;gap:12px}
+  .rotulo{font-size:12px;font-weight:600;color:hsl(var(--muted-foreground));letter-spacing:.03em;text-transform:uppercase}
+
+  /* ---------- moldura do sistema (notebook) ---------- */
+  .tela{display:flex;border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;background:hsl(var(--background));box-shadow:0 8px 30px -12px rgb(0 0 0 / .15)}
+  .menu{width:220px;flex:none;display:flex;flex-direction:column;background:hsl(var(--card));border-right:1px solid hsl(var(--border))}
+  .menu-topo{display:flex;align-items:center;gap:10px;height:64px;padding:0 16px;background:hsl(var(--primary));color:#fff;font:700 14px Inter}
+  .menu-topo small{display:block;font-weight:500;opacity:.8;font-size:11px}
+  .menu nav{padding:10px;display:flex;flex-direction:column;gap:2px;font-size:13px}
+  .menu nav p{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding:10px 8px 4px}
+  .menu nav a{display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px}
+  .menu nav a.on{background:hsl(var(--primary-soft));color:hsl(var(--primary));font-weight:600;box-shadow:inset 3px 0 0 hsl(var(--primary))}
+  .corpo{flex:1;min-width:0;display:flex;flex-direction:column}
+  .barra{height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border));font-weight:700}
+  .avatar{width:34px;height:34px;border-radius:999px;background:hsl(var(--primary));color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700}
+
+  /* O Conteiner padrão do sistema: centraliza, max-w-7xl (1280px), px-8 py-8 no computador. */
+  .conteiner{width:100%;max-width:1280px;margin:0 auto;padding:32px;display:flex;flex-direction:column;gap:16px;position:relative}
+  .conteiner.marcado{outline:1px dashed hsl(var(--primary) / .45);outline-offset:-1px}
+  .conteiner.marcado::before{content:"Conteiner · largura padrão (max-w-7xl) · px-8 py-8";position:absolute;top:8px;right:12px;font-size:10.5px;font-weight:600;color:hsl(var(--primary));background:hsl(var(--primary-soft));padding:2px 8px;border-radius:999px}
+
+  /* ---------- peças do DS ---------- */
+  .card{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 14px;border-radius:8px;font-size:13px;font-weight:600;white-space:nowrap}
+  .btn.pri{background:hsl(var(--primary));color:#fff}
+  .btn.out{border:1px solid hsl(var(--border));background:hsl(var(--card))}
+  .btn.ghost-danger{color:hsl(var(--danger-ink))}
+  .btn.sm{height:32px;font-size:12.5px;padding:0 10px}
+  .btn.ico{width:32px;padding:0}
+  .cap{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+  .status{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:6px;font-size:12px;font-weight:600;white-space:nowrap}
+  .s-pronta{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+  .chip{display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 9px;border-radius:7px;font-size:12px;font-weight:600;background:hsl(var(--muted));color:hsl(var(--foreground) / .8);white-space:nowrap}
+
+  /* cabeçalho */
+  .voltar{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:hsl(var(--primary))}
+  .titulo{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .titulo h3{font:800 26px/1.15 Sora,Inter,sans-serif;letter-spacing:-.015em}
+  .titulo .acoes{margin-left:auto;display:flex;gap:8px}
+
+  /* linha do status (passos) */
+  .passos{display:flex;align-items:center;gap:16px;padding:14px 16px}
+  .passos ol{display:flex;align-items:center;flex:1;margin:0;padding:0;list-style:none;min-width:0}
+  .passos li{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:hsl(var(--muted-foreground));white-space:nowrap}
+  .passos li .b{width:22px;height:22px;border-radius:999px;display:grid;place-items:center;border:2px solid hsl(var(--border));background:hsl(var(--card));font-size:11px}
+  .passos li.feito{color:hsl(var(--foreground))}
+  .passos li.feito .b{background:hsl(var(--primary));border-color:hsl(var(--primary));color:#fff}
+  .passos li.agora{color:hsl(var(--primary))}
+  .passos li.agora .b{border-color:hsl(var(--primary));box-shadow:0 0 0 3px hsl(var(--primary) / .15)}
+  .passos .linha{flex:1;height:2px;background:hsl(var(--border));margin:0 10px;min-width:16px}
+  .passos .linha.feita{background:hsl(var(--primary))}
+
+  /* console */
+  .console{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:14px;align-items:start}
+  .secao{padding:16px;display:flex;flex-direction:column;gap:12px}
+  .secao + .secao{border-top:1px solid hsl(var(--border))}
+  .secao-topo{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:32px}
+  .fatos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .fato small{display:block;font-size:12px;color:hsl(var(--muted-foreground))}
+  .fato span{font-weight:600}
+  .aviso{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:10px;border:1px solid hsl(var(--warning) / .4);background:hsl(var(--warning-soft));color:hsl(var(--warning-ink));font-size:13px;font-weight:600}
+  .itens{width:100%;border-collapse:collapse;font-size:13.5px}
+  .itens th{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground));text-align:left;padding:0 0 8px}
+  .itens td{padding:10px 0;border-top:1px solid hsl(var(--border))}
+  .itens .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .itens td small{display:block;color:hsl(var(--muted-foreground));font-size:12px}
+  .obs{padding:10px 12px;border-radius:10px;background:hsl(var(--muted) / .6);font-size:13.5px;white-space:pre-line}
+
+  /* painel do dinheiro */
+  .painel{display:flex;flex-direction:column;overflow:hidden;position:sticky;top:16px}
+  .total{display:flex;align-items:baseline;justify-content:space-between}
+  .total b{font:800 26px Sora,Inter,sans-serif;font-variant-numeric:tabular-nums}
+  .contas li{display:flex;justify-content:space-between;font-size:13px;color:hsl(var(--muted-foreground));padding:2px 0}
+  .contas li span:last-child{font-variant-numeric:tabular-nums}
+  .progresso{height:6px;border-radius:999px;background:hsl(var(--muted));overflow:hidden}
+  .progresso i{display:block;height:100%;background:hsl(var(--success))}
+  .saldo{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:10px;background:hsl(var(--warning-soft));color:hsl(var(--warning-ink));font-weight:700;font-size:13.5px}
+  .saldo.ok{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+  .pag{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center;padding:8px 0;border-top:1px solid hsl(var(--border));font-size:13px}
+  .pag:first-child{border-top:0}
+  .pag small{display:block;color:hsl(var(--muted-foreground));font-size:12px}
+  .pag .v{font-weight:700;font-variant-numeric:tabular-nums}
+  .desfazer{width:28px;height:28px;border-radius:7px;display:grid;place-items:center;color:hsl(var(--muted-foreground))}
+  .rodape{margin-top:auto;border-top:1px solid hsl(var(--border));background:hsl(var(--muted) / .35);padding:12px 16px;display:flex;flex-direction:column;gap:8px}
+
+  /* janela (Dialog) */
+  .vitrine{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:24px;align-items:start}
+  .fundo{background:rgb(0 0 0 / .45);border-radius:14px;padding:40px 24px;display:grid;place-items:center}
+  .janela{width:440px;max-width:100%;background:hsl(var(--card));border-radius:14px;box-shadow:0 20px 50px -12px rgb(0 0 0 / .4);overflow:hidden}
+  .janela header{padding:16px 18px 6px;display:flex;justify-content:space-between;align-items:center}
+  .janela header h4{font:800 17px Sora,Inter,sans-serif}
+  .janela .miolo{padding:8px 18px 16px;display:flex;flex-direction:column;gap:14px}
+  .janela footer{display:flex;gap:8px;padding:12px 18px;border-top:1px solid hsl(var(--border));background:hsl(var(--muted) / .35)}
+  .janela footer .btn{flex:1}
+  .seg{display:flex;gap:6px;flex-wrap:wrap}
+  .seg span{height:34px;padding:0 12px;border-radius:8px;border:1.5px solid hsl(var(--border));display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600}
+  .seg span.on{border-color:hsl(var(--primary));color:hsl(var(--primary));background:hsl(var(--primary-soft))}
+  .campo{position:relative;border:2px solid hsl(var(--border));border-radius:8px;height:48px;display:flex;align-items:end;padding:0 12px 8px;font-size:14px}
+  .campo label{position:absolute;top:-8px;left:10px;background:hsl(var(--card));padding:0 4px;font-size:12px;font-weight:600}
+  .campo.foco{border-color:hsl(var(--primary))}
+  .duas{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .consequencia{font-size:12.5px;color:hsl(var(--muted-foreground))}
+  .consequencia b{color:hsl(var(--success-ink))}
+
+  /* ---------- celular ---------- */
+  .cel{width:375px;max-width:100%;border:1px solid hsl(var(--border));border-radius:28px;overflow:hidden;background:hsl(var(--background));box-shadow:0 8px 30px -12px rgb(0 0 0 / .2);display:flex;flex-direction:column;height:780px;position:relative}
+  .cel-topo{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border));font-weight:700;flex:none}
+  .cel-corpo{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+  .cel-corpo>*{flex:none}
+  .cel-acao{flex:none;padding:10px 16px;background:hsl(var(--card));border-top:1px solid hsl(var(--border));display:flex;gap:8px}
+  .cel-acao .btn{flex:1;height:42px}
+  .cel-nav{height:60px;flex:none;display:grid;grid-template-columns:repeat(5,1fr);background:hsl(var(--card));border-top:1px solid hsl(var(--border));font-size:10.5px;color:hsl(var(--muted-foreground))}
+  .cel-nav span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
+  .cel-nav span.on{color:hsl(var(--primary));font-weight:600}
+  .mini-passos{display:flex;gap:4px}
+  .mini-passos i{flex:1;height:4px;border-radius:2px;background:hsl(var(--border))}
+  .mini-passos i.on{background:hsl(var(--primary))}
+</style>
+</head>
+<body>
+<main class="doc">
+  <p class="cap">Confeitaria · Encomendas · Em revisão · 23/10/2026</p>
+  <h1>Detalhe da encomenda</h1>
+  <p class="lead">Hoje a tela é uma coluna estreita: o botão de status ocupa a largura toda, o WhatsApp tem o mesmo peso da ação principal, e o dinheiro (total, sinal, quanto falta) fica lá embaixo, depois dos produtos. A proposta usa o <b>Conteiner padrão</b> (o mesmo das listas: até 1280px, com o respiro das bordas) e o <b>console</b> que já está na Nova encomenda e na Agenda: o pedido à esquerda, o dinheiro num painel fixo à direita.</p>
+  <div class="notas">
+    <div class="nota"><b>Status em passos</b>Orçamento → Confirmada → Em produção → Pronta → Entregue. Mostra onde está e o que vem; a próxima ação fica ao lado, do tamanho de um botão.</div>
+    <div class="nota"><b>Dinheiro sempre à vista</b>Total, pago e quanto falta, com a barra de quanto já entrou. Registrar pagamento fica no próprio painel.</div>
+    <div class="nota"><b>Ações secundárias discretas</b>WhatsApp vira botão de contorno na seção Cliente; Editar no topo; Cancelar no pé do painel, em vermelho discreto.</div>
+  </div>
+
+  <!-- ==================== Notebook ==================== -->
+  <section class="bloco">
+    <p class="rotulo">Notebook · encomenda pronta, com sinal pago</p>
+    <div class="tela">
+      <div class="menu" data-menu></div>
+      <div class="corpo">
+        <div class="barra">Encomendas <span class="avatar">AN</span></div>
+        <div class="conteiner marcado">
+          <a class="voltar"><i class="i" style="--ico:url(https://api.iconify.design/ph/arrow-left-bold.svg)"></i>Encomendas</a>
+          <div class="titulo">
+            <h3>Encomenda nº 10</h3>
+            <span class="status s-pronta">Pronta</span>
+            <span class="chip"><i class="i" style="--ico:url(https://api.iconify.design/ph/storefront.svg);width:14px;height:14px"></i>Retirada · sáb., 24/10 às 14:00</span>
+            <span class="chip" style="background:hsl(var(--primary-soft));color:hsl(var(--primary))">Amanhã</span>
+            <div class="acoes"><button class="btn out sm" disabled style="opacity:.5" title="Só dá para editar até começar a produção"><i class="i" style="--ico:url(https://api.iconify.design/ph/pencil-simple.svg)"></i>Editar</button></div>
+          </div>
+
+          <div class="card passos">
+            <ol>
+              <li class="feito"><span class="b">✓</span>Orçamento</li><span class="linha feita"></span>
+              <li class="feito"><span class="b">✓</span>Confirmada</li><span class="linha feita"></span>
+              <li class="feito"><span class="b">✓</span>Em produção</li><span class="linha feita"></span>
+              <li class="feito"><span class="b">✓</span>Pronta</li><span class="linha"></span>
+              <li class="agora"><span class="b"></span>Entregue</li>
+            </ol>
+            <button class="btn pri"><i class="i" style="--ico:url(https://api.iconify.design/ph/check-bold.svg)"></i>Marcar como entregue</button>
+          </div>
+
+          <div class="console">
+            <div class="card">
+              <div class="secao">
+                <div class="secao-topo">
+                  <p class="cap">Cliente</p>
+                  <button class="btn out sm"><i class="i" style="--ico:url(https://api.iconify.design/ph/whatsapp-logo.svg)"></i>Enviar orçamento no WhatsApp</button>
+                </div>
+                <div class="fatos">
+                  <div class="fato"><small>Nome</small><a style="color:hsl(var(--primary));font-weight:600">Carla Mendes</a></div>
+                  <div class="fato"><small>WhatsApp</small><span>(11) 95432-1098</span></div>
+                  <div class="fato"><small>Como recebe</small><span>Retira na loja</span></div>
+                </div>
+                <p class="aviso"><i class="i" style="--ico:url(https://api.iconify.design/ph/warning-bold.svg)"></i>Sem lactose</p>
+              </div>
+              <div class="secao">
+                <div class="secao-topo"><p class="cap">Produtos · 1</p></div>
+                <table class="itens">
+                  <thead><tr><th>Produto</th><th class="num">Quantidade</th><th class="num">Preço</th><th class="num">Subtotal</th></tr></thead>
+                  <tbody>
+                    <tr><td><b>Bolo de chocolate com brigadeiro</b></td><td class="num">2 kg</td><td class="num">R$ 90,00/kg</td><td class="num"><b>R$ 180,00</b></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="secao">
+                <div class="secao-topo"><p class="cap">Observações</p></div>
+                <p class="obs">Aniversário dela: escrever 'Parabéns, Carla!'</p>
+              </div>
+            </div>
+
+            <aside class="card painel">
+              <div class="secao">
+                <p class="cap">Pagamento</p>
+                <div class="total"><span style="font-weight:600">Total</span><b>R$ 180,00</b></div>
+                <ul class="contas">
+                  <li><span>Produtos</span><span>R$ 180,00</span></li>
+                  <li><span>Sinal sugerido (50%)</span><span>R$ 90,00</span></li>
+                </ul>
+                <div class="progresso" title="R$ 90,00 de R$ 180,00"><i style="width:50%"></i></div>
+                <p class="saldo"><span>Falta receber</span><span class="tab">R$ 90,00</span></p>
+              </div>
+              <div class="secao">
+                <div class="secao-topo">
+                  <p class="cap">Pagamentos · 1</p>
+                  <button class="btn out sm"><i class="i" style="--ico:url(https://api.iconify.design/ph/wallet.svg)"></i>Registrar pagamento</button>
+                </div>
+                <ul>
+                  <li class="pag"><span><b>Sinal</b><small>Pix · 20/10/2026</small></span><span class="v">R$ 90,00</span><button class="desfazer" aria-label="Desfazer pagamento de R$ 90,00" title="Desfazer"><i class="i" style="--ico:url(https://api.iconify.design/ph/arrow-counter-clockwise.svg)"></i></button></li>
+                </ul>
+              </div>
+              <div class="rodape">
+                <button class="btn ghost-danger sm" style="align-self:flex-start"><i class="i" style="--ico:url(https://api.iconify.design/ph/x-circle.svg)"></i>Cancelar encomenda</button>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Janelas ==================== -->
+  <section class="bloco">
+    <p class="rotulo">O que os botões abrem</p>
+    <div class="vitrine">
+      <div class="fundo">
+        <div class="janela">
+          <header><h4>Registrar pagamento</h4><i class="i" style="--ico:url(https://api.iconify.design/ph/x.svg);color:hsl(var(--muted-foreground))"></i></header>
+          <div class="miolo">
+            <div><p class="cap" style="margin-bottom:6px">O que é</p><div class="seg"><span>Sinal</span><span class="on">Restante</span><span>Outro</span></div></div>
+            <div class="duas">
+              <div class="campo foco"><label>Valor (R$)</label>90,00</div>
+              <div class="campo"><label>Data</label>23/10/2026</div>
+            </div>
+            <div><p class="cap" style="margin-bottom:6px">Forma</p><div class="seg"><span class="on">Pix</span><span>Dinheiro</span><span>Cartão</span><span>Transferência</span></div></div>
+          </div>
+          <footer>
+            <div style="flex:1;align-self:center" class="consequencia">Depois disso: <b>tudo pago</b></div>
+          </footer>
+          <footer style="border-top:0;padding-top:0">
+            <button class="btn out">Cancelar</button><button class="btn pri">Registrar pagamento</button>
+          </footer>
+        </div>
+      </div>
+      <div class="fundo">
+        <div class="janela">
+          <header><h4>Cancelar a encomenda nº 10?</h4><i class="i" style="--ico:url(https://api.iconify.design/ph/x.svg);color:hsl(var(--muted-foreground))"></i></header>
+          <div class="miolo">
+            <p style="font-size:13.5px;color:hsl(var(--muted-foreground))">Ela sai da lista em aberto e não pode mais ser alterada.</p>
+            <ul style="font-size:13.5px;display:flex;flex-direction:column;gap:6px">
+              <li style="display:flex;gap:8px"><i class="i" style="--ico:url(https://api.iconify.design/ph/calendar-x.svg);color:hsl(var(--muted-foreground))"></i>Libera a vaga de sáb., 24/10</li>
+              <li style="display:flex;gap:8px;color:hsl(var(--warning-ink));font-weight:600"><i class="i" style="--ico:url(https://api.iconify.design/ph/warning-bold.svg)"></i>A cliente já pagou R$ 90,00: combine a devolução</li>
+            </ul>
+          </div>
+          <footer><button class="btn out">Voltar</button><button class="btn" style="background:hsl(var(--danger));color:#fff">Sim, cancelar</button></footer>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Celular ==================== -->
+  <section class="bloco">
+    <p class="rotulo">Celular · a ação principal fica presa embaixo</p>
+    <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start">
+      <div class="cel">
+        <div class="cel-topo">🎂 Doces da Ana <span class="avatar">AN</span></div>
+        <div class="cel-corpo">
+          <a class="voltar"><i class="i" style="--ico:url(https://api.iconify.design/ph/arrow-left-bold.svg)"></i>Encomendas</a>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+            <h3 style="font:800 22px Sora,Inter,sans-serif;letter-spacing:-.015em">Encomenda nº 10</h3>
+            <span class="status s-pronta">Pronta</span>
+          </div>
+          <span class="chip" style="align-self:flex-start"><i class="i" style="--ico:url(https://api.iconify.design/ph/storefront.svg);width:14px;height:14px"></i>Retirada · amanhã, 14:00</span>
+          <div class="card" style="padding:12px 14px;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;justify-content:space-between;font-size:12.5px"><span class="cap">Status</span><span style="font-weight:600">4 de 5 · falta entregar</span></div>
+            <div class="mini-passos"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div>
+          </div>
+          <div class="card painel" style="position:static">
+            <div class="secao">
+              <div class="total"><span style="font-weight:600">Total</span><b style="font-size:22px">R$ 180,00</b></div>
+              <div class="progresso"><i style="width:50%"></i></div>
+              <p class="saldo"><span>Falta receber</span><span class="tab">R$ 90,00</span></p>
+              <button class="btn out sm"><i class="i" style="--ico:url(https://api.iconify.design/ph/wallet.svg)"></i>Registrar pagamento</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="secao">
+              <div class="secao-topo"><p class="cap">Cliente</p><button class="btn out sm ico" aria-label="WhatsApp"><i class="i" style="--ico:url(https://api.iconify.design/ph/whatsapp-logo.svg)"></i></button></div>
+              <p><a style="color:hsl(var(--primary));font-weight:600">Carla Mendes</a><br><span style="font-size:13px;color:hsl(var(--muted-foreground))">(11) 95432-1098</span></p>
+              <p class="aviso"><i class="i" style="--ico:url(https://api.iconify.design/ph/warning-bold.svg)"></i>Sem lactose</p>
+            </div>
+            <div class="secao">
+              <p class="cap">Produtos · 1</p>
+              <div style="display:flex;justify-content:space-between;gap:10px;font-size:13.5px"><span><b>Bolo de chocolate com brigadeiro</b><br><span style="color:hsl(var(--muted-foreground));font-size:12.5px">2 kg · R$ 90,00/kg</span></span><b class="tab">R$ 180,00</b></div>
+              <p class="obs">Aniversário dela: escrever 'Parabéns, Carla!'</p>
+            </div>
+          </div>
+        </div>
+        <div class="cel-acao"><button class="btn pri"><i class="i" style="--ico:url(https://api.iconify.design/ph/check-bold.svg)"></i>Marcar como entregue</button></div>
+        <div class="cel-nav" data-nav></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+  const ico = (nome, extra = "") => `<i class="i" style="--ico:url(https://api.iconify.design/ph/${nome}.svg);${extra}"></i>`;
+  const MENU = `<div class="menu-topo"><span style="font-size:18px">🎂</span><span>Doces da Ana<small>Confeitaria</small></span></div>
+    <nav><p>Principal</p><a>${ico("squares-four")}Início</a>
+    <p>Vendas</p><a class="on">${ico("clipboard-text")}Encomendas</a><a>${ico("calendar-blank")}Agenda</a><a>${ico("users")}Clientes</a>
+    <p>Produção</p><a>${ico("cake")}Produtos</a><a>${ico("book-open")}Receitas</a><a>${ico("grains")}Insumos</a>
+    <p>Gestão</p><a>${ico("calculator")}Precificação</a><a>${ico("wallet")}Financeiro</a><a>${ico("gear")}Configurações</a></nav>`;
+  document.querySelectorAll("[data-menu]").forEach((el) => (el.innerHTML = MENU));
+  const NAV = [["squares-four", "Início"], ["clipboard-text", "Encomendas", 1], ["calendar-blank", "Agenda"], ["users", "Clientes"], ["dots-three", "Mais"]];
+  document.querySelectorAll("[data-nav]").forEach((el) => (el.innerHTML = NAV.map(([i, t, on]) => `<span class="${on ? "on" : ""}">${ico(i, "width:20px;height:20px")}${t}</span>`).join("")));
+</script>
+</body>
+</html>

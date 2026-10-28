@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Cores · Confeitaria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --background:0 0% 98%;
+    --foreground:240 10% 3.9%;
+    --card:0 0% 100%;
+    --muted:240 4.8% 93.9%;
+    --muted-foreground:240 3.8% 42%;
+    --border:240 5.9% 90%;
+    --warning-text:28 85% 28%;
+    --warning-soft:40 95% 93%;
+    --danger-text:0 72% 38%;
+    --danger-soft:0 85% 96%;
+    --canvas:225 14% 92%;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));
+    font:15px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3,p{margin:0}
+  button{font:inherit;color:inherit;cursor:pointer}
+  :focus-visible{outline:2px solid hsl(var(--foreground));outline-offset:2px;border-radius:6px}
+  .i{display:inline-block;width:16px;height:16px;flex:none;background:currentColor;
+    -webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat}
+
+  /* ---------- página de apresentação ---------- */
+  .doc{max-width:1240px;margin:0 auto;padding:48px 24px 96px}
+  .doc h1{font:800 32px/1.15 Sora,Inter,sans-serif;letter-spacing:-.02em}
+  .lead{color:hsl(var(--muted-foreground));max-width:70ch;margin-top:10px;font-size:14.5px;line-height:1.55}
+  section{display:flex;flex-direction:column;gap:16px;margin-top:56px}
+  .cap{font-size:12.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+  .sub{font-size:13.5px;color:hsl(var(--muted-foreground));margin-top:-8px;max-width:75ch}
+  .grade{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 40px}
+  @media (max-width:900px){.grade{grid-template-columns:minmax(0,1fr)}}
+
+  /* ---------- uma opção de cor ---------- */
+  .opcao{display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:16px;border:2px solid transparent;transition:border-color .15s,background .15s}
+  .opcao[aria-pressed="true"]{border-color:var(--p);background:hsl(var(--card))}
+  .opcao-topo{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .opcao h3{font:800 19px/1.2 Sora,Inter,sans-serif;letter-spacing:-.01em}
+  .tag{font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+  .tag.livre{background:#DCFCE7;color:#166534}
+  .amostras{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:hsl(var(--muted-foreground))}
+  .amostras span{display:flex;align-items:center;gap:6px}
+  .amostras i{width:18px;height:18px;border-radius:5px;border:1px solid hsl(var(--border))}
+  .escolher{align-self:flex-start;display:flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:8px;
+    border:1px solid hsl(var(--border));background:hsl(var(--card));font-size:13px;font-weight:600}
+  .opcao[aria-pressed="true"] .escolher{background:var(--p);border-color:var(--p);color:#fff}
+
+  /* ---------- a tela do sistema (igual para todas as cores) ---------- */
+  .tela{display:flex;height:400px;border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;background:hsl(var(--background))}
+  .menu{width:172px;flex:none;padding:16px 12px;display:flex;flex-direction:column;gap:4px;background:hsl(var(--card));border-right:1px solid hsl(var(--border))}
+  .marca{display:flex;align-items:center;gap:8px;padding:0 6px 14px;font:800 14px Sora,Inter,sans-serif}
+  .marca b{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--p);color:#fff}
+  .menu-item{display:flex;align-items:center;gap:8px;height:34px;padding:0 10px;border-radius:8px;font-size:12.5px;font-weight:500;color:hsl(var(--muted-foreground))}
+  .menu-item.ativo{background:var(--soft);color:var(--ink);font-weight:600}
+  .conteudo{flex:1;min-width:0;padding:20px 22px;display:flex;flex-direction:column;gap:14px}
+  .cabecalho{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .cabecalho h4{margin:0;font:800 18px Sora,Inter,sans-serif}
+  .cabecalho p{font-size:12px;color:hsl(var(--muted-foreground))}
+  .botao{display:flex;align-items:center;gap:6px;height:34px;padding:0 12px;border:0;border-radius:8px;font-size:12px;font-weight:600;color:#fff;background:var(--p);white-space:nowrap}
+  .numeros{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .numero{display:flex;gap:10px;align-items:center;padding:12px;border:1px solid hsl(var(--border));border-radius:10px;background:hsl(var(--card))}
+  .numero b{width:32px;height:32px;flex:none;border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--soft);color:var(--ink)}
+  .numero small{display:block;font-size:11px;color:hsl(var(--muted-foreground))}
+  .numero strong{font-size:16px;font-weight:600}
+  .lista{flex:1;min-height:0;padding:12px 14px;border:1px solid hsl(var(--border));border-radius:10px;background:hsl(var(--card));display:flex;flex-direction:column;gap:8px}
+  .lista-topo{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:600}
+  .lista-topo a{font-size:12px;color:var(--ink)}
+  .linha{display:flex;align-items:center;gap:10px;font-size:12px}
+  .linha .quando{width:64px;font-weight:700;color:var(--ink)}
+  .linha .quem{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .etiqueta{padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600;background:var(--soft);color:var(--ink)}
+  .etiqueta.aviso{background:hsl(var(--warning-soft));color:hsl(var(--warning-text))}
+  .etiqueta.erro{background:hsl(var(--danger-soft));color:hsl(var(--danger-text))}
+  .linha .quando.erro{color:hsl(var(--danger-text))}
+  @media (max-width:560px){.menu{display:none}.numeros{grid-template-columns:minmax(0,1fr)}.tela{height:auto}}
+</style>
+</head>
+<body>
+<main class="doc">
+  <h1>Qual vai ser a cor da Confeitaria?</h1>
+  <p class="lead">A mesma tela do sistema em cada cor. Só muda a cor da marca: erro (vermelho), aviso (âmbar) e sucesso continuam os do Design System. Em cada amostra: cor principal (botões, marca), tom claro (fundos de destaque) e tom escuro (texto sobre o tom claro). Clique em "Prefiro esta" para comparar a escolhida com as outras.</p>
+
+  <section>
+    <p class="cap">Temas do Design System</p>
+    <p class="sub">Os 4 temas que o @facter/ds-core já tem. Três deles já são a cara de outro sistema.</p>
+    <div class="grade" data-grupo="ds"></div>
+  </section>
+
+  <section>
+    <p class="cap">Cores novas, no mesmo padrão do DS</p>
+    <p class="sub">Tons que combinam com confeitaria e não se confundem com erro, aviso ou sucesso. Vermelho, laranja e caramelo ficaram de fora por isso. A escolhida vira um tema novo, como os outros.</p>
+    <div class="grade" data-grupo="novas"></div>
+  </section>
+</main>
+
+<template id="modelo">
+  <article class="opcao" aria-pressed="false">
+    <div class="opcao-topo">
+      <h3 data-nome></h3>
+      <span class="tag" data-tag></span>
+    </div>
+    <div class="amostras">
+      <span><i data-cor="p"></i><em data-hex="p"></em></span>
+      <span><i data-cor="soft"></i><em data-hex="soft"></em></span>
+      <span><i data-cor="ink"></i><em data-hex="ink"></em></span>
+    </div>
+    <div class="tela">
+      <nav class="menu" aria-label="Menu">
+        <div class="marca"><b><span class="i" style="--ico:url(https://api.iconify.design/ph/cake.svg)"></span></b>Confeitaria</div>
+        <span class="menu-item ativo"><span class="i" style="--ico:url(https://api.iconify.design/ph/house.svg)"></span>Início</span>
+        <span class="menu-item"><span class="i" style="--ico:url(https://api.iconify.design/ph/clipboard-text.svg)"></span>Encomendas</span>
+        <span class="menu-item"><span class="i" style="--ico:url(https://api.iconify.design/ph/calendar-blank.svg)"></span>Agenda</span>
+        <span class="menu-item"><span class="i" style="--ico:url(https://api.iconify.design/ph/users.svg)"></span>Clientes</span>
+        <span class="menu-item"><span class="i" style="--ico:url(https://api.iconify.design/ph/wallet.svg)"></span>Financeiro</span>
+      </nav>
+      <div class="conteudo">
+        <div class="cabecalho">
+          <div><h4>Olá, Elves!</h4><p>Por onde vamos começar hoje?</p></div>
+          <span class="botao"><span class="i" style="--ico:url(https://api.iconify.design/ph/plus-bold.svg)"></span>Nova encomenda</span>
+        </div>
+        <div class="numeros">
+          <div class="numero"><b><span class="i" style="--ico:url(https://api.iconify.design/ph/calendar-blank.svg)"></span></b><div><small>Esta semana</small><strong>6 encomendas</strong></div></div>
+          <div class="numero"><b><span class="i" style="--ico:url(https://api.iconify.design/ph/trend-up.svg)"></span></b><div><small>Faturamento de outubro</small><strong>R$ 2.847,00</strong></div></div>
+        </div>
+        <div class="lista">
+          <div class="lista-topo">Próximas encomendas <a href="#" onclick="return false">Ver todas</a></div>
+          <div class="linha"><span class="quando">Sáb 14:00</span><span class="quem">nº 10 · Carla Mendes</span><span class="etiqueta">Pronta</span></div>
+          <div class="linha"><span class="quando">Sáb 16:30</span><span class="quem">nº 11 · Maria Souza</span><span class="etiqueta aviso">Em produção</span></div>
+          <div class="linha"><span class="quando erro">Ontem</span><span class="quem">nº 9 · Joana Lima</span><span class="etiqueta erro">Atrasada</span></div>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="escolher"><span class="i" style="--ico:url(https://api.iconify.design/ph/heart.svg)"></span><span data-rotulo>Prefiro esta</span></button>
+  </article>
+</template>
+
+<script>
+  const OPCOES = {
+    ds: [
+      { nome: 'Verde menta (Techcare)', tag: 'Em uso hoje · igual a outro sistema', p: '#33A374', soft: '#EBFAF2', ink: '#206F4E' },
+      { nome: 'Azul índigo (Truck)', tag: 'Já é do Facter Truck', p: '#2D40D2', soft: '#EEF0FE', ink: '#2D40D2' },
+      { nome: 'Roxo (Vagas)', tag: 'Já é do Facter Vagas', p: '#7C3BED', soft: '#F4EEFE', ink: '#6D28D9' },
+      { nome: 'Grafite (Default)', tag: 'Neutro · livre', livre: true, p: '#18181B', soft: '#F4F4F8', ink: '#18181B' },
+    ],
+    novas: [
+      { nome: 'Rosa doce', tag: 'Livre', livre: true, p: '#D22D80', soft: '#FCEEF5', ink: '#A02261' },
+      { nome: 'Rosa antigo', tag: 'Livre', livre: true, p: '#A55065', soft: '#F7EEF0', ink: '#7C3B4C' },
+      { nome: 'Chocolate', tag: 'Livre', livre: true, p: '#76452D', soft: '#F7F0ED', ink: '#76452D' },
+      { nome: 'Azul Tiffany', tag: 'Livre', livre: true, p: '#1B8D98', soft: '#EBF9FA', ink: '#146971' },
+    ],
+  };
+  const modelo = document.getElementById('modelo');
+  for (const [grupo, lista] of Object.entries(OPCOES)) {
+    const grade = document.querySelector(`[data-grupo="${grupo}"]`);
+    for (const o of lista) {
+      const el = modelo.content.firstElementChild.cloneNode(true);
+      el.style.setProperty('--p', o.p);
+      el.style.setProperty('--soft', o.soft);
+      el.style.setProperty('--ink', o.ink);
+      el.querySelector('[data-nome]').textContent = o.nome;
+      const tag = el.querySelector('[data-tag]');
+      tag.textContent = o.tag;
+      if (o.livre) tag.classList.add('livre');
+      for (const k of ['p', 'soft', 'ink']) {
+        el.querySelector(`[data-cor="${k}"]`).style.background = o[k];
+        el.querySelector(`[data-hex="${k}"]`).textContent = o[k];
+      }
+      el.querySelector('.escolher').addEventListener('click', () => {
+        const ja = el.getAttribute('aria-pressed') === 'true';
+        document.querySelectorAll('.opcao').forEach((x) => {
+          x.setAttribute('aria-pressed', 'false');
+          x.querySelector('[data-rotulo]').textContent = 'Prefiro esta';
+        });
+        if (!ja) {
+          el.setAttribute('aria-pressed', 'true');
+          el.querySelector('[data-rotulo]').textContent = 'Escolhida';
+        }
+      });
+      grade.appendChild(el);
+    }
+  }
+</script>
+</body>
+</html>

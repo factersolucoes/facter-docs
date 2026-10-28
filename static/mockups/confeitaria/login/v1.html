@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Tela de entrar · Facter Chef</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* Tema confeitaria (chocolate) do DS: mesmas variáveis do produto. */
+  :root{
+    --background:0 0% 98%;
+    --foreground:240 10% 3.9%;
+    --card:0 0% 100%;
+    --primary:20 45% 32%;
+    --primary-soft:20 45% 95%;
+    --faixa:20 45% 32%;
+    --muted:240 4.8% 93.9%;
+    --muted-foreground:240 3.8% 46%;
+    --border:240 5.9% 90%;
+    --success:160 60% 38%;
+    --success-ink:160 70% 24%;
+    --success-soft:160 55% 94%;
+    --warning-ink:28 85% 28%;
+    --warning-soft:40 95% 93%;
+    --danger-ink:0 72% 38%;
+    --danger-soft:0 86% 96%;
+    --info-ink:217 91% 38%;
+    --info-soft:217 85% 96%;
+    --grafico-entrou:160 60% 38%;
+    --grafico-saiu:20 45% 32%;
+    --canvas:225 14% 92%;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));
+    font:14px/1.45 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3,h4,p,ul{margin:0}
+  ul{padding:0;list-style:none}
+  .tab{font-variant-numeric:tabular-nums}
+  .mut{color:hsl(var(--muted-foreground))}
+
+  /* ---------- apresentação ---------- */
+  .doc{max-width:1400px;margin:0 auto;padding:48px 24px 96px}
+  .doc h1{font:800 32px/1.15 Sora,Inter,sans-serif;letter-spacing:-.02em}
+  .lead{color:hsl(var(--muted-foreground));max-width:84ch;margin-top:10px;font-size:14.5px;line-height:1.55}
+  .pecas{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
+  .pecas code{font:600 12px ui-monospace,Consolas,monospace;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:6px;padding:3px 7px}
+  .opcao{margin-top:64px;display:flex;flex-direction:column;gap:14px}
+  .opcao-topo{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .letra{font:800 13px Sora,Inter,sans-serif;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:hsl(var(--primary));color:#fff}
+  .opcao h2{font:800 22px/1.2 Sora,Inter,sans-serif;letter-spacing:-.01em}
+  .opcao .sub{font-size:14px;color:hsl(var(--muted-foreground));max-width:92ch}
+  .pros{display:flex;gap:24px;flex-wrap:wrap;font-size:13px}
+  .pros div{display:flex;flex-direction:column;gap:4px;max-width:48ch}
+  .pros b{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+  .recomendo{margin-top:64px;padding:20px 22px;border-radius:14px;background:hsl(var(--card));border:1px solid hsl(var(--border))}
+  .recomendo h2{font:800 20px Sora,Inter,sans-serif;margin-bottom:8px}
+  .recomendo p+p{margin-top:8px}
+
+  /* ---------- moldura (notebook 1366 × 720) ---------- */
+  .moldura{overflow-x:auto;border-radius:14px}
+  .tela{position:relative;display:flex;width:1340px;height:720px;border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;background:hsl(var(--background));box-shadow:0 8px 30px -12px rgb(0 0 0 / .15)}
+  .lado-esq{position:relative;width:50%;flex:none;overflow:hidden}
+  .lado-dir{position:relative;flex:1;display:flex;align-items:center;justify-content:center}
+
+  /* Formulário de hoje (igual nas 3 opções) */
+  .marca{position:absolute;top:32px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:12px}
+  .marca svg{width:26px;color:hsl(var(--primary))}
+  .marca .traco{width:1px;height:36px;background:currentColor;opacity:.3}
+  .marca b{font:400 20px/1 Sora,Inter,sans-serif;letter-spacing:-.02em;white-space:nowrap}
+  .marca b strong{font-weight:800}
+  .marca small{display:block;margin-top:4px;font-size:11px;font-weight:500;color:hsl(var(--muted-foreground))}
+  .form{width:384px;text-align:center}
+  .form h3{font:800 24px Sora,Inter,sans-serif}
+  .form .ola{margin-top:6px;color:hsl(var(--muted-foreground))}
+  .campo{margin-top:16px;height:46px;border:1px solid hsl(var(--border));border-radius:8px;position:relative;background:hsl(var(--card))}
+  .campo:first-of-type{margin-top:28px;border-color:hsl(var(--primary));box-shadow:0 0 0 1px hsl(var(--primary))}
+  .campo span{position:absolute;top:-8px;left:12px;padding:0 4px;background:hsl(var(--background));font-size:12px;font-weight:600}
+  .botao{margin-top:16px;height:40px;border-radius:8px;background:hsl(var(--primary));color:#fff;display:grid;place-items:center;font-weight:600}
+  .suporte{margin-top:24px;font-size:14px;color:hsl(var(--muted-foreground))}
+
+  /* ---------- peças do sistema, em miniatura ---------- */
+  .card{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:12px;box-shadow:0 18px 40px -18px rgb(40 20 10 / .35)}
+  .pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}
+  .ok{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+  .aviso{background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+  .info{background:hsl(var(--info-soft));color:hsl(var(--info-ink))}
+  .marrom{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+  .rot{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+  .valor{font:800 24px/1.1 Sora,Inter,sans-serif;letter-spacing:-.02em}
+
+  /* ===== A · Vitrine (fundo chocolate + peças flutuando) ===== */
+  .a{background:hsl(var(--faixa));color:#fff}
+  .a::before{content:"";position:absolute;inset:0;background:
+      radial-gradient(600px 400px at 85% 10%, rgb(255 255 255 / .10), transparent 60%),
+      radial-gradient(500px 380px at 0% 100%, rgb(0 0 0 / .18), transparent 60%)}
+  .a .titulo{position:absolute;left:56px;right:56px;bottom:56px}
+  .a .titulo h4{font:800 32px/1.15 Sora,Inter,sans-serif;letter-spacing:-.02em;max-width:16ch}
+  .a .titulo p{margin-top:10px;opacity:.82;max-width:42ch;font-size:15px}
+  .a .card{position:absolute;color:hsl(var(--foreground))}
+  .a .c1{left:56px;top:64px;width:250px;padding:14px 16px;transform:rotate(-2deg)}
+  .a .c2{left:300px;top:118px;width:300px;padding:14px 16px;transform:rotate(1.5deg)}
+  .a .c3{left:92px;top:250px;width:260px;padding:14px 16px;transform:rotate(1deg)}
+  .a .c4{left:370px;top:290px;width:240px;padding:12px 14px;transform:rotate(-2.5deg)}
+  .barras{display:flex;align-items:flex-end;gap:5px;height:70px;margin-top:10px;position:relative}
+  .barras i{flex:1;border-radius:4px 4px 0 0;background:hsl(var(--primary))}
+  .barras i.h{background:hsl(var(--primary) / .35)}
+  .barras .lim{position:absolute;left:0;right:0;bottom:52px;border-top:1.5px dashed hsl(var(--danger-ink) / .6)}
+  .seg{display:flex;height:10px;border-radius:999px;overflow:hidden;gap:2px;margin-top:10px}
+  .seg i{display:block}
+  .leg{display:grid;grid-template-columns:1fr auto;gap:3px 12px;margin-top:10px;font-size:12px}
+  .leg span{display:flex;align-items:center;gap:6px}
+  .leg span::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--c)}
+
+  /* ===== B · Prévia do Início (a tela de verdade, inclinada) ===== */
+  .b{background:hsl(var(--primary-soft))}
+  .b .grade{position:absolute;inset:0;background-image:linear-gradient(hsl(var(--primary) / .06) 1px,transparent 1px),linear-gradient(90deg,hsl(var(--primary) / .06) 1px,transparent 1px);background-size:40px 40px}
+  .b .topo{position:absolute;left:56px;right:56px;top:56px}
+  .b .topo h4{font:800 30px/1.15 Sora,Inter,sans-serif;letter-spacing:-.02em;color:hsl(var(--primary));max-width:20ch}
+  .b .topo p{margin-top:10px;color:hsl(var(--muted-foreground));max-width:46ch;font-size:15px}
+  .b .previa{position:absolute;left:56px;top:250px;width:640px;padding:14px;transform:perspective(1400px) rotateY(-10deg) rotateX(4deg);transform-origin:left center}
+  .mini-faixa{border-radius:10px;background:hsl(var(--faixa));color:#fff;padding:14px 16px}
+  .mini-faixa h5{font:800 17px Sora,Inter,sans-serif;margin:4px 0 10px}
+  .mini-faixa .pill{background:rgb(255 255 255 / .14);color:#fff}
+  .mini-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+  .mini-stats div{border:1px solid hsl(var(--border));border-radius:9px;padding:8px 10px}
+  .mini-stats b{display:block;font:800 15px Sora,Inter,sans-serif;margin-top:2px}
+  .mini-stats small{font-size:10.5px}
+  .mini-graf{display:grid;grid-template-columns:1.2fr 1fr;gap:8px;margin-top:10px}
+  .mini-graf>div{border:1px solid hsl(var(--border));border-radius:9px;padding:8px 10px}
+  .beneficios{position:absolute;left:56px;right:56px;bottom:40px;display:flex;gap:10px;flex-wrap:wrap}
+  .beneficios span{background:hsl(var(--card));border:1px solid hsl(var(--border))}
+
+  /* ===== C · O caminho de uma encomenda ===== */
+  .c{background:linear-gradient(160deg,hsl(var(--faixa)) 0%,hsl(20 42% 22%) 100%);color:#fff}
+  .c .titulo{position:absolute;left:56px;right:56px;top:56px}
+  .c .titulo h4{font:800 30px/1.15 Sora,Inter,sans-serif;letter-spacing:-.02em;max-width:20ch}
+  .c .titulo p{margin-top:10px;opacity:.82;max-width:44ch;font-size:15px}
+  .trilha{position:absolute;left:56px;right:56px;top:220px;display:flex;flex-direction:column;gap:12px}
+  .passo{display:flex;align-items:center;gap:14px}
+  .passo .n{width:30px;height:30px;flex:none;border-radius:999px;display:grid;place-items:center;font:800 13px Sora,Inter,sans-serif;background:rgb(255 255 255 / .14);color:#fff;position:relative}
+  .passo:not(:last-child) .n::after{content:"";position:absolute;top:34px;left:50%;width:1.5px;height:62px;background:rgb(255 255 255 / .25)}
+  .passo .card{flex:1;padding:12px 14px;color:hsl(var(--foreground));display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .passo .card b{font-weight:700}
+  .passo .card small{display:block;font-size:12px}
+  .rodape-c{position:absolute;left:56px;right:56px;bottom:40px;display:flex;justify-content:space-between;font-size:12.5px;opacity:.8}
+
+  /* celular: o lado esquerdo some (como no DS) */
+  .cel{width:340px;height:640px;border:1px solid hsl(var(--border));border-radius:28px;background:hsl(var(--background));position:relative;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px -12px rgb(0 0 0 / .15);flex:none}
+  .cel .form{width:280px}
+  .cel .marca{top:28px}
+</style>
+</head>
+<body>
+<div class="doc">
+  <h1>Tela de entrar · o lado esquerdo</h1>
+  <p class="lead">Hoje o lado esquerdo da tela de entrar é o desenho de exemplo do Design System (círculos e o ícone de imagem). A ideia é usar esse espaço para mostrar <b>pedacinhos do próprio Facter Chef</b>: quem chega já vê o que o sistema faz. O lado direito (logo centralizado, Entrar e "Fale com o suporte") fica como está. As três opções usam peças que já existem nas telas, com números de exemplo.</p>
+  <div class="pecas"><code>AuthLayout</code><code>AuthLayout.Content</code><code>StatsCard (miniatura)</code><code>bg-faixa</code><code>primary-soft</code><code>success-soft / warning-soft</code></div>
+
+  <!-- ================= A ================= -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">A</span><h2>Vitrine de peças</h2></div>
+    <p class="sub">Fundo chocolate (o mesmo da faixa do Início) com quatro cartões do sistema "soltos", levemente inclinados: as entregas de hoje, o gráfico dos próximos dias com a linha do limite, uma encomenda e o preço sugerido da Precificação. Embaixo, a frase do produto.</p>
+    <div class="moldura"><div class="tela">
+      <div class="lado-esq a">
+        <div class="card c1">
+          <p class="rot">Hoje</p>
+          <p class="valor tab" style="margin-top:4px">3 entregas</p>
+          <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap"><span class="pill ok">2 prontas</span><span class="pill aviso">1 em produção</span></div>
+        </div>
+        <div class="card c2">
+          <div style="display:flex;justify-content:space-between;align-items:baseline"><p class="rot">Próximos dias</p><span class="mut" style="font-size:11px">limite: 4 por dia</span></div>
+          <div class="barras"><i style="height:40%"></i><i style="height:70%"></i><i style="height:55%"></i><i class="h" style="height:15%"></i><i style="height:85%"></i><i style="height:100%"></i><i style="height:45%"></i><i class="h" style="height:20%"></i><i style="height:60%"></i><i style="height:30%"></i><span class="lim"></span></div>
+        </div>
+        <div class="card c3">
+          <div style="display:flex;justify-content:space-between;align-items:center"><b>#128 · Maria Souza</b><span class="pill info">Confirmada</span></div>
+          <p class="mut" style="font-size:12.5px;margin-top:4px">Bolo de chocolate 2 kg · 100 brigadeiros</p>
+          <div style="display:flex;justify-content:space-between;margin-top:10px;font-size:13px"><span class="mut">Sáb, 15h · retirada</span><b class="tab">R$ 340,00</b></div>
+        </div>
+        <div class="card c4">
+          <p class="rot">Preço sugerido</p>
+          <p class="valor tab" style="margin-top:4px">R$ 45,44</p>
+          <span class="pill ok" style="margin-top:8px">Lucro de R$ 13,64 · 30%</span>
+        </div>
+        <div class="titulo">
+          <h4>Sua confeitaria organizada, do pedido ao lucro.</h4>
+          <p>Encomendas, agenda, preço certo e o dinheiro do mês, num lugar só.</p>
+        </div>
+      </div>
+      <div class="lado-dir">
+        <div class="marca"><svg viewBox="0 0 207 304" fill="currentColor"><path d="M25.8384 196.911L15.4739 183.729C-10.7189 150.411 0.44781 101.422 38.4895 82.7344L206.266 0.307297V34.2396C206.266 60.1875 191.448 83.8698 168.12 95.2396L56.578 149.594C48.4634 153.547 41.3489 159.344 35.9791 166.609C30.5936 173.901 25.9582 183.906 26.3176 196.526C29.9947 193.609 34.0624 191.026 38.4843 188.854L206.26 106.432V140.359C206.26 166.313 191.437 189.995 168.109 201.365L56.578 255.708C48.4634 259.667 41.3489 265.464 35.9791 272.724C30.4426 280.224 25.6978 290.578 26.3593 303.693L15.4739 289.854C-7.54698 260.568 -1.72407 219.193 25.8384 196.911ZM134.818 266.526L206.208 303.724L206.187 210.802L134.953 246.661C126.828 250.755 126.755 262.323 134.818 266.526Z"/></svg><span class="traco"></span><span><b>Facter <strong>Chef</strong></b><small>Gestão para confeitarias</small></span></div>
+        <div class="form"><h3>Entrar</h3><p class="ola">Que bom te ver de novo!</p><div class="campo"><span>E-mail</span></div><div class="campo"><span>Senha</span></div><div class="botao">Entrar</div><p class="suporte">Ainda não tem acesso? Fale com o suporte da Facter.</p></div>
+      </div>
+    </div></div>
+    <div class="pros">
+      <div><b>A favor</b>Chama atenção na hora; cada cartão é uma tela diferente (Início, Agenda, Encomendas, Precificação). O chocolate já é a cor da marca.</div>
+      <div><b>Contra</b>No modo escuro a faixa fica mais escura (`bg-faixa` já tem par), mas os cartões brancos precisam virar `card` do escuro.</div>
+    </div>
+  </section>
+
+  <!-- ================= B ================= -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">B</span><h2>Prévia do Início</h2></div>
+    <p class="sub">Fundo claro (chocolate bem suave, com a grade) e uma miniatura da tela Início de verdade, inclinada em perspectiva: a faixa "Bom dia", os quatro números e os dois gráficos. Em cima, a frase; embaixo, três selos do que o sistema faz.</p>
+    <div class="moldura"><div class="tela">
+      <div class="lado-esq b">
+        <div class="grade"></div>
+        <div class="topo">
+          <h4>Abra o dia sabendo o que entregar, produzir e receber.</h4>
+          <p>O Facter Chef junta encomendas, agenda, preços e o financeiro da sua confeitaria.</p>
+        </div>
+        <div class="card previa">
+          <div class="mini-faixa">
+            <p style="font-size:11px;opacity:.8">Terça, 28 de outubro</p>
+            <h5>Bom dia, Ana 👋</h5>
+            <div style="display:flex;gap:6px;flex-wrap:wrap"><span class="pill"><b>3</b> entregas hoje</span><span class="pill"><b>2</b> em produção</span><span class="pill"><b>R$ 180</b> a receber hoje</span></div>
+          </div>
+          <div class="mini-stats">
+            <div><small class="mut">Esta semana</small><b class="tab">12 encomendas</b><small style="color:hsl(var(--success-ink))">↑ 3 que a passada</small></div>
+            <div><small class="mut">Faturamento do mês</small><b class="tab">R$ 6.480</b><small style="color:hsl(var(--success-ink))">↑ 12%</small></div>
+            <div><small class="mut">Recebido no mês</small><b class="tab">R$ 5.210</b><small class="mut">80% do faturado</small></div>
+            <div><small class="mut">A receber</small><b class="tab">R$ 1.270</b><small class="mut">7 encomendas</small></div>
+          </div>
+          <div class="mini-graf">
+            <div><p class="rot" style="font-size:9.5px">Próximos 14 dias</p><div class="barras" style="height:56px"><i style="height:40%"></i><i style="height:70%"></i><i style="height:55%"></i><i class="h" style="height:15%"></i><i style="height:85%"></i><i style="height:100%"></i><i style="height:45%"></i><i class="h" style="height:20%"></i><i style="height:60%"></i><i style="height:30%"></i><i style="height:50%"></i><i style="height:65%"></i></div></div>
+            <div><p class="rot" style="font-size:9.5px">Faturado × recebido</p>
+              <svg viewBox="0 0 200 60" style="width:100%;height:56px;margin-top:10px"><polyline fill="none" stroke="hsl(var(--grafico-saiu))" stroke-width="2" points="0,45 40,38 80,40 120,25 160,22 200,12"/><polyline fill="none" stroke="hsl(var(--grafico-entrou))" stroke-width="2" points="0,50 40,44 80,42 120,33 160,28 200,20"/></svg></div>
+          </div>
+        </div>
+        <div class="beneficios"><span class="pill">📅 Agenda sem dia lotado</span><span class="pill">💰 Preço que dá lucro</span><span class="pill">📈 O mês comparado</span></div>
+      </div>
+      <div class="lado-dir">
+        <div class="marca"><svg viewBox="0 0 207 304" fill="currentColor"><path d="M25.8384 196.911L15.4739 183.729C-10.7189 150.411 0.44781 101.422 38.4895 82.7344L206.266 0.307297V34.2396C206.266 60.1875 191.448 83.8698 168.12 95.2396L56.578 149.594C48.4634 153.547 41.3489 159.344 35.9791 166.609C30.5936 173.901 25.9582 183.906 26.3176 196.526C29.9947 193.609 34.0624 191.026 38.4843 188.854L206.26 106.432V140.359C206.26 166.313 191.437 189.995 168.109 201.365L56.578 255.708C48.4634 259.667 41.3489 265.464 35.9791 272.724C30.4426 280.224 25.6978 290.578 26.3593 303.693L15.4739 289.854C-7.54698 260.568 -1.72407 219.193 25.8384 196.911ZM134.818 266.526L206.208 303.724L206.187 210.802L134.953 246.661C126.828 250.755 126.755 262.323 134.818 266.526Z"/></svg><span class="traco"></span><span><b>Facter <strong>Chef</strong></b><small>Gestão para confeitarias</small></span></div>
+        <div class="form"><h3>Entrar</h3><p class="ola">Que bom te ver de novo!</p><div class="campo"><span>E-mail</span></div><div class="campo"><span>Senha</span></div><div class="botao">Entrar</div><p class="suporte">Ainda não tem acesso? Fale com o suporte da Facter.</p></div>
+      </div>
+    </div></div>
+    <div class="pros">
+      <div><b>A favor</b>Mostra a tela principal como ela é: quem entra reconhece o Início logo depois do login. Leve e claro, combina com o lado direito.</div>
+      <div><b>Contra</b>Muita coisa pequena: a miniatura é para dar a ideia, não para ler. Precisa ser atualizada quando o Início mudar.</div>
+    </div>
+  </section>
+
+  <!-- ================= C ================= -->
+  <section class="opcao">
+    <div class="opcao-topo"><span class="letra">C</span><h2>O caminho de uma encomenda</h2></div>
+    <p class="sub">Fundo chocolate e uma linha do tempo com quatro passos, cada um com um cartão do sistema: o pedido que chega, o preço calculado, a produção na agenda e o dinheiro recebido. Conta a história do sistema em vez de mostrar tudo de uma vez.</p>
+    <div class="moldura"><div class="tela">
+      <div class="lado-esq c">
+        <div class="titulo">
+          <h4>Do pedido ao dinheiro no bolso.</h4>
+          <p>Cada encomenda segue o mesmo caminho, e o Facter Chef cuida de cada passo.</p>
+        </div>
+        <div class="trilha">
+          <div class="passo"><span class="n">1</span><div class="card"><div><b>Encomenda #128 · Maria Souza</b><small class="mut">Bolo de chocolate 2 kg · sábado, 15h</small></div><span class="pill info">Nova</span></div></div>
+          <div class="passo"><span class="n">2</span><div class="card"><div><b>Preço sugerido R$ 340,00</b><small class="mut">custo R$ 193,80 · fixos, taxas e lucro já somados</small></div><span class="pill ok">30% de lucro</span></div></div>
+          <div class="passo"><span class="n">3</span><div class="card"><div><b>Na agenda de sábado</b><small class="mut">3 de 4 encomendas do dia</small></div><span class="pill aviso">Em produção</span></div></div>
+          <div class="passo"><span class="n">4</span><div class="card"><div><b>Recebido R$ 340,00</b><small class="mut">sinal no Pix + resto na entrega</small></div><span class="pill ok">Pago</span></div></div>
+        </div>
+        <div class="rodape-c"><span>Encomendas · Agenda · Precificação · Financeiro</span><span>Facter</span></div>
+      </div>
+      <div class="lado-dir">
+        <div class="marca"><svg viewBox="0 0 207 304" fill="currentColor"><path d="M25.8384 196.911L15.4739 183.729C-10.7189 150.411 0.44781 101.422 38.4895 82.7344L206.266 0.307297V34.2396C206.266 60.1875 191.448 83.8698 168.12 95.2396L56.578 149.594C48.4634 153.547 41.3489 159.344 35.9791 166.609C30.5936 173.901 25.9582 183.906 26.3176 196.526C29.9947 193.609 34.0624 191.026 38.4843 188.854L206.26 106.432V140.359C206.26 166.313 191.437 189.995 168.109 201.365L56.578 255.708C48.4634 259.667 41.3489 265.464 35.9791 272.724C30.4426 280.224 25.6978 290.578 26.3593 303.693L15.4739 289.854C-7.54698 260.568 -1.72407 219.193 25.8384 196.911ZM134.818 266.526L206.208 303.724L206.187 210.802L134.953 246.661C126.828 250.755 126.755 262.323 134.818 266.526Z"/></svg><span class="traco"></span><span><b>Facter <strong>Chef</strong></b><small>Gestão para confeitarias</small></span></div>
+        <div class="form"><h3>Entrar</h3><p class="ola">Que bom te ver de novo!</p><div class="campo"><span>E-mail</span></div><div class="campo"><span>Senha</span></div><div class="botao">Entrar</div><p class="suporte">Ainda não tem acesso? Fale com o suporte da Facter.</p></div>
+      </div>
+    </div></div>
+    <div class="pros">
+      <div><b>A favor</b>Organizado e fácil de ler: explica o sistema para quem nunca usou (bom para apresentar a confeiteiras novas). Os cartões ficam alinhados, nada solto.</div>
+      <div><b>Contra</b>Menos "uau" que a A; é mais texto do que imagem.</div>
+    </div>
+  </section>
+
+  <section class="opcao">
+    <div class="opcao-topo"><h2>No celular</h2></div>
+    <p class="sub">Nas três opções o lado esquerdo só aparece em telas largas (computador, a partir de 1280 px), como já é no Design System. No celular fica só o formulário, como hoje:</p>
+    <div class="cel">
+      <div class="marca"><svg viewBox="0 0 207 304" fill="currentColor"><path d="M25.8384 196.911L15.4739 183.729C-10.7189 150.411 0.44781 101.422 38.4895 82.7344L206.266 0.307297V34.2396C206.266 60.1875 191.448 83.8698 168.12 95.2396L56.578 149.594C48.4634 153.547 41.3489 159.344 35.9791 166.609C30.5936 173.901 25.9582 183.906 26.3176 196.526C29.9947 193.609 34.0624 191.026 38.4843 188.854L206.26 106.432V140.359C206.26 166.313 191.437 189.995 168.109 201.365L56.578 255.708C48.4634 259.667 41.3489 265.464 35.9791 272.724C30.4426 280.224 25.6978 290.578 26.3593 303.693L15.4739 289.854C-7.54698 260.568 -1.72407 219.193 25.8384 196.911ZM134.818 266.526L206.208 303.724L206.187 210.802L134.953 246.661C126.828 250.755 126.755 262.323 134.818 266.526Z"/></svg><span class="traco"></span><span><b>Facter <strong>Chef</strong></b><small>Gestão para confeitarias</small></span></div>
+      <div class="form"><h3>Entrar</h3><p class="ola">Que bom te ver de novo!</p><div class="campo"><span>E-mail</span></div><div class="campo"><span>Senha</span></div><div class="botao">Entrar</div><p class="suporte">Ainda não tem acesso? Fale com o suporte da Facter.</p></div>
+    </div>
+  </section>
+
+  <div class="recomendo">
+    <h2>Recomendação: A</h2>
+    <p>A <b>vitrine</b> é a que mais "vende" o sistema numa olhada, e cada cartão vem de uma tela que já existe (fica fácil manter). O fundo chocolate usa o mesmo token da faixa do Início, que já funciona no modo escuro.</p>
+    <p class="mut">Como fazer: o <code>AuthLayout.Image</code> do DS só aceita foto ou o desenho de exemplo (não recebe conteúdo dentro). Por isso o lado esquerdo vira um painel nosso com as mesmas medidas dele (<code>hidden xl:block w-1/2</code>), com os cartões montados com as peças do DS. Os números são de exemplo e ficam fixos (a pessoa ainda não entrou, então não há dados dela).</p>
+  </div>
+</div>
+</body>
+</html>
