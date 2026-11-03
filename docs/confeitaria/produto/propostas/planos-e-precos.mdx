@@ -1,0 +1,157 @@
+---
+title: Planos e preços do Facter Chef
+sidebar_position: 1
+tags: [confeitaria, proposta, precificacao, negocio, landing-page]
+---
+
+import { ProposalHeader } from '@site/src/components/ProposalHeader';
+
+# Planos e preços do Facter Chef
+
+<ProposalHeader status="em-discussao" date="2026-11-03" />
+
+---
+
+Quanto cobrar pelo Facter Chef, o que custa mantê-lo no ar, quanto sobra e como a **vitrine** entra como um plano opcional. É a base para a página de preços da landing page. No fim há os **textos prontos** para usar lá.
+
+:::info[De onde vêm os números]
+Os preços dos serviços (Render, Supabase) são os conhecidos em novembro de 2026, em dólar, convertidos a **US$ 1 ≈ R$ 5,50**. Confira nos sites antes de fechar. Imposto e lucro são estimativas: o anexo do Simples tem que ser confirmado com o contador.
+:::
+
+## Resumo
+
+| Item | Valor |
+|---|---|
+| **Plano Sistema** | **R$ 69/mês** ou **R$ 690/ano** (2 meses grátis) |
+| **Plano Sistema + Vitrine** | **R$ 99 a R$ 119/mês** (depende da vitrine receber pedidos ou não) |
+| **Implantação** (opcional) | Sistema: **R$ 150 a R$ 250**. Vitrine: **R$ 200 a R$ 400**. Uma vez só |
+| **Fundadoras** (primeiras clientes) | **R$ 49/mês travado**, em troca de retorno e indicações |
+| **Custo de servidor hoje** | **R$ 0** (planos grátis, com keep-alive e backup próprio) |
+| **Ponto de empate** (servidores pagos) | **3 a 4 clientes** |
+
+## Para quem é
+
+A confeiteira pequena, muitas vezes trabalhando em casa, que hoje controla tudo em caderno ou planilha. É sensível a preço, mas paga quando enxerga retorno. Hoje: a irmã do Elves usa de graça, e a primeira cliente pagante veio por indicação dela. **Confeiteira indica confeiteira**: o preço de fundadora existe para incentivar isso.
+
+## Os planos
+
+### Plano Sistema: R$ 69/mês
+
+A gestão completa da confeitaria:
+
+- **Precificação:** custo de cada receita e produto a partir do preço dos insumos, com o preço sugerido e o lucro de verdade (hora de trabalho, equipe, contas fixas, taxas, impostos).
+- **Encomendas:** do orçamento à entrega, com sinal, saldo, pagamentos e orçamento pronto para mandar no WhatsApp.
+- **Agenda:** os dias do mês, o que produzir em cada dia, o limite de encomendas por dia e os dias bloqueados.
+- **Clientes:** contato, aniversário, alergias e restrições em destaque e o histórico de pedidos.
+- **Financeiro:** o que entrou e o que saiu, o lucro do negócio, o pró-labore e quanto falta para o limite do MEI.
+- No celular e no computador, com suporte pelo WhatsApp.
+
+**Anual: R$ 690** (12 meses pelo preço de 10). Recebe adiantado e a cliente fica mais tempo.
+
+### Plano Sistema + Vitrine: R$ 99 a R$ 119/mês
+
+Tudo do Plano Sistema, mais a **lojinha online da confeitaria**: um link próprio com os produtos, as fotos e os preços que já estão no sistema. Não existe a vitrine sozinha, porque é o sistema que alimenta os produtos dela.
+
+O preço depende de uma decisão que ainda está em aberto ([veja abaixo](#decisões-em-aberto)):
+
+| A vitrine… | Preço | Por quê |
+|---|---|---|
+| **Só mostra o catálogo** e tem um botão para o WhatsApp | **R$ 99/mês** | Mais simples de fazer e manter |
+| **Recebe pedidos** (o pedido cai como Orçamento no sistema) | **R$ 119/mês** | Traz venda nova e organiza o pedido sozinha. Dá mais trabalho e cria uma parte pública da API (limite de envios, proteção contra spam) |
+
+**Por que vale mais:** o sistema organiza o que a confeiteira **já vende**. A vitrine traz **venda nova**. Um pedido a mais por mês pela vitrine já paga a diferença de R$ 30 a R$ 50.
+
+### Implantação (opcional)
+
+- **Sistema (R$ 150 a R$ 250):** a Facter cadastra os insumos, as receitas, os produtos e as configurações da cliente. É o momento em que muita gente desiste ("dá trabalho cadastrar tudo"), e a implantação tira essa barreira.
+- **Vitrine (R$ 200 a R$ 400):** montar a vitrine: fotos, textos, cores e o domínio próprio, se houver.
+
+### Fundadoras: R$ 49/mês travado
+
+Para as primeiras clientes (até 5): o preço fica travado enquanto ela continuar assinando. Em troca, ela conta o que falta no sistema, autoriza um depoimento e indica outras confeiteiras.
+
+## Quanto custa manter no ar
+
+O Facter Chef é **um sistema só para todas as confeitarias** (multi-empresa). O custo do servidor quase não muda com o número de clientes.
+
+| Item | Hoje | Quando crescer | Observação |
+|---|---|---|---|
+| Site (Render, Static Site) | R$ 0 | R$ 0 | Grátis sempre |
+| API (Render) | R$ 0 (free + keep-alive) | ~R$ 40/mês (Starter, US$ 7) | O keep-alive (UptimeRobot) impede a espera de 50 s. Pagar quando tiver 3 a 4 clientes |
+| Banco (Supabase) | R$ 0 (free + backup diário nosso) | ~R$ 140/mês (Pro, US$ 25) | O Pro traz backup gerenciado. Opcional enquanto o backup próprio estiver funcionando |
+| Domínio do Facter Chef | — | ~R$ 4/mês (~R$ 40/ano) | Opcional, passa mais confiança |
+| Cobrança (Pix, boleto, cartão) | — | ~R$ 2 a R$ 4 por cliente | Pix quase de graça. Um serviço como o Asaas automatiza |
+| Imposto (ME, Simples) | — | ~6% ou ~15,5% da receita | Anexo III ou V conforme o Fator R: **confirmar com o contador** |
+| **Vitrine:** domínio da cliente | — | ~R$ 40/ano por cliente | Na implantação ou pago pela cliente |
+| **Vitrine:** fotos | R$ 0 | R$ 0 no começo | Supabase Storage free (~1 GB). Otimizar as imagens |
+
+**O custo que não aparece na tabela é o tempo de suporte:** ensinar, responder no WhatsApp e ajustar. Com a vitrine ele cresce ("troca a foto", "muda o preço"), a não ser que a própria cliente edite pelo sistema.
+
+## Quanto sobra
+
+Plano Sistema a R$ 69, imposto de ~6%. **Cenário enxuto:** API paga, banco grátis com backup nosso. **Cenário tranquilo:** API paga e Supabase Pro.
+
+| Clientes | Entra | Gastos (enxuto) | Sobra (enxuto) | Gastos (tranquilo) | Sobra (tranquilo) |
+|---|---|---|---|---|---|
+| 1 | R$ 69 | ~R$ 46 | **~R$ 23** | — | — (não compensa) |
+| 5 | R$ 345 | ~R$ 80 | **~R$ 265** | ~R$ 220 | **~R$ 125** |
+| 10 | R$ 690 | ~R$ 110 | **~R$ 580** | ~R$ 260 | **~R$ 430** |
+| 20 | R$ 1.380 | ~R$ 180 | **~R$ 1.200** | ~R$ 330 | **~R$ 1.050** |
+| 50 | R$ 3.450 | ~R$ 450\* | **~R$ 3.000** | ~R$ 600\* | **~R$ 2.850** |
+
+\* Com 50 clientes provavelmente já vale uma API e um banco maiores.
+
+- Com **1 cliente pagando**, o sistema já se paga, inclusive mantendo a irmã de graça.
+- Com o preço de fundadora (R$ 49), 5 clientes deixam ~R$ 175 (enxuto) ou ~R$ 40 (tranquilo).
+- Cada cliente do plano com vitrine soma mais R$ 30 a R$ 50 por mês, com pouco custo a mais.
+
+## Antes de vender: o que precisa estar pronto
+
+1. **Termos de uso e política de privacidade.** O sistema guarda dados das clientes das confeitarias (nome, WhatsApp, endereço). A LGPD exige isso escrito. Incluir: "dados excluídos permanecem em cópias de segurança por até 90 dias".
+2. **Regra de inadimplência no contrato.** O painel de administração já bloqueia a conta sem apagar nada. Sugestão: bloquear com 10 dias de atraso e desbloquear ao pagar.
+3. **Cobrança.** Com até 5 clientes dá para cobrar por Pix na mão. Depois disso, cobrança recorrente automática (ex.: Asaas).
+4. **Backup funcionando e testado.** O workflow diário está no PR `feat/backup-diario`: falta configurar as chaves e fazer o primeiro teste de restauração.
+5. **Contador:** confirmar o anexo do Simples para assinatura de software.
+
+## Decisões em aberto
+
+| Decisão | Opções | Quem decide |
+|---|---|---|
+| A vitrine **recebe pedidos** ou **só mostra o catálogo**? | Catálogo + WhatsApp (R$ 99) · Pedidos no sistema (R$ 119) | Tamires e Elves |
+| Como a vitrine conversa com o sistema | Lê os produtos e as fotos pela API do Facter Chef · Direto no Supabase, como a da ESLA | Tamires |
+| Preço final do mensal | R$ 59 · **R$ 69** · R$ 79 | Elves, depois de olhar 3 ou 4 concorrentes |
+| Quantas vagas de fundadora | Até 5 · Até 10 | Elves |
+| Implantação inclusa no anual? | Sim (atrativo) · Não | Elves |
+| Teste grátis | 7 dias · 14 dias · 1º mês grátis · sem teste (com implantação) | Elves |
+
+## Textos para a landing page
+
+Rascunho para a Tamires adaptar. Os preços seguem os valores sugeridos acima.
+
+**Título:** Saiba quanto cobrar, nunca esqueça uma encomenda e veja quanto sobrou no fim do mês.
+
+**Subtítulo:** O Facter Chef é o sistema da confeitaria que trabalha em casa: preço certo, encomendas, agenda, clientes e financeiro, no celular.
+
+**Cartões de preço:**
+
+| | **Sistema** | **Sistema + Vitrine** |
+|---|---|---|
+| Preço | **R$ 69/mês** · ou R$ 690/ano | **R$ 99/mês** · ou R$ 990/ano |
+| Chamada | Organize a sua confeitaria | Organize e venda mais |
+| Inclui | Preço sugerido de cada produto · Encomendas com sinal e saldo · Agenda e o que produzir · Clientes com alergias em destaque · Financeiro e limite do MEI · Suporte pelo WhatsApp | Tudo do Sistema · A sua lojinha online com os seus produtos e fotos · Link próprio para mandar às clientes · Botão para pedir pelo WhatsApp |
+| Botão | Quero organizar | Quero a minha vitrine |
+
+**Faixa abaixo dos cartões:** Não quer cadastrar tudo sozinha? A gente faz a implantação para você: a partir de R$ 150.
+
+**Perguntas frequentes:**
+
+- **Preciso instalar alguma coisa?** Não. Funciona no navegador do celular ou do computador, e dá para colocar um atalho na tela inicial.
+- **Os meus dados ficam seguros?** Sim. Cada confeitaria só vê os próprios dados, há cópia de segurança todo dia e ninguém, nem a Facter, vê a sua senha.
+- **Posso cancelar quando quiser?** Sim (definir: sem multa no mensal; no anual, conforme o contrato).
+- **E se eu parar de pagar?** A conta é suspensa, mas nada é apagado. Ao voltar, está tudo lá.
+- **Tenho MEI. O sistema ajuda?** Sim: o Financeiro mostra quanto você já recebeu no ano e avisa quando estiver perto do limite do MEI.
+- **Como começo?** Fale com a gente no WhatsApp. A Facter cria a sua conta e te manda o acesso.
+
+:::tip[Argumento de venda]
+A calculadora de preço costuma mostrar que a confeiteira está cobrando barato. Se ela ajustar o preço de **um bolo por mês**, o Facter Chef já se pagou.
+:::
