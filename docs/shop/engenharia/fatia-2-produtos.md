@@ -61,3 +61,22 @@ riscado, o promocional em destaque e a etiqueta `-N%`; a sacola e o pedido cobra
 Tamanho tem preço próprio, então item com tamanhos não tem promoção (o catálogo nem a devolve).
 Testes: `item-form.test.ts` (painel), `catalog.test.ts` (vitrine), `orders.service.spec.ts` e
 `catalog.service.spec.ts` (API).
+
+## Ficha técnica e "Combina com" (06/11, pedido da ESLA)
+
+O produto ganhou o passo 4, **Ficha técnica**: o que a cliente pergunta antes de comprar, e os campos
+mudam com o ramo (semijoias: material, banho, medidas, peso, garantia, pedra, cuidados e os selos
+antialérgico/sem níquel/pode molhar; personalizados: material, medidas, peso, o que personaliza, prazo;
+comida: ingredientes, serve, validade, conservação e os selos sem glúten/lactose/açúcar, vegano,
+contém castanhas; assistência: o que inclui, garantia, tempo, peças). Todo ramo pode acrescentar
+linhas livres (rótulo e valor). As chaves vivem em `core/specs.ts` (API) e `features/items/lib/specs.ts`
+(painel) e têm que bater. `Item.specs` é JSON `{ values, flags, lines }`; o catálogo (contrato **0.9.0**)
+entrega `specs` já como linhas rótulo/valor nas palavras da dona e `badges` como etiquetas; vazio não
+aparece. "Cuidados" vazio usa o **texto padrão da loja** (`Store.careText`, Configurações › Contato).
+A vitrine mostra "Detalhes" embaixo da descrição e os selos como chips.
+
+Passo 5, **Combina com** (`Item.relatedIds`, até seis): escolhidos pelo nome no diálogo, aparecem
+primeiro na seção de relacionados da vitrine (depois vêm os automáticos da mesma categoria).
+Testes: `catalog.service.spec.ts` (ficha, cuidados padrão, relacionados visíveis), `item-form.test.ts`,
+`catalog.test.ts`.
+
