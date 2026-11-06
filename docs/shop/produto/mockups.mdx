@@ -1,0 +1,21 @@
+---
+title: Mockups
+sidebar_position: 9
+tags: [mockups, produto, telas, shop]
+---
+
+# Mockups
+
+Cada mockup é uma página HTML guardada exatamente como foi aprovada ou discutida. "Ver o mockup" abre em tela cheia, com os estados que funcionam (loja de exemplo, como o item vende, estilos, passos do domínio). A implementação segue o mockup aprovado; mudança de tela depois de aprovada atualiza o mockup antes do código.
+
+Arquivos em `static/mockups/shop/<nome>/`: `index.html`, `desktop.png` e `phone.png`.
+
+## Aprovados
+
+### Gestão da loja
+
+Aprovado em 05/11/2026, "exatamente igual". A gestão da loja é um **módulo com dois hospedeiros**: loja de comida é gerida no **Chef** (o Shop só provisiona a vitrine, e o módulo entra como abas do "Minha loja"); os outros tipos (personalizados, semijoias, moda) têm a gestão no próprio Shop. Seção 0 diz onde cada tela mora; seção 1 mostra o módulo dentro do Chef; seções 2 a 9 são o Shop sozinho: Início, Pedidos (fila + pedido aberto + confirmar), Produtos, Editar produto (tela guiada: o que é, **como vende**, o que a cliente escolhe), Aparência com prévia ao vivo, Domínio self-serve, Configurações e Celular. Inclui a tela **Pagamentos** (gateway da própria dona, dois interruptores de como o pedido fecha, formas, sinal, recebimentos). Exemplo Made in Você com fotos provisórias. Revisado em 06/11/2026: "tipo de loja" virou três camadas (ramo da loja, como cada item vende, como a loja entrega) e a fonte do catálogo é por item, com o Chef como primeira fonte e o TechCare previsto (serviços e peças). Seção 0 traz a tabela das camadas; seção 5 foi refeita como tela guiada; seção 8 troca "tipo de loja" por "ramo".
+
+[Ver o mockup](/telas/shop/gestao)
+
+<img src="/mockups/shop/gestao/desktop.png" alt="Mockup do Início da gestão do Shop" style={{maxHeight: 360, width: '100%', objectFit: 'cover', objectPosition: 'top', borderRadius: 8, border: '1px solid var(--ifm-color-emphasis-300)'}} />

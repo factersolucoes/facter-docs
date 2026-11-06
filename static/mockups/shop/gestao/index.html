@@ -1,0 +1,1145 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shop · gestão da loja · mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --background:0 0% 98%; --foreground:240 10% 3.9%; --card:0 0% 100%;
+  --primary:240 10% 3.9%; --primary-foreground:0 0% 100%; --primary-soft:240 6% 93%;
+  --muted:240 4.8% 94%; --muted-foreground:240 3.8% 40%; --border:240 5.9% 90%;
+  --success:160 60% 38%; --warning:38 92% 45%; --danger:0 84.2% 60.2%;
+  --success-text:160 70% 24%; --danger-text:0 72% 38%; --warning-text:28 85% 28%;
+  --success-soft:160 55% 94%; --warning-soft:40 95% 93%; --danger-soft:0 90% 96%;
+  --canvas:225 14% 92%; --ring:240 10% 3.9%; --note:285 55% 38%; --note-soft:285 60% 96%; --ink:240 10% 12%;
+}
+*{box-sizing:border-box}
+body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));font:14px/1.5 Sora,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4,p{margin:0} button,input,select,textarea{font:inherit;color:inherit} a{color:hsl(var(--primary))}
+.num{font-variant-numeric:tabular-nums}
+.ic{display:inline-block;width:20px;height:20px;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;flex:none}
+.ic.s12{width:12px;height:12px}.ic.s14{width:14px;height:14px}.ic.s16{width:16px;height:16px}.ic.s18{width:18px;height:18px}.ic.s24{width:24px;height:24px}
+.i-house{--i:url(https://api.iconify.design/ph/house.svg)}
+.i-receipt{--i:url(https://api.iconify.design/ph/receipt.svg)}
+.i-package{--i:url(https://api.iconify.design/ph/package.svg)}
+.i-palette{--i:url(https://api.iconify.design/ph/palette.svg)}
+.i-globe{--i:url(https://api.iconify.design/ph/globe.svg)}
+.i-gear{--i:url(https://api.iconify.design/ph/gear.svg)}
+.i-search{--i:url(https://api.iconify.design/ph/magnifying-glass.svg)}
+.i-down{--i:url(https://api.iconify.design/ph/caret-down.svg)}
+.i-right{--i:url(https://api.iconify.design/ph/caret-right.svg)}
+.i-plus{--i:url(https://api.iconify.design/ph/plus.svg)}
+.i-x{--i:url(https://api.iconify.design/ph/x.svg)}
+.i-check{--i:url(https://api.iconify.design/ph/check.svg)}
+.i-kebab{--i:url(https://api.iconify.design/ph/dots-three-vertical.svg)}
+.i-wa{--i:url(https://api.iconify.design/ph/whatsapp-logo.svg)}
+.i-ext{--i:url(https://api.iconify.design/ph/arrow-square-out.svg)}
+.i-copy{--i:url(https://api.iconify.design/ph/copy.svg)}
+.i-camera{--i:url(https://api.iconify.design/ph/camera.svg)}
+.i-image{--i:url(https://api.iconify.design/ph/image.svg)}
+.i-cal{--i:url(https://api.iconify.design/ph/calendar.svg)}
+.i-clock{--i:url(https://api.iconify.design/ph/clock.svg)}
+.i-lock{--i:url(https://api.iconify.design/ph/lock-key.svg)}
+.i-warn{--i:url(https://api.iconify.design/ph/warning.svg)}
+.i-store{--i:url(https://api.iconify.design/ph/storefront.svg)}
+.i-cake{--i:url(https://api.iconify.design/ph/cake.svg)}
+.i-fire{--i:url(https://api.iconify.design/ph/fire.svg)}
+.i-gift{--i:url(https://api.iconify.design/ph/gift.svg)}
+.i-gem{--i:url(https://api.iconify.design/ph/diamond.svg)}
+.i-link{--i:url(https://api.iconify.design/ph/link.svg)}
+.i-pause{--i:url(https://api.iconify.design/ph/pause.svg)}
+.i-bag{--i:url(https://api.iconify.design/ph/bag.svg)}
+.i-tag{--i:url(https://api.iconify.design/ph/tag.svg)}
+.i-pencil{--i:url(https://api.iconify.design/ph/pencil-simple.svg)}
+.i-back{--i:url(https://api.iconify.design/ph/caret-left.svg)}
+.i-upload{--i:url(https://api.iconify.design/ph/upload-simple.svg)}
+.i-chef{--i:url(https://api.iconify.design/ph/chef-hat.svg)}
+
+/* ---------- presentation ---------- */
+.doc{max-width:1328px;margin:0 auto;padding:48px 24px 96px}
+.doc-head{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end;justify-content:space-between}
+.doc-head h1{font:800 30px/1.15 Sora;letter-spacing:-.02em}
+.doc-head p{color:hsl(240 6% 25%);max-width:760px;margin-top:10px;font-size:14.5px}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.toc a{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:999px;background:hsl(var(--card));border:1px solid hsl(var(--border));font-size:13px;font-weight:500;color:hsl(var(--foreground));text-decoration:none}
+.toc a b{font-weight:700}
+.modebar{position:sticky;top:12px;z-index:20;display:inline-flex;align-items:center;gap:10px;margin-top:20px;padding:8px 8px 8px 14px;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:999px;font-size:13px}
+.modebar .lbl{font-weight:600;color:hsl(var(--muted-foreground));font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.sec{margin-top:72px}
+.sec-label{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font:800 14px Sora;color:hsl(var(--foreground));background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:999px;min-width:28px;height:28px;padding:0 8px;display:inline-grid;place-items:center;flex:none}
+.sec h2{font:700 21px/1.3 Sora;letter-spacing:-.01em}
+.sec-sub{color:hsl(240 6% 25%);margin:0 0 20px 40px;max-width:840px}
+.view-cap{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));font-weight:600;margin:24px 0 10px 40px}
+.notes{font-size:13.5px;color:hsl(240 6% 22%)}
+.notes h4{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));margin:0 0 6px}
+.notes ul{margin:0 0 18px;padding-left:18px}.notes li{margin-bottom:6px}
+.notes-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px 40px;margin:28px 0 0 40px}
+.frame{position:relative;width:1280px;max-width:100%;background:hsl(var(--background));border-radius:14px;overflow:hidden;border:1px solid hsl(var(--border))}
+.dep{display:inline-flex;align-items:center;gap:4px;height:20px;padding:0 6px;border:1px dashed hsl(var(--note));border-radius:5px;background:hsl(var(--note-soft));color:hsl(var(--note));font:600 11px/1 Sora;white-space:nowrap;flex:none}
+
+/* modo: só o span do modo ativo aparece */
+.m-conf,.m-pers,.m-joia{display:none!important}
+body[data-mode="conf"] .m-conf,body[data-mode="pers"] .m-pers,body[data-mode="joia"] .m-joia{display:inline!important}
+body:not([data-mode="conf"]) .only-conf{display:none!important}
+body[data-mode="conf"] .mb-conf,body[data-mode="pers"] .mb-pers,body[data-mode="joia"] .mb-joia{display:block}
+.mb-conf,.mb-pers,.mb-joia{display:none}
+
+.chef-host{--primary:20 45% 32%;--primary-soft:20 45% 95%;--ring:20 45% 32%}
+/* ---------- app shell ---------- */
+.lockup{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+.lockup svg{color:hsl(var(--foreground));flex:none}
+.lockup .rule{width:1px;align-self:stretch;background:hsl(var(--border));margin:2px 0}
+.wordmark{font:400 18px/1.1 Sora;letter-spacing:-.01em;white-space:nowrap}.wordmark b{font-weight:800}
+.tagline{font-size:11px;color:hsl(var(--muted-foreground));margin-top:3px;white-space:nowrap}
+.app{display:grid;grid-template-columns:72px 1fr;grid-template-rows:64px 1fr}
+.topbar{grid-column:1/-1;display:flex;align-items:center;gap:16px;padding:0 20px 0 18px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
+.topbar .spacer{flex:1}
+.search{display:flex;align-items:center;gap:8px;width:300px;height:38px;padding:0 12px;border:1px solid hsl(var(--border));border-radius:8px;color:hsl(var(--muted-foreground));font-size:13px;background:hsl(var(--background))}
+.org{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;padding:6px 10px;border-radius:8px;border:0;background:none}
+.org img{width:26px;height:26px;border-radius:99px;object-fit:cover}
+.avatar{width:34px;height:34px;border-radius:999px;background:hsl(28 80% 88%);color:hsl(28 85% 25%);display:grid;place-items:center;font-weight:600;font-size:12px;flex:none}
+.sidenav{background:hsl(var(--card));border-right:1px solid hsl(var(--border));padding:12px 0;display:flex;flex-direction:column;align-items:center;gap:4px}
+.navitem{position:relative;width:48px;height:48px;border-radius:10px;display:grid;place-items:center;color:hsl(240 5% 34%)}
+.navitem[aria-current="page"]{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+.navitem[aria-current="page"]::before{content:"";position:absolute;left:-12px;top:12px;bottom:12px;width:3px;border-radius:0 3px 3px 0;background:hsl(var(--primary))}
+.navsep{flex:1}
+.main{padding:22px 40px 40px;min-width:0}
+.pagehead{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:18px}
+.pagehead h1{font:700 23px/1.2 Sora;letter-spacing:-.01em}
+
+/* ---------- primitives ---------- */
+.card{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:12px}
+.pad{padding:18px 20px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:8px;border:1px solid transparent;font-weight:600;font-size:13.5px;text-decoration:none;white-space:nowrap;cursor:pointer;background:none}
+.btn-primary{background:hsl(var(--primary));color:#fff}
+.btn-outline{background:hsl(var(--card));border-color:hsl(240 6% 82%);color:hsl(var(--foreground))}
+.btn-ghost{color:hsl(var(--foreground));padding:0 8px;height:32px}
+.btn-danger{color:hsl(var(--danger-text));border-color:hsl(0 60% 86%);background:hsl(var(--card))}
+.btn-sm{height:34px;padding:0 12px;font-size:13px}
+.iconbtn{width:40px;height:40px;border-radius:8px;border:1px solid hsl(240 6% 82%);background:hsl(var(--card));display:grid;place-items:center;color:hsl(var(--foreground));flex:none;cursor:pointer}
+.iconbtn.bare{border-color:transparent;background:none;color:hsl(240 5% 34%)}
+.iconbtn.sm{width:30px;height:30px}
+.chip{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;border-radius:999px;background:hsl(var(--muted));color:hsl(240 6% 24%);font-size:12px;font-weight:500;white-space:nowrap}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;height:24px;padding:0 9px 0 7px;border-radius:6px;white-space:nowrap}
+.b-ok{background:hsl(var(--success-soft));color:hsl(var(--success-text))}
+.b-stop{background:hsl(var(--danger-soft));color:hsl(var(--danger-text))}
+.b-wait{background:hsl(var(--warning-soft));color:hsl(var(--warning-text))}
+.b-mute{background:hsl(var(--muted));color:hsl(240 6% 28%)}
+.b-info{background:hsl(var(--primary-soft));color:hsl(var(--foreground))}
+.dotl::before{content:"";width:7px;height:7px;border-radius:99px;background:currentColor}
+.meta{font-size:12.5px;color:hsl(var(--muted-foreground))}
+.link{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:hsl(var(--foreground));text-decoration:underline;text-underline-offset:3px;white-space:nowrap;background:none;border:0;padding:0;cursor:pointer}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.hd h2,.hd h3{font-size:14.5px;font-weight:600;display:flex;align-items:center;gap:8px}
+.hd .n{font-size:11.5px;font-weight:600;background:hsl(var(--muted));color:hsl(240 6% 30%);border-radius:99px;padding:1px 7px}
+.tog{width:38px;height:22px;border-radius:999px;border:1px solid hsl(240 6% 78%);background:hsl(var(--card));position:relative;display:inline-block;flex:none;cursor:pointer}
+.tog::after{content:"";position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:99px;background:hsl(240 5% 55%)}
+.tog.on{background:hsl(var(--primary));border-color:hsl(var(--primary))}
+.tog.on::after{left:19px;background:#fff}
+.seg{display:inline-flex;gap:2px;padding:3px;background:hsl(var(--muted));border-radius:9px}
+.seg button{border:1px solid transparent;background:none;height:28px;padding:0 10px;border-radius:7px;font-size:12.5px;font-weight:500;color:hsl(240 6% 28%);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.seg button[aria-pressed="true"]{background:hsl(var(--card));color:hsl(var(--foreground));border-color:hsl(var(--border));font-weight:600}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:12.5px;font-weight:600}
+.field .hint{font-size:12px;color:hsl(var(--muted-foreground))}
+.input{height:40px;border:1px solid hsl(240 6% 82%);border-radius:8px;padding:0 12px;background:hsl(var(--card));display:flex;align-items:center;gap:8px;font-size:13.5px}
+.input.ta{display:block;height:auto;min-height:72px;padding:10px 12px}
+.input .pre{color:hsl(var(--muted-foreground))}
+.input .suf{margin-left:auto;color:hsl(var(--muted-foreground));font-size:12.5px}
+.input.err{border-color:hsl(var(--danger))}
+.ferr{font-size:12px;color:hsl(var(--danger-text))}
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{text-align:left;font-weight:500;font-size:12px;color:hsl(var(--muted-foreground));padding:0 10px 8px;border-bottom:1px solid hsl(var(--border));white-space:nowrap}
+.tbl td{padding:10px;border-bottom:1px solid hsl(var(--border));vertical-align:middle}
+.tbl tr:last-child td{border-bottom:0}
+.tbl th:first-child,.tbl td:first-child{padding-left:0}.tbl th:last-child,.tbl td:last-child{padding-right:0}
+.tbl .r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl .p{display:flex;align-items:center;gap:10px}
+.tbl .p img,.tbl .p .noimg{width:40px;height:40px;border-radius:8px;object-fit:cover;flex:none}
+.tbl .p .noimg{background:hsl(var(--muted));display:grid;place-items:center;color:hsl(240 5% 50%)}
+.tbl .p b{font-weight:600;display:block}.tbl .p span{font-size:12px;color:hsl(var(--muted-foreground))}
+.tbl tr.sel td{background:hsl(var(--primary-soft))}
+.tabs{display:flex;gap:2px;margin:18px 0 16px;border-bottom:1px solid hsl(var(--border));align-items:center}
+.tabs a{display:inline-flex;align-items:center;gap:6px;padding:10px 9px;font-size:13.5px;font-weight:500;color:hsl(240 5% 34%);text-decoration:none;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.tabs a[aria-current="page"]{color:hsl(var(--primary));border-bottom-color:hsl(var(--primary));font-weight:600}
+.tabs .n{font-size:11.5px;font-weight:600;background:hsl(var(--muted));color:hsl(240 6% 30%);border-radius:99px;padding:1px 7px}
+.tabs a[aria-current="page"] .n{background:hsl(var(--primary-soft));color:hsl(var(--foreground))}
+.tabs .n.warn{background:hsl(var(--warning-soft));color:hsl(var(--warning-text))}
+.tabs .right{margin-left:auto;display:flex;gap:10px;align-items:center;padding-bottom:6px}
+.pager{display:flex;align-items:center;justify-content:space-between;padding-top:14px;margin-top:4px;border-top:1px solid hsl(var(--border));font-size:12.5px;color:hsl(var(--muted-foreground))}
+.pager .pg{display:flex;gap:4px}.pager .pg span{min-width:30px;height:30px;border:1px solid hsl(var(--border));border-radius:7px;display:grid;place-items:center;background:hsl(var(--card))}
+.pager .pg span.on{background:hsl(var(--primary));color:#fff;border-color:hsl(var(--primary))}
+.empty{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:18px;border:1.5px dashed hsl(240 6% 84%);border-radius:10px;background:hsl(var(--background))}
+.empty .ei{width:36px;height:36px;border-radius:10px;background:hsl(var(--muted));color:hsl(240 5% 34%);display:grid;place-items:center;margin-bottom:4px}
+.empty h4{font-size:14px;font-weight:600}.empty p{font-size:13px;color:hsl(240 6% 28%);max-width:56ch}
+
+/* ---------- início ---------- */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.kpi{padding:16px 18px}
+.kpi .k{font-size:12.5px;color:hsl(var(--muted-foreground));display:flex;align-items:center;gap:8px}
+.kpi .v{font:700 28px/1.1 Sora;letter-spacing:-.02em;margin-top:8px;font-variant-numeric:tabular-nums}
+.kpi .s{font-size:12.5px;margin-top:6px;color:hsl(240 6% 28%)}
+.kpi.hot{border-color:hsl(var(--foreground))}
+.cols2{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;margin-top:16px;align-items:start}
+.olist{display:flex;flex-direction:column}
+.orow{display:grid;grid-template-columns:36px 1fr auto auto;gap:12px;align-items:center;padding:11px 0;border-top:1px solid hsl(var(--border));font-size:13.5px}
+.orow:first-child{border-top:0;padding-top:0}
+.orow .av{width:36px;height:36px;border-radius:99px;display:grid;place-items:center;font-weight:600;font-size:12px;background:hsl(var(--muted))}
+.orow .t b{font-weight:600}.orow .t span{display:block;font-size:12.5px;color:hsl(var(--muted-foreground))}
+.orow .v{font-weight:600;font-variant-numeric:tabular-nums}
+.status-loja{display:flex;align-items:center;gap:12px}
+.status-loja .url{font-size:13px;display:flex;align-items:center;gap:6px;margin-top:4px;color:hsl(240 6% 28%)}
+.alerts{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.alert{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;border:1px solid hsl(var(--border));font-size:13px;background:hsl(var(--background))}
+.alert.w{border-color:hsl(38 80% 80%);background:hsl(var(--warning-soft))}
+.alert .ic{color:hsl(var(--warning-text))}
+.alert .link{margin-left:auto}
+
+/* ---------- pedidos (master-detail) ---------- */
+.md{display:grid;grid-template-columns:minmax(0,1.25fr) 420px;gap:16px;align-items:start}
+.detail{position:sticky;top:0}
+.dhead{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:18px 20px 14px;border-bottom:1px solid hsl(var(--border))}
+.dhead h2{font:700 18px/1.2 Sora}
+.dhead .sub{font-size:12.5px;color:hsl(var(--muted-foreground));margin-top:4px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.items{padding:6px 20px}
+.item{display:grid;grid-template-columns:30px 1fr auto;gap:10px;padding:11px 0;border-top:1px solid hsl(var(--border));font-size:13.5px;align-items:start}
+.item:first-child{border-top:0}
+.item .q{font-weight:600;color:hsl(var(--muted-foreground))}
+.item b{font-weight:600;display:block}
+.item .sub{font-size:12.5px;color:hsl(240 6% 30%);margin-top:2px;line-height:1.45}
+.item .sub .pz{display:inline-block;background:hsl(var(--primary-soft));border-radius:5px;padding:0 6px;margin-top:3px}
+.dtot{display:flex;justify-content:space-between;padding:12px 20px;border-top:1px solid hsl(var(--border));font-weight:600;font-size:15px}
+.dkv{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid hsl(var(--border))}
+.dkv div{padding:12px 20px;border-left:1px solid hsl(var(--border))}
+.dkv div:first-child{border-left:0}
+.dkv .k{font-size:11.5px;color:hsl(var(--muted-foreground))}.dkv .v{font-weight:600;font-size:14px;margin-top:2px}
+.dact{display:flex;gap:8px;padding:14px 20px 18px;border-top:1px solid hsl(var(--border))}
+.dact .btn{flex:1}
+.timeline{padding:14px 20px;border-top:1px solid hsl(var(--border));display:flex;flex-direction:column;gap:8px;font-size:12.5px;color:hsl(240 6% 30%)}
+.timeline div{display:flex;gap:10px;align-items:center}
+.timeline i.d{width:8px;height:8px;border-radius:99px;background:hsl(240 5% 70%);flex:none}
+.timeline i.d.on{background:hsl(var(--success))}
+
+/* ---------- diálogo ---------- */
+.scrim{position:absolute;inset:0;background:hsl(240 10% 10%/.45);display:grid;place-items:safe center;z-index:5;overflow:auto;padding:24px 0}
+.dx{width:560px;max-width:100%;background:hsl(var(--card));border-radius:16px;border:1px solid hsl(var(--border));overflow:hidden;position:relative}
+.dx.wide{width:1000px}
+.dx .close{position:absolute;right:12px;top:12px;width:34px;height:34px;border:0;background:hsl(var(--muted));border-radius:8px;display:grid;place-items:center;color:hsl(240 6% 34%);z-index:2;cursor:pointer}
+.dx .title{font:650 20px/1.25 Sora;letter-spacing:-.01em}
+.dx .desc{font-size:14px;color:hsl(var(--muted-foreground));margin-top:3px}
+.dx .titlewrap{padding:20px 24px 0}
+.dx .body{padding:16px 24px 4px;display:flex;flex-direction:column;gap:16px}
+.dx .sect{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));font-weight:600;margin-bottom:8px}
+.dx .foot{display:flex;align-items:center;gap:10px;padding:14px 24px 20px;border-top:1px solid hsl(var(--border));margin-top:14px}
+.dx .foot .cons{font-size:12.5px;color:hsl(240 6% 30%);flex:1;display:flex;align-items:center;gap:8px}
+.dx .foot .cons .ic{color:hsl(var(--success-text))}
+.lst{display:flex;flex-direction:column;border:1px solid hsl(var(--border));border-radius:10px;overflow:hidden}
+.lst div{display:flex;align-items:center;gap:10px;padding:10px 12px;border-top:1px solid hsl(var(--border));font-size:13.5px}
+.lst div:first-child{border-top:0}
+.lst .r{margin-left:auto;font-variant-numeric:tabular-nums;color:hsl(240 6% 28%)}
+
+/* ---------- produto (editor) ---------- */
+.ped{display:grid;grid-template-columns:340px 1fr}
+.ped .photo{padding:20px 0 20px 24px;border-right:1px solid hsl(var(--border));display:flex;flex-direction:column;gap:14px;padding-right:24px}
+.ped .photo .shot{position:relative;border-radius:12px;overflow:hidden;border:1px solid hsl(var(--border))}
+.ped .photo .shot img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+.ped .photo .shot .btn{position:absolute;left:12px;bottom:12px;background:hsl(var(--card));border-color:hsl(var(--border))}
+.ped .photo .thumbs{display:flex;gap:8px}
+.ped .photo .thumbs img,.ped .photo .thumbs span{width:56px;height:56px;border-radius:8px;object-fit:cover;border:1px solid hsl(var(--border))}
+.ped .photo .thumbs img.on{outline:2px solid hsl(var(--primary));outline-offset:1px}
+.ped .photo .thumbs span{display:grid;place-items:center;color:hsl(240 5% 50%);border-style:dashed}
+.prev{border:1px solid hsl(var(--border));border-radius:12px;padding:12px;font-family:Inter,system-ui,sans-serif}
+.prev .cap{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));font-weight:600;margin-bottom:8px}
+.prev .c{display:grid;grid-template-columns:72px 1fr;gap:10px;align-items:center}
+.prev .c img{width:72px;height:72px;border-radius:10px;object-fit:cover}
+.prev .c b{font-size:13px;display:block}.prev .c span{font-size:12.5px;color:hsl(240 6% 30%)}
+.prev .c .pr{font-family:Fraunces,serif;font-size:15px;font-weight:600;color:#272019;margin-top:3px}
+.ped .form{padding:20px 24px;display:flex;flex-direction:column;gap:18px;max-height:640px;overflow:auto}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.row3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips>span{border:1px solid hsl(240 6% 82%);border-radius:999px;padding:6px 12px;font-size:13px;cursor:pointer;background:hsl(var(--card))}
+.chips>span.on{border-color:hsl(var(--primary));background:hsl(var(--primary));color:#fff}
+.vars{display:flex;flex-direction:column;border:1px solid hsl(var(--border));border-radius:10px;overflow:hidden}
+.vars>div{display:grid;grid-template-columns:1fr 110px 120px 32px;gap:10px;align-items:center;padding:8px 10px;border-top:1px solid hsl(var(--border));font-size:13.5px}
+.vars>div:first-child{border-top:0}
+.vars .input{height:34px;font-size:13px}
+.vars .add{grid-template-columns:1fr;padding:0}
+.vars .add button{border:0;background:hsl(var(--background));height:38px;font-weight:600;font-size:13px;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;width:100%}
+.addon{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid hsl(var(--border));font-size:13.5px}
+.addon:first-of-type{border-top:0}
+.addon .r{margin-left:auto;color:hsl(240 6% 28%);font-variant-numeric:tabular-nums}
+.sw{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid hsl(var(--border));border-radius:10px;font-size:13.5px}
+.sw b{display:block;font-weight:600}.sw span{font-size:12.5px;color:hsl(var(--muted-foreground))}
+.sw .tog{margin-left:auto}
+
+/* ---------- aparência ---------- */
+.ap{display:grid;grid-template-columns:1fr 390px;gap:24px;align-items:start}
+.themes3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.th{border:1px solid hsl(var(--border));border-radius:12px;overflow:hidden;cursor:pointer;background:hsl(var(--card))}
+.th.on{border-color:hsl(var(--primary));outline:1px solid hsl(var(--primary))}
+.th .sw3{height:84px;display:flex;flex-direction:column;justify-content:flex-end;padding:10px 12px;gap:6px}
+.th .sw3 i{display:block;height:8px;border-radius:4px;width:60%}
+.th .sw3 u{text-decoration:none;font-size:15px;font-weight:600}
+.th .nm{padding:10px 12px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;border-top:1px solid hsl(var(--border))}
+.th .nm span{font-weight:400;color:hsl(var(--muted-foreground));font-size:12px}
+.brandrow{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:start}
+.logo-up{width:96px;height:96px;border-radius:14px;border:1px solid hsl(var(--border));overflow:hidden;position:relative}
+.logo-up img{width:100%;height:100%;object-fit:cover}
+.logo-up .ib{position:absolute;right:6px;bottom:6px;width:28px;height:28px;border-radius:7px;background:hsl(var(--card));border:1px solid hsl(var(--border));display:grid;place-items:center}
+.colors{display:flex;gap:8px;align-items:center}
+.colors i{width:28px;height:28px;border-radius:99px;border:1px solid hsl(var(--border));display:inline-block}
+.colors i.on{outline:2px solid hsl(var(--primary));outline-offset:2px}
+.bn{display:grid;grid-template-columns:120px 1fr auto auto;gap:14px;align-items:center;padding:10px 0;border-top:1px solid hsl(var(--border))}
+.bn:first-of-type{border-top:0;padding-top:0}
+.bn img{width:120px;aspect-ratio:16/7;object-fit:cover;border-radius:8px;border:1px solid hsl(var(--border))}
+.bn b{display:block;font-size:13.5px}.bn span{font-size:12.5px;color:hsl(var(--muted-foreground))}
+
+/* vitrine (prévia) */
+.phone-prev{width:390px;border-radius:40px;background:hsl(var(--ink));padding:10px}
+.vit{border-radius:32px;overflow:hidden;height:720px;background:var(--p-paper);color:var(--p-ink);font-family:var(--p-sans);position:relative}
+.vit::after{content:"";position:absolute;left:0;right:0;bottom:0;height:60px;background:linear-gradient(transparent,var(--p-paper));pointer-events:none}
+.t-classica{--p-paper:#fcfbf8;--p-deep:#f1ede5;--p-surface:#fff;--p-ink:#272019;--p-muted:#8e8073;--p-line:rgba(39,32,25,.1);--p-brand:#9a5a33;--p-offer:#272019;--p-offer-ink:#f3ece1;--p-disp:'Fraunces',Georgia,serif;--p-sans:Inter,system-ui,sans-serif;--p-radius:14px;--p-cat:50%}
+.t-vibrante{--p-paper:#fff;--p-deep:#f6eef0;--p-surface:#fff;--p-ink:#22101a;--p-muted:#8a6f78;--p-line:rgba(34,16,26,.1);--p-brand:#b31d3c;--p-offer:#b31d3c;--p-offer-ink:#fff;--p-disp:Sora,system-ui,sans-serif;--p-sans:Inter,system-ui,sans-serif;--p-radius:18px;--p-cat:18px}
+.t-minimal{--p-paper:#f6f6f3;--p-deep:#e9e8e2;--p-surface:#fff;--p-ink:#15150f;--p-muted:#85857c;--p-line:rgba(20,20,15,.12);--p-brand:#1f4a40;--p-offer:#15150f;--p-offer-ink:#f6f6f3;--p-disp:'Cormorant Garamond',Georgia,serif;--p-sans:Inter,system-ui,sans-serif;--p-radius:0px;--p-cat:50%}
+.v-offer{background:var(--p-offer);color:var(--p-offer-ink);text-align:center;font-size:10px;padding:34px 0 8px;font-weight:500}
+.v-hd{display:flex;align-items:center;gap:9px;padding:12px 16px;background:var(--p-surface);border-bottom:1px solid var(--p-line)}
+.v-logo{width:32px;height:32px;border-radius:50%;object-fit:cover;border:1px solid var(--p-line)}
+.v-name{font-family:var(--p-disp);font-weight:600;font-size:17px;margin-right:auto}
+.v-bag{width:32px;height:32px;border:1px solid var(--p-line);border-radius:var(--p-radius);display:grid;place-items:center;font-size:12px}
+.v-cats{display:flex;gap:14px;padding:12px 16px 4px;overflow:hidden}
+.v-cat{display:flex;flex-direction:column;align-items:center;gap:5px;font-size:10px;color:var(--p-muted);flex:0 0 auto}
+.v-cat img{width:50px;height:50px;object-fit:cover;border-radius:var(--p-cat);border:1px solid var(--p-line)}
+.v-cat.on{color:var(--p-ink);font-weight:600}.v-cat.on img{outline:2px solid var(--p-brand);outline-offset:2px}
+.v-banner{margin:10px 16px 0;border-radius:var(--p-radius);overflow:hidden;position:relative;aspect-ratio:16/8;border:1px solid var(--p-line)}
+.v-banner img{width:100%;height:100%;object-fit:cover;display:block}
+.v-banner::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.62),rgba(0,0,0,.05) 60%)}
+.v-banner .bt{position:absolute;left:12px;bottom:12px;right:50px;color:#fff;z-index:1}
+.v-banner .be{font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;opacity:.85}
+.v-banner .bh{font-family:var(--p-disp);font-size:15px;line-height:1.15;margin-top:3px;font-weight:600}
+.v-sec{display:flex;justify-content:space-between;align-items:baseline;padding:16px 16px 8px}
+.v-sec h4{font-family:var(--p-disp);font-size:16px;font-weight:600}
+.v-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 16px}
+.v-card{background:var(--p-surface);border:1px solid var(--p-line);border-radius:var(--p-radius);overflow:hidden}
+.v-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+.v-card .vb{padding:9px 10px 10px}.v-card .vn{font-size:12px;font-weight:600}
+.v-card .vp{display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-size:12px}
+.v-card .vp span{font-family:var(--p-disp);font-weight:600;font-size:13px}
+.v-card .vp i{width:22px;height:22px;border-radius:var(--p-radius);background:var(--p-brand);color:#fff;display:grid;place-items:center;font-style:normal}
+
+/* ---------- domínio ---------- */
+.dom{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.step{display:none}.step.on{display:block}
+.rec{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+.rec th{text-align:left;font-size:11.5px;color:hsl(var(--muted-foreground));font-weight:500;padding:0 8px 6px;border-bottom:1px solid hsl(var(--border))}
+.rec td{padding:9px 8px;border-bottom:1px solid hsl(var(--border));font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px}
+.rec tr:last-child td{border-bottom:0}
+.rec td:last-child{text-align:right}
+.rec .cp{display:inline-flex;align-items:center;gap:4px;font:600 12px Sora;border:1px solid hsl(var(--border));border-radius:6px;padding:3px 8px;background:hsl(var(--card));cursor:pointer}
+.stat{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:10px;border:1px solid hsl(var(--border));font-size:13.5px;margin-top:14px}
+.stat.w{background:hsl(var(--warning-soft));border-color:hsl(38 80% 80%)}
+.stat.ok{background:hsl(var(--success-soft));border-color:hsl(160 50% 80%)}
+.stat .ic{flex:none}
+.stat .spin{width:14px;height:14px;border:2px solid hsl(var(--warning-text));border-right-color:transparent;border-radius:99px;animation:sp 1s linear infinite;flex:none}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* ---------- configurações ---------- */
+.cfg{display:grid;grid-template-columns:220px 1fr;gap:24px;align-items:start}
+.cfg-nav{display:flex;flex-direction:column;gap:2px;position:sticky;top:0}
+.cfg-nav a{padding:9px 12px;border-radius:8px;font-size:13.5px;text-decoration:none;color:hsl(240 5% 34%);display:flex;align-items:center;gap:10px}
+.cfg-nav a[aria-current="page"]{background:hsl(var(--primary-soft));color:hsl(var(--primary));font-weight:600}
+.cfg-body{display:flex;flex-direction:column;gap:16px}
+.types{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.type{border:1px solid hsl(var(--border));border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:8px;cursor:pointer;background:hsl(var(--card))}
+.type.on{border-color:hsl(var(--primary));outline:1px solid hsl(var(--primary))}
+.type .ti{width:34px;height:34px;border-radius:9px;background:hsl(var(--muted));display:grid;place-items:center}
+.type.on .ti{background:hsl(var(--primary));color:#fff}
+.type b{font-size:13.5px}.type span{font-size:12px;color:hsl(var(--muted-foreground));line-height:1.4}
+.integ{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid hsl(var(--border));border-radius:12px}
+.integ .li{width:40px;height:40px;border-radius:10px;background:#76452d;color:#fff;display:grid;place-items:center;flex:none}
+.integ b{display:block}.integ span{font-size:12.5px;color:hsl(var(--muted-foreground))}
+.integ .btn{margin-left:auto}
+.integ.off{opacity:.55}
+
+/* ---------- pagamentos ---------- */
+.gws{display:flex;flex-direction:column;gap:8px}
+.gw{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid hsl(var(--border));border-radius:10px;font-size:13.5px}
+.gw.on{border-color:hsl(var(--primary))}
+.gw b{display:block}.gw span{font-size:12.5px;color:hsl(var(--muted-foreground))}
+.gw .btn,.gw .link{margin-left:auto}
+.gi{width:36px;height:36px;border-radius:9px;color:#fff;display:grid;place-items:center;font:700 11px Sora;flex:none}
+.gi.sm{width:28px;height:28px;font-size:10px;border-radius:7px}
+.fluxo{margin-top:14px;padding:14px 16px;border-radius:10px;background:hsl(var(--background));border:1px solid hsl(var(--border))}
+.fluxo .fl{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:12.5px;margin-bottom:8px}
+.fluxo .fl span{padding:4px 9px;border-radius:999px;background:hsl(var(--card));border:1px solid hsl(var(--border));font-weight:500}
+.fluxo .fl span.gate{border-color:hsl(var(--primary));color:hsl(var(--primary));font-weight:600}
+.fluxo .fl span.off{opacity:.35;text-decoration:line-through}
+.fluxo .fl i{color:hsl(var(--muted-foreground));font-style:normal}
+.fluxo p{font-size:13px;color:hsl(240 6% 25%)}
+/* ---------- celular ---------- */
+.phones{display:flex;gap:40px;align-items:flex-start;margin-left:40px;flex-wrap:wrap}
+.phone{width:410px;border-radius:52px;background:hsl(var(--ink));padding:10px;flex:none}
+.screen{position:relative;width:390px;border-radius:42px;overflow:hidden;background:hsl(var(--background));display:flex;flex-direction:column;min-height:800px}
+.status{height:46px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 30px 0 34px;font:600 14px Sora;background:hsl(var(--card))}
+.status .isl{width:110px;height:30px;border-radius:20px;background:hsl(var(--ink))}
+.m-top{display:flex;align-items:center;justify-content:space-between;padding:4px 8px 8px 16px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
+.m-top h1{font:700 18px/1.2 Sora}
+.m-top .back{display:inline-flex;align-items:center;gap:2px;font-size:14px;font-weight:500;color:hsl(var(--foreground));text-decoration:none;padding:8px 8px 8px 0}
+.m-body{padding:16px 16px 100px;display:flex;flex-direction:column;gap:12px}
+.m-kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.m-kpis .kpi .v{font-size:24px}
+.m-bar{position:absolute;left:0;right:0;bottom:0;display:grid;grid-template-columns:1fr 1fr 48px;gap:8px;padding:10px 14px 28px;background:hsl(var(--card));border-top:1px solid hsl(var(--border))}
+.m-bar .btn{height:48px;padding:0 10px;font-size:14px}.m-bar .iconbtn{width:48px;height:48px}
+.m-tabs{position:absolute;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(5,1fr);padding:8px 8px 24px;background:hsl(var(--card));border-top:1px solid hsl(var(--border))}
+.m-tabs a{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10.5px;color:hsl(240 5% 40%);text-decoration:none;padding:6px 0}
+.m-tabs a[aria-current="page"]{color:hsl(var(--primary));font-weight:600}
+.fd{display:flex;flex-direction:column}
+.fd a{display:grid;grid-template-columns:36px 1fr auto;gap:10px;align-items:center;padding:11px 0;border-top:1px solid hsl(var(--border));text-decoration:none;color:inherit}
+.fd a:first-child{border-top:0;padding-top:0}
+.fd .l1{font-size:14px;font-weight:600}.fd .l2{font-size:12.5px;color:hsl(240 6% 30%)}
+
+/* ===== seção 5: tela guiada do produto ===== */
+.pedit{height:calc(100% - 48px);max-height:840px;display:flex;flex-direction:column}
+.pedit .ped{flex:1;min-height:0;grid-template-columns:320px 1fr}
+.pedit .photo{overflow:auto}
+.pedit .foot{margin-top:0}
+.noimg{aspect-ratio:1;display:grid;place-items:center;align-content:center;gap:6px;background:hsl(var(--muted));color:hsl(var(--muted-foreground));font-size:12px}
+.noimg.sm{width:72px;height:72px;aspect-ratio:auto;border-radius:10px}
+.pv-badge{display:inline-flex;height:20px;padding:0 7px;border-radius:5px;border:1px solid hsl(var(--border));background:hsl(var(--background));font:600 11px/18px Sora;margin-top:5px;color:hsl(240 6% 28%)}
+.guide{padding:18px 24px 20px;display:flex;flex-direction:column;gap:22px;overflow:auto;min-height:0}
+.gblk{display:flex;flex-direction:column;gap:10px}
+.gh{display:flex;align-items:center;gap:10px}.gh b{font-size:14px}.gh .gs{font-size:12px;color:hsl(var(--muted-foreground));margin-left:auto}
+.gn{width:22px;height:22px;border-radius:99px;background:hsl(var(--primary));color:#fff;font:600 11px/22px Sora;text-align:center;flex:none}
+.input.big{height:46px;font:600 17px/1 Sora}
+.sell{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.sell button{border:1px solid hsl(var(--border));border-radius:12px;background:hsl(var(--card));padding:12px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;cursor:pointer;color:inherit}
+.sell button b{font-size:13px}.sell button span{font-size:11.5px;color:hsl(var(--muted-foreground));line-height:1.35}
+.sell button .ic{color:hsl(var(--muted-foreground))}
+.sell button[aria-pressed="true"]{border-color:hsl(var(--primary));outline:1px solid hsl(var(--primary))}
+.sell button[aria-pressed="true"] .ic{color:hsl(var(--primary))}
+.sellline{display:flex;align-items:center;gap:8px;padding:10px 12px;border:1px dashed hsl(240 6% 78%);border-radius:10px;font-size:13px;background:hsl(var(--background));flex-wrap:wrap;min-height:52px}
+.sellline .ic{color:hsl(var(--muted-foreground))}
+.sellline .input{height:32px;padding:0 10px;font-size:13px;font-weight:600}
+.sellline .seg{margin-left:auto}
+.picks{display:flex;flex-wrap:wrap;gap:6px}
+.picks button{height:32px;padding:0 12px;border-radius:999px;border:1px solid hsl(var(--border));background:hsl(var(--card));font-size:12.5px;font-weight:500;display:inline-flex;align-items:center;gap:6px;cursor:pointer;color:hsl(var(--muted-foreground))}
+.picks button .chk{display:none}
+.picks button[aria-pressed="true"]{border-color:hsl(var(--primary));color:hsl(var(--primary));font-weight:600}
+.picks button[aria-pressed="true"] .chk{display:inline-block}
+.blk{border:1px solid hsl(var(--border));border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.blk.off{display:none}
+.blk .bh{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600}
+.blk .bh .hint{font-weight:400;color:hsl(var(--muted-foreground));margin-left:4px}
+.blk .addon{padding:7px 0}
+.pedit[data-sell="servico"] .sv-hide{display:none!important}
+.pedit:not([data-sell="servico"]) .sv-only{display:none!important}
+/* ===== seção 8: ramo com 6 cards ===== */
+.types.six{grid-template-columns:repeat(3,1fr)}
+.integ.mb-conf,.integ.mb-pers,.integ.mb-joia{display:none}
+body[data-mode="conf"] .integ.mb-conf,body[data-mode="pers"] .integ.mb-pers,body[data-mode="joia"] .integ.mb-joia{display:flex}
+.pedit .photo .shot img,.pedit .photo .shot .noimg{aspect-ratio:auto;height:clamp(140px,30vh,272px)}
+.pedit .foot .cons{display:flex;gap:8px}.pedit .foot .cons .t{display:inline}
+</style>
+</head>
+<body data-mode="pers">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="facter" viewBox="0 0 207 304"><path fill="currentColor" d="M25.8384 196.911L15.4739 183.729C-10.7189 150.411 0.44781 101.422 38.4895 82.7344L206.266 0.307297V34.2396C206.266 60.1875 191.448 83.8698 168.12 95.2396L56.578 149.594C48.4634 153.547 41.3489 159.344 35.9791 166.609C30.5936 173.901 25.9582 183.906 26.3176 196.526C29.9947 193.609 34.0624 191.026 38.4843 188.854L206.26 106.432V140.359C206.26 166.313 191.437 189.995 168.109 201.365L56.578 255.708C48.4634 259.667 41.3489 265.464 35.9791 272.724C30.4426 280.224 25.6978 290.578 26.3593 303.693L15.4739 289.854C-7.54698 260.568 -1.72407 219.193 25.8384 196.911Z"/></symbol>
+</svg>
+
+<div class="doc">
+  <header class="doc-head"><div>
+    <h1>Shop · gestão da loja</h1>
+    <p>A gestão da loja é um <b>módulo</b>, um código só, com dois hospedeiros. <b>Loja de comida usa o Chef</b>: o Shop só provisiona a vitrine e o módulo aparece dentro do "Minha loja" do Chef (seção 1). <b>Os outros tipos</b> (personalizados, semijoias, moda) têm a gestão no próprio Shop (seções 2 a 10), com Início, Pedidos e Produtos próprios. O <b>tipo de loja</b> muda o vocabulário e o que o produto pede; troque ali embaixo. As fotos são provisórias (da Larissa) até chegarem as da Made in Você e da ESLA.</p>
+    <nav class="toc"><a href="#s0"><b>0</b>Onde cada tela mora</a><a href="#s1"><b>1</b>Dentro do Chef</a><a href="#s2"><b>2</b>Início</a><a href="#s3"><b>3</b>Pedidos</a><a href="#s4"><b>4</b>Produtos</a><a href="#s5"><b>5</b>Editar produto</a><a href="#s6"><b>6</b>Aparência</a><a href="#s7"><b>7</b>Domínio</a><a href="#s8"><b>8</b>Configurações</a><a href="#s9"><b>9</b>Pagamentos</a><a href="#s10"><b>10</b>Celular</a></nav>
+    <div class="modebar"><span class="lbl">Loja de exemplo</span><div class="seg" id="modes"><button data-m="conf"><i class="ic s14 i-cake"></i>Doces e comida <span class="dep" style="margin-left:4px">no Chef</span></button><button data-m="pers" aria-pressed="true"><i class="ic s14 i-gift"></i>Personalizados</button><button data-m="joia"><i class="ic s14 i-gem"></i>Semijoias e moda</button></div></div>
+  </div></header>
+
+  <!-- ============ 0 · ONDE CADA TELA MORA ============ -->
+  <section class="sec" id="s0">
+    <div class="sec-label"><span class="sec-num">0</span><h2>Onde cada tela mora</h2></div>
+    <p class="sec-sub">Um módulo, dois hospedeiros. O que é da loja é igual nos dois; o que é do negócio (produto base, pedido, agenda) fica com quem hospeda. O que era "tipo de loja" virou três camadas que não dependem uma da outra, e a fonte do catálogo é por item.</p>
+    <div class="card pad" style="margin-left:40px;max-width:1000px">
+      <table class="tbl">
+        <thead><tr><th>Tela</th><th>Loja de comida (gestão no Chef)</th><th>Outras lojas (gestão no Shop)</th></tr></thead>
+        <tbody>
+          <tr><td><b>Início</b></td><td>O Início do Chef, com os pedidos da loja entre as encomendas.</td><td>Seção 2: pedidos novos, o que sai hoje, vendas, visitas.</td></tr>
+          <tr><td><b>Pedidos</b></td><td>Viram <b>encomenda</b> em ORÇAMENTO; a dona confirma na agenda do Chef.</td><td>Seção 3: fila + pedido aberto + diálogo de confirmar.</td></tr>
+          <tr><td><b>Produtos</b></td><td>Os do Chef (custo, preço com lucro). Aqui só a camada da loja: foto, nome na loja, como vende, o que a cliente escolhe.</td><td>Seções 4 e 5: cadastro completo no Shop.</td></tr>
+          <tr><td><b>Fonte do catálogo</b></td><td colspan="2" style="background:hsl(var(--note-soft))">Uma interface só, no <code>@facter/platform-contract</code>: itens (produto ou serviço), disponibilidade e pra onde vai o pedido. O <b>Chef</b> é a primeira fonte. O <b>TechCare</b> entra depois com serviços e peças (orçamento vira OS). Sem produto Facter, o catálogo é do próprio Shop. A fonte é <b>por item</b>: uma assistência pode vender peça pelo Shop e serviço pelo TechCare na mesma loja.</td></tr>
+          <tr><td><b>Aparência, banners</b></td><td colspan="2" style="background:hsl(var(--primary-soft))"><b>Módulo Loja</b>, a mesma tela nos dois (seção 6). No Chef aparece como aba do "Minha loja".</td></tr>
+          <tr><td><b>Domínio</b></td><td colspan="2" style="background:hsl(var(--primary-soft))"><b>Módulo Loja</b> (seção 7).</td></tr>
+          <tr><td><b>Configurações da loja</b></td><td colspan="2" style="background:hsl(var(--primary-soft))"><b>Módulo Loja</b>: ramo (só palavras), contato, retirada, entrega ou envio, pausar pedidos, Pix na mensagem (seção 8). No Chef o ramo vem de lá: comida.</td></tr>
+          <tr><td><b>Vitrine pública</b></td><td colspan="2" style="background:hsl(var(--primary-soft))">A mesma (facter-shop). Muda só a fonte do catálogo e pra onde o pedido vai.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card pad" style="margin:16px 0 0 40px;max-width:1000px">
+      <div class="hd"><h2>As três camadas</h2></div>
+      <table class="tbl">
+        <thead><tr><th>Camada</th><th>Onde mora</th><th>O que decide</th><th>Trocar custa</th></tr></thead>
+        <tbody>
+          <tr><td><b>Ramo</b></td><td>Loja, no primeiro acesso</td><td>Só palavras e sugestões: cardápio × catálogo × coleção, categorias iniciais, estilo inicial.</td><td>Nada. Só muda rótulo.</td></tr>
+          <tr><td><b>Como vende</b></td><td>Cada item</td><td>Pronta entrega, sob encomenda com prazo, com data marcada, ou serviço sob orçamento. Unidade. O que a cliente escolhe: tamanhos, variações, pergunta, extras.</td><td>Só aquele item.</td></tr>
+          <tr><td><b>Como entrega</b></td><td>Loja, em Configurações</td><td>Retirada, entrega local, envio. Pausar, pedido mínimo.</td><td>Nada no catálogo.</td></tr>
+        </tbody>
+      </table>
+      <p class="meta" style="margin-top:10px">O carrinho combina: se algum item pede data, a loja pede data; se algum tem prazo, mostra o maior; se tudo é pronta entrega, "sai em até 2 dias". Serviço não fecha com valor: vira "pedir orçamento". É o mesmo desenho do TechCare (ramo é perfil, plano é módulos).</p>
+    </div>
+  </section>
+
+  <!-- ============ 1 · DENTRO DO CHEF ============ -->
+  <section class="sec" id="s1">
+    <div class="sec-label"><span class="sec-num">1</span><h2>Dentro do Chef · "Minha loja" com o módulo</h2></div>
+    <p class="sec-sub">A confeiteira não sai do Chef. O "Minha loja" que já existe (abas Loja, Produtos, Destaques, Adicionais, com prévia ao vivo) ganha as abas do módulo: <b>Aparência</b> e <b>Domínio</b>. Mesmo login, mesma tela, mesmo código das seções 6 e 7.</p>
+    <div class="frame chef-host"><div class="app">
+      <header class="topbar"><a class="lockup" href="#"><svg width="24" height="35"><use href="#facter"/></svg><span class="rule"></span><div><div class="wordmark">Facter <b>Chef</b></div><div class="tagline">Sistema para confeitaria</div></div></a><span class="spacer"></span><div class="search"><i class="ic s18 i-search"></i>Buscar encomenda, cliente ou produto</div><button class="org"><img src="img/logo-larissa.jpg" alt="">Larissa Vandorem <i class="ic s16 i-down"></i></button><span class="avatar">LV</span></header>
+      <nav class="sidenav"><a class="navitem" href="#"><i class="ic s24 i-house"></i></a><a class="navitem" href="#"><i class="ic s24 i-cake"></i></a><a class="navitem" href="#"><i class="ic s24 i-cal"></i></a><a class="navitem" href="#"><i class="ic s24 i-receipt"></i></a><a class="navitem" href="#" aria-current="page"><i class="ic s24 i-store"></i></a><span class="navsep"></span><a class="navitem" href="#"><i class="ic s24 i-gear"></i></a></nav>
+      <main class="main">
+        <div class="pagehead"><div><h1>Minha loja</h1><p class="meta">publicada · loja.facter.com.br/larissa-vandorem</p></div><div style="display:flex;gap:8px"><a class="btn btn-outline" href="#"><i class="ic s16 i-ext"></i>Ver minha loja</a><button class="btn btn-primary">Salvar loja</button></div></div>
+        <div class="seg" style="margin-bottom:16px"><button>Loja</button><button>Produtos <span class="chip" style="height:18px;padding:0 6px;font-size:11px">8</span></button><button>Destaques</button><button>Adicionais</button><button aria-pressed="true"><i class="ic s14 i-palette"></i>Aparência <span class="dep">módulo</span></button><button><i class="ic s14 i-globe"></i>Domínio <span class="dep">módulo</span></button></div>
+        <div class="ap">
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div class="card pad">
+              <div class="hd"><h2>Estilo</h2></div>
+              <div class="themes3">
+                <div class="th on"><div class="sw3" style="background:#fcfbf8;color:#272019"><u style="font-family:Fraunces,serif">Clássica</u><i style="background:#9a5a33"></i></div><div class="nm">Clássica <span>serifa, calma</span></div></div>
+                <div class="th"><div class="sw3" style="background:#fff;color:#22101a"><u>Vibrante</u><i style="background:#b31d3c"></i></div><div class="nm">Vibrante <span>cor forte</span></div></div>
+                <div class="th"><div class="sw3" style="background:#f6f6f3;color:#15150f"><u style="font-family:'Cormorant Garamond',serif;letter-spacing:.1em;text-transform:uppercase">Minimal</u><i style="background:#1f4a40;border-radius:0"></i></div><div class="nm">Minimal <span>caixa alta, sem cantos</span></div></div>
+              </div>
+            </div>
+            <div class="card pad">
+              <div class="hd"><h2>Marca</h2></div>
+              <div class="brandrow"><div class="logo-up"><img src="img/logo-larissa.jpg" alt=""><span class="ib"><i class="ic s14 i-camera"></i></span></div>
+                <div style="display:flex;flex-direction:column;gap:12px">
+                  <div class="row2"><div class="field"><label>Nome na loja</label><div class="input">Larissa Vandorem</div></div><div class="field"><label>Cor da marca</label><div class="colors"><i class="on" style="background:#9a5a33"></i><i style="background:#b31d3c"></i><i style="background:#1f4a40"></i><i style="background:#272019"></i><i style="background:#d8a0b0"></i></div></div></div>
+                  <div class="field"><label>Aviso no topo</label><div class="input">Frete grátis em Imperatriz acima de R$ 120<span class="suf">opcional</span></div></div>
+                </div>
+              </div>
+            </div>
+            <p class="meta">"Sobre a loja", WhatsApp e entrega continuam na aba Loja, que já existe. Banners continuam em Destaques, ganhando período (entra/sai).</p>
+          </div>
+          <div class="phone-prev"><div class="vit t-classica">
+            <div class="v-offer">Frete grátis em Imperatriz acima de R$ 120</div>
+            <div class="v-hd"><img class="v-logo" src="img/logo-larissa.jpg" alt=""><span class="v-name">Larissa Vandorem</span><span class="v-bag">▢</span></div>
+            <div class="v-cats"><div class="v-cat on"><img src="img/ig7.jpg" alt="">Bolos</div><div class="v-cat"><img src="img/p4.jpg" alt="">Docinhos</div><div class="v-cat"><img src="img/ig5.jpg" alt="">Kits</div><div class="v-cat"><img src="img/p2.jpg" alt="">Tortas</div></div>
+            <div class="v-banner"><img src="img/banner-dourado.jpg" alt=""><div class="bt"><div class="be">Mesversário</div><div class="bh">Mini bolos que cabem no seu momento</div></div></div>
+            <div class="v-sec"><h4>Bolos</h4></div>
+            <div class="v-grid">
+              <div class="v-card"><img src="img/ig7.jpg" alt=""><div class="vb"><div class="vn">Mini bolo temático</div><div class="vp"><span>R$ 55</span><i>+</i></div></div></div>
+              <div class="v-card"><img src="img/ig4.jpg" alt=""><div class="vb"><div class="vn">Mini bolo mimo</div><div class="vp"><span>R$ 45</span><i>+</i></div></div></div>
+            </div>
+          </div></div>
+        </div>
+      </main>
+    </div></div>
+    <div class="notes-row notes">
+      <div><h4>O que decidimos</h4><ul><li>Loja de comida: a gestão é o Chef. O Shop provisiona a vitrine e pronto.</li><li>O módulo entra como abas do "Minha loja", não como menu novo. O que o Chef já tem (Loja, Produtos, Destaques, Adicionais) fica.</li><li>Pedido da loja vira encomenda em ORÇAMENTO, como já está na fatia 1.</li></ul></div>
+      <div><h4>O que entra agora no Chef</h4><ul><li>Aba Aparência (estilo + cor + aviso no topo).</li><li>Aba Domínio (os três passos da seção 7).</li><li>Período nos destaques (entra/sai) e upload de foto no lugar de link.</li></ul></div>
+      <div><h4>Pendências</h4><ul><li>Como empacotar o módulo (pacote no monorepo do Chef hoje; Shop sozinho importa depois).</li><li>Tema do Chef é chocolate; o módulo usa os tokens do hospedeiro, não os do Shop.</li></ul></div>
+    </div>
+  </section>
+
+  <!-- ============ 2 · INÍCIO ============ -->
+  <section class="sec" id="s2">
+    <div class="sec-label"><span class="sec-num">2</span><h2>Início · o dia da loja</h2></div>
+    <p class="sec-sub">A primeira tela responde o que ela abre o celular pra saber: chegou pedido? o que sai hoje? a loja está no ar? O que precisa de ação aparece primeiro.</p>
+    <div class="frame"><div class="app">
+      <header class="topbar"><a class="lockup" href="#"><svg width="24" height="35"><use href="#facter"/></svg><span class="rule"></span><div><div class="wordmark">Facter <b>Shop</b></div><div class="tagline">A sua loja online</div></div></a><span class="spacer"></span><div class="search"><i class="ic s18 i-search"></i>Buscar pedido, cliente ou produto</div><button class="btn btn-outline btn-sm"><i class="ic s16 i-ext"></i>Ver a loja</button><button class="org"><span class="avatar" style="width:26px;height:26px;font-size:10px"><span class="m-conf">LV</span><span class="m-pers">MV</span><span class="m-joia">ES</span></span><span class="m-conf">Larissa Vandorem</span><span class="m-pers">Made in Você</span><span class="m-joia">ESLA Semijoias</span> <i class="ic s16 i-down"></i></button><span class="avatar"><span class="m-conf">LV</span><span class="m-pers">DA</span><span class="m-joia">NA</span></span></header>
+      <nav class="sidenav"><a class="navitem" href="#" aria-current="page"><i class="ic s24 i-house"></i></a><a class="navitem" href="#"><i class="ic s24 i-receipt"></i></a><a class="navitem" href="#"><i class="ic s24 i-package"></i></a><a class="navitem" href="#"><i class="ic s24 i-palette"></i></a><a class="navitem" href="#"><i class="ic s24 i-globe"></i></a><span class="navsep"></span><a class="navitem" href="#"><i class="ic s24 i-gear"></i></a></nav>
+      <main class="main">
+        <div class="pagehead"><div><h1>Bom dia, <span class="m-conf">Larissa</span><span class="m-pers">Daniele</span><span class="m-joia">Naty</span></h1><p class="meta">quinta, 5 de novembro</p></div><button class="btn btn-outline"><i class="ic s16 i-pause"></i>Pausar pedidos</button></div>
+        <div class="kpis">
+          <div class="card kpi hot"><div class="k"><i class="ic s16 i-bag"></i>Pedidos novos</div><div class="v">3</div><div class="s">esperando a sua confirmação</div></div>
+          <div class="card kpi"><div class="k"><i class="ic s16 i-cal"></i><span class="m-conf">Saem hoje</span><span class="m-pers">Prazo pra hoje</span><span class="m-joia">Pra enviar hoje</span></div><div class="v">4</div><div class="s"><span class="m-conf">2 retiradas · 2 entregas</span><span class="m-pers">1 atrasa se não sair hoje</span><span class="m-joia">2 Correios · 2 retiradas</span></div></div>
+          <div class="card kpi"><div class="k"><i class="ic s16 i-tag"></i>Vendas no mês</div><div class="v">R$ 4.380</div><div class="s">21 pedidos confirmados</div></div>
+          <div class="card kpi"><div class="k"><i class="ic s16 i-store"></i>Visitas na loja</div><div class="v">612</div><div class="s">nos últimos 7 dias · 48 pelo story</div></div>
+        </div>
+        <div class="cols2">
+          <div class="card pad">
+            <div class="hd"><h2>Pedidos de hoje <span class="n">7</span></h2><a class="link" href="#">Ver todos</a></div>
+            <div class="olist">
+              <div class="orow"><span class="av">AN</span><div class="t"><b>Ana Paula</b><span><span class="m-conf">Bolo de festa 2 kg + mini bolo · retirada sáb 15h</span><span class="m-pers">Caneca com nome + necessaire · prazo 10/11</span><span class="m-joia">Anel Sol + colar ponto de luz · Correios</span></span></div><span class="v">R$ <span class="m-conf">272</span><span class="m-pers">117</span><span class="m-joia">238</span></span><span class="badge b-wait dotl">Novo</span></div>
+              <div class="orow"><span class="av">JU</span><div class="t"><b>Juliana M.</b><span><span class="m-conf">Caixa mimo · entrega hoje 18h</span><span class="m-pers">Kit corporativo 20 canecas · prazo 20/11</span><span class="m-joia">Brinco argola · retirada</span></span></div><span class="v">R$ <span class="m-conf">70</span><span class="m-pers">980</span><span class="m-joia">69</span></span><span class="badge b-wait dotl">Novo</span></div>
+              <div class="orow"><span class="av">RO</span><div class="t"><b>Rodrigo</b><span><span class="m-conf">Kit festa · retirada dom 10h</span><span class="m-pers">Bolsa com nome · prazo 12/11</span><span class="m-joia">Pulseira riviera · Correios</span></span></div><span class="v">R$ <span class="m-conf">280</span><span class="m-pers">159</span><span class="m-joia">129</span></span><span class="badge b-wait dotl">Novo</span></div>
+              <div class="orow"><span class="av">CA</span><div class="t"><b>Carla S.</b><span><span class="m-conf">100 brigadeiros · entrega hoje 17h</span><span class="m-pers">Caneca com foto · pronto hoje</span><span class="m-joia">Conjunto noiva · retirada hoje</span></span></div><span class="v">R$ <span class="m-conf">90</span><span class="m-pers">59</span><span class="m-joia">320</span></span><span class="badge b-info dotl">Confirmado</span></div>
+              <div class="orow"><span class="av">MA</span><div class="t"><b>Mariana</b><span><span class="m-conf">Mini bolo mimo · retirada hoje 12h</span><span class="m-pers">Chaveiro gravado · retirada hoje</span><span class="m-joia">Anel ajustável · postado</span></span></div><span class="v">R$ <span class="m-conf">45</span><span class="m-pers">25</span><span class="m-joia">79</span></span><span class="badge b-ok dotl">Pronto</span></div>
+            </div>
+          </div>
+          <div>
+            <div class="card pad">
+              <div class="hd"><h2>A sua loja</h2><span class="badge b-ok dotl">No ar</span></div>
+              <div class="status-loja"><span class="avatar" style="width:44px;height:44px"><span class="m-conf">LV</span><span class="m-pers">MV</span><span class="m-joia">ES</span></span><div><b><span class="m-conf">Larissa Vandorem</span><span class="m-pers">Made in Você</span><span class="m-joia">ESLA Semijoias</span></b><div class="url"><i class="ic s14 i-link"></i><span class="m-conf">larissavandorem.com.br</span><span class="m-pers">madeinvoce.com.br</span><span class="m-joia">esla.com.br</span> <button class="iconbtn bare sm"><i class="ic s14 i-copy"></i></button></div></div></div>
+              <div class="alerts">
+                <div class="alert w"><i class="ic s16 i-warn"></i>2 produtos sem foto não aparecem na loja<a class="link" href="#">Ver</a></div>
+                <div class="alert"><i class="ic s16 i-image"></i>Banner de Natal entra em 1º de dezembro<a class="link" href="#">Editar</a></div>
+              </div>
+            </div>
+            <div class="card pad" style="margin-top:16px">
+              <div class="hd"><h2>Mais pedidos no mês</h2></div>
+              <div class="olist">
+                <div class="orow" style="grid-template-columns:36px 1fr auto"><img src="img/ig7.jpg" alt="" style="width:36px;height:36px;border-radius:8px;object-fit:cover"><div class="t"><b><span class="m-conf">Mini bolo temático</span><span class="m-pers">Caneca com nome</span><span class="m-joia">Anel Sol</span></b><span>9 pedidos</span></div><span class="v">R$ <span class="m-conf">495</span><span class="m-pers">441</span><span class="m-joia">801</span></span></div>
+                <div class="orow" style="grid-template-columns:36px 1fr auto"><img src="img/ig8.jpg" alt="" style="width:36px;height:36px;border-radius:8px;object-fit:cover"><div class="t"><b><span class="m-conf">Bolo de festa</span><span class="m-pers">Necessaire bordada</span><span class="m-joia">Colar ponto de luz</span></b><span>6 pedidos</span></div><span class="v">R$ <span class="m-conf">1.140</span><span class="m-pers">408</span><span class="m-joia">894</span></span></div>
+                <div class="orow" style="grid-template-columns:36px 1fr auto"><img src="img/p4.jpg" alt="" style="width:36px;height:36px;border-radius:8px;object-fit:cover"><div class="t"><b><span class="m-conf">Brigadeiro gourmet</span><span class="m-pers">Chaveiro gravado</span><span class="m-joia">Brinco argola</span></b><span>5 pedidos</span></div><span class="v">R$ <span class="m-conf">450</span><span class="m-pers">125</span><span class="m-joia">345</span></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div></div>
+    <div class="notes-row notes">
+      <div><h4>O que decidimos</h4><ul><li>O card "Pedidos novos" é o único com borda forte: é a ação do dia.</li><li>"Pausar pedidos" fica no topo porque é o botão de pânico da Páscoa: a loja continua no ar, só avisa que não está aceitando.</li><li>Visitas vêm do analytics da loja, com o quanto veio do story, pra ela ver o que o Insta rende.</li></ul></div>
+      <div><h4>Estados</h4><ul><li>Loja nova sem produto: no lugar dos pedidos entra o passo a passo (foto, produto, WhatsApp, publicar).</li><li>Loja pausada: faixa amarela no topo com "Voltar a receber".</li><li>Sem pedido hoje: "Nada pra hoje" com o próximo pedido da semana.</li></ul></div>
+      <div><h4>Pendências</h4><ul><li>Visitas dependem do analytics da vitrine (ainda não existe).</li><li>Rótulo do segundo card muda com o tipo de loja: saem hoje · prazo pra hoje · pra enviar hoje.</li></ul></div>
+    </div>
+  </section>
+
+  <!-- ============ 2 · PEDIDOS ============ -->
+  <section class="sec" id="s3">
+    <div class="sec-label"><span class="sec-num">3</span><h2>Pedidos · a fila e o pedido aberto</h2></div>
+    <p class="sec-sub">Pedido nasce na vitrine e chega aqui como <b>Novo</b>. Ela confirma, recusa ou responde no WhatsApp sem sair da tela. A lista à esquerda e o pedido à direita, como um console.</p>
+    <div class="frame"><div class="app">
+      <header class="topbar"><a class="lockup" href="#"><svg width="24" height="35"><use href="#facter"/></svg><span class="rule"></span><div><div class="wordmark">Facter <b>Shop</b></div><div class="tagline">A sua loja online</div></div></a><span class="spacer"></span><div class="search"><i class="ic s18 i-search"></i>Buscar pedido, cliente ou produto</div><button class="btn btn-outline btn-sm"><i class="ic s16 i-ext"></i>Ver a loja</button><button class="org"><span class="avatar" style="width:26px;height:26px;font-size:10px"><span class="m-conf">LV</span><span class="m-pers">MV</span><span class="m-joia">ES</span></span><span class="m-conf">Larissa Vandorem</span><span class="m-pers">Made in Você</span><span class="m-joia">ESLA Semijoias</span> <i class="ic s16 i-down"></i></button><span class="avatar"><span class="m-conf">LV</span><span class="m-pers">DA</span><span class="m-joia">NA</span></span></header>
+      <nav class="sidenav"><a class="navitem" href="#"><i class="ic s24 i-house"></i></a><a class="navitem" href="#" aria-current="page"><i class="ic s24 i-receipt"></i></a><a class="navitem" href="#"><i class="ic s24 i-package"></i></a><a class="navitem" href="#"><i class="ic s24 i-palette"></i></a><a class="navitem" href="#"><i class="ic s24 i-globe"></i></a><span class="navsep"></span><a class="navitem" href="#"><i class="ic s24 i-gear"></i></a></nav>
+      <main class="main">
+        <div class="pagehead"><div><h1>Pedidos</h1><p class="meta">o que chegou pela loja</p></div><button class="btn btn-outline"><i class="ic s16 i-plus"></i>Pedido pelo direct</button></div>
+        <div class="md">
+          <div class="card pad">
+            <div class="tabs" style="margin-top:0"><a href="#" aria-current="page"><i class="ic s16 i-bag"></i>Novos <span class="n warn">3</span></a><a href="#"><i class="ic s16 i-check"></i>Confirmados <span class="n">4</span></a><a href="#"><i class="ic s16 i-package"></i>Prontos <span class="n">1</span></a><a href="#"><i class="ic s16 i-clock"></i>Entregues <span class="n">21</span></a><a href="#"><i class="ic s16 i-x"></i>Recusados <span class="n">2</span></a><div class="right"><div class="search" style="width:150px;height:34px"><i class="ic s16 i-search"></i>Buscar</div></div></div>
+            <table class="tbl">
+              <thead><tr><th>Pedido</th><th>Itens</th><th><span class="m-conf">Quando</span><span class="m-pers">Prazo</span><span class="m-joia">Envio</span></th><th class="r">Total</th><th></th></tr></thead>
+              <tbody>
+                <tr class="sel"><td><div class="p"><span class="av" style="width:36px;height:36px;border-radius:99px;display:grid;place-items:center;font-weight:600;font-size:12px;background:hsl(var(--muted))">AN</span><div><b>#249 · Ana Paula</b><span>há 12 min · pela loja</span></div></div></td><td><span class="m-conf">Bolo de festa 2 kg, mini bolo</span><span class="m-pers">Caneca com nome, necessaire</span><span class="m-joia">Anel Sol, colar ponto de luz</span></td><td><span class="m-conf">sáb 8/11 · 15h · retirada</span><span class="m-pers">até 10/11 · retirada</span><span class="m-joia">Correios · Curitiba</span></td><td class="r"><b>R$ <span class="m-conf">272</span><span class="m-pers">117</span><span class="m-joia">238</span></b></td><td class="r"><button class="iconbtn bare sm"><i class="ic s16 i-kebab"></i></button></td></tr>
+                <tr><td><div class="p"><span class="av" style="width:36px;height:36px;border-radius:99px;display:grid;place-items:center;font-weight:600;font-size:12px;background:hsl(var(--muted))">JU</span><div><b>#248 · Juliana M.</b><span>há 40 min · pela loja</span></div></div></td><td><span class="m-conf">Caixa mimo</span><span class="m-pers">Kit corporativo · 20 canecas</span><span class="m-joia">Brinco argola</span></td><td><span class="m-conf">hoje · 18h · entrega</span><span class="m-pers">até 20/11 · entrega</span><span class="m-joia">retirada</span></td><td class="r"><b>R$ <span class="m-conf">70</span><span class="m-pers">980</span><span class="m-joia">69</span></b></td><td class="r"><button class="iconbtn bare sm"><i class="ic s16 i-kebab"></i></button></td></tr>
+                <tr><td><div class="p"><span class="av" style="width:36px;height:36px;border-radius:99px;display:grid;place-items:center;font-weight:600;font-size:12px;background:hsl(var(--muted))">RO</span><div><b>#247 · Rodrigo</b><span>ontem 22h · pela loja</span></div></div></td><td><span class="m-conf">Kit festa</span><span class="m-pers">Bolsa com nome</span><span class="m-joia">Pulseira riviera</span></td><td><span class="m-conf">dom 9/11 · 10h · retirada</span><span class="m-pers">até 12/11 · retirada</span><span class="m-joia">Correios · Palmas</span></td><td class="r"><b>R$ <span class="m-conf">280</span><span class="m-pers">159</span><span class="m-joia">129</span></b></td><td class="r"><button class="iconbtn bare sm"><i class="ic s16 i-kebab"></i></button></td></tr>
+              </tbody>
+            </table>
+            <div class="pager"><span>3 pedidos novos</span><div class="pg"><span class="on">1</span></div></div>
+          </div>
+          <div class="card detail">
+            <div class="dhead"><div><h2>#249 · Ana Paula</h2><div class="sub"><span class="badge b-wait dotl">Novo</span>chegou há 12 min pela loja</div></div><button class="iconbtn"><i class="ic s18 i-wa"></i></button></div>
+            <div class="items">
+              <div class="item"><span class="q">1×</span><div><b><span class="m-conf">Bolo de festa · 2 kg</span><span class="m-pers">Caneca com nome · branca</span><span class="m-joia">Anel Sol · aro 16 · ouro</span></b><div class="sub"><span class="m-conf">Massa chocolate · tema jardim<br><span class="pz">Topper: "Helena, com H"</span> + caixa de presente</span><span class="m-pers">Modelo lisa<br><span class="pz">Nome: "Helena, com H"</span> + caixa de presente</span><span class="m-joia"><span class="pz">Gravação: "H ♥ R"</span> + caixinha com laço</span></div></div><span class="num">R$ <span class="m-conf">217</span><span class="m-pers">61</span><span class="m-joia">99</span></span></div>
+              <div class="item"><span class="q">1×</span><div><b><span class="m-conf">Mini bolo temático</span><span class="m-pers">Necessaire bordada</span><span class="m-joia">Colar ponto de luz</span></b><div class="sub"><span class="m-conf">Tema jardim</span><span class="m-pers">Rosa · bordado "H"</span><span class="m-joia">45 cm · ouro</span></div></div><span class="num">R$ <span class="m-conf">55</span><span class="m-pers">56</span><span class="m-joia">139</span></span></div>
+            </div>
+            <div class="dtot"><span>Total</span><span>R$ <span class="m-conf">272,00</span><span class="m-pers">117,00</span><span class="m-joia">238,00</span></span></div>
+            <div class="dkv"><div><div class="k"><span class="m-conf">Retirada</span><span class="m-pers">Prazo combinado</span><span class="m-joia">Envio</span></div><div class="v"><span class="m-conf">sáb 8/11, 15h</span><span class="m-pers">até 10/11</span><span class="m-joia">Correios · PAC</span></div></div><div><div class="k">Pagamento</div><div class="v">Pix · <span class="m-conf">sinal 50%</span><span class="m-pers">sinal 50%</span><span class="m-joia">à vista</span></div></div></div>
+            <div class="dact"><button class="btn btn-outline btn-danger">Recusar</button><button class="btn btn-primary"><i class="ic s16 i-check"></i>Confirmar</button></div>
+            <div class="timeline"><div><i class="d on"></i>Pedido feito na loja · hoje 14:32</div><div><i class="d"></i>Confirmado por você</div><div><i class="d"></i><span class="m-conf">Pronto · retirado</span><span class="m-pers">Pronto · entregue</span><span class="m-joia">Postado · entregue</span></div></div>
+          </div>
+        </div>
+      </main>
+    </div></div>
+
+    <p class="view-cap">Diálogo · confirmar pedido</p>
+    <div class="frame" style="height:560px"><div class="app">
+      <header class="topbar"><a class="lockup" href="#"><svg width="24" height="35"><use href="#facter"/></svg><span class="rule"></span><div><div class="wordmark">Facter <b>Shop</b></div><div class="tagline">A sua loja online</div></div></a><span class="spacer"></span></header>
+      <nav class="sidenav"><a class="navitem" href="#"><i class="ic s24 i-house"></i></a><a class="navitem" href="#" aria-current="page"><i class="ic s24 i-receipt"></i></a><a class="navitem" href="#"><i class="ic s24 i-package"></i></a></nav>
+      <main class="main"></main>
+      <div class="scrim"><div class="dx"><button class="close"><i class="ic s18 i-x"></i></button>
+        <div class="titlewrap"><div class="title">Confirmar o pedido #249?</div><div class="desc">Ana recebe a confirmação no WhatsApp com o que combinar aqui.</div></div>
+        <div class="body">
+          <div><div class="sect"><span class="m-conf">Retirada</span><span class="m-pers">Prazo</span><span class="m-joia">Envio</span></div><div class="row2"><div class="input"><i class="ic s16 i-cal"></i><span class="m-conf">sábado, 8 de nov</span><span class="m-pers">terça, 10 de nov</span><span class="m-joia">posta até sex, 7 de nov</span></div><div class="input"><i class="ic s16 i-clock"></i><span class="m-conf">15:00</span><span class="m-pers">até 18:00</span><span class="m-joia">PAC · 5 dias úteis</span></div></div></div>
+          <div><div class="sect">Pagamento</div><div class="seg"><button aria-pressed="true">Sinal de 50% · R$ 136</button><button>Tudo agora · R$ 272</button><button>Na <span class="m-conf">retirada</span><span class="m-pers">entrega</span><span class="m-joia">postagem</span></button></div></div>
+          <div><div class="sect">Mensagem que vai pra Ana</div><div class="input ta" style="font-size:13px;line-height:1.5">Oi Ana! Pedido #249 confirmado pra <span class="m-conf">sábado 8/11 às 15h</span><span class="m-pers">terça 10/11</span><span class="m-joia">postar até sexta 7/11</span> 💛 Pra garantir a data, o sinal é R$ 136 no Pix: <b>larissa@pix.com</b>. Me manda o comprovante por aqui.</div></div>
+        </div>
+        <div class="foot"><span class="cons"><i class="ic s16 i-check"></i>Entra na agenda de sábado e o pedido vai pra "Confirmados"</span><button class="btn btn-outline">Cancelar</button><button class="btn btn-primary"><i class="ic s16 i-wa"></i>Confirmar e enviar</button></div>
+      </div></div>
+    </div></div>
+    <div class="notes-row notes">
+      <div><h4>O que decidimos</h4><ul><li>Confirmar é um diálogo porque tem decisão (data, sinal, mensagem). Recusar também, com motivo opcional que vai pra cliente.</li><li>A mensagem é editável antes de mandar; o Pix vem das Configurações.</li><li>"Pedido pelo direct" cadastra à mão o que chegou fora da loja, pra agenda e o mês ficarem inteiros.</li></ul></div>
+      <div><h4>Estados</h4><ul><li>Aba vazia: "Nenhum pedido novo" com link pro último confirmado.</li><li>Pedido com personalização aparece com o texto do cliente destacado (o topper com "H").</li><li>Loja de comida não passa por aqui: o pedido vira encomenda no Chef.</li></ul></div>
+      <div><h4>Pendências</h4><ul><li>Envio pelos Correios (tipo Semijoias): calcular frete fica pra depois; no início a dona combina no WhatsApp.</li><li>Recebimento do comprovante: fica no WhatsApp, sem subir pro sistema no MVP.</li></ul></div>
+    </div>
+  </section>
+
+  <!-- ============ 3 · PRODUTOS ============ -->
+  <section class="sec" id="s4">
+    <div class="sec-label"><span class="sec-num">4</span><h2>Produtos · o que aparece na loja</h2></div>
+    <p class="sec-sub">Lista com busca, abas de seção e o toggle "na loja" direto na linha. Produto sem foto não aparece na vitrine e a lista avisa.</p>
+    <div class="frame"><div class="app">
+      <header class="topbar"><a class="lockup" href="#"><svg width="24" height="35"><use href="#facter"/></svg><span class="rule"></span><div><div class="wordmark">Facter <b>Shop</b></div><div class="tagline">A sua loja online</div></div></a><span class="spacer"></span><div class="search"><i class="ic s18 i-search"></i>Buscar pedido, cliente ou produto</div><button class="btn btn-outline btn-sm"><i class="ic s16 i-ext"></i>Ver a loja</button><button class="org"><span class="avatar" style="width:26px;height:26px;font-size:10px"><span class="m-conf">LV</span><span class="m-pers">MV</span><span class="m-joia">ES</span></span><span class="m-conf">Larissa Vandorem</span><span class="m-pers">Made in Você</span><span class="m-joia">ESLA Semijoias</span> <i class="ic s16 i-down"></i></button><span class="avatar"><span class="m-conf">LV</span><span class="m-pers">DA</span><span class="m-joia">NA</span></span></header>
+      <nav class="sidenav"><a class="navitem" href="#"><i class="ic s24 i-house"></i></a><a class="navitem" href="#"><i class="ic s24 i-receipt"></i></a><a class="navitem" href="#" aria-current="page"><i class="ic s24 i-package"></i></a><a class="navitem" href="#"><i class="ic s24 i-palette"></i></a><a class="navitem" href="#"><i class="ic s24 i-globe"></i></a><span class="navsep"></span><a class="navitem" href="#"><i class="ic s24 i-gear"></i></a></nav>
+      <main class="main">
+        <div class="pagehead"><div><h1>Produtos</h1><p class="meta">14 na loja · 2 ocultos</p></div><button class="btn btn-primary"><i class="ic s16 i-plus"></i>Novo produto</button></div>
+        <div class="card pad">
+          <div class="tabs" style="margin-top:0"><a href="#" aria-current="page"><i class="ic s16 i-package"></i>Produtos <span class="n">16</span></a><a href="#"><i class="ic s16 i-tag"></i>Categorias <span class="n">5</span></a><a href="#"><i class="ic s16 i-plus"></i><span class="m-conf">Vai junto</span><span class="m-pers">Extras</span><span class="m-joia">Extras</span> <span class="n">3</span></a><div class="right"><a class="link" href="#" style="text-decoration:none;color:hsl(var(--muted-foreground));font-weight:500">Ocultos · 2</a><div class="search" style="width:220px;height:34px"><i class="ic s16 i-search"></i>Buscar produto</div></div></div>
+          <table class="tbl">
+            <thead><tr><th>Produto</th><th>Categoria</th><th>Preço</th><th><span class="m-conf">Tamanhos</span><span class="m-pers">Variações</span><span class="m-joia">Variações</span></th><th>Situação</th><th>Na loja</th><th></th></tr></thead>
+            <tbody>
+              <tr><td><div class="p"><img src="img/ig8.jpg" alt=""><div><b><span class="m-conf">Bolo de festa</span><span class="m-pers">Caneca com nome</span><span class="m-joia">Anel Sol</span></b><span>6 pedidos no mês</span></div></div></td><td><span class="chip"><span class="m-conf">Bolos</span><span class="m-pers">Canecas</span><span class="m-joia">Anéis</span></span></td><td class="num">a partir de R$ <span class="m-conf">110</span><span class="m-pers">49</span><span class="m-joia">89</span></td><td>3 <span class="meta"><span class="m-conf">(1, 2 e 3 kg)</span><span class="m-pers">(branca, preta, rosa)</span><span class="m-joia">(aro 14, 16, 18)</span></span></td><td><span class="badge b-ok dotl">Na loja</span></td><td><span class="tog on"></span></td><td class="r"><button class="iconbtn bare sm"><i class="ic s16 i-kebab"></i></button></td></tr>
+              <tr><td><div class="p"><img src="img/ig7.jpg" alt=""><div><b><span class="m-conf">Mini bolo temático</span><span class="m-pers">Necessaire bordada</span><span class="m-joia">Colar ponto de luz</span></b><span>9 pedidos no mês</span></div></div></td><td><span class="chip"><span class="m-conf">Bolos</span><span class="m-pers">Necessaires</span><span class="m-joia">Colares</span></span></td><td class="num">R$ <span class="m-conf">55</span><span class="m-pers">56</span><span class="m-joia">139</span> <span class="meta">/ un</span></td><td>1</td><td><span class="badge b-ok dotl">Na loja</span></td><td><span class="tog on"></span></td><td class="r"><button class="iconbtn bare sm"><i class="ic s16 i-kebab"></i></button></td></tr>
+              <tr><td><div class="p"><img src="img/ig4.jpg" alt=""><div><b><span class="m-conf">Mini bolo mimo</span><span class="m-pers">Chaveiro gravado</span><span class="m-joia">Brinco argola</span></b><span>4 pedidos no mês</span></div></div></td><td><span class="chip"><span class="m-conf">Bolos</span><span class="m-pers">Lembranças</span><span class="m-joia">Brincos</span></span></td><td class="num">R$ <span class="m-conf">45</span><span class="m-pers">25</span><span class="m-joia">69</span> <span class="meta">/ un</span></td><td>1</td><td><span class="badge b-ok dotl">Na loja</span></td><td><span class="tog on"></span></td><td class="r"><button class="iconbtn bare sm"><i class="ic s16 i-kebab"></i></button></td></tr>
+              <tr><td><div class="p"><img src="img/p5.jpg" alt=""><div><b><span class="m-conf">Bem-casado</span><span class="m-pers">Bolsa com nome</span><span class="m-joia">Pulseira riviera</span></b><span>nenhum pedido no mês</span></div></div></td><td><span class="chip"><span class="m-conf">Docinhos</span><span class="m-pers">Bolsas</span><span class="m-joia">Pulseiras</span></span></td><td class="num">R$ <span class="m-conf">150</span><span class="m-pers">159</span><span class="m-joia">129</span> <span class="meta"><span class="m-conf">/ cento</span><span class="m-pers">/ un</span><span class="m-joia">/ un</span></span></td><td>1</td><td><span class="badge b-wait dotl">Esgotado</span></td><td><span class="tog on"></span></td><td class="r"><button class="iconbtn bare sm"><i class="ic s16 i-kebab"></i></button></td></tr>
+              <tr><td><div class="p"><span class="noimg"><i class="ic s18 i-image"></i></span><div><b><span class="m-conf">Ovo de colher</span><span class="m-pers">Caneca com foto</span><span class="m-joia">Conjunto noiva</span></b><span>criado ontem</span></div></div></td><td><span class="chip"><span class="m-conf">Sobremesas</span><span class="m-pers">Canecas</span><span class="m-joia">Conjuntos</span></span></td><td class="num">R$ <span class="m-conf">38</span><span class="m-pers">59</span><span class="m-joia">320</span> <span class="meta">/ un</span></td><td>2</td><td><span class="badge b-stop dotl">Sem foto</span></td><td><span class="tog on"></span></td><td class="r"><button class="iconbtn bare sm"><i class="ic s16 i-kebab"></i></button></td></tr>
+              <tr><td><div class="p"><img src="img/ig11.jpg" alt=""><div><b><span class="m-conf">Kit festa</span><span class="m-pers">Kit corporativo</span><span class="m-joia">Kit presente</span></b><span>2 pedidos no mês</span></div></div></td><td><span class="chip">Kits</span></td><td class="num">R$ <span class="m-conf">280</span><span class="m-pers">49</span><span class="m-joia">199</span> <span class="meta">/ un</span></td><td>1</td><td><span class="badge b-ok dotl">Na loja</span></td><td><span class="tog on"></span></td><td class="r"><button class="iconbtn bare sm"><i class="ic s16 i-kebab"></i></button></td></tr>
+              <tr style="opacity:.6"><td><div class="p"><img src="img/p2.jpg" alt=""><div><b><span class="m-conf">Torta de limão</span><span class="m-pers">Caderno costurado</span><span class="m-joia">Tornozeleira</span></b><span>oculto desde out</span></div></div></td><td><span class="chip"><span class="m-conf">Tortas</span><span class="m-pers">Papelaria</span><span class="m-joia">Tornozeleiras</span></span></td><td class="num">R$ <span class="m-conf">95</span><span class="m-pers">39</span><span class="m-joia">59</span> <span class="meta">/ un</span></td><td>1</td><td><span class="badge b-mute dotl">Oculto</span></td><td><span class="tog"></span></td><td class="r"><button class="iconbtn bare sm"><i class="ic s16 i-kebab"></i></button></td></tr>
+            </tbody>
+          </table>
+          <div class="pager"><span>1 a 10 de 16</span><div class="pg"><span class="on">1</span><span>2</span></div></div>
+        </div>
+      </main>
+    </div></div>
+    <div class="notes-row notes">
+      <div><h4>O que decidimos</h4><ul><li>Um grupo de abas só: Produtos · Categorias · Vai junto. "Ocultos · N" é toggle ao lado da busca, como no Truck.</li><li>"Pedidos no mês" na linha faz ela decidir o que destacar sem abrir relatório.</li><li>Esgotado continua na loja (marcado), oculto some. São coisas diferentes.</li></ul></div>
+      <div><h4>Estados</h4><ul><li>Vazio: "Cadastre o primeiro produto" com a foto como primeiro passo.</li><li>Sem foto: badge vermelha e a vitrine não mostra, mesmo com "na loja" ligado.</li><li>Loja de comida não tem esta tela: os produtos são os do Chef, com a camada da loja no "Minha loja".</li></ul></div>
+      <div><h4>Pendências</h4><ul><li>Reordenar produtos dentro da categoria (arrastar) fica pra segunda fatia.</li><li>Estoque por quantidade (joias) é só esgotado sim/não no MVP.</li></ul></div>
+    </div>
+  </section>
+
+  <!-- ============ 4 · EDITAR PRODUTO ============ -->
+  <section class="sec" id="s5">
+    <div class="sec-label"><span class="sec-num">5</span><h2>Editar produto · uma tela guiada, não um formulário</h2></div>
+    <p class="sec-sub">Foto e prévia de um lado. Do outro, três perguntas na ordem em que a dona pensa: o que é, como vende, o que a cliente escolhe. Toque nos cards de "Como vende" e nos chips: a prévia e o rodapé reagem. "Serviço" mostra um item vindo do TechCare. Troque a loja de exemplo lá em cima.</p>
+    <div class="frame" style="height:880px"><div class="app">
+      <header class="topbar"><a class="lockup" href="#"><svg width="24" height="35"><use href="#facter"/></svg><span class="rule"></span><div><div class="wordmark">Facter <b>Shop</b></div><div class="tagline">A sua loja online</div></div></a><span class="spacer"></span></header>
+      <nav class="sidenav"><a class="navitem" href="#"><i class="ic s24 i-house"></i></a><a class="navitem" href="#"><i class="ic s24 i-receipt"></i></a><a class="navitem" href="#" aria-current="page"><i class="ic s24 i-package"></i></a></nav>
+      <main class="main"></main>
+      <div class="scrim"><div class="dx wide pedit" id="pedit" data-sell="encomenda"><button class="close"><i class="ic s18 i-x"></i></button>
+        <div class="titlewrap"><div class="title">Editar produto</div><div class="desc">Como a cliente vê e escolhe na loja. <span class="dep sv-only"><i class="ic s12 i-link"></i>catálogo do TechCare</span></div></div>
+        <div class="ped">
+          <div class="photo">
+            <div class="shot sv-hide"><img src="img/ig8.jpg" alt=""><button class="btn btn-outline btn-sm"><i class="ic s16 i-camera"></i>Trocar foto</button></div>
+            <div class="shot sv-only"><div class="noimg"><i class="ic s24 i-image"></i><span>sem foto ainda</span></div><button class="btn btn-outline btn-sm"><i class="ic s16 i-camera"></i>Adicionar foto</button></div>
+            <div class="thumbs sv-hide"><img class="on" src="img/ig8.jpg" alt=""><img src="img/ig11.jpg" alt=""><span><i class="ic s16 i-plus"></i></span></div>
+            <div class="prev"><div class="cap">Na loja</div><div class="c"><img class="sv-hide" src="img/ig8.jpg" alt=""><span class="noimg sm sv-only"><i class="ic s18 i-image"></i></span><div><b><span class="sv-hide"><span class="m-conf">Bolo de festa</span><span class="m-pers">Caneca com nome</span><span class="m-joia">Anel Sol</span></span><span class="sv-only">Manutenção de split</span></b><span><span class="sv-hide"><span class="m-conf">Escolha o tamanho, o sabor e o tema.</span><span class="m-pers">Cerâmica 325 ml, nome gravado.</span><span class="m-joia">Banho de ouro 18k, ajustável.</span></span><span class="sv-only">Limpeza completa, gás conferido, laudo no WhatsApp.</span></span><div class="pr">a partir de <span class="sv-hide"><span class="m-conf">R$ 110</span><span class="m-pers">R$ 49</span><span class="m-joia">R$ 89</span></span><span class="sv-only">R$ 150</span></div><span class="pv-badge" id="pv-badge">Fica pronto em 5 dias</span></div></div></div>
+            <div class="sw" style="padding:8px 12px"><i class="ic s18 i-store"></i><div><b>Mostrar na loja</b></div><span class="tog on"></span></div>
+          </div>
+          <div class="guide">
+            <div class="gblk">
+              <div class="gh"><span class="gn">1</span><b>O que é</b></div>
+              <div class="input big"><span class="sv-hide"><span class="m-conf">Bolo de festa</span><span class="m-pers">Caneca com nome</span><span class="m-joia">Anel Sol</span></span><span class="sv-only">Manutenção preventiva de split</span><i class="ic s16 i-pencil" style="margin-left:auto;color:hsl(var(--muted-foreground))"></i></div>
+              <div class="row3" style="grid-template-columns:1fr 1fr 1fr">
+                <div class="field"><label>Aparece em</label><div class="input"><span class="sv-hide"><span class="m-conf">Bolos</span><span class="m-pers">Canecas</span><span class="m-joia">Anéis</span></span><span class="sv-only">Serviços</span><i class="ic s16 i-down" style="margin-left:auto"></i></div></div>
+                <div class="field"><label>Preço</label><div class="input"><span class="pre">R$</span><span class="sv-hide"><span class="m-conf">110,00</span><span class="m-pers">49,00</span><span class="m-joia">89,00</span></span><span class="sv-only">150,00</span></div></div>
+                <div class="field"><label>Por</label><div class="seg" style="height:40px;align-items:center"><button aria-pressed="true"><span class="sv-hide"><span class="m-conf">kg</span><span class="m-pers">un</span><span class="m-joia">un</span></span><span class="sv-only">visita</span></button><button><span class="sv-hide"><span class="m-conf">un</span><span class="m-pers">par</span><span class="m-joia">par</span></span><span class="sv-only">hora</span></button><button class="only-conf sv-hide">cento</button></div></div>
+              </div>
+              <div class="input ta" style="min-height:56px"><span class="sv-hide"><span class="m-conf">Escolha o tamanho, o sabor e o tema. Recheio e cobertura à sua escolha.</span><span class="m-pers">Cerâmica 325 ml com o nome gravado. Vai em caixinha de presente.</span><span class="m-joia">Banho de ouro 18k com garantia de 1 ano. Ajustável.</span></span><span class="sv-only">Limpeza completa das unidades, conferência de gás e laudo com fotos no WhatsApp.</span></div>
+            </div>
+
+            <div class="gblk">
+              <div class="gh"><span class="gn">2</span><b>Como vende</b><span class="gs">Muda o que a loja pergunta no pedido.</span></div>
+              <div class="sell" id="sell">
+                <button data-s="pronta"><i class="ic s18 i-package"></i><b>Pronta entrega</b><span>Tem em estoque. Sai em dias.</span></button>
+                <button data-s="encomenda" aria-pressed="true"><i class="ic s18 i-clock"></i><b>Sob encomenda</b><span>Faz depois do pedido. Tem prazo.</span></button>
+                <button data-s="data"><i class="ic s18 i-cal"></i><b>Com data</b><span>A cliente escolhe o dia e a hora.</span></button>
+                <button data-s="servico"><i class="ic s18 i-gear"></i><b>Serviço</b><span>Pede orçamento. Sem valor fechado.</span></button>
+              </div>
+              <div class="sellline" id="sellline"></div>
+            </div>
+
+            <div class="gblk">
+              <div class="gh"><span class="gn">3</span><b>O que a cliente escolhe</b><span class="gs">Toque pra ligar ou desligar.</span></div>
+              <div class="picks" id="picks">
+                <button data-k="sizes" aria-pressed="true"><i class="ic s14 i-check chk"></i><span class="sv-hide"><span class="m-conf">Tamanhos com preço</span><span class="m-pers">Variações com preço</span><span class="m-joia">Numeração</span></span><span class="sv-only">Capacidade com preço</span></button>
+                <button data-k="vars" aria-pressed="true"><i class="ic s14 i-check chk"></i><span class="sv-hide"><span class="m-conf">Sabores</span><span class="m-pers">Modelo</span><span class="m-joia">Banho</span></span><span class="sv-only">Tipo de aparelho</span></button>
+                <button data-k="ask" aria-pressed="true"><i class="ic s14 i-check chk"></i>Uma pergunta</button>
+                <button data-k="extras" aria-pressed="true"><i class="ic s14 i-check chk"></i>Extras</button>
+                <button data-k="new"><i class="ic s14 i-plus"></i>outra escolha</button>
+              </div>
+              <div class="blk" data-k="sizes">
+                <div class="bh"><span class="sv-hide"><span class="m-conf">Tamanhos</span><span class="m-pers">Variações</span><span class="m-joia">Numeração</span></span><span class="sv-only">Capacidade</span><span class="hint">cada um com o seu preço; a cliente escolhe um</span></div>
+                <div class="vars">
+                  <div><div class="input"><span class="sv-hide"><span class="m-conf">1 kg · serve 10</span><span class="m-pers">Branca</span><span class="m-joia">Aro 14</span></span><span class="sv-only">até 9.000 BTU</span></div><div class="input"><span class="pre">R$</span><span class="sv-hide"><span class="m-conf">110</span><span class="m-pers">49</span><span class="m-joia">89</span></span><span class="sv-only">150</span></div><span class="meta">padrão</span><button class="iconbtn bare sm"><i class="ic s14 i-x"></i></button></div>
+                  <div><div class="input"><span class="sv-hide"><span class="m-conf">2 kg · serve 20</span><span class="m-pers">Preta</span><span class="m-joia">Aro 16</span></span><span class="sv-only">12.000 BTU</span></div><div class="input"><span class="pre">R$</span><span class="sv-hide"><span class="m-conf">190</span><span class="m-pers">49</span><span class="m-joia">89</span></span><span class="sv-only">180</span></div><span class="meta"></span><button class="iconbtn bare sm"><i class="ic s14 i-x"></i></button></div>
+                  <div><div class="input"><span class="sv-hide"><span class="m-conf">3 kg · serve 30</span><span class="m-pers">Rosa</span><span class="m-joia">Aro 18</span></span><span class="sv-only">18.000 BTU</span></div><div class="input"><span class="pre">R$</span><span class="sv-hide"><span class="m-conf">270</span><span class="m-pers">49</span><span class="m-joia">89</span></span><span class="sv-only">220</span></div><span class="meta"><span class="m-pers sv-hide">esgotada</span></span><button class="iconbtn bare sm"><i class="ic s14 i-x"></i></button></div>
+                  <div class="add"><button><i class="ic s14 i-plus"></i>Adicionar</button></div>
+                </div>
+              </div>
+              <div class="blk" data-k="vars">
+                <div class="bh"><span class="sv-hide"><span class="m-conf">Sabores</span><span class="m-pers">Modelo</span><span class="m-joia">Banho</span></span><span class="sv-only">Tipo de aparelho</span><span class="hint">sem mudar o preço; a cliente escolhe um</span></div>
+                <div class="chips"><span class="on"><span class="sv-hide"><span class="m-conf">Chocolate</span><span class="m-pers">Lisa</span><span class="m-joia">Ouro</span></span><span class="sv-only">Split hi-wall</span></span><span class="on"><span class="sv-hide"><span class="m-conf">Baunilha</span><span class="m-pers">Com alça colorida</span><span class="m-joia">Prata</span></span><span class="sv-only">Piso-teto</span></span><span class="on"><span class="sv-hide"><span class="m-conf">Red velvet</span><span class="m-pers">Com tampa</span><span class="m-joia">Ouro rosé</span></span><span class="sv-only">Janela</span></span><span><i class="ic s12 i-plus"></i> novo</span></div>
+              </div>
+              <div class="blk" data-k="ask">
+                <div class="bh">Uma pergunta<span class="hint">a resposta vai pro pedido como texto</span></div>
+                <div class="input"><span class="pre"><i class="ic s16 i-pencil"></i></span><span class="sv-hide"><span class="m-conf">Qual o tema e a frase no topo?</span><span class="m-pers">Qual nome vai gravado?</span><span class="m-joia">Quer gravar algo por dentro?</span></span><span class="sv-only">Qual o modelo e onde fica o aparelho?</span></div>
+              </div>
+              <div class="blk" data-k="extras">
+                <div class="bh">Extras<span class="hint">aparecem embaixo; a cliente marca o que quiser</span></div>
+                <div class="addon"><span class="tog on"></span><span class="sv-hide"><span class="m-conf">Topper personalizado</span><span class="m-pers">Caixa de presente</span><span class="m-joia">Caixinha com laço</span></span><span class="sv-only">Higienização química</span><span class="r">+ R$ <span class="sv-hide"><span class="m-conf">15</span><span class="m-pers">12</span><span class="m-joia">10</span></span><span class="sv-only">60</span></span></div>
+                <div class="addon"><span class="tog on"></span><span class="sv-hide"><span class="m-conf">Vela número</span><span class="m-pers">Cartão escrito à mão</span><span class="m-joia">Cartão escrito à mão</span></span><span class="sv-only">Troca do filtro</span><span class="r">+ R$ <span class="sv-hide"><span class="m-conf">8</span><span class="m-pers">5</span><span class="m-joia">5</span></span><span class="sv-only">40</span></span></div>
+                <div class="addon"><span class="tog"></span><span class="sv-hide"><span class="m-conf">Caixa de presente</span><span class="m-pers">Embalagem corporativa</span><span class="m-joia">Limpeza de peça antiga</span></span><span class="sv-only">Segunda unidade na mesma visita</span><span class="r">+ R$ <span class="sv-hide"><span class="m-conf">12</span><span class="m-pers">8</span><span class="m-joia">15</span></span><span class="sv-only">90</span></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="foot"><span class="cons"><i class="ic s16 i-check"></i><span class="t">Aparece em <b><span class="sv-hide"><span class="m-conf">Bolos</span><span class="m-pers">Canecas</span><span class="m-joia">Anéis</span></span><span class="sv-only">Serviços</span></b> a partir de R$ <span class="sv-hide"><span class="m-conf">110</span><span class="m-pers">49</span><span class="m-joia">89</span></span><span class="sv-only">150</span> · <span id="pv-cons-s">fica pronto em 5 dias</span></span></span><button class="btn btn-outline">Cancelar</button><button class="btn btn-primary">Salvar</button></div>
+      </div></div>
+    </div></div>
+    <div class="notes-row notes">
+      <div><h4>O que decidimos</h4><ul><li>Três perguntas, nessa ordem: o que é, como vende, o que a cliente escolhe. Nada de lista de campos; cada pergunta é um bloco com escolha por toque.</li><li>"Como vende" é do item, não da loja. Quatro jeitos: pronta entrega, sob encomenda, com data, serviço. A linha tracejada embaixo só pede o que aquele jeito precisa.</li><li>O que a cliente escolhe são chips que ligam blocos. O ramo só muda o nome do chip (tamanho × variação × numeração × capacidade); o bloco é o mesmo.</li><li>Serviço vem de uma fonte (TechCare): o Shop não cria serviço, só mostra e manda o orçamento pra lá. O chip no título diz de onde veio.</li><li>A prévia mostra o card como a cliente vê, com o selo de como vende e o "a partir de".</li></ul></div>
+      <div><h4>Estados</h4><ul><li>Sem foto: a prévia mostra o lugar vazio e o rodapé avisa "não aparece na loja até ter foto". Serviço pode ir sem foto: a loja usa o ícone da categoria.</li><li>Pronta entrega com estoque zero: a loja marca esgotado sozinha.</li><li>Item do Chef ou do TechCare: nome, preço e tamanhos vêm de lá e ficam só leitura aqui; a loja edita foto, descrição, pergunta e extras.</li><li>Altura pequena: o diálogo ocupa a tela e a coluna da direita rola; foto, prévia e rodapé ficam fixos.</li></ul></div>
+      <div><h4>Pendências</h4><ul><li>Duas dimensões de variação (cor × tamanho) com preço por combinação: só se a Daniele pedir.</li><li>Foto por variação fica pra segunda fatia.</li><li>"Outra escolha" (lista própria, tipo "quantidade de pessoas") entra quando um cliente precisar.</li></ul></div>
+    </div>
+  </section>
+
+  <!-- ============ 5 · APARÊNCIA ============ -->
+  <section class="sec" id="s6">
+    <div class="sec-label"><span class="sec-num">6</span><h2>Aparência · a cara da loja, com prévia ao vivo</h2></div>
+    <p class="sec-sub">Estilo, marca e banners de um lado; a loja de verdade do outro, mudando enquanto ela mexe. Clique nos estilos.</p>
+    <div class="frame"><div class="app">
+      <header class="topbar"><a class="lockup" href="#"><svg width="24" height="35"><use href="#facter"/></svg><span class="rule"></span><div><div class="wordmark">Facter <b>Shop</b></div><div class="tagline">A sua loja online</div></div></a><span class="spacer"></span><div class="search"><i class="ic s18 i-search"></i>Buscar pedido, cliente ou produto</div><button class="btn btn-outline btn-sm"><i class="ic s16 i-ext"></i>Ver a loja</button><button class="org"><span class="avatar" style="width:26px;height:26px;font-size:10px"><span class="m-conf">LV</span><span class="m-pers">MV</span><span class="m-joia">ES</span></span><span class="m-conf">Larissa Vandorem</span><span class="m-pers">Made in Você</span><span class="m-joia">ESLA Semijoias</span> <i class="ic s16 i-down"></i></button><span class="avatar"><span class="m-conf">LV</span><span class="m-pers">DA</span><span class="m-joia">NA</span></span></header>
+      <nav class="sidenav"><a class="navitem" href="#"><i class="ic s24 i-house"></i></a><a class="navitem" href="#"><i class="ic s24 i-receipt"></i></a><a class="navitem" href="#"><i class="ic s24 i-package"></i></a><a class="navitem" href="#" aria-current="page"><i class="ic s24 i-palette"></i></a><a class="navitem" href="#"><i class="ic s24 i-globe"></i></a><span class="navsep"></span><a class="navitem" href="#"><i class="ic s24 i-gear"></i></a></nav>
+      <main class="main">
+        <div class="pagehead"><div><h1>Aparência</h1><p class="meta">como a sua loja se apresenta</p></div><button class="btn btn-primary">Salvar</button></div>
+        <div class="ap">
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div class="card pad">
+              <div class="hd"><h2>Estilo</h2></div>
+              <div class="themes3" id="themes">
+                <div class="th on" data-t="t-classica"><div class="sw3" style="background:#fcfbf8;color:#272019"><u style="font-family:Fraunces,serif">Clássica</u><i style="background:#9a5a33"></i></div><div class="nm">Clássica <span>serifa, calma</span></div></div>
+                <div class="th" data-t="t-vibrante"><div class="sw3" style="background:#fff;color:#22101a"><u>Vibrante</u><i style="background:#b31d3c"></i></div><div class="nm">Vibrante <span>cor forte</span></div></div>
+                <div class="th" data-t="t-minimal"><div class="sw3" style="background:#f6f6f3;color:#15150f"><u style="font-family:'Cormorant Garamond',serif;letter-spacing:.1em;text-transform:uppercase">Minimal</u><i style="background:#1f4a40;border-radius:0"></i></div><div class="nm">Minimal <span>caixa alta, sem cantos</span></div></div>
+              </div>
+            </div>
+            <div class="card pad">
+              <div class="hd"><h2>Marca</h2></div>
+              <div class="brandrow"><div class="logo-up"><img src="img/logo-larissa.jpg" alt=""><span class="ib"><i class="ic s14 i-camera"></i></span></div>
+                <div style="display:flex;flex-direction:column;gap:12px">
+                  <div class="row2"><div class="field"><label>Nome da loja</label><div class="input"><span class="m-conf">Larissa Vandorem</span><span class="m-pers">Made in Você</span><span class="m-joia">ESLA Semijoias</span></div></div><div class="field"><label>Cor da marca</label><div class="colors"><i class="on" style="background:#9a5a33"></i><i style="background:#b31d3c"></i><i style="background:#1f4a40"></i><i style="background:#272019"></i><i style="background:#d8a0b0"></i><span class="meta">ou a sua: <b>#9a5a33</b></span></div></div></div>
+                  <div class="field"><label>Frase de apoio</label><div class="input">Mini bolos, doces e kit festa feitos com carinho.</div></div>
+                  <div class="field"><label>Aviso no topo</label><div class="input">Frete grátis em Imperatriz acima de R$ 120<span class="suf">opcional</span></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="card pad">
+              <div class="hd"><h2>Banners <span class="n">3</span></h2><button class="btn btn-outline btn-sm"><i class="ic s16 i-plus"></i>Novo banner</button></div>
+              <div class="bn"><img src="img/banner-dourado.jpg" alt=""><div><b>Mini bolos que cabem no seu momento</b><span>Mesversário · botão "Ver mini bolos"</span></div><span class="badge b-ok dotl">No ar</span><span class="tog on"></span></div>
+              <div class="bn"><img src="img/banner-parabens.jpg" alt=""><div><b>Do mini ao bolo de festa, do seu jeito</b><span>Encomendas · botão "Ver o cardápio"</span></div><span class="badge b-ok dotl">No ar</span><span class="tog on"></span></div>
+              <div class="bn"><span style="width:120px;aspect-ratio:16/7;border-radius:8px;border:1px dashed hsl(240 6% 80%);display:grid;place-items:center;color:hsl(240 5% 50%)"><i class="ic s16 i-image"></i></span><div><b>Natal na Larissa</b><span>Entra em 1º de dez · sai em 26 de dez</span></div><span class="badge b-wait dotl">Agendado</span><span class="tog on"></span></div>
+            </div>
+          </div>
+          <div class="phone-prev"><div class="vit t-classica" id="vit">
+            <div class="v-offer">Frete grátis em Imperatriz acima de R$ 120</div>
+            <div class="v-hd"><img class="v-logo" src="img/logo-larissa.jpg" alt=""><span class="v-name"><span class="m-conf">Larissa Vandorem</span><span class="m-pers">Made in Você</span><span class="m-joia">ESLA</span></span><span class="v-bag">▢</span></div>
+            <div class="v-cats"><div class="v-cat on"><img src="img/ig7.jpg" alt="">Bolos</div><div class="v-cat"><img src="img/p4.jpg" alt="">Docinhos</div><div class="v-cat"><img src="img/ig5.jpg" alt="">Kits</div><div class="v-cat"><img src="img/p2.jpg" alt="">Tortas</div><div class="v-cat"><img src="img/p5.jpg" alt="">Mais</div></div>
+            <div class="v-banner"><img src="img/banner-dourado.jpg" alt=""><div class="bt"><div class="be">Mesversário</div><div class="bh">Mini bolos que cabem no seu momento</div></div></div>
+            <div class="v-sec"><h4>Bolos</h4></div>
+            <div class="v-grid">
+              <div class="v-card"><img src="img/ig7.jpg" alt=""><div class="vb"><div class="vn">Mini bolo temático</div><div class="vp"><span>R$ 55</span><i>+</i></div></div></div>
+              <div class="v-card"><img src="img/ig4.jpg" alt=""><div class="vb"><div class="vn">Mini bolo mimo</div><div class="vp"><span>R$ 45</span><i>+</i></div></div></div>
+              <div class="v-card"><img src="img/ig8.jpg" alt=""><div class="vb"><div class="vn">Bolo de festa</div><div class="vp"><span>R$ 110</span><i>+</i></div></div></div>
+              <div class="v-card"><img src="img/ig11.jpg" alt=""><div class="vb"><div class="vn">Kit festa</div><div class="vp"><span>R$ 280</span><i>+</i></div></div></div>
+            </div>
+          </div></div>
+        </div>
+      </main>
+    </div></div>
+    <div class="notes-row notes">
+      <div><h4>O que decidimos</h4><ul><li>Três estilos prontos e a cor da marca por cima. Fonte e cantos vêm do estilo; ela não escolhe fonte solta.</li><li>Banner tem período (entra/sai) pra data especial se programar sozinha.</li><li>A prévia é a vitrine de verdade, não um desenho.</li></ul></div>
+      <div><h4>Estados</h4><ul><li>Sem logo: a inicial do nome num círculo com a cor da marca.</li><li>Sem banner: a vitrine abre direto nas categorias.</li><li>Banner sem imagem: fica agendado mas não entra no ar; a lista avisa.</li></ul></div>
+      <div><h4>Pendências</h4><ul><li>Gerar a imagem do banner a partir da foto quadrada (hoje é feito no ChatGPT à mão).</li><li>Mais estilos conforme entrarem tipos de loja novos.</li></ul></div>
+    </div>
+  </section>
+
+  <!-- ============ 6 · DOMÍNIO ============ -->
+  <section class="sec" id="s7">
+    <div class="sec-label"><span class="sec-num">7</span><h2>Domínio · o endereço da loja, sem chamar a gente</h2></div>
+    <p class="sec-sub">A loja já nasce num endereço Facter. Se ela comprou um domínio, configura aqui: a tela mostra o que colar no provedor e fica conferindo até ficar no ar. Clique em "Usar este domínio" e depois em "Já configurei".</p>
+    <div class="frame"><div class="app">
+      <header class="topbar"><a class="lockup" href="#"><svg width="24" height="35"><use href="#facter"/></svg><span class="rule"></span><div><div class="wordmark">Facter <b>Shop</b></div><div class="tagline">A sua loja online</div></div></a><span class="spacer"></span><div class="search"><i class="ic s18 i-search"></i>Buscar pedido, cliente ou produto</div><button class="btn btn-outline btn-sm"><i class="ic s16 i-ext"></i>Ver a loja</button><button class="org"><span class="avatar" style="width:26px;height:26px;font-size:10px"><span class="m-conf">LV</span><span class="m-pers">MV</span><span class="m-joia">ES</span></span><span class="m-conf">Larissa Vandorem</span><span class="m-pers">Made in Você</span><span class="m-joia">ESLA Semijoias</span> <i class="ic s16 i-down"></i></button><span class="avatar"><span class="m-conf">LV</span><span class="m-pers">DA</span><span class="m-joia">NA</span></span></header>
+      <nav class="sidenav"><a class="navitem" href="#"><i class="ic s24 i-house"></i></a><a class="navitem" href="#"><i class="ic s24 i-receipt"></i></a><a class="navitem" href="#"><i class="ic s24 i-package"></i></a><a class="navitem" href="#"><i class="ic s24 i-palette"></i></a><a class="navitem" href="#" aria-current="page"><i class="ic s24 i-globe"></i></a><span class="navsep"></span><a class="navitem" href="#"><i class="ic s24 i-gear"></i></a></nav>
+      <main class="main">
+        <div class="pagehead"><div><h1>Domínio</h1><p class="meta">onde a sua loja mora</p></div></div>
+        <div class="dom">
+          <div class="card pad">
+            <div class="hd"><h2>Endereço Facter</h2><span class="badge b-ok dotl">Sempre no ar</span></div>
+            <p class="meta" style="margin-bottom:12px">Esse endereço é seu desde o primeiro dia e continua funcionando mesmo com domínio próprio.</p>
+            <div class="input"><span class="pre">loja.facter.com.br/</span><span class="m-conf">larissa-vandorem</span><span class="m-pers">madeinvoce</span><span class="m-joia">esla</span><button class="iconbtn bare sm" style="margin-left:auto"><i class="ic s14 i-copy"></i></button></div>
+            <p class="meta" style="margin-top:10px">Dá pra trocar a parte depois da barra uma vez. O link antigo redireciona.</p>
+          </div>
+          <div class="card pad" id="domcard">
+            <div class="step on" data-s="1">
+              <div class="hd"><h2>Domínio próprio</h2></div>
+              <p class="meta" style="margin-bottom:12px">Comprou um domínio no Registro.br, GoDaddy ou Hostinger? Cole aqui. A loja passa a abrir nele, com cadeado.</p>
+              <div class="field"><label>Seu domínio</label><div class="input"><span class="m-conf">larissavandorem.com.br</span><span class="m-pers">madeinvoce.com.br</span><span class="m-joia">esla.com.br</span></div></div>
+              <div style="display:flex;justify-content:flex-end;margin-top:14px"><button class="btn btn-primary" onclick="domStep(2)">Usar este domínio</button></div>
+            </div>
+            <div class="step" data-s="2">
+              <div class="hd"><h2><span class="m-conf">larissavandorem.com.br</span><span class="m-pers">madeinvoce.com.br</span><span class="m-joia">esla.com.br</span></h2><span class="badge b-wait dotl">Aguardando o seu provedor</span></div>
+              <p class="meta">Entre onde comprou o domínio, procure por "DNS" e crie estes dois registros. Copie e cole do jeito que está.</p>
+              <table class="rec"><thead><tr><th>Tipo</th><th>Nome</th><th>Valor</th><th></th></tr></thead><tbody>
+                <tr><td>A</td><td>@</td><td>76.76.21.21</td><td><span class="cp"><i class="ic s12 i-copy"></i>copiar</span></td></tr>
+                <tr><td>CNAME</td><td>www</td><td>cname.vercel-dns.com</td><td><span class="cp"><i class="ic s12 i-copy"></i>copiar</span></td></tr>
+              </tbody></table>
+              <div class="stat w"><span class="spin"></span>Conferindo a cada minuto. Pode levar até 48 h pro provedor avisar o mundo.</div>
+              <div style="display:flex;justify-content:space-between;margin-top:14px;align-items:center"><button class="link" onclick="domStep(1)">Trocar de domínio</button><button class="btn btn-outline" onclick="domStep(3)">Já configurei, conferir agora</button></div>
+            </div>
+            <div class="step" data-s="3">
+              <div class="hd"><h2><span class="m-conf">larissavandorem.com.br</span><span class="m-pers">madeinvoce.com.br</span><span class="m-joia">esla.com.br</span></h2><span class="badge b-ok dotl">No ar</span></div>
+              <div class="stat ok"><i class="ic s18 i-lock"></i>Abrindo com cadeado (HTTPS) desde hoje, 15:12. O www redireciona pro endereço principal.</div>
+              <div class="lst" style="margin-top:14px"><div><i class="ic s16 i-check" style="color:hsl(var(--success-text))"></i>Registro A encontrado<span class="r">76.76.21.21</span></div><div><i class="ic s16 i-check" style="color:hsl(var(--success-text))"></i>Registro CNAME encontrado<span class="r">cname.vercel-dns.com</span></div><div><i class="ic s16 i-check" style="color:hsl(var(--success-text))"></i>Certificado emitido<span class="r">renova sozinho</span></div></div>
+              <div style="display:flex;justify-content:space-between;margin-top:14px;align-items:center"><button class="link" onclick="domStep(1)">Remover domínio</button><a class="btn btn-outline" href="#"><i class="ic s16 i-ext"></i>Abrir a loja no domínio</a></div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div></div>
+    <div class="notes-row notes">
+      <div><h4>O que decidimos</h4><ul><li>Self-serve de ponta a ponta: a Vercel adiciona o domínio ao projeto e devolve os registros; a tela só traduz.</li><li>O status real vem do endpoint de configuração, não do "verified" da criação (ele mente).</li><li>Endereço Facter nunca some: é o fallback e o link antigo do story continua abrindo.</li></ul></div>
+      <div><h4>Estados</h4><ul><li>Domínio já usado por outra loja Facter: erro no campo, "esse domínio já está em uso".</li><li>Registro errado (apontou pra outro IP): status vermelho dizendo qual registro está diferente.</li><li>Provedor ainda não propagou: continua amarelo, sem erro, com o "até 48 h".</li></ul></div>
+      <div><h4>Pendências</h4><ul><li>Exige plano Pro na Vercel (Hobby limita 50 domínios por projeto).</li><li>Comprar o domínio por dentro (revenda) não entra agora.</li></ul></div>
+    </div>
+  </section>
+
+  <!-- ============ 7 · CONFIGURAÇÕES ============ -->
+  <section class="sec" id="s8">
+    <div class="sec-label"><span class="sec-num">8</span><h2>Configurações · ramo, entrega e integrações</h2></div>
+    <p class="sec-sub">O ramo é a primeira escolha, mas só muda as palavras e as sugestões. Como cada item vende fica no item (seção 5). Aqui ficam o contato, como a loja entrega e as integrações que fazem sentido pro ramo.</p>
+    <div class="frame"><div class="app">
+      <header class="topbar"><a class="lockup" href="#"><svg width="24" height="35"><use href="#facter"/></svg><span class="rule"></span><div><div class="wordmark">Facter <b>Shop</b></div><div class="tagline">A sua loja online</div></div></a><span class="spacer"></span><div class="search"><i class="ic s18 i-search"></i>Buscar pedido, cliente ou produto</div><button class="btn btn-outline btn-sm"><i class="ic s16 i-ext"></i>Ver a loja</button><button class="org"><span class="avatar" style="width:26px;height:26px;font-size:10px"><span class="m-conf">LV</span><span class="m-pers">MV</span><span class="m-joia">ES</span></span><span class="m-conf">Larissa Vandorem</span><span class="m-pers">Made in Você</span><span class="m-joia">ESLA Semijoias</span> <i class="ic s16 i-down"></i></button><span class="avatar"><span class="m-conf">LV</span><span class="m-pers">DA</span><span class="m-joia">NA</span></span></header>
+      <nav class="sidenav"><a class="navitem" href="#"><i class="ic s24 i-house"></i></a><a class="navitem" href="#"><i class="ic s24 i-receipt"></i></a><a class="navitem" href="#"><i class="ic s24 i-package"></i></a><a class="navitem" href="#"><i class="ic s24 i-palette"></i></a><a class="navitem" href="#"><i class="ic s24 i-globe"></i></a><span class="navsep"></span><a class="navitem" href="#" aria-current="page"><i class="ic s24 i-gear"></i></a></nav>
+      <main class="main">
+        <div class="pagehead"><div><h1>Configurações</h1><p class="meta">como a sua loja funciona</p></div><button class="btn btn-primary">Salvar</button></div>
+        <div class="cfg">
+          <nav class="cfg-nav"><a href="#" aria-current="page"><i class="ic s16 i-store"></i>Ramo</a><a href="#"><i class="ic s16 i-wa"></i>Contato</a><a href="#"><i class="ic s16 i-bag"></i>Entrega</a><a href="#"><i class="ic s16 i-tag"></i>Pagamento</a><a href="#"><i class="ic s16 i-link"></i>Integrações</a><a href="#"><i class="ic s16 i-lock"></i>Conta</a></nav>
+          <div class="cfg-body">
+            <div class="card pad">
+              <div class="hd"><h2>Ramo</h2></div>
+              <p class="meta" style="margin-bottom:12px">Muda as palavras da loja e o que sugerimos no cadastro. Os produtos e os pedidos não dependem disso.</p>
+              <div class="types six" id="types">
+                <div class="type" data-m="conf"><span class="ti"><i class="ic s18 i-cake"></i></span><b>Doces e comida</b><span>Cardápio, por kg ou cento. Sugere "com data". <span class="dep">gestão no Chef</span></span></div>
+                <div class="type" data-r="dia"><span class="ti"><i class="ic s18 i-fire"></i></span><b>Comida do dia</b><span>Marmita, espeto. Cardápio do dia; sugere "pronta entrega" e entrega por bairro.</span></div>
+                <div class="type on" data-m="pers"><span class="ti"><i class="ic s18 i-gift"></i></span><b>Personalizados</b><span>Catálogo com pergunta. Sugere "sob encomenda".</span></div>
+                <div class="type" data-m="joia"><span class="ti"><i class="ic s18 i-gem"></i></span><b>Semijoias e moda</b><span>Coleção, numeração e cor. Sugere "pronta entrega" e envio.</span></div>
+                <div class="type" data-r="tec"><span class="ti"><i class="ic s18 i-gear"></i></span><b>Assistência técnica</b><span>Serviços e peças. Orçamento vira OS. <span class="dep">no TechCare</span></span></div>
+                <div class="type" data-r="outro"><span class="ti"><i class="ic s18 i-store"></i></span><b>Outro</b><span>Começa com as palavras padrão: catálogo, produto, pedido. Você ajusta depois.</span></div>
+              </div>
+            </div>
+            <div class="card pad">
+              <div class="hd"><h2>Contato</h2></div>
+              <div class="row2"><div class="field"><label>WhatsApp que recebe os pedidos</label><div class="input"><i class="ic s16 i-wa"></i>(99) 98143-1755</div></div><div class="field"><label>Instagram</label><div class="input"><span class="pre">@</span><span class="m-conf">larissavandorem_confeitaria</span><span class="m-pers">madeinvoce</span><span class="m-joia">useesla_</span></div></div></div>
+            </div>
+            <div class="card pad">
+              <div class="hd"><h2>Entrega</h2></div>
+              <p class="meta" style="margin-bottom:12px">Como o pedido chega na cliente. Vale pra loja toda; o prazo e a data vêm de cada item.</p>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <div class="sw"><i class="ic s18 i-store"></i><div><b>Retirada</b><span>Rua das Flores, 120 · Centro</span></div><span class="tog on"></span></div>
+                <div class="sw"><i class="ic s18 i-package"></i><div><b>Entrega na cidade</b><span><span class="m-conf">Taxa R$ 10 · grátis acima de R$ 120</span><span class="m-pers">Taxa R$ 10 na cidade</span><span class="m-joia">Taxa R$ 12 · só no centro</span></span></div><span class="tog on"></span></div>
+                <div class="sw"><i class="ic s18 i-upload"></i><div><b>Envio</b><span><span class="m-conf">Não envia</span><span class="m-pers">Correios · frete combinado no WhatsApp</span><span class="m-joia">Correios · frete calculado no pedido</span></span></div><span class="tog"><span class="m-joia"></span></span></div>
+                <div class="sw"><i class="ic s18 i-clock"></i><div><b>Padrão pro item novo</b><span>Só uma sugestão: cada item escolhe o seu em "Como vende".</span></div><div class="seg" style="margin-left:auto"><button><span class="m-conf">Pronta entrega</span><span class="m-pers">Pronta entrega</span><span class="m-joia">Pronta entrega</span></button><button aria-pressed="true"><span class="m-conf">Com data</span><span class="m-pers">Sob encomenda</span><span class="m-joia">Pronta entrega</span></button></div></div>
+                <div class="sw"><i class="ic s18 i-pause"></i><div><b>Pausar pedidos</b><span>A loja fica no ar, mas avisa: "Não estou aceitando pedidos até 12/11".</span></div><span class="tog"></span></div>
+              </div>
+            </div>
+            <div class="card pad">
+              <div class="hd"><h2>Pagamento</h2></div>
+              <p class="meta" style="margin-bottom:12px">O pagamento continua com você. Isso aqui só entra na mensagem de confirmação.</p>
+              <div class="row2"><div class="field"><label>Chave Pix</label><div class="input">larissa@pix.com</div></div><div class="field"><label>Sinal pra confirmar</label><div class="seg" style="height:40px;align-items:center"><button>Sem sinal</button><button aria-pressed="true">50%</button><button>100%</button></div></div></div>
+            </div>
+            <div class="card pad">
+              <div class="hd"><h2>Integrações</h2></div>
+              <p class="meta" style="margin-bottom:12px">De onde a loja puxa itens e pra onde manda o pedido. Uma fonte por item; a loja pode misturar.</p>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <div class="integ mb-conf"><span class="li"><i class="ic s18 i-chef"></i></span><div><b>Facter Chef</b><span>Loja de comida é gerida no Chef. Esta tela nem existe: a loja nasce de lá, com o módulo dentro do "Minha loja".</span></div></div>
+                <div class="integ off mb-pers"><span class="li"><i class="ic s18 i-chef"></i></span><div><b>Facter Chef</b><span>Cardápio e encomendas. Pra lojas de comida.</span></div></div>
+                <div class="integ off mb-joia"><span class="li"><i class="ic s18 i-chef"></i></span><div><b>Facter Chef</b><span>Cardápio e encomendas. Pra lojas de comida.</span></div></div>
+                <div class="integ off"><span class="li" style="background:hsl(var(--muted));color:hsl(var(--foreground))"><i class="ic s18 i-gear"></i></span><div><b>Facter TechCare</b><span>Serviços e peças da assistência viram itens da loja. Orçamento vira OS com a cliente cadastrada. Pra assistências que usam o TechCare.</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div></div>
+    <div class="notes-row notes">
+      <div><h4>O que decidimos</h4><ul><li>Ramo é cadastro de 6 cards e só muda palavras e sugestões. Trocar o ramo com produtos cadastrados não pede confirmação: nada do catálogo depende dele.</li><li>Comida do dia e assistência técnica não são "tipos" com regra própria: são ramos com outro padrão de "como vende" e outra fonte.</li><li>Entrega é da loja (retirada, cidade, envio); prazo, data e orçamento são do item.</li><li>Pagamento não passa pelo Shop: Pix e sinal só montam a mensagem.</li><li>Integrações são fontes de catálogo. O card em cinza diz que existe e pra quem é.</li></ul></div>
+      <div><h4>Estados</h4><ul><li>Escolher "Doces e comida" aqui leva pro Chef: a loja de comida nasce de lá.</li><li>Empresa que já tem TechCare no Hub: o card do TechCare vem ligado, sem a dona configurar nada.</li><li>Envio desligado em loja com item "pronta entrega": a loja só oferece retirada e entrega na cidade.</li></ul></div>
+      <div><h4>Pendências</h4><ul><li>Cobrança do plano e conta ficam no Hub.</li><li>Vitrine de assistência (fonte TechCare) só começa com cliente pedindo. O contrato de fonte nasce com o que o Chef já entrega hoje.</li><li>Mais integrações (Correios, Melhor Envio) só com cliente pedindo.</li></ul></div>
+    </div>
+  </section>
+
+  <!-- ============ 9 · PAGAMENTOS ============ -->
+  <section class="sec" id="s9">
+    <div class="sec-label"><span class="sec-num">9</span><h2>Pagamentos · a dona recebe na conta dela</h2></div>
+    <p class="sec-sub">O dinheiro não passa pela Facter. Ela conecta o gateway que já usa e escolhe como o pedido fecha. Mexa nos dois interruptores de "Como o pedido fecha" e veja a frase e a fila mudarem.</p>
+    <div class="frame"><div class="app">
+      <header class="topbar"><a class="lockup" href="#"><svg width="24" height="35"><use href="#facter"/></svg><span class="rule"></span><div><div class="wordmark">Facter <b>Shop</b></div><div class="tagline">A sua loja online</div></div></a><span class="spacer"></span><div class="search"><i class="ic s18 i-search"></i>Buscar pedido, cliente ou produto</div><button class="btn btn-outline btn-sm"><i class="ic s16 i-ext"></i>Ver a loja</button><button class="org"><span class="avatar" style="width:26px;height:26px;font-size:10px"><span class="m-conf">LV</span><span class="m-pers">MV</span><span class="m-joia">ES</span></span><span class="m-conf">Larissa Vandorem</span><span class="m-pers">Made in Você</span><span class="m-joia">ESLA Semijoias</span> <i class="ic s16 i-down"></i></button><span class="avatar"><span class="m-conf">LV</span><span class="m-pers">DA</span><span class="m-joia">NA</span></span></header>
+      <nav class="sidenav"><a class="navitem" href="#"><i class="ic s24 i-house"></i></a><a class="navitem" href="#"><i class="ic s24 i-receipt"></i></a><a class="navitem" href="#"><i class="ic s24 i-package"></i></a><a class="navitem" href="#"><i class="ic s24 i-palette"></i></a><a class="navitem" href="#"><i class="ic s24 i-globe"></i></a><span class="navsep"></span><a class="navitem" href="#" aria-current="page"><i class="ic s24 i-gear"></i></a></nav>
+      <main class="main">
+        <div class="pagehead"><div><h1>Configurações</h1><p class="meta">como a sua loja funciona</p></div><button class="btn btn-primary">Salvar</button></div>
+        <div class="cfg">
+          <nav class="cfg-nav"><a href="#"><i class="ic s16 i-store"></i>Tipo de loja</a><a href="#"><i class="ic s16 i-wa"></i>Contato</a><a href="#"><i class="ic s16 i-bag"></i>Pedidos</a><a href="#" aria-current="page"><i class="ic s16 i-tag"></i>Pagamentos</a><a href="#"><i class="ic s16 i-link"></i>Integrações</a><a href="#"><i class="ic s16 i-lock"></i>Conta</a></nav>
+          <div class="cfg-body">
+
+            <div class="card pad">
+              <div class="hd"><h2>Onde o dinheiro cai</h2><span class="badge b-ok dotl">Conectado</span></div>
+              <p class="meta" style="margin-bottom:12px">Conecte a conta que você já usa. O pagamento vai direto pra ela; a Facter não fica com nada e não vê o seu saldo.</p>
+              <div class="gws">
+                <div class="gw on"><span class="gi" style="background:#00b1ea">MP</span><div><b>Mercado Pago</b><span>Conectado como <span class="m-conf">larissa@gmail.com</span><span class="m-pers">madeinvoce@gmail.com</span><span class="m-joia">contato@esla.com.br</span></span></div><button class="link">Desconectar</button></div>
+                <div class="gw"><span class="gi" style="background:#2b2b2b">PM</span><div><b>Pagar.me</b><span>Pix, cartão e boleto</span></div><button class="btn btn-outline btn-sm">Conectar</button></div>
+                <div class="gw"><span class="gi" style="background:#0d6efd">AS</span><div><b>Asaas</b><span>Pix, cartão e boleto</span></div><button class="btn btn-outline btn-sm">Conectar</button></div>
+                <div class="gw"><span class="gi" style="background:#635bff">ST</span><div><b>Stripe</b><span>Cartão e Pix</span></div><button class="btn btn-outline btn-sm">Conectar</button></div>
+              </div>
+              <div class="alert" style="margin-top:12px"><i class="ic s16 i-lock"></i>As chaves ficam guardadas no servidor, nunca na página da loja. Só você e o gateway veem.</div>
+            </div>
+
+            <div class="card pad" id="fecha">
+              <div class="hd"><h2>Como o pedido fecha</h2></div>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <div class="sw"><i class="ic s18 i-bag"></i><div><b>Pagar na loja</b><span>A cliente paga no checkout, antes de o pedido chegar pra você.</span></div><span class="tog on" id="t-pagar" onclick="fecha('pagar')"></span></div>
+                <div class="sw"><i class="ic s18 i-check"></i><div><b>Você confirma antes de fechar</b><span>O pedido chega como "aguardando você" até você dizer sim.</span></div><span class="tog" id="t-conf" onclick="fecha('conf')"></span></div>
+              </div>
+              <div class="fluxo" id="fluxo"></div>
+              <div class="alert w mb-conf" style="margin-top:12px"><i class="ic s16 i-warn"></i>Loja de comida: "pagar na loja" sem confirmar só quando a vitrine conferir a agenda antes de cobrar. Até lá, confirmar antes.</div>
+            </div>
+
+            <div class="card pad">
+              <div class="hd"><h2>O que a cliente pode escolher</h2></div>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <div class="sw"><span class="gi sm" style="background:#32bcad">Px</span><div><b>Pix</b><span>Cai na hora. Sem taxa pra ela.</span></div><span class="tog on"></span></div>
+                <div class="sw"><span class="gi sm" style="background:#1a1a1a">Cc</span><div><b>Cartão</b><span>Em até <strong>3×</strong> sem juros. Acima disso, juros pra cliente.</span></div><span class="tog on"></span></div>
+                <div class="sw"><span class="gi sm" style="background:#8a8a8a">Bo</span><div><b>Boleto</b><span>Compensa em até 2 dias úteis; o pedido espera.</span></div><span class="tog"></span></div>
+                <div class="sw"><i class="ic s18 i-tag"></i><div><b>Sinal</b><span>Cobra uma parte agora e o resto <span class="m-conf">na retirada</span><span class="m-pers">na entrega</span><span class="m-joia">na postagem</span>.</span></div><div class="seg" style="margin-left:auto"><button>Não</button><button aria-pressed="true">50%</button><button>100%</button></div></div>
+              </div>
+            </div>
+
+            <div class="card pad">
+              <div class="hd"><h2>Sem gateway</h2></div>
+              <p class="meta" style="margin-bottom:12px">Se desconectar o gateway, a loja volta a mandar a sua chave Pix na mensagem de confirmação e você confere o comprovante no WhatsApp.</p>
+              <div class="row2"><div class="field"><label>Chave Pix</label><div class="input"><span class="m-conf">larissa@pix.com</span><span class="m-pers">63 98143-1755</span><span class="m-joia">contato@esla.com.br</span></div></div><div class="field"><label>Nome que aparece</label><div class="input"><span class="m-conf">Larissa Vandorem</span><span class="m-pers">Daniele S.</span><span class="m-joia">ESLA Semijoias</span></div></div></div>
+            </div>
+
+            <div class="card pad">
+              <div class="hd"><h2>Recebimentos <span class="n">30 dias</span></h2><a class="link" href="#">Abrir no Mercado Pago <i class="ic s14 i-ext"></i></a></div>
+              <table class="tbl">
+                <thead><tr><th>Pedido</th><th>Forma</th><th>Quando</th><th>Situação</th><th class="r">Valor</th></tr></thead>
+                <tbody>
+                  <tr><td><b>#249</b> · Ana Paula</td><td>Pix</td><td>hoje 14:40</td><td><span class="badge b-ok dotl">Pago</span></td><td class="r num">R$ <span class="m-conf">136,00</span><span class="m-pers">117,00</span><span class="m-joia">238,00</span></td></tr>
+                  <tr><td><b>#248</b> · Juliana M.</td><td>Cartão 3×</td><td>hoje 13:55</td><td><span class="badge b-wait dotl">Aguardando</span></td><td class="r num">R$ <span class="m-conf">70,00</span><span class="m-pers">980,00</span><span class="m-joia">69,00</span></td></tr>
+                  <tr><td><b>#244</b> · Beatriz</td><td>Pix</td><td>ontem</td><td><span class="badge b-ok dotl">Pago</span></td><td class="r num">R$ <span class="m-conf">45,00</span><span class="m-pers">25,00</span><span class="m-joia">79,00</span></td></tr>
+                  <tr><td><b>#241</b> · Marcos</td><td>Pix</td><td>seg</td><td><span class="badge b-stop dotl">Estornado</span></td><td class="r num">R$ <span class="m-conf">90,00</span><span class="m-pers">59,00</span><span class="m-joia">129,00</span></td></tr>
+                </tbody>
+              </table>
+              <div class="pager"><span>Recebido no mês: <b>R$ <span class="m-conf">3.910</span><span class="m-pers">2.640</span><span class="m-joia">5.120</span></b> · taxas do gateway ficam lá, não aqui</span></div>
+            </div>
+
+          </div>
+        </div>
+      </main>
+    </div></div>
+
+    <p class="view-cap">Diálogo · conectar gateway</p>
+    <div class="frame" style="height:520px"><div class="app">
+      <header class="topbar"><a class="lockup" href="#"><svg width="24" height="35"><use href="#facter"/></svg><span class="rule"></span><div><div class="wordmark">Facter <b>Shop</b></div><div class="tagline">A sua loja online</div></div></a><span class="spacer"></span></header>
+      <nav class="sidenav"><a class="navitem" href="#"><i class="ic s24 i-house"></i></a><a class="navitem" href="#"><i class="ic s24 i-receipt"></i></a><a class="navitem" href="#"><i class="ic s24 i-package"></i></a></nav>
+      <main class="main"></main>
+      <div class="scrim"><div class="dx"><button class="close"><i class="ic s18 i-x"></i></button>
+        <div class="titlewrap"><div class="title">Conectar o Mercado Pago</div><div class="desc">Você entra na sua conta e autoriza a loja a gerar cobranças. A gente não vê a sua senha.</div></div>
+        <div class="body">
+          <button class="btn btn-primary" style="height:48px;font-size:14.5px"><span class="gi sm" style="background:#00b1ea;color:#fff">MP</span>Entrar com a minha conta do Mercado Pago</button>
+          <div style="display:flex;align-items:center;gap:12px;color:hsl(var(--muted-foreground));font-size:12.5px"><span style="flex:1;height:1px;background:hsl(var(--border))"></span>ou cole as chaves<span style="flex:1;height:1px;background:hsl(var(--border))"></span></div>
+          <div class="row2"><div class="field"><label>Chave pública</label><div class="input"><span class="pre">APP_USR-</span>••••••••</div></div><div class="field"><label>Chave secreta</label><div class="input err"><span class="pre">APP_USR-</span>••••</div><span class="ferr">Essa chave é de teste. Cole a de produção pra receber de verdade.</span></div></div>
+        </div>
+        <div class="foot"><span class="cons"><i class="ic s16 i-check"></i>Depois de conectar, a gente faz uma cobrança de R$ 1 e estorna, pra provar que está funcionando</span><button class="btn btn-outline">Cancelar</button><button class="btn btn-primary">Conectar</button></div>
+      </div></div>
+    </div></div>
+
+    <div class="notes-row notes">
+      <div><h4>O que decidimos</h4><ul><li>A dona conecta a conta dela. A Facter nunca intermedeia o dinheiro: sem split, sem saldo nosso, sem taxa por venda.</li><li>Dois interruptores definem como o pedido fecha. A fila de Pedidos esconde "Aguardando" quando a loja cobra no checkout.</li><li>Um gateway por vez no código. A lista mostra os quatro pra ela escolher o que já tem, mas o primeiro a entrar é o que a Larissa e a Daniele usam.</li></ul></div>
+      <div><h4>Estados</h4><ul><li>Sem gateway: a tela mostra só "Sem gateway" (chave Pix na mensagem) e o botão "Conectar".</li><li>Webhook atrasou: pedido fica "aguardando pagamento" com "conferir agora" que consulta o gateway na hora.</li><li>Estorno: feito no gateway, o pedido vira "Estornado" aqui e volta pra cliente com a mensagem.</li><li>Chave de teste colada no lugar da de produção: erro no campo antes de salvar.</li></ul></div>
+      <div><h4>Pendências</h4><ul><li>Qual gateway entra primeiro e as taxas: levantar com fonte, não decidir de cabeça.</li><li>Comida com "pagar na loja" exige a vitrine consultar a agenda do Chef antes de cobrar.</li><li>Boleto atrasa o pedido; talvez nem ofereça no início.</li><li>Mensalidade da Facter é outra coisa: fica no Hub, não aqui.</li></ul></div>
+    </div>
+  </section>
+
+  <!-- ============ 10 · CELULAR ============ -->
+  <section class="sec" id="s10">
+    <div class="sec-label"><span class="sec-num">10</span><h2>Celular · onde ela vai usar de verdade</h2></div>
+    <p class="sec-sub">A dona vive no celular. O Início e o pedido são as telas que ela abre na cozinha ou no balcão. Abas embaixo, ação principal na barra fixa.</p>
+    <div class="phones">
+      <div class="phone"><div class="screen">
+        <div class="status"><span>9:41</span><span class="isl"></span><span>●●●</span></div>
+        <div class="m-top"><h1>Bom dia, <span class="m-conf">Larissa</span><span class="m-pers">Daniele</span><span class="m-joia">Naty</span></h1><button class="iconbtn bare"><i class="ic s18 i-ext"></i></button></div>
+        <div class="m-body">
+          <div class="m-kpis"><div class="card kpi hot"><div class="k">Pedidos novos</div><div class="v">3</div><div class="s">esperando você</div></div><div class="card kpi"><div class="k"><span class="m-conf">Saem hoje</span><span class="m-pers">Prazo pra hoje</span><span class="m-joia">Pra enviar hoje</span></div><div class="v">4</div><div class="s"><span class="m-conf">2 retiradas · 2 entregas</span><span class="m-pers">1 atrasa</span><span class="m-joia">2 Correios</span></div></div></div>
+          <div class="card pad"><div class="hd"><h2>Pedidos de hoje <span class="n">7</span></h2></div>
+            <div class="fd">
+              <a href="#"><span class="av" style="width:36px;height:36px;border-radius:99px;display:grid;place-items:center;font-weight:600;font-size:12px;background:hsl(var(--muted))">AN</span><div><div class="l1">Ana Paula · R$ <span class="m-conf">272</span><span class="m-pers">117</span><span class="m-joia">238</span></div><div class="l2"><span class="m-conf">Bolo 2 kg + mini · sáb 15h</span><span class="m-pers">Caneca + necessaire · até 10/11</span><span class="m-joia">Anel + colar · Correios</span></div></div><span class="badge b-wait dotl">Novo</span></a>
+              <a href="#"><span class="av" style="width:36px;height:36px;border-radius:99px;display:grid;place-items:center;font-weight:600;font-size:12px;background:hsl(var(--muted))">JU</span><div><div class="l1">Juliana M. · R$ <span class="m-conf">70</span><span class="m-pers">980</span><span class="m-joia">69</span></div><div class="l2"><span class="m-conf">Caixa mimo · hoje 18h</span><span class="m-pers">20 canecas · até 20/11</span><span class="m-joia">Brinco argola · retirada</span></div></div><span class="badge b-wait dotl">Novo</span></a>
+              <a href="#"><span class="av" style="width:36px;height:36px;border-radius:99px;display:grid;place-items:center;font-weight:600;font-size:12px;background:hsl(var(--muted))">RO</span><div><div class="l1">Rodrigo · R$ <span class="m-conf">280</span><span class="m-pers">159</span><span class="m-joia">129</span></div><div class="l2"><span class="m-conf">Kit festa · dom 10h</span><span class="m-pers">Bolsa com nome · até 12/11</span><span class="m-joia">Pulseira · Correios</span></div></div><span class="badge b-wait dotl">Novo</span></a>
+              <a href="#"><span class="av" style="width:36px;height:36px;border-radius:99px;display:grid;place-items:center;font-weight:600;font-size:12px;background:hsl(var(--muted))">CA</span><div><div class="l1">Carla S. · R$ <span class="m-conf">90</span><span class="m-pers">59</span><span class="m-joia">320</span></div><div class="l2"><span class="m-conf">100 brigadeiros · hoje 17h</span><span class="m-pers">Caneca com foto · hoje</span><span class="m-joia">Conjunto noiva · hoje</span></div></div><span class="badge b-info dotl">Confirmado</span></a>
+            </div>
+          </div>
+          <div class="alert w"><i class="ic s16 i-warn"></i>2 produtos sem foto<a class="link" href="#">Ver</a></div>
+        </div>
+        <nav class="m-tabs"><a href="#" aria-current="page"><i class="ic s24 i-house"></i>Início</a><a href="#"><i class="ic s24 i-receipt"></i>Pedidos</a><a href="#"><i class="ic s24 i-package"></i>Produtos</a><a href="#"><i class="ic s24 i-palette"></i>Loja</a><a href="#"><i class="ic s24 i-gear"></i>Mais</a></nav>
+      </div></div>
+      <div class="phone"><div class="screen">
+        <div class="status"><span>9:41</span><span class="isl"></span><span>●●●</span></div>
+        <div class="m-top"><a class="back" href="#"><i class="ic s18 i-back"></i>Pedidos</a><button class="iconbtn bare"><i class="ic s18 i-kebab"></i></button></div>
+        <div class="m-body">
+          <div><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><h1 style="font:700 22px/1.2 Sora">#249 · Ana Paula</h1><span class="badge b-wait dotl">Novo</span></div><p class="meta" style="margin-top:4px">chegou há 12 min pela loja</p></div>
+          <div class="card">
+            <div class="items">
+              <div class="item"><span class="q">1×</span><div><b><span class="m-conf">Bolo de festa · 2 kg</span><span class="m-pers">Caneca com nome · branca</span><span class="m-joia">Anel Sol · aro 16 · ouro</span></b><div class="sub"><span class="m-conf">Massa chocolate · tema jardim<br><span class="pz">Topper: "Helena, com H"</span> + caixa de presente</span><span class="m-pers">Modelo lisa<br><span class="pz">Nome: "Helena, com H"</span> + caixa de presente</span><span class="m-joia"><span class="pz">Gravação: "H ♥ R"</span> + caixinha com laço</span></div></div><span class="num">R$ <span class="m-conf">217</span><span class="m-pers">61</span><span class="m-joia">99</span></span></div>
+              <div class="item"><span class="q">1×</span><div><b><span class="m-conf">Mini bolo temático</span><span class="m-pers">Necessaire bordada</span><span class="m-joia">Colar ponto de luz</span></b><div class="sub"><span class="m-conf">Tema jardim</span><span class="m-pers">Rosa · bordado "H"</span><span class="m-joia">45 cm · ouro</span></div></div><span class="num">R$ <span class="m-conf">55</span><span class="m-pers">56</span><span class="m-joia">139</span></span></div>
+            </div>
+            <div class="dtot"><span>Total</span><span>R$ <span class="m-conf">272,00</span><span class="m-pers">117,00</span><span class="m-joia">238,00</span></span></div>
+            <div class="dkv"><div><div class="k"><span class="m-conf">Retirada</span><span class="m-pers">Prazo</span><span class="m-joia">Envio</span></div><div class="v"><span class="m-conf">sáb 8/11, 15h</span><span class="m-pers">até 10/11</span><span class="m-joia">Correios</span></div></div><div><div class="k">Pagamento</div><div class="v">Pix · <span class="m-conf">sinal 50%</span><span class="m-pers">sinal 50%</span><span class="m-joia">à vista</span></div></div></div>
+          </div>
+          <div class="card pad"><div class="hd" style="margin-bottom:6px"><h3>Cliente</h3></div><div class="meta">Ana Paula · (99) 99812-3344 · 2º pedido na loja</div></div>
+        </div>
+        <div class="m-bar"><button class="btn btn-outline btn-danger">Recusar</button><button class="btn btn-primary"><i class="ic s16 i-check"></i>Confirmar</button><button class="iconbtn"><i class="ic s18 i-wa"></i></button></div>
+      </div></div>
+    </div>
+    <div class="notes-row notes">
+      <div><h4>O que decidimos</h4><ul><li>Cinco abas embaixo: Início, Pedidos, Produtos, Loja (aparência + domínio), Mais.</li><li>Confirmar abre a mesma folha de baixo do diálogo do notebook, com data, sinal e mensagem.</li><li>Editar produto no celular começa pela câmera: tirou a foto, preencheu o resto.</li></ul></div>
+      <div><h4>Estados</h4><ul><li>Notificação push quando chega pedido novo, com o total e o nome.</li><li>Offline: a lista mostra a última leitura com "atualizado há 5 min".</li></ul></div>
+      <div><h4>Pendências</h4><ul><li>App instalável (PWA) pra notificação funcionar no iPhone.</li></ul></div>
+    </div>
+  </section>
+</div>
+
+<script>
+  // loja de exemplo (muda rótulos do mockup inteiro) e o ramo da seção 8
+  const SELL_DEFAULT={conf:'data',pers:'encomenda',joia:'pronta'};
+  const setMode=m=>{document.body.dataset.mode=m;
+    document.querySelectorAll('#modes button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.m===m));
+    document.querySelectorAll('#types .type').forEach(t=>t.classList.toggle('on',t.dataset.m===m));
+    if(window.setSell)setSell(SELL_DEFAULT[m]);};
+  document.querySelectorAll('#modes button').forEach(b=>b.onclick=()=>setMode(b.dataset.m));
+  document.querySelectorAll('#types .type').forEach(t=>t.onclick=()=>{
+    if(t.dataset.m){setMode(t.dataset.m);return;}
+    document.querySelectorAll('#types .type').forEach(x=>x.classList.remove('on'));t.classList.add('on');
+    if(t.dataset.r==='tec'&&window.setSell)setSell('servico');});
+  // seção 5: como vende (muda a linha de baixo, a prévia e o rodapé)
+  const ic=n=>`<i class="ic s16 i-${n}"></i>`;
+  const inp=v=>`<span class="input">${v}</span>`;
+  const SELL={
+    pronta:{badge:'Pronta entrega',cons:'sai em até 2 dias úteis',line:`${ic('package')}Sai em até ${inp('2 dias úteis')}. Em estoque: ${inp('8')}. Quando acabar, a loja marca <b>esgotado</b> sozinha.`},
+    encomenda:{badge:'Fica pronto em 5 dias',cons:'fica pronto em 5 dias',line:`${ic('clock')}Fica pronto em ${inp('5 dias úteis')}. A loja avisa o prazo antes de fechar o pedido.`},
+    data:{badge:'Escolha a data',cons:'a cliente escolhe a data',line:`${ic('cal')}A cliente escolhe o dia e a hora. Datas a partir de ${inp('2 dias')}. Você confirma.`},
+    servico:{badge:'Pedir orçamento',cons:'pede orçamento; vira OS no TechCare',line:`${ic('gear')}A cliente descreve o problema e pede orçamento. Vai pro TechCare como orçamento, com ela cadastrada como cliente.<span class="seg"><button aria-pressed="true">Em casa</button><button>Na loja</button></span>`},
+  };
+  window.setSell=k=>{const d=document.getElementById('pedit');if(!d)return;d.dataset.sell=k;
+    document.querySelectorAll('#sell button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.s===k));
+    document.getElementById('sellline').innerHTML=SELL[k].line;
+    document.getElementById('pv-badge').textContent=SELL[k].badge;
+    document.getElementById('pv-cons-s').textContent=SELL[k].cons;};
+  document.querySelectorAll('#sell button').forEach(b=>b.onclick=()=>setSell(b.dataset.s));
+  document.querySelectorAll('#picks button[data-k]').forEach(b=>b.onclick=()=>{const blk=document.querySelector(`.blk[data-k="${b.dataset.k}"]`);if(!blk)return;
+    const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);blk.classList.toggle('off',!on);});
+  setSell(SELL_DEFAULT[document.body.dataset.mode]||'encomenda');
+  // estilo da loja (prévia ao vivo)
+  document.querySelectorAll('#themes .th').forEach(t=>t.onclick=()=>{document.querySelectorAll('#themes .th').forEach(x=>x.classList.remove('on'));t.classList.add('on');document.getElementById('vit').className='vit '+t.dataset.t;});
+  // pagamentos: como o pedido fecha
+  const F={pagar:true,conf:false};
+  window.fecha=k=>{F[k]=!F[k];document.getElementById('t-pagar').classList.toggle('on',F.pagar);document.getElementById('t-conf').classList.toggle('on',F.conf);drawFluxo();};
+  function drawFluxo(){
+    const g=(t,on,gate)=>`<span class="${on?(gate?'gate':''):'off'}">${t}</span>`;
+    const seq=[g('Feito',true),'<i>→</i>',g('Aguardando você',F.conf,true),'<i>→</i>',g(F.pagar?(F.conf?'Link de pagamento':'Pago no checkout'):'Pix combinado no WhatsApp',true,F.pagar),'<i>→</i>',g('Confirmado',true),'<i>→</i>',g('Em preparo',true),'<i>→</i>',g('Pronto / Enviado',true),'<i>→</i>',g('Entregue',true)].join('');
+    let p='';
+    if(F.pagar&&!F.conf)p='A cliente paga no checkout e o pedido chega fechado. Não existe "aguardando": você só prepara. Cancelar vira estorno.';
+    if(F.pagar&&F.conf)p='O pedido chega como "aguardando você". Quando confirma, o link de pagamento vai na mensagem e o pedido fecha quando ela paga.';
+    if(!F.pagar&&F.conf)p='O de hoje: você confirma e a chave Pix vai na mensagem. Você confere o comprovante no WhatsApp.';
+    if(!F.pagar&&!F.conf)p='O pedido chega fechado sem pagar. O pagamento é combinado no WhatsApp, por fora.';
+    document.getElementById('fluxo').innerHTML=`<div class="fl">${seq}</div><p>${p}</p>`;
+  }
+  drawFluxo();
+  // domínio (passos)
+  window.domStep=n=>document.querySelectorAll('#domcard .step').forEach(s=>s.classList.toggle('on',s.dataset.s==String(n)));
+</script>
+</body>
+</html>
