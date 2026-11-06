@@ -49,3 +49,15 @@ lá, com a pergunta no "montar".
 
 Arrastar pra reordenar (a API já tem `reorder`); foto por tamanho; duas dimensões de variação com
 preço por combinação (só se cliente pedir).
+
+## Preço promocional (regra de 06/11, padrão Nuvemshop)
+
+Dois campos no produto: **Preço** (normal) e **Preço promocional** (`promoPriceCents`, o que a cliente
+paga). Nunca "Preço de" / `compareAtPrice`. Vazio ou zero = sem promoção. O painel recusa promocional
+maior ou igual ao normal ("O preço promocional precisa ser menor que o preço normal."); a API valida
+de novo. A regra mora no contrato (`@facter/platform-contract` 0.7.0): `hasPromo`, `sellingPriceCents`
+e `promoPercent`, usados por vitrine, painel, sacola e pedido. Com promoção a vitrine mostra o normal
+riscado, o promocional em destaque e a etiqueta `-N%`; a sacola e o pedido cobram o promocional.
+Tamanho tem preço próprio, então item com tamanhos não tem promoção (o catálogo nem a devolve).
+Testes: `item-form.test.ts` (painel), `catalog.test.ts` (vitrine), `orders.service.spec.ts` e
+`catalog.service.spec.ts` (API).
