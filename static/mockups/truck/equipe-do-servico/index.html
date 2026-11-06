@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Equipe do serviço · diálogo · mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:240 20% 96%;--surface:0 0% 100%;
+  --line:240 12% 91%;--line-soft:240 14% 95.5%;
+  --ink:240 14% 11%;--text:240 8% 26%;--muted:240 6% 50%;--faint:240 8% 72%;
+  --primary:233 64% 52%;--primary-ink:233 58% 45%;--primary-soft:233 100% 97%;
+  --amber:35 85% 46%;--green:150 50% 40%;
+  --hover:240 24% 97.4%;
+  --sh:0 24px 64px -22px hsl(230 40% 12%/.42),0 2px 8px -3px hsl(230 30% 20%/.12);
+}
+*{box-sizing:border-box}
+body{margin:0;background:hsl(var(--bg));color:hsl(var(--text));font:14px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;letter-spacing:-.006em}
+h1,h2,h3,p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
+.ic{display:inline-block;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;flex:none}
+.i-x{--i:url(https://api.iconify.design/lucide/x.svg)}
+.i-plus{--i:url(https://api.iconify.design/lucide/plus.svg)}
+.i-search{--i:url(https://api.iconify.design/lucide/search.svg)}
+.i-wrench{--i:url(https://api.iconify.design/lucide/wrench.svg)}
+
+.doc{max-width:980px;margin:0 auto;padding:40px 24px 80px}
+.doc-h h1{font:800 26px/1.2 Inter;letter-spacing:-.022em;color:hsl(var(--ink))}
+.doc-h p{color:hsl(var(--muted));margin-top:9px;font-size:14.5px;max-width:760px}
+.cap{margin:34px 0 14px}
+.cap b{font:600 15px Inter;color:hsl(var(--ink))}
+.cap span{font-size:12.5px;color:hsl(var(--muted));margin-left:8px}
+
+.stage{position:relative;border-radius:20px;overflow:hidden;border:1px solid hsl(var(--line));min-height:640px;background:hsl(240 22% 97%);display:grid;place-items:center;padding:36px}
+.gridbg{position:absolute;inset:0;background-image:linear-gradient(hsl(var(--primary)/.05) 1px,transparent 1px),linear-gradient(90deg,hsl(var(--primary)/.05) 1px,transparent 1px);background-size:27px 27px}
+.scrim{position:absolute;inset:0;background:hsl(233 30% 12%/.44)}
+
+.dlg{position:relative;width:540px;max-width:100%;background:hsl(var(--surface));border-radius:20px;box-shadow:var(--sh);display:flex;flex-direction:column;max-height:570px;overflow:hidden}
+
+/* header — identity: primary accent bar + faint grid, title-led */
+.dhd{position:relative;padding:20px 22px 17px 24px;border-bottom:1px solid hsl(var(--line-soft));overflow:hidden}
+.dhd .tex{position:absolute;inset:0;opacity:.55;background-image:linear-gradient(hsl(var(--primary)/.045) 1px,transparent 1px),linear-gradient(90deg,hsl(var(--primary)/.045) 1px,transparent 1px);background-size:22px 22px}
+.dhd .bar{position:absolute;left:0;top:20px;bottom:18px;width:4px;border-radius:0 4px 4px 0;background:hsl(var(--primary))}
+.dhd .in{position:relative}
+.dhd .ey{font:700 11px Inter;text-transform:uppercase;letter-spacing:.09em;color:hsl(var(--primary-ink))}
+.dhd h2{font:800 21px/1.18 Inter;letter-spacing:-.022em;color:hsl(var(--ink));margin-top:5px}
+.dhd .desc{margin-top:5px;font-size:12.5px;color:hsl(var(--muted))}
+.dhd .x{position:absolute;top:0;right:0;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:hsl(var(--muted))}
+.dhd .x:hover{background:hsl(var(--hover))}
+.dhd .x .ic{width:18px;height:18px}
+
+.dbd{overflow-y:auto;padding:6px 0}
+.sec{padding:13px 22px 4px}
+.sec h3{font:700 11px Inter;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted));display:flex;align-items:center;gap:8px}
+.sec h3 .n{color:hsl(var(--primary-ink));font-variant-numeric:tabular-nums}
+.sec h3 .note{font-weight:500;color:hsl(var(--muted));text-transform:none;letter-spacing:0;margin-left:2px}
+.blk{display:inline-flex;align-items:center;gap:5px;height:19px;padding:0 8px;border-radius:999px;background:hsl(var(--amber)/.13);color:hsl(28 78% 36%);font:650 10.5px Inter;margin-top:4px}
+.subhd{padding:8px 22px 2px;font:600 11px Inter;color:hsl(var(--faint));text-transform:uppercase;letter-spacing:.05em}
+.arow.busy{opacity:.6}
+.arow.busy:hover{opacity:1}
+
+/* one avatar treatment only */
+.av{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font:700 13px Inter;flex:none;background:hsl(var(--primary-soft));color:hsl(var(--primary-ink));box-shadow:inset 0 0 0 1px hsl(var(--primary)/.1)}
+
+.mrow{display:flex;align-items:center;gap:13px;padding:11px 10px;border-radius:13px}
+.mrow.live{background:hsl(var(--primary)/.045)}
+.mrow:hover{background:hsl(var(--hover))}
+.mrow.live:hover{background:hsl(var(--primary)/.07)}
+.mrow .nm{font:600 14px Inter;color:hsl(var(--ink))}
+.mrow .jt{font-size:12px;color:hsl(var(--muted));margin-top:1px}
+.mrow .r{margin-left:auto;display:flex;align-items:center;gap:12px}
+.wk{text-align:right;line-height:1.3}
+.wk .s1{display:flex;align-items:center;justify-content:flex-end;gap:7px;font:600 13px Inter;color:hsl(var(--ink))}
+.wk .s1 b{font-variant-numeric:tabular-nums;font-weight:700}
+.wk .s2{font-size:11.5px;color:hsl(var(--muted));margin-top:1px}
+.dot{width:7px;height:7px;border-radius:50%;flex:none}
+.dot.run{background:hsl(var(--green));box-shadow:0 0 0 3px hsl(var(--green)/.16)}
+.dot.pause{background:hsl(var(--amber))}
+.dot.idle{background:hsl(var(--faint))}
+.wk .s1.muted{color:hsl(var(--muted));font-weight:500}
+.remove{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;color:transparent;flex:none}
+.mrow:hover .remove{color:hsl(var(--faint))}
+.remove:hover{background:hsl(2 80% 96%);color:hsl(2 70% 52%)!important}
+.remove .ic{width:16px;height:16px}
+
+.search{display:flex;align-items:center;gap:9px;height:42px;margin:3px 0 4px;padding:0 13px;border:1px solid hsl(var(--line));border-radius:11px;color:hsl(var(--muted));font-size:13.5px}
+.search .ic{width:16px;height:16px}
+.arow{display:flex;align-items:center;gap:13px;padding:10px;border-radius:13px;cursor:pointer}
+.arow:hover{background:hsl(var(--primary-soft))}
+.arow .av{width:34px;height:34px;font-size:12px}
+.arow .nm{font:600 13.5px Inter;color:hsl(var(--ink))}
+.arow .st{font-size:11.5px;color:hsl(var(--muted));margin-top:1px;display:flex;align-items:center;gap:6px}
+.arow .right{margin-left:auto;display:flex;align-items:center}
+.arow .load{font-size:11.5px;color:hsl(var(--faint));font-variant-numeric:tabular-nums}
+.arow:hover .load{display:none}
+.arow .add{display:none;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:8px;background:hsl(var(--primary));color:#fff;font:650 12.5px Inter}
+.arow:hover .add{display:inline-flex}
+.arow .add .ic{width:13px;height:13px}
+
+.dft{display:flex;align-items:center;gap:12px;padding:13px 22px;border-top:1px solid hsl(var(--line-soft))}
+.dft .count{font-size:12.5px;color:hsl(var(--muted))}
+.dft .count b{color:hsl(var(--ink));font-weight:700}
+.dft .btns{margin-left:auto}
+.btn{height:40px;padding:0 20px;border-radius:10px;font:650 13.5px Inter}
+.btn-primary{background:hsl(var(--primary));color:#fff}
+.btn-ghost{color:hsl(var(--muted))}
+.addslot{width:100%;text-align:left;color:hsl(var(--primary-ink));font:650 14px Inter}
+.av-add{border:1.6px dashed hsl(var(--primary)/.5);background:transparent;box-shadow:none;color:hsl(var(--primary-ink))}
+.av-add .ic{width:16px;height:16px}
+
+/* button option cards */
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:34px}
+@media(max-width:780px){.opts{grid-template-columns:1fr}}
+.ocard{border:1px solid hsl(var(--line));border-radius:16px;background:hsl(var(--surface));box-shadow:var(--sh);overflow:hidden}
+.olbl{padding:10px 16px;border-bottom:1px solid hsl(var(--line-soft));font:700 12px Inter;color:hsl(var(--ink));background:hsl(240 24% 98.6%)}
+.olbl span{font-weight:500;color:hsl(var(--muted))}
+.odemo{padding:8px 12px 12px}
+.odemo .sec{padding:8px 10px 2px}
+.v-soft{display:inline-flex;align-items:center;gap:8px;margin:8px 10px 4px;height:40px;padding:0 16px;border-radius:11px;background:hsl(var(--primary-soft));color:hsl(var(--primary-ink));font:650 13.5px Inter}
+.v-soft .ic{width:15px;height:15px}
+.v-dash{display:flex;align-items:center;justify-content:center;gap:9px;margin:8px 10px 4px;height:46px;border-radius:12px;border:1.5px dashed hsl(var(--primary)/.4);background:hsl(var(--primary-soft)/.4);color:hsl(var(--primary-ink));font:650 13.5px Inter}
+.v-dash .ic{width:16px;height:16px}
+.hact{margin-left:auto;display:inline-flex;align-items:center;gap:6px;color:hsl(var(--primary-ink));font:650 12.5px Inter;text-transform:none;letter-spacing:0}
+.hact .ic{width:14px;height:14px}
+.v-fab{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 15px 0 12px;border-radius:999px;background:hsl(var(--primary));color:#fff;font:650 13px Inter;margin:8px 10px 4px}
+.v-fab .ic{width:15px;height:15px}
+.v-primary{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 18px;border-radius:10px;background:hsl(var(--primary));color:#fff;font:650 13.5px Inter}
+.v-primary .ic{width:15px;height:15px}
+.v-dark{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;border-radius:10px;background:hsl(var(--ink));color:#fff;font:650 13px Inter;margin:8px 10px 4px}
+.v-dark .ic{width:14px;height:14px}
+.circ{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;flex:none}
+.circ.out{border:1.5px solid hsl(var(--line));color:hsl(var(--primary-ink));background:hsl(var(--surface))}
+.circ .ic{width:16px;height:16px}
+.v-chip{display:inline-flex;align-items:center;gap:6px;height:25px;padding:0 11px;border-radius:999px;border:1px solid hsl(var(--line));color:hsl(var(--text));font:650 11.5px Inter;text-transform:none;letter-spacing:0}
+.v-chip .ic{width:12px;height:12px;color:hsl(var(--primary-ink))}
+.mini-ft{display:flex;align-items:center;gap:10px;padding:12px 10px 4px;margin-top:4px;border-top:1px solid hsl(var(--line-soft))}
+.mini-ft .cc{font-size:12px;color:hsl(var(--muted))}
+.mini-ft .cc b{color:hsl(var(--ink))}
+.mini-ft .bb{margin-left:auto;display:flex;gap:8px}
+.btn-ghost2{height:40px;padding:0 15px;border-radius:10px;color:hsl(var(--muted));font:650 13px Inter}
+.pick{margin-top:6px;border-top:1px solid hsl(var(--line-soft))}
+.pick .phd{display:flex;align-items:center;gap:8px;padding:12px 22px 6px}
+.pick .phd .t{font:700 12px Inter;text-transform:uppercase;letter-spacing:.05em;color:hsl(var(--ink))}
+.pick .phd .bk{margin-left:auto;font:600 12.5px Inter;color:hsl(var(--muted))}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="doc-h">
+    <h1>Equipe do serviço — diálogo</h1>
+    <p>Abre ao clicar na pilha de avatares de um serviço que já tem alguém. Mostra <b>quem está e o que está fazendo</b> e deixa <b>designar mais</b> ali. Nossa cara: primary como único acento, avatares monocromáticos, barra e trama da identidade; cor só num ponto pequeno de status.</p>
+  </div>
+
+  <div class="cap"><b>5 opções pro botão “Designar”</b><span>cores, larguras e lugares diferentes — qual casa melhor</span></div>
+  <div class="opts">
+    <div class="ocard">
+      <div class="olbl">A · No rodapé, ação principal <span>azul sólido · médio · no rodapé</span></div>
+      <div class="odemo">
+        <div class="sec"><div class="mrow live"><span class="av">AP</span><div style="min-width:0"><div class="nm">André Pereira</div><div class="jt">Mecânico de freios</div></div><div class="r"><div class="wk"><div class="s1"><span class="dot run"></span>Trabalhando · <b>3 h 10</b></div></div></div></div></div>
+        <div class="mini-ft"><span class="cc"><b>4 h 30</b> no serviço</span><div class="bb"><button class="v-primary" type="button"><i class="ic i-plus"></i>Designar</button></div></div>
+      </div>
+    </div>
+    <div class="ocard">
+      <div class="olbl">B · Pílula escura <span>preto · compacto · fim da lista</span></div>
+      <div class="odemo"><div class="sec">
+        <div class="mrow live"><span class="av">AP</span><div style="min-width:0"><div class="nm">André Pereira</div><div class="jt">Mecânico de freios</div></div><div class="r"><div class="wk"><div class="s1"><span class="dot run"></span>Trabalhando · <b>3 h 10</b></div></div></div></div>
+        <button class="v-dark" type="button"><i class="ic i-plus"></i>Designar</button>
+      </div></div>
+    </div>
+    <div class="ocard">
+      <div class="olbl">C · Faixa tracejada <span>azul claro · largura total · fim</span></div>
+      <div class="odemo"><div class="sec">
+        <div class="mrow live"><span class="av">AP</span><div style="min-width:0"><div class="nm">André Pereira</div><div class="jt">Mecânico de freios</div></div><div class="r"><div class="wk"><div class="s1"><span class="dot run"></span>Trabalhando · <b>3 h 10</b></div></div></div></div>
+        <button class="v-dash" type="button"><i class="ic i-plus"></i>Designar</button>
+      </div></div>
+    </div>
+    <div class="ocard">
+      <div class="olbl">D · Círculo no cabeçalho <span>contorno · só ícone · canto do título</span></div>
+      <div class="odemo"><div class="sec">
+        <h3 style="display:flex;align-items:center">Na equipe <span class="n">2</span><button class="circ out" type="button" aria-label="Designar" style="margin-left:auto"><i class="ic i-plus"></i></button></h3>
+        <div class="mrow live"><span class="av">AP</span><div style="min-width:0"><div class="nm">André Pereira</div><div class="jt">Mecânico de freios</div></div><div class="r"><div class="wk"><div class="s1"><span class="dot run"></span>Trabalhando · <b>3 h 10</b></div></div></div></div>
+      </div></div>
+    </div>
+    <div class="ocard">
+      <div class="olbl">E · Chip ao lado da contagem <span>contorno neutro · mínimo · inline</span></div>
+      <div class="odemo"><div class="sec">
+        <h3 style="display:flex;align-items:center;gap:9px">Na equipe <span class="n">2</span> <button class="v-chip" type="button"><i class="ic i-plus"></i>Designar</button></h3>
+        <div class="mrow live"><span class="av">AP</span><div style="min-width:0"><div class="nm">André Pereira</div><div class="jt">Mecânico de freios</div></div><div class="r"><div class="wk"><div class="s1"><span class="dot run"></span>Trabalhando · <b>3 h 10</b></div></div></div></div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="cap"><b>Equipe do serviço</b><span>modal no detalhe da OS (notebook do gestor)</span></div>
+  <div class="stage">
+    <div class="gridbg"></div>
+    <div class="scrim"></div>
+    <div class="dlg" role="dialog" aria-labelledby="eqt">
+      <div class="dhd">
+        <div class="tex"></div>
+        <span class="bar"></span>
+        <div class="in">
+          <div class="ey">Equipe do serviço</div>
+          <h2 id="eqt">Troca de disco de freio</h2>
+          <div class="desc">RTC3G56 · Carreta · eixo 1 · lado esquerdo</div>
+          <button class="x" type="button" aria-label="Fechar"><i class="ic i-x"></i></button>
+        </div>
+      </div>
+
+      <div class="dbd">
+        <div class="sec">
+          <h3>Na equipe <span class="n">2</span> <span class="note">· 1 parado</span></h3>
+          <div class="mrow live">
+            <span class="av">AP</span>
+            <div style="min-width:0"><div class="nm">André Pereira</div><div class="jt">Mecânico de freios</div></div>
+            <div class="r">
+              <div class="wk"><div class="s1"><span class="dot run"></span>Trabalhando · <b>3 h 10</b></div><div class="s2">desde 08:12</div></div>
+              <button class="remove" type="button" aria-label="Tirar André Pereira"><i class="ic i-x"></i></button>
+            </div>
+          </div>
+          <div class="mrow">
+            <span class="av">DM</span>
+            <div style="min-width:0"><div class="nm">Diego Martins</div><div class="jt">Mecânico</div></div>
+            <div class="r">
+              <div class="wk"><div class="s1 muted"><span class="dot pause"></span>Parado há <b>40 min</b></div><div class="s2">trabalhou 1 h 20</div><span class="blk"><i class="ic i-wrench" style="width:10px;height:10px"></i>aguardando peça</span></div>
+              <button class="remove" type="button" aria-label="Tirar Diego Martins"><i class="ic i-x"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dft">
+        <span class="count"><b>4 h 30</b> trabalhadas neste serviço</span>
+        <div class="btns"><button class="v-primary" type="button"><i class="ic i-plus"></i>Designar</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cap"><b>Ao clicar em “Designar”</b><span>a busca abre na própria tela, sem sair da equipe — livres primeiro</span></div>
+  <div class="stage">
+    <div class="gridbg"></div>
+    <div class="scrim"></div>
+    <div class="dlg" role="dialog" aria-labelledby="eqt2">
+      <div class="dhd">
+        <div class="tex"></div>
+        <span class="bar"></span>
+        <div class="in">
+          <div class="ey">Equipe do serviço</div>
+          <h2 id="eqt2">Troca de disco de freio</h2>
+          <div class="desc">RTC3G56 · Carreta · eixo 1 · lado esquerdo</div>
+          <button class="x" type="button" aria-label="Fechar"><i class="ic i-x"></i></button>
+        </div>
+      </div>
+      <div class="dbd">
+        <div class="sec">
+          <h3>Na equipe <span class="n">2</span> <span class="note">· 1 parado</span></h3>
+          <div class="mrow live">
+            <span class="av">AP</span>
+            <div style="min-width:0"><div class="nm">André Pereira</div><div class="jt">Mecânico de freios</div></div>
+            <div class="r"><div class="wk"><div class="s1"><span class="dot run"></span>Trabalhando · <b>3 h 10</b></div><div class="s2">desde 08:12</div></div><button class="remove" type="button" aria-label="Tirar André Pereira"><i class="ic i-x"></i></button></div>
+          </div>
+          <div class="mrow">
+            <span class="av">DM</span>
+            <div style="min-width:0"><div class="nm">Diego Martins</div><div class="jt">Mecânico</div></div>
+            <div class="r"><div class="wk"><div class="s1 muted"><span class="dot pause"></span>Parado há <b>40 min</b></div><div class="s2">trabalhou 1 h 20</div><span class="blk"><i class="ic i-wrench" style="width:10px;height:10px"></i>aguardando peça</span></div><button class="remove" type="button" aria-label="Tirar Diego Martins"><i class="ic i-x"></i></button></div>
+          </div>
+        </div>
+        <div class="pick">
+          <div class="phd"><span class="t">Designar</span><span class="bk">Voltar</span></div>
+          <div class="sec" style="padding-top:2px">
+            <div class="search"><i class="ic i-search"></i>Buscar por nome ou função</div>
+            <div class="subhd">Livres · 2</div>
+            <div class="arow">
+              <span class="av">AL</span>
+              <div style="min-width:0"><div class="nm">Anderson Lima</div><div class="st"><span class="dot run"></span>Livre</div></div>
+              <div class="right"><span class="load">0 h 40 hoje</span><span class="add"><i class="ic i-plus"></i>Designar</span></div>
+            </div>
+            <div class="arow">
+              <span class="av">EL</span>
+              <div style="min-width:0"><div class="nm">Edson Luiz Ferreira</div><div class="st"><span class="dot run"></span>Livre</div></div>
+              <div class="right"><span class="load">2 h 05 hoje</span><span class="add"><i class="ic i-plus"></i>Designar</span></div>
+            </div>
+            <div class="subhd">Ocupados · 1</div>
+            <div class="arow busy">
+              <span class="av">RS</span>
+              <div style="min-width:0"><div class="nm">Rafael Souza</div><div class="st"><span class="dot pause"></span>Em Revisão 50.000 km há 1 h 20</div></div>
+              <div class="right"><span class="load">4 h 30 hoje</span><span class="add"><i class="ic i-plus"></i>Designar</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dft">
+        <span class="count"><b>4 h 30</b> trabalhadas neste serviço</span>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

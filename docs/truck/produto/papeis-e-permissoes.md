@@ -51,6 +51,10 @@ Fora das empresas existe o **Suporte Facter** (ver [acesso de suporte](#acesso-d
 As permissões e os papéis padrão do `facter-truck` foram gerados desta página (`apps/api/src/platform/auth/permissions.ts` e `system-roles.ts`). Mudou uma célula aqui, muda lá no mesmo ciclo, e vice-versa. O teste `role-matrix.spec.ts` confere cada rota contra a permissão esperada e cada papel contra a sua coluna.
 :::
 
+:::info[Em revisão: Consultor técnico e Garantia]
+A proposta [Detalhe da OS, repensado por papel](./propostas/detalhe-da-os-por-papel.mdx) encaminha dois ajustes nesta matriz, a aplicar quando aprovada: **renomear Planejador → "Consultor técnico"** (o dono do cockpit da OS no notebook; as permissões não mudam, só o rótulo e o dispositivo primário) e **criar o papel Garantia** (administrador de garantia, permissões `warranty.*`). Até lá, a matriz abaixo vale como está.
+:::
+
 ## Plataforma e administração
 
 | Permissão | O que permite | Adm | Ges | Sup | Pla | Mec | Alm | CtP | Bor | Ins | Fin | Mot | Lei |

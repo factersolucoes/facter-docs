@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Montar pedido de peças · mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:240 20% 98.5%;--surface:0 0% 100%;
+  --line:240 12% 91%;--line-soft:240 14% 95%;
+  --ink:240 14% 11%;--text:240 8% 26%;--muted:240 6% 50%;--faint:240 8% 70%;
+  --primary:233 64% 52%;--primary-ink:233 58% 45%;--primary-soft:233 100% 97%;
+  --amber:35 90% 44%;--amber-soft:35 90% 95%;
+  --red:2 70% 50%;--red-soft:2 80% 96.5%;
+  --green:160 48% 36%;--green-soft:160 46% 95.5%;
+  --indigo:252 50% 54%;--indigo-soft:252 45% 96%;
+  --hover:240 24% 97.2%;
+  --sh-card:0 1px 2px hsl(240 24% 30%/.05),0 12px 30px -16px hsl(240 24% 30%/.12);
+  --sh-md:0 2px 4px -1px hsl(240 24% 30%/.07),0 10px 24px -10px hsl(240 24% 30%/.16);
+  --sh-pop:0 18px 50px -12px hsl(240 30% 20%/.3);
+}
+*{box-sizing:border-box}
+body{margin:0;background:hsl(var(--bg));color:hsl(var(--text));font:14px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;letter-spacing:-.005em}
+h1,h2,h3,p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
+.ic{display:inline-block;width:18px;height:18px;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;flex:none}
+.i-search{--i:url(https://api.iconify.design/lucide/search.svg)}
+.i-plus{--i:url(https://api.iconify.design/lucide/plus.svg)}
+.i-minus{--i:url(https://api.iconify.design/lucide/minus.svg)}
+.i-plan{--i:url(https://api.iconify.design/lucide/clipboard-list.svg)}
+.i-layers{--i:url(https://api.iconify.design/lucide/layers.svg)}
+.i-zap{--i:url(https://api.iconify.design/lucide/zap.svg)}
+.i-pkg{--i:url(https://api.iconify.design/lucide/package.svg)}
+.i-wh{--i:url(https://api.iconify.design/lucide/warehouse.svg)}
+.i-x{--i:url(https://api.iconify.design/lucide/x.svg)}
+.i-check{--i:url(https://api.iconify.design/lucide/check.svg)}
+.i-send{--i:url(https://api.iconify.design/lucide/send-horizontal.svg)}
+.i-wrench{--i:url(https://api.iconify.design/lucide/wrench.svg)}
+.i-flame{--i:url(https://api.iconify.design/lucide/flame.svg)}
+.i-split{--i:url(https://api.iconify.design/lucide/split.svg)}
+.i-alert{--i:url(https://api.iconify.design/lucide/triangle-alert.svg)}
+.i-cart{--i:url(https://api.iconify.design/lucide/shopping-cart.svg)}
+.i-chev{--i:url(https://api.iconify.design/lucide/chevron-down.svg)}
+.i-truck{--i:url(https://api.iconify.design/lucide/truck.svg)}
+.i-trash{--i:url(https://api.iconify.design/lucide/trash-2.svg)}
+.i-scan{--i:url(https://api.iconify.design/lucide/scan-line.svg)}
+.i-eye{--i:url(https://api.iconify.design/lucide/eye.svg)}
+
+.doc{max-width:1120px;margin:0 auto;padding:40px 24px 120px}
+.doc-h h1{font:800 26px/1.2 Inter;letter-spacing:-.022em;color:hsl(var(--ink))}
+.doc-h p{color:hsl(var(--muted));margin-top:9px;font-size:14.5px;max-width:760px}
+.study{display:flex;flex-direction:column;gap:46px;margin-top:34px}
+.cap{display:flex;align-items:baseline;gap:10px;margin:0 0 14px;flex-wrap:wrap}
+.cap b{font:600 14px Inter;color:hsl(var(--ink))}
+.cap span{font-size:12.5px;color:hsl(var(--muted));max-width:780px}
+
+.tip{position:relative}
+.tip::after{content:attr(data-tip);position:absolute;left:0;bottom:calc(100% + 8px);z-index:60;width:max-content;max-width:280px;white-space:normal;background:hsl(var(--ink));color:#fff;font:450 12px/1.4 Inter;padding:7px 10px;border-radius:8px;box-shadow:var(--sh-pop);opacity:0;transform:translateY(4px);pointer-events:none;transition:.13s}
+.tip:hover::after{opacity:1;transform:translateY(0)}
+
+/* ====== casca do montador ====== */
+.app{border:1px solid hsl(var(--line));border-radius:18px;overflow:hidden;background:hsl(var(--surface));box-shadow:var(--sh-md)}
+.topbar{display:flex;align-items:center;gap:14px;padding:16px 20px;border-bottom:1px solid hsl(var(--line-soft))}
+.topbar .bk{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:hsl(var(--muted));border:1px solid hsl(var(--line))}
+.topbar .ti h2{font:700 17px Inter;color:hsl(var(--ink));letter-spacing:-.01em}
+.topbar .ti .sub{font-size:12.5px;color:hsl(var(--muted));margin-top:1px}
+.depotpick{display:inline-flex;align-items:center;gap:10px;height:42px;padding:0 13px;border-radius:11px;border:1px solid hsl(var(--line));background:#fff}
+.depotpick:hover{background:hsl(var(--hover))}
+.depotpick>.ic{width:17px;height:17px;color:hsl(var(--muted))}
+.depotpick .dp{display:flex;flex-direction:column;line-height:1.12;text-align:left}
+.depotpick .dp .dl{font:600 9.5px Inter;text-transform:uppercase;letter-spacing:.04em;color:hsl(var(--muted))}
+.depotpick .dp b{font:650 13px Inter;color:hsl(var(--ink))}
+.depotpick .cv{width:14px;height:14px;color:hsl(var(--faint))}
+.applyto{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.applyto .al{font:600 10.5px Inter;text-transform:uppercase;letter-spacing:.05em;color:hsl(var(--muted));white-space:nowrap}
+.svcpick{flex:1;display:inline-flex;align-items:center;gap:9px;height:40px;padding:0 6px 0 13px;border-radius:11px;background:hsl(var(--ink));color:#fff;font:600 13px Inter;min-width:0}
+.svcpick>.ic{width:14px;height:14px;opacity:.7;flex:none}
+.svcpick span{flex:1;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.svcpick .chev{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:#ffffff1f;flex:none}
+.svcpick .chev .ic{width:14px;height:14px;opacity:.9;margin:0}
+.seg{margin-left:auto;display:inline-flex;align-items:center;gap:2px;padding:3px;border-radius:11px;background:hsl(240 24% 95.5%)}
+.seg button{height:30px;padding:0 12px;border-radius:8px;font:600 12.5px Inter;color:hsl(var(--muted))}
+.seg button.on{background:#fff;color:hsl(var(--ink));box-shadow:0 1px 2px hsl(240 24% 30%/.12)}
+.verlbl{font:600 10.5px Inter;color:hsl(var(--muted));text-transform:uppercase;letter-spacing:.05em}
+
+.builder{display:grid;grid-template-columns:366px 1fr}
+.compose{border-right:1px solid hsl(var(--line-soft));padding:16px;background:hsl(240 28% 99%);min-width:0}
+.pedido{padding:16px 16px 0;min-width:0;display:flex;flex-direction:column}
+
+.srch{display:flex;align-items:center;gap:10px;height:44px;padding:0 14px;border-radius:12px;background:#fff;border:1px solid hsl(var(--line));box-shadow:var(--sh-card)}
+.srch .ic{width:17px;height:17px;color:hsl(var(--muted))}
+.srch input{border:0;background:none;outline:none;font:450 14px Inter;color:hsl(var(--text));flex:1;min-width:0}
+.srch input::placeholder{color:hsl(var(--faint))}
+
+.sect{margin-top:18px}
+.sect .sh{display:flex;align-items:center;gap:8px;margin:0 2px 10px}
+.sect .sh .ic{width:14px;height:14px;color:hsl(var(--primary-ink))}
+.sect .sh b{font:700 12px Inter;text-transform:uppercase;letter-spacing:.05em;color:hsl(var(--muted))}
+
+/* kit card — brincadeira primary + glow (padrão Kit Cubo) */
+.kits{display:flex;flex-direction:column;gap:10px}
+.kit{position:relative;display:flex;align-items:center;gap:13px;padding:13px 14px;border-radius:15px;background:#fff;border:1px solid hsl(var(--line));box-shadow:var(--sh-card);cursor:pointer;transition:.14s}
+.kit:hover{box-shadow:var(--sh-md);transform:translateY(-1px)}
+.kit .tile{position:relative;width:46px;height:46px;border-radius:14px;background:hsl(var(--primary));color:#fff;display:grid;place-items:center;flex:none}
+.kit .tile::before{content:"";position:absolute;inset:-5px;border-radius:18px;background:hsl(var(--primary)/.12);z-index:-1}
+.kit .tile::after{content:"";position:absolute;inset:-10px;border-radius:22px;background:hsl(var(--primary)/.05);z-index:-2}
+.kit .tile .ic{width:22px;height:22px}
+.kit.plano .tile{background:hsl(var(--primary))}
+.kit .kinfo{min-width:0;flex:1}
+.kit .kinfo b{font:650 14.5px Inter;color:hsl(var(--ink));display:block;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kit .kinfo .m{font-size:12px;color:hsl(var(--muted));margin-top:2px;display:flex;align-items:center;gap:7px}
+.kbadge{display:inline-flex;align-items:center;gap:4px;height:17px;padding:0 6px;border-radius:5px;background:hsl(var(--primary-soft));color:hsl(var(--primary-ink));font:700 9.5px Inter;letter-spacing:.02em}
+.kit .add{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:hsl(var(--primary-soft));color:hsl(var(--primary-ink));flex:none}
+.kit:hover .add{background:hsl(var(--primary));color:#fff}
+.kit.in{border-color:hsl(var(--primary)/.4);background:hsl(var(--primary-soft))}
+.kit.in .add{background:hsl(var(--green));color:#fff}
+
+.freq{display:flex;flex-wrap:wrap;gap:7px}
+.fchip{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 10px 0 12px;border-radius:999px;background:#fff;border:1px solid hsl(var(--line));font:550 12.5px Inter;color:hsl(var(--text))}
+.fchip:hover{border-color:hsl(var(--primary)/.4);background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.fchip .d{width:6px;height:6px;border-radius:50%;background:hsl(var(--green))}
+.fchip .d.low{background:hsl(var(--amber))}.fchip .d.none{background:hsl(var(--red))}
+.fchip .ic{width:13px;height:13px;color:hsl(var(--muted))}
+
+/* ====== pedido (cart) ====== */
+.ped-h{display:flex;align-items:center;justify-content:space-between;margin:2px 2px 12px}
+.ped-h b{font:700 15px Inter;color:hsl(var(--ink))}
+.ped-h .cnt{font-size:12.5px;color:hsl(var(--muted))}
+/* grupo no padrão header-D (igual serviço/peças): filete primary + título bold + chip */
+.grp{background:#fff;border:1px solid hsl(var(--line));border-radius:14px;box-shadow:var(--sh-card);overflow:hidden;margin-bottom:14px}
+.grp .gh{position:relative;display:flex;align-items:center;gap:10px;padding:13px 16px 12px 20px;border-bottom:1px solid hsl(var(--line-soft))}
+.grp .gh::before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:4px;border-radius:0 4px 4px 0;background:hsl(var(--primary))}
+.grp.rateio .gh::before{background:hsl(var(--indigo))}
+.grp .gh b{font:650 14.5px Inter;color:hsl(var(--ink));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.grp .gh .gc{margin-left:auto;display:inline-flex;align-items:center;gap:7px}
+.gpill{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:999px;background:hsl(240 24% 96.5%);color:hsl(var(--text));font:600 12px Inter;tab-size:4;font-variant-numeric:tabular-nums}
+.gpill.bad{background:hsl(var(--red-soft));color:hsl(var(--red))}
+.pcolh{display:grid;grid-template-columns:minmax(0,1fr) 104px 150px 96px 30px;gap:12px;padding:8px 13px;background:hsl(240 26% 98%);border-bottom:1px solid hsl(var(--line-soft));font:600 10px Inter;letter-spacing:.04em;text-transform:uppercase;color:hsl(var(--muted))}
+.pcolh .r{justify-self:end}
+.nocost .pcolh{grid-template-columns:minmax(0,1fr) 104px 150px 30px}
+.nocost .pcolh .cst{display:none}
+.nostock .pline,.nostock .pcolh{grid-template-columns:minmax(0,1fr) 104px 96px 30px}
+.nocost.nostock .pline,.nocost.nostock .pcolh{grid-template-columns:minmax(0,1fr) 104px 30px}
+.lines{background:transparent;border:0;border-radius:0}
+.pline{display:grid;grid-template-columns:minmax(0,1fr) 104px 150px 96px 30px;gap:12px;align-items:center;padding:11px 13px;border-top:1px solid hsl(var(--line-soft))}
+.pline:first-child{border-top:0}
+.pline .nm{min-width:0}
+.pline .nm b{font:550 13.5px Inter;color:hsl(var(--ink));display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pline .nm .s{font-size:11.5px;color:hsl(var(--muted));margin-top:2px;display:flex;align-items:center;gap:6px}
+.pline .nm .pn{font-variant-numeric:tabular-nums}
+.rateio-b{display:inline-flex;align-items:center;gap:3px;height:15px;padding:0 5px;border-radius:4px;background:hsl(var(--indigo-soft));color:hsl(var(--indigo));font:700 9px Inter}
+.rateio-b .ic{width:9px;height:9px}
+.serial-b{display:inline-flex;align-items:center;gap:3px;height:15px;padding:0 5px;border-radius:4px;background:hsl(28 80% 95%);color:hsl(28 72% 42%);font:700 9px Inter}
+.serial-b .ic{width:9px;height:9px}
+.step{display:inline-flex;align-items:center;gap:1px;border:1px solid hsl(var(--line));border-radius:9px;height:32px;padding:0 2px;justify-self:start}
+.step button{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;color:hsl(var(--muted))}
+.step button:hover{background:hsl(var(--hover));color:hsl(var(--primary-ink))}
+.step .q{min-width:30px;text-align:center;font:700 13.5px Inter;color:hsl(var(--ink));font-variant-numeric:tabular-nums}
+.step .q .u{font:450 10px Inter;color:hsl(var(--muted));margin-left:1px}
+.step .ic{width:13px;height:13px}
+.av{display:inline-flex;align-items:center;gap:6px;font:550 12px Inter}
+.av .d{width:6px;height:6px;border-radius:50%}
+.av.ok{color:hsl(var(--green))}.av.ok .d{background:hsl(var(--green))}
+.av.low{color:hsl(28 72% 44%)}.av.low .d{background:hsl(var(--amber))}
+.av.none{color:hsl(var(--red))}.av.none .d{background:hsl(var(--red))}
+.av .buy{margin-left:2px;font:700 10px Inter;color:hsl(var(--primary-ink));background:hsl(var(--primary-soft));padding:1px 5px;border-radius:4px}
+.cost{justify-self:end;text-align:right;white-space:nowrap}
+.cost .v{font:700 13px Inter;color:hsl(var(--ink));font-variant-numeric:tabular-nums}
+.cost .u{display:block;font:450 10px Inter;color:hsl(var(--muted))}
+.rm{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;color:hsl(var(--faint));justify-self:end}
+.rm:hover{background:hsl(var(--red-soft));color:hsl(var(--red))}
+.rm .ic{width:15px;height:15px}
+.nocost .pline{grid-template-columns:minmax(0,1fr) 104px 150px 30px}
+.nocost .cost{display:none}
+
+/* kit colapsado dentro do grupo de serviço (sub-grupo) */
+.ksub{border-top:1px solid hsl(var(--line-soft))}
+.ksub:first-child{border-top:0}
+.kitrow{display:flex;align-items:center;gap:11px;padding:11px 13px;cursor:pointer;background:hsl(var(--primary)/.04);transition:.12s}
+.kitrow:hover{background:hsl(var(--primary)/.07)}
+.kitrow .ktile{position:relative;width:34px;height:34px;border-radius:10px;background:hsl(var(--primary));color:#fff;display:grid;place-items:center;flex:none}
+.kitrow .ktile .ic{width:17px;height:17px}
+.kitrow .kmeta{min-width:0;flex:1;display:flex;flex-direction:column;gap:1px}
+.kitrow .kmeta b{font:650 13.5px Inter;color:hsl(var(--ink));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kitrow .kmeta .kc{font-size:11.5px;color:hsl(var(--muted))}
+.kitrow .kfalta{display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:999px;background:hsl(var(--red-soft));color:hsl(var(--red));font:700 10.5px Inter;font-variant-numeric:tabular-nums;flex:none}
+.kitrow .kcost{text-align:right;white-space:nowrap;flex:none}
+.kitrow .kcost .v{font:700 13px Inter;color:hsl(var(--ink));font-variant-numeric:tabular-nums}
+.kitrow .kcaret{width:16px;height:16px;color:hsl(var(--muted));transition:transform .15s;flex:none}
+.kitrow .kcaret.open{transform:rotate(180deg)}
+.kitrow .rm{flex:none}
+.klines{background:hsl(var(--primary)/.02)}
+.klines .pline{padding-left:22px}
+
+.ped-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:50px 16px;text-align:center}
+.ped-empty .ei{width:52px;height:52px;border-radius:16px;background:hsl(var(--primary-soft));color:hsl(var(--primary-ink));display:grid;place-items:center;margin-bottom:4px}
+.ped-empty .ei .ic{width:26px;height:26px}
+.ped-empty b{font:650 15.5px Inter;color:hsl(var(--ink))}
+.ped-empty p{font-size:13px;color:hsl(var(--muted));max-width:300px}
+
+/* ====== barra de ação preta ====== */
+.actbar{position:sticky;bottom:0;display:flex;align-items:center;gap:16px;margin-top:auto;padding:14px 18px;background:hsl(var(--ink));color:#fff;border-radius:14px;box-shadow:var(--sh-pop)}
+.actbar .sum{display:flex;align-items:baseline;gap:10px}
+.actbar .sum .n{font:800 20px Inter;letter-spacing:-.01em}
+.actbar .sum .lbl{font:500 12.5px Inter;color:#ffffffb0}
+.actbar .vsep{width:1px;height:26px;background:#ffffff26}
+.actbar .est{font:450 13px Inter;color:#ffffffcf}
+.actbar .est b{color:#fff;font-weight:700;font-variant-numeric:tabular-nums}
+.actbar .flt{display:inline-flex;align-items:center;gap:6px;font:500 12px Inter;color:hsl(35 90% 75%)}
+.actbar .flt .ic{width:14px;height:14px}
+.actbar .go{margin-left:auto;display:inline-flex;align-items:center;gap:9px;height:44px;padding:0 20px;border-radius:12px;background:hsl(var(--primary));color:#fff;font:700 14px Inter}
+.actbar .go:hover{background:hsl(233 64% 48%)}
+.actbar .go .ic{width:17px;height:17px}
+.actbar .clr{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;color:#fff;opacity:.6}
+.actbar .clr:hover{opacity:1;background:#ffffff1f}
+.pedido .actwrap{position:sticky;bottom:0;background:linear-gradient(hsl(var(--surface)/0),hsl(var(--surface)) 34%);padding:14px 0 16px;margin-top:8px}
+
+/* ====== tablet ====== */
+.tablet{display:flex;justify-content:center}
+.tab-frame{width:560px;max-width:100%;border:1px solid hsl(var(--line));border-radius:26px;overflow:hidden;background:#fff;box-shadow:var(--sh-md)}
+.tab-top{background:hsl(var(--ink));color:#fff;padding:18px 20px 16px}
+.tab-top .r1{display:flex;align-items:center;gap:12px}
+.tab-top .r1 .bk{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:#ffffff1a}
+.tab-top .r1 .bk .ic{width:19px;height:19px}
+.tab-top h2{font:800 20px Inter;letter-spacing:-.01em}
+.tab-top .sub{font-size:13px;color:#ffffffb0;margin-top:2px}
+.tab-top .tsvc{margin-top:14px;display:inline-flex;align-items:center;gap:9px;height:40px;padding:0 14px;border-radius:11px;background:#ffffff14;font:600 14px Inter}
+.tab-top .tsvc .ic{width:15px;height:15px;opacity:.75}
+.tab-body{padding:18px}
+.tbsrch{display:flex;align-items:center;gap:11px;height:52px;padding:0 16px;border-radius:14px;background:hsl(240 24% 97%);margin-bottom:16px}
+.tbsrch .ic{width:20px;height:20px;color:hsl(var(--muted))}
+.tbsrch span{font:450 15.5px Inter;color:hsl(var(--faint))}
+.tbkit{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px}
+.tk{position:relative;display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:18px;border:1px solid hsl(var(--line));background:#fff}
+.tk .tile{position:relative;width:52px;height:52px;border-radius:15px;background:hsl(var(--primary));color:#fff;display:grid;place-items:center}
+.tk .tile::before{content:"";position:absolute;inset:-5px;border-radius:19px;background:hsl(var(--primary)/.12);z-index:-1}
+.tk .tile .ic{width:25px;height:25px}
+.tk b{font:650 16px Inter;color:hsl(var(--ink));line-height:1.2}
+.tk .m{font-size:13px;color:hsl(var(--muted))}
+.tk .tadd{margin-top:2px;display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;border-radius:12px;background:hsl(var(--primary-soft));color:hsl(var(--primary-ink));font:700 14px Inter}
+.tk .tadd .ic{width:17px;height:17px}
+.tk.added{border-color:hsl(var(--primary)/.4);background:hsl(var(--primary-soft))}
+.tk.added .tadd{background:hsl(var(--green));color:#fff}
+.tsect{font:700 12px Inter;text-transform:uppercase;letter-spacing:.05em;color:hsl(var(--muted));margin:18px 2px 10px;display:flex;align-items:center;gap:8px}
+.tsect .ic{width:14px;height:14px;color:hsl(var(--primary-ink))}
+.tfreq{display:flex;flex-wrap:wrap;gap:9px}
+.tf{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 15px;border-radius:12px;border:1px solid hsl(var(--line));font:600 14px Inter;color:hsl(var(--text))}
+.tf .d{width:7px;height:7px;border-radius:50%;background:hsl(var(--green))}
+.tcart{margin-top:18px;border-top:1px solid hsl(var(--line-soft));padding-top:16px}
+.tcart .trow{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid hsl(var(--line-soft))}
+.tcart .trow:first-of-type{border-top:0}
+.tcart .trow .tn{flex:1;min-width:0}
+.tcart .trow .tn b{font:600 15px Inter;color:hsl(var(--ink));display:block}
+.tcart .trow .tn .m{font-size:12.5px;color:hsl(var(--muted))}
+.tstep{display:inline-flex;align-items:center;gap:2px;border:1px solid hsl(var(--line));border-radius:12px;height:44px;padding:0 4px}
+.tstep button{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;color:hsl(var(--primary-ink))}
+.tstep .q{min-width:40px;text-align:center;font:700 17px Inter;font-variant-numeric:tabular-nums}
+.tstep .ic{width:17px;height:17px}
+.tbar{padding:16px 18px;border-top:1px solid hsl(var(--line-soft));background:#fff}
+.tgo{width:100%;display:inline-flex;align-items:center;justify-content:center;gap:10px;height:56px;border-radius:15px;background:hsl(var(--ink));color:#fff;font:700 16.5px Inter}
+.tgo .pill{display:inline-grid;place-items:center;min-width:26px;height:26px;padding:0 8px;border-radius:8px;background:hsl(var(--primary));color:#fff;font:800 14px Inter}
+.tgo .ic{width:19px;height:19px}
+
+@media(max-width:920px){.builder{grid-template-columns:1fr}.compose{border-right:0;border-bottom:1px solid hsl(var(--line-soft))}}
+
+/* ====== edge cases ====== */
+.ecgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:820px){.ecgrid{grid-template-columns:1fr}}
+.ec{border:1px solid hsl(var(--line));border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--sh-card)}
+.eclbl{display:flex;align-items:center;gap:8px;padding:11px 14px;border-bottom:1px solid hsl(var(--line-soft));font:650 12.5px Inter;color:hsl(var(--ink));background:hsl(240 28% 99%)}
+.eclbl .ic{width:14px;height:14px;color:hsl(var(--muted))}
+.ec .lines{border:0;border-radius:0}
+.ecnote{padding:9px 14px;font-size:12px;color:hsl(var(--muted));border-top:1px dashed hsl(var(--line));background:hsl(240 28% 99%)}
+.ecnote b{color:hsl(var(--text));font-weight:600}
+.errbar{display:flex;align-items:center;gap:10px;padding:12px 14px;background:hsl(var(--red-soft));color:hsl(var(--red));font:550 12.5px Inter}
+.errbar .ic{width:16px;height:16px;flex:none}
+.errbar .retry{margin-left:auto;font:700 12px Inter;color:#fff;background:hsl(var(--red));padding:6px 12px;border-radius:8px}
+.gh-mini{display:flex;align-items:center;gap:7px;padding:9px 14px;font:600 12.5px Inter;color:hsl(var(--ink));border-top:1px solid hsl(var(--line-soft))}
+.gh-mini:first-child{border-top:0}
+.gh-mini .ic{width:13px;height:13px;color:hsl(var(--primary-ink))}
+.gh-mini.rateio .ic{color:hsl(var(--indigo))}
+.gh-mini .c{margin-left:auto;font:700 11px Inter;color:#fff;background:hsl(var(--primary));padding:2px 8px;border-radius:999px}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="doc-h">
+    <h1>Montar pedido de peças</h1>
+    <p>A tela de <b>solicitação</b> repensada: não é console (isso é do almoxarife) — é um <b>montador</b>, tipo carrinho. O <b>kit</b> é o primitivo: cai do plano ou entra num toque, e o pedido nasce pronto. Dois modos — <b>notebook</b> (consultor, denso) e <b>tablet</b> (mecânico no box, alvo grande, sem valor). Brincadeira de cores do kit: <b>primary</b> nos tiles/ações e <b>preto</b> na barra de ação e no contexto.</p>
+  </div>
+
+  <div class="study">
+
+  <!-- ===================== NOTEBOOK ===================== -->
+  <div>
+    <div class="cap"><b>Notebook · o montador (consultor)</b><span>compor à esquerda (kits + busca + frequentes), o pedido à direita <b>agrupado por serviço</b> — um mesmo pedido cobre <b>vários serviços de uma vez</b> (cada grupo vira um pedido na OS, num envio só). Barra preta com total + Solicitar. Tudo clicável.</span></div>
+    <div class="app" id="app">
+      <div class="topbar">
+        <button class="bk"><i class="ic i-cart"></i></button>
+        <div class="ti">
+          <h2>Solicitar peças</h2>
+          <div class="sub">OS #2847 · SRK9H45 (carreta) · Oficina Central</div>
+        </div>
+        <button class="depotpick"><i class="ic i-wh"></i><div class="dp"><span class="dl">Sai do depósito</span><b>Almox. Central</b></div><i class="ic i-chev cv"></i></button>
+        <span class="verlbl tip" data-tip="Só no mockup — na tela real a permissão decide o que aparece" style="margin-left:12px">Prévia · ver como</span>
+        <div class="seg" id="roleSeg"></div>
+      </div>
+
+      <div class="builder">
+        <div class="compose">
+          <div class="applyto"><span class="al">Adicionar a</span><button class="svcpick" id="svcpick"><i class="ic i-wrench"></i><span id="svcpickLbl">Troca de lonas · eixo 2</span><span class="chev"><i class="ic i-chev"></i></span></button></div>
+          <div class="srch"><i class="ic i-search"></i><input placeholder="Buscar peça por nome ou código"></div>
+
+          <div class="sect">
+            <div class="sh"><i class="ic i-layers"></i><b>Kits</b></div>
+            <div class="kits" id="kits"></div>
+          </div>
+
+          <div class="sect">
+            <div class="sh"><i class="ic i-zap"></i><b>Frequentes neste serviço</b></div>
+            <div class="freq" id="freq"></div>
+          </div>
+        </div>
+
+        <div class="pedido">
+          <div class="ped-h"><b>O pedido</b><span class="cnt" id="pedCnt"></span></div>
+          <div id="cart"></div>
+          <div class="actwrap">
+            <div class="actbar">
+              <div class="sum"><span class="n" id="abN">0</span><span class="lbl" id="abLbl">itens</span></div>
+              <span class="vsep"></span>
+              <span class="est" id="abEst"></span>
+              <span class="flt" id="abFlt"></span>
+              <button class="go"><i class="ic i-send"></i>Solicitar peças</button>
+              <button class="clr" id="abClr" title="Esvaziar"><i class="ic i-trash"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== TABLET ===================== -->
+  <div>
+    <div class="cap"><b>Tablet · pedir peças (mecânico no box)</b><span>tela cheia guiada, alvo grande pra mão com luva, kit num toque, sem saldo nem valor — só "pedir". Cabeçalho preto, kits em primary.</span></div>
+    <div class="tablet">
+      <div class="tab-frame">
+        <div class="tab-top">
+          <div class="r1"><button class="bk"><i class="ic i-x"></i></button><div><h2>Pedir peças</h2><div class="sub">OS #2847 · SRK9H45</div></div></div>
+          <div class="tsvc"><i class="ic i-wrench"></i>Troca de lonas · eixo 2</div>
+        </div>
+        <div class="tab-body">
+          <div class="tbsrch"><i class="ic i-search"></i><span>Buscar peça…</span></div>
+          <div class="tbkit">
+            <div class="tk added">
+              <div class="tile"><i class="ic i-layers"></i></div>
+              <b>Kit do plano</b><div class="m">4 peças · troca de lonas</div>
+              <div class="tadd"><i class="ic i-check"></i>Adicionado</div>
+            </div>
+            <div class="tk">
+              <div class="tile"><i class="ic i-layers"></i></div>
+              <b>Kit reparo pinça</b><div class="m">1 peça</div>
+              <div class="tadd"><i class="ic i-plus"></i>Adicionar</div>
+            </div>
+          </div>
+          <div class="tsect"><i class="ic i-zap"></i>Frequentes</div>
+          <div class="tfreq">
+            <span class="tf"><span class="d"></span>Lona LF-320</span>
+            <span class="tf"><span class="d"></span>Fluido DOT4</span>
+            <span class="tf"><span class="d"></span>Rebite RB-6</span>
+          </div>
+          <div class="tcart">
+            <div class="trow"><div class="tn"><b>Lona de freio LF-320</b><div class="m">Do kit · Freios</div></div><div class="tstep"><button><i class="ic i-minus"></i></button><span class="q">4</span><button><i class="ic i-plus"></i></button></div></div>
+            <div class="trow"><div class="tn"><b>Rebite de lona RB-6</b><div class="m">Do kit · Freios</div></div><div class="tstep"><button><i class="ic i-minus"></i></button><span class="q">40</span><button><i class="ic i-plus"></i></button></div></div>
+            <div class="trow"><div class="tn"><b>Mola de retorno MR-12</b><div class="m">Do kit · Freios</div></div><div class="tstep"><button><i class="ic i-minus"></i></button><span class="q">4</span><button><i class="ic i-plus"></i></button></div></div>
+          </div>
+        </div>
+        <div class="tbar">
+          <button class="tgo"><span class="pill">4</span>Pedir peças<i class="ic i-send"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== EDGE CASES ===================== -->
+  <div>
+    <div class="cap"><b>Edge cases</b><span>multi-serviço num envio, em falta → compra, serializado, rateio, sem permissão, e erro no envio de um grupo</span></div>
+    <div class="ecgrid">
+
+      <div class="ec">
+        <div class="eclbl"><i class="ic i-layers"></i>Multi-serviço · um envio</div>
+        <div class="gh-mini"><i class="ic i-wrench"></i>Troca de lonas · eixo 2<span class="c">4 peças</span></div>
+        <div class="gh-mini"><i class="ic i-wrench"></i>Troca de óleo e filtros<span class="c">3 peças</span></div>
+        <div class="gh-mini rateio"><i class="ic i-split"></i>Consumo geral · rateio<span class="c">1 peça</span></div>
+        <div class="ecnote">Um pedido cobre vários serviços. No envio vira <b>um pedido por serviço</b> na OS (+ um pros avulsos/rateio), tudo de uma vez.</div>
+      </div>
+
+      <div class="ec">
+        <div class="eclbl"><i class="ic i-alert"></i>Peça em falta</div>
+        <div class="lines">
+          <div class="pline">
+            <div class="nm"><b>Kit de reparo KP-88</b><div class="s"><span class="pn">KP-88</span> · Freios</div></div>
+            <div class="step"><button><i class="ic i-minus"></i></button><span class="q">2<span class="u">un</span></span><button><i class="ic i-plus"></i></button></div>
+            <div class="av none"><span class="d"></span>Em falta</div>
+            <div class="cost"><span class="v">R$ 960</span><span class="u">última 480/un</span></div>
+            <button class="rm"><i class="ic i-x"></i></button>
+          </div>
+        </div>
+        <div class="ecnote">Sem saldo a peça <b>não bloqueia</b> — o pedido vai assim mesmo; quem resolve (reservar, comprar ou recusar) é o <b>almoxarife</b>. E só aparece pra quem vê estoque.</div>
+      </div>
+
+      <div class="ec">
+        <div class="eclbl"><i class="ic i-flame"></i>Peça serializada</div>
+        <div class="lines">
+          <div class="pline">
+            <div class="nm"><b>Fueiro de aço</b><div class="s"><span class="pn">FUE-AC</span> · Estrutura <span class="serial-b"><i class="ic i-flame"></i>Série</span></div></div>
+            <div class="step"><button><i class="ic i-minus"></i></button><span class="q">2<span class="u">un</span></span><button><i class="ic i-plus"></i></button></div>
+            <div class="av ok"><span class="d"></span>11 em estoque</div>
+            <div class="cost"><span class="v">R$ 1.700</span><span class="u">850/un</span></div>
+            <button class="rm"><i class="ic i-x"></i></button>
+          </div>
+        </div>
+        <div class="ecnote">Pede <b>quantidade</b>; a <b>unidade (nº de fogo)</b> é bipada só na <b>entrega</b>, não aqui.</div>
+      </div>
+
+      <div class="ec nocost nostock">
+        <div class="eclbl"><i class="ic i-eye"></i>Mecânico · só solicita</div>
+        <div class="lines">
+          <div class="pline">
+            <div class="nm"><b>Lona de freio LF-320</b><div class="s"><span class="pn">LF-320</span> · Freios</div></div>
+            <div class="step"><button><i class="ic i-minus"></i></button><span class="q">4<span class="u">un</span></span><button><i class="ic i-plus"></i></button></div>
+            <button class="rm"><i class="ic i-x"></i></button>
+          </div>
+        </div>
+        <div class="ecnote">Quem pede <b>não lida com estoque</b>: sem saldo nem valor, só a peça e a quantidade. Falta/compra fica com o almoxarife.</div>
+      </div>
+
+      <div class="ec" style="grid-column:1/-1">
+        <div class="eclbl"><i class="ic i-alert"></i>Falha ao enviar um grupo</div>
+        <div class="errbar"><i class="ic i-alert"></i>Não deu pra enviar “Troca de óleo” — tente de novo. Os outros serviços foram.<button class="retry">Tentar de novo</button></div>
+        <div class="ecnote">Cada serviço é um pedido; se um falha (conexão, ou a OS mudou de estado), os outros <b>não se perdem</b> e dá pra repetir só o que falhou. <b>Falta de estoque não é erro</b> — o pedido vai assim mesmo.</div>
+      </div>
+
+    </div>
+  </div>
+
+  </div>
+</div>
+
+<script>
+const money=n=>'R$ '+Number(n).toLocaleString('pt-BR',{minimumFractionDigits:n%1?2:0,maximumFractionDigits:2});
+const $=s=>document.querySelector(s);
+const SERVICES={freios:'Troca de lonas · eixo 2',lub:'Troca de óleo e filtros',geral:'Consumo geral'};
+const KITS=[
+  {id:'plano',name:'Kit do plano · lonas',origin:'plano',svc:'freios',items:[
+    {pn:'LF-320',name:'Lona de freio LF-320',qty:4,unit:'un',cat:'Freios',cost:320,stock:128},
+    {pn:'RB-6',name:'Rebite de lona RB-6',qty:40,unit:'un',cat:'Freios',cost:1.2,stock:900},
+    {pn:'MR-12',name:'Mola de retorno MR-12',qty:4,unit:'un',cat:'Freios',cost:38,stock:60},
+    {pn:'DOT4',name:'Fluido de freio DOT4',qty:2,unit:'L',cat:'Lubrificantes',cost:28,stock:40,alloc:'rateio'},
+  ]},
+  {id:'oleo',name:'Kit troca de óleo · 10 mil',origin:'avulso',svc:'lub',items:[
+    {pn:'OM-15',name:'Óleo de motor 15W40',qty:38,unit:'L',cat:'Lubrificantes',cost:22,stock:600},
+    {pn:'FO-12',name:'Filtro de óleo FO-12',qty:1,unit:'un',cat:'Motor',cost:42,stock:50},
+    {pn:'FA-22',name:'Filtro de ar FA-22',qty:1,unit:'un',cat:'Motor',cost:96,stock:30},
+  ]},
+  {id:'pinca',name:'Kit reparo de pinça',origin:'avulso',svc:'freios',items:[
+    {pn:'KP-88',name:'Kit de reparo KP-88',qty:2,unit:'un',cat:'Freios',cost:480,stock:0},
+  ]},
+];
+const FREQ=[
+  {pn:'LF-320',name:'Lona de freio LF-320',unit:'un',cat:'Freios',cost:320,stock:128,svc:'freios'},
+  {pn:'TB-19',name:'Tambor de freio TB-19',unit:'un',cat:'Freios',cost:540,stock:6,svc:'freios'},
+  {pn:'EST',name:'Estopa branca',unit:'kg',cat:'Consumíveis',cost:16,stock:300,svc:'geral',alloc:'rateio'},
+  {pn:'FUE',name:'Fueiro de aço',unit:'un',cat:'Estrutura',cost:850,stock:11,svc:'freios',serial:true},
+];
+const ROLES=[{k:'gestor',label:'Gestor',cost:true,stock:true},{k:'consultor',label:'Consultor',cost:false,stock:true},{k:'mec',label:'Mecânico',cost:false,stock:false}];
+let role=ROLES[0], showCost=true, showStock=true, curSvc='freios';
+let cart=[]; // {pn,name,qty,unit,cat,cost,stock,alloc,serial,svc,kitId,kitName}
+const expanded=new Set(); // kit sub-groups currently open — colapsado por padrão
+
+// seed: já começa cobrindo DOIS serviços (multi-serviço num pedido só)
+addKit('plano',true);
+addKit('oleo',true);
+
+function findKit(id){return KITS.find(k=>k.id===id);}
+function addKit(id,silent){
+  const kit=findKit(id); if(!kit)return;
+  kit.items.forEach(it=>mergeItem({...it,svc:kit.svc,kitId:kit.id,kitName:kit.name}));
+  if(!silent)render();
+}
+function addPart(p){ mergeItem({...p,qty:p.qty||1,kitId:null,kitName:null}); render(); }
+function mergeItem(it){
+  const kid=it.kitId||null;
+  const ex=cart.find(c=>c.pn===it.pn && c.svc===it.svc && (c.kitId||null)===kid);
+  if(ex) ex.qty+=it.qty; else cart.push({...it,kitId:kid});
+}
+function removeKit(svc,kitId){ cart=cart.filter(c=>!(c.svc===svc && c.kitId===kitId)); render(); }
+function inc(i,d){ cart[i].qty=Math.max(1,cart[i].qty+d); render(); }
+function rm(i){ cart.splice(i,1); render(); }
+
+function availOf(it){
+  // só pra quem vê estoque; o número exato depende de ver valor. Falta não bloqueia o pedido.
+  if(it.stock>=it.qty) return {cls:'ok',txt:showCost? it.stock+' em estoque':'Disponível'};
+  if(it.stock>0) return {cls:'low',txt:showCost? it.stock+' · falta '+(it.qty-it.stock):'Parcial'};
+  return {cls:'none',txt:'Em falta'};
+}
+function plineHtml(i){
+  const it=cart[i], a=availOf(it);
+  return `<div class="pline">
+    <div class="nm"><b>${it.name}</b><div class="s"><span class="pn">${it.pn}</span> · ${it.cat}${it.alloc==='rateio'?' <span class="rateio-b"><i class="ic i-split"></i>Rateio</span>':''}${it.serial?' <span class="serial-b"><i class="ic i-flame"></i>Série</span>':''}</div></div>
+    <div class="step"><button data-dec="${i}"><i class="ic i-minus"></i></button><span class="q">${it.qty}<span class="u">${it.unit}</span></span><button data-inc="${i}"><i class="ic i-plus"></i></button></div>
+    ${showStock?`<div class="av ${a.cls}"><span class="d"></span>${a.txt}</div>`:''}
+    ${showCost?`<div class="cost"><span class="v">${money(it.qty*it.cost)}</span><span class="u">${it.alloc==='rateio'?'rateio':money(it.cost)+'/'+it.unit}</span></div>`:''}
+    <button class="rm" data-rm="${i}"><i class="ic i-x"></i></button>
+  </div>`;
+}
+function render(){
+  showCost=role.cost; showStock=role.stock;
+  const app=document.getElementById('app'); app.classList.toggle('nocost',!showCost); app.classList.toggle('nostock',!showStock);
+  $('#roleSeg').innerHTML=ROLES.map(r=>`<button class="${role.k===r.k?'on':''}" data-r="${r.k}">${r.label}</button>`).join('');
+  $('#svcpickLbl').textContent=SERVICES[curSvc];
+  // kits
+  const inIds=new Set(cart.map(c=>c.pn));
+  $('#kits').innerHTML=KITS.map(k=>{
+    const allIn=k.items.every(it=>inIds.has(it.pn));
+    return `<div class="kit ${k.origin==='plano'?'plano':''} ${allIn?'in':''}" data-kit="${k.id}">
+      <div class="tile"><i class="ic i-layers"></i></div>
+      <div class="kinfo"><b>${k.name}</b><div class="m">${k.items.length} peças${k.origin==='plano'?' · <span class="kbadge"><i class="ic i-plan" style="width:9px;height:9px"></i>do plano</span>':''}</div></div>
+      <div class="add"><i class="ic ${allIn?'i-check':'i-plus'}"></i></div>
+    </div>`;
+  }).join('');
+  // frequentes
+  $('#freq').innerHTML=FREQ.map(p=>`<button class="fchip" data-part="${p.pn}"><span class="d ${p.stock>=5?'':(p.stock>0?'low':'none')}"></span>${p.name}<i class="ic i-plus"></i></button>`).join('');
+  // cart grouped by svc, then kit sub-groups (colapsados) + peças avulsas
+  const groups={};
+  cart.forEach((c,i)=>{(groups[c.svc]=groups[c.svc]||[]).push(i);});
+  const order=['freios','lub','geral'];
+  let html='';
+  order.filter(s=>groups[s]).forEach(svc=>{
+    const idxs=groups[svc]; const rateio=svc==='geral';
+    const gfalta=idxs.filter(i=>cart[i].stock<cart[i].qty).length;
+    // partition: kit sub-groups first (na ordem em que surgem), depois as avulsas
+    const kitOrder=[], kitMap={}, loose=[];
+    idxs.forEach(i=>{
+      const it=cart[i];
+      if(it.kitId){ const kk=svc+'::'+it.kitId; if(!kitMap[kk]){kitMap[kk]={kitId:it.kitId,kitName:it.kitName,idxs:[]};kitOrder.push(kk);} kitMap[kk].idxs.push(i); }
+      else loose.push(i);
+    });
+    html+=`<div class="grp ${rateio?'rateio':''}"><div class="gh"><b>${SERVICES[svc]}</b><span class="gc">${(showStock&&gfalta)?`<span class="gpill bad">${gfalta} em falta</span>`:''}<span class="gpill">${idxs.length} ${idxs.length===1?'peça':'peças'}</span></span></div>
+      <div class="pcolh"><span>Peça</span><span>Qtd</span>${showStock?'<span>Disponibilidade</span>':''}${showCost?'<span class="r cst">Custo</span>':''}<span></span></div>`;
+    kitOrder.forEach(kk=>{
+      const g=kitMap[kk], kqty=g.idxs.length;
+      const ktot=g.idxs.reduce((a,i)=>a+cart[i].qty*cart[i].cost,0);
+      const kfalta=g.idxs.filter(i=>cart[i].stock<cart[i].qty).length;
+      const isOpen=expanded.has(kk);
+      html+=`<div class="ksub">
+        <div class="kitrow" data-ktoggle="${kk}">
+          <div class="ktile"><i class="ic i-layers"></i></div>
+          <div class="kmeta"><b>${g.kitName}</b><span class="kc">${kqty} ${kqty===1?'peça':'peças'}</span></div>
+          ${(showStock&&kfalta)?`<span class="kfalta">${kfalta} em falta</span>`:''}
+          ${showCost?`<div class="kcost"><span class="v">${money(ktot)}</span></div>`:''}
+          <i class="ic i-chev kcaret ${isOpen?'open':''}"></i>
+          <button class="rm" data-rmkit="${kk}" title="Remover kit"><i class="ic i-x"></i></button>
+        </div>
+        ${isOpen?`<div class="klines lines">`+g.idxs.map(plineHtml).join('')+`</div>`:''}
+      </div>`;
+    });
+    if(loose.length) html+=`<div class="lines">`+loose.map(plineHtml).join('')+`</div>`;
+    html+=`</div>`;
+  });
+  const cartEl=$('#cart');
+  if(cart.length===0){
+    cartEl.innerHTML=`<div class="ped-empty"><span class="ei"><i class="ic i-cart"></i></span><b>Comece pelo kit</b><p>Adicione o kit do plano, um kit avulso ou busque a peça — o pedido se monta aqui.</p></div>`;
+  } else cartEl.innerHTML=html;
+  // totals
+  const n=cart.reduce((a,c)=>a+c.qty,0), lines=cart.length;
+  const est=cart.reduce((a,c)=>a+c.qty*c.cost,0);
+  const falta=cart.filter(c=>c.stock<c.qty).length;
+  $('#pedCnt').textContent=lines?`${lines} ${lines===1?'linha':'linhas'} · ${n} itens`:'';
+  $('#abN').textContent=lines; $('#abLbl').textContent=lines===1?'linha':'linhas';
+  $('#abEst').innerHTML=showCost?`estimado <b>${money(est)}</b>`:'';
+  $('#abFlt').innerHTML=(showStock&&falta)?`<i class="ic i-alert"></i>${falta} em falta`:'';
+}
+
+$('#kits').addEventListener('click',e=>{const k=e.target.closest('[data-kit]');if(k)addKit(k.dataset.kit);});
+$('#freq').addEventListener('click',e=>{const f=e.target.closest('[data-part]');if(f){const p=FREQ.find(x=>x.pn===f.dataset.part);addPart(p);}});
+$('#cart').addEventListener('click',e=>{
+  const rmk=e.target.closest('[data-rmkit]');
+  if(rmk){const[svc,kitId]=rmk.dataset.rmkit.split('::');removeKit(svc,kitId);return;}
+  const tog=e.target.closest('[data-ktoggle]');
+  if(tog){const kk=tog.dataset.ktoggle;expanded.has(kk)?expanded.delete(kk):expanded.add(kk);render();return;}
+  const dec=e.target.closest('[data-dec]'),inc2=e.target.closest('[data-inc]'),r=e.target.closest('[data-rm]');
+  if(dec)inc(+dec.dataset.dec,-1); else if(inc2)inc(+inc2.dataset.inc,1); else if(r)rm(+r.dataset.rm);
+});
+$('#roleSeg').addEventListener('click',e=>{const r=e.target.closest('[data-r]');if(r){role=ROLES.find(x=>x.k===r.dataset.r);render();}});
+$('#abClr').onclick=()=>{cart=[];render();};
+render();
+</script>
+</body>
+</html>

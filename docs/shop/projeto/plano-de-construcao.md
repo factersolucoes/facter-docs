@@ -58,7 +58,7 @@ combinação, foto por variação, app instalável (PWA). Entram quando um clien
 | 1 | **entregue 06/11** ([detalhes](../engenharia/fatia-1-fundacao.md)) | API `localhost:3101/api/health` · vitrine `localhost:3100/store/made-in-voce` e `/store/doces-da-lari` · painel `localhost:3102` (`daniele@local.dev` / `senha-forte-123`) |
 | 2 | **entregue 06/11** ([detalhes](../engenharia/fatia-2-produtos.md)) | painel `localhost:3102/items` (novo produto com foto → aparece na vitrine) |
 | 3 | **entregue 06/11** ([detalhes](../engenharia/fatia-3-pedidos.md)) | pedido na vitrine → painel `localhost:3102/orders` → confirmar pelo WhatsApp; Início com o dia |
-| 4 | | |
+| 4 | **entregue 06/11** ([detalhes](../engenharia/fatia-4-aparencia.md)) | painel `localhost:3102/store` (trocar o estilo e ver o celular mudar; domínio) · `localhost:3102/settings` |
 | 5 | | |
 | 6 | | |
 

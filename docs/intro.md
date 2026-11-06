@@ -14,6 +14,7 @@ Documentacao centralizada do ecossistema Facter — SaaS multi-tenant para gesta
 |---------|--------|-----------|
 | **Truck** | Producao | Gestao de frotas e manutencao |
 | **Hub** | Desenvolvimento | SSO, billing e assinaturas |
+| **Shop** | Em construcao | Loja online propria pra quem vende pelo Instagram; pedido chega no WhatsApp |
 | **Vagas** | MVP em construcao | Portal de vagas de emprego + divulgacao no Instagram |
 | **TechCare** | Em homologacao | Gestao de assistencia tecnica: OS, orcamento, estoque e garantia |
 | **Design System** | Producao | `@facter/ds-core` — componentes compartilhados |
@@ -28,6 +29,7 @@ Documentacao centralizada do ecossistema Facter — SaaS multi-tenant para gesta
 
 - **[Truck](/docs/truck/visao-geral)** — Engenharia, produto, decisoes, ADRs
 - **[Hub](/docs/hub/engenharia/arquitetura/visao-geral)** — Engenharia, produto, roadmap
+- **[Shop](/docs/shop/visao-geral)** — Loja online: visao geral e mockups da gestao
 - **[Vagas](/docs/vagas/produto/visao-geral)** — Portal de vagas: visao geral, roadmap, arquitetura
 - **[TechCare](/docs/techcare/produto/visao-geral)** — Assistencia tecnica: fluxos, regras de negocio, como testar
 - **[Design System](/docs/design-system/visao-geral)** — Componentes, tokens, guias

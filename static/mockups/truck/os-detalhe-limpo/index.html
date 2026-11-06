@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detalhe da OS · limpo · mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:240 20% 98.5%;--surface:0 0% 100%;
+  --line:240 12% 92%;--line-soft:240 14% 95%;
+  --ink:240 14% 11%;--text:240 8% 26%;--muted:240 6% 50%;--faint:240 8% 70%;
+  --primary:233 64% 52%;--primary-ink:233 58% 45%;--primary-soft:233 100% 97%;
+  --amber:35 90% 44%;--red:2 70% 50%;--green:160 50% 38%;
+  --hover:240 24% 97.2%;
+  --sh:0 1px 2px hsl(240 20% 30%/.04),0 2px 8px -2px hsl(240 24% 30%/.07);
+}
+*{box-sizing:border-box}
+body{margin:0;background:hsl(var(--bg));color:hsl(var(--text));font:14px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;letter-spacing:-.005em}
+h1,h2,h3,p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
+.num{font-variant-numeric:tabular-nums}
+.ic{display:inline-block;width:18px;height:18px;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;flex:none}
+.ic.s14{width:14px;height:14px}.ic.s16{width:16px;height:16px}
+.i-chev{--i:url(https://api.iconify.design/lucide/chevron-right.svg)}
+.i-down{--i:url(https://api.iconify.design/lucide/chevron-down.svg)}
+.i-search{--i:url(https://api.iconify.design/lucide/search.svg)}
+.i-print{--i:url(https://api.iconify.design/lucide/printer.svg)}
+.i-more{--i:url(https://api.iconify.design/lucide/ellipsis.svg)}
+.i-plus{--i:url(https://api.iconify.design/lucide/plus.svg)}
+.i-flag{--i:url(https://api.iconify.design/lucide/flag.svg)}
+.i-user{--i:url(https://api.iconify.design/lucide/user-plus.svg)}
+.i-check{--i:url(https://api.iconify.design/lucide/check.svg)}
+.i-bolt{--i:url(https://api.iconify.design/lucide/zap.svg)}
+
+.doc{max-width:1080px;margin:0 auto;padding:36px 24px 90px}
+.doc-h h1{font:700 26px/1.2 Inter;letter-spacing:-.02em;color:hsl(var(--ink))}
+.doc-h p{color:hsl(var(--muted));margin-top:8px;max-width:720px;font-size:14.5px}
+
+.app{margin-top:24px;background:hsl(var(--surface));border:1px solid hsl(var(--line));border-radius:16px;box-shadow:var(--sh);overflow:hidden}
+
+/* top bar */
+.bar{display:flex;align-items:center;gap:10px;height:56px;padding:0 20px;border-bottom:1px solid hsl(var(--line-soft))}
+.crumb{display:flex;align-items:center;gap:7px;font-size:13px;color:hsl(var(--muted))}
+.crumb .ic{width:13px;height:13px;opacity:.6}
+.crumb b{color:hsl(var(--ink));font-weight:600}
+.bar .sp{flex:1}
+.ghost{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:hsl(var(--muted))}
+.ghost:hover{background:hsl(var(--hover));color:hsl(var(--text))}
+.avatar{width:30px;height:30px;border-radius:50%;background:hsl(var(--primary-soft));color:hsl(var(--primary-ink));display:grid;place-items:center;font:600 11.5px Inter}
+
+/* header */
+.head{padding:22px 24px 20px;border-bottom:1px solid hsl(var(--line-soft))}
+.head .top{display:flex;align-items:center;gap:12px}
+.head h2{font:700 22px/1.2 Inter;letter-spacing:-.02em;color:hsl(var(--ink))}
+.state{display:inline-flex;align-items:center;gap:7px;height:26px;padding:0 11px;border-radius:999px;background:hsl(240 20% 96%);color:hsl(var(--text));font-size:12.5px;font-weight:550}
+.state .d{width:6px;height:6px;border-radius:50%;background:hsl(var(--amber))}
+.head .top .sp{flex:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:0 15px;border-radius:9px;font:550 13.5px Inter;border:1px solid transparent}
+.btn-ghost{color:hsl(var(--muted));border-color:hsl(var(--line))}
+.btn-ghost:hover{background:hsl(var(--hover));color:hsl(var(--text))}
+.btn-primary{background:hsl(var(--primary));color:#fff}
+.btn-primary[disabled]{background:hsl(240 16% 93%);color:hsl(var(--faint));cursor:not-allowed}
+.btn .ic{width:15px;height:15px}
+.facts{display:flex;align-items:center;flex-wrap:wrap;gap:0 26px;margin-top:18px}
+.fact{display:flex;flex-direction:column;gap:2px;padding-right:26px;border-right:1px solid hsl(var(--line-soft))}
+.fact:last-child{border-right:0;padding-right:0}
+.fact .k{font-size:11.5px;color:hsl(var(--muted))}
+.fact .v{font:600 14.5px Inter;color:hsl(var(--ink));font-variant-numeric:tabular-nums}
+.fact .v small{font-weight:450;color:hsl(var(--muted));font-size:12.5px}
+.fact .v.warn{color:hsl(var(--amber))}
+
+/* services section */
+.svc{padding:8px 12px 16px}
+.svc-bar{display:flex;align-items:center;gap:12px;padding:14px 12px 12px}
+.svc-bar h3{font:600 14px Inter;color:hsl(var(--ink));display:flex;align-items:center;gap:9px}
+.svc-bar h3 .n{font:600 12px Inter;color:hsl(var(--muted));background:hsl(240 18% 95%);border-radius:999px;padding:1px 8px}
+.svc-bar .sp{flex:1}
+.seg{display:inline-flex;background:hsl(240 18% 96%);border-radius:9px;padding:3px}
+.seg button{height:28px;padding:0 12px;border-radius:7px;font:550 12.5px Inter;color:hsl(var(--muted))}
+.seg button[aria-pressed=true]{background:hsl(var(--surface));color:hsl(var(--ink));box-shadow:0 1px 2px hsl(240 20% 30%/.1)}
+.ipt{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 12px;border:1px solid hsl(var(--line));border-radius:9px;color:hsl(var(--faint));font-size:13px;width:200px}
+.add{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 10px;border-radius:9px;color:hsl(var(--primary-ink));font:550 13px Inter}
+.add:hover{background:hsl(var(--primary-soft))}
+
+.grp{display:flex;align-items:center;gap:10px;padding:16px 12px 8px}
+.grp .plate{font:700 13.5px Inter;color:hsl(var(--ink));letter-spacing:-.01em}
+.grp .meta{font-size:12.5px;color:hsl(var(--muted))}
+.grp .sp{flex:1}
+.grp .open{font:600 12px Inter;color:hsl(var(--amber));display:inline-flex;align-items:center;gap:6px}
+.grp .open .d{width:6px;height:6px;border-radius:50%;background:hsl(var(--amber))}
+
+.list{display:flex;flex-direction:column}
+.srv{display:grid;grid-template-columns:9px minmax(0,1fr) auto;gap:16px;align-items:center;padding:13px 12px;border-radius:10px;border-top:1px solid hsl(var(--line-soft))}
+.srv:first-child{border-top:0}
+.srv:hover{background:hsl(var(--hover))}
+.srv .dot{width:8px;height:8px;border-radius:50%;background:hsl(var(--faint))}
+.srv.run .dot{background:hsl(var(--primary))}
+.srv.wait .dot{background:hsl(var(--amber))}
+.srv.none .dot{background:hsl(var(--red))}
+.srv.done .dot{background:transparent;box-shadow:inset 0 0 0 1.5px hsl(var(--line));position:relative}
+.srv .idc{min-width:0}
+.srv .idc .nm{font:550 14.5px Inter;color:hsl(var(--ink));line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.srv .idc .meta{font-size:12.5px;color:hsl(var(--muted));margin-top:2px}
+.srv .idc .meta .w{color:hsl(var(--amber));font-weight:500}
+.srv .idc .meta .e{color:hsl(var(--red));font-weight:600}
+.srv.done .idc .nm{color:hsl(var(--muted));font-weight:450}
+.srv .end{display:flex;align-items:center;gap:16px;justify-self:end}
+.srv .tm{text-align:right;font:550 13.5px Inter;color:hsl(var(--text));font-variant-numeric:tabular-nums;white-space:nowrap}
+.srv .tm.up{color:hsl(var(--red))}
+.srv .tm .of{color:hsl(var(--muted));font-weight:450}
+.srv .act{display:flex;align-items:center;gap:4px;opacity:0;transition:opacity .12s}
+.srv:hover .act,.srv.none .act{opacity:1}
+.srv .act .lk{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 11px;border-radius:8px;font:550 12.5px Inter;color:hsl(var(--primary-ink))}
+.srv .act .lk:hover{background:hsl(var(--primary-soft))}
+.srv .act .kb{width:28px;height:28px;border-radius:7px;display:grid;place-items:center;color:hsl(var(--faint))}
+.srv .act .kb:hover{background:hsl(240 16% 93%);color:hsl(var(--muted))}
+
+.foot{display:flex;align-items:center;gap:8px;padding:13px 12px;margin-top:2px;border-top:1px solid hsl(var(--line-soft));color:hsl(var(--muted));font-size:13px;border-radius:0 0 10px 10px}
+.foot:hover{background:hsl(var(--hover))}
+.foot .ic{width:14px;height:14px}
+.foot b{color:hsl(var(--text));font-weight:600}
+
+.note{margin-top:20px;font-size:13px;color:hsl(var(--muted))}
+.note b{color:hsl(var(--ink));font-weight:600}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="doc-h">
+    <h1>Detalhe da OS — do zero</h1>
+    <p>Recomeço limpo: <b>primary + neutros</b>, cor só como sinal mínimo (ponto de estado, número no vermelho), uma ação principal, <b>ações no hover</b> (não brigam), concluídos recolhidos sem footer pesado. Qualidade big tech: respiro, alinhamento, tipografia.</p>
+  </div>
+
+  <div class="app">
+    <div class="bar">
+      <div class="crumb">Ordens de serviço <i class="ic i-chev"></i> <b>OS-1042</b></div>
+      <span class="sp"></span>
+      <button class="ghost"><i class="ic i-search"></i></button>
+      <button class="ghost"><i class="ic i-print"></i></button>
+      <button class="ghost"><i class="ic i-more"></i></button>
+      <span class="avatar">MC</span>
+    </div>
+
+    <div class="head">
+      <div class="top">
+        <h2>OS-1042</h2>
+        <span class="state"><span class="d"></span>Em manutenção</span>
+        <span class="sp"></span>
+        <button class="btn btn-primary" disabled><i class="ic i-flag"></i>Liberar veículo</button>
+      </div>
+      <div class="facts">
+        <div class="fact"><span class="k">Veículo</span><span class="v">Frota 2213 <small>· QRT4B22 + 2</small></span></div>
+        <div class="fact"><span class="k">Parada</span><span class="v">52 h 10 m</span></div>
+        <div class="fact"><span class="k">Previsão</span><span class="v">seg, 14:00</span></div>
+        <div class="fact"><span class="k">Serviços</span><span class="v">34 / 40</span></div>
+        <div class="fact"><span class="k">Travados</span><span class="v warn">3</span></div>
+      </div>
+    </div>
+
+    <div class="svc">
+      <div class="svc-bar">
+        <h3>Serviços <span class="n">40</span></h3>
+        <span class="sp"></span>
+        <div class="seg"><button aria-pressed="true">Abertos · 6</button><button>Todos · 40</button></div>
+        <div class="ipt"><i class="ic i-search"></i>Buscar</div>
+        <button class="add"><i class="ic i-plus"></i>Adicionar</button>
+      </div>
+
+      <div class="grp"><span class="plate">QRT4B22</span><span class="meta">Cavalo · 13 serviços</span><span class="sp"></span><span class="open"><span class="d"></span>2 abertos</span></div>
+      <div class="list">
+        <div class="srv none">
+          <span class="dot"></span>
+          <div class="idc"><div class="nm">Teste de estanqueidade do sistema de ar</div><div class="meta"><span class="e">Sem executor</span> · Freio › sistema de ar · 0 h 40 previsto</div></div>
+          <div class="end"><div class="act"><button class="lk"><i class="ic i-user"></i>Designar</button><button class="kb"><i class="ic i-more"></i></button></div></div>
+        </div>
+        <div class="srv run">
+          <span class="dot"></span>
+          <div class="idc"><div class="nm">Troca da válvula relé do freio</div><div class="meta">Rafael · trabalhando desde 08:12</div></div>
+          <div class="end"><div class="tm up">3 h 10 <span class="of">/ 3 h 00 · +10</span></div><div class="act"><button class="kb"><i class="ic i-more"></i></button></div></div>
+        </div>
+        <div class="srv wait">
+          <span class="dot"></span>
+          <div class="idc"><div class="nm">Substituição do compressor de ar</div><div class="meta">Anderson · <span class="w">aguardando peça 318</span></div></div>
+          <div class="end"><div class="tm">0 h 45 <span class="of">/ 2 h 00</span></div><div class="act"><button class="lk">Cobrar</button><button class="kb"><i class="ic i-more"></i></button></div></div>
+        </div>
+      </div>
+      <div class="foot"><i class="ic i-chev"></i><b>9 concluídos</b> · 6 h 20</div>
+
+      <div class="grp"><span class="plate">RTA2C45</span><span class="meta">Carreta · 14 serviços</span><span class="sp"></span><span class="open"><span class="d"></span>2 abertos</span></div>
+      <div class="list">
+        <div class="srv wait">
+          <span class="dot"></span>
+          <div class="idc"><div class="nm">Troca de lonas de freio · eixo 2</div><div class="meta">Anderson · <span class="w">aguardando peça 319</span></div></div>
+          <div class="end"><div class="tm">3 h 12 <span class="of">/ 4 h 00</span></div><div class="act"><button class="lk">Cobrar</button><button class="kb"><i class="ic i-more"></i></button></div></div>
+        </div>
+        <div class="srv run">
+          <span class="dot"></span>
+          <div class="idc"><div class="nm">Troca de pastilhas · eixo 1</div><div class="meta">Diego · trabalhando desde 09:28</div></div>
+          <div class="end"><div class="tm">1 h 05 <span class="of">/ 1 h 30</span></div><div class="act"><button class="kb"><i class="ic i-more"></i></button></div></div>
+        </div>
+      </div>
+      <div class="foot"><i class="ic i-chev"></i><b>12 concluídos</b> · 11 h 05</div>
+    </div>
+  </div>
+
+  <p class="note"><b>Disciplina:</b> status por um ponto pequeno (4 cores, usadas no mínimo); o resto é neutro/preto. Ação some até o hover — a de "sem executor" fica visível porque é o que trava. O "concluídos" é uma linha, não um bloco.</p>
+</div>
+</body>
+</html>

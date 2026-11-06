@@ -1,0 +1,1194 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detalhe da OS · console · mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:240 30% 99%;--card:0 0% 100%;--fg:240 18% 14%;--muted-fg:240 6% 46%;
+  --primary:233 65% 50%;--primary-ink:233 70% 40%;--primary-soft:233 85% 96.5%;
+  --border:240 20% 92%;--border-soft:240 24% 95%;
+  --blue:217 91% 60%;--blue-ink:221 83% 48%;
+  --amber:38 92% 50%;--amber-ink:30 90% 42%;
+  --emerald:160 70% 40%;--emerald-ink:161 74% 30%;
+  --purple:270 70% 60%;--purple-ink:271 60% 50%;
+  --red:0 80% 62%;--red-ink:0 70% 48%;
+  --slate:240 6% 60%;--slate-ink:240 6% 40%;
+  --graphite:240 10% 20%;--graphite-soft:240 8% 27%;
+  --sh-sm:0 1px 2px hsl(240 20% 30%/.05),0 4px 12px -4px hsl(240 24% 30%/.10);
+  --sh-md:0 4px 10px -2px hsl(240 24% 30%/.10),0 18px 40px -16px hsl(233 40% 40%/.22);
+  --sh-lg:0 8px 18px -4px hsl(240 24% 30%/.12),0 40px 70px -24px hsl(233 44% 40%/.30);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:linear-gradient(180deg,hsl(233 40% 97%),hsl(var(--bg)));color:hsl(var(--fg));font:14.5px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4,p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+.num{font-variant-numeric:tabular-nums}
+.ic{display:inline-block;width:18px;height:18px;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;flex:none}
+.ic.s14{width:14px;height:14px}.ic.s16{width:16px;height:16px}.ic.s20{width:20px;height:20px}.ic.s22{width:22px;height:22px}
+.i-chev{--i:url(https://api.iconify.design/lucide/chevron-right.svg)}.i-down{--i:url(https://api.iconify.design/lucide/chevron-down.svg)}
+.i-back{--i:url(https://api.iconify.design/lucide/arrow-left.svg)}.i-settings{--i:url(https://api.iconify.design/lucide/settings.svg)}
+.i-moon{--i:url(https://api.iconify.design/lucide/moon.svg)}.i-bell{--i:url(https://api.iconify.design/lucide/bell.svg)}
+.i-pin{--i:url(https://api.iconify.design/lucide/map-pin.svg)}.i-more{--i:url(https://api.iconify.design/lucide/ellipsis.svg)}
+.i-clock{--i:url(https://api.iconify.design/lucide/clock.svg)}.i-user{--i:url(https://api.iconify.design/lucide/user.svg)}
+.i-truck{--i:url(https://api.iconify.design/lucide/truck.svg)}.i-wrench{--i:url(https://api.iconify.design/lucide/wrench.svg)}
+.i-play{--i:url(https://api.iconify.design/lucide/play.svg)}.i-pause{--i:url(https://api.iconify.design/lucide/pause.svg)}
+.i-flag{--i:url(https://api.iconify.design/lucide/flag.svg)}.i-x{--i:url(https://api.iconify.design/lucide/x.svg)}
+.i-printer{--i:url(https://api.iconify.design/lucide/printer.svg)}.i-maximize{--i:url(https://api.iconify.design/lucide/maximize-2.svg)}
+.i-file{--i:url(https://api.iconify.design/lucide/file-text.svg)}.i-pkg{--i:url(https://api.iconify.design/lucide/package.svg)}
+.i-clip{--i:url(https://api.iconify.design/lucide/clipboard-check.svg)}.i-hist{--i:url(https://api.iconify.design/lucide/history.svg)}
+.i-branch{--i:url(https://api.iconify.design/lucide/git-branch.svg)}.i-simple{--i:url(https://api.iconify.design/lucide/layout-grid.svg)}
+.i-adv{--i:url(https://api.iconify.design/lucide/layers.svg)}.i-heart{--i:url(https://api.iconify.design/lucide/heart-pulse.svg)}
+.i-alert{--i:url(https://api.iconify.design/lucide/triangle-alert.svg)}.i-bolt{--i:url(https://api.iconify.design/lucide/zap.svg)}
+.i-dollar{--i:url(https://api.iconify.design/lucide/circle-dollar-sign.svg)}.i-users{--i:url(https://api.iconify.design/lucide/users.svg)}
+.i-check{--i:url(https://api.iconify.design/lucide/check.svg)}.i-checkc{--i:url(https://api.iconify.design/lucide/circle-check-big.svg)}
+.i-cart{--i:url(https://api.iconify.design/lucide/shopping-cart.svg)}.i-userplus{--i:url(https://api.iconify.design/lucide/user-plus.svg)}
+.i-undo{--i:url(https://api.iconify.design/lucide/undo-2.svg)}.i-trend{--i:url(https://api.iconify.design/lucide/trending-up.svg)}
+.i-container{--i:url(https://api.iconify.design/lucide/container.svg)}.i-hour{--i:url(https://api.iconify.design/lucide/hourglass.svg)}
+.i-signal{--i:url(https://api.iconify.design/lucide/signal-high.svg)}.i-wifi{--i:url(https://api.iconify.design/lucide/wifi.svg)}
+.i-batt{--i:url(https://api.iconify.design/lucide/battery-full.svg)}.i-home{--i:url(https://api.iconify.design/lucide/house.svg)}
+
+/* presentation */
+.doc{max-width:1340px;margin:0 auto;padding:40px 24px 90px}
+.doc-head h1{font:800 29px/1.15 Sora,sans-serif;letter-spacing:-.02em}
+.doc-head p{color:hsl(240 6% 34%);max-width:900px;margin-top:9px;font-size:14.5px}
+.doc-head p b{color:hsl(var(--fg));font-weight:650}
+.frame{position:relative;margin-top:22px;border-radius:20px;background:linear-gradient(180deg,hsl(233 44% 98.5%),hsl(0 0% 100%));box-shadow:var(--sh-lg);overflow:hidden;border:1px solid hsl(240 22% 91%)}
+
+/* top bar */
+.top{display:flex;align-items:center;gap:14px;padding:14px 24px;border-bottom:1px solid hsl(var(--border-soft));background:hsl(0 0% 100%/.7);backdrop-filter:blur(8px)}
+.crumb{display:flex;align-items:center;gap:8px;font-size:14px;color:hsl(var(--muted-fg))}
+.crumb .ic{width:14px;height:14px;opacity:.6}
+.crumb b{color:hsl(var(--primary-ink));font-weight:700}
+.top .sp{flex:1}
+.tbtn{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;color:hsl(240 6% 42%);background:none;border:0;position:relative}
+.tbtn:hover{background:hsl(240 20% 95%)}
+.tbtn .dotn{position:absolute;top:6px;right:6px;min-width:17px;height:16px;padding:0 4px;border-radius:99px;background:hsl(var(--red));color:#fff;font:700 10px Inter;display:grid;place-items:center}
+.company{display:flex;align-items:center;gap:10px;padding:6px 12px 6px 8px;border-radius:13px;background:hsl(var(--primary-soft));border:1px solid hsl(233 60% 91%)}
+.company .av{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,hsl(233 62% 58%),hsl(233 62% 60%));color:#fff;display:grid;place-items:center;font:800 13px Sora}
+.company .nm b{font:700 14px Sora;display:block;line-height:1.2}
+.company .nm span{font-size:11.5px;color:hsl(var(--muted-fg))}
+
+/* page body */
+.page{padding:22px 26px 30px;display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:22px;align-items:start}
+
+/* ===== HERO ===== */
+.hero{position:relative;border-radius:26px;overflow:hidden;border:1px solid hsl(0 0% 100%/.7);box-shadow:var(--sh-md);background:linear-gradient(135deg,hsl(0 0% 100%),hsl(0 0% 100%) 55%,hsl(var(--primary)/.07))}
+.orb{position:absolute;border-radius:50%;filter:blur(60px);opacity:.45;pointer-events:none}
+.orb.a{width:320px;height:320px;right:-40px;top:-120px;background:radial-gradient(circle,hsl(233 80% 70%),transparent 70%)}
+.orb.b{width:240px;height:240px;right:120px;top:40px;background:radial-gradient(circle,hsl(0 85% 72%),transparent 70%);opacity:.3}
+.grid-ov{position:absolute;inset:0;background-image:linear-gradient(hsl(233 30% 50%/.04) 1px,transparent 1px),linear-gradient(90deg,hsl(233 30% 50%/.04) 1px,transparent 1px);background-size:28px 28px;pointer-events:none}
+.hero-in{position:relative;padding:26px 28px}
+.hero-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
+.hero-nav .l{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.glass{background:hsl(0 0% 100%/.6);border:1px solid hsl(0 0% 100%/.7);backdrop-filter:blur(8px);box-shadow:0 1px 2px hsl(240 20% 40%/.06)}
+.gbtn{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;color:hsl(240 8% 34%)}
+.gbtn:hover{background:hsl(0 0% 100%/.9)}
+.statuspill{display:inline-flex;align-items:center;gap:9px;height:38px;padding:0 16px;border-radius:99px;border:1px solid hsl(var(--blue)/.25);background:hsl(var(--blue)/.1);color:hsl(var(--blue-ink));font-size:13.5px;font-weight:600}
+.statuspill .dot{width:9px;height:9px;border-radius:99px;background:hsl(var(--blue));animation:pulse 2s infinite}
+.statuspill .tmr{font:700 14px Sora;font-variant-numeric:tabular-nums}
+.statuspill .ic{color:hsl(var(--emerald));width:13px;height:13px}
+.osbadge{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 15px;border-radius:12px;font-size:13px}
+.osbadge .k{color:hsl(var(--muted-fg));font-size:12px}.osbadge b{color:hsl(var(--primary-ink));font-weight:800;font-family:Sora}
+@keyframes pulse{0%{box-shadow:0 0 0 0 hsl(var(--blue)/.5)}70%{box-shadow:0 0 0 7px hsl(var(--blue)/0)}100%{box-shadow:0 0 0 0 hsl(var(--blue)/0)}}
+
+.hero-main{display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+.hero-main .l{flex:1;min-width:0}
+.htitle{font:800 30px/1.1 Sora,sans-serif;letter-spacing:-.02em}
+.hsub{color:hsl(var(--muted-fg));margin-top:3px;font-size:14.5px}
+.metas{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+.meta{display:flex;align-items:center;gap:11px;padding:10px 15px 10px 11px;border-radius:15px;background:hsl(240 40% 99%);border:1px solid hsl(240 22% 93%)}
+.meta .mi{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:hsl(240 24% 95%);color:hsl(240 8% 42%)}
+.meta .mt .k{font-size:11.5px;color:hsl(var(--muted-fg))}
+.meta .mt .v{font-size:14px;font-weight:650;line-height:1.25}
+.meta.hl{background:hsl(var(--primary-soft));border-color:hsl(233 60% 91%)}
+.meta.hl .mi{background:hsl(var(--primary)/.14);color:hsl(var(--primary-ink))}
+.meta.hl .v{color:hsl(var(--primary-ink))}
+
+/* progress ring */
+.ring-wrap{position:relative;width:132px;height:132px;flex:none}
+.ring-glow{position:absolute;inset:10px;border-radius:50%;filter:blur(18px);opacity:.35;background:linear-gradient(135deg,hsl(var(--primary)),hsl(233 72% 62%))}
+.ring-wrap svg{position:relative;transform:rotate(-90deg)}
+.ring-wrap .ctr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring-wrap .ctr b{font:800 28px Sora;color:hsl(var(--primary-ink));letter-spacing:-.02em}
+.ring-wrap .ctr span{font-size:12px;color:hsl(var(--muted-fg));margin-top:1px}
+
+/* toggle + tabs */
+.viewrow{display:flex;align-items:center;justify-content:space-between;margin:18px 2px 4px}
+.seg{display:inline-flex;gap:3px;padding:4px;background:hsl(240 24% 95%);border-radius:12px}
+.seg button{border:0;background:none;height:34px;padding:0 14px;border-radius:9px;font-size:13px;font-weight:600;color:hsl(240 6% 40%);display:inline-flex;align-items:center;gap:7px}
+.seg button[aria-pressed="true"]{background:hsl(var(--card));color:hsl(var(--fg));box-shadow:0 1px 3px hsl(240 20% 30%/.14)}
+.tabs{display:flex;gap:4px;border-bottom:1px solid hsl(var(--border));margin:14px 0 18px}
+.tabs a{display:inline-flex;align-items:center;gap:7px;padding:11px 14px;font-size:14px;font-weight:600;color:hsl(240 6% 46%);text-decoration:none;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs a .ic{width:16px;height:16px}
+.tabs a.on{color:hsl(var(--primary-ink));border-bottom-color:hsl(var(--primary))}
+.tabs a .b{font-size:11px;font-weight:700;background:hsl(var(--primary)/.14);color:hsl(var(--primary-ink));border-radius:99px;padding:1px 7px}
+
+/* visão geral content */
+.vgrow{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.prio{display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 13px;border-radius:99px;background:hsl(var(--amber)/.12);color:hsl(var(--amber-ink));font-size:13px;font-weight:700}
+.reb{display:flex;align-items:center;gap:8px;font-size:13px;color:hsl(var(--muted-fg))}
+.reb .c{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 11px;border-radius:9px;background:hsl(240 24% 96%);font-weight:600;color:hsl(240 8% 34%)}
+.reb .c .ic{width:13px;height:13px;opacity:.6}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.vcard{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:18px;box-shadow:var(--sh-sm);overflow:hidden}
+.vcard.full{grid-column:1/-1}
+.vc-h{display:flex;align-items:center;gap:12px;padding:16px 18px}
+.vc-h .ci{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:hsl(var(--primary)/.1);color:hsl(var(--primary-ink))}
+.vc-h .ct b{font:700 15px Sora;display:block}
+.vc-h .ct span{font-size:12.5px;color:hsl(var(--muted-fg))}
+.vc-h .r{margin-left:auto;display:flex;align-items:center;gap:10px}
+.vc-b{padding:4px 18px 18px}
+.statetag{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:99px;font-size:12.5px;font-weight:700}
+.st-ok{background:hsl(var(--emerald)/.12);color:hsl(var(--emerald-ink))}
+.st-warn{background:hsl(var(--amber)/.14);color:hsl(var(--amber-ink))}
+.mini-ring{position:relative;width:46px;height:46px}
+.mini-ring svg{transform:rotate(-90deg)}
+.mini-ring span{position:absolute;inset:0;display:grid;place-items:center;font:800 11px Sora;color:hsl(var(--primary-ink))}
+
+/* service pill (v1) */
+.srow{display:flex;align-items:center;gap:13px;padding:12px 14px;border-radius:14px;background:hsl(240 30% 97.5%);transition:background .14s}
+.srow+.srow{margin-top:8px}
+.srow:hover{background:hsl(240 28% 96%)}
+.srow .dot{width:9px;height:9px;border-radius:99px;flex:none}
+.d-blue{background:hsl(var(--blue))}.d-amber{background:hsl(var(--amber))}.d-emer{background:hsl(var(--emerald))}.d-slate{background:hsl(var(--slate))}
+.d-live{animation:pulse 2s infinite}
+.srow .mid{flex:1;min-width:0}
+.srow .mid b{font-size:14px;font-weight:600;display:block;line-height:1.3}
+.srow .mid .who{display:flex;align-items:center;gap:6px;font-size:12.5px;color:hsl(var(--muted-fg));margin-top:2px}
+.srow .mid .who .ic{width:13px;height:13px}
+.srow .mid .who .pz{color:hsl(var(--amber-ink));font-weight:600}
+.srow .mid .who .none{color:hsl(var(--red-ink));font-weight:600}
+.srow .chip{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:99px;font-size:12px;font-weight:600;white-space:nowrap}
+.ch-blue{background:hsl(var(--blue)/.12);color:hsl(var(--blue-ink))}
+.ch-amber{background:hsl(var(--amber)/.14);color:hsl(var(--amber-ink))}
+.seeall{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:600;color:hsl(var(--primary-ink));background:none;border:0}
+
+/* attention card (console intent) */
+.att{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.att button{display:flex;align-items:center;gap:11px;padding:12px 13px;border-radius:13px;border:1px solid hsl(var(--border));background:hsl(var(--card));text-align:left}
+.att button:hover{border-color:hsl(240 10% 80%)}
+.att .ai{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;flex:none}
+.att .at{flex:1;min-width:0}
+.att .at b{font-size:13.5px;font-weight:700;display:block}
+.att .at span{font-size:11.5px;color:hsl(var(--muted-fg))}
+.att .n{font:800 20px Sora;font-variant-numeric:tabular-nums}
+.a-amber .ai{background:hsl(var(--amber)/.14);color:hsl(var(--amber-ink))}.a-amber .n{color:hsl(var(--amber-ink))}
+.a-red .ai{background:hsl(var(--red)/.12);color:hsl(var(--red-ink))}.a-red .n{color:hsl(var(--red-ink))}
+
+/* ===== SIDEBAR ===== */
+.side{display:flex;flex-direction:column;gap:16px}
+.gcard{border-radius:18px;border:1px solid hsl(240 22% 93%);background:hsl(0 0% 100%/.7);backdrop-filter:blur(8px);box-shadow:var(--sh-sm);padding:18px}
+.gc-h{display:flex;align-items:center;gap:10px;margin-bottom:15px}
+.gc-h .ci{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:hsl(var(--primary)/.1);color:hsl(var(--primary-ink))}
+.gc-h b{font:700 14px Sora}
+.gc-h .sub{font-size:11.5px;color:hsl(var(--muted-fg));margin-top:1px}
+
+/* journey timeline */
+.jrn{display:flex;flex-direction:column}
+.jn{display:grid;grid-template-columns:40px 1fr auto;gap:12px;align-items:start;position:relative;padding-bottom:18px}
+.jn:last-child{padding-bottom:0}
+.jn::before{content:"";position:absolute;left:19px;top:40px;bottom:-4px;width:2px;background:hsl(240 20% 90%)}
+.jn:last-child::before{display:none}
+.jn.done::before{background:hsl(var(--emerald)/.5)}
+.jn .nd{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:#fff;z-index:1}
+.jn.q .nd{background:hsl(var(--emerald))}
+.jn.m .nd{background:hsl(var(--blue));box-shadow:0 0 0 5px hsl(var(--blue)/.14)}
+.jn.f .nd{background:hsl(240 16% 88%);color:hsl(240 8% 54%)}
+.jn .jt b{font:700 14.5px Sora;display:block}
+.jn.m .jt b{color:hsl(var(--blue-ink))}
+.jn .jt span{font-size:12px;color:hsl(var(--muted-fg))}
+.jn .jd{text-align:right;font:700 13px Sora;font-variant-numeric:tabular-nums;white-space:nowrap;color:hsl(240 8% 30%)}
+.jn.f .jt b{color:hsl(240 8% 52%)}
+
+/* insight */
+.insight{display:flex;gap:11px;align-items:flex-start;padding:13px;border-radius:13px;background:hsl(var(--amber)/.1);border:1px solid hsl(var(--amber)/.25)}
+.insight .ii{width:30px;height:30px;border-radius:9px;background:hsl(var(--amber)/.18);color:hsl(var(--amber-ink));display:grid;place-items:center;flex:none}
+.insight b{font-size:13.5px;font-weight:700;display:block;color:hsl(var(--amber-ink))}
+.insight span{font-size:12px;color:hsl(240 8% 34%)}
+.ins-hd .tag{margin-left:auto;font-size:10.5px;font-weight:700;color:hsl(var(--primary-ink));background:hsl(var(--primary)/.1);border-radius:99px;padding:3px 9px;display:inline-flex;align-items:center;gap:5px}
+.ins-hd .tag .dot{width:6px;height:6px;border-radius:99px;background:hsl(var(--emerald));animation:pulse 2s infinite}
+.ins-list{display:flex;flex-direction:column;gap:9px}
+.ins{display:flex;gap:11px;align-items:flex-start;padding:12px;border-radius:13px;border:1px solid}
+.ins .ii{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;flex:none}
+.ins .ix{min-width:0;flex:1}
+.ins .ix b{font-size:13.5px;font-weight:700;display:block;line-height:1.25}
+.ins .ix p{font-size:12px;color:hsl(240 8% 36%);margin-top:3px;line-height:1.45}
+.ins .ix p b{display:inline;color:hsl(var(--fg));font-weight:700}
+.ins .act{display:inline-flex;align-items:center;gap:5px;margin-top:9px;font-size:12px;font-weight:700;background:none;border:0;padding:0}
+.ins-risk{background:hsl(var(--red)/.07);border-color:hsl(var(--red)/.22)}.ins-risk .ii{background:hsl(var(--red)/.14);color:hsl(var(--red-ink))}.ins-risk .ix>b,.ins-risk .act{color:hsl(var(--red-ink))}
+.ins-win{background:hsl(var(--primary)/.07);border-color:hsl(var(--primary)/.22)}.ins-win .ii{background:hsl(var(--primary)/.14);color:hsl(var(--primary-ink))}.ins-win .ix>b,.ins-win .act{color:hsl(var(--primary-ink))}
+.ins-good{background:hsl(var(--emerald)/.07);border-color:hsl(var(--emerald)/.22)}.ins-good .ii{background:hsl(var(--emerald)/.14);color:hsl(var(--emerald-ink))}.ins-good .ix>b{color:hsl(var(--emerald-ink))}
+
+/* cost */
+.cl{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid hsl(240 20% 94%)}
+.cl .l{display:flex;align-items:center;gap:8px;font-size:13.5px;color:hsl(var(--muted-fg))}
+.cl .l .ic{width:15px;height:15px}
+.cl .v{font:600 13.5px Sora;font-variant-numeric:tabular-nums}
+.cl:has(+ .cl.tot){border-bottom:0}
+.cl.tot{border-bottom:0;margin:8px -18px -18px;padding:14px 18px;background:hsl(240 24% 96.5%);border-top:0;border-radius:0 0 18px 18px}
+.cl.tot .l{color:hsl(var(--fg));font-weight:700;font-size:14.5px}
+.cl.tot .v{font-weight:800;font-size:17px;color:hsl(var(--primary-ink))}
+.dep{display:inline-flex;align-items:center;height:18px;padding:0 6px;border:1px dashed hsl(var(--primary));border-radius:5px;background:hsl(233 60% 97%);color:hsl(var(--primary-ink));font:600 10px Inter;margin-left:6px}
+
+/* team */
+.tm{display:flex;align-items:center;gap:11px;padding:8px;border-radius:12px;background:hsl(240 30% 97.5%)}
+.tm+.tm{margin-top:7px}
+.tm .av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,hsl(var(--primary)/.2),hsl(var(--primary)/.42));color:hsl(var(--primary-ink));display:grid;place-items:center;font:700 12px Sora}
+.tm .tt b{font-size:13.5px;font-weight:600;display:block;line-height:1.2}
+.tm .tt span{font-size:12px;color:hsl(var(--muted-fg))}
+.tm .st{margin-left:auto;font-size:11.5px;font-weight:600}
+.tm .st.run{color:hsl(var(--emerald-ink))}.tm .st.pz{color:hsl(var(--amber-ink))}.tm .st.free{color:hsl(var(--muted-fg))}
+
+/* floating actions */
+.fab{position:absolute;left:50%;transform:translateX(-50%);bottom:26px;display:flex;align-items:center;gap:6px;padding:8px 10px;border-radius:18px;background:hsl(240 18% 13%);box-shadow:0 18px 44px -12px hsl(240 40% 10%/.5);z-index:5}
+.fab .fin{display:inline-flex;align-items:center;gap:9px;height:46px;padding:0 20px;border-radius:13px;background:linear-gradient(180deg,hsl(var(--primary)) ,hsl(233 66% 46%));color:#fff;font:700 15px Inter;border:0;opacity:.5;cursor:not-allowed}
+.fab .fsep{width:1px;height:28px;background:hsl(240 10% 30%);margin:0 4px}
+.fab .fi{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;color:hsl(240 10% 75%);background:none;border:0}
+.fab .fi:hover{background:hsl(240 12% 22%)}
+.fab .hint{color:hsl(240 10% 68%);font-size:12px;padding:0 10px 0 4px}
+
+/* floating insights */
+.ifab{position:absolute;right:24px;bottom:24px;z-index:6;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.ifab-btn{display:inline-flex;align-items:center;gap:9px;height:48px;padding:0 18px 0 15px;border-radius:99px;background:linear-gradient(135deg,hsl(var(--primary)),hsl(233 66% 52%));color:#fff;border:0;box-shadow:0 14px 32px -8px hsl(var(--primary)/.6);font:700 14px Inter;cursor:pointer}
+.ifab-btn .ic{width:18px;height:18px}
+.ifab-btn .cnt{min-width:20px;height:20px;border-radius:99px;background:hsl(0 0% 100%/.26);display:grid;place-items:center;font:700 11px Inter;padding:0 5px}
+.ifab-panel{width:330px;border-radius:18px;background:hsl(0 0% 100%/.97);backdrop-filter:blur(10px);border:1px solid hsl(240 22% 90%);box-shadow:var(--sh-lg);padding:15px;opacity:0;transform:translateY(8px) scale(.98);transform-origin:bottom right;pointer-events:none;transition:opacity .16s,transform .16s}
+.ifab:hover .ifab-panel,.ifab-panel.show{opacity:1;transform:none;pointer-events:auto}
+.ifab-ph{display:flex;align-items:center;gap:9px;margin-bottom:12px}
+.ifab-ph .ci{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:linear-gradient(135deg,hsl(var(--primary)/.16),hsl(233 72% 62%/.2));color:hsl(var(--primary-ink))}
+.ifab-ph b{font:700 14px Sora}
+.ifab-ph .sub{font-size:11px;color:hsl(var(--muted-fg))}
+
+.note{margin:22px 2px 0;font-size:13.5px;color:hsl(240 6% 34%)}
+.note b{color:hsl(var(--fg));font-weight:650}
+
+/* ===== role sections ===== */
+.rsec{margin-top:48px}
+.rsec .rh{display:flex;align-items:center;gap:12px;margin-bottom:5px}
+.rtag{display:inline-flex;align-items:center;gap:7px;height:28px;padding:0 13px 0 10px;border-radius:99px;background:hsl(var(--primary-soft));color:hsl(var(--primary-ink));font:700 12.5px Sora;border:1px solid hsl(233 60% 91%)}
+.rtag .ic{width:14px;height:14px}
+.rsec h2{font:700 18px Sora;letter-spacing:-.01em}
+.rsec .rsub{color:hsl(240 6% 36%);font-size:14px;margin:3px 0 14px}
+.rsec .rsub b{color:hsl(var(--fg));font-weight:650}
+.rbanner{display:flex;align-items:center;gap:12px;padding:15px 22px;border-bottom:1px solid hsl(var(--border-soft));background:linear-gradient(118deg,hsl(var(--primary-soft)),hsl(0 0% 100%) 60%)}
+.rbanner .os{font:800 16px Sora;color:hsl(var(--primary-ink))}
+.rbanner .chip2{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 11px;border-radius:99px;background:hsl(0 0% 100%/.8);border:1px solid hsl(240 20% 92%);font:600 12.5px Inter;color:hsl(240 8% 30%)}
+.rbanner .chip2 .ic{width:13px;height:13px;opacity:.7}
+.rbanner .sp{flex:1}
+.rbody{padding:20px 22px}
+.rgrid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:18px;align-items:start}
+.sectit{font:700 12.5px Sora;text-transform:uppercase;letter-spacing:.05em;color:hsl(var(--muted-fg));display:flex;align-items:center;gap:8px;margin:0 0 12px}
+.sectit .ic{width:15px;height:15px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:34px;padding:0 13px;border-radius:10px;font:600 13px Inter;border:1px solid transparent}
+.btn-pri{background:hsl(var(--primary));color:#fff}
+.btn-out{background:hsl(var(--card));border-color:hsl(var(--border));color:hsl(var(--fg))}
+.btn .ic{width:14px;height:14px}
+/* kpis */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.kpi{border:1px solid hsl(var(--border));border-radius:15px;background:hsl(var(--card));box-shadow:var(--sh-sm);padding:14px 15px}
+.kpi .k{font-size:12px;color:hsl(var(--muted-fg));display:flex;align-items:center;gap:6px}
+.kpi .k .ic{width:14px;height:14px}
+.kpi .v{font:800 23px Sora;margin-top:5px;font-variant-numeric:tabular-nums}
+.kpi .s{font-size:12px;color:hsl(var(--muted-fg));margin-top:2px}
+.kpi.red .v{color:hsl(var(--red-ink))}
+/* approvals */
+.aitem{border:1px solid hsl(var(--border));border-radius:14px;background:hsl(var(--card));box-shadow:var(--sh-sm);padding:14px}
+.aitem+.aitem{margin-top:11px}
+.aitem .q{display:flex;align-items:center;gap:9px;font:700 14px Inter}
+.aitem .q .ci{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:hsl(var(--amber)/.14);color:hsl(var(--amber-ink))}
+.aitem p{font-size:12.5px;color:hsl(240 8% 36%);margin:9px 0 12px}
+.aitem p b{color:hsl(var(--fg));font-weight:700}
+.aitem .row{display:flex;gap:8px}
+/* people row */
+.prow{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:13px;background:hsl(240 30% 97.5%)}
+.prow+.prow{margin-top:8px}
+.prow .av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,hsl(var(--primary)/.2),hsl(var(--primary)/.42));color:hsl(var(--primary-ink));display:grid;place-items:center;font:700 12.5px Sora;flex:none}
+.prow .pn{flex:1;min-width:0}
+.prow .pn b{font-size:14px;font-weight:600;display:block}
+.prow .pn span{font-size:12.5px;color:hsl(var(--muted-fg))}
+.prow .pn span.run{color:hsl(var(--emerald-ink));font-weight:600}.prow .pn span.pz{color:hsl(var(--amber-ink));font-weight:600}.prow .pn span.free{color:hsl(var(--emerald-ink));font-weight:600}
+/* parts */
+.pgrp{padding:10px 2px 8px;font:700 11.5px Sora;text-transform:uppercase;letter-spacing:.04em;color:hsl(var(--muted-fg));display:flex;align-items:center;gap:8px}
+.pgrp.hot{color:hsl(var(--amber-ink))}.pgrp .ic{width:14px;height:14px}
+.prt{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:13px;background:hsl(240 30% 97.5%)}
+.prt+.prt{margin-top:8px}
+.prt .pi{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:hsl(var(--amber)/.14);color:hsl(var(--amber-ink));flex:none}
+.prt .pi.ok{background:hsl(var(--emerald)/.14);color:hsl(var(--emerald-ink))}
+.prt .pn{flex:1;min-width:0}.prt .pn b{font-size:13.5px;font-weight:600;display:block}.prt .pn span{font-size:12px;color:hsl(var(--muted-fg))}
+.prt .val{font:600 13px Sora;color:hsl(240 8% 30%);white-space:nowrap}
+/* tablet */
+.device{display:flex;gap:30px;flex-wrap:wrap;align-items:flex-start;margin-top:4px}
+.tablet{padding:13px;border-radius:24px;background:hsl(240 18% 13%);box-shadow:var(--sh-lg);flex:none}
+.tscr{width:720px;height:540px;border-radius:15px;overflow:hidden;background:hsl(240 30% 99%);display:flex;flex-direction:column}
+.tt-top{display:flex;align-items:center;gap:12px;padding:14px 18px;background:#fff;border-bottom:1px solid hsl(var(--border-soft))}
+.tt-top .osb{font:700 17px Sora}.tt-top .osb span{font-weight:500;color:hsl(var(--muted-fg));font-size:14px}.tt-top .sp{flex:1}
+.tt-me{display:inline-flex;align-items:center;gap:9px;height:44px;padding:0 10px 0 6px;border-radius:12px;border:1px solid hsl(var(--border));font:600 14px Inter}
+.tt-me .av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,hsl(var(--primary)/.25),hsl(var(--primary)/.5));color:hsl(var(--primary-ink));display:grid;place-items:center;font:700 12px Sora}
+.tbody{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 222px;gap:16px;padding:18px}
+.th{font:700 12px Sora;text-transform:uppercase;letter-spacing:.05em;color:hsl(var(--muted-fg));margin-bottom:10px}
+.tcard{background:#fff;border:2px solid hsl(var(--emerald)/.5);border-radius:18px;padding:18px;box-shadow:0 8px 22px -14px hsl(var(--emerald)/.5)}
+.tcard .tmr{float:right;font:800 26px Sora}
+.tcard h3{font:700 19px Sora;line-height:1.25}.tcard .sub{font-size:14px;color:hsl(var(--muted-fg));margin-top:3px}
+.tcard .run{display:inline-flex;align-items:center;gap:8px;font:700 14px Inter;color:hsl(var(--emerald-ink));margin-top:11px}
+.tcard .run .d{width:10px;height:10px;border-radius:99px;background:hsl(var(--emerald));animation:pulse 2s infinite}
+.tacts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:15px}
+.tbig{height:56px;border-radius:14px;font:700 16px Inter;border:0;display:inline-flex;align-items:center;justify-content:center;gap:9px}
+.tbig .ic{width:19px;height:19px}
+.tb-pause{background:hsl(var(--amber)/.16);color:hsl(var(--amber-ink))}
+.tb-done{background:hsl(var(--emerald));color:#fff}
+.tnext{background:#fff;border:1px solid hsl(var(--border));border-radius:16px;overflow:hidden}
+.tni{display:flex;align-items:center;gap:11px;padding:13px 16px;border-top:1px solid hsl(var(--border-soft))}
+.tni:first-child{border-top:0}
+.tni b{font-size:14.5px;font-weight:600;display:block}.tni span{font-size:12.5px;color:hsl(var(--muted-fg))}
+.tni .go{margin-left:auto;width:40px;height:40px;border-radius:11px;background:hsl(var(--primary));color:#fff;display:grid;place-items:center;flex:none}
+/* phone */
+.phone{width:310px;padding:8px;border-radius:38px;background:hsl(240 18% 13%);box-shadow:var(--sh-lg);flex:none}
+.pscr{width:294px;height:610px;border-radius:30px;overflow:hidden;background:hsl(240 30% 99%);display:flex;flex-direction:column}
+.pbody{flex:1;min-height:0;overflow:auto}
+.pstat{display:flex;align-items:center;justify-content:space-between;height:46px;padding:0 22px 0 26px;background:#fff;font:700 15px Inter;flex:none}
+.pstat .r{display:flex;align-items:center;gap:7px}
+.pstat .r .ic{width:17px;height:17px;color:hsl(240 12% 16%)}
+.ptitle{display:flex;align-items:center;justify-content:space-between;padding:6px 18px 12px;background:#fff;flex:none}
+.ptitle b{font:800 19px Sora}
+.ptitle .ic{width:22px;height:22px;color:hsl(240 6% 40%)}
+.pbody{flex:1;min-height:0;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:14px}
+.pnav{display:flex;align-items:stretch;height:62px;border-top:1px solid hsl(var(--border));background:#fff;flex:none}
+.pnav a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font:600 10.5px Inter;color:hsl(240 6% 54%);text-decoration:none}
+.pnav a .ic{width:21px;height:21px}
+.pnav a.on{color:hsl(var(--primary-ink))}
+.phome{height:24px;display:grid;place-items:center;background:#fff;flex:none}
+.phome::after{content:"";width:132px;height:5px;border-radius:99px;background:hsl(240 12% 16%)}
+.pveh{display:flex;align-items:center;gap:12px}
+.pveh .pi{width:46px;height:46px;border-radius:13px;background:hsl(var(--primary)/.12);color:hsl(var(--primary-ink));display:grid;place-items:center}
+.pveh b{font:800 18px Sora;display:block;line-height:1.2}.pveh span{font-size:13px;color:hsl(var(--muted-fg))}
+.pstate{border-radius:16px;padding:16px;background:hsl(var(--blue)/.08);border:1px solid hsl(var(--blue)/.2)}
+.pstate .k{font:700 11.5px Sora;text-transform:uppercase;letter-spacing:.05em;color:hsl(var(--blue-ink))}
+.pstate b{font:800 21px Sora;display:block;margin-top:5px}
+.pstate .pp{font-size:13px;color:hsl(240 8% 34%);margin-top:5px}
+.pstep{display:grid;grid-template-columns:22px 1fr;gap:10px;padding:8px 0}
+.pstep .d{width:11px;height:11px;border-radius:99px;margin:4px 5px;background:hsl(var(--emerald))}
+.pstep.now .d{background:hsl(var(--blue));box-shadow:0 0 0 4px hsl(var(--blue)/.18)}
+.pstep.todo .d{background:#fff;border:2px solid hsl(240 10% 72%)}
+.pstep b{font-size:13.5px;font-weight:600}.pstep span{font-size:12px;color:hsl(var(--muted-fg))}
+
+/* ===== services list at scale (stress) ===== */
+.triage{display:flex;flex-wrap:wrap;gap:9px;margin:2px 0 16px}
+.tchip{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 13px;border-radius:99px;font:600 13px Inter;border:1px solid;cursor:pointer}
+.tchip .n{font:800 14px Sora}
+.tchip .ic{width:15px;height:15px}
+.tc-amber{background:hsl(var(--amber)/.1);border-color:hsl(var(--amber)/.26);color:hsl(var(--amber-ink))}
+.tc-red{background:hsl(var(--red)/.09);border-color:hsl(var(--red)/.26);color:hsl(var(--red-ink))}
+.tc-amber:hover,.tc-red:hover{filter:brightness(.98)}
+.svctool{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.svctool .spx{flex:1}
+.svctool .fil{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 12px;border:1px solid hsl(var(--border));border-radius:10px;font-size:12.5px;color:hsl(var(--muted-fg));background:hsl(var(--card))}
+.svctool .fil .ic{width:14px;height:14px}
+.sgrp{display:flex;align-items:center;gap:9px;padding:16px 2px 9px;font:700 13px Sora;color:hsl(240 8% 26%)}
+.sgrp .ic{width:16px;height:16px;color:hsl(var(--muted-fg))}
+.sgrp .m{font-weight:400;font-size:12.5px;color:hsl(var(--muted-fg))}
+.sgrp .badge-n{margin-left:auto;font:700 11.5px Sora;background:hsl(var(--muted));color:hsl(240 6% 34%);border-radius:99px;padding:2px 9px}
+/* dense list = clean white, hairlines, accent só na exceção */
+.svclist{background:hsl(var(--card));border:1px solid hsl(var(--border-soft));border-radius:16px;box-shadow:var(--sh-sm);overflow:hidden;margin-top:10px}
+.svclist .sgrp{position:relative;display:flex;align-items:center;gap:10px;margin:0;padding:16px 18px 13px 22px;background:transparent;border-top:1px solid hsl(240 14% 93%)}
+.svclist .sgrp:first-child{border-top:0}
+.svclist .sgrp::before{content:"";position:absolute;left:0;top:16px;bottom:13px;width:4px;border-radius:0 4px 4px 0;background:hsl(var(--primary))}
+.svclist .sgrp .idp{min-width:0}
+.svclist .sgrp .plate{font:800 18px Inter;letter-spacing:-.02em;color:hsl(var(--fg));line-height:1.1}
+.svclist .sgrp .sub{font-size:12.5px;color:hsl(var(--muted-fg));margin-top:3px}
+.svclist .sgrp .open{margin-left:auto;display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:999px;background:hsl(38 88% 95%);color:hsl(var(--amber-ink));font:600 12px Inter}
+.svclist .sgrp .open .od{width:6px;height:6px;border-radius:50%;background:hsl(var(--amber))}
+.svclist .srow{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 170px 140px;gap:14px;align-items:center;min-height:62px;background:transparent;border-radius:0;padding:12px 18px;margin:0;border-top:1px solid hsl(240 16% 96%);cursor:pointer;transition:background .12s}
+.svclist .sgrp + .srow{border-top:0}
+.svclist .srow+.srow{margin-top:0}
+.svclist .srow:hover{background:hsl(240 24% 98.6%)}
+.svclist .srow .svc-main{min-width:0}
+.svclist .srow .svc-main .nm{font-size:14px;font-weight:500;color:hsl(var(--fg));white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.25}
+.svclist .srow .svc-main .sub{display:flex;align-items:center;gap:6px;margin-top:3px;font-size:12.5px;color:hsl(var(--muted-fg));min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.svclist .srow .svc-main .sub>.ic{width:12px;height:12px;opacity:.7;flex:none}
+.svclist .srow .svc-main .sub .cg{color:hsl(240 7% 34%);font-weight:500}
+.svclist .srow .ex{display:flex;align-items:center;gap:8px;font-size:13px;color:hsl(240 7% 26%);min-width:0;justify-self:start}
+.svclist .srow .ex .av{width:26px;height:26px;border-radius:50%;background:hsl(var(--primary-soft));color:hsl(var(--primary-ink));display:grid;place-items:center;font:700 10px Sora;flex:none}
+.svclist .srow .ex .assign{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 11px;border:1px dashed hsl(var(--border));border-radius:8px;color:hsl(var(--muted-fg));font-size:12px;font-weight:500;background:none;cursor:pointer}
+.svclist .srow .ex .assign .ic{width:13px;height:13px}
+.svclist .srow .rgt{display:flex;align-items:center;gap:10px;justify-self:end;align-self:center;padding-top:6px}
+.svclist .srow .tmblk{display:flex;flex-direction:column;align-items:flex-end;white-space:nowrap}
+.svclist .srow .tmblk .t{display:flex;align-items:center;gap:6px;font-size:15px;font-weight:700;color:hsl(var(--fg));font-variant-numeric:tabular-nums;line-height:1.15}
+.svclist .srow .tmblk .t .ic{width:14px;height:14px;color:hsl(240 8% 68%)}
+.svclist .srow .tmblk.up .t,.svclist .srow .tmblk.up .t .ic{color:hsl(2 55% 58%)}
+.svclist .srow .tmblk.amb .t,.svclist .srow .tmblk.amb .t .ic{color:hsl(35 70% 50%)}
+.svclist .srow .tmblk .of{font-size:11.5px;color:hsl(var(--muted-fg));margin-top:1px}
+.svclist .srow .chev{width:16px;height:16px;color:hsl(240 10% 72%)}
+.svclist .srow:hover .chev{color:hsl(240 6% 55%)}
+.svclist .srow.done .nm{color:hsl(240 6% 50%);font-weight:450}
+.svclist .srow.done .tmblk .t{font-weight:600;color:hsl(240 6% 42%)}
+.svclist .ctag{position:absolute;top:0;right:0;border-radius:0 0 0 10px;padding:4px 10px;font-size:11px;font-weight:500;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.svclist .ctag .ic{width:11px;height:11px}
+.ct-run{background:hsl(233 65% 50%/.08);color:hsl(233 42% 54%)}
+.ct-wait{background:hsl(40 90% 96%);color:hsl(32 58% 46%)}
+.ct-pend{background:hsl(240 16% 96.5%);color:hsl(240 6% 52%)}
+.ct-done{background:hsl(160 42% 96%);color:hsl(160 32% 40%)}
+.svclist .collapsed{display:flex;align-items:center;gap:8px;margin:0;border-radius:0;padding:12px 18px;background:hsl(240 30% 98.6%);border-top:1px solid hsl(240 16% 96%);font-size:12.5px;color:hsl(var(--muted-fg));cursor:pointer}
+.svclist .collapsed .ic{width:15px;height:15px}
+.svclist .collapsed b{color:hsl(var(--fg))}
+
+/* ===== estudo de cabeçalho de grupo (4 opções) ===== */
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:26px 22px}
+.opt .optcap{display:flex;align-items:baseline;gap:9px;margin:0 0 9px}
+.opt .optcap b{font:700 13.5px Sora;color:hsl(var(--fg))}
+.opt .optcap span{font-size:12px;color:hsl(var(--muted-fg))}
+/* A — rótulo limpo, sem ícone */
+.hdA{padding:15px 18px 12px;border-bottom:1px solid hsl(var(--border-soft))}
+.hdA b{font:700 15px Sora;letter-spacing:-.01em}
+.hdA .m{font-size:12.5px;color:hsl(var(--muted-fg));margin-left:9px}
+/* B — placa em preto (acento pontual) */
+.hdB{display:flex;align-items:center;gap:11px;padding:12px 18px;border-bottom:1px solid hsl(var(--border-soft))}
+.platechip{display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 13px 0 10px;border-radius:9px;background:hsl(240 18% 13%);color:#fff;font:700 13px Sora}
+.platechip .ic{width:14px;height:14px;opacity:.8}
+.hdB .m{font-size:12.5px;color:hsl(var(--muted-fg))}
+/* C — barra com progresso do veículo */
+.hdC{display:flex;align-items:center;gap:12px;padding:11px 18px;background:hsl(240 32% 98.5%);border-bottom:1px solid hsl(var(--border-soft))}
+.hdC .ci{width:32px;height:32px;border-radius:9px;background:hsl(var(--primary)/.1);color:hsl(var(--primary-ink));display:grid;place-items:center;flex:none}
+.hdC .nm b{font:700 14px Sora;display:block;line-height:1.2}
+.hdC .nm span{font-size:12px;color:hsl(var(--muted-fg))}
+.hdC .prog{margin-left:auto;display:flex;align-items:center;gap:10px}
+.hdC .prog .pb{width:88px;height:7px;border-radius:99px;background:hsl(var(--muted));overflow:hidden}
+.hdC .prog .pb i{display:block;height:100%;background:hsl(var(--emerald))}
+.hdC .prog .v{font:700 12.5px Sora;color:hsl(240 8% 28%)}
+/* D — placa graúda + acento */
+.hdD{position:relative;padding:14px 18px 13px 21px;border-bottom:1px solid hsl(var(--border-soft))}
+.hdD::before{content:"";position:absolute;left:0;top:13px;bottom:13px;width:4px;border-radius:99px;background:hsl(var(--primary))}
+.hdD .plate{font:800 19px Sora;letter-spacing:-.02em}
+.hdD .sub{font-size:12px;color:hsl(var(--muted-fg));margin-top:2px}
+.hdD .sub .ab{color:hsl(var(--amber-ink));font-weight:700}
+@media(max-width:1000px){.opts{grid-template-columns:1fr}}
+
+/* ===== estudo do CARD de serviço (4 opções) ===== */
+.cardstudy{display:flex;flex-direction:column;gap:28px}
+/* cabeçalho melhorado (base na D) */
+.hdX{display:flex;align-items:center;gap:11px;padding:14px 18px 13px;border-bottom:1px solid hsl(var(--border-soft))}
+.hdX .ti{width:19px;height:19px;color:hsl(240 6% 50%)}
+.hdX .pl{font:800 18px Sora;letter-spacing:-.02em}
+.hdX .ty{font-size:12.5px;color:hsl(var(--muted-fg))}
+.hdX .open{margin-left:auto;display:inline-flex;align-items:center;gap:6px;height:27px;padding:0 11px;border-radius:99px;background:hsl(var(--amber)/.12);color:hsl(var(--amber-ink));font:700 12px Inter}
+.hdX .open .d{width:6px;height:6px;border-radius:99px;background:hsl(var(--amber))}
+/* status circle (ícone+cor) */
+.sico{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:#fff;flex:none}
+.sico .ic{width:16px;height:16px}
+.sico.run{background:hsl(var(--blue))}.sico.pause{background:hsl(var(--amber))}.sico.none{background:hsl(var(--red))}.sico.done{background:hsl(var(--emerald))}.sico.pend{background:hsl(var(--slate))}
+.spill{display:inline-flex;align-items:center;gap:5px;height:23px;padding:0 9px;border-radius:99px;font:700 11.5px Inter;white-space:nowrap}
+.sp-run{background:hsl(var(--blue)/.12);color:hsl(var(--blue-ink))}.sp-pause{background:hsl(var(--amber)/.14);color:hsl(var(--amber-ink))}.sp-none{background:hsl(var(--red)/.1);color:hsl(var(--red-ink))}.sp-done{background:hsl(var(--emerald)/.12);color:hsl(var(--emerald-ink))}
+.mc{display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:7px;background:hsl(240 26% 95.5%);font-size:11.5px;color:hsl(240 7% 34%)}
+.mc .ic{width:12px;height:12px;opacity:.65}
+.avx{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,hsl(var(--primary)/.2),hsl(var(--primary)/.42));color:hsl(var(--primary-ink));display:grid;place-items:center;font:700 11px Sora;flex:none}
+/* V1 — status primeiro (Linear) */
+.v1 .r{display:flex;align-items:center;gap:13px;padding:13px 18px;border-top:1px solid hsl(var(--border-soft))}
+.v1 .r:hover{background:hsl(233 50% 99%)}
+.v1 .r .mid{flex:1;min-width:0}
+.v1 .r .mid b{font:650 14.5px Inter;display:block;line-height:1.3}
+.v1 .r .mid span{font-size:12.5px;color:hsl(var(--muted-fg))}
+.v1 .r.done .mid b{color:hsl(240 6% 50%);font-weight:500}
+.v1 .r .t{text-align:right;font:650 13px Sora;white-space:nowrap}
+.v1 .r .t.up{color:hsl(var(--red-ink))}
+.v1 .r .t small{display:block;font-size:11px;color:hsl(var(--muted-fg));font-weight:400;font-family:Inter}
+/* V2 — barra de tempo forte */
+.v2 .r{padding:14px 18px;border-top:1px solid hsl(var(--border-soft))}
+.v2 .r .top{display:flex;align-items:center;gap:10px}
+.v2 .r .top b{font:650 14.5px Inter;flex:1;min-width:0}
+.v2 .r .pb{height:6px;border-radius:99px;background:hsl(var(--muted));overflow:hidden;margin:10px 0 8px;display:flex}
+.v2 .r .pb i{display:block;height:100%;background:hsl(var(--blue))}.v2 .r .pb i.over{background:hsl(var(--red-ink))}.v2 .r .pb i.ok{background:hsl(var(--emerald))}
+.v2 .r .bot{display:flex;align-items:center;gap:8px;font-size:12.5px;color:hsl(var(--muted-fg))}
+.v2 .r .bot .num{margin-left:auto;font:650 12.5px Sora;color:hsl(240 8% 28%)}
+.v2 .r .bot .num.up{color:hsl(var(--red-ink))}
+/* V3 — trilho + chips (job card) */
+.v3 .r{position:relative;display:flex;align-items:center;gap:12px;padding:13px 18px 13px 21px;border-top:1px solid hsl(var(--border-soft))}
+.v3 .r::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:transparent}
+.v3 .r.run::before{background:hsl(var(--blue))}.v3 .r.pause::before{background:hsl(var(--amber))}.v3 .r.none::before{background:hsl(var(--red))}
+.v3 .r .mid{flex:1;min-width:0}
+.v3 .r .mid b{font:650 14px Inter;display:block;line-height:1.3}
+.v3 .r .chips{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+.v3 .r .t{text-align:right;font:650 13px Sora;white-space:nowrap}
+.v3 .r.done .mid b{color:hsl(240 6% 50%);font-weight:500}
+/* V4 — tabela densa */
+.v4 .th,.v4 .r{display:grid;grid-template-columns:30px minmax(0,1fr) 150px 120px 128px 26px;gap:12px;align-items:center;padding:11px 18px}
+.v4 .th{font:600 11px Inter;text-transform:uppercase;letter-spacing:.04em;color:hsl(var(--muted-fg));background:hsl(240 32% 98.5%);border-bottom:1px solid hsl(var(--border))}
+.v4 .r{border-top:1px solid hsl(var(--border-soft))}
+.v4 .r:hover{background:hsl(233 50% 99%)}
+.v4 .r .snm b{font:600 14px Inter;display:block;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.v4 .r .snm span{font-size:11.5px;color:hsl(var(--muted-fg))}
+.v4 .r.done .snm b{color:hsl(240 6% 50%);font-weight:500}
+.v4 .r .ex{display:flex;align-items:center;gap:7px;font-size:12.5px;min-width:0}
+.v4 .r .ex .avx{width:24px;height:24px;font-size:10px}
+.v4 .r .ex span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.v4 .r .tm{font:650 12.5px Sora;text-align:right;white-space:nowrap}
+.v4 .r .tm.up{color:hsl(var(--red-ink))}
+.v4 .r .kb{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;color:hsl(240 5% 50%)}
+.v4 .sico{width:26px;height:26px}.v4 .sico .ic{width:14px;height:14px}
+
+/* ===== lista repensada (hierarquia por atenção) ===== */
+.rx{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;box-shadow:var(--sh-sm);overflow:hidden}
+.rx .rr{display:flex;align-items:center;gap:14px;padding:14px 18px;border-top:1px solid hsl(var(--border-soft))}
+.rx .rr .st{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:#fff;flex:none}
+.rx .rr .st .ic{width:18px;height:18px}
+.rx .rr .st.run{background:hsl(var(--blue))}.rx .rr .st.pause{background:hsl(var(--amber))}.rx .rr .st.none{background:hsl(var(--red))}.rx .rr .st.pend{background:hsl(var(--slate))}
+.rx .rr .st.done{background:hsl(var(--emerald)/.1);color:hsl(var(--emerald));box-shadow:inset 0 0 0 1.5px hsl(var(--emerald)/.4)}
+.rx .rr .idc{flex:1;min-width:0}
+.rx .rr .idc .nm{font:650 15px Inter;line-height:1.3}
+.rx .rr .idc .sub{font-size:12.5px;color:hsl(var(--muted-fg));margin-top:3px}
+.rx .rr .idc .sub .r{color:hsl(var(--red-ink));font-weight:650}
+.rx .rr .idc .sub .a{color:hsl(var(--amber-ink));font-weight:650}
+.rx .rr .idc .sub .g{color:hsl(var(--emerald-ink));font-weight:600}
+.rx .rr .end{flex:none;display:flex;align-items:center;gap:14px}
+.rx .rr .tmx{text-align:right;min-width:92px}
+.rx .rr .tmx .v{font:650 14.5px Sora;font-variant-numeric:tabular-nums}
+.rx .rr .tmx .v.up{color:hsl(var(--red-ink))}
+.rx .rr .tmx .of{font-size:11.5px;color:hsl(var(--muted-fg))}
+.rx .rr .tmx .pb{width:108px;height:4px;border-radius:99px;background:hsl(var(--muted));overflow:hidden;margin:6px 0 0 auto;display:flex}
+.rx .rr .tmx .pb i{display:block;height:100%;background:hsl(var(--blue))}.rx .rr .tmx .pb i.over{background:hsl(var(--red-ink))}
+.rx .rr.exr{background:hsl(var(--red)/.045)}
+.rx .rr.exa{background:hsl(var(--amber)/.05)}
+.rx .rr.done .idc .nm{color:hsl(240 6% 50%);font-weight:500}
+.rx .collapsed{margin:0;border-radius:0;background:hsl(240 32% 98.5%);border-top:1px solid hsl(var(--border-soft))}
+@media(max-width:1180px){.page{grid-template-columns:1fr}.cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="doc-head">
+    <h1>Detalhe da OS — console</h1>
+    <p>Reconstruído na linguagem do v1 que você aprovou: <b>hero</b> com pill de status, título grande, meta-pills e <b>progress ring</b>; <b>Simples/Avançado</b> + abas; e a <b>Jornada da OS</b> na direita (Fila → Manutenção → Finalizada), Insights, Custos e Equipe. Melhorado por cima: a faixa <b>"Precisa de atenção"</b> (o que trava a liberação) e o <b>Finalizar</b> que só libera com os serviços concluídos. OS-1042 · 40 serviços, 6 abertos. Rascunho.</p>
+  </div>
+
+  <div class="frame">
+    <div class="top">
+      <div class="crumb">Home <i class="ic i-chev"></i> Ordem de Serviço <i class="ic i-chev"></i> <b>OS-1042</b></div>
+      <span class="sp"></span>
+      <button class="tbtn"><i class="ic s20 i-settings"></i></button>
+      <button class="tbtn"><i class="ic s20 i-moon"></i></button>
+      <button class="tbtn"><i class="ic s20 i-bell"></i><span class="dotn">9+</span></button>
+      <div class="company"><span class="av">JS</span><div class="nm"><b>JSL Logística</b><span>12.345.678/0001-90</span></div><i class="ic s16 i-down" style="color:hsl(var(--muted-fg))"></i></div>
+    </div>
+
+    <div class="page">
+      <div>
+        <!-- HERO -->
+        <div class="hero">
+          <div class="orb a"></div><div class="orb b"></div><div class="grid-ov"></div>
+          <div class="hero-in">
+            <div class="hero-nav">
+              <div class="l">
+                <button class="glass gbtn"><i class="ic s16 i-back"></i></button>
+                <span class="statuspill"><span class="dot"></span>Em manutenção há <span class="tmr">52 h 10 m</span><i class="ic i-play"></i></span>
+              </div>
+              <div class="l">
+                <span class="glass osbadge"><span class="k">OS</span><b>OS-1042</b></span>
+                <button class="glass gbtn"><i class="ic s16 i-pin"></i></button>
+                <button class="glass gbtn"><i class="ic s16 i-more"></i></button>
+              </div>
+            </div>
+
+            <div class="hero-main">
+              <div class="l">
+                <h1 class="htitle">Frota 2213</h1>
+                <p class="hsub">Revisão 50.000 km · Cavalo QRT4B22 + 2 implementos</p>
+                <div class="metas">
+                  <div class="meta"><span class="mi"><i class="ic s16 i-clock"></i></span><div class="mt"><div class="k">Criado em</div><div class="v">26 set, 10:28</div></div></div>
+                  <div class="meta"><span class="mi"><i class="ic s16 i-user"></i></span><div class="mt"><div class="k">Criado por</div><div class="v">Marco Oliveira</div></div></div>
+                  <div class="meta"><span class="mi"><i class="ic s16 i-truck"></i></span><div class="mt"><div class="k">Transportadora</div><div class="v">Expresso Rodoviário SP</div></div></div>
+                  <div class="meta hl"><span class="mi"><i class="ic s16 i-wrench"></i></span><div class="mt"><div class="k">Box</div><div class="v">03 · Pesados</div></div></div>
+                </div>
+              </div>
+              <div class="ring-wrap">
+                <div class="ring-glow"></div>
+                <svg width="132" height="132"><circle cx="66" cy="66" r="55" fill="none" stroke="hsl(240 20% 92%)" stroke-width="11"/><circle cx="66" cy="66" r="55" fill="none" stroke="url(#rg)" stroke-width="11" stroke-linecap="round" stroke-dasharray="345.6" stroke-dashoffset="51.8"/><defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="hsl(233 65% 50%)"/><stop offset="1" stop-color="hsl(233 72% 62%)"/></linearGradient></defs></svg>
+                <div class="ctr"><b>34/40</b><span>serviços</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="viewrow">
+          <div class="seg"><button><i class="ic s14 i-simple"></i>Simples</button><button aria-pressed="true"><i class="ic s14 i-adv"></i>Avançado</button></div>
+          <button class="tbtn"><i class="ic s16 i-maximize"></i></button>
+        </div>
+
+        <div class="tabs">
+          <a class="on"><i class="ic i-file"></i>Visão Geral</a>
+          <a><i class="ic i-wrench"></i>Serviços <span class="b">34/40</span></a>
+          <a><i class="ic i-pkg"></i>Peças <span class="b">7</span></a>
+          <a><i class="ic i-clip"></i>Checklist</a>
+          <a><i class="ic i-hist"></i>Histórico</a>
+          <a><i class="ic i-branch"></i>Timeline</a>
+        </div>
+
+        <div class="vgrow">
+          <span class="prio"><i class="ic s14 i-alert"></i>Prioridade Alta</span>
+          <div class="reb">Reboques: <span class="c"><i class="ic i-container"></i>RTA2C45</span><span class="c"><i class="ic i-container"></i>RTB7F19</span></div>
+        </div>
+
+        <div class="vcard full" style="margin-bottom:16px">
+          <div class="vc-h"><span class="ci" style="background:hsl(var(--amber)/.12);color:hsl(var(--amber-ink))"><i class="ic s20 i-alert"></i></span><div class="ct"><b>Precisa de atenção pra liberar</b><span>3 serviços travados · resolva pra destravar</span></div></div>
+          <div class="vc-b"><div class="att">
+            <button class="a-amber"><span class="ai"><i class="ic s18 i-pkg"></i></span><div class="at"><b>Aguardando peça</b><span>pedidos 319, 320, reserva</span></div><span class="n">3</span></button>
+            <button class="a-red"><span class="ai"><i class="ic s18 i-userplus"></i></span><div class="at"><b>Sem executor</b><span>Teste de estanqueidade</span></div><span class="n">1</span></button>
+            <button class="a-red"><span class="ai"><i class="ic s18 i-hour"></i></span><div class="at"><b>Acima do previsto</b><span>Válvula relé · +10 min</span></div><span class="n">1</span></button>
+            <button class="a-amber"><span class="ai"><i class="ic s18 i-pause"></i></span><div class="at"><b>Pausado sozinho</b><span>Catracas · aguarda válvula</span></div><span class="n">1</span></button>
+          </div></div>
+        </div>
+
+        <div class="cards">
+          <div class="vcard">
+            <div class="vc-h"><span class="ci" style="background:hsl(var(--red)/.1);color:hsl(var(--red-ink))"><i class="ic s20 i-heart"></i></span><div class="ct"><b>Saúde do veículo</b><span>Indicador de condição</span></div><div class="r"><span class="statetag st-warn">Atenção</span></div></div>
+            <div class="vc-b"><div class="srow"><span class="dot d-amber"></span><div class="mid"><b>Retorno da OS 0988</b><div class="who">2ª falha da válvula relé em 58 dias · garantia pendente no fornecedor</div></div></div></div>
+          </div>
+
+          <div class="vcard">
+            <div class="vc-h"><span class="ci"><i class="ic s20 i-wrench"></i></span><div class="ct"><b>Serviços</b><span>34 de 40 concluídos</span></div><div class="r"><div class="mini-ring"><svg width="46" height="46"><circle cx="23" cy="23" r="20" fill="none" stroke="hsl(240 20% 92%)" stroke-width="5"/><circle cx="23" cy="23" r="20" fill="none" stroke="hsl(var(--primary))" stroke-width="5" stroke-linecap="round" stroke-dasharray="125.7" stroke-dashoffset="18.9"/></svg><span>85%</span></div></div></div>
+            <div class="vc-b">
+              <div class="srow"><span class="dot d-blue d-live"></span><div class="mid"><b>Troca da válvula relé do freio</b><div class="who"><i class="ic i-user"></i>Rafael · <span style="color:hsl(var(--emerald-ink));font-weight:600">desde 08:12</span></div></div><span class="chip ch-blue"><i class="ic s14 i-clock"></i>3 h 10</span></div>
+              <div class="srow"><span class="dot d-amber"></span><div class="mid"><b>Troca de lonas · eixo 2</b><div class="who"><i class="ic i-user"></i>Anderson · <span class="pz">aguardando peça 319</span></div></div><span class="chip ch-amber">pausado</span></div>
+              <div class="srow"><span class="dot d-slate"></span><div class="mid"><b>Teste de estanqueidade</b><div class="who"><span class="none">sem executor</span> · 0 h 40 previsto</div></div><button class="seeall">Designar <i class="ic s14 i-chev"></i></button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="side">
+        <div class="gcard">
+          <div class="gc-h"><span class="ci"><i class="ic s18 i-clock"></i></span><b>Jornada da OS</b></div>
+          <div class="jrn">
+            <div class="jn q done"><span class="nd"><i class="ic s18 i-clock"></i></span><div class="jt"><b>Fila</b><span>24 set, 08:00</span></div><div class="jd">3 d 02 h</div></div>
+            <div class="jn m"><span class="nd"><i class="ic s18 i-wrench"></i></span><div class="jt"><b>Manutenção</b><span>26 set, 10:28</span></div><div class="jd">52 h 10 m</div></div>
+            <div class="jn f"><span class="nd"><i class="ic s18 i-checkc"></i></span><div class="jt"><b>Finalizada</b><span>prev. seg, 14:00</span></div><div class="jd" style="color:hsl(var(--muted-fg))">—</div></div>
+          </div>
+        </div>
+
+        <div class="gcard">
+          <div class="gc-h"><span class="ci"><i class="ic s18 i-dollar"></i></span><b>Custos</b><span class="dep">cost.view</span></div>
+          <div class="cl"><span class="l"><i class="ic i-pkg"></i>Peças</span><span class="v">R$ 1.298,50</span></div>
+          <div class="cl"><span class="l"><i class="ic i-users"></i>Mão de obra</span><span class="v">R$ 698,20</span></div>
+          <div class="cl"><span class="l"><i class="ic i-truck"></i>Externos</span><span class="v">R$ 322,00</span></div>
+          <div class="cl tot"><span class="l">Total parcial</span><span class="v">R$ 2.318,70</span></div>
+        </div>
+
+        <div class="gcard">
+          <div class="gc-h"><span class="ci"><i class="ic s18 i-users"></i></span><b>Equipe</b></div>
+          <div class="tm"><span class="av">RS</span><div class="tt"><b>Rafael Souza</b><span>Válvula relé</span></div><span class="st run">3 h 10</span></div>
+          <div class="tm"><span class="av">DR</span><div class="tt"><b>Diego Ramos</b><span>Lonas · eixo 2</span></div><span class="st run">3 h 12</span></div>
+          <div class="tm"><span class="av">AL</span><div class="tt"><b>Anderson Lima</b><span>Parado · peça 319</span></div><span class="st pz">parado</span></div>
+          <div class="tm"><span class="av">CN</span><div class="tt"><b>Carla Nunes</b><span>Livre</span></div><span class="st free">livre</span></div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="ifab">
+      <div class="ifab-panel">
+        <div class="ifab-ph"><span class="ci"><i class="ic s16 i-bolt"></i></span><div><b>Insights inteligentes</b><div class="sub">Análise automática · passe o mouse</div></div></div>
+        <div class="ins-list">
+          <div class="ins ins-risk"><span class="ii"><i class="ic s16 i-alert"></i></span><div class="ix"><b>Risco de atraso</b><p>Se a <b>peça 319</b> não chegar hoje, a liberação vai de <b>seg 14:00</b> para <b>ter 10:00</b>.</p><button class="act"><i class="ic s14 i-cart"></i>Cobrar fornecedor</button></div></div>
+          <div class="ins ins-win"><span class="ii"><i class="ic s16 i-undo"></i></span><div class="ix"><b>Custo recuperável</b><p>Retorno da OS 0988: válvula com <b>garantia do fornecedor</b> — até <b>R$ 540</b> podem voltar.</p><button class="act">Abrir garantia <i class="ic s14 i-chev"></i></button></div></div>
+          <div class="ins ins-good"><span class="ii"><i class="ic s16 i-trend"></i></span><div class="ix"><b>No ritmo</b><p>85% concluído — acima da média de revisões de 50 mil km.</p></div></div>
+        </div>
+      </div>
+      <button class="ifab-btn"><i class="ic i-bolt"></i>Insights<span class="cnt">3</span></button>
+    </div>
+
+    <div class="fab">
+      <button class="fin"><i class="ic s18 i-flag"></i>Finalizar</button>
+      <span class="hint">faltam 6</span>
+      <span class="fsep"></span>
+      <button class="fi"><i class="ic s18 i-pause"></i></button>
+      <button class="fi"><i class="ic s18 i-undo"></i></button>
+      <button class="fi"><i class="ic s18 i-x"></i></button>
+      <button class="fi"><i class="ic s18 i-printer"></i></button>
+    </div>
+  </div>
+
+  <!-- ===== ESTRESSE · aba Serviços com 40 ===== -->
+  <section class="rsec">
+    <div class="rh"><span class="rtag"><i class="ic i-wrench"></i>Consultor · aba Serviços</span><h2>Estresse — 40 serviços, 3 compartimentos</h2></div>
+    <p class="rsub">A prova real: OS com <b>40 serviços</b> (cavalo + 2 carretas). A <b>triagem</b> no topo joga a exceção pra cima; a lista é densa, agrupada por veículo, com os <b>concluídos recolhidos</b>. A 40, você não lê 40 — resolve o que trava.</p>
+    <div class="frame">
+      <div class="top">
+        <div class="crumb">Home <i class="ic i-chev"></i> Ordem de Serviço <i class="ic i-chev"></i> <b>OS-1042</b></div>
+        <span class="sp"></span>
+        <button class="tbtn"><i class="ic s20 i-settings"></i></button>
+        <button class="tbtn"><i class="ic s20 i-moon"></i></button>
+        <button class="tbtn"><i class="ic s20 i-bell"></i></button>
+        <div class="company"><span class="av">MC</span><div class="nm"><b>Marco · Consultor</b><span>JSL Logística</span></div><i class="ic s16 i-down" style="color:hsl(var(--muted-fg))"></i></div>
+      </div>
+      <div class="page">
+        <div>
+          <div class="hero">
+            <div class="orb a"></div><div class="orb b"></div><div class="grid-ov"></div>
+            <div class="hero-in">
+              <div class="hero-nav">
+                <div class="l"><button class="glass gbtn"><i class="ic s16 i-back"></i></button><span class="statuspill"><span class="dot"></span>Em manutenção há <span class="tmr">52 h 10 m</span><i class="ic i-play"></i></span></div>
+                <div class="l"><span class="glass osbadge"><span class="k">OS</span><b>OS-1042</b></span><button class="glass gbtn"><i class="ic s16 i-pin"></i></button><button class="glass gbtn"><i class="ic s16 i-more"></i></button></div>
+              </div>
+              <div class="hero-main">
+                <div class="l">
+                  <h1 class="htitle">Frota 2213</h1>
+                  <p class="hsub">Revisão 50.000 km · Cavalo QRT4B22 + 2 implementos</p>
+                  <div class="metas">
+                    <div class="meta"><span class="mi"><i class="ic s16 i-truck"></i></span><div class="mt"><div class="k">Transportadora</div><div class="v">Expresso Rodoviário SP</div></div></div>
+                    <div class="meta hl"><span class="mi"><i class="ic s16 i-wrench"></i></span><div class="mt"><div class="k">Box</div><div class="v">03 · Pesados</div></div></div>
+                    <div class="meta"><span class="mi"><i class="ic s16 i-users"></i></span><div class="mt"><div class="k">Equipe</div><div class="v">5 · 1 parada</div></div></div>
+                  </div>
+                </div>
+                <div class="ring-wrap">
+                  <div class="ring-glow"></div>
+                  <svg width="132" height="132"><circle cx="66" cy="66" r="55" fill="none" stroke="hsl(240 20% 92%)" stroke-width="11"/><circle cx="66" cy="66" r="55" fill="none" stroke="url(#rg5)" stroke-width="11" stroke-linecap="round" stroke-dasharray="345.6" stroke-dashoffset="51.8"/><defs><linearGradient id="rg5" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="hsl(233 65% 50%)"/><stop offset="1" stop-color="hsl(233 72% 62%)"/></linearGradient></defs></svg>
+                  <div class="ctr"><b>34/40</b><span>serviços</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="viewrow">
+            <div class="seg"><button><i class="ic s14 i-simple"></i>Simples</button><button aria-pressed="true"><i class="ic s14 i-adv"></i>Avançado</button></div>
+            <button class="tbtn"><i class="ic s16 i-maximize"></i></button>
+          </div>
+          <div class="tabs">
+            <a><i class="ic i-file"></i>Visão Geral</a>
+            <a class="on"><i class="ic i-wrench"></i>Serviços <span class="b">34/40</span></a>
+            <a><i class="ic i-pkg"></i>Peças <span class="b">7</span></a>
+            <a><i class="ic i-clip"></i>Checklist</a>
+            <a><i class="ic i-hist"></i>Histórico</a>
+            <a><i class="ic i-branch"></i>Timeline</a>
+          </div>
+
+          <div class="triage">
+            <button class="tchip tc-amber"><i class="ic i-pkg"></i>Aguardando peça <span class="n">3</span></button>
+            <button class="tchip tc-red"><i class="ic i-userplus"></i>Sem executor <span class="n">1</span></button>
+            <button class="tchip tc-red"><i class="ic i-hour"></i>Acima do previsto <span class="n">2</span></button>
+            <button class="tchip tc-amber"><i class="ic i-pause"></i>Pausado sozinho <span class="n">1</span></button>
+          </div>
+
+          <div class="svctool">
+            <div class="seg"><button aria-pressed="true">Abertos · 6</button><button>Todos · 40</button></div>
+            <span class="spx"></span>
+            <div class="fil"><i class="ic i-search"></i>Filtrar</div>
+            <div class="fil">Agrupar: Veículo <i class="ic i-down"></i></div>
+          </div>
+
+          <div class="svclist">
+          <div class="sgrp"><div class="idp"><div class="plate">QRT4B22</div><div class="sub">Cavalo · 13 serviços</div></div><span class="open"><span class="od"></span>2 abertos</span></div>
+          <div class="srow run">
+            <span class="ctag ct-run"><i class="ic i-play"></i>Em andamento</span>
+            <div class="svc-main"><div class="nm">Troca da válvula relé do freio</div><div class="sub"><i class="ic i-pin"></i><span class="cg">Freios</span> · válvula relé</div></div>
+            <div class="ex"><span class="av">RS</span>Rafael</div>
+            <div class="rgt"><div class="tmblk up"><div class="t"><i class="ic i-clock"></i>3 h 10</div></div><i class="ic i-chev chev"></i></div>
+          </div>
+          <div class="srow pend">
+            <span class="ctag ct-pend"><i class="ic i-clock"></i>Pendente</span>
+            <div class="svc-main"><div class="nm">Teste de estanqueidade do sistema de ar</div><div class="sub"><i class="ic i-pin"></i><span class="cg">Pneumática</span> · sistema de ar</div></div>
+            <div class="ex"><button class="assign"><i class="ic i-userplus"></i>Designar</button></div>
+            <div class="rgt"><div class="tmblk"><div class="t"><i class="ic i-clock"></i>0 h 00</div></div><i class="ic i-chev chev"></i></div>
+          </div>
+          <div class="srow done">
+            <span class="ctag ct-done"><i class="ic i-check"></i>Concluído</span>
+            <div class="svc-main"><div class="nm">Sangria do sistema de freio</div><div class="sub"><i class="ic i-pin"></i><span class="cg">Freios</span> · sistema de ar</div></div>
+            <div class="ex"><span class="av">EF</span>Edson</div>
+            <div class="rgt"><div class="tmblk"><div class="t"><i class="ic i-clock"></i>0 h 35</div></div><i class="ic i-chev chev"></i></div>
+          </div>
+          <div class="srow done">
+            <span class="ctag ct-done"><i class="ic i-check"></i>Concluído</span>
+            <div class="svc-main"><div class="nm">Regulagem do freio motor</div><div class="sub"><i class="ic i-pin"></i><span class="cg">Freios</span> · freio motor</div></div>
+            <div class="ex"><span class="av">RS</span>Rafael</div>
+            <div class="rgt"><div class="tmblk"><div class="t"><i class="ic i-clock"></i>0 h 50</div></div><i class="ic i-chev chev"></i></div>
+          </div>
+          <div class="collapsed"><i class="ic i-chev"></i><b>+ 9 concluídos</b> no cavalo · 6 h 20</div>
+
+          <div class="sgrp"><div class="idp"><div class="plate">RTA2C45</div><div class="sub">Carreta · 14 serviços</div></div><span class="open"><span class="od"></span>2 abertos</span></div>
+          <div class="srow wait">
+            <span class="ctag ct-wait"><i class="ic i-pause"></i>Aguardando peça</span>
+            <div class="svc-main"><div class="nm">Troca de lonas de freio · eixo 2</div><div class="sub"><i class="ic i-pin"></i><span class="cg">Freios</span> · eixo 2 · peça 319</div></div>
+            <div class="ex"><span class="av">AL</span>Anderson</div>
+            <div class="rgt"><div class="tmblk amb"><div class="t"><i class="ic i-clock"></i>3 h 12</div></div><i class="ic i-chev chev"></i></div>
+          </div>
+          <div class="srow wait">
+            <span class="ctag ct-wait"><i class="ic i-pause"></i>Aguardando peça</span>
+            <div class="svc-main"><div class="nm">Substituição do cilindro pneumático</div><div class="sub"><i class="ic i-pin"></i><span class="cg">Pneumática</span> · cilindro · peça 320</div></div>
+            <div class="ex"><span class="av">AL</span>Anderson</div>
+            <div class="rgt"><div class="tmblk amb"><div class="t"><i class="ic i-clock"></i>0 h 45</div></div><i class="ic i-chev chev"></i></div>
+          </div>
+          <div class="srow done">
+            <span class="ctag ct-done"><i class="ic i-check"></i>Concluído</span>
+            <div class="svc-main"><div class="nm">Troca de pastilhas · eixo 1</div><div class="sub"><i class="ic i-pin"></i><span class="cg">Freios</span> · eixo 1</div></div>
+            <div class="ex"><span class="av">DR</span>Diego</div>
+            <div class="rgt"><div class="tmblk"><div class="t"><i class="ic i-clock"></i>1 h 20</div></div><i class="ic i-chev chev"></i></div>
+          </div>
+          <div class="srow done">
+            <span class="ctag ct-done"><i class="ic i-check"></i>Concluído</span>
+            <div class="svc-main"><div class="nm">Inspeção de catracas · eixo 3</div><div class="sub"><i class="ic i-pin"></i><span class="cg">Freios</span> · eixo 3</div></div>
+            <div class="ex"><span class="av">DR</span>Diego</div>
+            <div class="rgt"><div class="tmblk"><div class="t"><i class="ic i-clock"></i>0 h 40</div></div><i class="ic i-chev chev"></i></div>
+          </div>
+          <div class="collapsed"><i class="ic i-chev"></i><b>+ 10 concluídos</b> na RTA2C45 · 11 h 05</div>
+
+          <div class="sgrp"><div class="idp"><div class="plate">RTB7F19</div><div class="sub">Carreta · 13 serviços</div></div><span class="open"><span class="od"></span>2 abertos</span></div>
+          <div class="srow wait">
+            <span class="ctag ct-wait"><i class="ic i-pause"></i>Pausado</span>
+            <div class="svc-main"><div class="nm">Regulagem das catracas de freio</div><div class="sub"><i class="ic i-pin"></i><span class="cg">Freios</span> · catraca · pausou sozinho</div></div>
+            <div class="ex"><span class="av">DR</span>Diego</div>
+            <div class="rgt"><div class="tmblk amb"><div class="t"><i class="ic i-clock"></i>0 h 35</div></div><i class="ic i-chev chev"></i></div>
+          </div>
+          <div class="srow pend">
+            <span class="ctag ct-pend"><i class="ic i-clock"></i>Pendente</span>
+            <div class="svc-main"><div class="nm">Troca do tensionador automático</div><div class="sub"><i class="ic i-pin"></i><span class="cg">Freios</span> · tensionador · peça reserva</div></div>
+            <div class="ex"><button class="assign"><i class="ic i-userplus"></i>Designar</button></div>
+            <div class="rgt"><div class="tmblk"><div class="t"><i class="ic i-clock"></i>0 h 00</div></div><i class="ic i-chev chev"></i></div>
+          </div>
+          <div class="srow done">
+            <span class="ctag ct-done"><i class="ic i-check"></i>Concluído</span>
+            <div class="svc-main"><div class="nm">Troca de lonas · eixo 1</div><div class="sub"><i class="ic i-pin"></i><span class="cg">Freios</span> · eixo 1</div></div>
+            <div class="ex"><span class="av">CN</span>Carla</div>
+            <div class="rgt"><div class="tmblk"><div class="t"><i class="ic i-clock"></i>1 h 05</div></div><i class="ic i-chev chev"></i></div>
+          </div>
+          <div class="collapsed"><i class="ic i-chev"></i><b>+ 10 concluídos</b> na RTB7F19 · 8 h 40</div>
+          </div>
+        </div>
+
+        <aside class="side">
+          <div class="gcard">
+            <div class="gc-h"><span class="ci"><i class="ic s18 i-clock"></i></span><b>Jornada da OS</b></div>
+            <div class="jrn">
+              <div class="jn q done"><span class="nd"><i class="ic s18 i-clock"></i></span><div class="jt"><b>Fila</b><span>24 set, 08:00</span></div><div class="jd">3 d 02 h</div></div>
+              <div class="jn m"><span class="nd"><i class="ic s18 i-wrench"></i></span><div class="jt"><b>Manutenção</b><span>26 set, 10:28</span></div><div class="jd">52 h 10 m</div></div>
+              <div class="jn f"><span class="nd"><i class="ic s18 i-checkc"></i></span><div class="jt"><b>Finalizada</b><span>prev. seg, 14:00</span></div><div class="jd" style="color:hsl(var(--muted-fg))">—</div></div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="fab">
+        <button class="fin"><i class="ic s18 i-flag"></i>Finalizar</button>
+        <span class="hint">faltam 6</span>
+        <span class="fsep"></span>
+        <button class="fi"><i class="ic s18 i-pause"></i></button>
+        <button class="fi"><i class="ic s18 i-printer"></i></button>
+      </div>
+    </div>
+  </section>
+
+
+  <p class="note" style="margin-top:14px"><b>Acima: visão do Consultor técnico</b> (dono da OS). Abaixo, a <b>mesma OS pelos outros papéis</b> — a casca (hero, jornada, abas) é o padrão; muda o miolo e a direita.</p>
+
+  <!-- ===== 2 · SUPERVISOR (mesma casca, miolo diferente) ===== -->
+  <section class="rsec">
+    <div class="rh"><span class="rtag"><i class="ic i-wrench"></i>Supervisor</span><h2>Mesma casca — o miolo é gente e aprovações</h2></div>
+    <p class="rsub">A tela inteira do Supervisor: <b>o mesmo hero, a mesma Jornada, as mesmas abas</b> do Consultor. Só muda o que importa pra ele — a <b>Visão Geral</b> abre em equipe, e a direita traz as <b>aprovações</b>.</p>
+    <div class="frame">
+      <div class="top">
+        <div class="crumb">Home <i class="ic i-chev"></i> Ordem de Serviço <i class="ic i-chev"></i> <b>OS-1042</b></div>
+        <span class="sp"></span>
+        <button class="tbtn"><i class="ic s20 i-settings"></i></button>
+        <button class="tbtn"><i class="ic s20 i-moon"></i></button>
+        <button class="tbtn"><i class="ic s20 i-bell"></i><span class="dotn">2</span></button>
+        <div class="company"><span class="av">AF</span><div class="nm"><b>Ana · Supervisora</b><span>JSL Logística</span></div><i class="ic s16 i-down" style="color:hsl(var(--muted-fg))"></i></div>
+      </div>
+
+      <div class="page">
+        <div>
+          <div class="hero">
+            <div class="orb a"></div><div class="orb b"></div><div class="grid-ov"></div>
+            <div class="hero-in">
+              <div class="hero-nav">
+                <div class="l"><button class="glass gbtn"><i class="ic s16 i-back"></i></button><span class="statuspill"><span class="dot"></span>Em manutenção há <span class="tmr">52 h 10 m</span><i class="ic i-play"></i></span></div>
+                <div class="l"><span class="glass osbadge"><span class="k">OS</span><b>OS-1042</b></span><button class="glass gbtn"><i class="ic s16 i-pin"></i></button><button class="glass gbtn"><i class="ic s16 i-more"></i></button></div>
+              </div>
+              <div class="hero-main">
+                <div class="l">
+                  <h1 class="htitle">Frota 2213</h1>
+                  <p class="hsub">Revisão 50.000 km · Cavalo QRT4B22 + 2 implementos</p>
+                  <div class="metas">
+                    <div class="meta"><span class="mi"><i class="ic s16 i-truck"></i></span><div class="mt"><div class="k">Transportadora</div><div class="v">Expresso Rodoviário SP</div></div></div>
+                    <div class="meta hl"><span class="mi"><i class="ic s16 i-wrench"></i></span><div class="mt"><div class="k">Box</div><div class="v">03 · Pesados</div></div></div>
+                    <div class="meta"><span class="mi"><i class="ic s16 i-users"></i></span><div class="mt"><div class="k">Equipe</div><div class="v">5 · 1 parada</div></div></div>
+                  </div>
+                </div>
+                <div class="ring-wrap">
+                  <div class="ring-glow"></div>
+                  <svg width="132" height="132"><circle cx="66" cy="66" r="55" fill="none" stroke="hsl(240 20% 92%)" stroke-width="11"/><circle cx="66" cy="66" r="55" fill="none" stroke="url(#rg2)" stroke-width="11" stroke-linecap="round" stroke-dasharray="345.6" stroke-dashoffset="51.8"/><defs><linearGradient id="rg2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="hsl(233 65% 50%)"/><stop offset="1" stop-color="hsl(233 72% 62%)"/></linearGradient></defs></svg>
+                  <div class="ctr"><b>34/40</b><span>serviços</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="viewrow">
+            <div class="seg"><button><i class="ic s14 i-simple"></i>Simples</button><button aria-pressed="true"><i class="ic s14 i-adv"></i>Avançado</button></div>
+            <button class="tbtn"><i class="ic s16 i-maximize"></i></button>
+          </div>
+          <div class="tabs">
+            <a class="on"><i class="ic i-file"></i>Visão Geral</a>
+            <a><i class="ic i-wrench"></i>Serviços <span class="b">34/40</span></a>
+            <a><i class="ic i-pkg"></i>Peças <span class="b">7</span></a>
+            <a><i class="ic i-clip"></i>Checklist</a>
+            <a><i class="ic i-hist"></i>Histórico</a>
+            <a><i class="ic i-branch"></i>Timeline</a>
+          </div>
+
+          <div class="vcard">
+            <div class="vc-h"><span class="ci"><i class="ic s20 i-users"></i></span><div class="ct"><b>Equipe nesta OS</b><span>5 pessoas · 1 parada</span></div><div class="r"><button class="seeall">Ver escala <i class="ic s14 i-chev"></i></button></div></div>
+            <div class="vc-b">
+              <div class="prow"><span class="av">RS</span><div class="pn"><b>Rafael Souza</b><span class="run">Válvula relé · desde 08:12</span></div><span class="chip ch-blue">3 h 10</span></div>
+              <div class="prow"><span class="av">DR</span><div class="pn"><b>Diego Ramos</b><span class="run">Lonas eixo 2 · desde 09:28</span></div><span class="chip ch-blue">3 h 12</span></div>
+              <div class="prow"><span class="av">AL</span><div class="pn"><b>Anderson Lima</b><span class="pz">Parado · aguardando peça 319</span></div><button class="btn btn-out">Remanejar</button></div>
+              <div class="prow"><span class="av">CN</span><div class="pn"><b>Carla Nunes</b><span class="free">Livre · 2 h 10 hoje</span></div><button class="btn btn-pri"><i class="ic i-userplus"></i>Designar</button></div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="side">
+          <div class="gcard">
+            <div class="gc-h"><span class="ci" style="background:hsl(var(--amber)/.14);color:hsl(var(--amber-ink))"><i class="ic s18 i-bell"></i></span><div><b>Aprovações pendentes</b><div class="sub">Quem pede não aprova</div></div><span class="tag" style="margin-left:auto;background:hsl(var(--amber)/.14);color:hsl(var(--amber-ink));font:700 11px Sora;border-radius:99px;padding:3px 9px">2</span></div>
+            <div class="aitem"><div class="q"><span class="ci"><i class="ic s16 i-cart"></i></span>Pedido de peça 319</div><p>Anderson pediu <b>1 kit de lonas · R$ 420</b> pra lonas eixo 2.</p><div class="row"><button class="btn btn-pri">Aprovar</button><button class="btn btn-out">Recusar</button></div></div>
+            <div class="aitem"><div class="q"><span class="ci"><i class="ic s16 i-hour"></i></span>Ajuste de tempo</div><p>Rafael, <b>12 min além do limite</b>. Precisa da sua liberação.</p><div class="row"><button class="btn btn-pri">Aprovar</button><button class="btn btn-out">Ver</button></div></div>
+          </div>
+          <div class="gcard">
+            <div class="gc-h"><span class="ci"><i class="ic s18 i-clock"></i></span><b>Jornada da OS</b></div>
+            <div class="jrn">
+              <div class="jn q done"><span class="nd"><i class="ic s18 i-clock"></i></span><div class="jt"><b>Fila</b><span>24 set, 08:00</span></div><div class="jd">3 d 02 h</div></div>
+              <div class="jn m"><span class="nd"><i class="ic s18 i-wrench"></i></span><div class="jt"><b>Manutenção</b><span>26 set, 10:28</span></div><div class="jd">52 h 10 m</div></div>
+              <div class="jn f"><span class="nd"><i class="ic s18 i-checkc"></i></span><div class="jt"><b>Finalizada</b><span>prev. seg, 14:00</span></div><div class="jd" style="color:hsl(var(--muted-fg))">—</div></div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="fab">
+        <button class="fin"><i class="ic s18 i-flag"></i>Finalizar</button>
+        <span class="hint">faltam 6</span>
+        <span class="fsep"></span>
+        <button class="fi"><i class="ic s18 i-pause"></i></button>
+        <button class="fi"><i class="ic s18 i-printer"></i></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 3 · GESTOR / FINANCEIRO (mesma casca) ===== -->
+  <section class="rsec">
+    <div class="rh"><span class="rtag"><i class="ic i-trend"></i>Gestor / Financeiro</span><h2>Mesma casca — o miolo é custo e decisão</h2></div>
+    <p class="rsub">A mesma tela. Ele não opera: a Visão Geral abre nos <b>números e no custo</b>, e a direita no <b>que pode atrasar</b>. Custo só com <span class="dep">cost.view</span>.</p>
+    <div class="frame">
+      <div class="top">
+        <div class="crumb">Home <i class="ic i-chev"></i> Ordem de Serviço <i class="ic i-chev"></i> <b>OS-1042</b></div>
+        <span class="sp"></span>
+        <button class="tbtn"><i class="ic s20 i-settings"></i></button>
+        <button class="tbtn"><i class="ic s20 i-moon"></i></button>
+        <button class="tbtn"><i class="ic s20 i-bell"></i></button>
+        <div class="company"><span class="av">MO</span><div class="nm"><b>Marco · Gestor</b><span>JSL Logística</span></div><i class="ic s16 i-down" style="color:hsl(var(--muted-fg))"></i></div>
+      </div>
+      <div class="page">
+        <div>
+          <div class="hero">
+            <div class="orb a"></div><div class="orb b"></div><div class="grid-ov"></div>
+            <div class="hero-in">
+              <div class="hero-nav">
+                <div class="l"><button class="glass gbtn"><i class="ic s16 i-back"></i></button><span class="statuspill"><span class="dot"></span>Em manutenção há <span class="tmr">52 h 10 m</span><i class="ic i-play"></i></span></div>
+                <div class="l"><span class="glass osbadge"><span class="k">OS</span><b>OS-1042</b></span><button class="glass gbtn"><i class="ic s16 i-printer"></i></button><button class="glass gbtn"><i class="ic s16 i-more"></i></button></div>
+              </div>
+              <div class="hero-main">
+                <div class="l">
+                  <h1 class="htitle">Frota 2213</h1>
+                  <p class="hsub">Revisão 50.000 km · Cavalo QRT4B22 + 2 implementos</p>
+                  <div class="metas">
+                    <div class="meta"><span class="mi"><i class="ic s16 i-truck"></i></span><div class="mt"><div class="k">Transportadora</div><div class="v">Expresso Rodoviário SP</div></div></div>
+                    <div class="meta"><span class="mi"><i class="ic s16 i-dollar"></i></span><div class="mt"><div class="k">Custo parcial <span class="dep">cost.view</span></div><div class="v">R$ 2.318,70</div></div></div>
+                    <div class="meta hl"><span class="mi"><i class="ic s16 i-undo"></i></span><div class="mt"><div class="k">Retrabalho</div><div class="v">1 · garantia</div></div></div>
+                  </div>
+                </div>
+                <div class="ring-wrap">
+                  <div class="ring-glow"></div>
+                  <svg width="132" height="132"><circle cx="66" cy="66" r="55" fill="none" stroke="hsl(240 20% 92%)" stroke-width="11"/><circle cx="66" cy="66" r="55" fill="none" stroke="url(#rg3)" stroke-width="11" stroke-linecap="round" stroke-dasharray="345.6" stroke-dashoffset="51.8"/><defs><linearGradient id="rg3" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="hsl(233 65% 50%)"/><stop offset="1" stop-color="hsl(233 72% 62%)"/></linearGradient></defs></svg>
+                  <div class="ctr"><b>34/40</b><span>serviços</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="viewrow">
+            <div class="seg"><button><i class="ic s14 i-simple"></i>Simples</button><button aria-pressed="true"><i class="ic s14 i-adv"></i>Avançado</button></div>
+            <button class="tbtn"><i class="ic s16 i-maximize"></i></button>
+          </div>
+          <div class="tabs">
+            <a class="on"><i class="ic i-file"></i>Visão Geral</a>
+            <a><i class="ic i-wrench"></i>Serviços <span class="b">34/40</span></a>
+            <a><i class="ic i-pkg"></i>Peças <span class="b">7</span></a>
+            <a><i class="ic i-clip"></i>Checklist</a>
+            <a><i class="ic i-hist"></i>Histórico</a>
+            <a><i class="ic i-branch"></i>Timeline</a>
+          </div>
+
+          <div class="kpis">
+            <div class="kpi"><div class="k"><i class="ic i-flag"></i>Liberação</div><div class="v">6 abertos</div><div class="s">de 40 · prev. seg 14:00</div></div>
+            <div class="kpi red"><div class="k"><i class="ic i-alert"></i>Travados</div><div class="v">3</div><div class="s">peça, previsão</div></div>
+            <div class="kpi"><div class="k"><i class="ic i-dollar"></i>Custo parcial</div><div class="v">R$ 2.318</div><div class="s">+ R$ 227 a entregar</div></div>
+            <div class="kpi"><div class="k"><i class="ic i-undo"></i>Retrabalho</div><div class="v">1</div><div class="s">garantia fornecedor</div></div>
+          </div>
+          <div class="vcard"><div class="vc-h"><span class="ci"><i class="ic s20 i-dollar"></i></span><div class="ct"><b>Custo por origem</b><span>parcial</span></div><div class="r"><span class="dep">cost.view</span></div></div><div class="vc-b">
+            <div class="cl"><span class="l"><i class="ic i-wrench"></i>Mão de obra</span><span class="v">R$ 698,20</span></div>
+            <div class="cl"><span class="l"><i class="ic i-pkg"></i>Peças entregues</span><span class="v">R$ 1.298,50</span></div>
+            <div class="cl"><span class="l"><i class="ic i-truck"></i>Serviços externos</span><span class="v">R$ 322,00</span></div>
+            <div class="cl tot"><span class="l">Total parcial</span><span class="v">R$ 2.318,70</span></div>
+          </div></div>
+        </div>
+
+        <aside class="side">
+          <div class="gcard">
+            <div class="gc-h"><span class="ci" style="background:hsl(var(--amber)/.14);color:hsl(var(--amber-ink))"><i class="ic s18 i-alert"></i></span><b>O que pode atrasar</b></div>
+            <div class="aitem"><div class="q"><span class="ci"><i class="ic s16 i-pkg"></i></span>Peça 319 não chegou</div><p>Trava a liberação; previsão vai pra <b>ter 10:00</b> se não chegar hoje.</p></div>
+            <div class="aitem"><div class="q"><span class="ci" style="background:hsl(var(--primary)/.14);color:hsl(var(--primary-ink))"><i class="ic s16 i-undo"></i></span>Retorno da OS 0988</div><p>2ª falha da válvula em 58 dias. <b>Garantia pendente</b> — até R$ 540 recuperáveis.</p></div>
+          </div>
+          <div class="gcard">
+            <div class="gc-h"><span class="ci"><i class="ic s18 i-clock"></i></span><b>Jornada da OS</b></div>
+            <div class="jrn">
+              <div class="jn q done"><span class="nd"><i class="ic s18 i-clock"></i></span><div class="jt"><b>Fila</b><span>24 set, 08:00</span></div><div class="jd">3 d 02 h</div></div>
+              <div class="jn m"><span class="nd"><i class="ic s18 i-wrench"></i></span><div class="jt"><b>Manutenção</b><span>26 set, 10:28</span></div><div class="jd">52 h 10 m</div></div>
+              <div class="jn f"><span class="nd"><i class="ic s18 i-checkc"></i></span><div class="jt"><b>Finalizada</b><span>prev. seg, 14:00</span></div><div class="jd" style="color:hsl(var(--muted-fg))">—</div></div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 4 · ALMOXARIFE (mesma casca) ===== -->
+  <section class="rsec">
+    <div class="rh"><span class="rtag"><i class="ic i-pkg"></i>Almoxarife</span><h2>Mesma casca — o miolo são as peças</h2></div>
+    <p class="rsub">A mesma tela. Pra ele, a OS <b>abre na aba Peças</b>: os pedidos por situação, ligados ao serviço. Não vê a operação dos serviços nem o custo.</p>
+    <div class="frame">
+      <div class="top">
+        <div class="crumb">Home <i class="ic i-chev"></i> Ordem de Serviço <i class="ic i-chev"></i> <b>OS-1042</b></div>
+        <span class="sp"></span>
+        <button class="tbtn"><i class="ic s20 i-settings"></i></button>
+        <button class="tbtn"><i class="ic s20 i-moon"></i></button>
+        <button class="tbtn"><i class="ic s20 i-bell"></i><span class="dotn">2</span></button>
+        <div class="company"><span class="av">PA</span><div class="nm"><b>Pedro · Almoxarife</b><span>JSL Logística</span></div><i class="ic s16 i-down" style="color:hsl(var(--muted-fg))"></i></div>
+      </div>
+      <div class="page">
+        <div>
+          <div class="hero">
+            <div class="orb a"></div><div class="orb b"></div><div class="grid-ov"></div>
+            <div class="hero-in">
+              <div class="hero-nav">
+                <div class="l"><button class="glass gbtn"><i class="ic s16 i-back"></i></button><span class="statuspill"><span class="dot"></span>Em manutenção há <span class="tmr">52 h 10 m</span><i class="ic i-play"></i></span></div>
+                <div class="l"><span class="glass osbadge"><span class="k">OS</span><b>OS-1042</b></span><button class="glass gbtn"><i class="ic s16 i-pin"></i></button><button class="glass gbtn"><i class="ic s16 i-more"></i></button></div>
+              </div>
+              <div class="hero-main">
+                <div class="l">
+                  <h1 class="htitle">Frota 2213</h1>
+                  <p class="hsub">Revisão 50.000 km · Cavalo QRT4B22 + 2 implementos</p>
+                  <div class="metas">
+                    <div class="meta"><span class="mi"><i class="ic s16 i-truck"></i></span><div class="mt"><div class="k">Transportadora</div><div class="v">Expresso Rodoviário SP</div></div></div>
+                    <div class="meta hl"><span class="mi"><i class="ic s16 i-pkg"></i></span><div class="mt"><div class="k">Pedidos</div><div class="v">7 · 2 travando</div></div></div>
+                    <div class="meta"><span class="mi"><i class="ic s16 i-wrench"></i></span><div class="mt"><div class="k">Box</div><div class="v">03 · Pesados</div></div></div>
+                  </div>
+                </div>
+                <div class="ring-wrap">
+                  <div class="ring-glow"></div>
+                  <svg width="132" height="132"><circle cx="66" cy="66" r="55" fill="none" stroke="hsl(240 20% 92%)" stroke-width="11"/><circle cx="66" cy="66" r="55" fill="none" stroke="url(#rg4)" stroke-width="11" stroke-linecap="round" stroke-dasharray="345.6" stroke-dashoffset="51.8"/><defs><linearGradient id="rg4" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="hsl(233 65% 50%)"/><stop offset="1" stop-color="hsl(233 72% 62%)"/></linearGradient></defs></svg>
+                  <div class="ctr"><b>34/40</b><span>serviços</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="viewrow">
+            <div class="seg"><button><i class="ic s14 i-simple"></i>Simples</button><button aria-pressed="true"><i class="ic s14 i-adv"></i>Avançado</button></div>
+            <button class="tbtn"><i class="ic s16 i-maximize"></i></button>
+          </div>
+          <div class="tabs">
+            <a><i class="ic i-file"></i>Visão Geral</a>
+            <a class="on"><i class="ic i-pkg"></i>Peças <span class="b">7</span></a>
+            <a><i class="ic i-hist"></i>Histórico</a>
+          </div>
+
+          <div class="vcard">
+            <div class="vc-h"><span class="ci"><i class="ic s20 i-pkg"></i></span><div class="ct"><b>Peças desta OS</b><span>7 pedidos · 2 travando</span></div><div class="r"><button class="btn btn-pri"><i class="ic i-cart"></i>Novo pedido</button></div></div>
+            <div class="vc-b">
+              <div class="pgrp hot"><i class="ic i-alert"></i>Aguardando — travando a OS · 2</div>
+              <div class="prt"><span class="pi"><i class="ic s18 i-pkg"></i></span><div class="pn"><b>Kit de lonas de freio</b><span>Pedido 319 · Troca de lonas eixo 2 · RTA2C45</span></div><span class="chip ch-amber">a caminho · hoje</span><button class="btn btn-out">Cobrar</button></div>
+              <div class="prt"><span class="pi"><i class="ic s18 i-pkg"></i></span><div class="pn"><b>Cilindro pneumático</b><span>Pedido 320 · RTA2C45</span></div><span class="chip ch-amber">a separar</span><button class="btn btn-pri">Separar</button></div>
+              <div class="pgrp"><i class="ic i-bell"></i>Aguardando aprovação · 1</div>
+              <div class="prt"><span class="pi" style="background:hsl(var(--slate)/.16);color:hsl(var(--slate-ink))"><i class="ic s18 i-pkg"></i></span><div class="pn"><b>Tensionador automático</b><span>Reserva · RTB7F19 · com o supervisor</span></div><span class="val">R$ 310,00</span></div>
+              <div class="pgrp"><i class="ic i-checkc"></i>Entregues · 4</div>
+              <div class="prt"><span class="pi ok"><i class="ic s18 i-check"></i></span><div class="pn"><b>Válvula relé do freio</b><span>Pedido 311 · entregue por Carla 08:05</span></div><span class="val">R$ 540,00</span></div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="side">
+          <div class="gcard">
+            <div class="gc-h"><span class="ci"><i class="ic s18 i-pkg"></i></span><b>Resumo de peças</b></div>
+            <div class="cl"><span class="l"><i class="ic i-alert"></i>Travando a OS</span><span class="v">2</span></div>
+            <div class="cl"><span class="l"><i class="ic i-bell"></i>A aprovar</span><span class="v">1</span></div>
+            <div class="cl"><span class="l"><i class="ic i-checkc"></i>Entregues</span><span class="v">4</span></div>
+            <div class="cl tot"><span class="l">Pedidos</span><span class="v">7</span></div>
+          </div>
+          <div class="gcard">
+            <div class="gc-h"><span class="ci"><i class="ic s18 i-clock"></i></span><b>Jornada da OS</b></div>
+            <div class="jrn">
+              <div class="jn q done"><span class="nd"><i class="ic s18 i-clock"></i></span><div class="jt"><b>Fila</b><span>24 set, 08:00</span></div><div class="jd">3 d 02 h</div></div>
+              <div class="jn m"><span class="nd"><i class="ic s18 i-wrench"></i></span><div class="jt"><b>Manutenção</b><span>26 set, 10:28</span></div><div class="jd">52 h 10 m</div></div>
+              <div class="jn f"><span class="nd"><i class="ic s18 i-checkc"></i></span><div class="jt"><b>Finalizada</b><span>prev. seg, 14:00</span></div><div class="jd" style="color:hsl(var(--muted-fg))">—</div></div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 5 · MECÂNICO (tablet) + MOTORISTA (celular) ===== -->
+  <section class="rsec">
+    <div class="rh"><span class="rtag"><i class="ic i-wrench"></i>Mecânico · tablet</span><h2>Terminal — só os meus serviços</h2></div>
+    <p class="rsub">Outra casca, mesmos comandos. Entra por PIN, vê <b>só o que é dele</b>, botões grandes. Não vê custo nem os 40 da OS. À direita, o <b>motorista</b> no celular: só o status e quando libera.</p>
+    <div class="device">
+      <div class="tablet"><div class="tscr">
+        <div class="tt-top"><span class="osb">OS-1042 <span>· QRT4B22</span></span><span class="sp"></span><span class="tt-me"><span class="av">RS</span>Rafael</span></div>
+        <div class="tbody">
+          <div><div class="th">Meu serviço agora</div>
+            <div class="tcard"><span class="tmr">3 h 10</span><h3>Troca da válvula relé do freio</h3><div class="sub">Freio › válvula relé · previsto 3 h 00</div><div class="run"><span class="d"></span>Trabalhando desde 08:12</div>
+              <div class="tacts"><button class="tbig tb-pause"><i class="ic i-pause"></i>Pausar</button><button class="tbig tb-done"><i class="ic i-check"></i>Concluir</button></div>
+            </div>
+          </div>
+          <div><div class="th">A seguir</div><div class="tnext">
+            <div class="tni"><div><b>Sangria do sistema</b><span>previsto 0 h 30</span></div><span class="go"><i class="ic i-play"></i></span></div>
+            <div class="tni"><div><b>Teste de estanqueidade</b><span>sem executor · pode pegar</span></div><span class="go"><i class="ic i-play"></i></span></div>
+          </div></div>
+        </div>
+      </div></div>
+      <div class="phone"><div class="pscr">
+        <div class="pstat"><span>9:41</span><span class="r"><i class="ic i-signal"></i><i class="ic i-wifi"></i><i class="ic i-batt"></i></span></div>
+        <div class="ptitle"><b>Meu veículo</b><i class="ic i-bell"></i></div>
+        <div class="pbody">
+          <div class="pveh"><span class="pi"><i class="ic s22 i-truck"></i></span><div><b>QRT4B22</b><span>Scania R450 · Frota 2213</span></div></div>
+          <div class="pstate"><div class="k">Em manutenção</div><b>Previsão: seg, 14:00</b><div class="pp">34 de 40 serviços concluídos</div></div>
+          <div>
+            <div class="pstep"><span class="d"></span><div><b>Entrou na oficina</b><span>sáb, 10:28</span></div></div>
+            <div class="pstep now"><span class="d"></span><div><b>Em manutenção</b><span>6 abertos · 3 aguardando peça</span></div></div>
+            <div class="pstep todo"><span class="d"></span><div><b>Liberação</b><span>prev. seg, 14:00</span></div></div>
+          </div>
+        </div>
+        <div class="pnav">
+          <a><i class="ic i-home"></i>Início</a>
+          <a class="on"><i class="ic i-truck"></i>Meu veículo</a>
+          <a><i class="ic i-bell"></i>Avisos</a>
+          <a><i class="ic i-user"></i>Perfil</a>
+        </div>
+        <div class="phome"></div>
+      </div></div>
+    </div>
+  </section>
+
+  <p class="note"><b>Base = v1</b> (hero, ring, jornada, glass cards, pills, Lucide, abas) · <b>melhorias</b> = Insights acionáveis, a faixa "Precisa de atenção" e o Finalizar travado. <b>Mesma casca, miolo por papel.</b></p>
+</div>
+</body>
+</html>

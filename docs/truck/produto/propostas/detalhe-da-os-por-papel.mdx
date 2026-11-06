@@ -1,0 +1,120 @@
+---
+title: Detalhe da OS, repensado por papel
+sidebar_position: 25
+tags: [truck, proposta, produto, ordem-de-servico, os, papeis, consultor, dispatch, ux]
+---
+
+import { ProposalHeader } from '@site/src/components/ProposalHeader';
+
+# Detalhe da OS, repensado por papel
+
+<ProposalHeader status="em-discussao" date="2026-10-19" />
+
+O mockup aprovado do detalhe da OS (`os-detalhe`, "Opção A", 27/09) é, na prática, **a tela do supervisor** — operar a parada e liberar o veículo — com as necessidades do almoxarife (peças), do financeiro (custo) e dos serviços externos penduradas na mesma coluna. Ele foi desenhado para uma OS de ~6 serviços. Numa OS real de **30 a 40 serviços**, vira uma página longa onde tudo tem o mesmo peso e o que decide a liberação se perde no meio do que está indo bem.
+
+Antes de reconstruir, olhamos como os maiores players modelam isso. Existe **um padrão que se repete em quase todos** — e ele resolve exatamente o problema de escala e de "muita coisa". Esta proposta consolida esse padrão, o traduz para os papéis do Truck e fixa a direção do redesenho: **duas superfícies pensadas, não uma tela que tenta ser todas.**
+
+## Problema
+
+Uma OS é uma entidade só, mas é aberta por papéis muito diferentes, cada um com um trabalho diferente:
+
+- o **supervisor** quer saber o que travou, quem está em quê e o que falta para liberar;
+- o **planejador** quer montar e designar;
+- o **gestor** quer custo, previsão de liberação e as exceções caras;
+- o **almoxarife** quer os pedidos de peça;
+- o **financeiro** quer o custo por origem;
+- o **mecânico** quer só os serviços dele, com botão grande;
+- o **motorista** quer uma coisa: quando fica pronto.
+
+A "Opção A" tenta atender todos na mesma tela. O resultado não é excesso de **informação** — é **excesso de públicos numa tela só**. E o que aguenta a 6 serviços não aguenta a 40: lista plana, cada serviço com nome, estado, componente, uma a três linhas de executor e barra de tempo, mais a coluna fixa de peças, externos, custo e histórico disputando a atenção.
+
+## Como os grandes players fazem
+
+A ordem de serviço (chamada de *Repair Order*, *Service Order* ou *SRM Case*) é **dona de um papel só: o consultor técnico / service advisor.** Não é uma tela para todos — é o **cockpit** de quem coordena. Os demais papéis entram por **superfícies separadas**, ligadas à mesma ordem.
+
+| Peça | Quem opera | O que é |
+| --- | --- | --- |
+| **A ordem** (cabeçalho + jobs) | Consultor / advisor | Abre do problema (*complaint* / solicitação), monta os jobs, autoriza, despacha, comunica e libera |
+| **Job / linha** | — | Unidade de trabalho = mão de obra + peças + técnico + status. No Fleetio o *service task* carrega labor e parts; no Tekmetric todo job exige ao menos uma linha de labor |
+| **Tech board / terminal** | Mecânico | Tela **separada**, só os jobs dele, com *clock on/off*. Fecha o relógio **com motivo**: aguardando peça, aguardando aprovação, ocioso, intervalo |
+| **Dispatch board** | Consultor | Técnicos × capacidade (horas), jobs atribuídos e não-atribuídos; move o job quando abre uma baia |
+| **Peças / custo / aprovação** | Almoxarife / financeiro | Ligados ao job, mas em módulo próprio; no job aparecem como **status** ("aguardando peça 319"), não como bloco inteiro ao lado |
+
+Pontos que se repetem entre Fullbay (oficina pesada), Tekmetric (DMS automotivo), Decisiv (SRM de caminhão pesado) e Fleetio (frota):
+
+1. **Ciclo de status universal:** estimativa → autorizado/aprovado → em andamento → concluído. A aprovação é o portão — o job só "aparece para o técnico" depois de aprovado.
+2. **Despacho flexível:** o consultor despacha a ordem inteira para um técnico **ou** quebra linha a linha entre vários, equilibrando carga.
+3. **Estados de exceção são de primeira classe:** o relógio do técnico fecha com um motivo (aguardando peça, aguardando aprovação), e o sistema expõe "o que está parado esperando peça" para o gestor — não enterra isso dentro da linha.
+4. **Tirar carga do consultor** (o preço de centralizar) com (a) inspeção digital que **gera a solicitação/job sozinha** e (b) o **terminal do técnico**, que registra tempo e motivo sem o consultor digitar.
+5. **O "Case" multiparte** (Decisiv, 5.000+ oficinas, usado pela Daimler/DTNA): oficina + frota + garantia do fabricante conversam na mesma ordem — exatamente o **ecossistema** do Truck (embarcador + transportadora + oficina terceira).
+
+A centralização no consultor — "até as solicitações passam por ele" — **é o padrão da indústria, não um exagero de uma empresa.** O trade-off aceito é controle e consistência em troca de gargalo; a resposta deles é o terminal do técnico e a inspeção que alimenta a ordem.
+
+## O que isso diz sobre os papéis do Truck
+
+Cruzando com a [matriz de papéis](../papeis-e-permissoes.md):
+
+| Papel | Superfície | Como entra na OS |
+| --- | --- | --- |
+| **Supervisor** (dono primário no notebook) | Cockpit | Opera a parada, despacha, destrava, libera |
+| **Planejador** | Cockpit | Abre, organiza, designa — mesma tela, foco em montar |
+| **Gestor / Financeiro** | Resumo + módulo de custo | Lê custo, previsão, exceções; não opera cada linha |
+| **Almoxarife** | Módulo de peças | Atende pedidos; no serviço aparece só o status |
+| **Mecânico** | Terminal (tablet) | Só os serviços dele, botão grande, sessão com motivo |
+| **Motorista** | Status (celular) | Acompanha "quando fica pronto" |
+
+**O dono primário da tela no notebook é o supervisor** (ou um papel dedicado de "consultor técnico" — ver decisões em aberto). É em torno do trabalho dele que o resto vira secundário.
+
+Isso valida o que já construímos: a **sessão de trabalho** do Truck já é o *clock* do técnico, e a **pausa com motivo** (SVC-11) já é o "aguardando peça / aprovação" deles. Estamos no modelo certo — falta expor esses estados como primeira classe e separar as superfícies.
+
+## Papéis a ajustar
+
+Comparando a matriz com a taxonomia dos players (Decisiv lista Service Advisor, Service Manager, Foreman, Parts Manager, Technician, Senior Technician; ShopView tem ~11 na mesma linha), os papéis clássicos de oficina **já estão cobertos**, e ainda temos os de frota e ecossistema (pneus, borracheiro, inspetor, motorista, financeiro). Dois ajustes na [matriz de papéis](../papeis-e-permissoes.md) — que é "o código" (gera `permissions.ts` e `system-roles.ts`) — a aplicar quando esta proposta for aprovada:
+
+1. **Consultor técnico — o dono do cockpit.** O papel já existe: é o **Planejador**, descrito na matriz como "Consultor de manutenção", e as permissões já são as de dono do caso (abre OS, cria e responde solicitação, adiciona serviço, designa, registra externo, pede peça, controla serviços). O ajuste é torná-lo explícito: **nome na tela "Consultor técnico"** e **dispositivo primário notebook** (não tablet), porque coordenar 30 a 40 serviços é trabalho de notebook. O **Supervisor** segue como chefe de oficina — opera no chão e **aprova** (peça, ajuste de tempo além do limite) — mantendo a segregação "quem pede não aprova".
+
+2. **Garantia — papel novo.** É um papel distinto e disputado no caminhão pesado (administrador de garantia). Varre OS e serviços concluídos elegíveis a garantia (retrabalho próprio + garantia de fornecedor/OEM), abre e acompanha a reivindicação, recupera o valor, reprocessa recusas e controla a peça de garantia (devolver ao fabricante ou sucatear). Permissões novas `warranty.*` mais leitura de custo. Liga no `service.mark_rework` e na ponta fornecedor/OEM do ecossistema. O próprio mockup já encosta nisso ("garantia da válvula ainda sem resposta do fornecedor"). Pode entrar depois do lançamento, mas o fato (elegibilidade, retorno) se grava desde já.
+
+Três coisas que **não viram papel** (para não inflar a matriz, e confirmado na pesquisa — nenhum player tem papel de dispatcher): **despachante** é tela (o dispatch board, do Supervisor); **mecânico líder** é uma permissão de designar no próprio time; **aprovador do cliente** numa OS compartilhada é o ecossistema (concessão + Gestor do lado do cliente).
+
+## O que adotamos
+
+1. **Duas superfícies, não uma.** Cockpit do consultor (notebook, denso e comparativo) e terminal do mecânico (tablet, toque, PIN). A tela de gestão nunca é a de tablet esticada, e vice-versa.
+2. **Espinha comum + ênfase por papel.** Todo papel precisa de identidade da OS + estado + serviços. Isso é o núcleo. Peças, custo, externos e histórico **não ficam todos abertos ao lado** — entram como módulo/aba quando o papel pede.
+3. **Exceção primeiro.** A 40 serviços, o organizador não é "listar tudo", é "o que falta e o que trava a liberação". A triagem vem antes da lista.
+4. **Serviço = linha densa (job), detalhe sob demanda.** Uma linha por serviço (nome · estado · quem/status curto · tempo/previsto em mini-barra · ações), que **expande** para executores e sessões. Concluídos recolhidos. Peças e custo aparecem como **status/flag**, não como coluna.
+5. **Despacho como organizador a escala.** Técnicos × o que estão fazendo + o que trava + o que falta designar — não uma lista plana de 40.
+6. **Autorização de primeira classe.** O ciclo estimativa → aprovado → em andamento → concluído fica explícito (já temos "Opção A aprovada" no topo).
+
+## Hierarquia da tela (direção do mockup)
+
+Não é layout final — é a arquitetura da atenção, do mais importante ao detalhe. O mockup HTML vem depois desta validação.
+
+### Cockpit do consultor (notebook)
+
+1. **Topo — a decisão:** identidade da OS + estado da parada + uma frase do que falta ("Conclua os 4 serviços abertos para liberar") e a previsão. É o que o supervisor lê primeiro.
+2. **Triagem — as exceções:** uma faixa compacta com só o que precisa de ação, cada item saltando para a linha: *N aguardando peça · N acima do previsto · N sem executor · N pausado sozinho*. A 40 serviços, é aqui que o trabalho acontece.
+3. **Serviços — a lista densa:** uma linha por serviço, agrupável, concluídos recolhidos, seleção para ações em lote, expandir para o detalhe. O agrupamento (por veículo, por estado, ou exceção primeiro) é uma decisão em aberto.
+4. **Secundário — sob demanda:** peças, custo, serviços externos e histórico viram **abas ou painéis** que o consultor abre, não blocos permanentes competindo com a lista.
+
+### Terminal do mecânico (tablet)
+
+- Entrada por PIN/crachá; **só os serviços dele** primeiro, os dos colegas abaixo para entrar junto.
+- Botões grandes; iniciar e pausar em dois toques; pausa escolhe o motivo. Mesmos comandos do back, outra casca.
+- Projetado para o caso mais restritivo: toque, sinal ruim, tablet compartilhado, fila de envio offline.
+
+## Decisões em aberto
+
+1. **Nome do papel dono da tela** — _encaminhado:_ "Consultor técnico" (o Planejador tornado explícito). Confirmar o rótulo exato no pátio ("Consultor técnico" × "Consultor de manutenção").
+2. **Escopo e janela da Garantia:** papel + `warranty.*` no lançamento, ou só gravar o fato (elegibilidade/retorno) agora e o fluxo de claim depois?
+3. **Agrupamento padrão da lista a 40 serviços:** por veículo (cavalo + carretas, familiar, mas espalha o que travou), por estado (junta o problema, perde o modelo do conjunto) ou exceção primeiro (triagem no topo + veículo embaixo).
+4. **Dispatch board por OS ou entre OS:** o supervisor pensa por box/turno, não por uma OS só — talvez o despacho seja uma tela acima da OS.
+5. **O que entra no lançamento** e o que fica para depois (terminal completo, inspeção que gera job, Case multiparte do ecossistema).
+
+## Próximo passo
+
+Validada a direção, desenhar o mockup das **duas superfícies** (cockpit do consultor e terminal do mecânico) como uma `os-detalhe` v2, substituindo a página longa única. Só então reconstruir o código — o painel de serviços atual e os diálogos de sessão já seguem este modelo e são aproveitados.
+
+---
+
+**Fontes da análise:** [Fullbay — workflow](https://www.fullbay.com/blog/the-fullbay-workflow/) · [Fullbay — service order](https://www.fullbay.com/blog/how-service-order-software-streamlines-heavy-duty-shop-workflow/) · [Decisiv + Daimler — SRM Case](https://www.fleetequipmentmag.com/daimler-truck-decisiv-service/) · [Decisiv — parcerias/Case](https://www.truckpartsandservice.com/technology/business-operations/article/15739430/decisiv-announces-three-data-partnership-collaborations) · [Tekmetric — Job Board / dispatch](https://tekmetric.com/post/repairs-management-software-job-board) · [Tekmetric — Smart Jobs](https://www.tekmetric.com/post/tekmetric-launches-smart-jobs) · [Auxo — live clocking com motivo](https://intercom.help/auxo-workshop/en/articles/16893513-live-clocking) · [Brightorder — technician status](https://knowledge.brightorder.com/service-board-overview-video) · [Fleetio — work order line items](https://help.fleetio.com/en_US/work-order-line-items-service-tasks-labor-parts)

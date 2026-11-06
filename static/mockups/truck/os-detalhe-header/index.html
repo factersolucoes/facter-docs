@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Header da OS · versões · mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:240 20% 98.5%;--surface:0 0% 100%;
+  --line:240 12% 91%;--line-soft:240 14% 95%;
+  --ink:240 14% 11%;--text:240 8% 26%;--muted:240 6% 50%;--faint:240 8% 70%;
+  --primary:233 64% 52%;--primary-ink:233 58% 45%;--primary-soft:233 100% 97%;
+  --amber:35 90% 44%;--amber-soft:35 90% 95%;
+  --red:2 70% 50%;--red-soft:2 80% 96.5%;
+  --green:160 48% 36%;--green-soft:160 46% 95.5%;
+  --hover:240 24% 97.2%;
+  --sh-card:0 1px 2px hsl(240 24% 30%/.05),0 12px 30px -16px hsl(240 24% 30%/.12);
+  --sh-md:0 2px 4px -1px hsl(240 24% 30%/.07),0 10px 24px -10px hsl(240 24% 30%/.16);
+}
+*{box-sizing:border-box}
+body{margin:0;background:hsl(var(--bg));color:hsl(var(--text));font:14px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;letter-spacing:-.005em}
+h1,h2,h3,p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
+.ic{display:inline-block;width:18px;height:18px;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;flex:none}
+.i-back{--i:url(https://api.iconify.design/lucide/arrow-left.svg)}
+.i-play{--i:url(https://api.iconify.design/lucide/play.svg)}
+.i-pin{--i:url(https://api.iconify.design/lucide/map-pin.svg)}
+.i-more{--i:url(https://api.iconify.design/lucide/ellipsis.svg)}
+.i-clock{--i:url(https://api.iconify.design/lucide/clock.svg)}
+.i-user{--i:url(https://api.iconify.design/lucide/user.svg)}
+.i-truck{--i:url(https://api.iconify.design/lucide/truck.svg)}
+.i-wrench{--i:url(https://api.iconify.design/lucide/wrench.svg)}
+.i-plus{--i:url(https://api.iconify.design/lucide/plus.svg)}
+.i-flag{--i:url(https://api.iconify.design/lucide/flag.svg)}
+.i-alert{--i:url(https://api.iconify.design/lucide/triangle-alert.svg)}
+.i-cal{--i:url(https://api.iconify.design/lucide/calendar.svg)}
+.i-chev{--i:url(https://api.iconify.design/lucide/chevron-right.svg)}
+.i-building{--i:url(https://api.iconify.design/lucide/building-2.svg)}
+.i-container{--i:url(https://api.iconify.design/lucide/container.svg)}
+
+.doc{max-width:1060px;margin:0 auto;padding:40px 24px 120px}
+.doc-h h1{font:800 26px/1.2 Inter;letter-spacing:-.022em;color:hsl(var(--ink))}
+.doc-h p{color:hsl(var(--muted));margin-top:9px;font-size:14.5px;max-width:760px}
+.study{display:flex;flex-direction:column;gap:40px;margin-top:34px}
+.cap{display:flex;align-items:baseline;gap:10px;margin:0 0 14px;flex-wrap:wrap}
+.cap b{font:600 15px Inter;color:hsl(var(--ink))}
+.cap span{font-size:12.5px;color:hsl(var(--muted));max-width:760px}
+
+/* building blocks */
+.pill-st{display:inline-flex;align-items:center;gap:9px;height:40px;padding:0 6px 0 15px;border-radius:999px;background:hsl(var(--primary-soft));color:hsl(var(--primary-ink));font:650 14px Inter}
+.pill-st .d{width:9px;height:9px;border-radius:50%;background:hsl(var(--primary))}
+.pill-st .t{color:hsl(var(--primary));font-weight:700;font-variant-numeric:tabular-nums}
+.pill-st .go{width:28px;height:28px;border-radius:999px;display:grid;place-items:center;background:hsl(var(--primary)/.14)}
+.pill-st .go .ic{width:14px;height:14px}
+.pill-st.stopped{background:hsl(var(--red-soft));color:hsl(2 55% 48%)}
+.pill-st.stopped .d{background:hsl(var(--red))}.pill-st.stopped .t{color:hsl(2 60% 45%)}.pill-st.stopped .go{background:hsl(var(--red)/.12)}
+.iconbtn{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:hsl(var(--surface));border:1px solid hsl(var(--line));color:hsl(var(--muted))}
+.iconbtn:hover{background:hsl(var(--hover))}
+.iconbtn.sm{width:40px;height:40px;border-radius:11px}
+.ospill{display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 16px;border-radius:13px;background:hsl(var(--surface));border:1px solid hsl(var(--line));font:450 14px Inter;color:hsl(var(--muted))}
+.ospill b{color:hsl(var(--ink));font-weight:700;letter-spacing:-.01em}
+.vtitle{font:800 34px/1.05 Inter;letter-spacing:-.025em;color:hsl(var(--ink))}
+.vsub{margin-top:7px;font-size:14.5px;color:hsl(var(--muted))}
+.vsub b{color:hsl(var(--text));font-weight:500}
+
+/* donut */
+.donut{position:relative;display:grid;place-items:center;flex:none}
+.donut .ring{border-radius:50%;background:conic-gradient(hsl(var(--primary)) 0 var(--p),hsl(var(--primary)/.14) var(--p) 100%)}
+.donut .hole{position:absolute;border-radius:50%;background:hsl(var(--surface));display:grid;place-items:center;text-align:center;box-shadow:inset 0 0 0 1px hsl(var(--line-soft))}
+.donut .hole b{font:800 Inter;color:hsl(var(--primary-ink));line-height:1;letter-spacing:-.02em}
+.donut .hole span{font-size:12px;color:hsl(var(--muted));margin-top:3px}
+
+/* fact card / strip */
+.fcard{display:flex;align-items:center;gap:12px;padding:12px 15px;border-radius:14px;background:hsl(var(--surface));border:1px solid hsl(var(--line-soft));box-shadow:var(--sh-card)}
+.fcard .fi{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:hsl(240 24% 96.5%);color:hsl(var(--muted));flex:none}
+.fcard .fi .ic{width:18px;height:18px}
+.fcard.pri .fi{background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.fcard .fk{font-size:12px;color:hsl(var(--muted))}
+.fcard .fv{font:600 14.5px Inter;color:hsl(var(--ink));margin-top:1px}
+.fcard .fv b{font-weight:700}
+
+/* grid-pattern bg */
+.gridbg{background-image:linear-gradient(hsl(var(--primary)/.045) 1px,transparent 1px),linear-gradient(90deg,hsl(var(--primary)/.045) 1px,transparent 1px);background-size:26px 26px}
+.glow{background:radial-gradient(120% 140% at 85% 0%,hsl(var(--primary)/.09),transparent 55%)}
+
+/* ===== V2 enxuto + Visão geral ===== */
+.vgrow{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px;margin-top:16px}
+@media(max-width:820px){.vgrow{grid-template-columns:1fr}}
+.vgcard{border:1px solid hsl(var(--line));border-radius:16px;background:#fff;box-shadow:var(--sh-card);overflow:hidden}
+.vgcard .vgh{display:flex;align-items:center;gap:8px;padding:13px 16px;border-bottom:1px solid hsl(var(--line-soft));font:650 13.5px Inter;color:hsl(var(--ink))}
+.vgcard .vgh .ic{width:15px;height:15px;color:hsl(var(--primary-ink))}
+.vgcard .vgh .n{margin-left:auto;font:600 12px Inter;color:hsl(var(--muted))}
+.kv{padding:6px 16px 12px}
+.kv .krow{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:8px 0;border-top:1px solid hsl(var(--line-soft))}
+.kv .krow:first-child{border-top:0}
+.kv .k{font-size:12.5px;color:hsl(var(--muted))}
+.kv .v{font:550 13.5px Inter;color:hsl(var(--ink));text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.vlist .vrow{display:flex;align-items:center;gap:11px;padding:11px 16px;border-top:1px solid hsl(var(--line-soft))}
+.vlist .vrow:first-child{border-top:0}
+.vtile{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:hsl(var(--primary-soft));color:hsl(var(--primary-ink));flex:none}
+.vtile.imp{background:hsl(240 24% 96.5%);color:hsl(var(--muted))}
+.vtile .ic{width:18px;height:18px}
+.vrow .vp{font:700 14px Inter;color:hsl(var(--ink));line-height:1.15}
+.vrow .vm{font-size:12px;color:hsl(var(--muted));margin-top:1px}
+.vrow .vkm{margin-left:auto;text-align:right}
+.vrow .vkm b{font:700 13.5px Inter;color:hsl(var(--text));font-variant-numeric:tabular-nums}
+.vrow .vkm span{display:block;font-size:11px;color:hsl(var(--muted))}
+
+/* owner strip + services badge + role tag */
+.owner{display:flex;align-items:center;gap:11px;padding:12px 16px;background:hsl(var(--primary)/.04);border-bottom:1px solid hsl(var(--line-soft))}
+.owner .oi{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:hsl(var(--primary-soft));color:hsl(var(--primary-ink));flex:none}
+.owner .oi .ic{width:17px;height:17px}
+.owner .ot{font:700 14px Inter;color:hsl(var(--ink))}
+.owner .os{font-size:12px;color:hsl(var(--muted));margin-top:1px}
+.svc{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:999px;background:hsl(var(--primary-soft));color:hsl(var(--primary-ink));font:650 12px Inter;font-variant-numeric:tabular-nums;white-space:nowrap;flex:none}
+.svc.zero{background:hsl(240 24% 96.5%);color:hsl(var(--muted))}
+.rtag{display:inline-block;font:700 10px Inter;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--primary-ink));background:hsl(var(--primary-soft));border-radius:5px;padding:1.5px 6px;margin-left:7px;vertical-align:middle}
+.rtag.imp{color:hsl(var(--muted));background:hsl(240 24% 96.5%)}
+
+/* drawn conjunto (coupled silhouettes) */
+.train{display:flex;align-items:flex-end;gap:4px;padding:22px 18px 16px;overflow-x:auto}
+.seg{display:flex;flex-direction:column;align-items:center;gap:7px;flex:none}
+.seg svg{display:block}
+.seg .pl{font:700 12.5px Inter;color:hsl(var(--ink));font-variant-numeric:tabular-nums}
+.seg .rl{font-size:10.5px;color:hsl(var(--muted));margin-top:-4px}
+.coupler{width:12px;height:3px;border-radius:2px;background:hsl(var(--faint));margin-bottom:34px;flex:none}
+.opt{margin-bottom:24px}
+.opt .cap{margin-bottom:9px}
+.opt .cap b{font-size:13.5px}
+
+/* plate chip + plate-led row (no decorative icons) */
+.plate{display:inline-grid;place-items:center;min-width:80px;height:31px;padding:0 11px;border:1px solid hsl(var(--line));border-radius:7px;background:linear-gradient(hsl(0 0% 100%),hsl(240 20% 99%));box-shadow:inset 0 0 0 1px #fff,0 1px 1.5px hsl(240 24% 30%/.06);font:800 14px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.09em;color:hsl(var(--ink));flex:none}
+.plate.cav{border-color:hsl(var(--primary)/.4);box-shadow:inset 0 0 0 1px hsl(var(--primary-soft)),0 1px 1.5px hsl(var(--primary)/.1);color:hsl(var(--primary-ink))}
+.crow{display:flex;align-items:center;gap:14px;padding:13px 16px;border-top:1px solid hsl(var(--line-soft))}
+.crow:first-child{border-top:0}
+.crow .meta{min-width:0}
+.crow .meta .r{font:600 13.5px Inter;color:hsl(var(--ink))}
+.crow .meta .sub{font-size:12px;color:hsl(var(--muted));margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.crow .vkm{margin-left:auto}
+.ohead{display:flex;align-items:center;gap:11px;padding:13px 16px 12px;border-bottom:1px solid hsl(var(--line-soft))}
+.ohead .ot{font:700 15px Inter;color:hsl(var(--ink));letter-spacing:-.01em}
+.ohead .os{font-size:12px;color:hsl(var(--muted));margin-top:2px}
+.ohead .lead{width:3px;align-self:stretch;border-radius:2px;background:hsl(var(--primary));flex:none}
+.vgh.txt{font-weight:700}
+
+/* conjunto band as vehicle filter + services preview */
+.vfilter{display:flex;align-items:center;gap:8px;padding:14px 2px 6px;overflow-x:auto}
+.vchip{display:inline-flex;align-items:center;gap:9px;height:42px;padding:0 14px;border-radius:12px;border:1px solid hsl(var(--line));background:#fff;flex:none;cursor:pointer}
+.vchip:hover{background:hsl(var(--hover))}
+.vchip.on{border-color:hsl(var(--primary)/.45);background:hsl(var(--primary-soft));box-shadow:inset 0 0 0 1px hsl(var(--primary)/.3)}
+.vchip .vcp{font:800 13px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.07em;color:hsl(var(--ink))}
+.vchip.on .vcp{color:hsl(var(--primary-ink))}
+.vchip .vcr{font-size:11px;color:hsl(var(--muted))}
+.vchip .vcn{font:700 12px Inter;color:hsl(var(--muted));font-variant-numeric:tabular-nums;background:hsl(240 24% 96.5%);border-radius:6px;padding:2px 7px}
+.vchip.on .vcn{background:#fff;color:hsl(var(--primary-ink))}
+.vchip.all .vcp{font-family:Inter;font-weight:700;letter-spacing:-.01em}
+.mtab{width:100%;border-collapse:collapse}
+.mtab th{text-align:left;font:600 11px Inter;color:hsl(var(--muted));text-transform:uppercase;letter-spacing:.05em;padding:10px 14px;border-bottom:1px solid hsl(var(--line))}
+.mtab th.r,.mtab td.r{text-align:right}
+.mtab td{padding:12px 14px;border-bottom:1px solid hsl(var(--line-soft));vertical-align:middle}
+.mtab tr:last-child td{border-bottom:0}
+.mtab .sn b{font:600 13.5px Inter;color:hsl(var(--ink))}
+.mtab .sn span{display:block;font-size:11.5px;color:hsl(var(--muted));margin-top:2px}
+.mtab .mplate{font:700 12px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.05em;color:hsl(var(--text))}
+.mtab .who{font-size:12.5px;color:hsl(var(--text))}
+.mbadge{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:999px;font:600 11.5px Inter}
+.mbadge.run{background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.mbadge.wait{background:hsl(var(--amber-soft));color:hsl(28 76% 40%)}
+.mbadge.mute{background:hsl(240 24% 96.5%);color:hsl(var(--muted))}
+.ftabs{display:flex;gap:4px;padding:4px 6px 0}
+.ftabs a{padding:11px 14px;font:600 13px Inter;color:hsl(var(--muted));border-bottom:2px solid transparent;text-decoration:none}
+.ftabs a.on{color:hsl(var(--primary-ink));border-bottom-color:hsl(var(--primary))}
+.ftabs a .n{font-size:11px;background:hsl(240 24% 96.5%);border-radius:6px;padding:1px 6px;margin-left:5px;color:hsl(var(--muted))}
+.note-f{font-size:12.5px;color:hsl(var(--muted));margin:12px 2px 0}
+.note-f b{color:hsl(var(--text));font-weight:600}
+
+/* ===== V2 revisado ===== */
+.v2r{overflow:hidden;border:1px solid hsl(var(--line));border-radius:22px;box-shadow:var(--sh-md);display:grid;grid-template-columns:minmax(0,1fr) 322px;background:hsl(var(--surface))}
+.v2r .left{position:relative;padding:24px 26px 24px}
+.v2r .top{display:flex;align-items:center;gap:12px}
+.v2r .fstrip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:22px;border:1px solid hsl(var(--line-soft));border-radius:16px;background:hsl(var(--surface));box-shadow:var(--sh-card);overflow:hidden}
+.v2r .fs{display:flex;align-items:center;gap:10px;padding:13px 14px;border-left:1px solid hsl(var(--line-soft));min-width:0}
+.v2r .fs:first-child{border-left:0}
+.v2r .fs .fi{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:hsl(240 24% 96.5%);color:hsl(var(--muted));flex:none}
+.v2r .fs .fi .ic{width:15px;height:15px}
+.v2r .fs.pri .fi{background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.v2r .fs .fk{font-size:11px;color:hsl(var(--muted))}
+.v2r .fs .fv{font:600 13px Inter;color:hsl(var(--ink));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.v2r .fs .fv b{font-weight:700}
+.v2r .right{position:relative;border-left:1px solid hsl(var(--line-soft));background:hsl(var(--primary)/.035);display:flex;flex-direction:column;align-items:center;gap:15px;padding:18px 20px 20px}
+.v2r .plabel{font:700 10.5px Inter;text-transform:uppercase;letter-spacing:.08em;color:hsl(var(--muted));align-self:flex-start}
+.v2r .mstat{display:flex;width:100%;border-top:1px solid hsl(var(--primary)/.12);padding-top:14px;margin-top:auto}
+.v2r .mstat .m{flex:1;text-align:center;border-left:1px solid hsl(var(--primary)/.12)}
+.v2r .mstat .m:first-child{border-left:0}
+.v2r .mstat .mv{font:800 18px Inter;line-height:1;font-variant-numeric:tabular-nums}
+.v2r .mstat .m.a .mv{color:hsl(var(--primary-ink))}.v2r .mstat .m.t .mv{color:hsl(var(--amber))}.v2r .mstat .m.p .mv{color:hsl(var(--ink))}
+.v2r .mstat .mk{font-size:10.5px;color:hsl(var(--muted));margin-top:4px}
+@media(max-width:820px){.v2r{grid-template-columns:1fr}.v2r .right{border-left:0;border-top:1px solid hsl(var(--line-soft))}.v2r .fstrip{grid-template-columns:repeat(2,1fr)}.v2r .fs:nth-child(3){border-left:0}}
+
+/* ===== V1 ===== */
+.v1{position:relative;overflow:hidden;border:1px solid hsl(var(--line));border-radius:22px;background:hsl(var(--surface));box-shadow:var(--sh-md)}
+.v1 .inner{position:relative;padding:22px 26px 24px}
+.v1 .top{display:flex;align-items:center;gap:12px}
+.v1 .top .sp{flex:1}
+.v1 .body{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-top:20px}
+.v1 .facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:20px;max-width:560px}
+
+/* ===== V2 ===== */
+.v2{position:relative;overflow:hidden;border:1px solid hsl(var(--line));border-radius:22px;background:hsl(var(--surface));box-shadow:var(--sh-md);display:grid;grid-template-columns:minmax(0,1fr) 300px}
+.v2 .left{position:relative;padding:22px 24px 22px}
+.v2 .top{display:flex;align-items:center;gap:12px}
+.v2 .fstrip{display:flex;flex-wrap:wrap;gap:0;margin-top:20px;border:1px solid hsl(var(--line-soft));border-radius:14px;overflow:hidden;background:hsl(var(--surface))}
+.v2 .fs{flex:1;min-width:150px;display:flex;align-items:center;gap:11px;padding:12px 14px;border-left:1px solid hsl(var(--line-soft))}
+.v2 .fs:first-child{border-left:0}
+.v2 .fs .fi{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:hsl(240 24% 96.5%);color:hsl(var(--muted));flex:none}
+.v2 .fs .fi .ic{width:16px;height:16px}
+.v2 .fs .fk{font-size:11.5px;color:hsl(var(--muted))}
+.v2 .fs .fv{font:600 13.5px Inter;color:hsl(var(--ink))}
+.v2 .right{position:relative;border-left:1px solid hsl(var(--line-soft));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:22px}
+.v2 .mstat{display:flex;gap:20px}
+.v2 .mstat .m{text-align:center}
+.v2 .mstat .m .mv{font:800 19px Inter;color:hsl(var(--ink));line-height:1}
+.v2 .mstat .m .mv.warn{color:hsl(var(--amber))}.v2 .mstat .m .mv.run{color:hsl(var(--primary-ink))}
+.v2 .mstat .m .mk{font-size:11px;color:hsl(var(--muted));margin-top:3px}
+
+/* ===== V3 ===== */
+.v3{position:relative;overflow:hidden;border:1px solid hsl(var(--line));border-radius:18px;background:hsl(var(--surface));box-shadow:var(--sh-card)}
+.v3 .row{display:flex;align-items:center;gap:16px;padding:16px 20px}
+.v3 .idc{min-width:0}
+.v3 .idc .vt{font:800 22px Inter;letter-spacing:-.02em;color:hsl(var(--ink));line-height:1.1}
+.v3 .idc .vs{font-size:12.5px;color:hsl(var(--muted));margin-top:3px}
+.v3 .chips{display:flex;gap:8px;margin-left:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 11px;border-radius:999px;background:hsl(240 24% 96.5%);color:hsl(var(--text));font:550 12.5px Inter}
+.chip .ic{width:13px;height:13px;opacity:.75}
+.chip.ok{background:hsl(var(--green-soft));color:hsl(var(--green))}
+.chip.warn{background:hsl(var(--amber-soft));color:hsl(28 76% 40%)}
+.v3 .prog{display:flex;align-items:center;gap:12px;margin-left:auto}
+.v3 .prog .lbl{text-align:right;font-size:12px;color:hsl(var(--muted))}
+.v3 .prog .lbl b{display:block;font:800 16px Inter;color:hsl(var(--ink))}
+.v3 .bar{width:150px;height:8px;border-radius:999px;background:hsl(var(--primary)/.14);overflow:hidden}
+.v3 .bar>i{display:block;height:100%;border-radius:999px;background:hsl(var(--primary));width:85%}
+
+@media(max-width:820px){.v1 .body{flex-direction:column;align-items:flex-start}.v1 .facts{grid-template-columns:1fr}.v2{grid-template-columns:1fr}.v2 .right{border-left:0;border-top:1px solid hsl(var(--line-soft))}}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="doc-h">
+    <h1>Header da OS — versões</h1>
+    <p>Partindo do que você gostou (veículo como título, pill de status com o tempo, cards de fatos e o donut de progresso), três caminhos pra <b>melhorar sem piorar</b>. Mesma brincadeira de cores: primary + neutros, fundo com trama discreta, donut em primary.</p>
+  </div>
+
+  <div class="study">
+
+  <!-- ENCAIXE: topo da OS completo -->
+  <div>
+    <div class="cap"><b>Topo da OS — onde o conjunto encaixa</b><span>header V2 revisado + a faixa do conjunto logo abaixo, que <b>filtra os serviços</b>: clicar numa placa mostra só os serviços daquele veículo. O conjunto trabalhando, não enfeite. Abaixo, o começo da aba Serviços pra ver a relação.</span></div>
+    <div class="v2r">
+      <div class="left">
+        <div class="gridbg" style="position:absolute;inset:0;opacity:.6"></div>
+        <div style="position:relative">
+          <div class="top">
+            <button class="iconbtn sm"><i class="ic i-back"></i></button>
+            <span class="pill-st"><span class="d"></span>Em manutenção há <span class="t">52 h 10 m</span><span class="go"><i class="ic i-play"></i></span></span>
+            <span style="flex:1"></span>
+            <span class="ospill" style="height:40px">OS <b>OS-1042</b></span>
+          </div>
+          <h2 class="vtitle" style="font-size:31px;margin-top:18px">Frota 2213</h2>
+          <div class="vsub">Revisão 50.000 km · <b>Cavalo QRT4B22</b> + 2 implementos</div>
+          <div class="fstrip">
+            <div class="fs"><span class="fi"><i class="ic i-cal"></i></span><div style="min-width:0"><div class="fk">Criado</div><div class="fv">26 set, 10:28</div></div></div>
+            <div class="fs"><span class="fi"><i class="ic i-user"></i></span><div style="min-width:0"><div class="fk">Por</div><div class="fv">Marco Oliveira</div></div></div>
+            <div class="fs"><span class="fi"><i class="ic i-truck"></i></span><div style="min-width:0"><div class="fk">Transportadora</div><div class="fv" title="Expresso Rodoviário SP">Expresso Rodoviário SP</div></div></div>
+            <div class="fs pri"><span class="fi"><i class="ic i-wrench"></i></span><div style="min-width:0"><div class="fk">Box</div><div class="fv">03 · <b>Pesados</b></div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="plabel">Progresso</div>
+        <div class="donut" style="width:140px;height:140px;--p:85%">
+          <div class="ring" style="width:140px;height:140px"></div>
+          <div class="hole" style="width:116px;height:116px"><b style="font-size:27px">34/40</b><span>serviços</span></div>
+        </div>
+        <div class="mstat">
+          <div class="m a"><div class="mv">6</div><div class="mk">abertos</div></div>
+          <div class="m t"><div class="mv">3</div><div class="mk">travados</div></div>
+          <div class="m p"><div class="mv">52h</div><div class="mk">parada</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="vfilter">
+      <button class="vchip all on"><span class="vcp">Todos os veículos</span><span class="vcn">40</span></button>
+      <button class="vchip"><span class="vcp">QRT4B22</span><span class="vcr">Cavalo</span><span class="vcn">12</span></button>
+      <button class="vchip"><span class="vcp">SRG1D47</span><span class="vcr">Carreta florestal</span><span class="vcn">15</span></button>
+      <button class="vchip"><span class="vcp">SRG1D48</span><span class="vcr">Carreta florestal</span><span class="vcn">13</span></button>
+    </div>
+
+    <div class="vgcard">
+      <div class="ftabs">
+        <a href="#" class="on">Serviços <span class="n">40</span></a>
+        <a href="#">Peças <span class="n">3</span></a>
+        <a href="#">Parada e histórico</a>
+      </div>
+      <table class="mtab">
+        <thead><tr><th>Serviço</th><th>Veículo</th><th>Quem</th><th>Situação</th><th class="r">Trabalhado</th></tr></thead>
+        <tbody>
+          <tr><td class="sn"><b>Troca da válvula relé do freio</b><span>Freio › válvula relé</span></td><td><span class="mplate">QRT4B22</span></td><td class="who">Rafael Souza</td><td><span class="mbadge run">Em andamento</span></td><td class="r">3 h 10</td></tr>
+          <tr><td class="sn"><b>Troca de lonas de freio · eixo 2</b><span>Freio › lona · 2 lados</span></td><td><span class="mplate">SRG1D47</span></td><td class="who">Diego Ramos</td><td><span class="mbadge wait">Aguarda peça</span></td><td class="r">3 h 12</td></tr>
+          <tr><td class="sn"><b>Regulagem das catracas de freio</b><span>Freio › catraca</span></td><td><span class="mplate">SRG1D48</span></td><td class="who">Anderson Lima</td><td><span class="mbadge mute">Pausado</span></td><td class="r">0 h 35</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note-f">Alternativa: em vez da faixa, uma aba <b>"Visão geral"</b> antes de Serviços com o card do conjunto (opção A/B) por inteiro. A faixa ganha quando a OS é grande e você fica pulando entre veículos; a aba ganha se a Visão geral tiver mais coisa além do conjunto.</p>
+  </div>
+
+  <!-- FOCO: transportadora + conjunto fora do header -->
+  <div>
+    <div class="cap"><b>Transportadora + conjunto — onde colocar (sem lotar o header)</b><span>o header fica só com a identidade (frota, status, OS, progresso). A transportadora e os veículos do conjunto descem pra uma faixa "Visão geral" logo abaixo — sobra ar no header e cada veículo ganha espaço pra mostrar km e nº de serviços. Três formas, da mais densa à mais visual.</span></div>
+
+    <!-- Opção A -->
+    <div class="opt">
+      <div class="cap"><b>★ A · Card "Conjunto" com a transportadora como dono</b><span>lê de cima pra baixo: quem é dono → o conjunto → cada veículo e quantos serviços tem. Uma coluna, densa, ótima no notebook. Escala pro veículo isolado (sem implementos) e pra frota grande.</span></div>
+      <div class="vgcard" style="max-width:540px">
+        <div class="ohead">
+          <span class="lead"></span>
+          <div style="min-width:0"><div class="ot">Expresso Rodoviário SP</div><div class="os">Frota 2213 · conjunto de 3 veículos</div></div>
+          <span class="vkm" style="margin-left:auto"><b>40</b><span>serviços</span></span>
+        </div>
+        <div>
+          <div class="crow"><span class="plate cav">QRT4B22</span><div class="meta"><div class="r">Cavalo</div><div class="sub">512.340 km · óleo em 48.200 km</div></div><span class="vkm"><b>12</b><span>serviços</span></span></div>
+          <div class="crow"><span class="plate">SRG1D47</span><div class="meta"><div class="r">Carreta florestal</div><div class="sub">1º na composição</div></div><span class="vkm"><b>15</b><span>serviços</span></span></div>
+          <div class="crow"><span class="plate">SRG1D48</span><div class="meta"><div class="r">Carreta florestal</div><div class="sub">2º na composição</div></div><span class="vkm"><b>13</b><span>serviços</span></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Opção B -->
+    <div class="opt">
+      <div class="cap"><b>B · Dois cards: Dados da OS + Conjunto</b><span>separa o administrativo (transportadora, box, quem abriu) do físico (os veículos). Lado a lado no notebook, empilha no tablet. O mais convencional.</span></div>
+      <div class="vgrow">
+        <div class="vgcard">
+          <div class="vgh txt">Dados da OS</div>
+          <div class="kv">
+            <div class="krow"><span class="k">Transportadora</span><span class="v" title="Expresso Rodoviário SP">Expresso Rodoviário SP</span></div>
+            <div class="krow"><span class="k">Frota</span><span class="v">2213</span></div>
+            <div class="krow"><span class="k">Box</span><span class="v">03 · Pesados</span></div>
+            <div class="krow"><span class="k">Criado por</span><span class="v">Marco Oliveira</span></div>
+            <div class="krow"><span class="k">Criado em</span><span class="v">26 set, 10:28</span></div>
+          </div>
+        </div>
+        <div class="vgcard">
+          <div class="vgh txt">Conjunto<span class="n">3 veículos</span></div>
+          <div>
+            <div class="crow"><span class="plate cav">QRT4B22</span><div class="meta"><div class="r">Cavalo</div><div class="sub">512.340 km</div></div><span class="vkm"><b>12</b><span>serviços</span></span></div>
+            <div class="crow"><span class="plate">SRG1D47</span><div class="meta"><div class="r">Carreta florestal</div><div class="sub">1º na composição</div></div><span class="vkm"><b>15</b><span>serviços</span></span></div>
+            <div class="crow"><span class="plate">SRG1D48</span><div class="meta"><div class="r">Carreta florestal</div><div class="sub">2º na composição</div></div><span class="vkm"><b>13</b><span>serviços</span></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Opção C -->
+    <div class="opt">
+      <div class="cap"><b>C · Conjunto desenhado (silhuetas acopladas)</b><span>o trem como ele é — cavalo + 2 carretas florestais com fueiros. Usa o <b>VehicleSilhouette</b> novo do DS. Cada veículo mostra placa e nº de serviços; o mais visual, bom pra florestal. Pode virar o header no lugar do donut, ou ficar na Visão geral.</span></div>
+      <div class="vgcard">
+        <div class="vgh txt">Conjunto<span class="n">Expresso Rodoviário SP · Frota 2213</span></div>
+        <div class="train">
+          <div class="seg" style="color:hsl(var(--primary-ink))">
+            <svg width="96" height="52" viewBox="0 0 96 52" fill="none">
+              <rect x="2" y="30" width="86" height="5" rx="2.5" fill="currentColor" opacity=".3"/>
+              <path d="M9 30 V15 a3 3 0 0 1 3-3 h15 l7 10 v8 Z" fill="currentColor" opacity=".92"/>
+              <rect x="13" y="16" width="12" height="8" rx="1.5" fill="#fff" opacity=".55"/>
+              <rect x="42" y="27" width="40" height="3.5" rx="1.75" fill="currentColor" opacity=".5"/>
+              <circle cx="18" cy="39" r="7.5" fill="currentColor"/><circle cx="18" cy="39" r="3" fill="#fff"/>
+              <circle cx="60" cy="39" r="7.5" fill="currentColor"/><circle cx="60" cy="39" r="3" fill="#fff"/>
+              <circle cx="74" cy="39" r="7.5" fill="currentColor"/><circle cx="74" cy="39" r="3" fill="#fff"/>
+            </svg>
+            <div class="pl">QRT4B22</div><div class="rl">Cavalo · 12 serv.</div>
+          </div>
+          <div class="coupler"></div>
+          <div class="seg" style="color:hsl(var(--muted))">
+            <svg width="132" height="52" viewBox="0 0 132 52" fill="none">
+              <path d="M4 27 h12 v3 h-12 Z" fill="currentColor" opacity=".5"/>
+              <rect x="6" y="29" width="120" height="5" rx="2" fill="currentColor" opacity=".85"/>
+              <rect x="20" y="12.5" width="87" height="2.5" rx="1" fill="currentColor" opacity=".4"/>
+              <g fill="currentColor" opacity=".7"><rect x="20" y="12" width="3" height="17" rx="1"/><rect x="44" y="12" width="3" height="17" rx="1"/><rect x="80" y="12" width="3" height="17" rx="1"/><rect x="104" y="12" width="3" height="17" rx="1"/></g>
+              <rect x="16" y="34" width="3" height="7" rx="1" fill="currentColor" opacity=".45"/>
+              <circle cx="96" cy="39" r="7" fill="currentColor"/><circle cx="96" cy="39" r="2.8" fill="#fff"/>
+              <circle cx="112" cy="39" r="7" fill="currentColor"/><circle cx="112" cy="39" r="2.8" fill="#fff"/>
+            </svg>
+            <div class="pl">SRG1D47</div><div class="rl">Carreta florestal · 15 serv.</div>
+          </div>
+          <div class="coupler"></div>
+          <div class="seg" style="color:hsl(var(--muted))">
+            <svg width="132" height="52" viewBox="0 0 132 52" fill="none">
+              <path d="M4 27 h12 v3 h-12 Z" fill="currentColor" opacity=".5"/>
+              <rect x="6" y="29" width="120" height="5" rx="2" fill="currentColor" opacity=".85"/>
+              <rect x="20" y="12.5" width="87" height="2.5" rx="1" fill="currentColor" opacity=".4"/>
+              <g fill="currentColor" opacity=".7"><rect x="20" y="12" width="3" height="17" rx="1"/><rect x="44" y="12" width="3" height="17" rx="1"/><rect x="80" y="12" width="3" height="17" rx="1"/><rect x="104" y="12" width="3" height="17" rx="1"/></g>
+              <rect x="16" y="34" width="3" height="7" rx="1" fill="currentColor" opacity=".45"/>
+              <circle cx="96" cy="39" r="7" fill="currentColor"/><circle cx="96" cy="39" r="2.8" fill="#fff"/>
+              <circle cx="112" cy="39" r="7" fill="currentColor"/><circle cx="112" cy="39" r="2.8" fill="#fff"/>
+            </svg>
+            <div class="pl">SRG1D48</div><div class="rl">Carreta florestal · 13 serv.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- V2 revisado -->
+  <div>
+    <div class="cap"><b>★ V2 · revisado (recomendado)</b><span>revisão de design do seu favorito: Transportadora de volta (4 fatos), painel de progresso com rótulo + zona em tint primary, mini-stats com divisórias e tom (abertos=primary · travados=âmbar), donut mais fino, tudo alinhado.</span></div>
+    <div class="v2r">
+      <div class="left">
+        <div class="gridbg" style="position:absolute;inset:0;opacity:.6"></div>
+        <div style="position:relative">
+          <div class="top">
+            <button class="iconbtn sm"><i class="ic i-back"></i></button>
+            <span class="pill-st"><span class="d"></span>Em manutenção há <span class="t">52 h 10 m</span><span class="go"><i class="ic i-play"></i></span></span>
+            <span style="flex:1"></span>
+            <span class="ospill" style="height:40px">OS <b>OS-1042</b></span>
+          </div>
+          <h2 class="vtitle" style="font-size:31px;margin-top:18px">Frota 2213</h2>
+          <div class="vsub">Revisão 50.000 km · <b>Cavalo QRT4B22</b> + 2 implementos</div>
+          <div class="fstrip">
+            <div class="fs"><span class="fi"><i class="ic i-cal"></i></span><div style="min-width:0"><div class="fk">Criado</div><div class="fv">26 set, 10:28</div></div></div>
+            <div class="fs"><span class="fi"><i class="ic i-user"></i></span><div style="min-width:0"><div class="fk">Por</div><div class="fv">Marco Oliveira</div></div></div>
+            <div class="fs"><span class="fi"><i class="ic i-truck"></i></span><div style="min-width:0"><div class="fk">Transportadora</div><div class="fv" title="Expresso Rodoviário SP">Expresso Rodoviário SP</div></div></div>
+            <div class="fs pri"><span class="fi"><i class="ic i-wrench"></i></span><div style="min-width:0"><div class="fk">Box</div><div class="fv">03 · <b>Pesados</b></div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="plabel">Progresso</div>
+        <div class="donut" style="width:140px;height:140px;--p:85%">
+          <div class="ring" style="width:140px;height:140px"></div>
+          <div class="hole" style="width:116px;height:116px"><b style="font-size:27px">34/40</b><span>serviços</span></div>
+        </div>
+        <div class="mstat">
+          <div class="m a"><div class="mv">6</div><div class="mk">abertos</div></div>
+          <div class="m t"><div class="mv">3</div><div class="mk">travados</div></div>
+          <div class="m p"><div class="mv">52h</div><div class="mk">parada</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- V1 -->
+  <div>
+    <div class="cap"><b>V1 · Refinado (o seu, lapidado)</b><span>mesma estrutura, mais respiro: fatos como cards leves 2×2 à esquerda, donut à direita, trama + glow sutis. O caminho seguro.</span></div>
+    <div class="v1">
+      <div class="gridbg glow" style="position:absolute;inset:0"></div>
+      <div class="inner">
+        <div class="top">
+          <button class="iconbtn sm"><i class="ic i-back"></i></button>
+          <span class="pill-st"><span class="d"></span>Em manutenção há <span class="t">52 h 10 m</span><span class="go"><i class="ic i-play"></i></span></span>
+          <span class="sp"></span>
+          <span class="ospill">OS <b>OS-1042</b></span>
+          <button class="iconbtn"><i class="ic i-pin"></i></button>
+          <button class="iconbtn"><i class="ic i-more"></i></button>
+        </div>
+        <div class="body">
+          <div style="min-width:0">
+            <h2 class="vtitle">Frota 2213</h2>
+            <div class="vsub">Revisão 50.000 km · <b>Cavalo QRT4B22</b> + 2 implementos</div>
+            <div class="facts">
+              <div class="fcard"><span class="fi"><i class="ic i-cal"></i></span><div><div class="fk">Criado em</div><div class="fv">26 set, 10:28</div></div></div>
+              <div class="fcard"><span class="fi"><i class="ic i-user"></i></span><div><div class="fk">Criado por</div><div class="fv">Marco Oliveira</div></div></div>
+              <div class="fcard"><span class="fi"><i class="ic i-truck"></i></span><div><div class="fk">Transportadora</div><div class="fv">Expresso Rodoviário SP</div></div></div>
+              <div class="fcard pri"><span class="fi"><i class="ic i-wrench"></i></span><div><div class="fk">Box</div><div class="fv">03 · <b>Pesados</b></div></div></div>
+            </div>
+          </div>
+          <div class="donut" style="width:150px;height:150px;--p:85%">
+            <div class="ring" style="width:150px;height:150px"></div>
+            <div class="hole" style="width:112px;height:112px"><b style="font-size:30px">34/40</b><span>serviços</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- V2 -->
+  <div>
+    <div class="cap"><b>V2 · Progresso em painel</b><span>identidade à esquerda (status + título + fatos em faixa dividida), e um painel à direita só pro progresso: donut + mini-stats (abertos · travados · parada). Separa "quem é a OS" de "como está indo".</span></div>
+    <div class="v2">
+      <div class="left">
+        <div class="gridbg" style="position:absolute;inset:0;opacity:.7"></div>
+        <div style="position:relative">
+          <div class="top">
+            <button class="iconbtn sm"><i class="ic i-back"></i></button>
+            <span class="pill-st"><span class="d"></span>Em manutenção há <span class="t">52 h 10 m</span><span class="go"><i class="ic i-play"></i></span></span>
+            <span style="flex:1"></span>
+            <span class="ospill" style="height:40px">OS <b>OS-1042</b></span>
+          </div>
+          <h2 class="vtitle" style="font-size:30px;margin-top:18px">Frota 2213</h2>
+          <div class="vsub">Revisão 50.000 km · <b>Cavalo QRT4B22</b> + 2 implementos</div>
+          <div class="fstrip">
+            <div class="fs"><span class="fi"><i class="ic i-cal"></i></span><div><div class="fk">Criado</div><div class="fv">26 set, 10:28</div></div></div>
+            <div class="fs"><span class="fi"><i class="ic i-user"></i></span><div><div class="fk">Por</div><div class="fv">Marco Oliveira</div></div></div>
+            <div class="fs"><span class="fi"><i class="ic i-wrench"></i></span><div><div class="fk">Box</div><div class="fv">03 · Pesados</div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="gridbg glow" style="position:absolute;inset:0"></div>
+        <div class="donut" style="position:relative;width:132px;height:132px;--p:85%">
+          <div class="ring" style="width:132px;height:132px"></div>
+          <div class="hole" style="width:98px;height:98px"><b style="font-size:26px">34/40</b><span>serviços</span></div>
+        </div>
+        <div class="mstat" style="position:relative">
+          <div class="m"><div class="mv run">6</div><div class="mk">abertos</div></div>
+          <div class="m"><div class="mv warn">3</div><div class="mk">travados</div></div>
+          <div class="m"><div class="mv">52h</div><div class="mk">parada</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- V3 -->
+  <div>
+    <div class="cap"><b>V3 · Enxuto horizontal</b><span>pra quem olha no notebook e quer o essencial em pouca altura: uma faixa só — voltar · título + sub · status · chips · barra de progresso à direita. Menos "hero", mais densidade.</span></div>
+    <div class="v3">
+      <div class="row">
+        <button class="iconbtn sm"><i class="ic i-back"></i></button>
+        <div class="idc">
+          <div class="vt">Frota 2213 <span style="font:600 13px Inter;color:hsl(var(--muted))">· OS-1042</span></div>
+          <div class="vs">Revisão 50.000 km · Cavalo QRT4B22 + 2 implementos</div>
+        </div>
+        <div class="chips">
+          <span class="chip"><span class="d" style="width:7px;height:7px;border-radius:50%;background:hsl(var(--primary))"></span>Em manutenção · 52h</span>
+          <span class="chip warn"><i class="ic i-alert"></i>3 travados</span>
+          <span class="chip"><i class="ic i-wrench"></i>Box 03</span>
+        </div>
+        <div class="prog">
+          <div class="lbl">serviços<b>34 / 40</b></div>
+          <div class="bar"><i></i></div>
+        </div>
+        <button class="iconbtn"><i class="ic i-more"></i></button>
+      </div>
+    </div>
+  </div>
+
+  </div>
+</div>
+</body>
+</html>

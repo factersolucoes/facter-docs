@@ -264,28 +264,47 @@ a{color:hsl(var(--primary))}
 .a-col{display:flex;flex-direction:column;gap:16px;min-width:0}
 
 /* services list */
-.svc-group{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:hsl(var(--muted-foreground));display:flex;align-items:center;gap:8px;padding:14px 0 6px;border-top:1px solid hsl(var(--border))}
-.svc-group:first-of-type{border-top:0;padding-top:4px}
-.svc-group .ic{color:hsl(240 5% 45%)}
-.svc{display:grid;grid-template-columns:22px minmax(0,1fr) 176px 30px;gap:12px;align-items:start;padding:12px 10px;margin:0 -10px;border-radius:10px}
-.svc + .svc{border-top:1px solid hsl(var(--border));border-radius:0}
-.svc.sel{background:hsl(var(--primary-soft));border-radius:10px;border-top-color:transparent}
-.svc.sel + .svc{border-top-color:transparent}
-.svc .cb{margin-top:3px}
-.svc .t1{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.svc .name{font-size:14px;font-weight:600}
-.svc .t2{font-size:12.5px;color:hsl(240 6% 30%);margin-top:2px}
-.people{display:flex;flex-direction:column;gap:4px;margin-top:8px}
-.who{display:flex;align-items:center;gap:8px;font-size:12.5px;color:hsl(240 6% 22%)}
-.who .st{font-weight:600}
-.who .st.run{color:hsl(var(--success-text))}
-.who .st.pz{color:hsl(var(--warning-text))}
-.who .st.dn{color:hsl(240 6% 30%)}
-.tm{font-size:12.5px;text-align:right}
-.tm b{font-size:14px;font-weight:650;font-variant-numeric:tabular-nums}
-.tm .of{color:hsl(240 6% 32%)}
-.tm .bar{margin-top:6px}
-.svc.done .name{color:hsl(240 6% 30%)}
+.svc-group{position:relative;display:flex;align-items:center;gap:10px;margin:14px -20px 0;padding:15px 20px 13px 22px;border-top:1px solid hsl(240 12% 94%)}
+.svc-group:first-of-type{border-top:0;margin-top:2px}
+.svc-group::before{content:"";position:absolute;left:0;top:15px;bottom:13px;width:4px;border-radius:0 4px 4px 0;background:hsl(var(--primary))}
+.svc-group .idp{min-width:0}
+.svc-group .plate{font:800 18px Inter;letter-spacing:-.02em;color:hsl(var(--ink));line-height:1.1}
+.svc-group .sub{font-size:12.5px;color:hsl(var(--muted-foreground));margin-top:3px}
+.svc-group .open{margin-left:auto;display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:999px;background:hsl(38 88% 95%);color:hsl(var(--warning-text));font:600 12px Inter}
+.svc-group .open .od{width:6px;height:6px;border-radius:50%;background:hsl(var(--amber))}
+.svc{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 168px 138px;gap:14px;align-items:center;min-height:64px;padding:12px 20px;margin:0 -20px;border-top:1px solid hsl(240 14% 96%);cursor:pointer;transition:background .12s}
+.svc:hover{background:hsl(240 24% 98.5%)}
+.svc-group + .svc{border-top:0}
+.svc-main{min-width:0}
+.svc-main .nm{font-size:14px;font-weight:500;color:hsl(var(--ink));white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.25}
+.svc-main .sub{display:flex;align-items:center;gap:6px;margin-top:3px;font-size:12.5px;color:hsl(var(--muted-foreground));min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.svc-main .sub>.ic{width:12px;height:12px;opacity:.7;flex:none}
+.svc-main .sub .cg{color:hsl(240 6% 32%);font-weight:500}
+.svc-main .sub .rework{display:inline-flex;align-items:center;gap:4px;color:hsl(var(--note));font-weight:500;margin-left:2px}
+.svc-main .sub .rework .ic{width:12px;height:12px;color:hsl(var(--note));opacity:1}
+.svc .ex{display:flex;align-items:center;gap:8px;font-size:13px;color:hsl(240 6% 24%);min-width:0;justify-self:start}
+.svc .ex .avatar.av-sm{width:26px;height:26px;font-size:10px}
+.svc .ex .avs{display:inline-flex;align-items:center;flex:none}
+.svc .ex .avs .avatar{box-shadow:0 0 0 2px hsl(var(--card));margin-left:-9px}
+.svc .ex .avs .avatar:first-child{margin-left:0}
+.svc .ex .assign{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border:1px dashed hsl(var(--border));border-radius:8px;color:hsl(var(--muted-foreground));font-size:12px;font-weight:500}
+.svc .ex .assign .ic{width:13px;height:13px}
+.svc .rgt{display:flex;align-items:center;gap:10px;justify-self:end;align-self:center;padding-top:6px}
+.svc .tmblk{display:flex;flex-direction:column;align-items:flex-end;white-space:nowrap}
+.svc .tmblk .t{display:flex;align-items:center;gap:6px;font-size:15px;font-weight:700;color:hsl(var(--ink));font-variant-numeric:tabular-nums;line-height:1.15}
+.svc .tmblk .t .ic{width:14px;height:14px;color:hsl(240 8% 68%)}
+.svc .tmblk.up .t,.svc .tmblk.up .t .ic{color:hsl(2 52% 58%)}
+.svc .tmblk.amb .t,.svc .tmblk.amb .t .ic{color:hsl(35 68% 52%)}
+.svc .tmblk .of{font-size:11.5px;color:hsl(var(--muted-foreground));margin-top:1px}
+.svc .chev{width:16px;height:16px;color:hsl(240 10% 72%)}
+.svc:hover .chev{color:hsl(240 6% 55%)}
+.ctag{position:absolute;top:0;right:0;border-radius:0 0 0 10px;padding:4px 10px;font-size:11px;font-weight:500;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.ctag .ic{width:11px;height:11px}
+.ct-run{background:hsl(233 65% 50%/.08);color:hsl(233 42% 54%)}
+.ct-wait{background:hsl(40 90% 96%);color:hsl(32 55% 46%)}
+.ct-pend{background:hsl(240 16% 96.5%);color:hsl(240 6% 52%)}
+.ct-done{background:hsl(160 42% 96%);color:hsl(160 32% 40%)}
+.svc-foot{margin-top:10px;padding-top:12px;border-top:1px solid hsl(240 14% 96%);font-size:12.5px;color:hsl(var(--muted-foreground))}
 
 /* floating selection bar */
 .selbar{position:absolute;left:calc(72px + 40px + (1280px - 72px - 80px - 352px - 16px)/2);transform:translateX(-50%);bottom:22px;display:flex;align-items:center;gap:4px;padding:6px 6px 6px 16px;background:hsl(var(--ink));color:#fff;border-radius:14px;box-shadow:0 16px 40px -10px hsl(230 30% 10%/.5);z-index:4;white-space:nowrap}
@@ -590,7 +609,7 @@ body.shot-phone #phone{margin-top:0;padding:24px 16px 8px}
   <!-- =============== NOTEBOOK A =============== -->
   <section class="sec" id="nb-a">
     <div class="sec-label"><span class="sec-num">A</span><h2>Notebook · painel da parada (recomendada)</h2></div>
-    <p class="sec-sub">Continua o topo aprovado no detalhe do veículo (opção C): a parada contada de quando o veículo parou, cada etapa com hora, e ao lado a previsão e onde o tempo foi. Abaixo, os serviços com o estado derivado das sessões de quem trabalha, e numa coluna fixa tudo o que segura a liberação: peças, externos, custo e o que aconteceu. Dois serviços estão selecionados para mostrar a barra de ações em lote.</p>
+    <p class="sec-sub">Continua o topo aprovado no detalhe do veículo (opção C): a parada contada de quando o veículo parou, cada etapa com hora, e ao lado a previsão e onde o tempo foi. Abaixo, os serviços agrupados por unidade, no padrão de card aprovado — estado, quem trabalha e o tempo contra o previsto — e numa coluna fixa tudo o que segura a liberação: peças, externos, custo e o que aconteceu.</p>
     <p class="view-cap">Notebook · 1.280 px · papel com custo (gestão)</p>
     <div class="frame" id="frame-a">
       <div class="app">
@@ -686,57 +705,48 @@ body.shot-phone #phone{margin-top:0;padding:24px 16px 8px}
                   </div>
                 </div>
 
-                <div class="svc-group"><i class="ic s16 i-truck-f" aria-hidden="true"></i>Cavalo QRT4B22</div>
+                <div class="svc-group"><div class="idp"><div class="plate">QRT4B22</div><div class="sub">Cavalo · 3 serviços</div></div><span class="open"><span class="od"></span>2 abertos</span></div>
                 <div class="svc">
-                  <input class="cb" type="checkbox" aria-label="Selecionar troca da válvula relé do freio">
-                  <div>
-                    <div class="t1"><span class="name">Troca da válvula relé do freio</span><span class="badge b-info live" style="color:hsl(var(--success-text));background:hsl(var(--success-soft))">Em andamento</span><span class="badge b-rework"><i class="ic s14 i-rework" aria-hidden="true"></i>Retorno da OS 0988</span></div>
-                    <div class="t2">Freio › válvula relé</div>
-                    <div class="people">
-                      <div class="who"><span class="avatar av-sm">RS</span>Rafael Souza<span class="st run">trabalhando desde 08:12</span></div>
-                    </div>
+                  <span class="ctag ct-run"><i class="ic i-play-f" aria-hidden="true"></i>Em andamento</span>
+                  <div class="svc-main">
+                    <div class="nm">Troca da válvula relé do freio</div>
+                    <div class="sub"><i class="ic i-pin" aria-hidden="true"></i><span class="cg">Freios</span> · válvula relé<span class="rework"><i class="ic i-rework" aria-hidden="true"></i>Retorno OS 0988</span></div>
                   </div>
-                  <div class="tm"><b class="up">3 h 10</b> <span class="of">de 3 h 00</span><div class="bar"><i style="width:94%"></i><i class="over" style="width:6%"></i></div><div class="meta" style="margin-top:4px">10 min acima do previsto</div></div>
-                  <button class="iconbtn bare sm" type="button" aria-label="Mais ações do serviço"><i class="ic s18 i-kebab" aria-hidden="true"></i></button>
+                  <div class="ex"><span class="avatar av-sm">RS</span>Rafael</div>
+                  <div class="rgt"><div class="tmblk up"><div class="t"><i class="ic i-clock" aria-hidden="true"></i>3 h 10</div></div><i class="ic i-right chev" aria-hidden="true"></i></div>
                 </div>
-                <div class="svc sel">
-                  <input class="cb" type="checkbox" checked aria-label="Selecionar teste de estanqueidade do sistema de ar">
-                  <div>
-                    <div class="t1"><span class="name">Teste de estanqueidade do sistema de ar</span><span class="badge b-mute">Pendente</span></div>
-                    <div class="t2">Freio › sistema de ar</div>
-                    <div class="people"><div class="who"><span class="avatar av-sm">RS</span>Rafael Souza<span class="st dn">designado · começa depois da válvula</span></div></div>
+                <div class="svc">
+                  <span class="ctag ct-pend"><i class="ic i-clock" aria-hidden="true"></i>Pendente</span>
+                  <div class="svc-main">
+                    <div class="nm">Teste de estanqueidade do sistema de ar</div>
+                    <div class="sub"><i class="ic i-pin" aria-hidden="true"></i><span class="cg">Freios</span> · sistema de ar</div>
                   </div>
-                  <div class="tm"><b>0 h 00</b> <span class="of">de 0 h 40</span><div class="bar"></div></div>
-                  <button class="iconbtn bare sm" type="button" aria-label="Mais ações do serviço"><i class="ic s18 i-kebab" aria-hidden="true"></i></button>
+                  <div class="ex"><span class="avatar av-sm">RS</span>Rafael</div>
+                  <div class="rgt"><div class="tmblk"><div class="t"><i class="ic i-clock" aria-hidden="true"></i>0 h 00</div></div><i class="ic i-right chev" aria-hidden="true"></i></div>
                 </div>
 
-                <div class="svc-group"><i class="ic s16 i-trailer" aria-hidden="true"></i>Carreta RTA2C45</div>
+                <div class="svc-group"><div class="idp"><div class="plate">RTA2C45</div><div class="sub">Carreta · 1 serviço</div></div><span class="open"><span class="od"></span>1 aberto</span></div>
                 <div class="svc">
-                  <input class="cb" type="checkbox" aria-label="Selecionar troca de lonas de freio do eixo 2">
-                  <div>
-                    <div class="t1"><span class="name">Troca de lonas de freio · eixo 2</span><span class="badge b-info live" style="color:hsl(var(--success-text));background:hsl(var(--success-soft))">Em andamento</span></div>
-                    <div class="t2">Freio › lona · 2 lados</div>
-                    <div class="people">
-                      <div class="who"><span class="avatar av-sm av-a">DR</span>Diego Ramos<span class="st run">trabalhando desde 09:28</span></div>
-                      <div class="who"><span class="avatar av-sm av-b">AL</span>Anderson Lima<span class="st pz">pausou 09:48 · Aguardando peça (pedido 319)</span></div>
-                    </div>
+                  <span class="ctag ct-run"><i class="ic i-play-f" aria-hidden="true"></i>Em andamento</span>
+                  <div class="svc-main">
+                    <div class="nm">Troca de lonas de freio · eixo 2</div>
+                    <div class="sub"><i class="ic i-pin" aria-hidden="true"></i><span class="cg">Freios</span> · lona · 2 lados</div>
                   </div>
-                  <div class="tm"><b>3 h 12</b> <span class="of">de 4 h 00</span><div class="bar"><i style="width:80%"></i></div></div>
-                  <button class="iconbtn bare sm" type="button" aria-label="Mais ações do serviço"><i class="ic s18 i-kebab" aria-hidden="true"></i></button>
+                  <div class="ex"><span class="avs"><span class="avatar av-sm av-a">DR</span><span class="avatar av-sm av-b">AL</span></span>Diego +1</div>
+                  <div class="rgt"><div class="tmblk"><div class="t"><i class="ic i-clock" aria-hidden="true"></i>3 h 12</div></div><i class="ic i-right chev" aria-hidden="true"></i></div>
                 </div>
 
-                <div class="svc-group"><i class="ic s16 i-trailer" aria-hidden="true"></i>Carreta RTB7F19</div>
-                <div class="svc sel">
-                  <input class="cb" type="checkbox" checked aria-label="Selecionar regulagem das catracas de freio">
-                  <div>
-                    <div class="t1"><span class="name">Regulagem das catracas de freio</span><span class="badge b-wait">Pausado · outro serviço</span></div>
-                    <div class="t2">Freio › catraca</div>
-                    <div class="people"><div class="who"><span class="avatar av-sm av-a">DR</span>Diego Ramos<span class="st pz">pausou 09:28 ao iniciar as lonas</span></div></div>
+                <div class="svc-group"><div class="idp"><div class="plate">RTB7F19</div><div class="sub">Carreta · 1 serviço</div></div><span class="open"><span class="od"></span>1 aberto</span></div>
+                <div class="svc">
+                  <span class="ctag ct-wait"><i class="ic i-pause" aria-hidden="true"></i>Pausado</span>
+                  <div class="svc-main">
+                    <div class="nm">Regulagem das catracas de freio</div>
+                    <div class="sub"><i class="ic i-pin" aria-hidden="true"></i><span class="cg">Freios</span> · catraca</div>
                   </div>
-                  <div class="tm"><b>0 h 35</b> <span class="of">de 1 h 00</span><div class="bar"><i style="width:58%"></i></div></div>
-                  <button class="iconbtn bare sm" type="button" aria-label="Mais ações do serviço"><i class="ic s18 i-kebab" aria-hidden="true"></i></button>
+                  <div class="ex"><span class="avatar av-sm av-a">DR</span>Diego</div>
+                  <div class="rgt"><div class="tmblk"><div class="t"><i class="ic i-clock" aria-hidden="true"></i>0 h 35</div></div><i class="ic i-right chev" aria-hidden="true"></i></div>
                 </div>
-                <p class="meta" style="margin-top:10px;padding-top:10px;border-top:1px solid hsl(var(--border))">2 concluídos ocultos: diagnóstico do vazamento (Rafael Souza, 1 h 30) e reaperto do suporte do para-lama do dolly (Anderson Lima, 0 h 25) · <button class="link" type="button">Mostrar</button></p>
+                <p class="svc-foot">2 concluídos ocultos: diagnóstico do vazamento (Rafael Souza, 1 h 30) e reaperto do suporte do para-lama do dolly (Anderson Lima, 0 h 25) · <button class="link" type="button">Mostrar</button></p>
               </div>
 
               <!-- parts -->
@@ -815,15 +825,6 @@ body.shot-phone #phone{margin-top:0;padding:24px 16px 8px}
             </div>
           </div>
         </main>
-      </div>
-      <span class="selbar-anno dep">Fixa no rodapé da janela enquanto houver seleção</span>
-      <div class="selbar" role="toolbar" aria-label="Ações para os serviços selecionados">
-        <span class="cnt"><span>2</span>serviços selecionados</span>
-        <button type="button"><i class="ic s16 i-user-plus" aria-hidden="true"></i>Designar mecânico</button>
-        <button type="button"><i class="ic s16 i-pause" aria-hidden="true"></i>Pausar</button>
-        <button type="button"><i class="ic s16 i-check-c" aria-hidden="true"></i>Concluir</button>
-        <button type="button"><i class="ic s16 i-dots" aria-hidden="true"></i>Mais</button>
-        <button class="x" type="button" aria-label="Limpar seleção"><i class="ic s18 i-x" aria-hidden="true"></i></button>
       </div>
     </div>
     <div class="notes-row notes">
@@ -1234,12 +1235,13 @@ body.shot-phone #phone{margin-top:0;padding:24px 16px 8px}
       <div class="st-card">
         <div class="st-cap">Retrabalho · sugestão ao adicionar serviço</div>
         <div class="card pad">
-          <div class="svc" style="grid-template-columns:minmax(0,1fr) 30px;margin:0;padding:0">
-            <div>
-              <div class="t1"><span class="name">Troca da válvula relé do freio</span><span class="badge b-mute">Pendente</span></div>
-              <div class="t2">Cavalo QRT4B22 · Freio › válvula relé</div>
+          <div class="svc" style="grid-template-columns:minmax(0,1fr) auto 30px;margin:0;padding:0;min-height:0;border-top:0;cursor:default">
+            <div class="svc-main">
+              <div class="nm">Troca da válvula relé do freio</div>
+              <div class="sub"><i class="ic i-pin" aria-hidden="true"></i>Cavalo QRT4B22 · <span class="cg">Freios</span> · válvula relé</div>
             </div>
-            <button class="iconbtn bare sm" type="button" aria-label="Mais ações do serviço"><i class="ic s18 i-kebab" aria-hidden="true"></i></button>
+            <span class="badge b-mute" style="align-self:center">Pendente</span>
+            <button class="iconbtn bare sm" type="button" aria-label="Mais ações do serviço" style="align-self:center"><i class="ic s18 i-kebab" aria-hidden="true"></i></button>
           </div>
           <div class="rework-box" style="margin-top:12px">
             <h4><i class="ic s18 i-rework" aria-hidden="true"></i>Parece retorno da OS 0988</h4>
