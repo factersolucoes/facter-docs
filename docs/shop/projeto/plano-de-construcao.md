@@ -18,13 +18,12 @@ arquiteta aprovar sobe junto com o lançamento da loja da Larissa ou depois dele
 | Peça | Onde | O quê |
 |---|---|---|
 | **facter-shop-api** (novo) | NestJS 11 + Prisma 6 + Postgres (Supabase), mesmo desenho do Hub e do TechCare | Banco e regras do Shop: empresa, usuária, loja, catálogo, pedidos, aparência, domínio. **É uma fonte de catálogo** (responde o contrato) para as lojas que ele hospeda, e **encaminha** para a fonte de quem já tem produto Facter (hoje o Chef). Integra com o Hub pelo módulo `platform` (copiado do TechCare: liberações, provisionamento, webhooks). |
-| **facter-shop** (existe) | Next 16 | Vitrine (`/store/<slug>`), que passa a falar **só com o shop-api** (`CATALOG_SOURCE_URL`); e o **painel** (`/panel`), com o Design System, falando com o shop-api por `/api` (proxy, cookie de sessão no mesmo domínio, como o Hub web). |
+| **facter-shop** (existe) | Next 16 | Vitrine (`/store/<slug>`), que passa a falar **só com o shop-api** (`CATALOG_SOURCE_URL`). |
+| **facter-shop-web** (novo) | Next 16 + Design System, mesma casca do Hub | O **painel** da dona, falando com o shop-api por `/api` (proxy, cookie de sessão no mesmo domínio). App separado da vitrine porque ela tem CSS próprio, flat, sem o preflight do Tailwind; no mesmo app um pisaria no outro. |
 | **Chef** | módulo "Minha loja" | Loja de comida continua gerida no Chef (decisão de 05/11). Ganha Aparência e Domínio como abas quando o módulo Loja existir no Shop (fatia 6). |
 
-Por que um app Next só para vitrine e painel: um deploy a menos, o mesmo domínio serve a loja da
-cliente e o painel da dona por caminho (`/store` × `/panel`), e domínio próprio da loja é resolvido
-no middleware pelo host. Por que API separada em Nest: é o padrão da casa (Hub, TechCare), e o módulo
-de integração com o Hub já existe pronto no TechCare.
+Por que API separada em Nest: é o padrão da casa (Hub, TechCare), e o módulo de integração com o Hub já
+existe pronto no TechCare. Domínio próprio da loja é resolvido na vitrine pelo host (fatia 4).
 
 Regras que valem em tudo: código e identificadores em inglês; todo texto da tela em dicionário
 (i18n); dinheiro em centavos inteiros; toda tabela com `companyId` e toda consulta filtrada por ele;
@@ -56,7 +55,7 @@ combinação, foto por variação, app instalável (PWA). Entram quando um clien
 
 | Fatia | Situação | Onde testar |
 |---|---|---|
-| 1 | em construção (06/11) | |
+| 1 | **entregue 06/11** ([detalhes](../engenharia/fatia-1-fundacao.md)) | API `localhost:3101/api/health` · vitrine `localhost:3100/store/made-in-voce` e `/store/doces-da-lari` · painel `localhost:3102` (`daniele@local.dev` / `senha-forte-123`) |
 | 2 | | |
 | 3 | | |
 | 4 | | |
@@ -65,5 +64,5 @@ combinação, foto por variação, app instalável (PWA). Entram quando um clien
 
 ## Decisões em aberto
 
-- Repositório `facter-shop-api` e projeto Supabase `facter-shop`: a arquiteta cria (GitHub e Supabase ficam na conta da empresa).
+- Repositórios `facter-shop-api` e `facter-shop-web` no GitHub e projeto Supabase `facter-shop`: a arquiteta cria (ficam na conta da empresa). Os dois repos já existem localmente com o primeiro commit na `main`.
 - Deploy do shop-api: Render free com o keep-alive do cron-job.org, como o TechCare, até ter cliente pagante.
