@@ -59,7 +59,7 @@ combinação, foto por variação, app instalável (PWA). Entram quando um clien
 | 2 | **entregue 06/11** ([detalhes](../engenharia/fatia-2-produtos.md)) | painel `localhost:3102/items` (novo produto com foto → aparece na vitrine) |
 | 3 | **entregue 06/11** ([detalhes](../engenharia/fatia-3-pedidos.md)) | pedido na vitrine → painel `localhost:3102/orders` → confirmar pelo WhatsApp; Início com o dia |
 | 4 | **entregue 06/11** ([detalhes](../engenharia/fatia-4-aparencia.md)) | painel `localhost:3102/store` (trocar o estilo e ver o celular mudar; domínio) · `localhost:3102/settings` |
-| 5 | | |
+| 5 | **entregue 06/11** ([detalhes](../engenharia/fatia-5-pagamentos.md)) | `localhost:3102/settings?section=payment` (conectar, confirmar pedido com sinal → link na mensagem → recebimentos) |
 | 6 | | |
 
 ## Decisões em aberto
