@@ -8,10 +8,19 @@ sidebar_position: 14
 Entregue em 06/11/2026. Mockup: seção 9 de `/telas/shop/gestao`. Primeiro gateway: Mercado Pago.
 
 O dinheiro não passa pela Facter. A dona cola as credenciais da conta dela; a API só pede cobranças
-e lê o resultado. Nesta fatia o pedido fecha como antes (a dona confirma) e a cliente recebe um
-**link de pagamento** junto da confirmação, pro sinal ou pro valor todo. "Pagar na loja" (cobrar no
-checkout, antes de chegar pra dona) ficou gravado no schema (`checkoutPayment`) mas não é oferecido
-ainda: precisa de mudança no contrato e, pra comida, da vitrine conferir a agenda do Chef.
+e lê o resultado. Dois interruptores em "Como o pedido fecha" (seção 9 do mockup) dizem como o
+pedido fecha:
+
+- **Pagar na loja** (`checkoutPayment`, só com gateway): a vitrine devolve `paymentUrl` no pedido
+  (contrato **0.8.0**) e a cliente paga antes de o pedido chegar; a sacola mostra "Pagar agora".
+- **Você confirma antes de fechar** (`confirmBefore`): desligado (só com "pagar na loja"), o
+  pedido pago no checkout nasce **Confirmado** sozinho (webhook `PAID` → `CONFIRMED`, `FULL`).
+  Sem "pagar na loja" ele é sempre verdadeiro: alguém tem que fechar o pedido.
+- Sem "pagar na loja", o fluxo é o de antes: a dona confirma e a cliente recebe o **link de
+  pagamento** na mensagem, pro sinal ou pro valor todo.
+
+Loja de comida: a tela avisa que "pagar na loja" sem confirmar só vale quando a vitrine conferir a
+agenda do Chef antes de cobrar (pendência).
 
 ## API (`facter-shop-api`)
 
@@ -21,7 +30,7 @@ ainda: precisa de mudança no contrato e, pra comida, da vitrine conferir a agen
 | `GET /payments?days=30` | Recebimentos: os links dos últimos N dias e o total pago no mês. |
 | `POST /payments/orders/:id/check` | "Conferir agora": procura no gateway os pagamentos pendentes do pedido. |
 | `POST /public/payments/mercado-pago?store=` | Webhook. Público e sem throttle. O corpo só diz **qual** pagamento mudou; a situação vem de uma leitura com a chave da dona. Responde 200 sempre. |
-| `PUT /store/settings` | Ganhou `allowPix`, `allowCard`, `allowBoleto`, `maxInstallments`. |
+| `PUT /store/settings` | Ganhou `allowPix`, `allowCard`, `allowBoleto`, `maxInstallments`, `checkoutPayment`, `confirmBefore`, `defaultSell`. |
 | `POST /orders/:id/confirm` | Com gateway e sinal/valor todo, cria o `Payment` e a preferência (Checkout Pro) com `external_reference` = id do pagamento. Falha do gateway não bloqueia a confirmação. O pedido devolve `payments`. |
 
 **Segurança.** Chave guardada com AES-256-GCM (`PAYMENT_SECRET_KEY`, 32 bytes hex); sem a variável
@@ -36,8 +45,9 @@ não pagou; forma pix/cartão/boleto; `externalId` único). Migration `payments`
 
 ## Painel (`facter-shop-web`)
 
-- **Configurações → Pagamento**: "Onde o dinheiro cai" (Mercado Pago: conectar / conectado como X
-  desde Y / desconectar com confirmação; etiqueta "em teste" quando a chave é `TEST-`); diálogo de
+- **Configurações → Pagamento**: "Onde o dinheiro cai" com os quatro gateways do mockup (Mercado Pago
+  conecta; Pagar.me, Asaas e Stripe listados, "chega em seguida"); "Como o pedido fecha" com os dois
+  interruptores, a trilha do pedido com o passo riscado e o aviso pra loja de comida; diálogo de
   conectar com o passo a passo, chave secreta validada no formato, chave pública opcional e a nota
   de segurança; "O que a cliente pode escolher" (Pix, cartão com parcelas no máximo, boleto); sinal;
   "Sem gateway" (Pix na mensagem como fallback); **Recebimentos** (pedido, forma, quando, situação,
