@@ -47,8 +47,13 @@ Os outros estilos não mudaram; as rotas novas redirecionam pra vitrine comum qu
 `facter-shop-api/scripts/import-esla.ts --store esla-acessorios [--replace]` lê a API pública do
 site atual (categorias, produtos, ajustes da loja, home) e grava na loja do Shop: 10 categorias na
 ordem do menu, 110 peças (43 esgotadas ficam ocultas até existir estoque no Shop), 3 banners, logo,
-aviso, bio, WhatsApp, Instagram, parcelas, texto de cuidados e frete. As fotos apontam para o
-storage da ESLA (Supabase), não são copiadas.
+aviso, bio, WhatsApp, Instagram, parcelas, texto de cuidados e frete. As fotos são **copiadas** para
+o storage do Shop (`StorageService`: Supabase em produção, disco no local), uma vez cada, antes da
+transação; `--keep-remote-photos` deixa onde estão. Os endereços do site antigo viram linhas na tabela
+`redirects` (`/produtos/<slug>` → `/item/<id>`, `/categorias/<slug>` → `/category/<key>`, `/carrinho`
+→ `/bag`, `/politicas/{trocas,cuidados,envio}` → `/policies/...`); a vitrine lê
+`GET public/storefront/:slug/redirects` no `proxy.ts` (cache de 5 min) e responde 301 no domínio
+da loja. É genérico: qualquer loja que migre de outro site usa a mesma tabela.
 
 Mapeamento das variações, que o Shop guarda diferente do Payload:
 

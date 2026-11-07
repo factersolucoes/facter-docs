@@ -17,8 +17,8 @@ Nada vai para produção sem a Tamires aprovar no local antes. Dados de teste qu
 
 | | Item | Por quê trava | Tamanho |
 |---|---|---|---|
-| ☐ | **Fotos no storage do Shop.** O import copia cada imagem da ESLA para o bucket do Shop. | Hoje as peças apontam para o Supabase do site antigo; quando ele cair, a loja fica sem foto. | meio dia |
-| ☐ | **Redirecionamento dos endereços antigos** (`/produtos/<slug>` do site atual → `/item/<id>` no Shop). O import guarda o slug antigo de cada peça. | Links em stories, mensagens e no Google dariam "não encontrado" depois da troca de DNS. | meio dia |
+| ☑ | **Fotos no storage do Shop** (feito 07/11, testado no disco local: 114 fotos copiadas). A rodada em produção usa o Supabase do Shop assim que existir. | As peças apontavam para o Supabase do site antigo; quando ele caísse, a loja ficaria sem foto. | feito |
+| ☑ | **Redirecionamento dos endereços antigos** (feito 07/11): o import grava 125 pares (`/produtos/<slug>`, `/categorias/<slug>`, `/carrinho`, `/politicas/...`) e a vitrine responde com redirecionamento permanente no domínio da loja. | Links em stories, mensagens e no Google dariam "não encontrado" depois da troca de DNS. | feito |
 | ☑ | **Esqueci a senha por e-mail** (feito 07/11, local; falta só a chave do Resend): pedido pela tela de entrar, link com validade de uma hora, senha nova derruba as sessões antigas, limite por e-mail e IP; telas no painel com todos os estados. Envio pelo Resend, plano gratuito (3.000 por mês, 100 por dia, resend.com/pricing em 07/11/2026). | A dona não tem como recuperar a conta sozinha. | 1 dia |
 | ☑ | **"Mais" no celular** (feito 07/11): a quinta aba abre uma folha com Clientes, Cupons, Recebimentos, Link na bio, Configurações, o link da loja e Sair, como no Chef. | Metade do painel não existia no celular. | feito |
 | ☑ | **Vazios do Editorial** (feito 07/11): loja sem peça mostra as palavras e o WhatsApp no lugar do "Em destaque"; coleção vazia manda para todas as peças; rodapé sem coleções some; voz própria para "outros" e assistência. | Loja nova aparecia quebrada antes de ter peça. | feito |
