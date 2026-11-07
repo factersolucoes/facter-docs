@@ -64,6 +64,7 @@ combinação, foto por variação, app instalável (PWA). Entram quando um clien
 | 7 | **entregue 06/11** ([detalhes](../engenharia/fatia-7-estilo-editorial-e-bio.md)) | vitrine `localhost:3100/store/esla` (estilo Editorial, igual ao site da ESLA) e `/store/esla/bio` · painel `localhost:3102/store` com `esla@local.dev` |
 | 8 | **entregue 07/11** ([detalhes](../engenharia/fatia-8-cupons-clientes-e-gateways.md)) | painel `localhost:3102/coupons` (criar cupom) → sacola da vitrine (digitar o código) → pedido com desconto em `/orders` → `/customers` · `/settings?section=payment` → Conectar → "Entrar com a minha conta" |
 | 9 | **entregue 07/11** ([detalhes](../engenharia/fatia-9-editorial-inteiro.md)) | vitrine `localhost:3100/store/esla` inteira no desenho da ESLA: início, `/products`, `/category/rings`, peça, gaveta + `/bag`, `/policies/care`, menu do celular |
+| 10 | **entregue 07/11** ([detalhes](../engenharia/fatia-10-esqueci-a-senha-e-email.md)) | painel `localhost:3102/login` → Esqueci a senha → link no log da API → `/reset-password` → entrar com a senha nova; e-mail pelo Resend quando houver chave |
 
 O que falta para sair como produto está no [Checklist de lançamento](./checklist-de-lancamento.md).
 

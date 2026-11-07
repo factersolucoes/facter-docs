@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shop · e-mails</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --background:0 0% 98%; --foreground:240 10% 3.9%; --card:0 0% 100%;
+    --primary:240 10% 3.9%; --primary-foreground:0 0% 100%; --primary-soft:240 6% 93%;
+    --muted:240 4.8% 94%; --muted-foreground:240 3.8% 40%; --border:240 5.9% 90%;
+    --success:160 60% 38%; --success-soft:160 55% 94%; --success-text:160 70% 24%;
+    --canvas:225 14% 92%;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,system-ui,sans-serif;background:hsl(var(--canvas));color:hsl(var(--foreground));font-size:14px;line-height:1.5}
+  h1,h2,h3{font-family:Sora,Inter,sans-serif;margin:0}
+  .page{max-width:1240px;margin:0 auto;padding:32px 24px 64px}
+  .intro{margin-bottom:20px}
+  .intro h1{font-size:22px;font-weight:600}
+  .intro p{margin:6px 0 0;color:hsl(var(--muted-foreground));max-width:760px}
+  .tabs{display:flex;gap:4px;border-bottom:1px solid hsl(var(--border));margin:20px 0 24px}
+  .tab{appearance:none;background:none;border:0;border-bottom:2px solid transparent;padding:10px 14px;font:inherit;font-weight:500;color:hsl(var(--muted-foreground));cursor:pointer;margin-bottom:-1px}
+  .tab[aria-selected=true]{color:hsl(var(--foreground));border-bottom-color:hsl(var(--foreground))}
+  .panel{display:none}.panel[data-open]{display:block}
+  .meta{display:grid;grid-template-columns:120px 1fr;gap:6px 16px;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:10px;padding:14px 16px;margin-bottom:20px;max-width:720px}
+  .meta dt{color:hsl(var(--muted-foreground))}.meta dd{margin:0;font-weight:500}
+  .views{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:28px;align-items:start}
+  @media (max-width:1000px){.views{grid-template-columns:1fr}}
+  .view-title{font-size:12px;color:hsl(var(--muted-foreground));text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+  .screen{background:#f4f4f5;padding:32px 16px;border-radius:12px;border:1px solid hsl(var(--border))}
+  .phone{width:390px;max-width:100%;margin:0 auto;background:#f4f4f5;padding:20px 12px;border-radius:28px;border:6px solid hsl(var(--foreground)/.9)}
+  .phone .mail{max-width:100%}
+  .phone .body,.phone .head,.phone .foot{padding-left:22px!important;padding-right:22px!important}
+  .rules{margin-top:40px;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:12px;padding:20px 24px;max-width:860px}
+  .rules h2{font-size:16px;margin-bottom:8px}
+  .rules li{margin:4px 0}
+  /* The e-mail itself: table layout and inline-safe styles, the same the API sends. */
+  .mail{width:100%;max-width:600px;margin:0 auto;background:#ffffff;border:1px solid #e4e4e7;border-radius:12px;font-family:Inter,-apple-system,'Segoe UI',Roboto,sans-serif;color:#0a0a0b}
+  .head{padding:28px 36px 0;display:flex;align-items:center;gap:10px}
+  .head .mark{display:inline-block;width:22px;height:22px;border-radius:6px;background:#0a0a0b;color:#fff;font:700 13px/22px Sora,Inter,sans-serif;text-align:center}
+  .head b{font-family:Sora,Inter,sans-serif;font-weight:600;font-size:15px}
+  .body{padding:22px 36px 8px}
+  .body h1{font-size:22px;font-weight:600;margin:0 0 12px;line-height:1.25}
+  .body p{margin:0 0 14px;font-size:15px;line-height:1.55;color:#3f3f46}
+  .btn{display:inline-block;background:#0a0a0b;color:#ffffff!important;text-decoration:none;font-weight:600;font-size:15px;padding:13px 22px;border-radius:8px;margin:4px 0 16px}
+  .small{font-size:13px;color:#71717a;word-break:break-all}
+  .hr{height:1px;background:#e4e4e7;margin:18px 0}
+  .foot{padding:4px 36px 28px;font-size:12px;color:#71717a;line-height:1.5}
+  .items{width:100%;border-collapse:collapse;margin:4px 0 16px}
+  .items td{padding:10px 0;border-top:1px solid #e4e4e7;font-size:14px;color:#0a0a0b;vertical-align:top}
+  .items tr:first-child td{border-top:0}
+  .items .q{color:#71717a;width:40px}
+  .items .p{text-align:right;white-space:nowrap}
+  .items .tot td{border-top:1px solid #0a0a0b;font-weight:600}
+  .tag{display:inline-block;background:#e8f5ef;color:#0f5c3f;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;margin-bottom:12px}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="intro">
+    <h1>E-mails do Shop</h1>
+    <p>Um modelo só para todos os e-mails: marca em cima, uma frase que diz o que fazer, um botão, e o motivo do e-mail no rodapé. Texto curto, na voz da Facter. O HTML de produção é este, com os estilos em linha; nada de fonte externa no e-mail (Sora e Inter entram só onde o cliente de e-mail tiver).</p>
+  </div>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-tab="reset">Senha nova</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="welcome">Boas-vindas</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="order">Pedido novo</button>
+  </div>
+
+  <!-- 1. Senha nova (esqueci a senha) -->
+  <section class="panel" id="reset" data-open>
+    <dl class="meta">
+      <dt>Quando</dt><dd>A dona pede "Esqueci a senha" na tela de entrar.</dd>
+      <dt>Assunto</dt><dd>Nova senha para a sua loja</dd>
+      <dt>De</dt><dd>Facter &lt;nao-responda@facter.com.br&gt;</dd>
+      <dt>Vale</dt><dd>Uma hora, uma vez. Depois disso o link diz que venceu e oferece outro.</dd>
+    </dl>
+    <div class="views">
+      <div>
+        <div class="view-title">Notebook e webmail</div>
+        <div class="screen">
+          <div class="mail">
+            <div class="head"><span class="mark">F</span><b>Facter Shop</b></div>
+            <div class="body">
+              <h1>Senha nova</h1>
+              <p>Naty, toque no botão para escolher uma senha nova. O link vale por uma hora e serve uma vez.</p>
+              <a class="btn" href="#">Escolher senha nova</a>
+              <p class="small">Se o botão não abrir, copie este endereço:<br>https://app.shop.facter.com.br/reset-password?token=3kJ9…</p>
+              <div class="hr"></div>
+              <p>Se não foi você que pediu, pode ignorar este e-mail. A sua senha continua a mesma.</p>
+            </div>
+            <div class="foot">Mandado para naty@esla.com.br porque alguém pediu uma senha nova para a loja Esla Acessórios.<br>Facter Shop · facter.com.br</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="view-title">Celular</div>
+        <div class="phone">
+          <div class="mail">
+            <div class="head"><span class="mark">F</span><b>Facter Shop</b></div>
+            <div class="body">
+              <h1>Senha nova</h1>
+              <p>Naty, toque no botão para escolher uma senha nova. O link vale por uma hora e serve uma vez.</p>
+              <a class="btn" href="#">Escolher senha nova</a>
+              <p class="small">Se o botão não abrir, copie este endereço:<br>https://app.shop.facter.com.br/reset-password?token=3kJ9…</p>
+              <div class="hr"></div>
+              <p>Se não foi você que pediu, pode ignorar este e-mail. A sua senha continua a mesma.</p>
+            </div>
+            <div class="foot">Mandado para naty@esla.com.br porque alguém pediu uma senha nova para a loja Esla Acessórios.<br>Facter Shop · facter.com.br</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Boas-vindas (a loja nasceu pelo Hub) -->
+  <section class="panel" id="welcome">
+    <dl class="meta">
+      <dt>Quando</dt><dd>A Facter cria a loja pelo Hub. Vai junto com a senha inicial, que a dona troca no primeiro acesso.</dd>
+      <dt>Assunto</dt><dd>A sua loja está pronta</dd>
+      <dt>De</dt><dd>Facter &lt;nao-responda@facter.com.br&gt;</dd>
+      <dt>Depois</dt><dd>Substitui a senha que hoje é passada no WhatsApp. Entra quando o Hub mandar e-mail.</dd>
+    </dl>
+    <div class="views">
+      <div>
+        <div class="view-title">Notebook e webmail</div>
+        <div class="screen">
+          <div class="mail">
+            <div class="head"><span class="mark">F</span><b>Facter Shop</b></div>
+            <div class="body">
+              <h1>Sua loja está pronta</h1>
+              <p>Naty, a Esla Acessórios já tem painel. Entre com este e-mail e a senha abaixo, e troque a senha no primeiro acesso.</p>
+              <p><b>Senha inicial:</b> esla-2026-x7</p>
+              <a class="btn" href="#">Entrar no painel</a>
+              <p class="small">app.shop.facter.com.br</p>
+              <div class="hr"></div>
+              <p>Primeiros passos: cadastre as peças, escolha o estilo da loja e publique. O painel mostra o que falta.</p>
+              <p>Dúvida, é só responder no WhatsApp da Facter.</p>
+            </div>
+            <div class="foot">Mandado para naty@esla.com.br porque a Facter criou a loja Esla Acessórios para você.<br>Facter Shop · facter.com.br</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="view-title">Celular</div>
+        <div class="phone">
+          <div class="mail">
+            <div class="head"><span class="mark">F</span><b>Facter Shop</b></div>
+            <div class="body">
+              <h1>Sua loja está pronta</h1>
+              <p>Naty, a Esla Acessórios já tem painel. Entre com este e-mail e a senha abaixo, e troque a senha no primeiro acesso.</p>
+              <p><b>Senha inicial:</b> esla-2026-x7</p>
+              <a class="btn" href="#">Entrar no painel</a>
+              <div class="hr"></div>
+              <p>Primeiros passos: cadastre as peças, escolha o estilo da loja e publique. O painel mostra o que falta.</p>
+            </div>
+            <div class="foot">Mandado para naty@esla.com.br porque a Facter criou a loja Esla Acessórios para você.<br>Facter Shop · facter.com.br</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Pedido novo (aviso para a dona) -->
+  <section class="panel" id="order">
+    <dl class="meta">
+      <dt>Quando</dt><dd>Uma cliente fecha um pedido na vitrine. Vai para o e-mail da dona, além do WhatsApp.</dd>
+      <dt>Assunto</dt><dd>Pedido novo: Relógio Hortênsia e mais 1</dd>
+      <dt>De</dt><dd>Facter &lt;nao-responda@facter.com.br&gt;</dd>
+      <dt>Depois</dt><dd>Entra quando a dona ligar o aviso por e-mail em Configurações. Não trava o lançamento.</dd>
+    </dl>
+    <div class="views">
+      <div>
+        <div class="view-title">Notebook e webmail</div>
+        <div class="screen">
+          <div class="mail">
+            <div class="head"><span class="mark">F</span><b>Facter Shop</b></div>
+            <div class="body">
+              <span class="tag">Pedido #148</span>
+              <h1>Pedido novo</h1>
+              <p>Maria Souza pediu 2 peças para retirar na loja. Confirme no painel para ela receber o combinado.</p>
+              <table class="items">
+                <tr><td class="q">1×</td><td>Relógio Hortênsia<br><span class="small">Dois banhos com dourado</span></td><td class="p">R$ 97,93</td></tr>
+                <tr><td class="q">1×</td><td>Brinco Argola Lisa</td><td class="p">R$ 57,93</td></tr>
+                <tr class="tot"><td></td><td>Total</td><td class="p">R$ 155,86</td></tr>
+              </table>
+              <a class="btn" href="#">Ver o pedido</a>
+              <div class="hr"></div>
+              <p>WhatsApp da cliente: (98) 98123-4567</p>
+            </div>
+            <div class="foot">Mandado para naty@esla.com.br porque a loja Esla Acessórios avisa pedido novo por e-mail. Desligue em Configurações.<br>Facter Shop · facter.com.br</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="view-title">Celular</div>
+        <div class="phone">
+          <div class="mail">
+            <div class="head"><span class="mark">F</span><b>Facter Shop</b></div>
+            <div class="body">
+              <span class="tag">Pedido #148</span>
+              <h1>Pedido novo</h1>
+              <p>Maria Souza pediu 2 peças para retirar na loja. Confirme no painel para ela receber o combinado.</p>
+              <table class="items">
+                <tr><td class="q">1×</td><td>Relógio Hortênsia<br><span class="small">Dois banhos com dourado</span></td><td class="p">R$ 97,93</td></tr>
+                <tr><td class="q">1×</td><td>Brinco Argola Lisa</td><td class="p">R$ 57,93</td></tr>
+                <tr class="tot"><td></td><td>Total</td><td class="p">R$ 155,86</td></tr>
+              </table>
+              <a class="btn" href="#">Ver o pedido</a>
+            </div>
+            <div class="foot">Mandado para naty@esla.com.br porque a loja Esla Acessórios avisa pedido novo por e-mail.<br>Facter Shop · facter.com.br</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rules">
+    <h2>Regras do modelo</h2>
+    <ul>
+      <li>Marca da Facter no topo, nunca a marca da loja: quem manda é a Facter, para a dona. Aviso para a cliente final, quando existir, leva a marca da loja.</li>
+      <li>Título de duas ou três palavras, com a palavra que carrega o sentido primeiro. A primeira frase diz o que fazer.</li>
+      <li>Um botão por e-mail. Embaixo dele, o endereço em texto, para quem não consegue clicar.</li>
+      <li>O rodapé diz por que a pessoa recebeu e como desligar, quando dá.</li>
+      <li>Marca em texto, sem imagem: o Gmail não mostra SVG e imagem externa fica bloqueada até a pessoa liberar. Sem fonte externa, sem rastreio. Preto sobre branco, botão preto, largura 600.</li>
+      <li>Texto segue o padrão de copy: sem travessão, sem exclamação, sem jargão.</li>
+    </ul>
+  </div>
+</div>
+<script>
+  document.querySelectorAll('.tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.tab').forEach(function (t) { t.setAttribute('aria-selected', String(t === tab)); });
+      document.querySelectorAll('.panel').forEach(function (p) { if (p.id === tab.dataset.tab) p.setAttribute('data-open', ''); else p.removeAttribute('data-open'); });
+    });
+  });
+</script>
+</body>
+</html>
