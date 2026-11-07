@@ -77,6 +77,22 @@ Toda lista/tela nasce completa, não em pedaços:
 
 - Não repetir em texto o que **asterisco, cor, ícone, posição, estado desabilitado e o próprio valor** já comunicam. Nem na interface, nem no chat com a pessoa.
 
+## 14. Edição, seleção e acabamento (decidido em 07/11/2026)
+
+Padrão que vale para toda tela. Os itens marcados como **não** foram recusados e não voltam como proposta.
+
+- **Título da tela na barra do topo**, pelo modo console (`useConsoleMode`, com `eyebrow` e `title`), quando a tela é um espaço de trabalho (editor, console, pátio). **Não** usar `PageHeader` com título e descrição ocupando o corpo da tela.
+- **Edição em linha, como no Jira:** o texto editável parece texto; ganha um fundo leve no hover e o foco só ao clicar. **Não** usar caixa de campo branca com borda para editar nome de seção, item ou título.
+- **Criar na própria lista, como no Jira:** "Adicionar item" abre uma linha suave na lista (sem caixa branca, sem borda azul, fundo levemente tingido enquanto ativa), Enter cria e deixa a linha pronta para o próximo, Esc fecha. **Não** criar registro vazio com erro vermelho nem abrir painel lateral para criar.
+- **Foco onde a pessoa vai digitar:** abrir algo para editar já põe o cursor no campo.
+- **Seleção neutra:** item selecionado em `bg-muted` com texto escuro em peso médio; hover um cinza mais claro (`bg-muted/50`). **Não** marcar seleção com barra colorida na lateral esquerda nem pintar a seleção de azul.
+- **Painel de detalhe alterna:** clicar no item aberto fecha o painel e o conteúdo ganha a largura; clicar de novo reabre.
+- **Primary chapado** em faixas e cabeçalhos; **não** usar gradiente.
+- **Resposta selecionada em tom suave** (`<tom>-soft` de fundo, texto e borda no tom forte), não bloco sólido saturado.
+- **Texto de botão nunca quebra linha:** se não cabe, o ícone vai acima do rótulo ou o rótulo encurta.
+- **Botão dentro de formulário** é `type="button"`, salvo o que realmente envia; o botão do DS envia por padrão.
+- **Profundidade com sombra suave em camadas** nos cartões; nada de efeito decorativo que não informe.
+
 ## Definição de "tela pronta"
 
 Antes de dizer que uma tela está pronta:
@@ -88,4 +104,5 @@ Antes de dizer que uma tela está pronta:
 - [ ] Nenhum texto em outro idioma, nenhum valor técnico cru (`undefined`, código de erro) na tela.
 - [ ] Cor só por token de tom; nada de literal do Tailwind.
 - [ ] Bate com o mockup aprovado.
+- [ ] Segue a seção 14 (título na barra, edição e criação em linha, seleção neutra, sem barra lateral colorida, sem gradiente).
 - [ ] Sem `as`/`any`/`!` de não-nulo; erro no campo; idioma certo (revisar o diff contra o `CLAUDE.md`).
