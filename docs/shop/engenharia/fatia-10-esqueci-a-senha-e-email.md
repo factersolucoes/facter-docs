@@ -47,3 +47,12 @@ nem fonte externa. Os próximos e-mails reusam essas peças.
 Conta no Resend (plano gratuito: 3.000 por mês, 100 por dia, lido em resend.com/pricing em
 07/11/2026), domínio facter.com.br verificado com os registros DNS que o Resend mostra, e a
 chave em `RESEND_API_KEY`. Até lá o e-mail só sai no log.
+
+## Também nesta fatia: "Mais" no celular
+
+A barra de baixo cabe cinco abas. A quinta, "Mais", abre uma folha (o `Dialog` do DS, que no celular
+vira folha de baixo) com o que ficou de fora, na ordem da sidebar: Clientes, Cupons, Recebimentos
+(só com o recurso liberado), Link na bio e Configurações; depois o link da loja, quem está logada e
+Sair. É o mesmo desenho do "Mais" do Chef. `config/navigation.tsx` tem `moreItems` e `isInMore`
+(a aba acende quando a página aberta é uma das que ela guarda), com teste em
+`config/__tests__/navigation.test.ts`.
