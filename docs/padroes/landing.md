@@ -68,6 +68,7 @@ Não é copiar o hex da Stripe. É o **nível de acabamento**, consistente na p�
 - **Base quase monocromática + um acento.** Cada produto tem a **sua** cor (não a azul do Facter/Truck, que é da marca-mãe). Cor só por token.
 - **Mostre o produto real, não ilustração.** Pedaços de verdade da tela, sem ícone decorativo (tile com glyph genérico é amador).
 - **Movimento que demonstra, não enfeita.** Econômico e denso em interação: cada coisa entra de uma direção que faz sentido, pra mostrar o produto funcionando. Respeita `prefers-reduced-motion`.
+- **Favicon e cor do navegador seguem o produto.** Cada landing tem o próprio `app/<produto>/icon.svg`: **o mesmo logotipo** Facter, com o **fundo na cor primária do produto** e a marca no contraste (Truck e Facter azul, TechCare verde, Chef chocolate, Shop preto com a marca branca). O caramelo da Shop é só acento, não a cor da marca. E o `theme-color` (export `viewport` da página) segue o **fundo da landing aberta**, nunca o global. Onde já está: `facter-landing/app/shop/icon.svg` e o `viewport` em `app/shop/page.tsx`.
 
 ---
 

@@ -50,5 +50,6 @@ Qualquer lugar que mostra plano ou preço (landing, painel, checkout) **lê do H
 
 - **Dinheiro em centavos** (inteiro), nunca `float`. Formatação na borda, por `Intl`.
 - **Histórico não se apaga.** Fato (transição, movimentação, pagamento) só recebe insert; correção é estorno, não update/delete.
+- **O que não vai acontecer se cancela, com motivo; o que terminou se arquiva.** Quando um registro de trabalho (OS, pedido, comanda) foi criado por engano ou o cliente desistiu, use um status terminal `CANCELLED` alcançável de qualquer estado anterior à conclusão, com motivo obrigatório e sem reabertura; depois de concluído (peça saiu, garantia emitida) não se cancela mais, e dinheiro já recebido pede estorno antes. Arquivar fica só para o que chegou ao fim. Por quê: arquivar uma ordem errada a deixa no histórico como se tivesse acontecido, e excluir apaga fato. Onde já está: `facter-techcare` (`ServiceOrder.canTransitionTo`, `ChangeStatusUseCase.validateCancellation`); o Chef tem `CANCELADA`.
 
 *(Mais decisões entram aqui à medida que forem tomadas.)*
