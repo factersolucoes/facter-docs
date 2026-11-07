@@ -39,7 +39,7 @@ button,input,textarea,select{font:inherit;color:inherit}
 a{color:hsl(var(--primary))}
 :focus-visible{outline:2px solid hsl(var(--ring));outline-offset:2px;border-radius:6px}
 .ic{display:inline-block;width:20px;height:20px;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;flex:none}
-.s12{width:12px;height:12px}.s14{width:14px;height:14px}.s16{width:16px;height:16px}.s18{width:18px;height:18px}.s22{width:22px;height:22px}.s28{width:28px;height:28px}
+.s12{width:12px;height:12px}.s14{width:14px;height:14px}.s16{width:16px;height:16px}.s18{width:18px;height:18px}.s20{width:20px;height:20px}.s22{width:22px;height:22px}.s28{width:28px;height:28px}
 .i-check{--i:url(https://api.iconify.design/ph/check-bold.svg)}
 .i-x{--i:url(https://api.iconify.design/ph/x-bold.svg)}
 .i-minus{--i:url(https://api.iconify.design/ph/minus-bold.svg)}
@@ -124,15 +124,27 @@ a{color:hsl(var(--primary))}
 .filters button[aria-pressed="true"]{background:hsl(var(--primary-soft));border-color:hsl(233 60% 80%);color:hsl(233 65% 38%);font-weight:500}
 
 /* ---------- tablet execution ---------- */
-.tb-top{display:flex;align-items:center;gap:16px;padding:14px 22px;background:linear-gradient(180deg,hsl(var(--card)),hsl(233 30% 99%));border-bottom:1px solid hsl(233 20% 92%);position:relative;z-index:1}
-.tb-top .back{width:44px;height:44px;border-radius:10px;border:1px solid hsl(var(--border));display:grid;place-items:center;background:hsl(var(--card))}
-.tb-title h3{font:700 18px/1.25 Inter,sans-serif;display:flex;align-items:center;gap:8px}
-.ver{font-size:11.5px;font-weight:600;color:hsl(var(--muted-foreground));background:hsl(var(--muted));border-radius:6px;padding:1px 7px}
-.tb-title p{font-size:13px;color:hsl(var(--muted-foreground))}
+.tb-top{display:flex;align-items:center;gap:14px;padding:14px 20px 14px 14px;color:#fff;position:relative;z-index:1;
+  background:radial-gradient(600px 160px at 85% -40%,hsl(233 90% 72%/.55),transparent 70%),linear-gradient(135deg,hsl(233 68% 52%),hsl(236 60% 38%));
+  box-shadow:inset 0 -1px 0 hsl(0 0% 100%/.08),0 8px 20px -14px hsl(236 60% 20%/.7)}
+.tb-top .back{width:36px;height:36px;border-radius:99px;display:grid;place-items:center;color:hsl(0 0% 100%/.85);background:none;border:0;text-decoration:none;flex:none;cursor:pointer}
+.tb-top .back:hover{background:hsl(0 0% 100%/.14);color:#fff}
+.tb-title{min-width:0}
+.tb-title .eyebrow{display:block;font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:hsl(233 90% 90%/.85)}
+.tb-title h3{font:800 19px/1.2 Sora,Inter,sans-serif;letter-spacing:-.01em;color:#fff;white-space:nowrap}
 .tb-top .spacer{flex:1}
-.sync{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:hsl(var(--success-text))}
-.sync.off{color:hsl(var(--warning-text))}
-.who{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;padding:6px 10px 6px 6px;border-radius:999px;background:hsl(var(--muted))}
+.train{display:flex;align-items:center;gap:0;margin-left:10px;padding:5px;border-radius:12px;background:hsl(0 0% 100%/.1);box-shadow:inset 0 0 0 1px hsl(0 0% 100%/.12)}
+.train .os{font:700 12.5px Inter,sans-serif;padding:0 10px;height:28px;display:inline-flex;align-items:center;border-radius:8px;background:#fff;color:hsl(233 60% 32%);margin-right:8px}
+.train .u{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 9px;border-radius:8px;font:700 12.5px Sora,Inter,sans-serif;color:#fff;background:hsl(0 0% 100%/.12)}
+.train .u .ic{opacity:.85}
+.train .link{width:12px;height:2px;background:hsl(0 0% 100%/.4)}
+.pill{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:99px;font-size:13px;font-weight:500;background:hsl(0 0% 100%/.12);color:#fff;box-shadow:inset 0 0 0 1px hsl(0 0% 100%/.14)}
+.pill .live{width:8px;height:8px;border-radius:99px;background:hsl(150 70% 60%);box-shadow:0 0 0 3px hsl(150 70% 60%/.25)}
+.pill.who{padding-left:4px}
+.pill .avatar{width:26px;height:26px;font-size:11px;background:#fff;color:hsl(233 60% 32%)}
+.tb-top .toggle2{background:hsl(0 0% 100%/.12);box-shadow:inset 0 0 0 1px hsl(0 0% 100%/.14)}
+.tb-top .toggle2 button{color:hsl(0 0% 100%/.8)}
+.tb-top .toggle2 button[aria-pressed="true"]{background:#fff;color:hsl(233 60% 30%)}
 .avatar{width:30px;height:30px;border-radius:999px;background:hsl(233 45% 88%);color:hsl(233 60% 30%);display:grid;place-items:center;font-weight:600;font-size:12px;flex:none}
 .progress{height:6px;background:hsl(var(--muted));border-radius:99px;overflow:hidden}
 .steps{display:flex;gap:4px;padding:0 0 12px}
@@ -267,10 +279,13 @@ a{color:hsl(var(--primary))}
 .empty{padding:28px 18px;text-align:center;color:hsl(var(--muted-foreground));font-size:14px;border-top:1px solid hsl(var(--border))}
 
 /* ---------- phone ---------- */
-.ph-top{padding:14px 16px 10px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
-.ph-top .r1{display:flex;align-items:center;gap:10px}
-.ph-top h3{font:700 16px Inter,sans-serif}
-.ph-top p{font-size:12.5px;color:hsl(var(--muted-foreground))}
+.ph-top{padding:12px 14px 12px 8px;color:#fff;background:radial-gradient(300px 120px at 90% -40%,hsl(233 90% 72%/.55),transparent 70%),linear-gradient(135deg,hsl(233 68% 52%),hsl(236 60% 38%))}
+.ph-top .r1{display:flex;align-items:center;gap:6px}
+.ph-top .back{width:34px;height:34px;border-radius:99px;display:grid;place-items:center;color:hsl(0 0% 100%/.85);flex:none}
+.ph-top .eyebrow{display:block;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:hsl(233 90% 90%/.85)}
+.ph-top h3{font:800 16px/1.2 Sora,Inter,sans-serif;color:#fff}
+.ph-top .trk{height:5px;border-radius:99px;background:hsl(0 0% 100%/.2);margin:10px 0 0 40px;overflow:hidden}
+.ph-top .trk i{display:block;height:100%;background:#fff;border-radius:99px}
 .vchips{display:flex;gap:8px;overflow-x:auto;padding:10px 16px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
 .vchips button{flex:none;display:flex;flex-direction:column;align-items:flex-start;padding:7px 12px;border-radius:10px;border:1px solid hsl(var(--border));background:hsl(var(--card));cursor:pointer}
 .vchips button .plate{font-size:13px}
@@ -410,14 +425,17 @@ td .sub{font-size:12.5px;color:hsl(var(--muted-foreground))}
   <p class="sec-sub">Cada linha é um item; cada coluna, um veículo do conjunto. Um toque responde. Não conforme abre a linha logo abaixo, por veículo, com observação, foto e o serviço que vai nascer (a linha expansível aprovada em 10/07).</p>
   <div class="frame tablet indent">
     <div class="tb-top">
-      <span class="back"><span class="ic i-left s18"></span></span>
-      <div class="tb-title">
-        <h3>Entrada na oficina · carreta <span class="ver">versão 3</span></h3>
-        <p>OS 4821 · frota 22600 · bitrem com cavalo e duas carretas</p>
+      <a class="back" aria-label="Voltar"><span class="ic i-left s22"></span></a>
+      <div class="tb-title"><span class="eyebrow">Checklist · versão 3</span><h3>Entrada na oficina · carreta</h3></div>
+      <div class="train" title="Bitrem, frota 22600">
+        <span class="os">OS 4821</span>
+        <span class="u"><span class="ic i-cab s14"></span>RTB7F31</span><span class="link"></span>
+        <span class="u"><span class="ic i-trailer s14"></span>SRK9H46</span><span class="link"></span>
+        <span class="u"><span class="ic i-trailer s14"></span>SRK9H47</span>
       </div>
       <div class="spacer"></div>
-      <span class="sync"><span class="ic i-cloud s16"></span>Tudo salvo</span>
-      <span class="who"><span class="avatar">JS</span>Josué · Inspetor</span>
+      <span class="pill"><span class="live"></span>Tudo salvo</span>
+      <span class="pill who"><span class="avatar">JS</span>Josué</span>
     </div>
     <div style="padding:0 22px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))">
       <div style="display:flex;justify-content:space-between;font-size:12.5px;color:hsl(var(--muted-foreground));padding:10px 0 8px"><span id="prog-text">0 de 0 respondidos</span><span id="prog-nok" style="color:hsl(var(--danger-text));font-weight:600"></span></div>
@@ -460,7 +478,8 @@ td .sub{font-size:12.5px;color:hsl(var(--muted-foreground))}
     </ul></div>
     <div><h4>Grava na hora</h4><ul>
       <li>Cada toque é um comando com <code>Idempotency-Key</code>; não existe botão "salvar".</li>
-      <li>"Tudo salvo" no topo vira "Sem rede · 3 respostas esperando envio" quando cai o sinal (fila do PWA, task 2.9).</li>
+      <li>"Tudo salvo" no topo vira "Sem rede · 3 esperando envio", com o ponto em amarelo, quando cai o sinal (fila do PWA, task 2.9).</li>
+      <li>O topo mostra o conjunto desenhado: cavalo e carretas ligados, com a OS. É o que o inspetor confere ao chegar no veículo.</li>
       <li>Tablet compartilhado: cada resposta grava quem tocou, pelo PIN de quem está no topo.</li>
     </ul></div>
     <div><h4>Não conforme</h4><ul>
@@ -477,8 +496,8 @@ td .sub{font-size:12.5px;color:hsl(var(--muted-foreground))}
   <p class="sec-sub">A conclusão mostra só o que reprovou, agrupado por veículo, já marcado para virar serviço. Um botão conclui e cria tudo junto. Sem OS (inspeção de pátio), o mesmo botão abre a OS já com os serviços.</p>
   <div class="frame tablet indent">
     <div class="tb-top">
-      <a class="back" href="#exec"><span class="ic i-left s18"></span></a>
-      <div class="tb-title"><h3>Revisar e concluir</h3><p id="rv-context">Entrada na oficina · carreta · OS 4821 · frota 22600</p></div>
+      <a class="back" href="#exec" aria-label="Voltar ao checklist"><span class="ic i-left s22"></span></a>
+      <div class="tb-title"><span class="eyebrow" id="rv-context">Entrada na oficina · OS 4821</span><h3>Revisar e concluir</h3></div>
       <div class="spacer"></div>
       <div class="toggle2" role="group" aria-label="Situação">
         <button aria-pressed="true" data-mode="os">Com OS</button>
@@ -537,8 +556,8 @@ td .sub{font-size:12.5px;color:hsl(var(--muted-foreground))}
   <div class="indent" style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start">
     <div class="phone frame">
       <div class="ph-top">
-        <div class="r1"><span class="ic i-left s18"></span><div><h3>Entrada na oficina</h3><p>OS 4821 · frota 22600</p></div></div>
-        <div class="progress" style="margin-top:10px"><i style="width:46%"></i></div>
+        <div class="r1"><span class="back"><span class="ic i-left s20"></span></span><div><span class="eyebrow">OS 4821 · frota 22600</span><h3>Entrada na oficina</h3></div></div>
+        <div class="trk"><i style="width:46%"></i></div>
       </div>
       <div class="offline"><span class="ic i-wifi s16"></span>Sem rede · 3 respostas esperando envio</div>
       <div class="vchips">
@@ -901,7 +920,7 @@ function renderReview() {
   document.getElementById('kv-ok').textContent = cells.filter((c) => answers[c.k] === 'ok').length;
   document.getElementById('kv-nok').textContent = noks.length;
   document.getElementById('kv-na').textContent = cells.filter((c) => answers[c.k] === 'na').length;
-  document.getElementById('rv-context').textContent = mode === 'os' ? 'Entrada na oficina · carreta · OS 4821 · frota 22600' : 'Saída de viagem · frota 22600 · sem OS';
+  document.getElementById('rv-context').textContent = mode === 'os' ? 'Entrada na oficina · OS 4821' : 'Saída de viagem · sem OS';
   document.getElementById('rv-title').textContent = noks.length ? `${noks.length} não ${noks.length === 1 ? 'conforme' : 'conformes'}` : 'Nenhum não conforme';
   document.getElementById('rv-sub').textContent = noks.length ? 'Marcados viram serviço no veículo certo do conjunto. Desmarcado fica como "Sem decisão" na OS.' : '';
   const list = document.getElementById('rv-list');
