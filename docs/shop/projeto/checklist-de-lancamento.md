@@ -19,7 +19,7 @@ Nada vai para produção sem a Tamires aprovar no local antes. Dados de teste qu
 |---|---|---|---|
 | ☐ | **Fotos no storage do Shop.** O import copia cada imagem da ESLA para o bucket do Shop. | Hoje as peças apontam para o Supabase do site antigo; quando ele cair, a loja fica sem foto. | meio dia |
 | ☐ | **Redirecionamento dos endereços antigos** (`/produtos/<slug>` do site atual → `/item/<id>` no Shop). O import guarda o slug antigo de cada peça. | Links em stories, mensagens e no Google dariam "não encontrado" depois da troca de DNS. | meio dia |
-| ☐ | **Esqueci a senha**: pedido por e-mail, código com validade de uma hora, troca, derruba sessões antigas, limite por e-mail e IP; telas no painel com todos os estados. | A dona não tem como recuperar a conta sozinha. Precisa do serviço de e-mail (seção 2). | 1 dia |
+| ☐ | **Esqueci a senha, sem e-mail**: botão na tela de entrar que abre o WhatsApp da Facter, e ação "Nova senha" na página da empresa no Hub, que redefine no Shop. A versão por e-mail entra junto com o e-mail de boas-vindas do Hub. | A dona não tem como recuperar a conta sozinha. | meio dia |
 | ☐ | **Página "Mais" no celular**: Clientes, Cupons, Recebimentos e Link na bio alcançáveis pelo telefone. | Metade do painel não existe no celular. | meio dia |
 | ☐ | **Vazios do Editorial** (destaques, coleção e política sem conteúdo) e voz do ramo "outros". | Loja nova aparece quebrada antes de ter peça. | meio dia |
 | ☐ | **Mercado Pago de verdade** em modo teste: conectar pelo OAuth, gerar link, pagar com cartão de teste, webhook chegar. | Até aqui só rodou no simulador local. Precisa das chaves (seção 2). | meio dia |
@@ -38,7 +38,7 @@ Tudo que é segredo vai no arquivo de credenciais ignorado pelo git, nunca no ch
 | ☐ | Mesclar as PRs abertas: vitrine (`feat/store-voice`) e Chef (`feat/hub`) | |
 | ☐ | Dar o "pode" nos commits do design system que o Shop usa | |
 | ☐ | **Projeto Supabase do Shop** (banco + bucket `shop`, o nome padrão da API) | O gratuito permite dois projetos ativos por organização. Hub e TechCare já ocupam dois se estiverem juntos: confira antes de criar. |
-| ☐ | **Serviço de e-mail** (Resend ou Brevo) com o domínio facter.com.br verificado (registros DNS que o serviço mostra) | Serve para o esqueci a senha hoje e para boas-vindas e avisos de pedido depois. |
+| ☐ | **Serviço de e-mail** (Resend ou Brevo, plano gratuito) com o domínio facter.com.br verificado (registros DNS que o serviço mostra) | Não trava o lançamento: entra com o e-mail de boas-vindas do Hub e o esqueci a senha por e-mail. |
 | ☐ | **Mercado Pago**: conta de desenvolvedor, aplicação com OAuth, URL de retorno de produção, credenciais de teste e de produção | Decisão à parte: ligar ou não o recurso `payments` para a ESLA no lançamento (seção 4). |
 | ☐ | **Chave de API do Render** e id do serviço da vitrine | Para o Shop emitir o certificado do domínio próprio de cada loja. |
 | ☐ | Conta no Hub: produto Shop com `apiUrl` e webhook de produção, segredo do produto e do webhook | O seed local já mostra o formato. |
