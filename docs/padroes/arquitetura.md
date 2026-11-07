@@ -1,0 +1,43 @@
+---
+title: Arquitetura
+sidebar_position: 2
+tags: [padroes, arquitetura, decisoes]
+---
+
+# Padrões de arquitetura
+
+Decisões de arquitetura que valem para **todos** os produtos. Antes de usar uma "ferramenta pesada" (flag, fila, cache, evento), veja se já existe decisão aqui. Tomou uma nova que serve pra mais de um repo? **Uma linha, no mesmo PR.**
+
+---
+
+## Feature flag × entitlement × nada
+
+O Hub tem **dois** sistemas que vivem sendo confundidos. Decida **nesta ordem**:
+
+1. **O liga/desliga é por PLANO pago?** → **entitlement** (`Feature` / `PlanFeature` / `Entitlement`, consultado via a porta de plataforma do produto, ex.: `PlatformService.can(company, 'quotes')`). **Nunca** feature flag — flag não cobra.
+2. **É código novo que pode dar ruim em produção, que você quer soltar aos poucos, testar, ou ligar só pra um cliente piloto?** → **feature flag** (`FeatureFlag` no Hub, avaliada por `POST /api/feature-flags/evaluate`).
+3. **Nenhum dos dois?** → **NÃO use flag. Sobe o código direto.** É a maioria dos casos. O **default é não ter flag**; flag demais é bagunça.
+
+**Regra de bolso:** se o motivo é **dinheiro** (plano) → entitlement. Se é **risco/tempo** (lançar com segurança) → flag.
+
+### Quando for feature flag, só assim
+- Sempre por um **helper** (`flag('produto.chave', ctx)`), nunca chamando o endpoint do Hub na mão.
+- Toda flag tem **default seguro**: Hub fora do ar → cai no default, a tela **nunca quebra**.
+- O **nome diz o destino**: `rollout_*` (morre quando chegar a 100%) ou `ops_*` (kill-switch, fica).
+- Flag `rollout_` que assentou em 100%: **tira o if e arquiva**. Não deixa acumular.
+
+### Nunca
+- Flag pro que é plano (vira bagunça de cobrança).
+- Flag sem default (Hub dorme no free tier → tela quebra).
+- `fetch` direto no endpoint de evaluate, fora do helper.
+
+**Onde já está:** sistema de flag completo no `facter-hub-api` (`src/application/feature-flags/`, entidade `feature-flag.entity.ts`): tipos BOOLEAN/PERCENTAGE/SEGMENT, regras de targeting, override por empresa, cache e endpoint de avaliação.
+
+---
+
+## Dinheiro e histórico (lembretes gerais)
+
+- **Dinheiro em centavos** (inteiro), nunca `float`. Formatação na borda, por `Intl`.
+- **Histórico não se apaga.** Fato (transição, movimentação, pagamento) só recebe insert; correção é estorno, não update/delete.
+
+*(Mais decisões entram aqui à medida que forem tomadas.)*

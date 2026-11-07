@@ -63,6 +63,7 @@ combinação, foto por variação, app instalável (PWA). Entram quando um clien
 | 6 | **entregue 06/11** ([detalhes](../engenharia/fatia-6-chef-e-celular.md)) | Chef `/loja` → abas Aparência e Domínio (com `SHOP_API_URL`); painel `localhost:3102` no celular |
 | 7 | **entregue 06/11** ([detalhes](../engenharia/fatia-7-estilo-editorial-e-bio.md)) | vitrine `localhost:3100/store/esla` (estilo Editorial, igual ao site da ESLA) e `/store/esla/bio` · painel `localhost:3102/store` com `esla@local.dev` |
 | 8 | **entregue 07/11** ([detalhes](../engenharia/fatia-8-cupons-clientes-e-gateways.md)) | painel `localhost:3102/coupons` (criar cupom) → sacola da vitrine (digitar o código) → pedido com desconto em `/orders` → `/customers` · `/settings?section=payment` → Conectar → "Entrar com a minha conta" |
+| 9 | **entregue 07/11** ([detalhes](../engenharia/fatia-9-editorial-inteiro.md)) | vitrine `localhost:3100/store/esla` inteira no desenho da ESLA: início, `/products`, `/category/rings`, peça, gaveta + `/bag`, `/policies/care`, menu do celular |
 
 ## Decisões em aberto
 
