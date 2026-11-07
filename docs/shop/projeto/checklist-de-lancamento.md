@@ -22,7 +22,6 @@ Nada vai para produção sem a Tamires aprovar no local antes. Dados de teste qu
 | ☑ | **Esqueci a senha por e-mail** (feito 07/11, local; falta só a chave do Resend): pedido pela tela de entrar, link com validade de uma hora, senha nova derruba as sessões antigas, limite por e-mail e IP; telas no painel com todos os estados. Envio pelo Resend, plano gratuito (3.000 por mês, 100 por dia, resend.com/pricing em 07/11/2026). | A dona não tem como recuperar a conta sozinha. | 1 dia |
 | ☑ | **"Mais" no celular** (feito 07/11): a quinta aba abre uma folha com Clientes, Cupons, Recebimentos, Link na bio, Configurações, o link da loja e Sair, como no Chef. | Metade do painel não existia no celular. | feito |
 | ☑ | **Vazios do Editorial** (feito 07/11): loja sem peça mostra as palavras e o WhatsApp no lugar do "Em destaque"; coleção vazia manda para todas as peças; rodapé sem coleções some; voz própria para "outros" e assistência. | Loja nova aparecia quebrada antes de ter peça. | feito |
-| ☐ | **Mercado Pago de verdade** em modo teste: conectar pelo OAuth, gerar link, pagar com cartão de teste, webhook chegar. | Até aqui só rodou no simulador local. Precisa das chaves (seção 2). | meio dia |
 | ☐ | **Varredura final**: `verify` nos três repositórios, testes verdes, diff contra o CLAUDE.md, nada de texto fixo fora do i18n. | | 1 hora |
 
 Total estimado: **4 a 5 dias** de código.
@@ -39,7 +38,6 @@ Tudo que é segredo vai no arquivo de credenciais ignorado pelo git, nunca no ch
 | ☐ | Dar o "pode" nos commits do design system que o Shop usa | |
 | ☐ | **Projeto Supabase do Shop** (banco + bucket `shop`, o nome padrão da API) | O gratuito permite dois projetos ativos por organização. Hub e TechCare já ocupam dois se estiverem juntos: confira antes de criar. |
 | ☐ | **Conta no Resend** (plano gratuito) com o domínio facter.com.br verificado (registros DNS que o serviço mostra) e a chave da API no arquivo de credenciais | Trava o esqueci a senha. Depois serve para boas-vindas pelo Hub e avisos de pedido. |
-| ☐ | **Mercado Pago**: conta de desenvolvedor, aplicação com OAuth, URL de retorno de produção, credenciais de teste e de produção | Decisão à parte: ligar ou não o recurso `payments` para a ESLA no lançamento (seção 4). |
 | ☐ | **Chave de API do Render** e id do serviço da vitrine | Para o Shop emitir o certificado do domínio próprio de cada loja. |
 | ☐ | Conta no Hub: produto Shop com `apiUrl` e webhook de produção, segredo do produto e do webhook | O seed local já mostra o formato. |
 
@@ -85,8 +83,8 @@ Preços de 05/11/2026 lidos em render.com/pricing e vercel.com/pricing. Confirma
 
 | | Item |
 |---|---|
-| ☐ | Plano e preço do Shop no Hub, e a assinatura da ESLA criada por lá |
-| ☐ | Decidir se o recurso `payments` liga para a ESLA no lançamento ou só WhatsApp no começo |
+| ☐ | Plano do Shop no Hub, com um plano de cortesia (sem cobrança) para a ESLA, e a assinatura dela criada por lá |
+| ☑ | Decidido em 07/11: o recurso `payments` fica **desligado** no lançamento; o pedido fecha pelo WhatsApp. A ESLA entra como **cortesia**: plano sem cobrança no Hub |
 | ☐ | Termos de uso e política de privacidade publicados (a vitrine coleta nome e WhatsApp de cliente; LGPD) |
 | ☐ | Canal de suporte combinado com a dona (WhatsApp da Facter) |
 | ☐ | A landing do Shop em facter.com.br falando do produto como pronto |
@@ -108,6 +106,8 @@ Preços de 05/11/2026 lidos em render.com/pricing e vercel.com/pricing. Confirma
 | ☐ | Derrubar Netlify, Payload e o Supabase antigo | Tamires |
 
 ## 6. Depois do lançamento (não trava)
+
+**Pagamentos:** conta de desenvolvedor no Mercado Pago (aplicação OAuth, URL de retorno, credenciais de teste e de produção) e o teste de verdade em modo teste: conectar, gerar link, pagar com cartão de teste, webhook chegar. Só depois disso o recurso `payments` liga para alguma loja.
 
 **Chef:** levar o esqueci a senha por e-mail e o modelo de e-mail da Facter para lá (hoje a troca é pela administração, via WhatsApp). Portagem para Fastify e código em português, com o `test:all` verde; só depois de fechar a branch do Hub no Chef. O e-mail de boas-vindas pelo Hub cobre os dois produtos.
 
