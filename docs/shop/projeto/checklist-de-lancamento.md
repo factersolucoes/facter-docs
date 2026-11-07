@@ -32,7 +32,7 @@ Tudo que é segredo vai no arquivo de credenciais ignorado pelo git, nunca no ch
 
 | | Item | Observação |
 |---|---|---|
-| ☐ | Publicar `@facter/platform-contract` **0.11.0** no npm | Sem ele a API e o painel não buildam fora da sua máquina. |
+| ☐ | Publicar `@facter/platform-contract` **0.12.0** no npm (inclui os pedidos de recurso) e, no Chef, rodar `npm install @facter/platform-contract@0.12.0` para atualizar o lockfile | Sem ele a API do Shop, o painel e o Chef não buildam fora da sua máquina. |
 | ☐ | Criar os repositórios `facter-shop-api` e `facter-shop-web` no GitHub e subir a `main` | Hoje só existem na sua máquina. |
 | ☐ | Mesclar as PRs abertas: vitrine (`feat/store-voice`) e Chef (`feat/hub`) | |
 | ☐ | Dar o "pode" nos commits do design system que o Shop usa | |
@@ -98,6 +98,8 @@ Ela já tem conta no Chef. A ligação é pelo **Liberar produto** do Hub, e o C
 | ☐ | Conferir no Chef de produção, em Administração, o **e-mail de login** dela. |
 | ☐ | No Hub, criar a empresa dela pela tela e clicar em **Liberar produto**: Facter Chef, plano com a loja, **o mesmo e-mail**, senha em branco. |
 | ☐ | Conferir: o Chef respondeu que ligou a conta existente (não "criou"); o Chef aparece em Produtos da empresa no Hub; ela entra com a senha de sempre e a Minha loja abre o editor. |
+
+**Ordem do deploy:** o Hub sobe antes do Chef. O botão **Quero a minha loja** do Chef manda o pedido para o Hub (tela **Pedidos**, com o número de pedidos esperando no menu). Você aprova escolhendo o plano, e o Chef libera a loja na hora pelo webhook. Se recusar, escreva o motivo: ela vê esse texto na Minha loja e pode pedir de novo. Conta do Chef sem ligação com o Hub continua com o botão do WhatsApp.
 
 **Se o e-mail estiver errado:** o Chef cria uma confeitaria nova e vazia com aquele e-mail. Nada da conta dela é apagado nem alterado; encomendas, agenda e financeiro continuam iguais. Ela ainda não tem loja no ar (a loja chega com este deploy), então o efeito é só que a conta dela fica sem ligação e a Minha loja mostra a página "Quero a minha loja" em vez do editor. Correção, na Administração do Chef: ligar a confeitaria dela à empresa do Hub (botão Hub da confeitaria) e bloquear a confeitaria vazia que nasceu por engano.
 
