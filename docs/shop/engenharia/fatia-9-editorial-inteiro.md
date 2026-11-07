@@ -42,6 +42,32 @@ Os outros estilos não mudaram; as rotas novas redirecionam pra vitrine comum qu
   por ramo (joias: "Garantia do banho"; confeitaria: "Feito no dia"; personalizados: "Feito à mão").
 - Testes: `editorial/words.test.ts` (preço do card, o que vai direto pra sacola, telefone, faixa).
 
+## Catálogo da ESLA importado (pra comprar no local)
+
+`facter-shop-api/scripts/import-esla.ts --store esla-acessorios [--replace]` lê a API pública do
+site atual (categorias, produtos, ajustes da loja, home) e grava na loja do Shop: 10 categorias na
+ordem do menu, 110 peças (43 esgotadas ficam ocultas até existir estoque no Shop), 3 banners, logo,
+aviso, bio, WhatsApp, Instagram, parcelas, texto de cuidados e frete. As fotos apontam para o
+storage da ESLA (Supabase), não são copiadas.
+
+Mapeamento das variações, que o Shop guarda diferente do Payload:
+
+- Variação **sem preço próprio** (cor/banho, letra) vira **uma escolha** na peça (`optionGroups`
+  com um grupo "Cor", "Letra" ou "Tamanho"); a promoção fica na peça e o risco aparece no card.
+  Só entram as opções com estoque.
+- Variação **com preço próprio** vira **tamanho** (`sizes`), cada um com o seu preço; a peça perde
+  a promoção única e o card mostra "a partir de".
+
+No Editorial, uma escolha só aparece como chips ao lado dos tamanhos e vai pra sacola direto
+(`needsBuild` só manda pra página guiada com perguntas, adicionais ou mais de uma escolha).
+
+## Prévia de loja não publicada em todas as páginas
+
+O painel abre a vitrine com `?preview=1&pt=<token>` uma vez; o `proxy.ts` guarda o token num
+cookie por loja (`facter-shop-preview:<slug>`, 24h, só no caminho da loja) e `lib/preview.ts`
+lê query ou cookie em toda página (peça, sacola, coleções, políticas). Antes, só a home
+previa e o resto caía em "Loja não encontrada".
+
 ## O que a ESLA tem e o Shop ainda não (próxima fatia, dados)
 
 Pra "não perder nada" quando migrar, o contrato e o painel precisam de: várias fotos por peça
