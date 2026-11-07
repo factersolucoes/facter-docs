@@ -67,3 +67,13 @@ leitura de um pagamento, id que o webhook nomeia, OAuth opcional. `MercadoPagoAd
 As rotas públicas levam o slug do provedor (`/public/payments/:provider`, `/public/payments/:provider/oauth/callback`),
 o pedido guarda `provider`, o diálogo do painel recebe o provedor e o nome. Pagar.me, Asaas e Stripe
 entram como um adaptador novo + um valor no enum `PaymentProvider`; nada no serviço nem no painel.
+
+## Guia de primeiros passos (Início)
+
+A dona nova cai no Início com o card **"Deixe a loja pronta"**: seis passos lidos da própria loja
+(estilo/cor/logo escolhidos · primeiro produto com foto · WhatsApp e forma de entrega · como recebe,
+opcional · loja publicada · endereço compartilhado), barra de progresso, o próximo passo em destaque
+com a frase que explica, e um botão por passo que leva à tela certa. "Compartilhar" conta quando ela
+copia ou abre o endereço (lembrado no navegador) ou quando já existe pedido. Com os obrigatórios
+feitos, o card some sozinho e o Início vira o do dia a dia. Regras em `features/home/lib/setup-steps.ts`,
+com teste. Loja criada pelo Hub nasce despublicada: o passo 5 é o que destrava a vitrine.
