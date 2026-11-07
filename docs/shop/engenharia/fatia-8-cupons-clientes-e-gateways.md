@@ -32,6 +32,14 @@ Não existe cadastro: cliente é quem já pediu, uma linha por WhatsApp, lida do
 (sem recusados e cancelados), último pedido. Tela **Clientes** com busca por nome ou número, "Ver
 pedidos" (abre Pedidos em "Todos" já filtrado pelo número) e WhatsApp.
 
+## Recebimentos na barra lateral
+
+"Pagamento" em Configurações é só **como cobrar** (gateway, como o pedido fecha, o que a cliente
+escolhe, Pix na mensagem). O **extrato** ganhou tela própria, **Recebimentos**: período (7/30/90
+dias), filtro por situação, três números (recebido no período, aguardando, recebido no mês) e a
+lista de links com pedido, cliente, sinal ou valor todo, forma, quando, situação, valor, "Conferir"
+nos pendentes e o link. Sem gateway, a tela explica e manda pra Configurações.
+
 ## Conectar o Mercado Pago igual ao mockup
 
 O diálogo ganhou o botão "Entrar com a minha conta do Mercado Pago" (OAuth), o divisor "ou cole as
