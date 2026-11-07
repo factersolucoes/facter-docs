@@ -22,7 +22,7 @@ Nada vai para produção sem a Tamires aprovar no local antes. Dados de teste qu
 | ☑ | **Esqueci a senha por e-mail** (feito 07/11, local; falta só a chave do Resend): pedido pela tela de entrar, link com validade de uma hora, senha nova derruba as sessões antigas, limite por e-mail e IP; telas no painel com todos os estados. Envio pelo Resend, plano gratuito (3.000 por mês, 100 por dia, resend.com/pricing em 07/11/2026). | A dona não tem como recuperar a conta sozinha. | 1 dia |
 | ☑ | **"Mais" no celular** (feito 07/11): a quinta aba abre uma folha com Clientes, Cupons, Recebimentos, Link na bio, Configurações, o link da loja e Sair, como no Chef. | Metade do painel não existia no celular. | feito |
 | ☑ | **Vazios do Editorial** (feito 07/11): loja sem peça mostra as palavras e o WhatsApp no lugar do "Em destaque"; coleção vazia manda para todas as peças; rodapé sem coleções some; voz própria para "outros" e assistência. | Loja nova aparecia quebrada antes de ter peça. | feito |
-| ☐ | **Varredura final**: `verify` nos três repositórios, testes verdes, diff contra o CLAUDE.md, nada de texto fixo fora do i18n. | | 1 hora |
+| ☑ | **Varredura final** (07/11): lint limpo nos três repositórios do Shop (a vitrine ganhou configuração; a API passou a formatar em 160 colunas), typecheck e testes verdes (API 62, painel 57, vitrine 46). Chef `feat/hub`: `test:all` verde (134 unitários, 153 de API, 172 E2E) depois de dois ajustes nos testes. | | feito |
 
 Total estimado: **4 a 5 dias** de código.
 
