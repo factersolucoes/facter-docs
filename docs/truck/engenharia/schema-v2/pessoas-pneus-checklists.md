@@ -211,6 +211,13 @@ Não conformidade com `suggested_service_type_id` cria o serviço na OS com um t
 
 A foto de um item vai em `attachments.checklist_result_id` ([manutenção](./manutencao.md#serviços-externos-custos-e-fotos)). Item com `requires_photo` não fecha sem foto (CHK-2). A execução aponta a versão usada, e os itens daquela versão nunca mudam: o histórico mostra exatamente o que foi perguntado (CHK-1).
 
+## Execução como construída (3.2.2, migration 0050)
+
+- `checklists`: número, modelo e versão (FK composta: a versão é do modelo), `work_order_id` com `work_order_number` gravado no início, `status` (`in_progress`, `completed`), `question_count` congelado no início, quem começou e quem concluiu. Um checklist por modelo na OS (índice único parcial).
+- `checklist_vehicles`: o alvo congelado no início (veículo, tipo, placa e frota como estavam), só inserção (CHK-6).
+- `checklist_results`: uma resposta por célula (item × veículo), FK com a versão do checklist e com o alvo; muda enquanto o checklist está aberto e é recusada pelo banco depois de concluído (CHK-5). Apagar uma resposta aberta remove a linha.
+- O serviço gerado (`generated_service_id`) entra na 3.2.3.
+
 ## Implementado em 07/11/2026 (3.2.1, migration 0049)
 
 - Modelos, seções, itens e versões como acima. A execução (`checklists`, `checklist_results`) entra na 3.2.2.

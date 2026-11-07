@@ -144,7 +144,7 @@ Cada fatia é API, tela e teste juntos, e só começa com o mockup dela aprovado
 | Fatia | O que entrega | Depende de | Tamanho |
 | --- | --- | --- | --- |
 | **3.2.1 Modelos** ✅ 07/11 | Lista e editor de modelo com seções, publicar versão, desativar, modelos padrão do Facter para duplicar | Ajustes do schema | ~1 semana |
-| **3.2.2 Execução ligada à OS** | Começar pela OS, grade por implemento, responder, "tudo conforme", concluir; aba na OS | 3.2.1 | ~1,5 semana |
+| **3.2.2 Execução ligada à OS** ✅ 07/11 | Começar pela OS, grade por implemento, responder, "tudo conforme", concluir; aba na OS | 3.2.1 | ~1,5 semana |
 | **3.2.3 Não conformidade** | Criar serviço (um e em lote), abrir OS a partir de checklist sem OS, parada por reprovação | 3.2.2 | ~1 semana |
 | **3.2.4 Gestão** | Lista com filtros, detalhe somente leitura, histórico no veículo | 3.2.2 | ~0,5 semana |
 | **3.2.5 Foto e offline** | Foto por item (CHK-2) e respostas na fila local | 2.8 e 2.9 | ~0,5 semana sobre as tasks base |
@@ -178,3 +178,12 @@ Seguindo [como fazer mockups](../como-fazer-mockups.md), um por fatia:
 **Decididas em 07/11/2026** com a aprovação do [mockup](/telas/truck/checklists): 1 a 4 como recomendado. Ainda abertas: 5 a 8.
 
 **Diferenças do mockup na 3.2.1:** reordenar itens e seções é pelo menu ⋮ (mover para cima, mover para baixo) até o design system ter uma lista ordenável; o mockup já foi ajustado. O rascunho fica na tela e numa cópia no aparelho, não no servidor.
+
+## Decidido na 3.2.2 (07/11/2026)
+
+- **Onde se começa:** pela aba Checklists da OS (os veículos da OS) e pela página de início, escolhendo o veículo sem OS (entra a combinação dele: cavalo engatado e carretas do conjunto). Veículos que o modelo não pergunta ficam de fora.
+- **Uma OS, um checklist por modelo:** começar de novo o mesmo modelo na mesma OS reabre o que está em andamento; concluído, é 409.
+- **Respostas** mudam livremente enquanto o checklist está em andamento e congelam ao concluir (CHK-5). Concluir trava a linha do checklist; uma resposta simultânea espera.
+- **Número** `CHK-000001` pela tabela `sequences`; o número da OS fica gravado no checklist, que não lê a tabela da manutenção.
+- **Foto obrigatória** aparece no item, mas só bloqueia quando os anexos existirem (3.2.5).
+- **Escopo por base e "próprio"** ainda não é aplicado nas consultas (o mesmo vale para os outros módulos hoje); entra com a gestão (3.2.4).
