@@ -74,7 +74,7 @@ Saída: **fatia 3 em homologação**. A Suzano e um parceiro (ex.: Vale das Carr
 | ID | Task | Pronto quando | Status |
 | --- | --- | --- | --- |
 | 3.1 | Pneus: ciclo de vida, vidas e recapagem, montagem por posição, inspeções, km pelo engate | Eventos idempotentes; custo por km do pneu | ⬜ espera a doc de pneus |
-| 3.2 | Checklists: modelos, execução no tablet, não conformidade gera serviço | Não conformidade vira serviço na OS | 🟡 plano em discussão ([checklists na v2](../produto/propostas/checklists-v2.md)): seis fatias, 8 decisões abertas antes do mockup |
+| 3.2 | Checklists: modelos, execução no tablet, não conformidade gera serviço | Não conformidade vira serviço na OS | 🟡 **3.2.1 Modelos** entregue em 07/11/2026 (migration 0049): modelos com seções, versão publicada imutável (CHK-1, gatilho no banco), publicar com 409 sobre versão antiga, desativar e reativar, 3 modelos do Facter para duplicar, rascunho guardado no aparelho; back + web + testes ([plano](../produto/propostas/checklists-v2.md), [mockup](/telas/truck/checklists)). Faltam 3.2.2 execução no tablet, 3.2.3 não conformidade, 3.2.4 gestão, 3.2.5 foto e offline, 3.2.6 indicador 13 |
 | 3.3 | Ecossistema: compartilhamento por nível, solicitação de manutenção entre organizações, oficina por tipo de ativo | Parceiro vê só o que foi concedido (teste por nível) | ⬜ |
 | 3.4 | Planos, módulos contratáveis e feature flags; "Em breve" e "Quero isso" | Módulo desligado some da API e da tela | ⬜ |
 | 3.5 | Configurações da empresa, idioma e moeda | Tela de configurações; valor monetário guarda a moeda | ⬜ |

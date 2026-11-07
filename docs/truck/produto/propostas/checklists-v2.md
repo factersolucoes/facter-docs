@@ -6,7 +6,7 @@ tags: [truck, proposta, checklist, v2, plano]
 
 # Checklists na v2: plano
 
-**Status:** em discussão · 07/11/2026 · task [3.2](../../projeto/plano-de-execucao.md) do plano de execução.
+**Status:** aprovado em 07/11/2026 (mockup aprovado com as recomendações 1 a 4) · fatia 3.2.1 entregue em 07/11/2026 · task [3.2](../../projeto/plano-de-execucao.md) do plano de execução.
 
 O que já está decidido (schema de setembro, invariantes CHK-1 e CHK-2, permissões, a [proposta de ações por reboque](./checklist-contextual-actions.mdx)) continua valendo. Esta página junta tudo, diz onde o checklist entra no produto, o que fazer agora e o que fica para depois, do que ele depende e o que falta decidir antes do mockup.
 
@@ -143,7 +143,7 @@ Cada fatia é API, tela e teste juntos, e só começa com o mockup dela aprovado
 
 | Fatia | O que entrega | Depende de | Tamanho |
 | --- | --- | --- | --- |
-| **3.2.1 Modelos** | Lista e editor de modelo com seções, publicar versão, desativar, modelos padrão do Facter para duplicar | Ajustes do schema | ~1 semana |
+| **3.2.1 Modelos** ✅ 07/11 | Lista e editor de modelo com seções, publicar versão, desativar, modelos padrão do Facter para duplicar | Ajustes do schema | ~1 semana |
 | **3.2.2 Execução ligada à OS** | Começar pela OS, grade por implemento, responder, "tudo conforme", concluir; aba na OS | 3.2.1 | ~1,5 semana |
 | **3.2.3 Não conformidade** | Criar serviço (um e em lote), abrir OS a partir de checklist sem OS, parada por reprovação | 3.2.2 | ~1 semana |
 | **3.2.4 Gestão** | Lista com filtros, detalhe somente leitura, histórico no veículo | 3.2.2 | ~0,5 semana |
@@ -175,4 +175,6 @@ Seguindo [como fazer mockups](../como-fazer-mockups.md), um por fatia:
 | 7 | Mecânico cria serviço a partir do checklist? | A matriz diz que não (inspetor e supervisor sim). Manter, e o não conforme fica visível na OS para quem decide |
 | 8 | Checklist vai antes dos pneus? | Sim, 3.2.1 a 3.2.4 logo depois da OS |
 
-Fechadas as decisões, o próximo passo é o mockup da fatia 3.2.1 e o ajuste da página do schema.
+**Decididas em 07/11/2026** com a aprovação do [mockup](/telas/truck/checklists): 1 a 4 como recomendado. Ainda abertas: 5 a 8.
+
+**Diferenças do mockup na 3.2.1:** reordenar itens e seções é pelo menu ⋮ (mover para cima, mover para baixo) até o design system ter uma lista ordenável; o mockup já foi ajustado. O rascunho fica na tela e numa cópia no aparelho, não no servidor.

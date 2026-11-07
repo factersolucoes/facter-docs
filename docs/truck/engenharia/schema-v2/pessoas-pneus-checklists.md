@@ -128,12 +128,15 @@ create table tire_inspections (
 ## Checklists
 
 ```sql
-create table checklist_templates (
-  id            uuid primary key,
-  org_id        uuid not null references organizations(id),
-  name          text not null,
-  applies_to    text[] not null,               -- tipos de veículo
-  active        boolean not null default true
+create table checklist_templates (            -- cabeça editável; o que se pergunta mora na versão publicada
+  id                 uuid primary key,
+  org_id             uuid not null references organizations(id),
+  name               text not null check (char_length(name) between 2 and 80),
+  name_search        text generated always as (immutable_unaccent(name)) stored,   -- único por empresa, sem acento e caixa
+  applies_to         text[] not null,            -- tipos de veículo, ao menos um
+  current_version_id uuid not null,              -- FK (current_version_id, id) → versão do próprio modelo, adiada
+  active             boolean not null default true,
+  version            int not null default 0      -- concorrência: publicar e desativar são escritas condicionais
 );
 
 create table checklist_template_versions (     -- publicar uma mudança cria versão nova; a antiga não muda (CHK-1)
@@ -141,23 +144,38 @@ create table checklist_template_versions (     -- publicar uma mudança cria ver
   org_id        uuid not null references organizations(id),
   template_id   uuid not null references checklist_templates(id),
   version_no    int not null,
+  section_count smallint not null,             -- fato da versão, gravado junto; a lista não conta itens
+  item_count    smallint not null,
   published_by  uuid not null references actors(id),
   published_at  timestamptz not null default now(),
   unique (template_id, version_no)
 );
 
-create table checklist_template_items (        -- itens pertencem a uma versão e nunca são editados
-  id            uuid primary key,
-  org_id        uuid not null references organizations(id),
+create table checklist_template_sections (     -- seções da versão (Freios, Elétrica…), na ordem da tela
+  id                  uuid primary key,
+  org_id              uuid not null references organizations(id),
   template_version_id uuid not null references checklist_template_versions(id),
-  position      smallint not null,
-  label         text not null,
-  component_id  uuid references components(id),
-  safety        boolean not null default false,        -- item de segurança: base de indicador de ESG
-  suggested_service_type_id uuid references service_types(id),   -- serviço criado se não conforme
-  requires_photo boolean not null default false,
+  position            smallint not null,
+  name                text not null check (char_length(name) between 2 and 60),
   unique (template_version_id, position)
 );
+
+create table checklist_template_items (        -- itens pertencem a uma seção de uma versão e nunca são editados
+  id            uuid primary key,
+  org_id        uuid not null references organizations(id),
+  template_version_id uuid not null,
+  section_id    uuid not null,                 -- FK (section_id, template_version_id): a seção é da mesma versão
+  position      smallint not null,
+  label         text not null check (char_length(label) between 2 and 120),
+  applies_to    text[] not null,               -- tipos em que o item é perguntado; subconjunto dos do modelo
+  component_id  uuid references components(id),                       -- FK composta com org_id
+  suggested_service_type_id uuid references service_types(id),        -- serviço criado se não conforme
+  safety        boolean not null default false,        -- item de segurança: parada e indicador de ESG
+  requires_photo boolean not null default false,
+  unique (section_id, position)
+);
+-- Gatilho em versões, seções e itens: update ou delete é recusado (CHECKLIST_TEMPLATE_VERSION_IMMUTABLE),
+-- inclusive para o dono do banco. O db-setup concede update em todas as tabelas, então a permissão sozinha não basta.
 
 create table checklists (                      -- execução
   id            uuid primary key,
@@ -182,7 +200,7 @@ create table checklist_results (
   vehicle_id      uuid references vehicles(id),          -- qual implemento do conjunto
   result          text not null check (result in ('conform','non_conform','not_applicable')),
   note            text,
-  generated_service_id uuid references service_executions(id),   -- não conforme → serviço na OS
+  generated_service_id uuid unique references work_order_services(id),   -- não conforme → serviço na OS (CHK-4)
   recorded_by     uuid not null references actors(id),
   recorded_at     timestamptz not null default now(),
   unique (checklist_id, template_item_id, vehicle_id)
@@ -192,6 +210,13 @@ create table checklist_results (
 Não conformidade com `suggested_service_type_id` cria o serviço na OS com um toque, com componente já preenchido (registrar sem atrito).
 
 A foto de um item vai em `attachments.checklist_result_id` ([manutenção](./manutencao.md#serviços-externos-custos-e-fotos)). Item com `requires_photo` não fecha sem foto (CHK-2). A execução aponta a versão usada, e os itens daquela versão nunca mudam: o histórico mostra exatamente o que foi perguntado (CHK-1).
+
+## Implementado em 07/11/2026 (3.2.1, migration 0049)
+
+- Modelos, seções, itens e versões como acima. A execução (`checklists`, `checklist_results`) entra na 3.2.2.
+- Rotas: `GET /checklist-templates` (cursor, busca sem acento, `checklist.view`), `GET /checklist-templates/counts`, `GET /checklist-templates/:id` (versão atual completa), `POST /checklist-templates` (cria com a versão 1), `POST /checklist-templates/:id/publish` (com `basedOnVersionNo`: publicar sobre versão antiga é 409), `deactivate` e `reactivate`; escrita com `checklist_template.manage`.
+- Os modelos do Facter (Entrada na oficina, Saída de viagem, Preventiva de carreta) são estrutura e chaves de tradução na web: duplicar preenche o editor no idioma da empresa e cria pelo mesmo `POST`. A API não guarda texto de tela.
+- Rascunho só na tela até publicar, com cópia no aparelho por pessoa, empresa e modelo; descartado se a versão publicada mudou.
 
 ## Decidido em 26/09/2026
 

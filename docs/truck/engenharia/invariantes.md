@@ -138,8 +138,13 @@ Pneus entram no lançamento (decidido em 26/09/2026). Os invariantes do ciclo de
 
 | Id | Invariante | Garantia | Situação |
 | --- | --- | --- | --- |
-| CHK-1 | Publicar uma mudança no modelo cria versão nova; a execução aponta a versão usada, e os itens de uma versão nunca mudam | Modelo | ⬜ 3.2 |
-| CHK-2 | Item que exige foto não fecha sem foto vinculada ao resultado | Domínio | ⬜ 3.2 |
+| CHK-1 | Publicar uma mudança no modelo cria versão nova; a execução aponta a versão usada, e os itens de uma versão nunca mudam | Modelo + banco (gatilho) | ✅ 3.2.1 (modelo e versões; a execução aponta a versão na 3.2.2) |
+| CHK-2 | Item que exige foto não fecha sem foto vinculada ao resultado | Domínio | ⬜ 3.2.5 (depende dos anexos, 2.8) |
+| CHK-3 | Checklist só conclui com todos os itens respondidos, em cada veículo a que o item se aplica | Domínio | ⬜ 3.2.2 |
+| CHK-4 | Um resultado não conforme gera no máximo um serviço, mesmo com dois toques ou dois tablets ao mesmo tempo | Banco + domínio | ⬜ 3.2.3 |
+| CHK-5 | Checklist concluído ou cancelado não muda; correção é um checklist novo | Domínio + banco | ⬜ 3.2.2 |
+| CHK-6 | Resultado só para veículo que estava no alvo (veículo ou conjunto) quando o checklist começou | Domínio | ⬜ 3.2.2 |
+| CHK-7 | Só se executa versão publicada de modelo ativo | Domínio | ⬜ 3.2.2 |
 
 ## Indicadores (`KPI`)
 
