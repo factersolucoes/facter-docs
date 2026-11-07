@@ -95,3 +95,21 @@ No local todo painel Facter grava `access_token`/`refresh_token` no mesmo `local
 separa cookie): entrar no Hub derrubava a sessão do Shop e o painel ficava em loop de 401. O Shop usa
 `shop_access_token`/`shop_refresh_token` (API e middleware do painel), e a renovação que falha apaga
 os cookies. TechCare, Chef e Hub ainda compartilham nomes entre si.
+
+## Pagamento na loja liberado pelo Hub
+
+"Pagamento na loja" é a feature `payments` do produto Shop no Hub. A API só deixa conectar gateway,
+entrar pela conta e criar link de pagamento quando o plano da empresa tem a feature; loja sem ela
+fecha pelo WhatsApp com a chave Pix na mensagem, como sempre. No painel, Configurações → Pagamento
+mostra "ainda não liberado" (e mantém Pix na mensagem e sinal) e Recebimentos some da barra lateral.
+Loja sem vínculo com o Hub (seed local) tem tudo liberado. Pra liberar com cuidado: no Hub, plano
+sem a feature `payments` pra quem ainda não deve ter, e ligar na empresa quando chegar a vez dela.
+
+## InfinitePay (pedido da Naty, ESLA)
+
+Tem como: a InfinitePay tem o **Checkout Integrado** por API (cria o link por `POST` e consulta o
+pagamento por `payment_check`, com webhook), que é o mesmo formato do adaptador de gateway (criar
+cobrança, ler pagamento, id do webhook). Entra como segundo adaptador (`InfinitePayAdapter`) + valor no
+enum, sem mexer no serviço nem no painel. O "Link de pagamento" criado no app dela não serve: não tem
+API nem Pix. Falta ler a especificação completa dos campos e da autenticação na documentação oficial
+e ter as credenciais de teste dela. Estimativa: um dia.
