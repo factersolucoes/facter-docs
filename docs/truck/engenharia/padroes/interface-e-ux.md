@@ -92,6 +92,10 @@ Padrão que vale para toda tela. Os itens marcados como **não** foram recusados
 - **Texto de botão nunca quebra linha:** se não cabe, o ícone vai acima do rótulo ou o rótulo encurta.
 - **Botão dentro de formulário** é `type="button"`, salvo o que realmente envia; o botão do DS envia por padrão.
 - **Profundidade com sombra suave em camadas** nos cartões; nada de efeito decorativo que não informe.
+- **Troca de estado com transição suave:** a seleção desliza até a nova opção e muda de tom (200 ms, `ease-out`), com o ícone acompanhando; nada de troca seca. Respeitar `prefers-reduced-motion`.
+- **Botão só com ícone tem tooltip** com o nome da ação ou da opção ("Conforme", "Não conforme"). No foco, só anel discreto pelo teclado (`focus-visible`), nunca contorno forte no clique.
+- **Conjuntos longos:** a tela pensa em até 7 veículos (cavalo e até 6 carretas). Até 3 cabem lado a lado; a partir de 4, um veículo por vez em ordem de engate, com "Próximo veículo", e a opção de voltar à visão lado a lado. A coluna de identificação fica fixa ao rolar para o lado, e a barra do topo resume o conjunto ("RTB7F31 + 6", com a lista no tooltip).
+- **Faixa de detalhe ocupa a linha inteira:** o fundo de uma linha expandida vai de ponta a ponta; só o conteúdo dela tem largura máxima.
 
 ## Definição de "tela pronta"
 
