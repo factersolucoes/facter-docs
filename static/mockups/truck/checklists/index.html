@@ -68,6 +68,10 @@ a{color:hsl(var(--primary))}
 .i-pause{--i:url(https://api.iconify.design/ph/hand-palm.svg)}
 .i-note{--i:url(https://api.iconify.design/ph/note-pencil.svg)}
 .i-image{--i:url(https://api.iconify.design/ph/image.svg)}
+.i-cab{--i:url(https://api.iconify.design/ph/truck-fill.svg)}
+.i-trailer{--i:url(https://api.iconify.design/ph/truck-trailer.svg)}
+.i-cal{--i:url(https://api.iconify.design/ph/calendar-blank.svg)}
+.i-eye{--i:url(https://api.iconify.design/ph/eye.svg)}
 
 /* ---------- presentation ---------- */
 .doc{max-width:1328px;margin:0 auto;padding:48px 24px 96px}
@@ -89,8 +93,8 @@ a{color:hsl(var(--primary))}
 .notes h4{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));margin-bottom:6px}
 .indent{margin-left:40px}
 .frame{background:hsl(var(--background));border-radius:14px;box-shadow:0 1px 2px hsl(230 20% 20%/.06),0 12px 40px -12px hsl(230 30% 20%/.18);overflow:hidden;border:1px solid hsl(var(--border))}
-.tablet{max-width:1180px;border-radius:22px;border:10px solid hsl(240 6% 14%);background:hsl(var(--background))}
-.phone{width:390px;max-width:100%;border-radius:34px;border:10px solid hsl(240 6% 14%);background:hsl(var(--background));overflow:hidden}
+.tablet{max-width:1180px;border-radius:26px;border:12px solid hsl(240 7% 12%);background:hsl(var(--background));box-shadow:0 0 0 1px hsl(240 6% 30%),0 30px 60px -20px hsl(230 30% 15%/.45)}
+.phone{width:390px;max-width:100%;border-radius:40px;border:11px solid hsl(240 7% 12%);box-shadow:0 0 0 1px hsl(240 6% 30%),0 30px 60px -20px hsl(230 30% 15%/.45);background:hsl(var(--background));overflow:hidden}
 .laptop{max-width:1280px}
 
 /* ---------- common ---------- */
@@ -122,7 +126,8 @@ a{color:hsl(var(--primary))}
 /* ---------- tablet execution ---------- */
 .tb-top{display:flex;align-items:center;gap:16px;padding:14px 22px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
 .tb-top .back{width:44px;height:44px;border-radius:10px;border:1px solid hsl(var(--border));display:grid;place-items:center;background:hsl(var(--card))}
-.tb-title h3{font:700 18px/1.25 Inter,sans-serif}
+.tb-title h3{font:700 18px/1.25 Inter,sans-serif;display:flex;align-items:center;gap:8px}
+.ver{font-size:11.5px;font-weight:600;color:hsl(var(--muted-foreground));background:hsl(var(--muted));border-radius:6px;padding:1px 7px}
 .tb-title p{font-size:13px;color:hsl(var(--muted-foreground))}
 .tb-top .spacer{flex:1}
 .sync{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:hsl(var(--success-text))}
@@ -130,67 +135,97 @@ a{color:hsl(var(--primary))}
 .who{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;padding:6px 10px 6px 6px;border-radius:999px;background:hsl(var(--muted))}
 .avatar{width:30px;height:30px;border-radius:999px;background:hsl(233 45% 88%);color:hsl(233 60% 30%);display:grid;place-items:center;font-weight:600;font-size:12px;flex:none}
 .progress{height:6px;background:hsl(var(--muted));border-radius:99px;overflow:hidden}
+.steps{display:flex;gap:4px;padding:0 0 12px}
+.steps .stp{flex:var(--w);display:flex;flex-direction:column;gap:5px;cursor:pointer;min-width:0}
+.steps .stp .tr{height:6px;border-radius:99px;background:hsl(var(--muted));overflow:hidden}
+.steps .stp .tr i{display:block;height:100%;background:hsl(var(--primary));border-radius:99px;transition:width .2s}
+.steps .stp.full .tr i{background:hsl(var(--success))}
+.steps .stp span{font-size:11.5px;color:hsl(var(--muted-foreground));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.steps .stp.cur span{color:hsl(var(--foreground));font-weight:600}
+.ring{width:26px;height:26px;border-radius:99px;background:conic-gradient(hsl(var(--primary)) calc(var(--p)*1%),hsl(var(--muted)) 0);display:grid;place-items:center;flex:none}
+.ring::after{content:"";width:18px;height:18px;border-radius:99px;background:hsl(var(--card))}
+.ring.full{background:hsl(var(--success));color:#fff}
+.ring.full::after{display:none}
 .progress i{display:block;height:100%;background:hsl(var(--primary));border-radius:99px;transition:width .2s}
 .tb-body{display:grid;grid-template-columns:230px 1fr;min-height:640px}
-.rail{border-right:1px solid hsl(var(--border));background:hsl(var(--card));padding:14px 10px}
+.rail{border-right:1px solid hsl(var(--border));background:hsl(var(--card));padding:16px 12px;display:flex;flex-direction:column}
+.rail .legend{margin-top:auto;padding:12px;border-radius:10px;background:hsl(var(--toolbar));font-size:12px;color:hsl(var(--muted-foreground));display:flex;flex-direction:column;gap:6px}
+.rail .legend div{display:flex;align-items:center;gap:8px}
+.lg{width:22px;height:20px;border-radius:6px;display:grid;place-items:center}
 .rail button{width:100%;display:flex;align-items:center;gap:10px;padding:12px;border:0;background:none;border-radius:10px;text-align:left;cursor:pointer;font-size:15px}
 .rail button[aria-current="true"]{background:hsl(var(--primary-soft));color:hsl(233 65% 36%);font-weight:600}
-.rail button .cnt{margin-left:auto;font-size:12.5px;color:hsl(var(--muted-foreground));font-weight:500}
-.rail button .dot{width:8px;height:8px;border-radius:99px;background:hsl(var(--danger));flex:none}
+.rail button .cnt{margin-left:auto;font-size:12px;color:hsl(var(--muted-foreground));font-weight:500;font-variant-numeric:tabular-nums}
+.rail button .nm{flex:1;min-width:0}
+.rail button[aria-current="true"] .ring::after{background:hsl(var(--primary-soft))}
+.rail button .dot{min-width:20px;height:20px;padding:0 6px;border-radius:99px;background:hsl(var(--danger));color:#fff;font-size:11.5px;font-weight:700;display:grid;place-items:center;flex:none}
 .rail .done .cnt{color:hsl(var(--success-text))}
 .rail-head{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));padding:4px 12px 8px}
-.pane{padding:18px 22px 110px;position:relative;min-width:0}
+.pane{padding:20px 24px 116px;position:relative;min-width:0;background:hsl(240 10% 98.5%)}
 .sec-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.sec-head h4{font:700 17px Inter,sans-serif}
+.sec-head h4{font:800 20px/1.2 Sora,Inter,sans-serif;letter-spacing:-.01em}
 .sec-head .spacer{flex:1}
-.grid{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:12px;overflow:hidden}
-.grow{display:grid;grid-template-columns:minmax(220px,1fr) repeat(var(--cols),156px);align-items:center;border-top:1px solid hsl(var(--border))}
+.grid{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;box-shadow:0 1px 2px hsl(230 20% 20%/.04)}
+.grow{display:grid;grid-template-columns:minmax(220px,1fr) repeat(var(--cols),164px);align-items:center;border-top:1px solid hsl(240 6% 93%);transition:background .12s}
+.grow.answered .ilabel .t{color:hsl(240 5% 36%)}
+.grow:not(.ghead):hover{background:hsl(240 10% 99%)}
 .grow:first-child{border-top:0}
-.ghead{background:hsl(var(--toolbar));font-size:12.5px;color:hsl(var(--muted-foreground))}
+.ghead{background:hsl(var(--card));font-size:12px;color:hsl(var(--muted-foreground));border-bottom:1px solid hsl(var(--border))}
 .ghead > div{padding:10px 12px}
-.ghead .veh{display:flex;flex-direction:column;align-items:center;gap:0;text-align:center}
+.ghead .veh{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}
+.vk{display:flex;align-items:center;gap:6px;color:hsl(240 5% 40%)}
+.vbar{width:96px;height:4px;border-radius:99px;background:hsl(var(--muted));overflow:hidden;margin-top:4px}
+.vbar i{display:block;height:100%;background:hsl(var(--primary));border-radius:99px}
+.vbar.full i{background:hsl(var(--success))}
+.inum{width:24px;height:24px;border-radius:7px;background:hsl(var(--muted));color:hsl(240 5% 40%);font-size:12px;font-weight:600;display:grid;place-items:center;flex:none}
+.grow.answered .inum{background:hsl(var(--success-soft));color:hsl(var(--success-text))}
+.grow.hasnok .inum{background:hsl(var(--danger));color:#fff}
 .ghead .veh .plate{color:hsl(var(--foreground));font-size:13px}
-.ilabel{padding:12px 14px;display:flex;flex-direction:column;gap:3px}
+.ilabel{padding:14px 16px;display:grid;grid-template-columns:24px 1fr;column-gap:12px;row-gap:3px;align-items:start}
+.ilabel .f{grid-column:2}
 .ilabel .t{font-weight:500;font-size:15px;line-height:1.3}
 .ilabel .f{display:flex;gap:6px;flex-wrap:wrap}
 .flag{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;color:hsl(var(--muted-foreground))}
-.flag.safe{color:hsl(var(--warning-text))}
+.flag.safe{color:hsl(var(--warning-text));font-weight:500}
 .cell{display:flex;justify-content:center;padding:8px 6px}
-.seg{display:inline-flex;border:1px solid hsl(var(--border));border-radius:10px;overflow:hidden;background:hsl(var(--card))}
-.seg button{width:46px;height:44px;border:0;background:none;display:grid;place-items:center;cursor:pointer;color:hsl(240 5% 55%)}
-.seg button + button{border-left:1px solid hsl(var(--border))}
-.seg button:hover{background:hsl(var(--muted))}
-.seg button.on.ok{background:hsl(var(--success));color:#fff}
-.seg button.on.nok{background:hsl(var(--danger));color:#fff}
-.seg button.on.na{background:hsl(240 5% 46%);color:#fff}
+.seg{display:inline-flex;gap:3px;padding:3px;border-radius:12px;background:hsl(240 5% 95%)}
+.seg button{width:44px;height:42px;border:0;border-radius:9px;background:none;display:grid;place-items:center;cursor:pointer;color:hsl(240 5% 52%);transition:background .12s,opacity .12s,color .12s}
+.seg.done button:not(.on){opacity:.32}
+.seg button:hover{background:hsl(var(--card));opacity:1;box-shadow:0 1px 2px hsl(230 20% 20%/.1)}
+.seg button.on.ok{background:hsl(var(--success-soft));color:hsl(var(--success-text));box-shadow:inset 0 0 0 1.5px hsl(160 45% 70%)}
+.seg button.on.nok{background:hsl(var(--danger));color:#fff;box-shadow:0 2px 6px -1px hsl(0 80% 50%/.45)}
+.seg button.on.na{background:hsl(var(--card));color:hsl(240 6% 26%);box-shadow:inset 0 0 0 1.5px hsl(240 5% 72%)}
 .na-cell{font-size:12px;color:hsl(var(--muted-foreground))}
-.expand{grid-column:1/-1;background:hsl(var(--danger-soft));border-top:1px solid hsl(0 70% 90%);padding:12px 14px;display:flex;flex-direction:column;gap:10px}
-.nokline{display:grid;grid-template-columns:150px 1fr auto;gap:14px;align-items:start;background:hsl(var(--card));border:1px solid hsl(0 60% 88%);border-radius:10px;padding:12px}
+.expand{grid-column:1/-1;background:linear-gradient(hsl(var(--danger-soft)/.7),hsl(var(--danger-soft)/.35));border-top:1px dashed hsl(0 70% 86%);padding:12px 16px 14px 52px;display:flex;flex-direction:column;gap:10px}
+.nokline{display:grid;grid-template-columns:140px 1fr auto;gap:16px;align-items:start;background:hsl(var(--card));border:1px solid hsl(0 50% 90%);border-left:3px solid hsl(var(--danger));border-radius:10px;padding:12px 14px;box-shadow:0 1px 2px hsl(0 40% 30%/.06)}
 .nokline .v{display:flex;flex-direction:column}
 .nokline .v .plate{font-size:14px}
-.nokline textarea{width:100%;min-height:46px;border:1px solid hsl(var(--border));border-radius:8px;padding:8px 10px;resize:vertical;font-size:14px}
+.nokline textarea{width:100%;min-height:44px;border:1px solid hsl(var(--border));border-radius:8px;padding:9px 11px;resize:vertical;font-size:14px;background:hsl(240 10% 99%)}
+.nokline textarea:focus{outline:none;border-color:hsl(var(--primary));box-shadow:0 0 0 3px hsl(var(--primary)/.15);background:#fff}
 .nokline .acts{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
-.photo{width:64px;height:48px;border-radius:8px;background:linear-gradient(135deg,hsl(25 20% 42%),hsl(20 15% 26%));position:relative}
+.photo{width:72px;height:54px;border-radius:9px;background:radial-gradient(circle at 30% 35%,hsl(30 25% 55%),transparent 45%),repeating-linear-gradient(110deg,hsl(20 18% 30%) 0 6px,hsl(25 20% 36%) 6px 12px);position:relative;box-shadow:0 1px 3px hsl(0 0% 0%/.25)}
 .photo::after{content:"";position:absolute;inset:auto 6px 6px auto;width:12px;height:12px;border-radius:99px;background:hsl(var(--success));border:2px solid #fff}
 .needphoto{height:40px;padding:0 12px;border-radius:8px;border:1.5px dashed hsl(0 60% 70%);color:hsl(var(--danger-text));background:none;display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;cursor:pointer}
-.svc{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:hsl(233 65% 38%);background:hsl(var(--primary-soft));padding:4px 8px;border-radius:6px}
-.bar{position:absolute;left:0;right:0;bottom:0;background:hsl(var(--card));border-top:1px solid hsl(var(--border));padding:14px 22px;display:flex;align-items:center;gap:18px}
+.svc{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:500;color:hsl(233 65% 38%);background:hsl(var(--primary-soft));padding:4px 9px;border-radius:7px}
+.bar{position:absolute;left:0;right:0;bottom:0;background:hsl(var(--card)/.92);backdrop-filter:blur(8px);border-top:1px solid hsl(var(--border));padding:14px 24px;display:flex;align-items:center;gap:22px}
 .bar .stat{display:flex;flex-direction:column;font-size:13px}
-.bar .stat b{font:700 18px Inter,sans-serif}
+.bar .stat b{font:800 22px/1.1 Sora,Inter,sans-serif}
 .bar .spacer{flex:1}
 .bar .hint{font-size:13px;color:hsl(var(--muted-foreground))}
 
 /* ---------- review ---------- */
-.rv{padding:22px;display:grid;grid-template-columns:1fr 340px;gap:22px}
-.rv-card{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:12px}
-.rv-card h4{font:700 16px Inter,sans-serif;padding:16px 18px 4px}
+.rv{padding:24px;display:grid;grid-template-columns:1fr 340px;gap:24px;background:hsl(240 10% 98.5%)}
+.rv-card{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;box-shadow:0 1px 2px hsl(230 20% 20%/.04)}
+.rv-card h4{font:800 18px Sora,Inter,sans-serif;padding:18px 18px 4px;letter-spacing:-.01em}
 .rv-card .sub{font-size:13px;color:hsl(var(--muted-foreground));padding:0 18px 12px}
-.rv-item{display:grid;grid-template-columns:28px 1fr auto;gap:12px;align-items:start;padding:14px 18px;border-top:1px solid hsl(var(--border))}
+.rv-item{display:grid;grid-template-columns:28px 1fr auto;gap:14px;align-items:start;padding:14px 18px;border-top:1px solid hsl(240 6% 93%);cursor:pointer}
+.rv-item:hover{background:hsl(240 10% 99%)}
 .rv-item input{width:22px;height:22px;accent-color:hsl(var(--primary));margin-top:2px}
 .rv-item .t{font-weight:600}
 .rv-item .n{font-size:13.5px;color:hsl(240 6% 30%);margin-top:2px}
 .rv-item .s{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
-.vgroup{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));padding:12px 18px 6px;border-top:1px solid hsl(var(--border));background:hsl(var(--toolbar))}
+.vgroup{display:flex;align-items:center;gap:10px;font-size:12.5px;color:hsl(var(--muted-foreground));padding:10px 18px;border-top:1px solid hsl(var(--border));background:hsl(var(--toolbar))}
+.vgroup .plate{color:hsl(var(--foreground));font-size:13px}
+.vgroup .ic{color:hsl(240 5% 46%)}
 .alert{display:flex;gap:10px;padding:12px 14px;border-radius:10px;font-size:14px;line-height:1.45}
 .alert.warn{background:hsl(var(--warning-soft));color:hsl(var(--warning-text))}
 .alert.info{background:hsl(var(--primary-soft));color:hsl(233 60% 32%)}
@@ -202,6 +237,14 @@ a{color:hsl(var(--primary))}
 .toggle2{display:inline-flex;background:hsl(var(--muted));border-radius:10px;padding:3px}
 .toggle2 button{border:0;background:none;height:34px;padding:0 14px;border-radius:8px;font-size:13px;cursor:pointer;color:hsl(240 5% 34%)}
 .toggle2 button[aria-pressed="true"]{background:hsl(var(--card));color:hsl(var(--foreground));font-weight:600;box-shadow:0 1px 2px hsl(230 20% 20%/.12)}
+.stack{display:flex;height:10px;border-radius:99px;overflow:hidden;background:hsl(var(--muted));gap:2px}
+.stack i{display:block;height:100%}
+.stack .ok{background:hsl(var(--success))}.stack .nok{background:hsl(var(--danger))}.stack .na{background:hsl(240 5% 76%)}
+.stack.sm{height:6px;width:120px}
+.leg{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:hsl(var(--muted-foreground));margin-top:10px}
+.leg span{display:inline-flex;align-items:center;gap:6px}
+.leg i{width:8px;height:8px;border-radius:99px;display:inline-block}
+.big{font:800 34px/1 Sora,Inter,sans-serif;letter-spacing:-.02em}
 .empty{padding:28px 18px;text-align:center;color:hsl(var(--muted-foreground));font-size:14px;border-top:1px solid hsl(var(--border))}
 
 /* ---------- phone ---------- */
@@ -244,13 +287,15 @@ a{color:hsl(var(--primary))}
 .tabs button .c{font-size:12px;background:hsl(240 5% 90%);color:hsl(240 5% 34%);border-radius:5px;padding:1px 6px}
 .tabs button[aria-selected="true"]{color:hsl(var(--primary));border-bottom-color:hsl(var(--primary));font-weight:500}
 .tabs button .c.bad{background:hsl(var(--danger-soft));color:hsl(var(--danger-text))}
-.card{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:12px}
+.card{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;box-shadow:0 1px 2px hsl(230 20% 20%/.04)}
 .ck-head{display:flex;align-items:center;gap:14px;padding:16px 18px}
 .ck-head .ico{width:40px;height:40px;border-radius:10px;background:hsl(var(--primary-soft));color:hsl(var(--primary));display:grid;place-items:center}
 .ck-head h4{font:600 15.5px Inter,sans-serif}
 .ck-head .spacer{flex:1}
-.ck-row{display:grid;grid-template-columns:1fr 170px 260px;gap:14px;align-items:center;padding:12px 18px;border-top:1px solid hsl(var(--border));font-size:14px}
+.ck-row{display:grid;grid-template-columns:26px 1fr 170px 260px;gap:14px;align-items:center;padding:12px 18px;border-top:1px solid hsl(var(--border));font-size:14px}
 .ck-row .t{font-weight:500}
+.ck-row .mk{width:26px;height:26px;border-radius:8px;background:hsl(var(--danger-soft));color:hsl(var(--danger-text));display:grid;place-items:center}
+.ck-sum{display:flex;align-items:center;gap:16px;padding:0 18px 14px 72px}
 .ck-row .n{font-size:13px;color:hsl(var(--muted-foreground))}
 .ck-row .r{display:flex;justify-content:flex-end;gap:8px}
 .linkrow{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;color:hsl(var(--success-text));font-weight:500}
@@ -270,7 +315,8 @@ td .sub{font-size:12.5px;color:hsl(var(--muted-foreground))}
 .tl .t{display:flex;flex-direction:column;padding:10px 12px;border-radius:10px;cursor:pointer;margin-bottom:2px}
 .tl .t b{font-weight:600;font-size:14px}
 .tl .t span{font-size:12.5px;color:hsl(var(--muted-foreground))}
-.tl .t[aria-current="true"]{background:hsl(var(--primary-soft))}
+.tl .t[aria-current="true"]{background:hsl(var(--primary-soft));box-shadow:inset 3px 0 0 hsl(var(--primary))}
+.tl .t:hover{background:hsl(var(--muted))}
 .tl .t[aria-current="true"] b{color:hsl(233 65% 36%)}
 .tl .std{display:flex;align-items:center;gap:8px;justify-content:space-between}
 .mid{padding:20px 24px;min-width:0}
@@ -288,6 +334,9 @@ td .sub{font-size:12.5px;color:hsl(var(--muted-foreground))}
 .eitem[aria-current="true"]{background:hsl(var(--primary-soft));box-shadow:inset 3px 0 0 hsl(var(--primary))}
 .eitem .ics{display:flex;gap:8px;color:hsl(var(--muted-foreground))}
 .eitem .ics .safe{color:hsl(var(--warning-text))}
+.tag{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 7px;border-radius:6px;font-size:11.5px;font-weight:500;background:hsl(var(--muted));color:hsl(240 5% 34%)}
+.tag.safe{background:hsl(var(--warning-soft));color:hsl(var(--warning-text))}
+.tag.svc2{background:hsl(var(--primary-soft));color:hsl(233 65% 40%)}
 .eadd{display:flex;align-items:center;gap:8px;padding:10px 14px;border-top:1px solid hsl(var(--border));color:hsl(var(--primary));font-size:14px;font-weight:500}
 .rp{border-left:1px solid hsl(var(--border));background:hsl(var(--card));padding:20px}
 .rp h4{font:700 16px Inter,sans-serif;margin-bottom:14px}
@@ -344,21 +393,26 @@ td .sub{font-size:12.5px;color:hsl(var(--muted-foreground))}
     <div class="tb-top">
       <span class="back"><span class="ic i-left s18"></span></span>
       <div class="tb-title">
-        <h3>Entrada na oficina · carreta</h3>
-        <p>OS 4821 · frota 22600 · bitrem, cavalo e duas carretas</p>
+        <h3>Entrada na oficina · carreta <span class="ver">versão 3</span></h3>
+        <p>OS 4821 · frota 22600 · bitrem com cavalo e duas carretas</p>
       </div>
       <div class="spacer"></div>
       <span class="sync"><span class="ic i-cloud s16"></span>Tudo salvo</span>
       <span class="who"><span class="avatar">JS</span>Josué · Inspetor</span>
     </div>
     <div style="padding:0 22px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))">
-      <div style="display:flex;justify-content:space-between;font-size:12.5px;color:hsl(var(--muted-foreground));padding:8px 0 6px"><span id="prog-text">0 de 0 respondidos</span><span id="prog-nok"></span></div>
-      <div class="progress" style="margin-bottom:10px"><i id="prog-bar" style="width:0"></i></div>
+      <div style="display:flex;justify-content:space-between;font-size:12.5px;color:hsl(var(--muted-foreground));padding:10px 0 8px"><span id="prog-text">0 de 0 respondidos</span><span id="prog-nok" style="color:hsl(var(--danger-text));font-weight:600"></span></div>
+      <div class="steps" id="steps"></div>
     </div>
     <div class="tb-body">
       <aside class="rail">
         <div class="rail-head">Seções</div>
         <div id="rail"></div>
+        <div class="legend">
+          <div><span class="lg" style="background:hsl(var(--success-soft));color:hsl(var(--success-text))"><span class="ic i-check s14"></span></span>Conforme</div>
+          <div><span class="lg" style="background:hsl(var(--danger));color:#fff"><span class="ic i-x s14"></span></span>Não conforme</div>
+          <div><span class="lg" style="background:hsl(var(--card));box-shadow:inset 0 0 0 1.5px hsl(240 5% 72%)"><span class="ic i-minus s14"></span></span>Não se aplica</div>
+        </div>
       </aside>
       <div class="pane">
         <div class="sec-head">
@@ -420,6 +474,11 @@ td .sub{font-size:12.5px;color:hsl(var(--muted-foreground))}
       </div>
       <div class="side">
         <div class="rv-card">
+          <div style="padding:18px 18px 4px">
+            <div style="display:flex;align-items:baseline;gap:8px"><span class="big num" id="kv-pct"></span><span class="meta">conforme</span></div>
+            <div class="stack" style="margin-top:12px" id="kv-stack"></div>
+            <div class="leg"><span><i style="background:hsl(var(--success))"></i>Conforme</span><span><i style="background:hsl(var(--danger))"></i>Não conforme</span><span><i style="background:hsl(240 5% 76%)"></i>Não se aplica</span></div>
+          </div>
           <div class="kv">
             <span class="k">Itens respondidos</span><span class="v num" id="kv-ans"></span>
             <span class="k">Conformes</span><span class="v num" id="kv-ok"></span>
@@ -507,14 +566,14 @@ td .sub{font-size:12.5px;color:hsl(var(--muted-foreground))}
         <div class="card" style="margin-bottom:16px">
           <div class="ck-head">
             <span class="ico"><span class="ic i-clip"></span></span>
-            <div><h4>Entrada na oficina · carreta <span class="muted" style="font-weight:400">· versão 3</span></h4><p class="meta">CHK-2026-00142 · concluído às 08:42 por Josué (inspetor) · 41 itens · 18 min</p></div>
+            <div><h4>Entrada na oficina · carreta <span class="muted" style="font-weight:400">· versão 3</span></h4><p class="meta">CHK-2026-00142 · concluído às 08:42 por Josué (inspetor) · 18 min</p></div>
             <div class="spacer"></div>
-            <span class="chip bad">3 não conformes</span>
-            <button class="btn btn-outline btn-sm">Ver respostas</button>
+            <button class="btn btn-outline btn-sm"><span class="ic i-eye s16"></span>Ver respostas</button>
           </div>
-          <div class="ck-row"><div><div class="t">Vazamento de ar nas linhas</div><div class="n">Freios · "Chiado na conexão traseira"</div></div><div><b class="plate">SRK9H46</b><div class="n">Carreta 1</div></div><div class="r"><span class="linkrow"><span class="ic i-check s16"></span>Reparo de linha de ar</span></div></div>
-          <div class="ck-row"><div><div class="t">Lonas e tambores <span class="flag safe"><span class="ic i-shield s14"></span>segurança</span></div><div class="n">Freios · "Lona abaixo do mínimo no 2º eixo" · com foto</div></div><div><b class="plate">SRK9H47</b><div class="n">Carreta 2</div></div><div class="r"><span class="linkrow"><span class="ic i-check s16"></span>Troca de lona de freio</span></div></div>
-          <div class="ck-row" style="background:hsl(var(--warning-soft)/.5)"><div><div class="t">Para-lama e protetores</div><div class="n">Estrutura · "Para-lama traseiro solto"</div></div><div><b class="plate">SRK9H47</b><div class="n">Carreta 2</div></div><div class="r"><span class="chip warn">Sem decisão</span><button class="btn btn-primary btn-sm"><span class="ic i-plus s16"></span>Criar serviço</button></div></div>
+          <div class="ck-sum"><div class="stack" style="flex:1;max-width:420px"><i class="ok" style="width:88%"></i><i class="nok" style="width:7%"></i><i class="na" style="width:5%"></i></div><span class="meta num"><b style="color:hsl(var(--foreground))">36</b> conformes · <b style="color:hsl(var(--danger-text))">3</b> não conformes · 2 não se aplica</span></div>
+          <div class="ck-row"><span class="mk"><span class="ic i-x s14"></span></span><div><div class="t">Vazamento de ar nas linhas</div><div class="n">Freios · "Chiado na conexão traseira"</div></div><div><b class="plate">SRK9H46</b><div class="n">Carreta 1</div></div><div class="r"><span class="linkrow"><span class="ic i-check s16"></span>Reparo de linha de ar</span></div></div>
+          <div class="ck-row"><span class="mk"><span class="ic i-x s14"></span></span><div><div class="t">Lonas e tambores <span class="flag safe"><span class="ic i-shield s14"></span>segurança</span></div><div class="n">Freios · "Lona abaixo do mínimo no 2º eixo" · com foto</div></div><div><b class="plate">SRK9H47</b><div class="n">Carreta 2</div></div><div class="r"><span class="linkrow"><span class="ic i-check s16"></span>Troca de lona de freio</span></div></div>
+          <div class="ck-row" style="background:hsl(var(--warning-soft)/.5)"><span class="mk"><span class="ic i-x s14"></span></span><div><div class="t">Para-lama e protetores</div><div class="n">Estrutura · "Para-lama traseiro solto"</div></div><div><b class="plate">SRK9H47</b><div class="n">Carreta 2</div></div><div class="r"><span class="chip warn">Sem decisão</span><button class="btn btn-primary btn-sm"><span class="ic i-plus s16"></span>Criar serviço</button></div></div>
         </div>
         <div class="card">
           <div class="ck-head">
@@ -569,10 +628,10 @@ td .sub{font-size:12.5px;color:hsl(var(--muted-foreground))}
           </div>
           <div class="esec">
             <div class="esec-h"><span class="ic i-drag s16 muted"></span>Freios<span class="chip">4 itens</span><div class="spacer"></div><span class="ic i-down s16 muted"></span></div>
-            <div class="eitem"><span class="ic i-drag s16 drag"></span><span class="t">Lonas e tambores</span><span class="ics"><span class="ic i-shield s16 safe"></span><span class="ic i-camera s16"></span><span class="ic i-wrench s16"></span></span></div>
-            <div class="eitem" aria-current="true"><span class="ic i-drag s16 drag"></span><span class="t">Vazamento de ar nas linhas</span><span class="ics"><span class="ic i-wrench s16"></span></span></div>
-            <div class="eitem"><span class="ic i-drag s16 drag"></span><span class="t">Catraca de ajuste</span><span class="ics"><span class="ic i-wrench s16"></span></span></div>
-            <div class="eitem"><span class="ic i-drag s16 drag"></span><span class="t">Freio de estacionamento</span><span class="ics"><span class="ic i-shield s16 safe"></span><span class="ic i-camera s16"></span></span></div>
+            <div class="eitem"><span class="ic i-drag s16 drag"></span><span class="t">Lonas e tambores</span><span class="ics"><span class="tag safe"><span class="ic i-shield s12"></span>Segurança</span><span class="tag"><span class="ic i-camera s12"></span>Foto</span><span class="tag svc2"><span class="ic i-wrench s12"></span>Troca de lona</span></span></div>
+            <div class="eitem" aria-current="true"><span class="ic i-drag s16 drag"></span><span class="t">Vazamento de ar nas linhas</span><span class="ics"><span class="tag svc2"><span class="ic i-wrench s12"></span>Reparo de linha de ar</span></span></div>
+            <div class="eitem"><span class="ic i-drag s16 drag"></span><span class="t">Catraca de ajuste</span><span class="ics"><span class="tag svc2"><span class="ic i-wrench s12"></span>Regulagem de catraca</span></span></div>
+            <div class="eitem"><span class="ic i-drag s16 drag"></span><span class="t">Freio de estacionamento</span><span class="ics"><span class="tag safe"><span class="ic i-shield s12"></span>Segurança</span><span class="tag"><span class="ic i-camera s12"></span>Foto</span></span></div>
             <div class="eadd"><span class="ic i-plus s16"></span>Adicionar item</div>
           </div>
           <div class="esec">
@@ -601,7 +660,7 @@ td .sub{font-size:12.5px;color:hsl(var(--muted-foreground))}
   </div>
   <div class="notes">
     <div><h4>Ícones do item</h4><ul>
-      <li>Escudo: item de segurança. Câmera: foto obrigatória. Chave: tem serviço quando não conforme.</li>
+      <li>Etiquetas no item: segurança, foto obrigatória e o serviço que nasce quando não conforme.</li>
       <li>Rótulo longo é truncado com tooltip.</li>
     </ul></div>
     <div><h4>Publicar</h4><ul>
@@ -637,12 +696,12 @@ td .sub{font-size:12.5px;color:hsl(var(--muted-foreground))}
         </div>
         <div class="card scrollx">
           <table>
-            <thead><tr><th>Checklist</th><th>Veículo</th><th>Modelo</th><th>Quem</th><th>Resultado</th><th>OS</th></tr></thead>
+            <thead><tr><th>Checklist</th><th>Veículo</th><th>Modelo</th><th>Quem</th><th>Resultado <span class="muted" style="font-size:12px">· não conformes</span></th><th>OS</th></tr></thead>
             <tbody>
-              <tr><td><b class="num">CHK-2026-00142</b><div class="sub">hoje, 08:42</div></td><td><b class="plate">22600</b><div class="sub">Bitrem · RTB7F31</div></td><td>Entrada na oficina · carreta<div class="sub">versão 3</div></td><td>Josué<div class="sub">Inspetor</div></td><td><span class="chip bad">3 não conformes</span> <span class="flag safe"><span class="ic i-shield s14"></span>1</span></td><td><a href="#os">4821</a></td></tr>
-              <tr><td><b class="num">CHK-2026-00141</b><div class="sub">hoje, 07:15</div></td><td><b class="plate">22148</b><div class="sub">Rodotrem · QRT4B22</div></td><td>Saída de viagem · cavalo<div class="sub">versão 2</div></td><td>Carlos<div class="sub">Motorista</div></td><td><span class="chip bad">1 não conforme</span></td><td><span class="chip warn">Abrir OS</span></td></tr>
-              <tr><td><b class="num">CHK-2026-00137</b><div class="sub">ontem, 16:02</div></td><td><b class="plate">22031</b><div class="sub">Bitrem · PTJ0101</div></td><td>Preventiva de carreta<div class="sub">versão 2</div></td><td>Ana<div class="sub">Supervisora</div></td><td><span class="chip bad">5 não conformes</span> <span class="flag safe"><span class="ic i-shield s14"></span>2</span></td><td><a href="#os">4817</a></td></tr>
-              <tr><td><b class="num">CHK-2026-00133</b><div class="sub">ontem, 09:30</div></td><td><b class="plate">22600</b><div class="sub">Bitrem · RTB7F31</div></td><td>Saída · conferência final<div class="sub">versão 1</div></td><td>Josué<div class="sub">Inspetor</div></td><td><span class="chip bad">1 não conforme</span></td><td><a href="#os">4809</a></td></tr>
+              <tr><td><b class="num">CHK-2026-00142</b><div class="sub">hoje, 08:42</div></td><td><b class="plate">22600</b><div class="sub">Bitrem · RTB7F31</div></td><td>Entrada na oficina · carreta<div class="sub">versão 3</div></td><td>Josué<div class="sub">Inspetor</div></td><td><div style="display:flex;align-items:center;gap:10px"><div class="stack sm"><i class="ok" style="width:88%"></i><i class="nok" style="width:7%"></i><i class="na" style="width:5%"></i></div><span class="chip bad">3</span><span class="flag safe" title="Itens de segurança reprovados"><span class="ic i-shield s14"></span>1</span></div></td><td><a href="#os">4821</a></td></tr>
+              <tr><td><b class="num">CHK-2026-00141</b><div class="sub">hoje, 07:15</div></td><td><b class="plate">22148</b><div class="sub">Rodotrem · QRT4B22</div></td><td>Saída de viagem · cavalo<div class="sub">versão 2</div></td><td>Carlos<div class="sub">Motorista</div></td><td><div style="display:flex;align-items:center;gap:10px"><div class="stack sm"><i class="ok" style="width:91%"></i><i class="nok" style="width:5%"></i><i class="na" style="width:4%"></i></div><span class="chip bad">1</span></div></td><td><button class="btn btn-outline btn-sm">Abrir OS</button></td></tr>
+              <tr><td><b class="num">CHK-2026-00137</b><div class="sub">ontem, 16:02</div></td><td><b class="plate">22031</b><div class="sub">Bitrem · PTJ0101</div></td><td>Preventiva de carreta<div class="sub">versão 2</div></td><td>Ana<div class="sub">Supervisora</div></td><td><div style="display:flex;align-items:center;gap:10px"><div class="stack sm"><i class="ok" style="width:79%"></i><i class="nok" style="width:18%"></i><i class="na" style="width:3%"></i></div><span class="chip bad">5</span><span class="flag safe" title="Itens de segurança reprovados"><span class="ic i-shield s14"></span>2</span></div></td><td><a href="#os">4817</a></td></tr>
+              <tr><td><b class="num">CHK-2026-00133</b><div class="sub">ontem, 09:30</div></td><td><b class="plate">22600</b><div class="sub">Bitrem · RTB7F31</div></td><td>Saída · conferência final<div class="sub">versão 1</div></td><td>Josué<div class="sub">Inspetor</div></td><td><div style="display:flex;align-items:center;gap:10px"><div class="stack sm"><i class="ok" style="width:95%"></i><i class="nok" style="width:5%"></i></div><span class="chip bad">1</span></div></td><td><a href="#os">4809</a></td></tr>
             </tbody>
           </table>
         </div>
@@ -724,7 +783,6 @@ function render() {
   const nok = cells.filter((c) => answers[c.k] === 'nok').length;
   document.getElementById('prog-text').textContent = `${answered} de ${cells.length} respondidos`;
   document.getElementById('prog-nok').textContent = nok ? `${nok} não ${nok === 1 ? 'conforme' : 'conformes'}` : '';
-  document.getElementById('prog-bar').style.width = (answered / cells.length * 100) + '%';
   document.getElementById('bar-left').textContent = cells.length - answered;
   document.getElementById('bar-nok').textContent = nok;
   const left = cells.length - answered;
@@ -734,9 +792,16 @@ function render() {
     const sc = cellsOf(s);
     const a = sc.filter((c) => answers[c.k]).length;
     const hasNok = sc.some((c) => answers[c.k] === 'nok');
-    return `<button data-sec="${s.id}" aria-current="${s.id === current}" class="${a === sc.length ? 'done' : ''}">${s.name}${hasNok ? '<span class="dot"></span>' : ''}<span class="cnt">${a === sc.length ? icon('check', 14) : a + '/' + sc.length}</span></button>`;
+    const nk = sc.filter((c) => answers[c.k] === 'nok').length;
+    const full = a === sc.length;
+    return `<button data-sec="${s.id}" aria-current="${s.id === current}" class="${full ? 'done' : ''}"><span class="ring ${full ? 'full' : ''}" style="--p:${a / sc.length * 100}">${full ? icon('check', 14) : ''}</span><span class="nm">${s.name}</span>${hasNok ? `<span class="dot">${nk}</span>` : `<span class="cnt">${a}/${sc.length}</span>`}</button>`;
   }).join('');
 
+  document.getElementById('steps').innerHTML = SECTIONS.map((s) => {
+    const sc = cellsOf(s);
+    const a = sc.filter((c) => answers[c.k]).length;
+    return `<div class="stp ${a === sc.length ? 'full' : ''} ${s.id === current ? 'cur' : ''}" data-sec="${s.id}" style="--w:${sc.length}"><div class="tr"><i style="width:${a / sc.length * 100}%"></i></div><span>${s.name}</span></div>`;
+  }).join('');
   const section = SECTIONS.find((s) => s.id === current);
   const sc = cellsOf(section);
   document.getElementById('sec-title').textContent = section.name;
@@ -746,18 +811,27 @@ function render() {
 
   const grid = document.getElementById('grid');
   grid.style.setProperty('--cols', VEHICLES.length);
-  let html = `<div class="grow ghead"><div>Item</div>${VEHICLES.map((v) => `<div class="veh"><b class="plate">${v.plate}</b>${v.label}</div>`).join('')}</div>`;
+  let html = `<div class="grow ghead"><div style="padding-left:16px">Item</div>${VEHICLES.map((v) => {
+    const vc = sc.filter((c) => c.vehicle.id === v.id);
+    const va = vc.filter((c) => answers[c.k]).length;
+    return `<div class="veh"><span class="vk">${icon(v.kind === 'power_unit' ? 'cab' : 'trailer', 16)}<b class="plate">${v.plate}</b></span>${v.label} · ${va}/${vc.length}<span class="vbar ${va === vc.length ? 'full' : ''}"><i style="width:${vc.length ? va / vc.length * 100 : 0}%"></i></span></div>`;
+  }).join('')}</div>`;
+  let n = 0;
   for (const item of section.items) {
+    n += 1;
+    const rowCells = VEHICLES.filter((v) => applies(item, v)).map((v) => answers[key(item, v)]);
+    const rowDone = rowCells.every(Boolean);
+    const rowNok = rowCells.includes('nok');
     const flags = [
       item.safety ? `<span class="flag safe">${icon('shield', 14)}Segurança</span>` : '',
       item.photo ? `<span class="flag">${icon('camera', 14)}Foto se não conforme</span>` : '',
     ].join('');
-    html += `<div class="grow"><div class="ilabel"><span class="t">${item.label}</span><span class="f">${flags}</span></div>`;
+    html += `<div class="grow ${rowDone ? 'answered' : ''} ${rowNok ? 'hasnok' : ''}"><div class="ilabel"><span class="inum">${rowDone && !rowNok ? icon('check', 12) : n}</span><span class="t">${item.label}</span><span class="f">${flags}</span></div>`;
     for (const v of VEHICLES) {
       if (!applies(item, v)) { html += `<div class="cell na-cell" title="Não existe neste tipo de veículo">—</div>`; continue; }
       const k = key(item, v);
       const a = answers[k];
-      html += `<div class="cell"><span class="seg">
+      html += `<div class="cell"><span class="seg ${a ? 'done' : ''}">
         <button data-k="${k}" data-a="ok" class="ok ${a === 'ok' ? 'on' : ''}" aria-label="Conforme">${icon('check', 18)}</button>
         <button data-k="${k}" data-a="nok" class="nok ${a === 'nok' ? 'on' : ''}" aria-label="Não conforme">${icon('x', 18)}</button>
         <button data-k="${k}" data-a="na" class="na ${a === 'na' ? 'on' : ''}" aria-label="Não se aplica">${icon('minus', 18)}</button>
@@ -793,6 +867,12 @@ function renderReview() {
   const missingPhoto = noks.filter((c) => c.item.photo && !photos[c.k]).length;
   const missingNote = noks.filter((c) => !c.item.service && !notes[c.k]).length;
   for (const c of noks) if (selectedForService[c.k] === undefined) selectedForService[c.k] = Boolean(c.item.service);
+  const okN = cells.filter((c) => answers[c.k] === 'ok').length;
+  const naN = cells.filter((c) => answers[c.k] === 'na').length;
+  const judged = okN + noks.length;
+  document.getElementById('kv-pct').textContent = judged ? Math.round(okN / judged * 100) + '%' : '—';
+  const tot = cells.length;
+  document.getElementById('kv-stack').innerHTML = `<i class="ok" style="width:${okN / tot * 100}%"></i><i class="nok" style="width:${noks.length / tot * 100}%"></i><i class="na" style="width:${naN / tot * 100}%"></i>`;
   document.getElementById('kv-ans').textContent = `${answered.length} de ${cells.length}`;
   document.getElementById('kv-ok').textContent = cells.filter((c) => answers[c.k] === 'ok').length;
   document.getElementById('kv-nok').textContent = noks.length;
@@ -807,7 +887,7 @@ function renderReview() {
     list.innerHTML = VEHICLES.map((v) => {
       const mine = noks.filter((c) => c.vehicle.id === v.id);
       if (!mine.length) return '';
-      return `<div class="vgroup">${v.plate} · ${v.label}</div>` + mine.map((c) => `
+      return `<div class="vgroup">${icon(v.kind === 'power_unit' ? 'cab' : 'trailer', 16)}<b class="plate">${v.plate}</b>${v.label}<span style="margin-left:auto">${mine.length} ${mine.length === 1 ? 'item' : 'itens'}</span></div>` + mine.map((c) => `
         <label class="rv-item">
           <input type="checkbox" data-sel="${c.k}" ${selectedForService[c.k] ? 'checked' : ''} ${c.item.service ? '' : 'disabled'}>
           <div><div class="t">${c.item.label}</div>
@@ -816,7 +896,7 @@ function renderReview() {
             ${c.item.safety ? `<span class="chip warn">${icon('shield', 14)}Segurança</span>` : ''}
             ${c.item.photo ? (photos[c.k] ? `<span class="chip ok">${icon('camera', 14)}Foto</span>` : `<span class="chip bad">${icon('camera', 14)}Falta foto</span>`) : ''}</div>
           </div>
-          <span></span>
+          ${photos[c.k] ? '<span class="photo" title="Foto do item"></span>' : '<span></span>'}
         </label>`).join('');
     }).join('');
   }
@@ -839,6 +919,7 @@ document.addEventListener('click', (event) => {
   const seg = event.target.closest('[data-a]');
   if (seg) { const k = seg.dataset.k; answers[k] = answers[k] === seg.dataset.a ? undefined : seg.dataset.a; if (!answers[k]) delete answers[k]; render(); return; }
   const rail = event.target.closest('[data-sec]');
+  if (rail && rail.classList.contains('stp')) { current = rail.dataset.sec; render(); return; }
   if (rail) { current = rail.dataset.sec; render(); return; }
   const photo = event.target.closest('[data-photo]');
   if (photo) { photos[photo.dataset.photo] = true; render(); return; }
