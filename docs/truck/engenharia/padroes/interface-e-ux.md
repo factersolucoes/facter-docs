@@ -95,7 +95,7 @@ Padrão que vale para toda tela. Os itens marcados como **não** foram recusados
 - **Troca de estado com transição suave:** a seleção desliza até a nova opção e muda de tom (200 ms, `ease-out`), com o ícone acompanhando; nada de troca seca. Respeitar `prefers-reduced-motion`.
 - **Botão só com ícone tem tooltip** com o nome da ação ou da opção ("Conforme", "Não conforme"). No foco, só anel discreto pelo teclado (`focus-visible`), nunca contorno forte no clique.
 - **Tooltip é sempre escuro** (`SimpleTooltip variant="inverted"`), em todo o app. Conteúdo rico dentro dele usa `text-background/70` para o secundário, nunca `text-muted-foreground`.
-- **Ação de avançar que não conclui** ("Próxima seção", "Próximo veículo") é `secondary` (cinza); o único botão cheio da barra é o que conclui.
+- **Ação de avançar que não conclui** ("Próxima seção", "Próximo veículo") é cinza (`ghost` com `bg-accent`; o `secondary` do DS 1.41 pinta azul claro); o único botão cheio da barra é o que conclui.
 - **Sem desenho de veículo em cabeçalho e lista**: placa e tipo bastam. Progresso por veículo vai numa barra fina sob a placa. Contorno de selecionado dentro de área rolável é `inset`, para não ser cortado.
 - **Conjuntos longos:** a tela pensa em até 7 veículos (cavalo e até 6 carretas). Até 3 cabem lado a lado; a partir de 4, um veículo por vez em ordem de engate, com "Próximo veículo", e a opção de voltar à visão lado a lado. A coluna de identificação fica fixa ao rolar para o lado, e a barra do topo resume o conjunto ("RTB7F31 + 6", com a lista no tooltip).
 - **Faixa de detalhe ocupa a linha inteira:** o fundo de uma linha expandida vai de ponta a ponta; só o conteúdo dela tem largura máxima.
