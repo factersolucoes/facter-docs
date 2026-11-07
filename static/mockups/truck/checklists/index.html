@@ -1,0 +1,871 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checklists · mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --background:0 0% 98%;
+  --foreground:240 10% 3.9%;
+  --card:0 0% 100%;
+  --primary:233 65% 50%;
+  --primary-foreground:0 0% 100%;
+  --muted:240 4.8% 93.9%;
+  --muted-foreground:240 3.8% 42%;
+  --border:240 5.9% 90%;
+  --success:160 60% 38%;
+  --warning:38 92% 45%;
+  --danger:0 84.2% 60.2%;
+  --success-text:160 70% 24%;
+  --danger-text:0 72% 38%;
+  --warning-text:28 85% 28%;
+  --primary-soft:233 85% 96.5%;
+  --success-soft:160 55% 94%;
+  --warning-soft:40 95% 93%;
+  --danger-soft:0 85% 96%;
+  --canvas:225 14% 92%;
+  --ring:233 65% 50%;
+  --toolbar:240 5% 96%;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));font:15px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4,p{margin:0}
+button,input,textarea,select{font:inherit;color:inherit}
+a{color:hsl(var(--primary))}
+:focus-visible{outline:2px solid hsl(var(--ring));outline-offset:2px;border-radius:6px}
+.ic{display:inline-block;width:20px;height:20px;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;flex:none}
+.s12{width:12px;height:12px}.s14{width:14px;height:14px}.s16{width:16px;height:16px}.s18{width:18px;height:18px}.s22{width:22px;height:22px}.s28{width:28px;height:28px}
+.i-check{--i:url(https://api.iconify.design/ph/check-bold.svg)}
+.i-x{--i:url(https://api.iconify.design/ph/x-bold.svg)}
+.i-minus{--i:url(https://api.iconify.design/ph/minus-bold.svg)}
+.i-shield{--i:url(https://api.iconify.design/ph/shield-check.svg)}
+.i-camera{--i:url(https://api.iconify.design/ph/camera.svg)}
+.i-wrench{--i:url(https://api.iconify.design/ph/wrench.svg)}
+.i-clip{--i:url(https://api.iconify.design/ph/clipboard-text.svg)}
+.i-cloud{--i:url(https://api.iconify.design/ph/cloud-check.svg)}
+.i-wifi{--i:url(https://api.iconify.design/ph/wifi-slash.svg)}
+.i-down{--i:url(https://api.iconify.design/ph/caret-down.svg)}
+.i-right{--i:url(https://api.iconify.design/ph/caret-right.svg)}
+.i-left{--i:url(https://api.iconify.design/ph/caret-left.svg)}
+.i-drag{--i:url(https://api.iconify.design/ph/dots-six-vertical.svg)}
+.i-plus{--i:url(https://api.iconify.design/ph/plus.svg)}
+.i-copy{--i:url(https://api.iconify.design/ph/copy.svg)}
+.i-truck{--i:url(https://api.iconify.design/ph/truck.svg)}
+.i-warn{--i:url(https://api.iconify.design/ph/warning.svg)}
+.i-arrow{--i:url(https://api.iconify.design/ph/arrow-right.svg)}
+.i-search{--i:url(https://api.iconify.design/ph/magnifying-glass.svg)}
+.i-checks{--i:url(https://api.iconify.design/ph/checks.svg)}
+.i-house{--i:url(https://api.iconify.design/ph/house.svg)}
+.i-gear{--i:url(https://api.iconify.design/ph/gear.svg)}
+.i-tire{--i:url(https://api.iconify.design/ph/circle-dashed.svg)}
+.i-box{--i:url(https://api.iconify.design/ph/package.svg)}
+.i-user{--i:url(https://api.iconify.design/ph/user-circle.svg)}
+.i-pause{--i:url(https://api.iconify.design/ph/hand-palm.svg)}
+.i-note{--i:url(https://api.iconify.design/ph/note-pencil.svg)}
+.i-image{--i:url(https://api.iconify.design/ph/image.svg)}
+
+/* ---------- presentation ---------- */
+.doc{max-width:1328px;margin:0 auto;padding:48px 24px 96px}
+.doc-head h1{font:800 32px/1.15 Sora,Inter,sans-serif;letter-spacing:-.02em}
+.doc-head p{color:hsl(var(--muted-foreground));max-width:760px;margin-top:8px}
+.assume{margin-top:18px;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:12px;padding:14px 18px;font-size:14px;max-width:900px}
+.assume b{font-weight:600}
+.assume ol{margin:6px 0 0;padding-left:20px;color:hsl(240 6% 26%)}
+.toc{display:flex;flex-wrap:wrap;gap:6px;margin-top:20px}
+.toc a{font-size:13px;text-decoration:none;color:hsl(240 6% 26%);background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:999px;padding:4px 12px}
+.toc a:hover{border-color:hsl(233 60% 78%);color:hsl(var(--primary))}
+.sec{margin-top:72px}
+.sec-label{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font:800 14px Sora,sans-serif;color:hsl(var(--primary));background:hsl(var(--card));border-radius:999px;width:28px;height:28px;display:inline-grid;place-items:center;flex:none}
+.sec h2{font:700 22px/1.3 Inter,sans-serif;letter-spacing:-.01em}
+.sec-sub{color:hsl(var(--muted-foreground));margin:0 0 20px 40px;max-width:820px}
+.notes{margin:20px 0 0 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px 32px;font-size:14px;color:hsl(240 6% 25%)}
+.notes ul{margin:0;padding-left:18px}.notes li{margin-bottom:6px}
+.notes h4{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));margin-bottom:6px}
+.indent{margin-left:40px}
+.frame{background:hsl(var(--background));border-radius:14px;box-shadow:0 1px 2px hsl(230 20% 20%/.06),0 12px 40px -12px hsl(230 30% 20%/.18);overflow:hidden;border:1px solid hsl(var(--border))}
+.tablet{max-width:1180px;border-radius:22px;border:10px solid hsl(240 6% 14%);background:hsl(var(--background))}
+.phone{width:390px;max-width:100%;border-radius:34px;border:10px solid hsl(240 6% 14%);background:hsl(var(--background));overflow:hidden}
+.laptop{max-width:1280px}
+
+/* ---------- common ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:8px;border:1px solid transparent;font-weight:600;font-size:14px;cursor:pointer;text-decoration:none;white-space:nowrap;background:none}
+.btn-primary{background:hsl(var(--primary));color:hsl(var(--primary-foreground))}
+.btn-primary:hover{background:hsl(233 65% 44%)}
+.btn-primary[disabled]{background:hsl(233 40% 76%);cursor:not-allowed}
+.btn-outline{background:hsl(var(--card));border-color:hsl(240 6% 82%)}
+.btn-outline:hover{background:hsl(var(--muted))}
+.btn-ghost{color:hsl(var(--primary))}
+.btn-ghost:hover{background:hsl(var(--primary-soft))}
+.btn-sm{height:34px;padding:0 12px;font-size:13px}
+.btn-lg{height:52px;padding:0 22px;font-size:16px;border-radius:10px}
+.chip{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;border-radius:999px;background:hsl(var(--muted));color:hsl(240 6% 26%);font-size:12px;font-weight:500;white-space:nowrap}
+.chip.ok{background:hsl(var(--success-soft));color:hsl(var(--success-text))}
+.chip.bad{background:hsl(var(--danger-soft));color:hsl(var(--danger-text))}
+.chip.warn{background:hsl(var(--warning-soft));color:hsl(var(--warning-text))}
+.chip.pri{background:hsl(var(--primary-soft));color:hsl(233 65% 40%)}
+.muted{color:hsl(var(--muted-foreground))}
+.num{font-variant-numeric:tabular-nums}
+.meta{font-size:13px;color:hsl(var(--muted-foreground))}
+.plate{font:700 14px Sora,Inter,sans-serif;letter-spacing:.01em}
+.filters{display:flex;flex-wrap:wrap;gap:6px}
+.filters button{height:32px;padding:0 12px;border-radius:999px;border:1px solid hsl(var(--border));background:hsl(var(--card));font-size:13px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.filters button .c{font-size:12px;color:hsl(var(--muted-foreground))}
+.filters button.all{background:hsl(var(--muted));border-color:transparent;color:hsl(240 5% 34%)}
+.filters button[aria-pressed="true"]{background:hsl(var(--primary-soft));border-color:hsl(233 60% 80%);color:hsl(233 65% 38%);font-weight:500}
+
+/* ---------- tablet execution ---------- */
+.tb-top{display:flex;align-items:center;gap:16px;padding:14px 22px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
+.tb-top .back{width:44px;height:44px;border-radius:10px;border:1px solid hsl(var(--border));display:grid;place-items:center;background:hsl(var(--card))}
+.tb-title h3{font:700 18px/1.25 Inter,sans-serif}
+.tb-title p{font-size:13px;color:hsl(var(--muted-foreground))}
+.tb-top .spacer{flex:1}
+.sync{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:hsl(var(--success-text))}
+.sync.off{color:hsl(var(--warning-text))}
+.who{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;padding:6px 10px 6px 6px;border-radius:999px;background:hsl(var(--muted))}
+.avatar{width:30px;height:30px;border-radius:999px;background:hsl(233 45% 88%);color:hsl(233 60% 30%);display:grid;place-items:center;font-weight:600;font-size:12px;flex:none}
+.progress{height:6px;background:hsl(var(--muted));border-radius:99px;overflow:hidden}
+.progress i{display:block;height:100%;background:hsl(var(--primary));border-radius:99px;transition:width .2s}
+.tb-body{display:grid;grid-template-columns:230px 1fr;min-height:640px}
+.rail{border-right:1px solid hsl(var(--border));background:hsl(var(--card));padding:14px 10px}
+.rail button{width:100%;display:flex;align-items:center;gap:10px;padding:12px;border:0;background:none;border-radius:10px;text-align:left;cursor:pointer;font-size:15px}
+.rail button[aria-current="true"]{background:hsl(var(--primary-soft));color:hsl(233 65% 36%);font-weight:600}
+.rail button .cnt{margin-left:auto;font-size:12.5px;color:hsl(var(--muted-foreground));font-weight:500}
+.rail button .dot{width:8px;height:8px;border-radius:99px;background:hsl(var(--danger));flex:none}
+.rail .done .cnt{color:hsl(var(--success-text))}
+.rail-head{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));padding:4px 12px 8px}
+.pane{padding:18px 22px 110px;position:relative;min-width:0}
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.sec-head h4{font:700 17px Inter,sans-serif}
+.sec-head .spacer{flex:1}
+.grid{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:12px;overflow:hidden}
+.grow{display:grid;grid-template-columns:minmax(220px,1fr) repeat(var(--cols),156px);align-items:center;border-top:1px solid hsl(var(--border))}
+.grow:first-child{border-top:0}
+.ghead{background:hsl(var(--toolbar));font-size:12.5px;color:hsl(var(--muted-foreground))}
+.ghead > div{padding:10px 12px}
+.ghead .veh{display:flex;flex-direction:column;align-items:center;gap:0;text-align:center}
+.ghead .veh .plate{color:hsl(var(--foreground));font-size:13px}
+.ilabel{padding:12px 14px;display:flex;flex-direction:column;gap:3px}
+.ilabel .t{font-weight:500;font-size:15px;line-height:1.3}
+.ilabel .f{display:flex;gap:6px;flex-wrap:wrap}
+.flag{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;color:hsl(var(--muted-foreground))}
+.flag.safe{color:hsl(var(--warning-text))}
+.cell{display:flex;justify-content:center;padding:8px 6px}
+.seg{display:inline-flex;border:1px solid hsl(var(--border));border-radius:10px;overflow:hidden;background:hsl(var(--card))}
+.seg button{width:46px;height:44px;border:0;background:none;display:grid;place-items:center;cursor:pointer;color:hsl(240 5% 55%)}
+.seg button + button{border-left:1px solid hsl(var(--border))}
+.seg button:hover{background:hsl(var(--muted))}
+.seg button.on.ok{background:hsl(var(--success));color:#fff}
+.seg button.on.nok{background:hsl(var(--danger));color:#fff}
+.seg button.on.na{background:hsl(240 5% 46%);color:#fff}
+.na-cell{font-size:12px;color:hsl(var(--muted-foreground))}
+.expand{grid-column:1/-1;background:hsl(var(--danger-soft));border-top:1px solid hsl(0 70% 90%);padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.nokline{display:grid;grid-template-columns:150px 1fr auto;gap:14px;align-items:start;background:hsl(var(--card));border:1px solid hsl(0 60% 88%);border-radius:10px;padding:12px}
+.nokline .v{display:flex;flex-direction:column}
+.nokline .v .plate{font-size:14px}
+.nokline textarea{width:100%;min-height:46px;border:1px solid hsl(var(--border));border-radius:8px;padding:8px 10px;resize:vertical;font-size:14px}
+.nokline .acts{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+.photo{width:64px;height:48px;border-radius:8px;background:linear-gradient(135deg,hsl(25 20% 42%),hsl(20 15% 26%));position:relative}
+.photo::after{content:"";position:absolute;inset:auto 6px 6px auto;width:12px;height:12px;border-radius:99px;background:hsl(var(--success));border:2px solid #fff}
+.needphoto{height:40px;padding:0 12px;border-radius:8px;border:1.5px dashed hsl(0 60% 70%);color:hsl(var(--danger-text));background:none;display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;cursor:pointer}
+.svc{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:hsl(233 65% 38%);background:hsl(var(--primary-soft));padding:4px 8px;border-radius:6px}
+.bar{position:absolute;left:0;right:0;bottom:0;background:hsl(var(--card));border-top:1px solid hsl(var(--border));padding:14px 22px;display:flex;align-items:center;gap:18px}
+.bar .stat{display:flex;flex-direction:column;font-size:13px}
+.bar .stat b{font:700 18px Inter,sans-serif}
+.bar .spacer{flex:1}
+.bar .hint{font-size:13px;color:hsl(var(--muted-foreground))}
+
+/* ---------- review ---------- */
+.rv{padding:22px;display:grid;grid-template-columns:1fr 340px;gap:22px}
+.rv-card{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:12px}
+.rv-card h4{font:700 16px Inter,sans-serif;padding:16px 18px 4px}
+.rv-card .sub{font-size:13px;color:hsl(var(--muted-foreground));padding:0 18px 12px}
+.rv-item{display:grid;grid-template-columns:28px 1fr auto;gap:12px;align-items:start;padding:14px 18px;border-top:1px solid hsl(var(--border))}
+.rv-item input{width:22px;height:22px;accent-color:hsl(var(--primary));margin-top:2px}
+.rv-item .t{font-weight:600}
+.rv-item .n{font-size:13.5px;color:hsl(240 6% 30%);margin-top:2px}
+.rv-item .s{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.vgroup{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));padding:12px 18px 6px;border-top:1px solid hsl(var(--border));background:hsl(var(--toolbar))}
+.alert{display:flex;gap:10px;padding:12px 14px;border-radius:10px;font-size:14px;line-height:1.45}
+.alert.warn{background:hsl(var(--warning-soft));color:hsl(var(--warning-text))}
+.alert.info{background:hsl(var(--primary-soft));color:hsl(233 60% 32%)}
+.alert.ok{background:hsl(var(--success-soft));color:hsl(var(--success-text))}
+.side{display:flex;flex-direction:column;gap:14px}
+.kv{display:grid;grid-template-columns:1fr auto;gap:8px 12px;padding:16px 18px;font-size:14px}
+.kv .k{color:hsl(var(--muted-foreground))}
+.kv .v{font-weight:600;text-align:right}
+.toggle2{display:inline-flex;background:hsl(var(--muted));border-radius:10px;padding:3px}
+.toggle2 button{border:0;background:none;height:34px;padding:0 14px;border-radius:8px;font-size:13px;cursor:pointer;color:hsl(240 5% 34%)}
+.toggle2 button[aria-pressed="true"]{background:hsl(var(--card));color:hsl(var(--foreground));font-weight:600;box-shadow:0 1px 2px hsl(230 20% 20%/.12)}
+.empty{padding:28px 18px;text-align:center;color:hsl(var(--muted-foreground));font-size:14px;border-top:1px solid hsl(var(--border))}
+
+/* ---------- phone ---------- */
+.ph-top{padding:14px 16px 10px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
+.ph-top .r1{display:flex;align-items:center;gap:10px}
+.ph-top h3{font:700 16px Inter,sans-serif}
+.ph-top p{font-size:12.5px;color:hsl(var(--muted-foreground))}
+.vchips{display:flex;gap:8px;overflow-x:auto;padding:10px 16px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
+.vchips button{flex:none;display:flex;flex-direction:column;align-items:flex-start;padding:7px 12px;border-radius:10px;border:1px solid hsl(var(--border));background:hsl(var(--card));cursor:pointer}
+.vchips button .plate{font-size:13px}
+.vchips button span{font-size:11.5px;color:hsl(var(--muted-foreground))}
+.vchips button[aria-pressed="true"]{border-color:hsl(var(--primary));background:hsl(var(--primary-soft))}
+.ph-sec{padding:12px 16px 4px;display:flex;align-items:center;justify-content:space-between}
+.ph-sec b{font-size:14px}
+.ph-item{margin:0 12px 8px;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:12px;padding:12px}
+.ph-item .t{font-weight:500;font-size:14.5px;margin-bottom:10px}
+.ph-seg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.ph-seg button{height:48px;line-height:1.15;text-align:center;padding:0 4px;font-size:12.5px;border-radius:10px;border:1px solid hsl(var(--border));background:hsl(var(--card));font-size:13px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:6px;color:hsl(240 5% 40%)}
+.ph-seg .on.ok{background:hsl(var(--success));border-color:transparent;color:#fff}
+.ph-seg .on.nok{background:hsl(var(--danger));border-color:transparent;color:#fff}
+.ph-bar{position:sticky;bottom:0;background:hsl(var(--card));border-top:1px solid hsl(var(--border));padding:12px 16px;display:flex;align-items:center;gap:12px}
+.offline{display:flex;align-items:center;gap:8px;background:hsl(var(--warning-soft));color:hsl(var(--warning-text));font-size:12.5px;padding:8px 16px}
+
+/* ---------- notebook shell ---------- */
+.app{display:grid;grid-template-columns:72px 1fr;grid-template-rows:60px 1fr;min-height:600px}
+.topbar{grid-column:1/-1;display:flex;align-items:center;gap:16px;padding:0 20px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
+.wordmark{font:400 18px/1.1 Sora,sans-serif;letter-spacing:-.01em}
+.wordmark b{font-weight:800}
+.topbar .spacer{flex:1}
+.search{display:flex;align-items:center;gap:8px;width:300px;height:36px;padding:0 12px;border:1px solid hsl(var(--border));border-radius:8px;color:hsl(var(--muted-foreground));font-size:14px}
+.sidenav{background:hsl(var(--card));border-right:1px solid hsl(var(--border));padding:12px 0;display:flex;flex-direction:column;align-items:center;gap:4px}
+.navitem{position:relative;width:46px;height:46px;border-radius:10px;display:grid;place-items:center;color:hsl(240 5% 34%)}
+.navitem[aria-current="page"]{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+.main{padding:28px 36px 36px;min-width:0}
+.pagehead{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.pagehead h1{font:700 24px/1.2 Inter,sans-serif;letter-spacing:-.015em}
+.pagehead p{color:hsl(var(--muted-foreground));margin-top:4px;font-size:14px}
+.tabs{display:flex;gap:4px;border-bottom:1px solid hsl(var(--border));margin-bottom:18px}
+.tabs button{border:0;background:none;height:44px;padding:0 16px;font-size:14px;color:hsl(240 5% 38%);border-bottom:2px solid transparent;margin-bottom:-1px;display:inline-flex;align-items:center;gap:8px}
+.tabs button .c{font-size:12px;background:hsl(240 5% 90%);color:hsl(240 5% 34%);border-radius:5px;padding:1px 6px}
+.tabs button[aria-selected="true"]{color:hsl(var(--primary));border-bottom-color:hsl(var(--primary));font-weight:500}
+.tabs button .c.bad{background:hsl(var(--danger-soft));color:hsl(var(--danger-text))}
+.card{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:12px}
+.ck-head{display:flex;align-items:center;gap:14px;padding:16px 18px}
+.ck-head .ico{width:40px;height:40px;border-radius:10px;background:hsl(var(--primary-soft));color:hsl(var(--primary));display:grid;place-items:center}
+.ck-head h4{font:600 15.5px Inter,sans-serif}
+.ck-head .spacer{flex:1}
+.ck-row{display:grid;grid-template-columns:1fr 170px 260px;gap:14px;align-items:center;padding:12px 18px;border-top:1px solid hsl(var(--border));font-size:14px}
+.ck-row .t{font-weight:500}
+.ck-row .n{font-size:13px;color:hsl(var(--muted-foreground))}
+.ck-row .r{display:flex;justify-content:flex-end;gap:8px}
+.linkrow{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;color:hsl(var(--success-text));font-weight:500}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-weight:400;color:hsl(240 4% 40%);padding:12px 16px;border-bottom:1px solid hsl(var(--border));white-space:nowrap}
+td{padding:11px 16px;border-top:1px solid hsl(var(--border));vertical-align:middle}
+tr:first-child td{border-top:0}
+tbody tr:hover td{background:hsl(240 5% 98.5%)}
+td .sub{font-size:12.5px;color:hsl(var(--muted-foreground))}
+.toolbar{background:hsl(var(--toolbar));border-radius:10px;padding:14px 16px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.pager{display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:14px;color:hsl(var(--muted-foreground))}
+
+/* ---------- template editor ---------- */
+.ed{display:grid;grid-template-columns:260px 1fr 330px;min-height:640px}
+.tl{border-right:1px solid hsl(var(--border));background:hsl(var(--card));padding:16px 10px}
+.tl h5{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));margin:4px 10px 8px;font-weight:600}
+.tl .t{display:flex;flex-direction:column;padding:10px 12px;border-radius:10px;cursor:pointer;margin-bottom:2px}
+.tl .t b{font-weight:600;font-size:14px}
+.tl .t span{font-size:12.5px;color:hsl(var(--muted-foreground))}
+.tl .t[aria-current="true"]{background:hsl(var(--primary-soft))}
+.tl .t[aria-current="true"] b{color:hsl(233 65% 36%)}
+.tl .std{display:flex;align-items:center;gap:8px;justify-content:space-between}
+.mid{padding:20px 24px;min-width:0}
+.draft{display:flex;align-items:center;gap:12px;background:hsl(var(--warning-soft));color:hsl(var(--warning-text));border-radius:10px;padding:10px 14px;font-size:13.5px;margin-bottom:16px}
+.draft .spacer{flex:1}
+.fld label{display:block;font-size:13px;font-weight:500;margin-bottom:6px}
+.inp{height:40px;border:1px solid hsl(240 6% 84%);border-radius:8px;padding:0 12px;display:flex;align-items:center;background:hsl(var(--card));font-size:14px;gap:8px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+.esec{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:12px;margin-bottom:14px;overflow:hidden}
+.esec-h{display:flex;align-items:center;gap:10px;padding:12px 14px;background:hsl(var(--toolbar));font-weight:600}
+.esec-h .spacer{flex:1}
+.eitem{display:flex;align-items:center;gap:10px;padding:10px 14px;border-top:1px solid hsl(var(--border));cursor:pointer}
+.eitem .drag{color:hsl(240 5% 66%)}
+.eitem .t{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:14px}
+.eitem[aria-current="true"]{background:hsl(var(--primary-soft));box-shadow:inset 3px 0 0 hsl(var(--primary))}
+.eitem .ics{display:flex;gap:8px;color:hsl(var(--muted-foreground))}
+.eitem .ics .safe{color:hsl(var(--warning-text))}
+.eadd{display:flex;align-items:center;gap:8px;padding:10px 14px;border-top:1px solid hsl(var(--border));color:hsl(var(--primary));font-size:14px;font-weight:500}
+.rp{border-left:1px solid hsl(var(--border));background:hsl(var(--card));padding:20px}
+.rp h4{font:700 16px Inter,sans-serif;margin-bottom:14px}
+.rp .fld{margin-bottom:14px}
+.sw{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-top:1px solid hsl(var(--border))}
+.sw .txt{flex:1}
+.sw .txt b{font-weight:500;font-size:14px;display:block}
+.sw .txt span{font-size:12.5px;color:hsl(var(--muted-foreground))}
+.switch{width:38px;height:22px;border-radius:99px;background:hsl(240 5% 80%);position:relative;flex:none;margin-top:2px;border:0;cursor:pointer}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:99px;background:#fff;transition:left .15s}
+.switch[aria-checked="true"]{background:hsl(var(--primary))}
+.switch[aria-checked="true"]::after{left:19px}
+
+@media (max-width:900px){
+  .tb-body{grid-template-columns:1fr}.rail{display:none}
+  .rv{grid-template-columns:1fr}
+  .ed{grid-template-columns:1fr}.tl,.rp{display:none}
+  .ck-row{grid-template-columns:1fr}
+  .notes,.sec-sub,.indent{margin-left:0}
+  .scrollx{overflow-x:auto}
+}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<header class="doc-head">
+  <h1>Checklists</h1>
+  <p>Modelos, execução no tablet, não conformidade que vira serviço e gestão. Desenho da task 3.2, a partir do <a href="/docs/truck/produto/propostas/checklists-v2">plano de checklists na v2</a>. As telas do tablet são interativas: toque nas respostas.</p>
+  <div class="assume">
+    <b>Este desenho assume as recomendações das decisões abertas do plano:</b>
+    <ol>
+      <li>O modelo tem seções.</li>
+      <li>Três respostas: conforme, não conforme e não se aplica.</li>
+      <li>Não conforme pede observação quando o item não tem serviço sugerido.</li>
+      <li>Só conclui com todos os itens respondidos, com "Tudo conforme" por seção.</li>
+    </ol>
+  </div>
+  <nav class="toc">
+    <a href="#exec">1 · Execução no tablet</a>
+    <a href="#review">2 · Revisar e concluir</a>
+    <a href="#phone">3 · No celular</a>
+    <a href="#os">4 · Na OS</a>
+    <a href="#models">5 · Modelos</a>
+    <a href="#list">6 · Lista de checklists</a>
+  </nav>
+</header>
+
+<!-- 1 · EXECUTION -->
+<section class="sec" id="exec">
+  <div class="sec-label"><span class="sec-num">1</span><h2>Execução no tablet: o conjunto inteiro numa grade</h2></div>
+  <p class="sec-sub">Cada linha é um item; cada coluna, um veículo do conjunto. Um toque responde. Não conforme abre a linha logo abaixo, por veículo, com observação, foto e o serviço que vai nascer (a linha expansível aprovada em 10/07).</p>
+  <div class="frame tablet indent">
+    <div class="tb-top">
+      <span class="back"><span class="ic i-left s18"></span></span>
+      <div class="tb-title">
+        <h3>Entrada na oficina · carreta</h3>
+        <p>OS 4821 · frota 22600 · bitrem, cavalo e duas carretas</p>
+      </div>
+      <div class="spacer"></div>
+      <span class="sync"><span class="ic i-cloud s16"></span>Tudo salvo</span>
+      <span class="who"><span class="avatar">JS</span>Josué · Inspetor</span>
+    </div>
+    <div style="padding:0 22px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))">
+      <div style="display:flex;justify-content:space-between;font-size:12.5px;color:hsl(var(--muted-foreground));padding:8px 0 6px"><span id="prog-text">0 de 0 respondidos</span><span id="prog-nok"></span></div>
+      <div class="progress" style="margin-bottom:10px"><i id="prog-bar" style="width:0"></i></div>
+    </div>
+    <div class="tb-body">
+      <aside class="rail">
+        <div class="rail-head">Seções</div>
+        <div id="rail"></div>
+      </aside>
+      <div class="pane">
+        <div class="sec-head">
+          <h4 id="sec-title">Freios</h4>
+          <span class="chip" id="sec-count">0 de 0</span>
+          <div class="spacer"></div>
+          <button class="btn btn-outline" id="all-ok"><span class="ic i-checks s18"></span>Tudo conforme nesta seção</button>
+        </div>
+        <div class="scrollx"><div class="grid" id="grid"></div></div>
+        <div class="bar">
+          <div class="stat"><b id="bar-left" class="num">0</b><span class="muted">sem resposta</span></div>
+          <div class="stat"><b id="bar-nok" class="num" style="color:hsl(var(--danger-text))">0</b><span class="muted">não conformes</span></div>
+          <div class="spacer"></div>
+          <span class="hint" id="bar-hint"></span>
+          <button class="btn btn-outline btn-lg" id="next-sec">Próxima seção<span class="ic i-arrow s18"></span></button>
+          <a class="btn btn-primary btn-lg" id="go-review" href="#review">Revisar e concluir</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="notes">
+    <div><h4>Toque</h4><ul>
+      <li>Botões de 46 × 44 px, um por resposta. Tocar de novo na resposta marcada limpa.</li>
+      <li>"Tudo conforme nesta seção" marca só o que está sem resposta; não desfaz um não conforme.</li>
+      <li>"—" na célula: o item não se aplica àquele tipo de veículo (pino-rei não existe na carreta). Vem do modelo, não se pergunta.</li>
+    </ul></div>
+    <div><h4>Grava na hora</h4><ul>
+      <li>Cada toque é um comando com <code>Idempotency-Key</code>; não existe botão "salvar".</li>
+      <li>"Tudo salvo" no topo vira "Sem rede · 3 respostas esperando envio" quando cai o sinal (fila do PWA, task 2.9).</li>
+      <li>Tablet compartilhado: cada resposta grava quem tocou, pelo PIN de quem está no topo.</li>
+    </ul></div>
+    <div><h4>Não conforme</h4><ul>
+      <li>Item com serviço sugerido mostra qual serviço vai nascer; a observação é opcional.</li>
+      <li>Item sem serviço sugerido exige observação.</li>
+      <li>Foto obrigatória aparece tracejada em vermelho até ser tirada (CHK-2). Item de segurança exige foto por padrão.</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- 2 · REVIEW -->
+<section class="sec" id="review">
+  <div class="sec-label"><span class="sec-num">2</span><h2>Revisar e concluir: os não conformes viram serviço numa chamada</h2></div>
+  <p class="sec-sub">A conclusão mostra só o que reprovou, agrupado por veículo, já marcado para virar serviço. Um botão conclui e cria tudo junto. Sem OS (inspeção de pátio), o mesmo botão abre a OS já com os serviços.</p>
+  <div class="frame tablet indent">
+    <div class="tb-top">
+      <a class="back" href="#exec"><span class="ic i-left s18"></span></a>
+      <div class="tb-title"><h3>Revisar e concluir</h3><p id="rv-context">Entrada na oficina · carreta · OS 4821 · frota 22600</p></div>
+      <div class="spacer"></div>
+      <div class="toggle2" role="group" aria-label="Situação">
+        <button aria-pressed="true" data-mode="os">Com OS</button>
+        <button aria-pressed="false" data-mode="yard">Inspeção de pátio, sem OS</button>
+      </div>
+    </div>
+    <div class="rv">
+      <div class="rv-card">
+        <h4 id="rv-title">Não conformes</h4>
+        <p class="sub" id="rv-sub"></p>
+        <div id="rv-list"></div>
+      </div>
+      <div class="side">
+        <div class="rv-card">
+          <div class="kv">
+            <span class="k">Itens respondidos</span><span class="v num" id="kv-ans"></span>
+            <span class="k">Conformes</span><span class="v num" id="kv-ok"></span>
+            <span class="k">Não conformes</span><span class="v num" id="kv-nok" style="color:hsl(var(--danger-text))"></span>
+            <span class="k">Não se aplica</span><span class="v num" id="kv-na"></span>
+            <span class="k">Tempo</span><span class="v num">18 min</span>
+          </div>
+        </div>
+        <div id="rv-safety"></div>
+        <div id="rv-missing"></div>
+        <button class="btn btn-primary btn-lg" id="rv-submit" style="width:100%"></button>
+        <a class="btn btn-outline btn-lg" href="#exec" style="width:100%">Voltar ao checklist</a>
+      </div>
+    </div>
+  </div>
+  <div class="notes">
+    <div><h4>O que acontece ao concluir</h4><ul>
+      <li>Uma transação: conclui o checklist, cria os serviços marcados e, se houver item de segurança reprovado, registra a parada do veículo.</li>
+      <li>Serviço nasce no veículo certo do conjunto, com componente e tipo do item. Nunca dois serviços do mesmo resultado (CHK-4).</li>
+      <li>Desmarcado fica na OS como "Sem decisão", para o supervisor tratar depois.</li>
+    </ul></div>
+    <div><h4>Quem vê o botão</h4><ul>
+      <li>Inspetor e supervisor têm <code>checklist.create_service</code>: o botão cria os serviços.</li>
+      <li>Mecânico executa mas não cria serviço: para ele o botão é só "Concluir checklist" e os não conformes ficam "Sem decisão" na OS.</li>
+    </ul></div>
+    <div><h4>Depois de concluído</h4><ul>
+      <li>Não muda mais (CHK-5). Errou? Faz um checklist novo.</li>
+      <li>Concluir com item sem resposta não existe: o botão mostra quantos faltam e leva até eles.</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- 3 · PHONE -->
+<section class="sec" id="phone">
+  <div class="sec-label"><span class="sec-num">3</span><h2>No celular: um veículo do conjunto por vez</h2></div>
+  <p class="sec-sub">A grade não cabe em 390 px. No celular, o conjunto vira chips no topo e cada item tem três botões largos. Mesmo dado, mesmo comando; só a disposição muda. Mostrado aqui sem rede.</p>
+  <div class="indent" style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start">
+    <div class="phone frame">
+      <div class="ph-top">
+        <div class="r1"><span class="ic i-left s18"></span><div><h3>Entrada na oficina</h3><p>OS 4821 · frota 22600</p></div></div>
+        <div class="progress" style="margin-top:10px"><i style="width:46%"></i></div>
+      </div>
+      <div class="offline"><span class="ic i-wifi s16"></span>Sem rede · 3 respostas esperando envio</div>
+      <div class="vchips">
+        <button aria-pressed="false"><b class="plate">RTB7F31</b><span>Cavalo · 15/15</span></button>
+        <button aria-pressed="true"><b class="plate">SRK9H46</b><span>Carreta 1 · 6/13</span></button>
+        <button aria-pressed="false"><b class="plate">SRK9H47</b><span>Carreta 2 · 0/13</span></button>
+      </div>
+      <div class="ph-sec"><b>Freios</b><button class="btn btn-ghost btn-sm"><span class="ic i-checks s16"></span>Tudo conforme</button></div>
+      <div class="ph-item"><div class="t">Lonas e tambores</div><div class="ph-seg"><button class="on ok"><span class="ic i-check s16"></span>Conforme</button><button><span class="ic i-x s16"></span>Não conforme</button><button>Não se aplica</button></div></div>
+      <div class="ph-item" style="border-color:hsl(0 60% 85%)"><div class="t">Vazamento de ar nas linhas</div><div class="ph-seg"><button><span class="ic i-check s16"></span>Conforme</button><button class="on nok"><span class="ic i-x s16"></span>Não conforme</button><button>Não se aplica</button></div>
+        <div style="margin-top:10px;display:flex;gap:8px;align-items:center"><span class="svc"><span class="ic i-wrench s14"></span>Vira serviço</span><span class="flag"><span class="ic i-camera s14"></span>Foto tirada</span></div></div>
+      <div class="ph-item"><div class="t">Catraca de ajuste</div><div class="ph-seg"><button><span class="ic i-check s16"></span>Conforme</button><button><span class="ic i-x s16"></span>Não conforme</button><button>Não se aplica</button></div></div>
+      <div class="ph-bar"><div style="flex:1;font-size:13px"><b>7</b> sem resposta nesta carreta</div><button class="btn btn-primary">Próxima carreta</button></div>
+    </div>
+    <div class="notes" style="margin:0;max-width:440px;grid-template-columns:1fr">
+      <div><h4>Por que por veículo</h4><ul>
+        <li>No pátio, o inspetor anda em volta de uma carreta de cada vez. A ordem do celular é a ordem do corpo.</li>
+        <li>O chip mostra quanto falta em cada veículo; o checklist continua um só para o conjunto.</li>
+      </ul></div>
+      <div><h4>Sem rede</h4><ul>
+        <li>A faixa amarela diz quantas respostas esperam envio; nada se perde ao fechar o app.</li>
+        <li>"Concluir" sem rede fica na fila e só cria os serviços quando enviar; até lá a tela diz "Conclusão esperando envio".</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · OS -->
+<section class="sec" id="os">
+  <div class="sec-label"><span class="sec-num">4</span><h2>Na OS: o que o checklist achou e o que ainda falta decidir</h2></div>
+  <p class="sec-sub">Aba própria no detalhe da OS. Cada não conforme mostra o serviço que gerou, ou um botão para gerar. O número da aba conta só o que está sem decisão.</p>
+  <div class="frame laptop indent">
+    <div class="app">
+      <div class="topbar"><span class="wordmark"><b>facter</b> truck</span><div class="spacer"></div><span class="search"><span class="ic i-search s16"></span>Buscar placa, frota ou OS</span><span class="avatar">TC</span></div>
+      <nav class="sidenav"><span class="navitem"><span class="ic i-house"></span></span><span class="navitem" aria-current="page"><span class="ic i-wrench"></span></span><span class="navitem"><span class="ic i-clip"></span></span><span class="navitem"><span class="ic i-truck"></span></span><span class="navitem"><span class="ic i-box"></span></span><span class="navitem"><span class="ic i-tire"></span></span></nav>
+      <main class="main">
+        <div class="pagehead"><div><h1>22600 <span class="muted" style="font-weight:500">· OS 4821</span></h1><p>Bitrem · cavalo RTB7F31 e 2 carretas · Transportadora Demo · aberta por Tamires às 07:58</p></div><div style="display:flex;gap:10px"><span class="chip pri" style="height:30px;font-size:13px">Em manutenção</span></div></div>
+        <div class="tabs" role="tablist">
+          <button>Serviços <span class="c">7</span></button>
+          <button>Peças <span class="c">12</span></button>
+          <button aria-selected="true">Checklists <span class="c bad">1</span></button>
+          <button>Histórico</button>
+        </div>
+        <div class="card" style="margin-bottom:16px">
+          <div class="ck-head">
+            <span class="ico"><span class="ic i-clip"></span></span>
+            <div><h4>Entrada na oficina · carreta <span class="muted" style="font-weight:400">· versão 3</span></h4><p class="meta">CHK-2026-00142 · concluído às 08:42 por Josué (inspetor) · 41 itens · 18 min</p></div>
+            <div class="spacer"></div>
+            <span class="chip bad">3 não conformes</span>
+            <button class="btn btn-outline btn-sm">Ver respostas</button>
+          </div>
+          <div class="ck-row"><div><div class="t">Vazamento de ar nas linhas</div><div class="n">Freios · "Chiado na conexão traseira"</div></div><div><b class="plate">SRK9H46</b><div class="n">Carreta 1</div></div><div class="r"><span class="linkrow"><span class="ic i-check s16"></span>Reparo de linha de ar</span></div></div>
+          <div class="ck-row"><div><div class="t">Lonas e tambores <span class="flag safe"><span class="ic i-shield s14"></span>segurança</span></div><div class="n">Freios · "Lona abaixo do mínimo no 2º eixo" · com foto</div></div><div><b class="plate">SRK9H47</b><div class="n">Carreta 2</div></div><div class="r"><span class="linkrow"><span class="ic i-check s16"></span>Troca de lona de freio</span></div></div>
+          <div class="ck-row" style="background:hsl(var(--warning-soft)/.5)"><div><div class="t">Para-lama e protetores</div><div class="n">Estrutura · "Para-lama traseiro solto"</div></div><div><b class="plate">SRK9H47</b><div class="n">Carreta 2</div></div><div class="r"><span class="chip warn">Sem decisão</span><button class="btn btn-primary btn-sm"><span class="ic i-plus s16"></span>Criar serviço</button></div></div>
+        </div>
+        <div class="card">
+          <div class="ck-head">
+            <span class="ico" style="background:hsl(var(--muted));color:hsl(var(--muted-foreground))"><span class="ic i-clip"></span></span>
+            <div><h4>Saída · conferência final</h4><p class="meta">Ainda não começado · feito no tablet antes de liberar a OS</p></div>
+            <div class="spacer"></div>
+            <button class="btn btn-outline btn-sm">Começar checklist</button>
+          </div>
+        </div>
+        <div class="notes" style="margin-left:0">
+          <div><h4>Estados da aba</h4><ul>
+            <li>Sem checklist: vazio com "Começar checklist" e o modelo sugerido pelo tipo do veículo.</li>
+            <li>Em andamento: barra de progresso e "Continuar no tablet".</li>
+            <li>Sem <code>checklist.view</code>: a aba não aparece.</li>
+          </ul></div>
+          <div><h4>Serviço gerado</h4><ul>
+            <li>O link leva ao serviço na aba Serviços, que mostra a origem "Checklist" no card.</li>
+            <li>Item de segurança reprovado aparece também como parada no topo da OS.</li>
+          </ul></div>
+        </div>
+      </main>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · MODELS -->
+<section class="sec" id="models">
+  <div class="sec-label"><span class="sec-num">5</span><h2>Modelos: seções, itens e versão publicada</h2></div>
+  <p class="sec-sub">Notebook, para quem tem <code>checklist_template.manage</code>. Editar gera um rascunho; publicar cria a versão nova. Quem está no meio de um checklist continua na versão antiga (CHK-1). Os modelos do Facter não se editam: a empresa duplica.</p>
+  <div class="frame laptop indent">
+    <div class="app">
+      <div class="topbar"><span class="wordmark"><b>facter</b> truck</span><div class="spacer"></div><span class="search"><span class="ic i-search s16"></span>Buscar placa, frota ou OS</span><span class="avatar">TC</span></div>
+      <nav class="sidenav"><span class="navitem"><span class="ic i-house"></span></span><span class="navitem"><span class="ic i-wrench"></span></span><span class="navitem" aria-current="page"><span class="ic i-clip"></span></span><span class="navitem"><span class="ic i-truck"></span></span><span class="navitem"><span class="ic i-box"></span></span><span class="navitem"><span class="ic i-tire"></span></span></nav>
+      <div class="ed" style="grid-column:2">
+        <aside class="tl">
+          <h5>Da empresa</h5>
+          <div class="t" aria-current="true"><b>Entrada na oficina · carreta</b><span>Versão 3 · usado 142 vezes</span></div>
+          <div class="t"><b>Saída · conferência final</b><span>Versão 1 · usado 38 vezes</span></div>
+          <div class="t"><b>Preventiva de carreta</b><span>Versão 2 · usado 21 vezes</span></div>
+          <div class="t"><b>Saída de viagem · cavalo</b><span class="muted">Desativado</span></div>
+          <h5 style="margin-top:18px">Modelos do Facter</h5>
+          <div class="t"><div class="std"><b>Entrada na oficina</b><span class="ic i-copy s16 muted"></span></div><span>34 itens em 6 seções</span></div>
+          <div class="t"><div class="std"><b>Saída de viagem</b><span class="ic i-copy s16 muted"></span></div><span>22 itens em 5 seções</span></div>
+          <div class="t"><div class="std"><b>Preventiva de carreta</b><span class="ic i-copy s16 muted"></span></div><span>28 itens em 5 seções</span></div>
+          <button class="btn btn-outline" style="width:100%;margin-top:14px"><span class="ic i-plus s16"></span>Novo modelo</button>
+        </aside>
+        <div class="mid">
+          <div class="draft"><span class="ic i-note s18"></span><span><b>Rascunho da versão 4</b> · 2 mudanças. A versão 3 continua valendo até você publicar.</span><div class="spacer"></div><button class="btn btn-outline btn-sm">Descartar</button><button class="btn btn-primary btn-sm">Publicar versão 4</button></div>
+          <div class="row2">
+            <div class="fld"><label>Nome</label><div class="inp">Entrada na oficina · carreta</div></div>
+            <div class="fld"><label>Vale para</label><div class="inp"><span class="chip">Cavalo</span><span class="chip">Semirreboque</span><span class="chip">Dolly</span></div></div>
+          </div>
+          <div class="esec">
+            <div class="esec-h"><span class="ic i-drag s16 muted"></span>Freios<span class="chip">4 itens</span><div class="spacer"></div><span class="ic i-down s16 muted"></span></div>
+            <div class="eitem"><span class="ic i-drag s16 drag"></span><span class="t">Lonas e tambores</span><span class="ics"><span class="ic i-shield s16 safe"></span><span class="ic i-camera s16"></span><span class="ic i-wrench s16"></span></span></div>
+            <div class="eitem" aria-current="true"><span class="ic i-drag s16 drag"></span><span class="t">Vazamento de ar nas linhas</span><span class="ics"><span class="ic i-wrench s16"></span></span></div>
+            <div class="eitem"><span class="ic i-drag s16 drag"></span><span class="t">Catraca de ajuste</span><span class="ics"><span class="ic i-wrench s16"></span></span></div>
+            <div class="eitem"><span class="ic i-drag s16 drag"></span><span class="t">Freio de estacionamento</span><span class="ics"><span class="ic i-shield s16 safe"></span><span class="ic i-camera s16"></span></span></div>
+            <div class="eadd"><span class="ic i-plus s16"></span>Adicionar item</div>
+          </div>
+          <div class="esec">
+            <div class="esec-h"><span class="ic i-drag s16 muted"></span>Pneus e rodas<span class="chip">4 itens</span><div class="spacer"></div><span class="ic i-right s16 muted"></span></div>
+          </div>
+          <div class="esec">
+            <div class="esec-h"><span class="ic i-drag s16 muted"></span>Elétrica<span class="chip">4 itens</span><div class="spacer"></div><span class="ic i-right s16 muted"></span></div>
+          </div>
+          <div class="esec">
+            <div class="esec-h"><span class="ic i-drag s16 muted"></span>Estrutura<span class="chip">3 itens</span><span class="chip warn">mudou</span><div class="spacer"></div><span class="ic i-right s16 muted"></span></div>
+          </div>
+          <button class="btn btn-ghost"><span class="ic i-plus s16"></span>Adicionar seção</button>
+        </div>
+        <aside class="rp">
+          <h4>Item</h4>
+          <div class="fld"><label>O que verificar</label><div class="inp">Vazamento de ar nas linhas</div></div>
+          <div class="fld"><label>Componente</label><div class="inp" style="justify-content:space-between">Sistema de freio a ar<span class="ic i-down s16 muted"></span></div></div>
+          <div class="fld"><label>Serviço quando não conforme</label><div class="inp" style="justify-content:space-between">Reparo de linha de ar<span class="ic i-down s16 muted"></span></div></div>
+          <div class="fld"><label>Vale para</label><div class="inp"><span class="chip">Cavalo</span><span class="chip">Semirreboque</span></div></div>
+          <div class="sw"><div class="txt"><b>Item de segurança</b><span>Reprovado, o veículo fica parado até a liberação e o item entra no indicador de segurança.</span></div><button class="switch" role="switch" aria-checked="false"></button></div>
+          <div class="sw"><div class="txt"><b>Foto obrigatória</b><span>Não deixa marcar não conforme sem foto. Ligado sozinho em item de segurança.</span></div><button class="switch" role="switch" aria-checked="false"></button></div>
+          <p class="meta" style="margin-top:12px">Com serviço escolhido, a observação no não conforme é opcional. Sem serviço, ela é obrigatória.</p>
+        </aside>
+      </div>
+    </div>
+  </div>
+  <div class="notes">
+    <div><h4>Ícones do item</h4><ul>
+      <li>Escudo: item de segurança. Câmera: foto obrigatória. Chave: tem serviço quando não conforme.</li>
+      <li>Rótulo longo é truncado com tooltip.</li>
+    </ul></div>
+    <div><h4>Publicar</h4><ul>
+      <li>Publicar pede confirmação com o número de mudanças e cria a versão; não existe edição de versão publicada.</li>
+      <li>Desativar tira o modelo do "Começar checklist" e mantém o histórico.</li>
+    </ul></div>
+    <div><h4>Estados</h4><ul>
+      <li>Sem modelo da empresa: vazio convidando a duplicar um modelo do Facter.</li>
+      <li>Modelo sem item não publica: o botão fica desabilitado com o motivo.</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- 6 · LIST -->
+<section class="sec" id="list">
+  <div class="sec-label"><span class="sec-num">6</span><h2>Lista de checklists: o que reprovou, onde e quando</h2></div>
+  <p class="sec-sub">Gestão no notebook. Filtros chip-style com "Todos" em muted, busca por placa ou frota sem acento, paginação por cursor. A coluna Resultado decide a leitura: o olho vai direto para o que reprovou.</p>
+  <div class="frame laptop indent">
+    <div class="app">
+      <div class="topbar"><span class="wordmark"><b>facter</b> truck</span><div class="spacer"></div><span class="search"><span class="ic i-search s16"></span>Buscar placa, frota ou OS</span><span class="avatar">TC</span></div>
+      <nav class="sidenav"><span class="navitem"><span class="ic i-house"></span></span><span class="navitem"><span class="ic i-wrench"></span></span><span class="navitem" aria-current="page"><span class="ic i-clip"></span></span><span class="navitem"><span class="ic i-truck"></span></span><span class="navitem"><span class="ic i-box"></span></span><span class="navitem"><span class="ic i-tire"></span></span></nav>
+      <main class="main">
+        <div class="pagehead"><div><h1>Checklists</h1><p>Inspeções da Transportadora Demo, de todas as bases</p></div><div style="display:flex;gap:10px"><button class="btn btn-outline">Modelos</button></div></div>
+        <div class="toolbar">
+          <div class="filters">
+            <button class="all">Todos <span class="c">318</span></button>
+            <button aria-pressed="true">Com não conforme <span class="c">46</span></button>
+            <button>Em andamento <span class="c">4</span></button>
+            <button>Sem OS <span class="c">27</span></button>
+          </div>
+          <div style="flex:1"></div>
+          <span class="search" style="width:280px;background:hsl(var(--card))"><span class="ic i-search s16"></span>Placa ou frota</span>
+        </div>
+        <div class="card scrollx">
+          <table>
+            <thead><tr><th>Checklist</th><th>Veículo</th><th>Modelo</th><th>Quem</th><th>Resultado</th><th>OS</th></tr></thead>
+            <tbody>
+              <tr><td><b class="num">CHK-2026-00142</b><div class="sub">hoje, 08:42</div></td><td><b class="plate">22600</b><div class="sub">Bitrem · RTB7F31</div></td><td>Entrada na oficina · carreta<div class="sub">versão 3</div></td><td>Josué<div class="sub">Inspetor</div></td><td><span class="chip bad">3 não conformes</span> <span class="flag safe"><span class="ic i-shield s14"></span>1</span></td><td><a href="#os">4821</a></td></tr>
+              <tr><td><b class="num">CHK-2026-00141</b><div class="sub">hoje, 07:15</div></td><td><b class="plate">22148</b><div class="sub">Rodotrem · QRT4B22</div></td><td>Saída de viagem · cavalo<div class="sub">versão 2</div></td><td>Carlos<div class="sub">Motorista</div></td><td><span class="chip bad">1 não conforme</span></td><td><span class="chip warn">Abrir OS</span></td></tr>
+              <tr><td><b class="num">CHK-2026-00137</b><div class="sub">ontem, 16:02</div></td><td><b class="plate">22031</b><div class="sub">Bitrem · PTJ0101</div></td><td>Preventiva de carreta<div class="sub">versão 2</div></td><td>Ana<div class="sub">Supervisora</div></td><td><span class="chip bad">5 não conformes</span> <span class="flag safe"><span class="ic i-shield s14"></span>2</span></td><td><a href="#os">4817</a></td></tr>
+              <tr><td><b class="num">CHK-2026-00133</b><div class="sub">ontem, 09:30</div></td><td><b class="plate">22600</b><div class="sub">Bitrem · RTB7F31</div></td><td>Saída · conferência final<div class="sub">versão 1</div></td><td>Josué<div class="sub">Inspetor</div></td><td><span class="chip bad">1 não conforme</span></td><td><a href="#os">4809</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pager"><span>46 checklists com não conforme</span><span style="display:flex;gap:8px"><button class="btn btn-outline btn-sm" disabled>Anterior</button><button class="btn btn-outline btn-sm">Próxima</button></span></div>
+      </main>
+    </div>
+  </div>
+  <div class="notes">
+    <div><h4>Sem OS</h4><ul>
+      <li>Checklist de pátio com não conforme e sem OS mostra "Abrir OS" na coluna: a pendência fica visível até alguém decidir.</li>
+    </ul></div>
+    <div><h4>No detalhe do veículo</h4><ul>
+      <li>O mesmo quadro, filtrado pelo veículo, mais os itens que mais reprovam nele (base do indicador 13).</li>
+    </ul></div>
+    <div><h4>Estados</h4><ul>
+      <li>Skeleton ao carregar, vazio com "Começar checklist" no tablet, sem resultado na busca, sem permissão e erro com nova tentativa.</li>
+    </ul></div>
+  </div>
+</section>
+
+</div>
+
+<script>
+const VEHICLES = [
+  { id: 'cv', plate: 'RTB7F31', label: 'Cavalo', kind: 'power_unit' },
+  { id: 'c1', plate: 'SRK9H46', label: 'Carreta 1', kind: 'semi_trailer' },
+  { id: 'c2', plate: 'SRK9H47', label: 'Carreta 2', kind: 'semi_trailer' },
+];
+const ALL = ['power_unit', 'semi_trailer'];
+const TRAILER = ['semi_trailer'];
+const TRACTOR = ['power_unit'];
+const SECTIONS = [
+  { id: 'brakes', name: 'Freios', items: [
+    { id: 'b1', label: 'Lonas e tambores', applies: ALL, safety: true, photo: true, service: 'Troca de lona de freio' },
+    { id: 'b2', label: 'Vazamento de ar nas linhas', applies: ALL, service: 'Reparo de linha de ar' },
+    { id: 'b3', label: 'Catraca de ajuste', applies: ALL, service: 'Regulagem de catraca' },
+    { id: 'b4', label: 'Freio de estacionamento', applies: ALL, safety: true, photo: true },
+  ]},
+  { id: 'tires', name: 'Pneus e rodas', items: [
+    { id: 't1', label: 'Cortes, bolhas ou desgaste irregular', applies: ALL, safety: true, photo: true, service: 'Troca de pneu' },
+    { id: 't2', label: 'Aperto das porcas', applies: ALL, service: 'Reaperto de rodas' },
+    { id: 't3', label: 'Cubos e rolamentos', applies: ALL, service: 'Revisão de cubo' },
+    { id: 't4', label: 'Estepe', applies: TRACTOR },
+  ]},
+  { id: 'elec', name: 'Elétrica', items: [
+    { id: 'e1', label: 'Lanternas e setas', applies: ALL, service: 'Reparo elétrico' },
+    { id: 'e2', label: 'Luz de freio', applies: ALL, safety: true, service: 'Reparo elétrico' },
+    { id: 'e3', label: 'Chicote e tomada de engate', applies: ALL, service: 'Troca de chicote' },
+    { id: 'e4', label: 'Painel e alertas', applies: TRACTOR },
+  ]},
+  { id: 'body', name: 'Estrutura', items: [
+    { id: 's1', label: 'Pino-rei e quinta roda', applies: ALL, safety: true, photo: true, service: 'Revisão de quinta roda' },
+    { id: 's2', label: 'Fueiros e travas', applies: TRAILER, service: 'Troca de fueiro' },
+    { id: 's3', label: 'Para-lama e protetores', applies: TRAILER },
+  ]},
+];
+const answers = {
+  'b1|cv': 'ok', 'b1|c1': 'ok', 'b1|c2': 'nok',
+  'b2|cv': 'ok', 'b2|c1': 'nok', 'b2|c2': 'ok',
+  'b3|cv': 'ok', 'b3|c1': 'ok', 'b3|c2': 'ok',
+  'b4|cv': 'ok',
+  't1|cv': 'ok', 't2|cv': 'ok', 't3|cv': 'ok', 't4|cv': 'ok',
+};
+const notes = { 'b1|c2': 'Lona abaixo do mínimo no 2º eixo', 'b2|c1': 'Chiado na conexão traseira' };
+const photos = { 'b1|c2': true };
+let current = 'brakes';
+let mode = 'os';
+const selectedForService = {};
+
+const key = (item, vehicle) => item.id + '|' + vehicle.id;
+const applies = (item, vehicle) => item.applies.includes(vehicle.kind);
+const cellsOf = (section) => section.items.flatMap((item) => VEHICLES.filter((v) => applies(item, v)).map((v) => ({ item, vehicle: v, k: key(item, v) })));
+const allCells = () => SECTIONS.flatMap(cellsOf);
+const icon = (name, size) => `<span class="ic i-${name} s${size}"></span>`;
+
+function render() {
+  const cells = allCells();
+  const answered = cells.filter((c) => answers[c.k]).length;
+  const nok = cells.filter((c) => answers[c.k] === 'nok').length;
+  document.getElementById('prog-text').textContent = `${answered} de ${cells.length} respondidos`;
+  document.getElementById('prog-nok').textContent = nok ? `${nok} não ${nok === 1 ? 'conforme' : 'conformes'}` : '';
+  document.getElementById('prog-bar').style.width = (answered / cells.length * 100) + '%';
+  document.getElementById('bar-left').textContent = cells.length - answered;
+  document.getElementById('bar-nok').textContent = nok;
+  const left = cells.length - answered;
+  document.getElementById('bar-hint').textContent = left ? `Faltam ${left} para concluir` : 'Tudo respondido';
+
+  document.getElementById('rail').innerHTML = SECTIONS.map((s) => {
+    const sc = cellsOf(s);
+    const a = sc.filter((c) => answers[c.k]).length;
+    const hasNok = sc.some((c) => answers[c.k] === 'nok');
+    return `<button data-sec="${s.id}" aria-current="${s.id === current}" class="${a === sc.length ? 'done' : ''}">${s.name}${hasNok ? '<span class="dot"></span>' : ''}<span class="cnt">${a === sc.length ? icon('check', 14) : a + '/' + sc.length}</span></button>`;
+  }).join('');
+
+  const section = SECTIONS.find((s) => s.id === current);
+  const sc = cellsOf(section);
+  document.getElementById('sec-title').textContent = section.name;
+  document.getElementById('sec-count').textContent = `${sc.filter((c) => answers[c.k]).length} de ${sc.length}`;
+  const idx = SECTIONS.indexOf(section);
+  document.getElementById('next-sec').style.display = idx < SECTIONS.length - 1 ? '' : 'none';
+
+  const grid = document.getElementById('grid');
+  grid.style.setProperty('--cols', VEHICLES.length);
+  let html = `<div class="grow ghead"><div>Item</div>${VEHICLES.map((v) => `<div class="veh"><b class="plate">${v.plate}</b>${v.label}</div>`).join('')}</div>`;
+  for (const item of section.items) {
+    const flags = [
+      item.safety ? `<span class="flag safe">${icon('shield', 14)}Segurança</span>` : '',
+      item.photo ? `<span class="flag">${icon('camera', 14)}Foto se não conforme</span>` : '',
+    ].join('');
+    html += `<div class="grow"><div class="ilabel"><span class="t">${item.label}</span><span class="f">${flags}</span></div>`;
+    for (const v of VEHICLES) {
+      if (!applies(item, v)) { html += `<div class="cell na-cell" title="Não existe neste tipo de veículo">—</div>`; continue; }
+      const k = key(item, v);
+      const a = answers[k];
+      html += `<div class="cell"><span class="seg">
+        <button data-k="${k}" data-a="ok" class="ok ${a === 'ok' ? 'on' : ''}" aria-label="Conforme">${icon('check', 18)}</button>
+        <button data-k="${k}" data-a="nok" class="nok ${a === 'nok' ? 'on' : ''}" aria-label="Não conforme">${icon('x', 18)}</button>
+        <button data-k="${k}" data-a="na" class="na ${a === 'na' ? 'on' : ''}" aria-label="Não se aplica">${icon('minus', 18)}</button>
+      </span></div>`;
+    }
+    html += `</div>`;
+    const noks = VEHICLES.filter((v) => applies(item, v) && answers[key(item, v)] === 'nok');
+    if (noks.length) {
+      html += `<div class="expand">${noks.map((v) => {
+        const k = key(item, v);
+        const needNote = !item.service && !notes[k];
+        const photo = item.photo ? (photos[k] ? `<span class="photo" title="Foto tirada"></span>` : `<button class="needphoto" data-photo="${k}">${icon('camera', 16)}Tirar foto</button>`) : `<button class="btn btn-outline btn-sm">${icon('camera', 16)}Foto</button>`;
+        return `<div class="nokline">
+          <div class="v"><b class="plate">${v.plate}</b><span class="meta">${v.label}</span></div>
+          <div><textarea data-note="${k}" placeholder="${item.service ? 'O que você viu (opcional)' : 'O que você viu'}" style="${needNote ? 'border-color:hsl(var(--danger))' : ''}">${notes[k] || ''}</textarea>
+            ${needNote ? '<div class="meta" style="color:hsl(var(--danger-text))">Diga o que viu: este item não tem serviço pronto.</div>' : ''}
+            ${item.service ? `<div style="margin-top:6px"><span class="svc">${icon('wrench', 14)}Vira serviço: ${item.service}</span></div>` : ''}
+          </div>
+          <div class="acts">${photo}</div>
+        </div>`;
+      }).join('')}</div>`;
+    }
+  }
+  grid.innerHTML = html;
+  renderReview();
+}
+
+function renderReview() {
+  const cells = allCells();
+  const answered = cells.filter((c) => answers[c.k]);
+  const noks = cells.filter((c) => answers[c.k] === 'nok');
+  const missing = cells.length - answered.length;
+  const missingPhoto = noks.filter((c) => c.item.photo && !photos[c.k]).length;
+  const missingNote = noks.filter((c) => !c.item.service && !notes[c.k]).length;
+  for (const c of noks) if (selectedForService[c.k] === undefined) selectedForService[c.k] = Boolean(c.item.service);
+  document.getElementById('kv-ans').textContent = `${answered.length} de ${cells.length}`;
+  document.getElementById('kv-ok').textContent = cells.filter((c) => answers[c.k] === 'ok').length;
+  document.getElementById('kv-nok').textContent = noks.length;
+  document.getElementById('kv-na').textContent = cells.filter((c) => answers[c.k] === 'na').length;
+  document.getElementById('rv-context').textContent = mode === 'os' ? 'Entrada na oficina · carreta · OS 4821 · frota 22600' : 'Saída de viagem · frota 22600 · sem OS';
+  document.getElementById('rv-title').textContent = noks.length ? `${noks.length} não ${noks.length === 1 ? 'conforme' : 'conformes'}` : 'Nenhum não conforme';
+  document.getElementById('rv-sub').textContent = noks.length ? 'Marcados viram serviço no veículo certo do conjunto. Desmarcado fica como "Sem decisão" na OS.' : '';
+  const list = document.getElementById('rv-list');
+  if (!noks.length) {
+    list.innerHTML = `<div class="empty">${icon('checks', 28)}<p style="margin-top:8px">Tudo conforme. O checklist fecha sem criar serviço.</p></div>`;
+  } else {
+    list.innerHTML = VEHICLES.map((v) => {
+      const mine = noks.filter((c) => c.vehicle.id === v.id);
+      if (!mine.length) return '';
+      return `<div class="vgroup">${v.plate} · ${v.label}</div>` + mine.map((c) => `
+        <label class="rv-item">
+          <input type="checkbox" data-sel="${c.k}" ${selectedForService[c.k] ? 'checked' : ''} ${c.item.service ? '' : 'disabled'}>
+          <div><div class="t">${c.item.label}</div>
+            <div class="n">${notes[c.k] ? '"' + notes[c.k] + '"' : '<span class="muted">Sem observação</span>'}</div>
+            <div class="s">${c.item.service ? `<span class="svc">${icon('wrench', 14)}${c.item.service}</span>` : '<span class="chip">Sem serviço no modelo: o supervisor escolhe na OS</span>'}
+            ${c.item.safety ? `<span class="chip warn">${icon('shield', 14)}Segurança</span>` : ''}
+            ${c.item.photo ? (photos[c.k] ? `<span class="chip ok">${icon('camera', 14)}Foto</span>` : `<span class="chip bad">${icon('camera', 14)}Falta foto</span>`) : ''}</div>
+          </div>
+          <span></span>
+        </label>`).join('');
+    }).join('');
+  }
+  const safety = noks.filter((c) => c.item.safety);
+  document.getElementById('rv-safety').innerHTML = safety.length ? `<div class="alert warn">${icon('pause', 18)}<span><b>${safety.length === 1 ? 'Um item de segurança reprovou.' : safety.length + ' itens de segurança reprovaram.'}</b> ${[...new Set(safety.map((c) => c.vehicle.plate))].join(' e ')} fica parado até a liberação, e a parada conta na disponibilidade.</span></div>` : '';
+  const blockers = [];
+  if (missing) blockers.push(`${missing} ${missing === 1 ? 'resposta' : 'respostas'}`);
+  if (missingPhoto) blockers.push(`${missingPhoto} ${missingPhoto === 1 ? 'foto' : 'fotos'}`);
+  if (missingNote) blockers.push(`${missingNote} ${missingNote === 1 ? 'observação' : 'observações'}`);
+  document.getElementById('rv-missing').innerHTML = blockers.length ? `<div class="alert info">${icon('warn', 18)}<span>Para concluir, ainda falta: ${blockers.join(', ')}. <a href="#exec">Ir até lá</a></span></div>` : '';
+  const n = noks.filter((c) => selectedForService[c.k]).length;
+  const btn = document.getElementById('rv-submit');
+  btn.disabled = blockers.length > 0;
+  btn.textContent = mode === 'os'
+    ? (n ? `Concluir e criar ${n} ${n === 1 ? 'serviço' : 'serviços'}` : 'Concluir checklist')
+    : (n ? `Concluir e abrir OS com ${n} ${n === 1 ? 'serviço' : 'serviços'}` : 'Concluir checklist');
+}
+
+document.addEventListener('click', (event) => {
+  const seg = event.target.closest('[data-a]');
+  if (seg) { const k = seg.dataset.k; answers[k] = answers[k] === seg.dataset.a ? undefined : seg.dataset.a; if (!answers[k]) delete answers[k]; render(); return; }
+  const rail = event.target.closest('[data-sec]');
+  if (rail) { current = rail.dataset.sec; render(); return; }
+  const photo = event.target.closest('[data-photo]');
+  if (photo) { photos[photo.dataset.photo] = true; render(); return; }
+  const m = event.target.closest('[data-mode]');
+  if (m) { mode = m.dataset.mode; document.querySelectorAll('[data-mode]').forEach((b) => b.setAttribute('aria-pressed', String(b === m))); renderReview(); return; }
+  const sw = event.target.closest('.switch');
+  if (sw) { sw.setAttribute('aria-checked', String(sw.getAttribute('aria-checked') !== 'true')); return; }
+});
+document.addEventListener('change', (event) => {
+  const sel = event.target.closest('[data-sel]');
+  if (sel) { selectedForService[sel.dataset.sel] = sel.checked; renderReview(); }
+});
+document.addEventListener('input', (event) => {
+  const note = event.target.closest('[data-note]');
+  if (note) { notes[note.dataset.note] = note.value; renderReview(); }
+});
+document.addEventListener('focusout', (event) => { if (event.target.closest('[data-note]')) render(); });
+document.getElementById('all-ok').addEventListener('click', () => {
+  for (const c of cellsOf(SECTIONS.find((s) => s.id === current))) if (!answers[c.k]) answers[c.k] = 'ok';
+  render();
+});
+document.getElementById('next-sec').addEventListener('click', () => {
+  const idx = SECTIONS.findIndex((s) => s.id === current);
+  if (idx < SECTIONS.length - 1) current = SECTIONS[idx + 1].id;
+  render();
+});
+render();
+</script>
+</body>
+</html>
