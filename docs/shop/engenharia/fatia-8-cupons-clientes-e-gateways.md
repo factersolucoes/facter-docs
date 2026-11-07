@@ -77,3 +77,21 @@ com a frase que explica, e um botão por passo que leva à tela certa. "Comparti
 copia ou abre o endereço (lembrado no navegador) ou quando já existe pedido. Com os obrigatórios
 feitos, o card some sozinho e o Início vira o do dia a dia. Regras em `features/home/lib/setup-steps.ts`,
 com teste. Loja criada pelo Hub nasce despublicada: o passo 5 é o que destrava a vitrine.
+
+O guia é **compacto e fixo no topo** do Início: anel de progresso, o passo da vez com a frase e o
+botão dele, e "Ver os passos" abre a lista inteira. Fechou tudo, some.
+
+## Prévia de loja ainda não publicada
+
+Loja nova (inclusive a que nasce pelo Hub) começa despublicada e a vitrine pública responde 404 até
+publicar. A prévia do painel precisava enxergar antes disso, sem abrir pra quem chuta o endereço:
+`store/me` entrega um `previewToken` (slug + validade de um dia, assinado com `JWT_SECRET`,
+`core/preview-token.ts`), o painel manda em `?preview=1&pt=…`, a vitrine repassa à fonte e a API
+aceita só com token válido, respondendo sem cache. Sem token, despublicada continua 404.
+
+## Cookies com nome próprio
+
+No local todo painel Facter grava `access_token`/`refresh_token` no mesmo `localhost` (porta não
+separa cookie): entrar no Hub derrubava a sessão do Shop e o painel ficava em loop de 401. O Shop usa
+`shop_access_token`/`shop_refresh_token` (API e middleware do painel), e a renovação que falha apaga
+os cookies. TechCare, Chef e Hub ainda compartilham nomes entre si.
