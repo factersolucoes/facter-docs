@@ -109,6 +109,8 @@ Preços de 05/11/2026 lidos em render.com/pricing e vercel.com/pricing. Confirma
 
 ## 6. Depois do lançamento (não trava)
 
+**Chef:** levar o esqueci a senha por e-mail e o modelo de e-mail da Facter para lá (hoje a troca é pela administração, via WhatsApp). Portagem para Fastify e código em português, com o `test:all` verde; só depois de fechar a branch do Hub no Chef. O e-mail de boas-vindas pelo Hub cobre os dois produtos.
+
 Estoque por peça, galeria de fotos, selos Novo e Mais vendido, parcela mínima, desconto no Pix,
 frete grátis acima de X na gaveta, escolher à mão as peças da bio, e-mail de boas-vindas pelo Hub,
 avisos de pedido por e-mail, InfinitePay como segundo gateway (quando houver credenciais de teste).
