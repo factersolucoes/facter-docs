@@ -1,0 +1,61 @@
+---
+title: "Fatia 8: cupons, clientes e gateways"
+sidebar_position: 17
+---
+
+# Fatia 8: cupons, clientes e gateways
+
+Entregue em 07/11/2026. Veio de três perguntas da arquiteta na mesma noite: "não temos clientes,
+cupons?", "por que o diálogo do Mercado Pago não está 100% igual ao mockup?" e "fez de uma forma que
+quando os outros gateways chegarem sejam fáceis?".
+
+## Cupons
+
+Um código que a cliente digita na sacola. A regra mora num lugar só (`core/coupons.ts`): a vitrine
+pergunta antes do pedido e o pedido pergunta de novo na hora de fechar, e os dois recebem a mesma
+resposta, ou a mesma recusa nas palavras da cliente.
+
+| Onde | O quê |
+|---|---|
+| contrato `0.11.0` | `catalogOrderRequest.couponCode`; `POST /public/storefront/:slug/coupon` (`catalogCouponRequest` = código + itens da sacola; `catalogCouponResponse` = código, o que faz, desconto em centavos). Publicar no npm antes do deploy. |
+| `facter-shop-api` | tabela `coupons` (código único por loja, `PERCENT` ou `FIXED`, pedido mínimo, começa/termina, limite de usos, ligado); `orders.couponCode` + `orders.discountCents` (o total já sai líquido; o desconto é sobre os itens, nunca sobre a entrega). Módulo `coupons` (CRUD da dona + `apply` + `consume` dentro da transação do pedido). Loja com catálogo no Chef responde 422: cupom é da loja hospedada aqui. |
+| vitrine | campo "Tem um cupom?" no resumo da sacola; aplicado, vira a linha "Cupom X · 10% de desconto" com "tirar", e "Desconto" entra antes do total. Se a sacola muda, pergunta de novo. O código vai no pedido. |
+| painel | **Cupons** na barra lateral: lista com código, o que faz, situação (valendo / agendado / vencido / esgotado / desligado), usos "1 de 20", interruptor; diálogo com código (vira maiúsculas, sem espaço), % ou R$, pedido mínimo, datas, limite de usos; a frase do rodapé resume tudo. O detalhe do pedido mostra a linha do cupom. |
+
+Testes: `core/coupons.spec.ts` (porcentagem, fixo, teto, cada recusa, fim do dia), pedido com cupom no
+`storefront/orders.service.spec.ts`, `coupon-form.test.ts` no painel.
+
+## Clientes
+
+Não existe cadastro: cliente é quem já pediu, uma linha por WhatsApp, lida dos próprios pedidos
+(`GET /customers`, `groupBy`). Nome como ela escreveu da última vez, quantos pedidos, quanto gastou
+(sem recusados e cancelados), último pedido. Tela **Clientes** com busca por nome ou número, "Ver
+pedidos" (abre Pedidos em "Todos" já filtrado pelo número) e WhatsApp.
+
+## Conectar o Mercado Pago igual ao mockup
+
+O diálogo ganhou o botão "Entrar com a minha conta do Mercado Pago" (OAuth), o divisor "ou cole as
+chaves" e as duas chaves lado a lado; sumiu o passo a passo.
+
+- API: `GET /payments/gateway/oauth/start?provider=` devolve a URL da página de consentimento (ou
+  `null` sem aplicação configurada, e o painel avisa pra colar as chaves); `GET
+  /public/payments/:provider/oauth/callback` troca o código pelo token, guarda criptografado e manda a
+  dona de volta pro painel com `?gateway=connected|denied|error`. O `state` é assinado por loja e
+  vale dez minutos (`oauth-state.ts`, com teste). Env: `MERCADO_PAGO_AUTH_URL`,
+  `MERCADO_PAGO_CLIENT_ID`, `MERCADO_PAGO_CLIENT_SECRET` (os dois ou nenhum), `PANEL_URL`.
+- Local: o stand-in do Mercado Pago (`scratchpad/fake-mercado-pago.mjs`, :3199) tem a página de
+  consentimento e o `/oauth/token`. Em produção é preciso criar a aplicação da Facter no Mercado Pago
+  e colar o client id/secret no Render.
+- O que ficou diferente do mockup, de propósito: a frase do rodapé diz "a gente confere a chave com
+  o Mercado Pago antes de guardar" em vez da cobrança de R$ 1 com estorno, porque o gateway não cobra
+  sozinho sem um cartão de quem paga.
+- Os interruptores de "Como o pedido fecha" mostram o que está valendo: sem gateway, "Pagar na loja"
+  aparece desligado (antes aparecia ligado e travado, e parecia regra do ramo; não é).
+
+## Gateways: um adaptador por provedor
+
+`payments/gateway.adapter.ts` é a forma que o serviço conhece: conta do token, link de cobrança,
+leitura de um pagamento, id que o webhook nomeia, OAuth opcional. `MercadoPagoAdapter` é o primeiro.
+As rotas públicas levam o slug do provedor (`/public/payments/:provider`, `/public/payments/:provider/oauth/callback`),
+o pedido guarda `provider`, o diálogo do painel recebe o provedor e o nome. Pagar.me, Asaas e Stripe
+entram como um adaptador novo + um valor no enum `PaymentProvider`; nada no serviço nem no painel.
