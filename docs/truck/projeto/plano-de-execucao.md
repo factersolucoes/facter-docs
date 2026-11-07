@@ -74,7 +74,7 @@ Saída: **fatia 3 em homologação**. A Suzano e um parceiro (ex.: Vale das Carr
 | ID | Task | Pronto quando | Status |
 | --- | --- | --- | --- |
 | 3.1 | Pneus: ciclo de vida, vidas e recapagem, montagem por posição, inspeções, km pelo engate | Eventos idempotentes; custo por km do pneu | ⬜ espera a doc de pneus |
-| 3.2 | Checklists: modelos, execução no tablet, não conformidade gera serviço | Não conformidade vira serviço na OS | ⬜ |
+| 3.2 | Checklists: modelos, execução no tablet, não conformidade gera serviço | Não conformidade vira serviço na OS | 🟡 plano em discussão ([checklists na v2](../produto/propostas/checklists-v2.md)): seis fatias, 8 decisões abertas antes do mockup |
 | 3.3 | Ecossistema: compartilhamento por nível, solicitação de manutenção entre organizações, oficina por tipo de ativo | Parceiro vê só o que foi concedido (teste por nível) | ⬜ |
 | 3.4 | Planos, módulos contratáveis e feature flags; "Em breve" e "Quero isso" | Módulo desligado some da API e da tela | ⬜ |
 | 3.5 | Configurações da empresa, idioma e moeda | Tela de configurações; valor monetário guarda a moeda | ⬜ |
