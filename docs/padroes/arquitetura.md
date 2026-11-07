@@ -35,6 +35,17 @@ O Hub tem **dois** sistemas que vivem sendo confundidos. Decida **nesta ordem**:
 
 ---
 
+## Preço vem do Hub, sempre
+
+Qualquer lugar que mostra plano ou preço (landing, painel, checkout) **lê do Hub**, nunca tem valor escrito no código. O Hub é a fonte única: `GET /api/pricing/<slug>` devolve `{ data: { productName, plans, features } }`, preços em **centavos**, `priceYearly` é o total do ano. Mudou o preço? Muda só no Hub, pela tela, e todo mundo acompanha. Preço hardcoded na landing vira mentira no dia que alguém esquece de atualizar.
+
+- Buscar com **timeout** e tratar falha: Hub fora do ar (free tier dorme) **não quebra a página**.
+- Produto sem plano cadastrado (`plans: []`) é estado normal, não erro — veja o par disso em `interface.md` (seção sem dado some e vira CTA).
+
+**Onde já está:** `facter-landing/app/techcare/Planos.tsx` (fetch com AbortController, desembrulha `data`, `brl(cents)`, delta "tudo do plano X e mais"). O Hub já serve `shop`, `techcare` e os demais em `/api/pricing/<slug>`.
+
+---
+
 ## Dinheiro e histórico (lembretes gerais)
 
 - **Dinheiro em centavos** (inteiro), nunca `float`. Formatação na borda, por `Intl`.

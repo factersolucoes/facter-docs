@@ -75,6 +75,18 @@ Formato de cada entrada: **quando** acontece, **o que usar**, **por quê**, e **
 
 ---
 
+## Seção sem dado não aparece; quando cabe, vira CTA
+
+**Quando:** uma seção depende de dado que pode não existir ainda (ex.: preço na landing enquanto o produto não tem plano no Hub; depoimentos, banners, integrações).
+
+**Use:** se o dado não veio, a seção **some** — nada de placeholder, "em breve" ou valor inventado. Onde a ausência tem uma próxima ação óbvia (preço → "fale com a gente" / "começar"), o buraco **vira um CTA** que direciona, em vez de sumir calado.
+
+**Por quê:** seção vazia parece bug e preço hardcoded vira mentira no dia que ninguém atualiza. Sumir mantém a página honesta; o CTA transforma a ausência em caminho. O par de arquitetura disso (preço sempre do Hub) está em `arquitetura.md`.
+
+**Onde já está:** `facter-landing/app/techcare/Planos.tsx` — sem plano no Hub, a seção de preço não renderiza e entra o CTA. (Shop hoje tem `plans: []` no Hub, então nasce já nesse modo.)
+
+---
+
 ## Mobile-first não é mobile-only
 
 **Quando:** telas de gestão (painel, notebook).
