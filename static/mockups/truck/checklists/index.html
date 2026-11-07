@@ -296,7 +296,7 @@ a{color:hsl(var(--primary))}
 .ph-item{margin:0 12px 8px;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:12px;padding:12px}
 .ph-item .t{font-weight:500;font-size:14.5px;margin-bottom:10px}
 .ph-seg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
-.ph-seg button{height:48px;line-height:1.15;text-align:center;padding:0 4px;font-size:12.5px;border-radius:10px;border:1px solid hsl(var(--border));background:hsl(var(--card));font-size:13px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:6px;color:hsl(240 5% 40%)}
+.ph-seg button{height:58px;flex-direction:column;gap:4px;white-space:nowrap;line-height:1;padding:0 4px;font-size:12.5px;border-radius:10px;border:1px solid hsl(var(--border));background:hsl(var(--card));font-weight:600;display:inline-flex;align-items:center;justify-content:center;color:hsl(240 5% 40%)}
 .ph-seg .on.ok{background:hsl(var(--primary));border-color:transparent;color:#fff}
 .ph-seg .on.nok{background:hsl(var(--danger));border-color:transparent;color:#fff}
 .ph-bar{position:sticky;bottom:0;background:hsl(var(--card));border-top:1px solid hsl(var(--border));padding:12px 16px;display:flex;align-items:center;gap:12px}
@@ -566,10 +566,10 @@ td .sub{font-size:12.5px;color:hsl(var(--muted-foreground))}
         <button aria-pressed="false"><b class="plate">SRK9H47</b><span>Carreta 2 · 0/13</span></button>
       </div>
       <div class="ph-sec"><b>Freios</b><button class="btn btn-ghost btn-sm"><span class="ic i-checks s16"></span>Tudo conforme</button></div>
-      <div class="ph-item"><div class="t">Lonas e tambores</div><div class="ph-seg"><button class="on ok"><span class="ic i-check s16"></span>Conforme</button><button><span class="ic i-x s16"></span>Não conforme</button><button>Não se aplica</button></div></div>
-      <div class="ph-item" style="border-color:hsl(0 60% 85%)"><div class="t">Vazamento de ar nas linhas</div><div class="ph-seg"><button><span class="ic i-check s16"></span>Conforme</button><button class="on nok"><span class="ic i-x s16"></span>Não conforme</button><button>Não se aplica</button></div>
+      <div class="ph-item"><div class="t">Lonas e tambores</div><div class="ph-seg"><button class="on ok"><span class="ic i-check s16"></span>Conforme</button><button><span class="ic i-x s16"></span>Não conforme</button><button><span class="ic i-minus s16"></span>Não se aplica</button></div></div>
+      <div class="ph-item" style="border-color:hsl(0 60% 85%)"><div class="t">Vazamento de ar nas linhas</div><div class="ph-seg"><button><span class="ic i-check s16"></span>Conforme</button><button class="on nok"><span class="ic i-x s16"></span>Não conforme</button><button><span class="ic i-minus s16"></span>Não se aplica</button></div>
         <div style="margin-top:10px;display:flex;gap:8px;align-items:center"><span class="svc"><span class="ic i-wrench s14"></span>Vira serviço</span><span class="flag"><span class="ic i-camera s14"></span>Foto tirada</span></div></div>
-      <div class="ph-item"><div class="t">Catraca de ajuste</div><div class="ph-seg"><button><span class="ic i-check s16"></span>Conforme</button><button><span class="ic i-x s16"></span>Não conforme</button><button>Não se aplica</button></div></div>
+      <div class="ph-item"><div class="t">Catraca de ajuste</div><div class="ph-seg"><button><span class="ic i-check s16"></span>Conforme</button><button><span class="ic i-x s16"></span>Não conforme</button><button><span class="ic i-minus s16"></span>Não se aplica</button></div></div>
       <div class="ph-bar"><div style="flex:1;font-size:13px"><b>7</b> sem resposta nesta carreta</div><button class="btn btn-primary">Próxima carreta</button></div>
     </div>
     <div class="notes" style="margin:0;max-width:440px;grid-template-columns:1fr">
