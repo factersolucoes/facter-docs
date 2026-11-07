@@ -89,6 +89,18 @@ Preços de 05/11/2026 lidos em render.com/pricing e vercel.com/pricing. Confirma
 | ☐ | Canal de suporte combinado com a dona (WhatsApp da Facter) |
 | ☐ | A landing do Shop em facter.com.br falando do produto como pronto |
 
+## Ligar a Larissa ao Hub (Chef em produção)
+
+Ela já tem conta no Chef. A ligação é pelo **Liberar produto** do Hub, e o Chef reconhece a conta pelo e-mail.
+
+| | Passo |
+|---|---|
+| ☐ | Conferir no Chef de produção, em Administração, o **e-mail de login** dela. |
+| ☐ | No Hub, criar a empresa dela pela tela e clicar em **Liberar produto**: Facter Chef, plano com a loja, **o mesmo e-mail**, senha em branco. |
+| ☐ | Conferir: o Chef respondeu que ligou a conta existente (não "criou"); o Chef aparece em Produtos da empresa no Hub; ela entra com a senha de sempre e a loja continua no ar. |
+
+**Se o e-mail estiver errado:** o Chef cria uma confeitaria nova e vazia com aquele e-mail. Nada da conta dela é apagado nem alterado; o resto do Chef (encomendas, agenda, financeiro) continua igual. O que acontece é que a conta verdadeira fica sem ligação e, com o Hub ligado, **a loja dela sai do ar** até corrigir. Correção, na Administração do Chef: ligar a confeitaria dela à empresa do Hub (botão Hub da confeitaria) e bloquear a confeitaria vazia que nasceu por engano.
+
 ## 5. Migração da ESLA
 
 | | Item | Quem |
