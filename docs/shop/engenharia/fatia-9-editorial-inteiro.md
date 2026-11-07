@@ -68,6 +68,15 @@ cookie por loja (`facter-shop-preview:<slug>`, 24h, só no caminho da loja) e `l
 lê query ou cookie em toda página (peça, sacola, coleções, políticas). Antes, só a home
 previa e o resto caía em "Loja não encontrada".
 
+## Link na bio no painel
+
+Entrada própria na sidebar (`/bio`, `features/bio`): o endereço pra colar no Instagram (copiar e
+abrir, com o token de prévia enquanto a loja não está publicada), as palavras da página (sobre,
+Instagram, WhatsApp, salvas junto com o resto das configurações sem mexer nelas), as peças que a
+página escolhe (as seis primeiras com foto, visíveis e disponíveis, na ordem do catálogo, igual
+ao `bioPicks` da vitrine) e a página de verdade num celular. Nome e logo continuam na Loja.
+Teste: `features/bio/__tests__/bio-link.test.ts`; trilha em `config/breadcrumbs.ts`.
+
 ## O que a ESLA tem e o Shop ainda não (próxima fatia, dados)
 
 Pra "não perder nada" quando migrar, o contrato e o painel precisam de: várias fotos por peça
