@@ -98,16 +98,52 @@ O ponto comum: **o fato de manutenção é do veículo físico**, gravado com a 
 - Detalhe da OS: as frentes lado a lado, como o checklist do conjunto; cada uma com seus serviços e seu status.
 - Abrir OS: escolher o conjunto (padrão) ou um veículo.
 
-## 7. O que falta decidir
+## 7. SAP PM (Suzano)
+
+Se a Suzano entrar, a OS do Truck conversa com o SAP PM pelo modelo que o schema já deixou pronto ([integração com ERP](../../engenharia/schema-v2/plataforma-e-ecossistema.md#integração-com-erp-sap-e-outros)): `external_refs` liga cada registro do Truck ao número do SAP, `data_ownership` diz quem é dono de cada cadastro, e tudo sai pelo outbox, com a oficina trabalhando mesmo com o SAP fora do ar.
+
+**Como o caminho F encaixa no SAP:**
+
+| Truck (caminho F) | SAP PM | Observação |
+| --- | --- | --- |
+| Reboque, cavalo | Equipamento (EQUI) | Já mapeado em `vehicles` |
+| Conjunto e a posição de cada reboque | Local de instalação (IFLOT), com o equipamento instalado e desmontado (histórico de engate) | O engate e o desengate viram instalação e desmontagem no SAP |
+| Eixo e lado, posição da roda | Sublocal de instalação, ou a posição na operação | Igual ao que o SAP faz com pneu |
+| OS do conjunto | Ordem de manutenção (AUFK/AFIH) com **lista de objetos** (OBJK) | Uma ordem com os reboques na lista |
+| Frente (um veículo na OS) | Item da lista de objetos, e as operações daquele equipamento | Cada frente tem `external_refs` próprio |
+| Serviço | Operação (AFVC) apontando o equipamento | Já mapeado |
+| Sessão de trabalho | Confirmação (AFRU) da operação | Já mapeado |
+| Não conformidade do checklist | Nota de manutenção (QMEL) no equipamento | A OS nasce das notas, como no SAP |
+| Km do cavalo na entrada | Documento de medição (IMRG) | Já mapeado |
+| Reboque sai com pendência | Ordem de acompanhamento (follow-up) com as operações pendentes | O SAP não move operação entre ordens; o Truck também não move: fecha a frente e abre a nova, ligadas |
+
+**Por que o F é o mais seguro para o SAP:** o mesmo dado sai nos dois formatos que uma empresa usa no SAP. Se a Suzano abre **uma ordem por conjunto**, a OS vai como uma ordem com lista de objetos. Se abre **uma ordem por equipamento**, cada frente vai como uma ordem própria. Os caminhos A, C e D só servem ao primeiro formato; o E, só ao segundo.
+
+**O que muda no caminho F por causa do SAP:**
+
+- **Transferir frente entre OS (caso 6)** não move a frente: fecha na OS de origem como "transferida" e abre uma nova na OS de destino, ligadas. Fica igual ao follow-up do SAP, e nada se apaga.
+- **Cada frente e cada serviço têm id próprio**, para o `external_refs` guardar o item da lista de objetos e a operação.
+- **Quem é dono da OS** (`data_ownership`): se a Suzano abrir a ordem no SAP, o Truck importa e a abertura fica bloqueada aqui; se abrir no Truck, o Truck envia. Precisa ser configurável por empresa desde já, mesmo sem a integração rodar.
+
+**O que perguntar à Suzano:**
+
+1. Hoje vocês abrem **uma ordem por conjunto ou uma por equipamento**? E o conjunto existe no SAP como local de instalação?
+2. A ordem nasce no SAP (o Truck importa) ou na oficina (o Truck envia)?
+3. Que tipo de ordem (PM01 corretiva, PM02 preventiva…) e que centro de trabalho cada oficina usa?
+4. Pneu é equipamento no SAP, com histórico de posição?
+
+## 8. O que falta decidir
 
 1. **Caminho:** F, como recomendado, ou outro?
 2. **Status da OS a partir das frentes:** a OS fica "em manutenção" se **qualquer** frente estiver, e "concluída" quando **todas** terminarem? (Estado derivado numa função só, como manda a regra de engenharia.)
 3. **Reboque que sai com pendência:** o pendente vai sempre para uma OS nova daquele reboque, ou a pessoa pode escolher cancelar?
 4. **Checklist:** um checklist de entrada por OS (o conjunto inteiro, como hoje) continua valendo?
 5. **Cavalo junto (configuração da empresa):** com F, o cavalo vira só mais uma frente quando a empresa escolher "juntos". Confirmar que é isso.
+6. **SAP:** as quatro perguntas da seção 7 para a Suzano. A resposta da primeira não muda o modelo (o F serve aos dois formatos), mas muda o que a integração envia.
 
 ## Referências
 
+- Integração com ERP: [plataforma-e-ecossistema.md](../../engenharia/schema-v2/plataforma-e-ecossistema.md#integração-com-erp-sap-e-outros).
 - Schema da manutenção: [manutencao.md](../../engenharia/schema-v2/manutencao.md) (já previa `trailer_set_id` e a trava WO-3 por conjunto).
 - Débito técnico: [debito-tecnico.md](../../projeto/debito-tecnico.md) ("Conjunto (hero, direita) + serviço por unidade").
 - Checklists por conjunto: [checklists-v2.md](./checklists-v2.md).
