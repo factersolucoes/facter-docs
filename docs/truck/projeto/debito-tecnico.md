@@ -20,3 +20,18 @@ A página do [Detalhe da OS](/telas/truck/os-detalhe) (opção A) foi implementa
 ## Detalhe da OS — ações de estado
 
 Na fatia 1 as ações de estado (iniciar/pausar/concluir/cancelar) estão num diálogo acionado por **"Ações"** no topo, em vez dos botões diretos do mockup (Pausar OS / Liberar na barra). Rever quando as sessões entrarem (a liberação depende dos serviços concluídos).
+
+## OS por conjunto — o que a primeira entrega deixou de fora (08/11/2026)
+
+A OS por conjunto (uma frente por veículo, [análise](../produto/propostas/os-por-conjunto.md), [mockup](/telas/truck/os-conjunto)) entrou com abertura pelo conjunto, frentes na lista e no detalhe, adicionar veículo, concluir frente e saída com OS nova ligada. Falta:
+
+| O que | Por quê importa | Onde |
+| --- | --- | --- |
+| Versão da frente na resposta do detalhe | A web manda `version: 0` (frente aberta nunca muda); expor a versão evita o atalho | `WorkOrderDetailFrontResponse` |
+| Número da OS no 409 de veículo em outra OS | A tela mostra "Em outra OS" em vez de "Na OS 1031" | `WORK_ORDER_VEHICLE_IN_OPEN_ORDER` |
+| Ações disponíveis por frente | A tela decide pelas permissões e pelo estado; a regra devia vir da API | detalhe da OS |
+| Tempo parado e custo por frente | O cartão da frente mostra só a mão de obra somada na tela | agregação por frente |
+| Aviso de conjunto desfeito e de veículo que saiu do conjunto com a OS aberta | O detalhe não avisa | porta de assets + detalhe |
+| Busca da fila pelo código do conjunto | Hoje acha pela placa ou frota de qualquer frente | lista de OS |
+| Eixo e lado no serviço, transferir frente entre OS, km no engate e telemetria | Fora desta entrega, de propósito | próximas fatias |
+| Lista de OS com título na barra do topo | Ainda usa `PageHeader` | receita da seção 15 |
