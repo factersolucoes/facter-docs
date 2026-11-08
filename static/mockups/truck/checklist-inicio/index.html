@@ -34,6 +34,8 @@ button,input{font:inherit;color:inherit}
 .i-play{--i:url(https://api.iconify.design/ph/play-fill.svg)}
 .i-cloud{--i:url(https://api.iconify.design/ph/cloud-check.svg)}
 .i-list{--i:url(https://api.iconify.design/ph/list-bullets.svg)}
+.i-hand{--i:url(https://api.iconify.design/ph/hand-pointing.svg)}
+.i-history{--i:url(https://api.iconify.design/ph/clock-counter-clockwise.svg)}
 .i-grid{--i:url(https://api.iconify.design/ph/squares-four.svg)}
 
 /* mockup chrome */
@@ -133,7 +135,20 @@ tr.row.on{background:hsl(var(--muted))}
 .dfoot{padding:14px 20px;border-top:1px solid hsl(var(--border));display:flex;align-items:center;gap:12px;background:hsl(var(--card))}
 .dfoot .what{flex:1;min-width:0;font-size:12.5px;color:hsl(var(--muted-foreground))}
 .dfoot .what b{display:block;color:hsl(var(--foreground));font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.wait{flex:1;display:grid;place-items:center;text-align:center;padding:24px;color:hsl(var(--muted-foreground))}
+.wait{flex:1;display:flex;flex-direction:column;min-height:0;color:hsl(var(--muted-foreground))}
+.dots{background-image:radial-gradient(circle at 1px 1px,hsl(var(--foreground)/.13) 1px,transparent 0);background-size:18px 18px}
+.hero{display:grid;place-items:center;text-align:center;padding:56px 24px 32px}
+.halo{width:56px;height:56px;border-radius:99px;display:grid;place-items:center;background:hsl(var(--primary-soft));color:hsl(var(--primary));box-shadow:0 0 0 8px hsl(var(--primary-soft)/.5)}
+.hero b{display:block;font:800 17px Sora;color:hsl(var(--foreground));margin:16px 0 4px}
+.resume{margin:0 16px 16px;border:1px solid hsl(var(--border));border-radius:14px;background:hsl(var(--card));overflow:auto;box-shadow:0 1px 2px hsl(233 30% 20%/.05),0 10px 24px -18px hsl(233 40% 25%/.35)}
+.resume h3{display:flex;align-items:center;gap:7px;padding:12px 16px 8px;border-bottom:1px solid hsl(var(--border));font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+.ri{display:block;padding:10px 16px;border-top:1px solid hsl(var(--border));color:hsl(var(--foreground));text-decoration:none}
+.ri:first-of-type{border-top:0}
+.ri:hover{background:hsl(var(--muted)/.4)}
+.pbar{display:flex;align-items:center;gap:10px;margin-top:6px;font-size:12.5px;color:hsl(var(--muted-foreground))}
+.pbar .trk{width:84px;height:5px;border-radius:99px;background:hsl(var(--muted));overflow:hidden}
+.pbar .trk i{display:block;height:100%;background:hsl(var(--primary));border-radius:99px}
+.pbar b{color:hsl(var(--foreground))}
 .inprog{display:flex;flex-direction:column;gap:6px;width:100%;text-align:left;margin-top:18px}
 .ip{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid hsl(var(--border));border-radius:12px;color:hsl(var(--foreground))}
 .pct{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font:700 12.5px Sora;flex:none}
@@ -274,9 +289,9 @@ function rows(){
 }
 function detail(){
   const v=[...YARD,...NOOS].find(x=>x.id===sel), d=document.getElementById('detail');
-  if(!v){d.innerHTML=`<div class="wait"><div style="max-width:320px"><span class="ic i-clip s20" style="width:36px;height:36px;color:hsl(var(--muted-foreground)/.6)"></span><p style="font:700 16px Sora;color:hsl(var(--foreground));margin-top:8px">Escolha na lista o que vai ser inspecionado</p><p style="margin-top:4px">Pela OS, o checklist fica ligado a ela. Sem OS, serve para pátio e saída de viagem.</p>
-   <div class="inprog"><h3 style="font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase">Em andamento · 2</h3>
-   ${[['CHK-000006','QRT4B22 + 2',6,3],['CHK-000005','JMH5350 + 6',19,5]].map(([n,p,pc,nk])=>`<div class="ip"><span class="pct t-nok">${pc}%</span><div style="flex:1;min-width:0"><b style="font-size:13.5px">Entrada na oficina</b><div class="muted" style="font-size:12px">${n} · ${p} · ${nk} NC</div></div><span class="ic i-right s16 muted"></span></div>`).join('')}</div></div></div>`;return}
+  if(!v){d.innerHTML=`<div class="wait dots"><div class="hero"><span class="halo"><span class="ic i-hand s20" style="width:24px;height:24px"></span></span><b>Escolha o que vai ser inspecionado</b><p style="max-width:300px;font-size:13px">Pela OS, o checklist fica ligado a ela. Sem OS, serve para pátio e saída de viagem.</p></div>
+   <div class="resume"><h3><span class="ic i-history s14"></span>Continuar de onde parou</h3>
+   ${[['Entrada na oficina','CHK-000006 · QRT4B22 + 2',6,46,3,'Atualizado hoje, 19:45 · Gestor Demo'],['Entrada na oficina','CHK-000005 · JMH5350 + 6',19,102,5,'Atualizado hoje, 19:45 · Gestor Demo'],['Saída de viagem','CHK-000004 · DLY1J07',14,24,0,'Atualizado ontem, 08:10 · Josué']].map(([n,w,a,q,nk,u])=>`<a class="ri" href="#"><b style="font:700 14.5px Sora">${n}</b><div style="font-size:12.5px" class="muted">${w}</div><div class="pbar"><span class="trk"><i style="width:${Math.round(a/q*100)}%"></i></span><span><b>${a} de ${q}</b> respondidos</span>${nk?`<span class="chip t-nok">${nk} NC</span>`:''}</div><div style="font-size:12px;margin-top:2px" class="muted">${u}</div></a>`).join('')}</div></div>`;return}
   const t=TPL.find(x=>x.id===tsel);
   const act=t.state==='completed'?['gray','Ver respostas']:t.state==='in_progress'?['primary','Continuar']:['primary','Começar'];
   d.innerHTML=`<div class="dhead"><p class="k">${v.os?v.os+' · '+STATE[v.state][1]:'Sem OS'}</p><h2>${v.plate}${v.set?`<span class="chip t-none">Conjunto ${v.set}</span>`:''}</h2>${v.problem?`<p>${v.problem}</p>`:''}${v.since?`<div class="facts"><span><span class="ic i-clock s14"></span>Entrou ${v.since}</span><span>${v.place}</span></div>`:''}
