@@ -98,7 +98,26 @@ O ponto comum: **o fato de manutenção é do veículo físico**, gravado com a 
 - Detalhe da OS: as frentes lado a lado, como o checklist do conjunto; cada uma com seus serviços e seu status.
 - Abrir OS: escolher o conjunto (padrão) ou um veículo.
 
-## 7. SAP PM (Suzano)
+## 7. Km
+
+Reboque não tem hodômetro de painel, mas precisa de km: o pneu é avaliado por **custo por km** e **desgaste por km**, e o reboque tem preventiva por km (lubrificação, rolamento, freio). O schema já decidiu de onde vem esse km ([ativos](../../engenharia/schema-v2/ativos.md), invariante **AST-12**): **o km do reboque nunca é digitado solto**. Ele vem, nesta ordem:
+
+1. do **hodômetro de cubo** do próprio reboque, quando ele tem;
+2. do **hodômetro do cavalo cadastrado**, nos períodos em que estiveram engatados (soma dos trechos);
+3. do **km informado no engate e no desengate**, quando o cavalo é de fora (de terceiro).
+
+O km do **pneu** é a soma do km dos veículos em que ele esteve instalado, período a período.
+
+**Como a OS por conjunto usa isso:**
+
+- **Na entrada do conjunto, a pessoa informa o km do cavalo que trouxe o conjunto**, mesmo que o cavalo não entre na OS (ele fica fora, por decisão). Essa leitura é do cavalo e alimenta o km dos reboques pelo engate. Se o reboque tem hodômetro de cubo, pede a leitura dele também.
+- **Cada frente congela o km do seu reboque na abertura** (calculado, não digitado), como fato: é a base da preventiva por km, do km entre falhas e do retrabalho ("voltou com 3.000 km").
+- **Cavalo de terceiro:** pede o km dele na entrada e na saída do conjunto, que vira o km dos reboques no período.
+- **Saída do conjunto:** o km de saída fecha o período de cada reboque.
+
+**O que falta construir:** a tabela de leituras (`meter_readings`), o histórico de medidores e as regras AST-5, AST-6 e AST-12 são da tarefa **1.11**, ainda aberta. Hoje a OS guarda o km de entrada numa coluna dela (`work_order_vehicles.entry_km`), sem a leitura do medidor. Para o km de reboque e de pneu funcionar de verdade, a 1.11 precisa vir **antes ou junto** da OS por conjunto. Sem ela, a OS por conjunto grava só o km do cavalo informado, e os reboques ficam sem km até a 1.11 entrar (o fato do cavalo não se perde: o km dos reboques é calculado depois a partir dele).
+
+## 8. SAP PM (Suzano)
 
 Se a Suzano entrar, a OS do Truck conversa com o SAP PM pelo modelo que o schema já deixou pronto ([integração com ERP](../../engenharia/schema-v2/plataforma-e-ecossistema.md#integração-com-erp-sap-e-outros)): `external_refs` liga cada registro do Truck ao número do SAP, `data_ownership` diz quem é dono de cada cadastro, e tudo sai pelo outbox, com a oficina trabalhando mesmo com o SAP fora do ar.
 
@@ -132,14 +151,15 @@ Se a Suzano entrar, a OS do Truck conversa com o SAP PM pelo modelo que o schema
 3. Que tipo de ordem (PM01 corretiva, PM02 preventiva…) e que centro de trabalho cada oficina usa?
 4. Pneu é equipamento no SAP, com histórico de posição?
 
-## 8. O que falta decidir
+## 9. O que falta decidir
 
 1. **Caminho:** F, como recomendado, ou outro?
 2. **Status da OS a partir das frentes:** a OS fica "em manutenção" se **qualquer** frente estiver, e "concluída" quando **todas** terminarem? (Estado derivado numa função só, como manda a regra de engenharia.)
 3. **Reboque que sai com pendência:** o pendente vai sempre para uma OS nova daquele reboque, ou a pessoa pode escolher cancelar?
 4. **Checklist:** um checklist de entrada por OS (o conjunto inteiro, como hoje) continua valendo?
 5. **Cavalo junto (configuração da empresa):** com F, o cavalo vira só mais uma frente quando a empresa escolher "juntos". Confirmar que é isso.
-6. **SAP:** as quatro perguntas da seção 7 para a Suzano. A resposta da primeira não muda o modelo (o F serve aos dois formatos), mas muda o que a integração envia.
+6. **SAP:** as quatro perguntas da seção 8 para a Suzano. A resposta da primeira não muda o modelo (o F serve aos dois formatos), mas muda o que a integração envia.
+7. **Km (seção 7):** a 1.11 (leituras de medidor e km de reboque) vem antes da OS por conjunto, junto com ela, ou depois?
 
 ## Referências
 
