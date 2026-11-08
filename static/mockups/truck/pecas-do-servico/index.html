@@ -1,0 +1,244 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>De onde vem a peça · mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet"><style>
+:root{
+  --background:0 0% 98%;--foreground:240 10% 3.9%;--card:0 0% 100%;
+  --primary:233 65% 50%;--primary-foreground:0 0% 100%;
+  --muted:240 4.8% 93.9%;--muted-foreground:240 3.8% 42%;--border:240 5.9% 90%;
+  --success:160 60% 38%;--warning:38 92% 45%;--danger:0 84.2% 60.2%;
+  --success-text:160 70% 24%;--danger-text:0 72% 38%;--warning-text:28 85% 28%;
+  --primary-soft:233 85% 96.5%;--success-soft:160 55% 94%;--warning-soft:40 95% 93%;--danger-soft:0 85% 96%;
+  --canvas:225 14% 92%;--toolbar:240 5% 96%;
+}
+*{box-sizing:border-box}
+body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));font:14px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,p{margin:0}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:1px solid hsl(var(--foreground)/.7);outline-offset:1px}
+.ic{display:inline-block;width:18px;height:18px;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;flex:none}
+.s14{width:14px;height:14px}.s16{width:16px;height:16px}.s20{width:20px;height:20px}.s24{width:24px;height:24px}
+.i-search{--i:url(https://api.iconify.design/ph/magnifying-glass.svg)}.i-clock{--i:url(https://api.iconify.design/ph/clock.svg)}
+.i-gear{--i:url(https://api.iconify.design/ph/gear-six.svg)}.i-link{--i:url(https://api.iconify.design/ph/link-simple.svg)}
+.i-truck{--i:url(https://api.iconify.design/ph/truck.svg)}.i-plus{--i:url(https://api.iconify.design/ph/plus-bold.svg)}
+.i-right{--i:url(https://api.iconify.design/ph/arrow-right.svg)}.i-left{--i:url(https://api.iconify.design/ph/arrow-left.svg)}
+.i-x{--i:url(https://api.iconify.design/ph/x.svg)}.i-check{--i:url(https://api.iconify.design/ph/check-bold.svg)}
+.i-warn{--i:url(https://api.iconify.design/ph/warning-circle.svg)}.i-info{--i:url(https://api.iconify.design/ph/info.svg)}
+.i-exit{--i:url(https://api.iconify.design/ph/sign-out.svg)}.i-swap{--i:url(https://api.iconify.design/ph/arrows-left-right.svg)}
+.i-flag{--i:url(https://api.iconify.design/ph/flag-checkered.svg)}.i-pause{--i:url(https://api.iconify.design/ph/pause.svg)}
+.i-road{--i:url(https://api.iconify.design/ph/gauge.svg)}.i-wifi{--i:url(https://api.iconify.design/ph/broadcast.svg)}
+.i-lock{--i:url(https://api.iconify.design/ph/lock-simple.svg)}.i-dots{--i:url(https://api.iconify.design/ph/dots-three-vertical-bold.svg)}
+.i-wrench{--i:url(https://api.iconify.design/ph/wrench.svg)}.i-hand{--i:url(https://api.iconify.design/ph/hand-pointing.svg)}
+
+/* mockup page */
+.page{max-width:1360px;margin:0 auto;padding:40px 24px 80px}
+.lead h1{font:800 34px Sora;letter-spacing:-.02em}
+.lead p{max-width:860px;margin-top:10px;color:hsl(var(--muted-foreground));font-size:15px}
+.lead b{color:hsl(var(--foreground))}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 8px}
+.tabs a{display:inline-flex;gap:6px;align-items:center;padding:6px 12px;border-radius:99px;background:hsl(var(--card));text-decoration:none;color:hsl(var(--foreground));font-weight:600;font-size:13px;box-shadow:0 1px 2px hsl(233 30% 20%/.08)}
+.tabs a b{color:hsl(var(--primary))}
+section.sc{margin-top:56px}
+.sc>h2{display:flex;align-items:center;gap:10px;font:800 22px Sora}
+.sc>h2 .tag{display:grid;place-items:center;width:28px;height:28px;border-radius:99px;background:hsl(var(--card));color:hsl(var(--primary));font:800 13px Sora}
+.sc>.why{max-width:900px;margin:8px 0 14px 38px;color:hsl(var(--muted-foreground))}
+.sc>.why b{color:hsl(var(--foreground))}
+.states{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px 38px}
+.states button{border:1px solid hsl(var(--border));background:hsl(var(--card));border-radius:99px;padding:3px 11px;font-size:12px;color:hsl(var(--muted-foreground));cursor:pointer}
+.states button[aria-pressed=true]{border-color:hsl(var(--foreground)/.6);color:hsl(var(--foreground));font-weight:600}
+.note{display:inline-block;margin:10px 0 0 38px;padding:4px 10px;border:1px dashed hsl(270 60% 60%);border-radius:8px;color:hsl(270 50% 40%);font-size:12px;background:hsl(270 80% 98%)}
+
+/* app frame */
+.app{display:grid;grid-template-columns:64px 1fr;min-height:640px;border-radius:18px;overflow:hidden;background:hsl(var(--background));box-shadow:0 24px 60px -30px hsl(233 40% 20%/.45)}
+.side{background:hsl(var(--card));border-right:1px solid hsl(var(--border));display:flex;flex-direction:column;align-items:center;gap:14px;padding-top:12px}
+.logo{width:40px;height:40px;border-radius:11px;background:hsl(var(--primary))}
+.nav{width:36px;height:36px;border-radius:10px;background:hsl(var(--muted)/.6)}.nav.on{background:hsl(var(--primary-soft))}
+.main{display:flex;flex-direction:column;min-width:0}
+.top{height:60px;display:flex;align-items:center;gap:16px;padding:0 22px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
+.top .eb{font:700 10px Sora;letter-spacing:.07em;text-transform:uppercase}
+.top .tt{font:800 18px Sora}
+.top .sp{margin-left:auto;margin-right:auto;width:380px;height:36px;border-radius:99px;background:hsl(var(--muted)/.7)}
+.body{flex:1;padding:14px;min-height:0;position:relative}
+.pane{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;overflow:hidden;box-shadow:0 1px 2px hsl(233 30% 20%/.05),0 12px 32px -18px hsl(233 40% 25%/.25)}
+
+/* atoms */
+.plate{font:700 14.5px Sora;letter-spacing:.01em}
+.chip{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:99px;font-size:11.5px;font-weight:600;white-space:nowrap}
+.t-wait{background:hsl(var(--warning-soft));color:hsl(var(--warning-text))}
+.t-work{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+.t-ok{background:hsl(var(--success-soft));color:hsl(var(--success-text))}
+.t-nok{background:hsl(var(--danger-soft));color:hsl(var(--danger-text))}
+.t-none{background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.t-pause{background:hsl(var(--toolbar));color:hsl(var(--foreground)/.75);box-shadow:inset 0 0 0 1px hsl(var(--border))}
+.muted{color:hsl(var(--muted-foreground))}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:38px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-weight:600;font-size:13.5px;cursor:pointer;white-space:nowrap;background:none}
+.btn.primary{background:hsl(var(--primary));color:hsl(var(--primary-foreground))}
+.btn.outline{border-color:hsl(var(--border));background:hsl(var(--card))}
+.btn.gray{background:hsl(var(--toolbar))}
+.btn.danger{background:hsl(0 72% 42%);color:#fff}
+.btn.lg{height:44px;padding:0 20px;font-size:14.5px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:12px;font-weight:600;color:hsl(var(--muted-foreground))}
+.input{display:flex;align-items:center;gap:8px;height:42px;padding:0 12px;border:1px solid hsl(var(--border));border-radius:10px;background:hsl(var(--card))}
+.input input{border:0;outline:0;background:none;flex:1;min-width:0;font-size:15px}
+.input.err{border-color:hsl(var(--danger))}
+.hint{font-size:12px;color:hsl(var(--muted-foreground))}
+.hint.err{color:hsl(var(--danger-text));font-weight:600}
+.seg{display:inline-flex;gap:2px;padding:3px;border-radius:10px;background:hsl(var(--muted)/.8)}
+.seg span{border-radius:8px;padding:5px 12px;font-size:13px;font-weight:600;color:hsl(var(--muted-foreground))}
+.seg span.on{background:hsl(var(--card));color:hsl(var(--foreground));box-shadow:0 1px 2px hsl(233 30% 20%/.12)}
+.tile{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;flex:none}
+.notice{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:12px;font-size:13px}
+.notice.warn{background:hsl(var(--warning-soft));color:hsl(var(--warning-text))}
+.notice.info{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+.notice.danger{background:hsl(var(--danger-soft));color:hsl(var(--danger-text))}
+.sk{display:block;border-radius:8px;background:linear-gradient(90deg,hsl(var(--muted)),hsl(var(--muted)/.5),hsl(var(--muted)));background-size:200% 100%;animation:sk 1.2s infinite}
+@keyframes sk{to{background-position:-200% 0}}
+.dots{background-image:radial-gradient(hsl(var(--border)) 1px,transparent 1.4px);background-size:24px 24px}
+.train{display:inline-flex;align-items:center;gap:3px;padding:3px 5px;border-radius:6px;background:hsl(var(--toolbar))}
+.train i{display:block;height:6px;width:18px;border-radius:2px;background:hsl(var(--foreground)/.3)}
+.train i.out{background:hsl(var(--foreground)/.15);outline:1px dashed hsl(var(--foreground)/.35)}
+.train i.wait{background:hsl(var(--warning))}
+.train i.done{background:hsl(var(--success))}
+.train i.work{background:hsl(var(--primary))}
+
+/* list */
+.lrow{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1.4fr) 150px 170px;gap:12px;align-items:center;padding:12px 16px;border-top:1px solid hsl(var(--border))}
+.lhead{background:hsl(var(--toolbar));border-top:0;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding:9px 16px}
+
+/* dialog */
+.scrim{position:absolute;inset:0;background:hsl(240 10% 4%/.35);display:grid;place-items:center;padding:24px}
+.dialog{width:min(620px,100%);background:hsl(var(--card));border-radius:20px;box-shadow:0 30px 60px -20px hsl(233 40% 15%/.5);overflow:hidden;display:flex;flex-direction:column;max-height:100%}
+.dh{padding:18px 20px 12px;display:flex;gap:12px;align-items:flex-start}
+.dh .t .eyebrow{color:hsl(var(--primary))}
+.dh h3{font:800 20px Sora;margin-top:2px}
+.dh p{font-size:13px;color:hsl(var(--muted-foreground));margin-top:2px}
+.dh .x{margin-left:auto;width:32px;height:32px;border-radius:9px;background:hsl(var(--toolbar));display:grid;place-items:center}
+.db{padding:4px 20px 18px;display:flex;flex-direction:column;gap:12px;overflow:auto}
+.df{padding:12px 20px;border-top:1px solid hsl(var(--border));display:flex;align-items:center;gap:10px;background:hsl(var(--toolbar))}
+.df .grow{flex:1;font-size:12.5px;color:hsl(var(--muted-foreground))}
+.choice{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid hsl(var(--border));border-radius:14px;cursor:pointer}
+.choice.on{border-color:hsl(var(--foreground)/.55);background:hsl(var(--muted)/.5)}
+.radio{width:18px;height:18px;border-radius:99px;border:1.5px solid hsl(var(--border));flex:none;display:grid;place-items:center}
+.choice.on .radio{border-color:hsl(var(--foreground))}
+.choice.on .radio::after{content:"";width:8px;height:8px;border-radius:99px;background:hsl(var(--foreground))}
+.mplate{display:inline-flex;flex-direction:column;align-items:center;border:1.5px solid hsl(var(--foreground));border-radius:6px;overflow:hidden;min-width:96px}
+.mplate span{width:100%;background:hsl(233 65% 40%);color:#fff;font:700 7px Inter;text-align:center;letter-spacing:.1em;padding:1px 0}
+.mplate b{font:700 15px ui-monospace,Menlo,monospace;letter-spacing:.12em;padding:2px 8px}
+
+/* detail */
+.dhero{padding:18px 22px;border-bottom:1px solid hsl(var(--border));display:flex;gap:16px;align-items:flex-start}
+.fronts{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;padding:16px 22px}
+.front{border:1px solid hsl(var(--border));border-radius:14px;background:hsl(var(--card));overflow:hidden;cursor:pointer}
+.front.on{border-color:hsl(var(--foreground)/.5);box-shadow:0 0 0 3px hsl(var(--foreground)/.05)}
+.front .fh{padding:10px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid hsl(var(--border))}
+.front .pos{font:600 10.5px Inter;color:hsl(var(--muted-foreground))}
+.front .fb{padding:10px 12px;font-size:12.5px;display:flex;flex-direction:column;gap:6px}
+.svc{display:flex;gap:10px;align-items:flex-start;padding:10px 14px;border-top:1px solid hsl(var(--border))}
+.loc{display:inline-flex;gap:4px;align-items:center;font-size:11.5px;font-weight:600;padding:2px 7px;border-radius:6px;background:hsl(var(--toolbar));color:hsl(var(--foreground)/.75)}
+.selbar{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:6px 6px 6px 12px;border-radius:14px;background:hsl(var(--foreground));color:hsl(var(--background));box-shadow:0 18px 40px -16px hsl(233 40% 15%/.55);white-space:nowrap}
+.selbar .c{display:inline-flex;align-items:center;gap:8px;font-weight:600;padding-right:8px}
+.selbar .c b{display:grid;place-items:center;min-width:26px;height:26px;border-radius:99px;background:hsl(var(--primary));color:#fff;font:700 12px Sora}
+.selbar .a{display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 12px;border-radius:10px;font-weight:600;font-size:13.5px}
+.selbar .a.p{background:hsl(var(--primary));color:#fff}
+.selbar .sep{width:1px;height:22px;background:hsl(var(--background)/.2);margin:0 4px}
+
+/* axle picker */
+.axles{display:flex;flex-direction:column;gap:10px;align-items:center;padding:12px;border-radius:14px;background:hsl(var(--background))}
+.axle{display:flex;align-items:center;gap:10px}
+.axle .bar{width:110px;height:6px;border-radius:3px;background:hsl(var(--foreground)/.25)}
+.wheel{width:26px;height:42px;border-radius:7px;background:hsl(var(--foreground)/.75);cursor:pointer;display:grid;place-items:center;color:#fff;font:700 10px Inter}
+.wheel.on{background:hsl(var(--primary));box-shadow:0 0 0 3px hsl(var(--primary)/.25)}
+.wheel.dim{background:hsl(var(--foreground)/.2)}
+
+/* phone */
+.phone{width:380px;height:760px;border-radius:40px;padding:12px;background:#111;box-shadow:0 24px 60px -30px hsl(233 40% 20%/.6)}
+.screen{height:100%;border-radius:30px;overflow:hidden;background:hsl(var(--background));display:flex;flex-direction:column}
+[hidden]{display:none!important}
+</style><style>
+.i-box{--i:url(https://api.iconify.design/ph/package.svg)}.i-hist{--i:url(https://api.iconify.design/ph/clock-counter-clockwise.svg)}
+.i-cog{--i:url(https://api.iconify.design/ph/gear-six.svg)}.i-arrowd{--i:url(https://api.iconify.design/ph/arrow-down.svg)}
+table.t{width:100%;border-collapse:collapse;font-size:13px}
+table.t th{text-align:left;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding:8px 12px;background:hsl(var(--toolbar));border-bottom:1px solid hsl(var(--border))}
+table.t td{padding:10px 12px;border-bottom:1px solid hsl(var(--border));vertical-align:middle}
+.code{font:600 12px ui-monospace,Menlo,monospace;padding:2px 6px;border-radius:6px;background:hsl(var(--toolbar))}
+.flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;align-items:stretch}
+.step{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;padding:12px 14px;position:relative}
+.step .n{position:absolute;top:-10px;left:12px;width:22px;height:22px;border-radius:99px;background:hsl(var(--primary));color:#fff;display:grid;place-items:center;font:700 11px Sora}
+.step h4{font:700 13.5px Sora;margin:6px 0 6px}
+.step .v{font-size:13px}
+.result{margin-top:12px;background:hsl(var(--primary-soft));border:1px solid hsl(var(--primary)/.2);border-radius:14px;padding:12px 14px}
+.prow{display:flex;align-items:center;gap:10px;padding:10px 14px;border-top:1px solid hsl(var(--border))}
+.origin{font-size:11px;font-weight:600;padding:1px 7px;border-radius:6px;background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.addsvc{display:inline-flex;align-items:center;gap:6px;color:hsl(var(--muted-foreground));font-weight:600;font-size:13px}</style></head><body><div class="page">
+<div class="lead"><h1>De onde vem a peça · telas e estados</h1>
+<p>Como o sistema chega <b>na peça certa, na quantidade certa</b>, sem ninguém digitar código: o <b>kit do tipo de serviço</b> diz o que o serviço usa e por posição; a <b>aplicação da peça</b> diz qual código serve naquele eixo e modelo; a <b>posição</b> marcada no defeito dá a quantidade; o <b>histórico</b> sugere quando falta cadastro. O que nasce é uma <b>peça necessária</b>: só vira pedido quando o mecânico confirma no diagnóstico. Exemplo: "Lonas e tambores" não conforme no eixo 2, os dois lados, do reboque RTF6K38 (Randon, eixo com tambor 16,5 × 7").</p></div>
+<nav class="tabs"><a href="#kit"><b>1</b> Kit do serviço</a><a href="#aplicacao"><b>2</b> Aplicação da peça</a><a href="#conta"><b>3</b> Como o sistema calcula</a><a href="#servico"><b>4</b> Peças no serviço</a><a href="#confirma"><b>5</b> Mecânico confirma</a></nav>
+
+<section class="sc" id="kit"><h2><span class="tag">1</span>Kit do tipo de serviço</h2>
+<p class="why">No cadastro de "Troca de lona de freio", cada peça do kit diz <b>o que é</b> (a peça genérica, como "Lona de freio") e <b>quanto vai por posição</b>: fixo, por lado, por eixo ou por roda. Não diz o código: o código depende do veículo (tela 2).</p>
+<div class="states" data-for="kit"><button data-s="ok" aria-pressed="true">Kit montado</button><button data-s="empty" aria-pressed="false">Sem kit</button></div>
+<div class="app"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav on"></span><span class="nav"></span></nav><div class="main"><header class="top"><div><div class="eb">Configurações · Catálogos</div><div class="tt">Troca de lona de freio</div></div><span class="sp"></span></header>
+<div class="body"><div class="pane" id="kit-pane"></div></div></div></div></section>
+
+<section class="sc" id="aplicacao"><h2><span class="tag">2</span>Aplicação da peça</h2>
+<p class="why">Na peça genérica "Lona de freio", a lista de <b>onde cada código serve</b>: por tipo de eixo e freio, e por marca ou modelo do implemento. Com a Suzano, essa lista pode vir do SAP (lista de aplicação do material).</p>
+<div class="states" data-for="aplicacao"><button data-s="ok" aria-pressed="true">Com aplicações</button><button data-s="sap" aria-pressed="false">Vindo do SAP</button></div>
+<div class="app"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav on"></span><span class="nav"></span></nav><div class="main"><header class="top"><div><div class="eb">Estoque · Peças</div><div class="tt">Lona de freio</div></div><span class="sp"></span></header>
+<div class="body"><div class="pane" id="aplicacao-pane"></div></div></div></div></section>
+
+<section class="sc" id="conta"><h2><span class="tag">3</span>Como o sistema calcula</h2>
+<p class="why">O passo a passo que a tela não mostra, para entender a regra. Quatro entradas, uma resposta.</p>
+<div style="margin-left:38px"><div class="flow">
+<div class="step"><span class="n">1</span><h4>O defeito</h4><div class="v">Lonas e tambores · <b>não conforme</b><div class="muted" style="font-size:12px;margin-top:4px">RTF6K38 · eixo 2 · <b>os dois lados</b></div></div></div>
+<div class="step"><span class="n">2</span><h4>O serviço e o kit</h4><div class="v">Troca de lona de freio<div class="muted" style="font-size:12px;margin-top:4px">Lona de freio: <b>2 por lado</b><br>Rebite 6 mm: <b>16 por lado</b><br>Mola de retorno: <b>1 por lado</b></div></div></div>
+<div class="step"><span class="n">3</span><h4>O veículo</h4><div class="v">RTF6K38 · Randon<div class="muted" style="font-size:12px;margin-top:4px">Eixo 2: <b>tambor 16,5 × 7"</b>, cadastro de eixos</div></div></div>
+<div class="step"><span class="n">4</span><h4>A aplicação</h4><div class="v">Lona de freio para tambor 16,5 × 7"<div class="muted" style="font-size:12px;margin-top:4px">serve: <span class="code">LF-4707</span> (Randon)</div></div></div>
+</div>
+<div class="result"><div class="eyebrow" style="color:hsl(var(--primary))">Peças necessárias do serviço</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;font-size:13.5px"><span><span class="code">LF-4707</span> Lona de freio <b>× 4</b> <span class="muted">(2 por lado × 2 lados)</span></span><span>· Rebite 6 mm <b>× 32</b></span><span>· Mola de retorno <b>× 2</b></span></div>
+<div class="muted" style="font-size:12.5px;margin-top:6px">Se a aplicação não acha o código, a linha fica como <b>"Lona de freio · escolher código"</b> e o histórico sugere o que foi usado da última vez (tela 4).</div></div></div>
+</section>
+
+<section class="sc" id="servico"><h2><span class="tag">4</span>Peças no serviço da OS</h2>
+<p class="why">No serviço criado pelo checklist, as peças entram como <b>necessárias</b> com a origem e o motivo da quantidade. Ninguém pediu ainda.</p>
+<div class="states" data-for="servico"><button data-s="ok" aria-pressed="true">Tudo resolvido</button><button data-s="missing" aria-pressed="false">Em falta no estoque</button><button data-s="noapp" aria-pressed="false">Sem aplicação · histórico sugere</button><button data-s="noperm" aria-pressed="false">Sem permissão de valor</button></div>
+<div class="app"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav on"></span><span class="nav"></span></nav><div class="main"><header class="top"><div><div class="eb">Ordens de serviço</div><div class="tt">OS 1042</div></div><span class="sp"></span></header>
+<div class="body"><div class="pane" id="servico-pane"></div></div></div></div></section>
+
+<section class="sc" id="confirma"><h2><span class="tag">5</span>Mecânico confirma no diagnóstico</h2>
+<p class="why">Ao começar o serviço, o mecânico vê as peças sugeridas e confirma, ajusta ou tira. Só então elas viram pedido para o almoxarifado (o fluxo de peças da OS que já existe: solicitada, aprovada, entregue).</p>
+<div class="states" data-for="confirma"><button data-s="ok" aria-pressed="true">Confirmar como veio</button><button data-s="edit" aria-pressed="false">Ajustando</button></div>
+<div class="app"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav on"></span><span class="nav"></span></nav><div class="main"><header class="top"><div><div class="eb">Ordens de serviço</div><div class="tt">OS 1042</div></div><span class="sp"></span></header>
+<div class="body dots" style="min-height:520px"><div class="scrim" style="background:transparent"><div class="dialog" id="confirma-dialog"></div></div></div></div></div></section>
+</div>
+<script>
+const R={};
+R.kit=s=>{
+  if(s==='empty') return `<div style="padding:16px 18px;border-bottom:1px solid hsl(var(--border))"><div class="eyebrow">Peças do kit</div></div><div class="dots" style="padding:50px 20px;text-align:center"><p style="font:700 15px Sora">Este serviço ainda não tem kit</p><p class="muted">Sem kit, o serviço nasce sem peças e o mecânico escolhe no diagnóstico</p><button class="btn outline" style="margin-top:10px"><span class="ic i-plus s14"></span>Adicionar peça ao kit</button></div>`;
+  return `<div style="padding:14px 18px;border-bottom:1px solid hsl(var(--border));display:flex;align-items:center;gap:10px"><div><div class="eyebrow">Peças do kit</div><div class="muted" style="font-size:12.5px">Usadas como sugestão quando o serviço é criado</div></div><span style="flex:1"></span><button class="btn outline"><span class="ic i-plus s14"></span>Adicionar peça</button></div>
+  <table class="t"><thead><tr><th>Peça</th><th>Quantidade</th><th>Por</th><th>Código</th></tr></thead><tbody>
+  ${[['Lona de freio','2','lado do eixo','Pela aplicação no veículo'],['Rebite 6 mm','16','lado do eixo','RB-0600 (serve em todos)'],['Mola de retorno','1','lado do eixo','Pela aplicação no veículo'],['Graxa para came','0,1 kg','serviço','GR-0001']].map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td><div class="seg" style="padding:2px"><span class="${r[2]==='lado do eixo'?'on':''}" style="padding:3px 8px;font-size:12px">por lado</span><span style="padding:3px 8px;font-size:12px">por eixo</span><span style="padding:3px 8px;font-size:12px">por roda</span><span class="${r[2]==='serviço'?'on':''}" style="padding:3px 8px;font-size:12px">fixo</span></div></td><td class="muted">${r[3]}</td></tr>`).join('')}</tbody></table>`;
+};
+R.aplicacao=s=>`<div style="padding:14px 18px;border-bottom:1px solid hsl(var(--border));display:flex;align-items:center;gap:10px"><div><div class="eyebrow">Onde cada código serve</div><div class="muted" style="font-size:12.5px">${s==='sap'?'Lista importada do SAP · editável só lá':'O sistema escolhe o código pelo eixo e pelo modelo do veículo'}</div></div>${s==='sap'?'<span class="chip t-work" style="margin-left:auto">SAP · sincronizado hoje 06:00</span>':'<button class="btn outline" style="margin-left:auto"><span class="ic i-plus s14"></span>Adicionar aplicação</button>'}</div>
+  <table class="t"><thead><tr><th>Código</th><th>Freio e eixo</th><th>Marca ou modelo</th><th>Estoque</th></tr></thead><tbody>
+  ${[['LF-4707','Tambor 16,5 × 7"','Randon','12 em Curitiba'],['LF-4720','Tambor 16,5 × 7"','Librelato, Facchini','3 em Curitiba'],['LD-2210','Disco 22,5"','Qualquer','0 · <b style="color:hsl(var(--danger-text))">em falta</b>'],['LF-4810','Tambor 16,5 × 8"','Qualquer','5 em Araucária']].map(r=>`<tr><td><span class="code">${r[0]}</span></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join('')}</tbody></table>`;
+R.servico=s=>{
+  const rows=[
+    {code:s==='noapp'?null:'LF-4707',n:'Lona de freio',q:'4',why:'2 por lado × 2 lados · eixo 2',st:s==='missing'?'miss':'ok',v:'R$ 86,00'},
+    {code:'RB-0600',n:'Rebite 6 mm',q:'32',why:'16 por lado × 2 lados',st:'ok',v:'R$ 0,40'},
+    {code:'MR-1102',n:'Mola de retorno',q:'2',why:'1 por lado × 2 lados',st:'ok',v:'R$ 12,50'},
+  ];
+  return `<div style="padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid hsl(var(--border))"><span class="tile" style="background:hsl(var(--muted))"><span class="ic i-wrench s16 muted"></span></span><div style="flex:1"><b>Troca de lona de freio</b><div><span class="loc">RTF6K38 · eixo 2 · os dois lados</span> <span class="origin">do checklist CHK-000008</span></div></div><span class="chip t-wait">Na fila</span></div>
+  <div style="padding:9px 16px;background:hsl(var(--toolbar));display:flex;align-items:center;gap:8px"><span class="eyebrow">Peças necessárias</span><span class="muted" style="font-size:12px">do kit · ainda não pedidas</span></div>
+  ${rows.map(r=>`<div class="prow"><span class="ic i-box s16 muted"></span><div style="flex:1;min-width:0">${r.code?`<span class="code">${r.code}</span> `:''}<b>${r.n}</b>${!r.code?' <span class="chip t-wait">escolher código</span>':''}<div class="muted" style="font-size:12px">${r.why}${!r.code?' · RTF6K38 não tem aplicação para o eixo 2':''}</div>${!r.code?'<div style="margin-top:6px;display:flex;gap:6px;align-items:center;font-size:12.5px"><span class="ic i-hist s14 muted"></span><span class="muted">Da última vez neste reboque:</span><button class="btn outline" style="height:28px;padding:0 10px;font-size:12.5px"><span class="code">LF-4707</span> usar este</button></div>':''}</div><b style="width:40px;text-align:right">× ${r.q}</b><span style="width:150px;text-align:right;font-size:12.5px">${!r.code?'<span class="muted">—</span>':r.st==='miss'?'<b style="color:hsl(var(--danger-text))">em falta</b><div class="muted" style="font-size:11.5px">o serviço vai esperar peça</div>':'<span style="color:hsl(var(--success-text));font-weight:600">em estoque</span>'}</span>${s==='noperm'?'':`<span class="muted" style="width:80px;text-align:right;font-size:12.5px">${r.code?r.v:'—'}</span>`}</div>`).join('')}
+  <div style="padding:10px 16px;border-top:1px solid hsl(var(--border));font-size:12.5px" class="muted">${s==='noperm'?'Valores visíveis só com permissão de custo.':(s==='noapp'?'Total estimado sem a lona, até escolher o código':'Total estimado R$ 381,80 · congelado só na entrega')}</div>`;
+};
+R.confirma=s=>`<div class="dh"><div class="t"><div class="eyebrow">Começar serviço</div><h3>Troca de lona de freio</h3><p>RTF6K38 · eixo 2 · os dois lados</p></div><span class="x"><span class="ic i-x s16"></span></span></div><div class="db">
+  <div class="eyebrow">Peças que você vai usar</div>
+  ${[['LF-4707','Lona de freio',4],['RB-0600','Rebite 6 mm',32],['MR-1102','Mola de retorno',2]].map(([c,n,q],i)=>`<div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border:1px solid hsl(var(--border));border-radius:12px;${s==='edit'&&i===2?'opacity:.45':''}"><span class="code">${c}</span><b style="flex:1">${n}</b>${s==='edit'&&i===0?'<div class="input" style="width:90px;height:34px"><input value="2"></div>':`<b>× ${q}</b>`}<span class="ic i-x s14 muted"></span></div>`).join('')}
+  ${s==='edit'?'<div class="notice info"><span class="ic i-info s16"></span><span>Só o lado esquerdo precisava: lona de 4 para 2. A mola sai: estava boa.</span></div>':''}
+  <span class="addsvc" style="padding:0"><span class="ic i-plus s14"></span>Outra peça</span>
+</div><div class="df"><span class="grow">${s==='edit'?'2 peças viram pedido':'3 peças viram pedido para o almoxarifado'}</span><button class="btn outline">Começar sem peças</button><button class="btn primary">Confirmar e pedir</button></div>`;
+const T={kit:'kit-pane',aplicacao:'aplicacao-pane',servico:'servico-pane',confirma:'confirma-dialog'};
+for(const k of Object.keys(T)){const g=document.querySelector(`.states[data-for="${k}"]`);const d=s=>document.getElementById(T[k]).innerHTML=R[k](s);d(g.querySelector('button').dataset.s);g.querySelectorAll('button').forEach(b=>b.onclick=()=>{g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));d(b.dataset.s);});}
+</script></body></html>
