@@ -68,7 +68,8 @@ button,input{font:inherit;color:inherit}
 .train{display:flex;align-items:center;gap:3px}
 .train i{display:block;height:6px;border-radius:2px;background:hsl(var(--foreground)/.75)}
 .train i.cab{width:12px;border-radius:2px 4px 2px 2px}
-.train i.tr{width:22px;background:hsl(var(--foreground)/.35)}
+.train i.tr{width:18px;background:hsl(var(--foreground)/.3)}
+.train{padding:3px 5px;border-radius:6px;background:hsl(var(--toolbar))}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 18px;border-radius:10px;border:0;font-weight:600;cursor:pointer;white-space:nowrap}
 .btn.primary{background:hsl(var(--primary));color:hsl(var(--primary-foreground))}
 .btn.gray{background:hsl(var(--toolbar));color:hsl(var(--foreground))}
@@ -93,17 +94,28 @@ tr.row:hover{background:hsl(var(--muted)/.45)}
 tr.row.on{background:hsl(var(--muted))}
 .veh{display:flex;flex-direction:column;gap:3px}
 .veh small{font-size:12px;color:hsl(var(--muted-foreground));white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;display:block}
-.prob{max-width:170px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:hsl(var(--foreground)/.85)}
-.group td{background:hsl(var(--card));padding:14px 14px 6px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground));border-bottom:0}
+.prob{color:hsl(var(--foreground)/.85);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.4}
+.late{color:hsl(var(--warning-text))!important;font-weight:600}
+.sk{display:block;border-radius:6px;background:linear-gradient(90deg,hsl(var(--muted)) 0%,hsl(var(--muted)/.5) 50%,hsl(var(--muted)) 100%);background-size:200% 100%;animation:sk 1.2s infinite}
+@keyframes sk{to{background-position:-200% 0}}
+.empty{padding:40px 24px;text-align:center;color:hsl(var(--muted-foreground))}
+.empty b{display:block;font:700 15px Sora;color:hsl(var(--foreground));margin:8px 0 2px}
+.states{display:flex;gap:6px;justify-content:center;margin:-4px 0 12px}
+.states button{border:1px solid hsl(var(--border));background:hsl(var(--card));border-radius:99px;padding:3px 10px;font-size:12px;color:hsl(var(--muted-foreground));cursor:pointer}
+.states button[aria-pressed=true]{border-color:hsl(var(--foreground)/.6);color:hsl(var(--foreground))}
+.group td{background:hsl(var(--card));padding:16px 12px 6px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground));border-bottom:0}
 .detail{display:flex;flex-direction:column;min-height:0}
 .dhead{padding:18px 20px 14px;border-bottom:1px solid hsl(var(--border))}
 .dhead .k{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+.dhead .facts{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px;font-size:12.5px;color:hsl(var(--muted-foreground))}
+.dhead .facts span{display:inline-flex;align-items:center;gap:5px}
 .dhead h2{font:800 22px Sora;margin-top:2px;display:flex;align-items:center;gap:10px}
 .dhead p{margin-top:6px;color:hsl(var(--foreground)/.85)}
-.comp{display:flex;align-items:stretch;gap:0;margin-top:14px}
-.unit{flex:1;min-width:0;border:1px solid hsl(var(--border));border-radius:10px;padding:8px 10px;background:hsl(var(--background))}
+.comp{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:14px}
+.unit{min-width:0;position:relative;border:1px solid hsl(var(--border));border-radius:10px;padding:8px 10px;background:hsl(var(--background))}
 .unit b{font:700 13.5px Sora;display:block}
 .unit span{font-size:11.5px;color:hsl(var(--muted-foreground))}
+.unit em{position:absolute;top:7px;right:9px;font:600 10.5px Inter;font-style:normal;color:hsl(var(--muted-foreground)/.8)}
 .link{width:10px;align-self:center;height:2px;background:hsl(var(--border));flex:none}
 .dbody{flex:1;overflow:auto;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
 .dbody h3{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
@@ -174,7 +186,8 @@ tr.row.on{background:hsl(var(--muted))}
 
 <!-- ================= Direction A ================= -->
 <section id="dir-a">
-  <p class="caption"><b>Notebook e tablet deitado.</b> O pátio numa tabela com o que importa para decidir: composição, OS, situação, há quanto tempo entrou e o último checklist. O detalhe ao lado mostra o conjunto, os modelos com as seções, e o botão de começar sempre no mesmo lugar.</p>
+  <p class="caption"><b>Notebook e tablet deitado.</b> O pátio numa tabela agrupada por situação, com o que importa para decidir: composição, OS e problema relatado, há quanto tempo entrou (em alerta depois de um dia) e o último checklist. O detalhe ao lado mostra o conjunto, os modelos com as seções, e o botão de começar sempre no mesmo lugar.</p>
+  <div class="states" id="states"><button data-s="ok" aria-pressed="true">Com dados</button><button data-s="loading" aria-pressed="false">Carregando</button><button data-s="nofound" aria-pressed="false">Busca sem resultado</button><button data-s="noperm" aria-pressed="false">Sem permissão de ver OS</button></div>
   <div class="frame"><div class="app">
     <nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav"></span><span class="nav on"></span><span class="nav"></span><span class="nav"></span></nav>
     <div class="main">
@@ -192,7 +205,7 @@ tr.row.on{background:hsl(var(--muted))}
             </div>
             <div class="tbl">
               <table>
-                <thead><tr><th>Veículo</th><th>OS</th><th>Situação</th><th>Entrou</th><th>Último checklist</th></tr></thead>
+                <thead><tr><th style="width:30%">Veículo</th><th>OS e problema relatado</th><th style="width:16%">Entrou</th><th style="width:18%">Último checklist</th></tr></thead>
                 <tbody id="rows"></tbody>
               </table>
             </div>
@@ -232,10 +245,11 @@ tr.row.on{background:hsl(var(--muted))}
 <script>
 const YARD=[
  {id:'os3',plate:'JMH5350',os:'OS-000003',state:'wait',since:'há 2 h 10 min',place:'Base Curitiba',problem:'Entrada para preventiva de 50 mil km',units:[['JMH5350','Cavalo'],['SRK9H45','Semirreboque'],['SRK9H46','Semirreboque']],set:'C-320',last:{when:'há 18 dias',nok:3}},
- {id:'os2',plate:'SRK9H45',os:'OS-000002',state:'wait',since:'há 4 dias',place:'Base Curitiba',problem:'Ruído metálico ao frear, luz no painel',units:[['RTC3G56','Semirreboque'],['SRK9H45','Semirreboque']],set:'C-118',last:null},
+ {id:'os2',plate:'SRK9H45',os:'OS-000002',state:'wait',since:'há 4 dias',late:true,place:'Base Curitiba',problem:'Ruído metálico ao frear, luz no painel',units:[['RTC3G56','Semirreboque'],['SRK9H45','Semirreboque']],set:'C-118',last:null},
  {id:'os1',plate:'DLY1J07',os:'OS-000001',state:'work',since:'há 3 h',place:'Box 7',problem:'Vazamento de ar no circuito do freio',units:[['DLY1J07','Caminhão']],set:null,last:{when:'ontem',nok:0}},
 ];
-const NOOS=[{id:'v1',plate:'QRT4B22',os:null,state:'none',since:'',place:'Pátio',problem:'',units:[['QRT4B22','Cavalo'],['RTF6K38','Semirreboque'],['RTE1J77','Semirreboque']],set:'C-320',last:{when:'há 2 dias',nok:1}}];
+const LONG={id:'v7',plate:'RTB7F31',os:null,state:'none',since:'',place:'Pátio',problem:'',units:[['RTB7F31','Cavalo'],['SRA1A11','Semirreboque'],['SRA1A12','Semirreboque'],['SRA1A13','Semirreboque'],['SRA1A14','Semirreboque'],['SRA1A15','Semirreboque'],['SRA1A16','Semirreboque']],set:'C-900',last:{when:'há 6 dias',nok:0}};
+const NOOS=[LONG,{id:'v1',plate:'QRT4B22',os:null,state:'none',since:'',place:'Pátio',problem:'',units:[['QRT4B22','Cavalo'],['RTF6K38','Semirreboque'],['RTE1J77','Semirreboque']],set:'C-320',last:{when:'há 2 dias',nok:1}}];
 const TPL=[
  {id:'t1',name:'Entrada na oficina',items:19,ver:3,day:'07/11/2026',secs:['Pneus e rodas','Freios','Elétrica','Fluidos','Estrutura'],state:null},
  {id:'t2',name:'Saída de viagem',items:24,ver:1,day:'02/11/2026',secs:['Documentos','Pneus','Iluminação','Carga'],state:'in_progress'},
@@ -245,14 +259,17 @@ const STATE={wait:['t-wait','Na fila'],work:['t-work','Em manutenção'],none:['
 const train=u=>`<span class="train">${u.map(([,k])=>`<i class="${/Cavalo|Caminhão/.test(k)?'cab':'tr'}"></i>`).join('')}</span>`;
 const lastCell=l=>!l?'<span class="chip t-none">Nunca</span>':`<span class="muted" style="font-size:12.5px">${l.when}</span> ${l.nok?`<span class="chip t-nok">${l.nok} NC</span>`:'<span class="chip t-ok"><span class="ic i-check s14"></span>OK</span>'}`;
 let sel=null,tsel='t1';
+let view='ok';
 function rows(){
-  const g=(title,list)=>`<tr class="group"><td colspan="5">${title}</td></tr>`+list.map(v=>`<tr class="row ${sel===v.id?'on':''}" data-id="${v.id}">
-   <td><div class="veh"><span style="display:flex;align-items:center;gap:8px"><span class="plate">${v.plate}</span>${train(v.units)}</span><small>${v.set?`Conjunto ${v.set} · `:''}${v.units.map(u=>u[0]).join(' · ')}</small></div></td>
-   <td>${v.os?`<span class="os">${v.os}</span><div class="prob" title="${v.problem}">${v.problem}</div>`:'<span class="muted">—</span>'}</td>
-   <td><span class="chip ${STATE[v.state][0]}">${STATE[v.state][1]}</span></td>
-   <td style="white-space:nowrap"><span class="muted" style="font-size:12.5px">${v.since||'—'}</span>${v.place?`<div style="font-size:12px" class="muted">${v.place}</div>`:''}</td>
+  const tb=document.getElementById('rows');
+  if(view==='loading'){tb.innerHTML=[1,2,3,4].map(()=>`<tr><td><span class="sk" style="width:120px;height:14px"></span><span class="sk" style="width:160px;height:11px;margin-top:6px"></span></td><td><span class="sk" style="width:80px;height:11px"></span><span class="sk" style="width:220px;height:14px;margin-top:6px"></span></td><td><span class="sk" style="width:70px;height:12px"></span></td><td><span class="sk" style="width:90px;height:12px"></span></td></tr>`).join('');return}
+  if(view==='nofound'){tb.innerHTML=`<tr><td colspan="4"><div class="empty"><span class="ic i-search s20" style="width:30px;height:30px;opacity:.5"></span><b>Nada encontrado para “XYZ9”</b>Confira a placa, a frota ou o número do conjunto</div></td></tr>`;return}
+  const g=(title,dot,list)=>`<tr class="group"><td colspan="4"><span style="display:inline-flex;align-items:center;gap:7px">${dot?`<span class="dot" style="background:hsl(var(${dot}))"></span>`:''}${title}</span></td></tr>`+list.map(v=>`<tr class="row ${sel===v.id?'on':''}" data-id="${v.id}">
+   <td><div class="veh"><span style="display:flex;align-items:center;gap:8px"><span class="plate">${v.plate}</span>${train(v.units)}</span><small title="${v.units.map(u=>u[0]).join(' · ')}">${v.set?`Conjunto ${v.set} · ${v.units.length} veículos`:v.units[0][1]}</small></div></td>
+   <td>${v.os?`<span class="os">${v.os}</span><div class="prob" title="${v.problem}">${v.problem}</div>`:'<span class="muted">Sem OS · inspeção de pátio ou saída</span>'}</td>
+   <td style="white-space:nowrap"><span class="${v.late?'late':'muted'}" style="font-size:12.5px">${v.since||'—'}</span>${v.place?`<div style="font-size:12px" class="muted">${v.place}</div>`:''}</td>
    <td style="white-space:nowrap">${lastCell(v.last)}</td></tr>`).join('');
-  document.getElementById('rows').innerHTML=g('Na fila da oficina · 2',YARD.filter(v=>v.state==='wait'))+g('Em manutenção · 1',YARD.filter(v=>v.state==='work'))+g('Encontrado sem OS (busca “QRT”)',NOOS);
+  tb.innerHTML=(view==='noperm'?'':g('Na fila da oficina · 2','--warning',YARD.filter(v=>v.state==='wait'))+g('Em manutenção · 1','--primary',YARD.filter(v=>v.state==='work')))+g(view==='noperm'?'Resultado da busca “QRT”':'Sem OS · busca “QRT”','',NOOS);
   document.querySelectorAll('tr.row').forEach(r=>r.onclick=()=>{sel=sel===r.dataset.id?null:r.dataset.id;rows();detail()});
 }
 function detail(){
@@ -262,14 +279,15 @@ function detail(){
    ${[['CHK-000006','QRT4B22 + 2',6,3],['CHK-000005','JMH5350 + 6',19,5]].map(([n,p,pc,nk])=>`<div class="ip"><span class="pct t-nok">${pc}%</span><div style="flex:1;min-width:0"><b style="font-size:13.5px">Entrada na oficina</b><div class="muted" style="font-size:12px">${n} · ${p} · ${nk} NC</div></div><span class="ic i-right s16 muted"></span></div>`).join('')}</div></div></div>`;return}
   const t=TPL.find(x=>x.id===tsel);
   const act=t.state==='completed'?['gray','Ver respostas']:t.state==='in_progress'?['primary','Continuar']:['primary','Começar'];
-  d.innerHTML=`<div class="dhead"><p class="k">${v.os?v.os+' · '+STATE[v.state][1]:'Sem OS'}</p><h2>${v.plate}${v.set?`<span class="chip t-none">Conjunto ${v.set}</span>`:''}</h2>${v.problem?`<p>${v.problem}</p>`:''}
-   <div class="comp">${v.units.map((u,i)=>`${i?'<span class="link"></span>':''}<div class="unit"><b>${u[0]}</b><span>${u[1]}</span></div>`).join('')}</div></div>
+  d.innerHTML=`<div class="dhead"><p class="k">${v.os?v.os+' · '+STATE[v.state][1]:'Sem OS'}</p><h2>${v.plate}${v.set?`<span class="chip t-none">Conjunto ${v.set}</span>`:''}</h2>${v.problem?`<p>${v.problem}</p>`:''}${v.since?`<div class="facts"><span><span class="ic i-clock s14"></span>Entrou ${v.since}</span><span>${v.place}</span></div>`:''}
+   <div class="comp">${v.units.map((u,i)=>`<div class="unit"><em>${i+1}º</em><b>${u[0]}</b><span>${u[1]}</span></div>`).join('')}</div></div>
    <div class="dbody">${v.last?`<div class="last"><span class="ic i-clock s16 muted"></span><span style="flex:1">Último checklist ${v.last.when}</span>${v.last.nok?`<span class="chip t-nok">${v.last.nok} não conformes</span>`:'<span class="chip t-ok">Tudo conforme</span>'}</div>`:''}
    <h3>Qual checklist</h3>${TPL.map(x=>`<div class="tpl ${x.id===tsel?'on':''}" data-t="${x.id}"><span class="radio"></span><div style="flex:1;min-width:0"><span style="display:flex;align-items:center;gap:8px"><span class="name">${x.name}</span>${x.state==='in_progress'?'<span class="chip t-wait">Em andamento</span>':x.state==='completed'?'<span class="chip t-ok">Concluído</span>':''}</span><small>${x.items} itens · versão ${x.ver} de ${x.day}</small><div class="secs">${x.secs.map(s=>`<span>${s}</span>`).join('')}</div></div></div>`).join('')}</div>
    <div class="dfoot"><div class="what">${v.units.length} veículos<b>${t.name}</b></div><button class="btn ${act[0]} lg">${act[1]}${act[0]==='primary'?'<span class="ic i-right s16"></span>':''}</button></div>`;
   d.querySelectorAll('.tpl').forEach(e=>e.onclick=()=>{tsel=e.dataset.t;detail()});
 }
 rows();detail();
+document.querySelectorAll('#states button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#states button').forEach(x=>x.setAttribute('aria-pressed',x===b));view=b.dataset.s;sel=null;rows();detail()});
 
 /* Direction B */
 let bsel=null,bstep=1,btsel='t1';
