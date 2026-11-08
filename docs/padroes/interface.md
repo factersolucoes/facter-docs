@@ -65,6 +65,18 @@ Formato de cada entrada: **quando** acontece, **o que usar**, **por quê**, e **
 
 ---
 
+## Tooltip quase preto
+
+**Quando:** qualquer tooltip, em qualquer produto, no tema claro e no escuro.
+
+**Use:** o `SimpleTooltip`/`TooltipContent` do DS sem `variant`. O padrão é o balão quase preto (cor `tooltip` do preset, igual nos dois temas). As variantes `light`, `dark` e `inverted` ficam só para caso pensado.
+
+**Por quê:** o balão branco some em cima de cartão branco, e o `inverted` fica branco no modo escuro. Com o padrão certo no DS, ninguém precisa lembrar de passar a variante.
+
+**Onde já está:** `facter-design-system` (`Tooltip.tsx`, cor `tooltip` no `tailwind-preset.ts`).
+
+---
+
 ## Toda tela entrega todos os estados
 
 **Quando:** qualquer lista ou tela de dados.
