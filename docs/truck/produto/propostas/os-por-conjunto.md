@@ -6,7 +6,11 @@ tags: [truck, proposta, os, conjunto, manutenção]
 
 # OS por conjunto: análise
 
-**Status:** em análise · 08/11/2026 · decide o modelo antes de implementar.
+**Status:** aprovado em 08/11/2026 (caminho F, com as recomendações) · em implementação.
+
+**Decidido em 08/11/2026:** caminho **F**; o estado da OS sai das frentes (em manutenção se alguma estiver, concluída quando todas terminarem); reboque que sai com pendência leva o que ficou aberto para uma **OS nova ligada**; checklist de entrada continua um por OS (o conjunto inteiro); com a empresa escolhendo "juntos", o cavalo vira uma frente; a entrada registra o **km do cavalo que trouxe** mesmo com ele fora da OS (o km dos reboques sai disso quando a 1.11 entrar); um item de checklist pode virar **vários serviços**, e as peças vêm do **kit do tipo de serviço com a quantidade pela posição**.
+
+**Ordem de implementação:** (1) OS por conjunto na API (frentes, trava WO-3 por veículo, abertura por conjunto, lista e detalhe), (2) contratos e telas da OS, (3) fatia 3.2.3 dos checklists (não conforme vira serviços, peças do kit).
 
 **Decidido com a dona até aqui:** o padrão é **uma OS para o conjunto** (os reboques entram juntos); OS de um veículo só é a exceção. O **cavalo fica fora** da OS do conjunto e tem OS própria; a empresa poderá juntar os dois numa configuração. O **km de entrada** é só o do cavalo. **Todo serviço é feito num veículo**, com eixo e lado quando fizer sentido (como o v1 fazia).
 
