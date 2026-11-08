@@ -160,6 +160,9 @@ section.sc{margin-top:56px}
 .i-tire{--i:url(https://api.iconify.design/ph/tire.svg)}.i-cam{--i:url(https://api.iconify.design/ph/camera.svg)}
 .nc{border-top:1px solid hsl(var(--border));padding:12px 16px;display:flex;gap:12px;align-items:flex-start}
 .nc .bang{width:20px;height:20px;border-radius:99px;background:hsl(var(--danger-text));color:#fff;display:grid;place-items:center;font:700 12px Inter;flex:none;margin-top:2px}
+.kit{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:6px;font-size:12px}
+.kit .pc{display:inline-flex;align-items:center;gap:5px;padding:2px 8px;border-radius:7px;background:hsl(var(--toolbar));color:hsl(var(--foreground)/.8)}
+.kit .ok{color:hsl(var(--success-text));font-weight:600}.kit .miss{color:hsl(var(--danger-text));font-weight:600}
 .svcpick{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .svcpick label{display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 11px;border:1px solid hsl(var(--border));border-radius:10px;font-size:13px;font-weight:500;background:hsl(var(--card));cursor:pointer}
 .svcpick label.on{border-color:hsl(var(--primary)/.45);background:hsl(var(--primary-soft));color:hsl(var(--primary));font-weight:600}
@@ -174,7 +177,7 @@ label.on .box::after{content:"";width:8px;height:5px;border:2px solid #fff;borde
 .trayc>div{background:hsl(var(--card));padding:10px 14px}
 </style></head><body><div class="page">
 <div class="lead"><h1>Não conforme vira serviço · telas e estados</h1>
-<p>Fatia <b>3.2.3</b>. Quem inspeciona <b>marca e descreve</b>; quem decide o serviço é quem tem permissão, na revisão ou na OS. <b>Um item pode virar mais de um serviço</b> (cortes no pneu → troca de pneu e alinhamento). Cada serviço nasce <b>na frente do reboque</b> em que o defeito foi visto (OS por conjunto) e com <b>eixo e lado</b> quando o item diz onde é. Exemplo: checklist de entrada da OS 1042, conjunto C-320. Os botões cinza trocam o estado.</p></div>
+<p>Fatia <b>3.2.3</b>. Quem inspeciona <b>marca e descreve</b>; quem decide o serviço é quem tem permissão, na revisão ou na OS. <b>Um item pode virar mais de um serviço</b> (cortes no pneu → troca de pneu e alinhamento). Cada serviço nasce <b>na frente do reboque</b> em que o defeito foi visto (OS por conjunto), com <b>eixo e lado</b> quando o item diz onde é, e traz <b>as peças do kit</b> do tipo de serviço como <b>necessárias</b> (não pedidas): o pedido segue o fluxo de peças da OS. Exemplo: checklist de entrada da OS 1042, conjunto C-320. Os botões cinza trocam o estado.</p></div>
 <nav class="tabs"><a href="#modelo"><b>1</b> Modelo · serviços do item</a><a href="#execucao"><b>2</b> Execução · faixa da falha</a><a href="#revisao"><b>3</b> Revisão · decidir serviços</a><a href="#os"><b>4</b> OS · aba Checklists</a><a href="#celular"><b>5</b> Celular</a></nav>
 
 <section class="sc" id="modelo"><h2><span class="tag">1</span>Modelo · serviços do item</h2>
@@ -192,7 +195,7 @@ label.on .box::after{content:"";width:8px;height:5px;border:2px solid #fff;borde
 
 <section class="sc" id="revisao"><h2><span class="tag">3</span>Revisão · decidir serviços</h2>
 <p class="why">Os não conformes agrupados por veículo. Para cada um, os serviços sugeridos <b>já vêm marcados</b>; dá para desmarcar ou incluir outro. Um botão cria tudo numa chamada só, cada serviço na frente do reboque certo. Quem não tem permissão só conclui: os não conformes ficam "Sem decisão" na OS.</p>
-<div class="states" data-for="revisao"><button data-s="decide" aria-pressed="true">Com permissão</button><button data-s="noperm" aria-pressed="false">Sem permissão</button><button data-s="noos" aria-pressed="false">Checklist sem OS</button><button data-s="creating" aria-pressed="false">Criando</button><button data-s="created" aria-pressed="false">Já criados</button><button data-s="race" aria-pressed="false">Outro tablet criou antes</button></div>
+<div class="states" data-for="revisao"><button data-s="decide" aria-pressed="true">Com permissão</button><button data-s="noperm" aria-pressed="false">Sem permissão</button><button data-s="noos" aria-pressed="false">Checklist sem OS</button><button data-s="creating" aria-pressed="false">Criando</button><button data-s="created" aria-pressed="false">Já criados</button><button data-s="race" aria-pressed="false">Outro tablet criou antes</button><button data-s="missing" aria-pressed="false">Peça em falta</button></div>
 <div class="app"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav on"></span></nav><div class="main"><header class="top"><div><div class="eb">Checklist · CHK-000008</div><div class="tt">Entrada na oficina</div></div><span class="sp"></span></header>
 <div class="body" style="min-height:640px;display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:14px;align-items:start"><div class="pane" id="revisao-pane"></div><div id="revisao-side" style="display:flex;flex-direction:column;gap:10px"></div></div></div></div></section>
 
@@ -208,8 +211,8 @@ label.on .box::after{content:"";width:8px;height:5px;border:2px solid #fff;borde
 <script>
 const NCS=[
  {v:'RTF6K38',pos:'1º',items:[
-   {n:'Cortes, bolhas ou desgaste irregular nos pneus',sec:'Pneus e rodas',safety:true,note:'Bolha no pneu externo',loc:'Eixo 2 · esquerdo',svc:[['Troca de pneu',1],['Alinhamento',1]]},
-   {n:'Lonas e tambores',sec:'Freios',safety:true,note:'Lona no limite',loc:'Eixo 2 · os dois lados',svc:[['Troca de lona de freio',1]]},
+   {n:'Cortes, bolhas ou desgaste irregular nos pneus',sec:'Pneus e rodas',safety:true,note:'Bolha no pneu externo',loc:'Eixo 2 · esquerdo',svc:[['Troca de pneu',1],['Alinhamento',1]],kit:[['Pneu 295/80 R22.5',1,'tire']]},
+   {n:'Lonas e tambores',sec:'Freios',safety:true,note:'Lona no limite',loc:'Eixo 2 · os dois lados',svc:[['Troca de lona de freio',1]],kit:[['Lona de freio',2],['Rebite 6 mm',16],['Mola de retorno',2]]},
    {n:'Aperto das porcas',sec:'Pneus e rodas',note:'Duas porcas soltas',svc:[]},
  ]},
  {v:'RTE1J77',pos:'2º',items:[
@@ -217,6 +220,8 @@ const NCS=[
  ]},
 ];
 const pick=(svc,ro)=>`<div class="svcpick">${svc.map(([n,on])=>`<label class="${on?'on':''}">${ro?'':'<span class="box"></span>'}${n}</label>`).join('')}${ro?'':'<span class="addsvc"><span class="ic i-plus s14"></span>Outro serviço</span>'}</div>`;
+const kitLine=(it,s)=>{ if(!it.kit) return ''; const miss=s==='missing'&&it.kit[0][2]==='tire';
+  return `<div class="kit"><span class="muted">Peças do kit</span>${it.kit.map(([n,q,k])=>`<span class="pc">${n} ×${q}${k==='tire'?' · nº de fogo na entrega':''}</span>`).join('')}${miss?'<span class="miss">em falta · o serviço vai esperar peça</span>':'<span class="ok">em estoque</span>'}</div>`;};
 const R={};
 R.modelo=s=>{
   const list=s==='none'?'<p class="muted" style="font-size:13px">Nenhum. Na revisão, quem concluir descreve o que viu e o supervisor escolhe o serviço na OS.</p>':`<div style="display:flex;flex-direction:column;gap:6px">${['Troca de pneu','Alinhamento'].map((n,i)=>`<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid hsl(var(--border));border-radius:10px"><span class="muted" style="font-size:11px;font-weight:700">${i+1}</span><b style="flex:1;font-size:13.5px">${n}</b><span class="ic i-x s14 muted"></span></div>`).join('')}</div>`;
@@ -237,14 +242,14 @@ R.revisao=s=>{
       if(s==='created') svcBlock=it.svc.length?`<div class="svcpick">${it.svc.map(([n])=>`<span class="done-row"><span class="ic i-check s14"></span>${n}</span>`).join('')}</div>`:`<div class="muted" style="font-size:12.5px;margin-top:6px">Sem decisão · fica na OS</div>`;
       else if(s==='noperm') svcBlock=it.svc.length?`<div class="muted" style="font-size:12.5px;margin-top:6px">Sugestão: ${it.svc.map(x=>x[0]).join(' · ')}</div>`:'';
       else if(s==='race') svcBlock=`<div class="svcpick">${it.svc.map(([n])=>`<span class="done-row"><span class="ic i-check s14"></span>${n}</span>`).join('')}</div>`;
-      else svcBlock=it.svc.length?pick(it.svc,false):`<div class="svcpick"><span class="muted" style="font-size:12.5px;align-self:center">Sem sugestão no modelo</span><span class="addsvc"><span class="ic i-plus s14"></span>Escolher serviço</span></div>`;
+      else svcBlock=it.svc.length?pick(it.svc,false)+kitLine(it,s):`<div class="svcpick"><span class="muted" style="font-size:12.5px;align-self:center">Sem sugestão no modelo</span><span class="addsvc"><span class="ic i-plus s14"></span>Escolher serviço</span></div>`;
       out+=`<div class="nc"><span class="bang">!</span><div style="flex:1;min-width:0"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><b>${it.n}</b>${it.safety?'<span class="chip t-wait"><span class="ic i-shield s14"></span>Segurança</span>':''}${it.loc?`<span class="loc">${it.loc}</span>`:''}</div><div class="muted" style="font-size:12.5px">${it.sec} · ${it.note}</div>${svcBlock}</div></div>`;
     });});
   return out;
 };
 const side=s=>{
   const stat=`<div class="pane" style="padding:16px"><div style="display:flex;align-items:baseline;gap:8px"><b style="font:800 30px Sora">86%</b><span class="muted">conforme</span></div><div style="display:flex;gap:2px;height:8px;border-radius:99px;overflow:hidden;margin-top:10px;background:hsl(var(--muted))"><i style="width:86%;background:hsl(var(--primary))"></i><i style="width:14%;background:hsl(var(--danger))"></i></div></div>`;
-  if(s==='decide') return stat+`<div class="pane" style="padding:14px"><div class="eyebrow">Vão ser criados</div><div style="font:800 22px Sora;margin-top:2px">4 serviços</div><div class="muted" style="font-size:12.5px">3 no RTF6K38 · 1 no RTE1J77 · 1 item sem serviço fica para a OS</div></div><button class="btn primary lg">Concluir e criar 4 serviços</button><button class="btn outline lg"><span class="ic i-left s16"></span>Voltar às respostas</button>`;
+  if(s==='decide'||s==='missing') return stat+`<div class="pane" style="padding:14px"><div class="eyebrow">Vão ser criados</div><div style="font:800 22px Sora;margin-top:2px">4 serviços</div><div class="muted" style="font-size:12.5px">3 no RTF6K38 · 1 no RTE1J77 · 1 item sem serviço fica para a OS</div><div style="margin-top:8px;padding-top:8px;border-top:1px solid hsl(var(--border));font-size:12.5px"><b>4 peças necessárias</b> <span class="muted">(21 unidades) entram na aba Peças da OS, sem pedir ainda</span>${s==='missing'?'<div style="color:hsl(var(--danger-text));font-weight:600;margin-top:2px">1 em falta: Pneu 295/80 R22.5</div>':''}</div></div><button class="btn primary lg">Concluir e criar 4 serviços</button><button class="btn outline lg"><span class="ic i-left s16"></span>Voltar às respostas</button>`;
   if(s==='noperm') return stat+`<div class="notice info"><span class="ic i-info s16"></span><span>Os não conformes vão para a OS 1042 como "Sem decisão". O supervisor escolhe os serviços lá.</span></div><button class="btn primary lg">Concluir checklist</button><button class="btn outline lg"><span class="ic i-left s16"></span>Voltar às respostas</button>`;
   if(s==='noos') return stat+`<div class="pane" style="padding:14px"><div class="eyebrow">Sem OS</div><div style="font:700 15px Sora;margin-top:2px">Abrir OS do conjunto C-320 com 4 serviços</div><div class="muted" style="font-size:12.5px">A OS nasce com origem "checklist" e uma frente por reboque com defeito</div></div><button class="btn primary lg">Concluir e abrir OS</button><button class="btn outline lg">Só concluir, sem OS</button>`;
   if(s==='creating') return stat+`<button class="btn primary lg" style="opacity:.75"><span class="sk" style="width:16px;height:16px;border-radius:99px"></span>Criando 4 serviços…</button>`;
@@ -255,6 +260,7 @@ R.os=s=>{
   const pend=`<div style="padding:12px 16px;display:flex;align-items:center;gap:10px;background:hsl(var(--warning-soft))"><span class="ic i-warn s16" style="color:hsl(var(--warning-text))"></span><b style="color:hsl(var(--warning-text))">1 não conforme sem decisão</b><span class="muted" style="font-size:12.5px">CHK-000008 · entrada</span></div>
    <div class="nc"><span class="bang">!</span><div style="flex:1"><div style="display:flex;gap:8px;align-items:center"><b>Aperto das porcas</b><span class="loc">RTF6K38</span></div><div class="muted" style="font-size:12.5px">Pneus e rodas · Duas porcas soltas</div><div class="svcpick"><span class="addsvc"><span class="ic i-plus s14"></span>Escolher serviço</span><span class="addsvc">Não precisa de serviço</span></div></div></div>`;
   const done=`<div style="padding:12px 16px;border-top:1px solid hsl(var(--border));display:flex;align-items:center;gap:10px"><span class="ic i-clip s16 muted"></span><b>CHK-000008 · Entrada na oficina</b><span class="chip t-ok">Concluído</span><span class="muted" style="font-size:12.5px;margin-left:auto">4 não conformes · 4 serviços</span></div>
+   <div style="padding:10px 16px;border-top:1px solid hsl(var(--border));background:hsl(var(--toolbar));font-size:12.5px;display:flex;gap:8px;align-items:center"><span class="eyebrow">Peças necessárias · origem checklist</span><span style="margin-left:auto" class="muted">Lona de freio ×2 · Rebite ×16 · Mola ×2 · Pneu ×1 · <b style="color:hsl(var(--warning-text))">aguardando pedido</b></span></div>
    ${[['Troca de pneu','RTF6K38 · eixo 2 · esquerdo'],['Alinhamento','RTF6K38'],['Troca de lona de freio','RTF6K38 · eixo 2'],['Reparo de linha de ar','RTE1J77']].map(([n,l])=>`<div class="svc"><span class="ic i-wrench s16 muted" style="margin-top:2px"></span><div style="flex:1"><b>${n}</b><div><span class="loc">${l}</span></div></div><span class="chip t-wait">Na fila</span></div>`).join('')}`;
   return (s==='pending'?pend:'')+done;
 };
