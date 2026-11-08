@@ -20,9 +20,4 @@ Todas as propostas de produto do Truck, com o status real e o que cada uma signi
 | [Kit de peças por tipo de serviço](./service-parts-kit.mdx) | Em discussão | 2026-09-27 | Portar o "kit" do v1: tipo de serviço pré-preenche as peças na requisição (nova tabela `service_type_parts`); entra na task 2.6 |
 | [Detalhe da OS, repensado por papel](./detalhe-da-os-por-papel.mdx) | Em discussão | 2026-10-19 | Repensa a tela de detalhe da OS a partir dos papéis e dos grandes players (cockpit do consultor + terminal do mecânico); `os-detalhe` "Opção A" fica em revisão. Mockup novo antes do código |
 | [Checklists na v2: plano](./checklists-v2.md) (onde entra, funcionalidades, dependências, fatias, decisões) | Em discussão | 2026-11-07 | **Levar**: task 3.2 em seis fatias; as quatro primeiras podem ir antes dos pneus |
-| [Ações contextuais no checklist](./checklist-contextual-actions.mdx) | Aprovado | 2026-07-10 | **Levar**: checklists entram no lançamento (decidido em 26/09/2026) |
-| [Analytics Hub com pilares](./analytics-pillars.mdx) | Aprovado | 2026-07-15 | **Depois do lançamento**; as definições de indicador precisam ser reescritas (auditoria) |
-| [Analytics Hub: design das telas](./analytics-pillars-telas.mdx) | Em discussão | 2026-07-23 | **Depois do lançamento**, junto com o Analytics Hub |
-| [Reorganização da sidebar](./sidebar-reorganization.mdx) | Implementado | 2026-06-22 | **Já vale**: é frontend e se mantém |
-
-**Regra:** proposta nova nasce com status `em-discussao` e uma linha nesta tabela. Quando o status muda, esta tabela muda no mesmo commit.
+| [OS por conjunto: análise](./os-por-conjunto.md) (conjunto vivo com OS aberta, seis caminhos, como os grandes fazem, recomendação) | Em discussão | 2026-11-08 | **Decidir**: recomendação F, uma OS com uma frente por veículo |
