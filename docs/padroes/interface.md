@@ -94,3 +94,15 @@ Formato de cada entrada: **quando** acontece, **o que usar**, **por quê**, e **
 **Use:** o desktop é **projetado**, denso e comparativo — não a tela de tablet esticada.
 
 **Por quê:** quem decide no notebook precisa de densidade; quem opera no celular precisa de toque. São telas diferentes.
+
+---
+
+## Área de trabalho vazia, esperando uma escolha ao lado
+
+**Quando:** a tela tem uma lista de um lado e o trabalho do outro, e nada foi escolhido ainda (planta de pneus, editor de modelo, começar checklist).
+
+**Use:** o `EmptyState` do DS com `surface="canvas"`: fundo pontilhado na cor de borda do tema, ícone no círculo `primary-soft`, título que diz o que escolher e uma dica curta. Se houver o que retomar, um cartão "Continuar de onde parou" por cima dos pontos.
+
+**Por quê:** o vazio com textura diz "aqui vai aparecer o trabalho" sem parecer tela quebrada, e o mesmo visual em todo produto dispensa reinventar a cada tela.
+
+**Onde já está:** `facter-design-system` (`EmptyState`, desde a 1.43.0); no Truck, a movimentação de pneus e os modelos de checklist.
