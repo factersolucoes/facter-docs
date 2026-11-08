@@ -241,7 +241,15 @@ a{color:hsl(var(--primary))}
 .nk-svc.none .nk-svc-ic{background:hsl(240 5% 86%);color:hsl(240 5% 34%);box-shadow:none}
 .nk-svc.none .nk-svc-t b{color:hsl(240 6% 26%)}
 .svc{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:500;color:hsl(233 65% 38%);background:hsl(var(--primary-soft));padding:4px 9px;border-radius:7px}
-.bar{position:absolute;left:0;right:0;bottom:0;background:hsl(var(--card)/.94);backdrop-filter:blur(8px);border-top:1px solid hsl(233 20% 92%);box-shadow:0 -10px 24px -16px hsl(233 40% 25%/.3);padding:14px 24px;display:flex;align-items:center;gap:22px}
+.bar{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:6px 6px 6px 10px;border-radius:14px;background:hsl(var(--foreground));color:hsl(var(--background));box-shadow:0 18px 40px -16px hsl(233 40% 15%/.55);white-space:nowrap;z-index:5}
+.tb-count{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px;padding-right:6px}
+.tb-count b{display:grid;place-items:center;min-width:28px;height:28px;padding:0 7px;border-radius:99px;background:hsl(var(--primary));color:hsl(var(--primary-foreground));font:700 13px Sora}
+.tb-nok{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:99px;background:hsl(var(--danger-soft));color:hsl(var(--danger-text));font-size:12.5px;font-weight:600}
+.tb-sep{width:1px;height:22px;background:hsl(var(--background)/.2);margin:0 6px}
+.tb-act{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 14px;border:0;border-radius:10px;background:none;color:inherit;font:600 14px Inter;text-decoration:none;cursor:pointer}
+.tb-act:hover{background:hsl(var(--background)/.1)}
+.tb-primary{background:hsl(var(--primary));color:hsl(var(--primary-foreground))}
+.tb-primary:hover{background:hsl(var(--primary)/.9)}
 .bar .stat{display:flex;flex-direction:column;font-size:13px}
 .bar .stat b{font:800 22px/1.1 Sora,Inter,sans-serif}
 .bar .spacer{flex:1}
@@ -475,12 +483,12 @@ td .sub{font-size:12.5px;color:hsl(var(--muted-foreground))}
         </div>
         <div class="scrollx"><div class="grid" id="grid"></div></div>
         <div class="bar">
-          <div class="stat"><b id="bar-left" class="num">0</b><span class="muted">sem resposta</span></div>
-          <div class="stat"><b id="bar-nok" class="num" style="color:hsl(var(--danger-text))">0</b><span class="muted">não conformes</span></div>
-          <div class="spacer"></div>
-          <span class="hint" id="bar-hint"></span>
-          <button class="btn btn-outline btn-lg" id="next-sec">Próxima seção<span class="ic i-arrow s18"></span></button>
-          <a class="btn btn-primary btn-lg" id="go-review" href="#review">Revisar e concluir</a>
+          <span class="tb-count"><b id="bar-left">0</b>sem resposta</span>
+          <span class="tb-nok"><b id="bar-nok">0</b> não conformes</span>
+          <span class="tb-sep"></span>
+          <span class="hint" id="bar-hint" hidden></span>
+          <button class="tb-act" id="next-sec">Próxima seção<span class="ic i-arrow s16"></span></button>
+          <a class="tb-act tb-primary" id="go-review" href="#review"><span class="ic i-checks s16"></span>Revisar e concluir</a>
         </div>
       </div>
     </div>
