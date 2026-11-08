@@ -103,6 +103,34 @@ Padrão que vale para toda tela. Os itens marcados como **não** foram recusados
 - **Conjuntos longos:** a tela pensa em até 7 veículos (cavalo e até 6 carretas). Até 3 cabem lado a lado; a partir de 4, um veículo por vez em ordem de engate, com "Próximo veículo", e a opção de voltar à visão lado a lado. A coluna de identificação fica fixa ao rolar para o lado, e a barra do topo resume o conjunto ("RTB7F31 + 6", com a lista no tooltip).
 - **Faixa de detalhe ocupa a linha inteira:** o fundo de uma linha expandida vai de ponta a ponta; só o conteúdo dela tem largura máxima.
 
+## 15. Receitas confirmadas
+
+Passo a passo de padrões já aprovados, para aplicar igual em qualquer tela.
+
+### Título da tela na barra do topo (modo console)
+
+**Quando:** toda tela. O nome da tela aparece **uma vez**, na barra do topo. O corpo da tela não repete o título com `<h1>` nem com `PageHeader`.
+
+**Por quê:** a barra já mostra onde a pessoa está. Repetir no corpo gasta a altura que a área de trabalho precisa e deixa dois nomes diferentes para a mesma tela (ex.: "Movimentação" na barra e "Movimentação de pneus" no corpo).
+
+**Como:**
+
+1. Na página, declare o modo console com o grupo do menu como `eyebrow` e o nome da tela como `title`, usando as chaves do menu (`shell.*`), para a barra e o menu dizerem o mesmo:
+
+   ```tsx
+   import { useConsoleMode } from '../../../app/shell/console-mode';
+
+   const { t } = useTranslation();
+   useConsoleMode({ title: t('shell.tireMovement'), eyebrow: t('shell.tires') });
+   ```
+
+2. Tire do corpo o `<h1>` ou o `PageHeader` com o nome da tela e apague a chave de tradução que ficar sem uso.
+3. No modo console o corpo tem menos respiro (`p-3`): a área de trabalho de altura cheia usa `lg:h-[calc(100dvh-5.5rem)]`.
+4. O que é **do conteúdo** continua no corpo: a placa ou o conjunto aberto, com "Trocar" e os indicadores. Só não leva de novo o nome da tela em cima.
+5. Testes que montam a página envolvem com `<ConsoleProvider>`.
+
+**Exemplo pendente:** a movimentação de pneus (`/tires/movement`). Barra com "Pneus" em cima e "Movimentação" embaixo; sai o `<h1>` "Movimentação de pneus" de `plan-start.tsx` e a linha "MOVIMENTAÇÃO DE PNEUS" acima do conjunto em `plan-target-title.tsx`. Já seguem a receita: checklists (inspeções, modelos, começar e executar) e pátio.
+
 ## Definição de "tela pronta"
 
 Antes de dizer que uma tela está pronta:
