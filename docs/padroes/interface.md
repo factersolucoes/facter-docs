@@ -118,3 +118,15 @@ Formato de cada entrada: **quando** acontece, **o que usar**, **por quê**, e **
 **Por quê:** o vazio com textura diz "aqui vai aparecer o trabalho" sem parecer tela quebrada, e o mesmo visual em todo produto dispensa reinventar a cada tela.
 
 **Onde já está:** `facter-design-system` (`EmptyState`, desde a 1.43.0); no Truck, a movimentação de pneus e os modelos de checklist.
+
+---
+
+## Título da tela uma vez só, na barra do topo
+
+**Quando:** toda tela, em qualquer produto.
+
+**Use:** o nome da tela na barra do topo, com o grupo do menu em cima (eyebrow) e o nome embaixo, os mesmos textos do menu lateral. O corpo da tela não repete o nome com título grande nem cabeçalho de página. O que é do conteúdo (a placa aberta, o cliente, o pedido) continua no corpo.
+
+**Por quê:** repetir o nome gasta a altura que a área de trabalho precisa e cria dois nomes para a mesma tela ("Movimentação" na barra, "Movimentação de pneus" no corpo).
+
+**Onde já está:** Truck, modo console da casca (`useConsoleMode`), com receita em `truck/engenharia/padroes/interface-e-ux.md`, seção 15; checklists e pátio já seguem.
