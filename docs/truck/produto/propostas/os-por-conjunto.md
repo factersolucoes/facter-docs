@@ -108,6 +108,14 @@ Reboque não tem hodômetro de painel, mas precisa de km: o pneu é avaliado por
 
 O km do **pneu** é a soma do km dos veículos em que ele esteve instalado, período a período.
 
+**O caso do cavalo que deixa o conjunto e vai embora:** o km do reboque só anda enquanto ele está engatado. O cavalo traz o conjunto e o deixa na oficina: isso é um **desengate**, e o km do cavalo naquela hora fecha o período dos reboques. Os reboques ficam parados (não somam km). O cavalo engata em outro conjunto e o km dele passa a ir para aqueles reboques. Quando um cavalo (o mesmo ou outro) leva o conjunto embora, o **engate** abre o próximo período. O km de cada reboque é a diferença de km do cavalo dentro de cada período engatado; o que o cavalo rodou depois de deixar o conjunto nunca entra nos reboques que ficaram.
+
+**A regra que isso exige:** todo engate e todo desengate registra o km do cavalo naquele momento, não só quando o cavalo é de fora (o schema hoje pede só para o de fora). A fonte, por ordem de confiança:
+
+1. **Telemetria** do cavalo na hora do evento, quando existir.
+2. **Pessoa** que recebe ou entrega o conjunto, com o último km conhecido do cavalo já preenchido.
+3. **Estimativa** entre a leitura anterior e a seguinte do cavalo, quando ninguém registrou; o km fica marcado como **estimado** e o indicador mostra isso, para não esconder um número inventado.
+
 **Como a OS por conjunto usa isso:**
 
 - **Na entrada do conjunto, a pessoa informa o km do cavalo que trouxe o conjunto**, mesmo que o cavalo não entre na OS (ele fica fora, por decisão). Essa leitura é do cavalo e alimenta o km dos reboques pelo engate. Se o reboque tem hodômetro de cubo, pede a leitura dele também.
@@ -159,7 +167,7 @@ Se a Suzano entrar, a OS do Truck conversa com o SAP PM pelo modelo que o schema
 4. **Checklist:** um checklist de entrada por OS (o conjunto inteiro, como hoje) continua valendo?
 5. **Cavalo junto (configuração da empresa):** com F, o cavalo vira só mais uma frente quando a empresa escolher "juntos". Confirmar que é isso.
 6. **SAP:** as quatro perguntas da seção 8 para a Suzano. A resposta da primeira não muda o modelo (o F serve aos dois formatos), mas muda o que a integração envia.
-7. **Km (seção 7):** a 1.11 (leituras de medidor e km de reboque) vem antes da OS por conjunto, junto com ela, ou depois?
+7. **Km (seção 7):** a 1.11 (leituras de medidor e km de reboque) vem antes da OS por conjunto, junto com ela, ou depois? E todo engate e desengate passa a registrar o km do cavalo (mudança no AST-12)?
 
 ## Referências
 
