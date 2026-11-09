@@ -1,0 +1,246 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Inspeções · mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet"><style>
+:root{
+  --background:0 0% 98%;--foreground:240 10% 3.9%;--card:0 0% 100%;
+  --primary:233 65% 50%;--primary-foreground:0 0% 100%;
+  --muted:240 4.8% 93.9%;--muted-foreground:240 3.8% 42%;--border:240 5.9% 90%;
+  --success:160 60% 38%;--warning:38 92% 45%;--danger:0 84.2% 60.2%;
+  --success-text:160 70% 24%;--danger-text:0 72% 38%;--warning-text:28 85% 28%;
+  --primary-soft:233 85% 96.5%;--success-soft:160 55% 94%;--warning-soft:40 95% 93%;--danger-soft:0 85% 96%;
+  --canvas:225 14% 92%;--toolbar:240 5% 96%;
+}
+*{box-sizing:border-box}
+body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));font:14px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,p{margin:0}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:1px solid hsl(var(--foreground)/.7);outline-offset:1px}
+.ic{display:inline-block;width:18px;height:18px;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;flex:none}
+.s14{width:14px;height:14px}.s16{width:16px;height:16px}.s20{width:20px;height:20px}.s24{width:24px;height:24px}
+.i-search{--i:url(https://api.iconify.design/ph/magnifying-glass.svg)}.i-clock{--i:url(https://api.iconify.design/ph/clock.svg)}
+.i-gear{--i:url(https://api.iconify.design/ph/gear-six.svg)}.i-link{--i:url(https://api.iconify.design/ph/link-simple.svg)}
+.i-truck{--i:url(https://api.iconify.design/ph/truck.svg)}.i-plus{--i:url(https://api.iconify.design/ph/plus-bold.svg)}
+.i-right{--i:url(https://api.iconify.design/ph/arrow-right.svg)}.i-left{--i:url(https://api.iconify.design/ph/arrow-left.svg)}
+.i-x{--i:url(https://api.iconify.design/ph/x.svg)}.i-check{--i:url(https://api.iconify.design/ph/check-bold.svg)}
+.i-warn{--i:url(https://api.iconify.design/ph/warning-circle.svg)}.i-info{--i:url(https://api.iconify.design/ph/info.svg)}
+.i-exit{--i:url(https://api.iconify.design/ph/sign-out.svg)}.i-swap{--i:url(https://api.iconify.design/ph/arrows-left-right.svg)}
+.i-flag{--i:url(https://api.iconify.design/ph/flag-checkered.svg)}.i-pause{--i:url(https://api.iconify.design/ph/pause.svg)}
+.i-road{--i:url(https://api.iconify.design/ph/gauge.svg)}.i-wifi{--i:url(https://api.iconify.design/ph/broadcast.svg)}
+.i-lock{--i:url(https://api.iconify.design/ph/lock-simple.svg)}.i-dots{--i:url(https://api.iconify.design/ph/dots-three-vertical-bold.svg)}
+.i-wrench{--i:url(https://api.iconify.design/ph/wrench.svg)}.i-hand{--i:url(https://api.iconify.design/ph/hand-pointing.svg)}
+
+/* mockup page */
+.page{max-width:1360px;margin:0 auto;padding:40px 24px 80px}
+.lead h1{font:800 34px Sora;letter-spacing:-.02em}
+.lead p{max-width:860px;margin-top:10px;color:hsl(var(--muted-foreground));font-size:15px}
+.lead b{color:hsl(var(--foreground))}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 8px}
+.tabs a{display:inline-flex;gap:6px;align-items:center;padding:6px 12px;border-radius:99px;background:hsl(var(--card));text-decoration:none;color:hsl(var(--foreground));font-weight:600;font-size:13px;box-shadow:0 1px 2px hsl(233 30% 20%/.08)}
+.tabs a b{color:hsl(var(--primary))}
+section.sc{margin-top:56px}
+.sc>h2{display:flex;align-items:center;gap:10px;font:800 22px Sora}
+.sc>h2 .tag{display:grid;place-items:center;width:28px;height:28px;border-radius:99px;background:hsl(var(--card));color:hsl(var(--primary));font:800 13px Sora}
+.sc>.why{max-width:900px;margin:8px 0 14px 38px;color:hsl(var(--muted-foreground))}
+.sc>.why b{color:hsl(var(--foreground))}
+.states{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px 38px}
+.states button{border:1px solid hsl(var(--border));background:hsl(var(--card));border-radius:99px;padding:3px 11px;font-size:12px;color:hsl(var(--muted-foreground));cursor:pointer}
+.states button[aria-pressed=true]{border-color:hsl(var(--foreground)/.6);color:hsl(var(--foreground));font-weight:600}
+.note{display:inline-block;margin:10px 0 0 38px;padding:4px 10px;border:1px dashed hsl(270 60% 60%);border-radius:8px;color:hsl(270 50% 40%);font-size:12px;background:hsl(270 80% 98%)}
+
+/* app frame */
+.app{display:grid;grid-template-columns:64px 1fr;min-height:640px;border-radius:18px;overflow:hidden;background:hsl(var(--background));box-shadow:0 24px 60px -30px hsl(233 40% 20%/.45)}
+.side{background:hsl(var(--card));border-right:1px solid hsl(var(--border));display:flex;flex-direction:column;align-items:center;gap:14px;padding-top:12px}
+.logo{width:40px;height:40px;border-radius:11px;background:hsl(var(--primary))}
+.nav{width:36px;height:36px;border-radius:10px;background:hsl(var(--muted)/.6)}.nav.on{background:hsl(var(--primary-soft))}
+.main{display:flex;flex-direction:column;min-width:0}
+.top{height:60px;display:flex;align-items:center;gap:16px;padding:0 22px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
+.top .eb{font:700 10px Sora;letter-spacing:.07em;text-transform:uppercase}
+.top .tt{font:800 18px Sora}
+.top .sp{margin-left:auto;margin-right:auto;width:380px;height:36px;border-radius:99px;background:hsl(var(--muted)/.7)}
+.body{flex:1;padding:14px;min-height:0;position:relative}
+.pane{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;overflow:hidden;box-shadow:0 1px 2px hsl(233 30% 20%/.05),0 12px 32px -18px hsl(233 40% 25%/.25)}
+
+/* atoms */
+.plate{font:700 14.5px Sora;letter-spacing:.01em}
+.chip{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:99px;font-size:11.5px;font-weight:600;white-space:nowrap}
+.t-wait{background:hsl(var(--warning-soft));color:hsl(var(--warning-text))}
+.t-work{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+.t-ok{background:hsl(var(--success-soft));color:hsl(var(--success-text))}
+.t-nok{background:hsl(var(--danger-soft));color:hsl(var(--danger-text))}
+.t-none{background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.t-pause{background:hsl(var(--toolbar));color:hsl(var(--foreground)/.75);box-shadow:inset 0 0 0 1px hsl(var(--border))}
+.muted{color:hsl(var(--muted-foreground))}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:38px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-weight:600;font-size:13.5px;cursor:pointer;white-space:nowrap;background:none}
+.btn.primary{background:hsl(var(--primary));color:hsl(var(--primary-foreground))}
+.btn.outline{border-color:hsl(var(--border));background:hsl(var(--card))}
+.btn.gray{background:hsl(var(--toolbar))}
+.btn.danger{background:hsl(0 72% 42%);color:#fff}
+.btn.lg{height:44px;padding:0 20px;font-size:14.5px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:12px;font-weight:600;color:hsl(var(--muted-foreground))}
+.input{display:flex;align-items:center;gap:8px;height:42px;padding:0 12px;border:1px solid hsl(var(--border));border-radius:10px;background:hsl(var(--card))}
+.input input{border:0;outline:0;background:none;flex:1;min-width:0;font-size:15px}
+.input.err{border-color:hsl(var(--danger))}
+.hint{font-size:12px;color:hsl(var(--muted-foreground))}
+.hint.err{color:hsl(var(--danger-text));font-weight:600}
+.seg{display:inline-flex;gap:2px;padding:3px;border-radius:10px;background:hsl(var(--muted)/.8)}
+.seg span{border-radius:8px;padding:5px 12px;font-size:13px;font-weight:600;color:hsl(var(--muted-foreground))}
+.seg span.on{background:hsl(var(--card));color:hsl(var(--foreground));box-shadow:0 1px 2px hsl(233 30% 20%/.12)}
+.tile{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;flex:none}
+.notice{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:12px;font-size:13px}
+.notice.warn{background:hsl(var(--warning-soft));color:hsl(var(--warning-text))}
+.notice.info{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+.notice.danger{background:hsl(var(--danger-soft));color:hsl(var(--danger-text))}
+.sk{display:block;border-radius:8px;background:linear-gradient(90deg,hsl(var(--muted)),hsl(var(--muted)/.5),hsl(var(--muted)));background-size:200% 100%;animation:sk 1.2s infinite}
+@keyframes sk{to{background-position:-200% 0}}
+.dots{background-image:radial-gradient(hsl(var(--border)) 1px,transparent 1.4px);background-size:24px 24px}
+.train{display:inline-flex;align-items:center;gap:3px;padding:3px 5px;border-radius:6px;background:hsl(var(--toolbar))}
+.train i{display:block;height:6px;width:18px;border-radius:2px;background:hsl(var(--foreground)/.3)}
+.train i.out{background:hsl(var(--foreground)/.15);outline:1px dashed hsl(var(--foreground)/.35)}
+.train i.wait{background:hsl(var(--warning))}
+.train i.done{background:hsl(var(--success))}
+.train i.work{background:hsl(var(--primary))}
+
+/* list */
+.lrow{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1.4fr) 150px 170px;gap:12px;align-items:center;padding:12px 16px;border-top:1px solid hsl(var(--border))}
+.lhead{background:hsl(var(--toolbar));border-top:0;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding:9px 16px}
+
+/* dialog */
+.scrim{position:absolute;inset:0;background:hsl(240 10% 4%/.35);display:grid;place-items:center;padding:24px}
+.dialog{width:min(620px,100%);background:hsl(var(--card));border-radius:20px;box-shadow:0 30px 60px -20px hsl(233 40% 15%/.5);overflow:hidden;display:flex;flex-direction:column;max-height:100%}
+.dh{padding:18px 20px 12px;display:flex;gap:12px;align-items:flex-start}
+.dh .t .eyebrow{color:hsl(var(--primary))}
+.dh h3{font:800 20px Sora;margin-top:2px}
+.dh p{font-size:13px;color:hsl(var(--muted-foreground));margin-top:2px}
+.dh .x{margin-left:auto;width:32px;height:32px;border-radius:9px;background:hsl(var(--toolbar));display:grid;place-items:center}
+.db{padding:4px 20px 18px;display:flex;flex-direction:column;gap:12px;overflow:auto}
+.df{padding:12px 20px;border-top:1px solid hsl(var(--border));display:flex;align-items:center;gap:10px;background:hsl(var(--toolbar))}
+.df .grow{flex:1;font-size:12.5px;color:hsl(var(--muted-foreground))}
+.choice{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid hsl(var(--border));border-radius:14px;cursor:pointer}
+.choice.on{border-color:hsl(var(--foreground)/.55);background:hsl(var(--muted)/.5)}
+.radio{width:18px;height:18px;border-radius:99px;border:1.5px solid hsl(var(--border));flex:none;display:grid;place-items:center}
+.choice.on .radio{border-color:hsl(var(--foreground))}
+.choice.on .radio::after{content:"";width:8px;height:8px;border-radius:99px;background:hsl(var(--foreground))}
+.mplate{display:inline-flex;flex-direction:column;align-items:center;border:1.5px solid hsl(var(--foreground));border-radius:6px;overflow:hidden;min-width:96px}
+.mplate span{width:100%;background:hsl(233 65% 40%);color:#fff;font:700 7px Inter;text-align:center;letter-spacing:.1em;padding:1px 0}
+.mplate b{font:700 15px ui-monospace,Menlo,monospace;letter-spacing:.12em;padding:2px 8px}
+
+/* detail */
+.dhero{padding:18px 22px;border-bottom:1px solid hsl(var(--border));display:flex;gap:16px;align-items:flex-start}
+.fronts{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;padding:16px 22px}
+.front{border:1px solid hsl(var(--border));border-radius:14px;background:hsl(var(--card));overflow:hidden;cursor:pointer}
+.front.on{border-color:hsl(var(--foreground)/.5);box-shadow:0 0 0 3px hsl(var(--foreground)/.05)}
+.front .fh{padding:10px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid hsl(var(--border))}
+.front .pos{font:600 10.5px Inter;color:hsl(var(--muted-foreground))}
+.front .fb{padding:10px 12px;font-size:12.5px;display:flex;flex-direction:column;gap:6px}
+.svc{display:flex;gap:10px;align-items:flex-start;padding:10px 14px;border-top:1px solid hsl(var(--border))}
+.loc{display:inline-flex;gap:4px;align-items:center;font-size:11.5px;font-weight:600;padding:2px 7px;border-radius:6px;background:hsl(var(--toolbar));color:hsl(var(--foreground)/.75)}
+.selbar{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:6px 6px 6px 12px;border-radius:14px;background:hsl(var(--foreground));color:hsl(var(--background));box-shadow:0 18px 40px -16px hsl(233 40% 15%/.55);white-space:nowrap}
+.selbar .c{display:inline-flex;align-items:center;gap:8px;font-weight:600;padding-right:8px}
+.selbar .c b{display:grid;place-items:center;min-width:26px;height:26px;border-radius:99px;background:hsl(var(--primary));color:#fff;font:700 12px Sora}
+.selbar .a{display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 12px;border-radius:10px;font-weight:600;font-size:13.5px}
+.selbar .a.p{background:hsl(var(--primary));color:#fff}
+.selbar .sep{width:1px;height:22px;background:hsl(var(--background)/.2);margin:0 4px}
+
+/* axle picker */
+.axles{display:flex;flex-direction:column;gap:10px;align-items:center;padding:12px;border-radius:14px;background:hsl(var(--background))}
+.axle{display:flex;align-items:center;gap:10px}
+.axle .bar{width:110px;height:6px;border-radius:3px;background:hsl(var(--foreground)/.25)}
+.wheel{width:26px;height:42px;border-radius:7px;background:hsl(var(--foreground)/.75);cursor:pointer;display:grid;place-items:center;color:#fff;font:700 10px Inter}
+.wheel.on{background:hsl(var(--primary));box-shadow:0 0 0 3px hsl(var(--primary)/.25)}
+.wheel.dim{background:hsl(var(--foreground)/.2)}
+
+/* phone */
+.phone{width:380px;height:760px;border-radius:40px;padding:12px;background:#111;box-shadow:0 24px 60px -30px hsl(233 40% 20%/.6)}
+.screen{height:100%;border-radius:30px;overflow:hidden;background:hsl(var(--background));display:flex;flex-direction:column}
+[hidden]{display:none!important}
+</style><style>
+.dir{display:inline-flex;gap:4px;padding:4px;border-radius:12px;background:hsl(var(--card));margin:18px 0 0}
+.dir button{border:0;background:none;padding:7px 14px;border-radius:9px;font-weight:600;font-size:13px;color:hsl(var(--muted-foreground));cursor:pointer}
+.dir button[aria-pressed=true]{background:hsl(var(--foreground));color:hsl(var(--background))}
+.bar2{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid hsl(var(--border));flex-wrap:wrap}
+.search{display:flex;align-items:center;gap:8px;height:36px;padding:0 12px;border-radius:10px;background:hsl(var(--muted)/.7);flex:1 1 180px;max-width:260px;color:hsl(var(--muted-foreground));font-size:13.5px}
+.fchip{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:99px;border:1px solid hsl(var(--border));font-size:13px;font-weight:600;background:hsl(var(--card))}
+.fchip.on{background:hsl(var(--foreground));color:hsl(var(--background));border-color:transparent}
+.fchip.gen{background:hsl(var(--muted));border-color:transparent;color:hsl(var(--muted-foreground))}
+.fchip b{font:700 11px Sora;opacity:.7}
+.trow{display:grid;grid-template-columns:minmax(0,2.1fr) 120px minmax(0,1.2fr) 150px 110px 130px 28px;gap:14px;align-items:center;padding:11px 16px;border-top:1px solid hsl(var(--border));cursor:pointer}
+.trow:hover{background:hsl(var(--muted)/.45)}
+.thead{background:hsl(var(--toolbar));border-top:0;cursor:default;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding:9px 16px}
+.thead:hover{background:hsl(var(--toolbar))}
+.grp{display:flex;align-items:center;gap:8px;padding:8px 16px;border-top:1px solid hsl(var(--border));background:hsl(var(--background));font-size:12px;font-weight:700;color:hsl(var(--muted-foreground))}
+.grp .n{font:700 11px Sora;padding:1px 7px;border-radius:99px}
+.pl{display:inline-flex;align-items:center;height:22px;padding:0 7px;border-radius:6px;background:hsl(var(--toolbar));font:700 12px Sora}
+.more{font-size:12px;font-weight:600;color:hsl(var(--muted-foreground))}
+.prog{height:6px;border-radius:99px;background:hsl(var(--muted));display:flex;gap:2px;overflow:hidden}
+.prog i{display:block}
+.nc{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:13px;color:hsl(var(--danger-text))}
+.nc b{display:grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:99px;background:hsl(var(--danger-soft));font:700 11.5px Sora}
+.late{color:hsl(var(--warning-text));font-weight:600}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;padding:16px}
+.card{border:1px solid hsl(var(--border));border-radius:16px;background:hsl(var(--card));display:flex;flex-direction:column;overflow:hidden;box-shadow:0 1px 2px hsl(233 30% 20%/.05)}
+.card .ch{padding:14px 14px 10px;display:flex;gap:12px;align-items:flex-start}
+.ring{width:52px;height:52px;border-radius:99px;display:grid;place-items:center;flex:none}
+.ring span{width:42px;height:42px;border-radius:99px;background:hsl(var(--card));display:grid;place-items:center;font:800 12.5px Sora}
+.card .cf{margin-top:auto;padding:10px 14px;border-top:1px solid hsl(var(--border));display:flex;align-items:center;gap:8px;background:hsl(var(--toolbar));font-size:12.5px}
+.result{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600}
+</style></head><body><div class="page">
+<div class="lead"><h1>Inspeções · duas direções</h1>
+<p>A lista de hoje repete o nome do modelo em toda linha ("Entrada na oficina · demo"), pinta o percentual de vermelho quando há falha (93% vermelho confunde), quebra placa, progresso e data em várias linhas e não tem busca nem filtro. As duas direções começam pelo que importa na oficina: <b>o que está sendo inspecionado</b>, <b>em que OS</b>, <b>o que falta</b> e <b>há quanto tempo está parado</b>. O modelo vira informação de apoio.</p></div>
+<div class="dir" id="dir"><button data-d="a" aria-pressed="true">A · Tabela de gestão</button><button data-d="b" aria-pressed="false">B · Cartões do pátio</button></div>
+<p class="stage-why" id="why" style="max-width:900px;margin-top:10px;color:hsl(var(--muted-foreground))"></p>
+<div class="states" id="states" style="margin-left:0"></div>
+<div class="app"><div class="side"><span class="logo"></span><span class="nav"></span><span class="nav on"></span><span class="nav"></span><span class="nav"></span></div>
+<div class="main"><div class="top"><div><div class="eb muted">Checklists</div><div class="tt">Inspeções</div></div><span class="sp"></span></div>
+<div class="body"><div class="pane" id="stage" style="height:100%"></div></div></div></div>
+<section class="sc"><h2><span class="tag">📱</span>Celular</h2><p class="why">Nas duas direções o celular vira lista de cartões curtos: placa, OS, o que falta e o botão de continuar.</p>
+<div style="margin-left:38px" class="phone"><div class="screen" id="phone"></div></div></section>
+<script>
+const DATA=[
+ {n:'CHK-000005',plates:['JMH5350','SRK9H45','SRK9H46','OPQ9934','KLM4521','RTH8M25','RTG4L90'],set:'Conjunto 22660',os:'OS-000003',ost:'t-work',osl:'Em serviço',m:'Entrada na oficina',v:4,a:23,q:102,nc:9,who:'Gestor Demo',idle:'2 dias',late:true},
+ {n:'CHK-000006',plates:['QRT4B22','RTF6K38','RTE1J77'],set:'Conjunto 18120',os:null,m:'Entrada na oficina',v:4,a:3,q:46,nc:3,who:'Gestor Demo',idle:'2 dias',late:true},
+ {n:'CHK-000004',plates:['JMH5350'],os:'OS-000003',ost:'t-work',osl:'Em serviço',m:'Entrada na oficina',v:4,a:14,q:18,nc:7,who:'Gestor Demo',idle:'2 dias',late:true},
+ {n:'CHK-000007',plates:['DLY1J07'],os:'OS-000001',ost:'t-wait',osl:'Na fila',m:'Entrada na oficina',v:4,a:13,q:14,nc:2,who:'Gestor Demo',idle:'3 h'},
+ {n:'CHK-000003',plates:['JMH5350'],os:'OS-000003',ost:'t-work',osl:'Em serviço',m:'Saída de viagem',v:2,a:8,q:18,nc:1,who:'Carlos Lima',idle:'1 h'},
+ {n:'CHK-000002',plates:['JMH5350'],os:null,m:'Saída de viagem',v:2,a:0,q:18,nc:0,who:'Carlos Lima',idle:'20 min'},
+];
+const DONE=[
+ {n:'CHK-000008',plates:['RTC3G56','SRK9H45'],set:'Conjunto 22660',os:'OS-000002',ost:'t-work',osl:'Em serviço',m:'Entrada na oficina',v:4,q:28,nc:9,svc:6,open:3,who:'Gestor Demo',when:'hoje 19:20'},
+ {n:'CHK-000001',plates:['DLY1J07'],os:'OS-000001',ost:'t-wait',osl:'Na fila',m:'Saída de viagem',v:2,q:18,nc:0,who:'Carlos Lima',when:'ontem 08:12'},
+];
+const pct=r=>r.q?Math.round(r.a/r.q*100):0;
+const platesCell=(r,max=3)=>`<div style="display:flex;align-items:center;gap:5px;flex-wrap:nowrap;min-width:0">${r.plates.slice(0,max).map(p=>`<span class="pl">${p}</span>`).join('')}${r.plates.length>max?`<span class="more">+${r.plates.length-max}</span>`:''}</div>${r.set?`<div class="muted" style="font-size:12px;margin-top:3px">${r.set} · ${r.plates.length} veículos</div>`:''}`;
+const prog=r=>`<div class="prog"><i style="width:${(r.a-r.nc)/r.q*100}%;background:hsl(var(--primary))"></i><i style="width:${r.nc/r.q*100}%;background:hsl(var(--danger))"></i></div><div class="muted" style="font-size:12px;margin-top:4px">${r.a} de ${r.q} · <b style="color:hsl(var(--foreground))">${pct(r)}%</b></div>`;
+const os=r=>r.os?`<div><b style="font-size:13px;color:hsl(var(--primary))">${r.os}</b><div><span class="chip ${r.ost}" style="height:19px;font-size:11px">${r.osl}</span></div></div>`:'<span class="muted" style="font-size:12.5px">Sem OS</span>';
+const nc=r=>r.nc?`<span class="nc"><b>${r.nc}</b></span>`:'<span class="muted">—</span>';
+const filters=(tab,extra='')=>`<div class="bar2"><div class="seg"><span class="${tab==='run'?'on':''}">Em andamento <b style="opacity:.6">6</b></span><span class="${tab==='done'?'on':''}">Concluídos <b style="opacity:.6">24</b></span></div><div class="search"><span class="ic i-search s16"></span>${extra||'Placa, conjunto ou OS'}</div><span class="fchip gen">Todos os modelos</span><span class="fchip">Com não conforme</span><span class="fchip">Sem OS</span><span style="flex:1"></span><button class="btn outline" style="padding:0 12px">Modelos</button><button class="btn primary"><span class="ic i-plus s14"></span>Começar checklist</button></div>`;
+const A={
+ run:()=>filters('run')+`<div class="trow thead"><span>Inspecionado</span><span>OS</span><span>Modelo</span><span>Andamento</span><span>Não conf.</span><span>Parado há</span><span></span></div>
+  <div class="grp"><span class="ic i-clock s14"></span>Parados há mais de 1 dia<span class="n t-wait">3</span></div>
+  ${DATA.filter(r=>r.late).map(rowA).join('')}
+  <div class="grp">Hoje<span class="n t-none">3</span></div>
+  ${DATA.filter(r=>!r.late).map(rowA).join('')}`,
+ done:()=>filters('done')+`<div class="trow thead" style="grid-template-columns:minmax(0,2.1fr) 120px minmax(0,1.2fr) minmax(0,1.6fr) 150px 28px"><span>Inspecionado</span><span>OS</span><span>Modelo</span><span>Resultado</span><span>Concluído</span><span></span></div>
+  ${DONE.map(r=>`<div class="trow" style="grid-template-columns:minmax(0,2.1fr) 120px minmax(0,1.2fr) minmax(0,1.6fr) 150px 28px"><div>${platesCell(r)}</div>${os(r)}<div><div style="font-size:13.5px">${r.m}</div><div class="muted" style="font-size:12px">${r.n} · versão ${r.v}</div></div><div>${r.nc?`<span class="result" style="color:hsl(var(--danger-text))"><span class="ic i-warn s16"></span>${r.nc} não conformes</span><div class="muted" style="font-size:12px">${r.svc} viraram serviço · <b style="color:hsl(var(--warning-text))">${r.open} sem decisão</b></div>`:`<span class="result" style="color:hsl(var(--success-text))"><span class="ic i-check s14"></span>Tudo conforme</span>`}</div><div style="font-size:13px">${r.when}<div class="muted" style="font-size:12px">${r.who}</div></div><span class="ic i-right s16 muted"></span></div>`).join('')}`,
+ loading:()=>filters('run')+`<div class="trow thead"><span>Inspecionado</span><span>OS</span><span>Modelo</span><span>Andamento</span><span>Não conf.</span><span>Parado há</span><span></span></div>`+[1,2,3,4,5].map(()=>`<div class="trow" style="cursor:default"><span class="sk" style="height:22px;width:70%"></span><span class="sk" style="height:18px;width:80%"></span><span class="sk" style="height:16px;width:60%"></span><span class="sk" style="height:8px"></span><span class="sk" style="height:22px;width:30px"></span><span class="sk" style="height:16px;width:60%"></span><span></span></div>`).join(''),
+ empty:()=>filters('run')+`<div class="dots" style="background-color:hsl(var(--background));height:470px;display:grid;place-items:center;text-align:center"><div><span style="display:inline-grid;place-items:center;width:52px;height:52px;border-radius:99px;background:hsl(var(--primary-soft));box-shadow:0 0 0 10px hsl(var(--primary-soft)/.45);color:hsl(var(--primary))"><span class="ic i-search s24"></span></span><p style="font:700 16px Sora;margin-top:18px">Nenhuma inspeção em andamento</p><p class="muted">Comece pelo veículo ou conjunto que acabou de chegar</p><button class="btn primary" style="margin-top:12px"><span class="ic i-plus s14"></span>Começar checklist</button></div></div>`,
+ noresult:()=>filters('run','<span style="color:hsl(var(--foreground))">XYZ9</span>')+`<div style="height:470px;display:grid;place-items:center;text-align:center"><div><p style="font:700 15px Sora">Nada com "XYZ9"</p><p class="muted">Procure pela placa de qualquer veículo do conjunto, pelo número da OS ou do checklist</p><button class="btn outline" style="margin-top:10px">Limpar busca</button></div></div>`,
+};
+function rowA(r){return `<div class="trow"><div>${platesCell(r)}</div>${os(r)}<div style="min-width:0"><div style="font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.m}</div><div class="muted" style="font-size:12px">${r.n} · versão ${r.v}</div></div><div>${prog(r)}</div><div>${nc(r)}</div><div style="font-size:13px"><span class="${r.late?'late':''}">${r.idle}</span><div class="muted" style="font-size:12px">${r.who}</div></div><span class="ic i-right s16 muted"></span></div>`}
+const ring=r=>{const ok=(r.a-r.nc)/r.q*100,bad=r.nc/r.q*100;return `<span class="ring" style="background:conic-gradient(hsl(var(--primary)) 0 ${ok}%,hsl(var(--danger)) ${ok}% ${ok+bad}%,hsl(var(--muted)) 0)"><span>${pct(r)}%</span></span>`};
+const B={
+ run:()=>filters('run')+`<div class="grp" style="border-top:0"><span class="ic i-clock s14"></span>Parados há mais de 1 dia<span class="n t-wait">3</span></div><div class="cards">${DATA.filter(r=>r.late).map(cardB).join('')}</div><div class="grp">Hoje<span class="n t-none">3</span></div><div class="cards">${DATA.filter(r=>!r.late).map(cardB).join('')}</div>`,
+ done:()=>filters('done')+`<div class="cards">${DONE.map(r=>`<div class="card"><div class="ch"><span class="tile" style="background:${r.nc?'hsl(var(--danger-soft))':'hsl(var(--success-soft))'};color:${r.nc?'hsl(var(--danger-text))':'hsl(var(--success-text))'}"><span class="ic ${r.nc?'i-warn':'i-check'} s20"></span></span><div style="flex:1;min-width:0">${platesCell(r,2)}<div style="margin-top:8px;font-weight:600">${r.nc?r.nc+' não conformes':'Tudo conforme'}</div>${r.nc?`<div class="muted" style="font-size:12.5px">${r.svc} viraram serviço · <b style="color:hsl(var(--warning-text))">${r.open} sem decisão</b></div>`:''}</div></div><div class="cf">${os(r)}<span style="flex:1"></span><span class="muted">${r.when}</span></div></div>`).join('')}</div>`,
+ loading:()=>filters('run')+`<div class="cards">${[1,2,3,4,5,6].map(()=>`<div class="card" style="padding:14px;gap:10px"><span class="sk" style="height:22px;width:60%"></span><span class="sk" style="height:14px;width:40%"></span><span class="sk" style="height:52px;width:52px;border-radius:99px"></span></div>`).join('')}</div>`,
+ empty:A.empty, noresult:A.noresult,
+};
+function cardB(r){return `<div class="card"><div class="ch">${ring(r)}<div style="flex:1;min-width:0">${platesCell(r,2)}<div class="muted" style="font-size:12.5px;margin-top:6px">${r.m} · ${r.n}</div></div></div><div style="padding:0 14px 12px;display:flex;gap:14px;font-size:13px"><span><b>${r.q-r.a}</b> <span class="muted">sem resposta</span></span>${r.nc?`<span class="nc"><b>${r.nc}</b> ${r.nc>1?'não conformes':'não conforme'}</span>`:''}</div><div class="cf">${os(r)}<span style="flex:1"></span><span class="${r.late?'late':'muted'}"><span class="ic i-clock s14" style="vertical-align:-2px"></span> ${r.idle}</span><button class="btn primary" style="height:32px;padding:0 12px">Continuar</button></div></div>`}
+const WHY={a:'<b>A · Tabela de gestão.</b> Para o notebook do encarregado: uma linha por inspeção, colunas fixas que não quebram, placas como selos (até 3 e "+4"), o conjunto escrito embaixo. O que está <b>parado há mais de 1 dia</b> sobe num grupo próprio. O percentual sai do quadrado colorido e vai para o lado da barra; o vermelho fica só no número de não conformes.',b:'<b>B · Cartões do pátio.</b> Para o tablet: um cartão por veículo ou conjunto, anel de progresso com a parte não conforme em vermelho, o que falta em palavras e o botão <b>Continuar</b> no próprio cartão. Mesma separação dos parados.'};
+const ST=[['run','Em andamento'],['done','Concluídos'],['loading','Carregando'],['empty','Vazio'],['noresult','Sem resultado']];
+let d='a',s='run';
+function draw(){document.querySelectorAll('#dir button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.d===d));document.getElementById('why').innerHTML=WHY[d];
+ const st=document.getElementById('states');st.innerHTML=ST.map(([k,l])=>`<button data-s="${k}" aria-pressed="${k===s}">${l}</button>`).join('');st.querySelectorAll('button').forEach(b=>b.onclick=()=>{s=b.dataset.s;draw()});
+ document.getElementById('stage').innerHTML=(d==='a'?A:B)[s]();}
+document.querySelectorAll('#dir button').forEach(b=>b.onclick=()=>{d=b.dataset.d;draw()});draw();
+document.getElementById('phone').innerHTML=`<div style="padding:46px 16px 10px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))"><div class="eyebrow">Checklists</div><div style="font:800 20px Sora">Inspeções</div><div class="search" style="width:100%;margin-top:10px">Placa ou OS</div></div><div style="padding:12px;display:flex;flex-direction:column;gap:10px;overflow:auto">${DATA.slice(0,4).map(r=>`<div class="card"><div class="ch" style="padding:12px">${ring(r)}<div style="flex:1;min-width:0">${platesCell(r,2)}<div class="muted" style="font-size:12px;margin-top:4px">${r.os||'Sem OS'} · <span class="${r.late?'late':''}">parado há ${r.idle}</span></div></div></div></div>`).join('')}</div>`;
+</script></div></body></html>
