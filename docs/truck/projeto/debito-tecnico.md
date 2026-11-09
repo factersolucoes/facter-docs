@@ -35,3 +35,15 @@ A OS por conjunto (uma frente por veículo, [análise](../produto/propostas/os-p
 | Busca da fila pelo código do conjunto | Hoje acha pela placa ou frota de qualquer frente | lista de OS |
 | Eixo e lado no serviço, transferir frente entre OS, km no engate e telemetria | Fora desta entrega, de propósito | próximas fatias |
 | Lista de OS com título na barra do topo | Ainda usa `PageHeader` | receita da seção 15 |
+
+## Inspeções — o que a lista em cartões deixou de fora (09/11/2026)
+
+A lista de inspeções foi refeita em cartões ([mockup](/telas/truck/checklists-lista), direção B): anel de progresso, placas, conjunto, o que falta, não conformes, OS com a situação, tempo parado, busca e os filtros "Com não conforme" e "Sem OS". Falta:
+
+| O que | Por quê importa | Destrava com |
+| --- | --- | --- |
+| Linha "X viraram serviço · Y sem decisão" no cartão concluído | Mostra quanto da inspeção já virou trabalho na OS e quanto ainda espera decisão | 3.2.3 (não conformidade vira serviço) |
+| Filtro "Todos os modelos" | Recortar a lista por modelo, como no mockup | Filtro por modelo na API (`templateId`) com índice |
+| Contagem nas abas "Em andamento" e "Concluídos" | O mockup mostra os totais; contar a cada busca varre a tabela | Contadores por evento (tabela de agregação) |
+| Anel com a parte não conforme no `ProgressDonut` do DS | O anel de dois tons está desenhado na tela | Variante no `facter-design-system` |
+

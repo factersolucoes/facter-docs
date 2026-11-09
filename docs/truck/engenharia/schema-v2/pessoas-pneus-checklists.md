@@ -218,6 +218,15 @@ A foto de um item vai em `attachments.checklist_result_id` ([manutenção](./man
 - `checklist_results`: uma resposta por célula (item × veículo), FK com a versão do checklist e com o alvo; muda enquanto o checklist está aberto e é recusada pelo banco depois de concluído (CHK-5). Apagar uma resposta aberta remove a linha.
 - O serviço gerado (`generated_service_id`) entra na 3.2.3.
 
+## Lista de inspeções (09/11/2026, migration 0052)
+
+- `checklists.last_activity_at`: quando o checklist mexeu pela última vez (a última resposta dada ou apagada; sem resposta, o início). Gravado pelo comando de responder na mesma transação, com o relógio do servidor, nunca calculado varrendo as respostas. `check (last_activity_at >= started_at)`. A migration preencheu os existentes com a resposta mais recente.
+- `checklists.set_fleet_code`: o código do conjunto no início, congelado como as placas, para a lista não ler tabela de ativos. A migration preencheu pela OS (conjunto da OS) ou, sem OS, pelo conjunto em que um implemento inspecionado estava no início.
+- Busca sem acento e sem caixa: `checklists.refs_search` (número, OS e conjunto) e `checklist_vehicles.plate_search` (placa e frota), colunas geradas com `immutable_unaccent`, termo normalizado no servidor (`normalizeSearch`).
+- `GET /checklists` ganhou `search`, `hasFailures` (algum não conforme), `withoutWorkOrder` e `order` (`stalest` ou `latest`). Em andamento sai parado há mais tempo primeiro (`last_activity_at`, `id`), concluído sai do mais novo (`completed_at desc`, `id desc`), a lista da OS segue por início. Índices `(org_id, status, last_activity_at, id)` e `(org_id, status, completed_at desc, id desc)`; teste de plano sem seq scan e sem sort.
+- Cada item traz `lastActivityAt`, `setFleetCode` e a situação atual da OS (`workOrder.status`), lida pela porta pública da manutenção (`WorkOrderTargets.statusesOf`), nunca da tabela dela.
+- Duas pessoas respondendo o mesmo checklist entram em fila: a atualização de `last_activity_at` vem antes das respostas, então o bloqueio da linha do checklist é tomado primeiro e não há impasse com o bloqueio compartilhado do gatilho do CHK-5.
+
 ## Implementado em 07/11/2026 (3.2.1, migration 0049)
 
 - Modelos, seções, itens e versões como acima. A execução (`checklists`, `checklist_results`) entra na 3.2.2.
