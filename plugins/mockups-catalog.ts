@@ -40,6 +40,7 @@ const PRODUCTS: ProductSource[] = [
   {id: 'truck', label: 'Truck', galleryFile: 'docs/truck/produto/mockups.mdx', galleryDoc: '/docs/truck/produto/mockups'},
   {id: 'shop', label: 'Shop', galleryFile: 'docs/shop/produto/mockups.mdx', galleryDoc: '/docs/shop/produto/mockups'},
   {id: 'chef', label: 'Chef', galleryFile: 'docs/confeitaria/produto/mockups.mdx', galleryDoc: '/docs/confeitaria/produto/mockups'},
+  {id: 'techcare', label: 'TechCare', galleryFile: 'docs/techcare/produto/mockups.mdx', galleryDoc: '/docs/techcare/produto/mockups'},
 ];
 
 const UNLISTED_SECTION = 'Fora da galeria';
