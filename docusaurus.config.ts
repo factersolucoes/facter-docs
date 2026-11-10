@@ -45,6 +45,8 @@ const config: Config = {
 
   clientModules: ['./src/clientModules/project-theme.ts'],
 
+  plugins: ['./plugins/mockups-catalog.ts'],
+
   presets: [
     [
       'classic',
@@ -104,6 +106,7 @@ const config: Config = {
           position: 'left',
           label: 'Docs',
         },
+        {to: '/mockups', label: 'Mockups', position: 'left'},
         {to: '/blog', label: 'Blog', position: 'left'},
       ],
     },

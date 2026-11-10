@@ -2,7 +2,7 @@
 
 O mockup é a **fonte da verdade da tela antes do código**. Depois de aprovado, a implementação segue ele (ver [Interface: UI e UX](../engenharia/padroes/interface-e-ux.md), seção 1). Toda tela nova ou repensada nasce como mockup aqui, é discutida, aprovada, e só então vira código.
 
-A galeria de tudo que já existe está em [Mockups](./mockups.mdx).
+Tudo que já existe está no [quadro de mockups](/mockups), com todos os produtos lado a lado: arrastar para mover, ctrl e scroll (ou pinça) para zoom, um clique mostra os detalhes, dois cliques abrem o protótipo. A mesma lista em texto fica em [Mockups](./mockups.mdx).
 
 ## Onde ficam os arquivos
 
@@ -20,7 +20,7 @@ Um mockup tem três partes:
    ```
 
    Isso publica a rota `/telas/truck/<slug>`.
-3. **A entrada na galeria**, em `docs/truck/produto/mockups.mdx`: um `### Título`, um parágrafo com o **status** no começo e a descrição, e o link `[Ver o mockup](/telas/truck/<slug>)`. Uma imagem `desktop.png` na mesma pasta serve de prévia.
+3. **A entrada na galeria**, em `docs/truck/produto/mockups.mdx`: um `### Título`, um parágrafo com o **status** no começo e a descrição, e o link `[Ver o mockup](/telas/truck/<slug>)`. Uma imagem `desktop.png` (1440 × 900) na mesma pasta serve de prévia no quadro; sem ela, o quadro mostra a página ao vivo, que é mais pesado. O quadro lê o título e o status da página e a seção e a descrição desta entrada, então não há outro lugar para cadastrar.
 
 ## O contrato de design
 
