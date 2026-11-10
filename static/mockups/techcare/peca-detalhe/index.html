@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TechCare · Detalhe da peça</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f7f6; --card: #ffffff; --line: #e6e8e6; --line-soft: #f0f1f0;
+    --ink: #121614; --muted: #6b726e; --faint: #9aa19d;
+    --primary: #16a34a; --primary-ink: #11823b; --primary-soft: #e8f6ed;
+    --warn: #b7791f; --warn-soft: #fdf3e2; --danger: #dc2626; --danger-soft: #fdecec;
+    --info: #2563eb; --info-soft: #e9f0fe;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #eceeec; font: 14px/1.45 Inter, system-ui, sans-serif; color: var(--ink); }
+  .page { max-width: 1320px; margin: 0 auto; padding: 32px 20px 80px; }
+  .lead h1 { font-size: 28px; margin: 0 0 6px; letter-spacing: -.02em; }
+  .lead p { margin: 0 0 6px; color: var(--muted); max-width: 920px; }
+  .problems { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 18px 0 34px; }
+  .problems div { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-size: 13px; }
+  .problems b { display: block; font-size: 13px; margin-bottom: 2px; }
+  .opt { margin: 0 0 56px; }
+  .opt-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px; }
+  .letter { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; background: var(--ink); color: #fff; font-weight: 800; }
+  .opt-head h2 { margin: 0; font-size: 20px; letter-spacing: -.01em; }
+  .opt-sub { color: var(--muted); margin: 0 0 14px 42px; max-width: 980px; }
+  .rec { background: var(--primary); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: .04em; }
+
+  /* App frame */
+  .frame { background: var(--bg); border: 1px solid #d9dcd9; border-radius: 14px; overflow: hidden; box-shadow: 0 10px 30px -18px rgba(0,0,0,.25); }
+  .topbar { display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 20px; background: var(--card); border-bottom: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+  .topbar b { color: var(--primary-ink); font-weight: 600; }
+  .search { margin-left: auto; width: 300px; height: 32px; border: 1px solid var(--line); border-radius: 999px; padding: 0 14px; display: flex; align-items: center; color: var(--faint); }
+  .body { padding: 20px 24px 24px; }
+
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); }
+  .muted { color: var(--muted); } .faint { color: var(--faint); }
+  .mono { font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+  .chip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 9px; border-radius: 999px; font-size: 11.5px; font-weight: 600; background: var(--line-soft); color: var(--muted); white-space: nowrap; }
+  .chip.ok { background: var(--primary-soft); color: var(--primary-ink); }
+  .chip.warn { background: var(--warn-soft); color: var(--warn); }
+  .btn { display: inline-flex; align-items: center; gap: 7px; height: 36px; padding: 0 14px; border-radius: 9px; font-weight: 600; font-size: 13px; border: 1px solid var(--line); background: var(--card); color: var(--ink); white-space: nowrap; }
+  .btn.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .btn.soft { background: var(--primary-soft); border-color: transparent; color: var(--primary-ink); }
+  .btn.out { background: var(--danger-soft); border-color: transparent; color: var(--danger); }
+  .btn.sm { height: 30px; padding: 0 10px; font-size: 12.5px; }
+  .ico { width: 15px; height: 15px; flex: none; }
+  .row { display: flex; align-items: center; gap: 10px; }
+  .grow { flex: 1; min-width: 0; }
+  .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--faint); }
+  .num { font-variant-numeric: tabular-nums; }
+  .in { color: var(--primary-ink); } .outc { color: var(--danger); }
+
+  /* Shared bits */
+  .kv { display: grid; grid-template-columns: 110px 1fr; gap: 8px 12px; font-size: 13px; }
+  .kv dt { color: var(--muted); } .kv dd { margin: 0; font-weight: 500; }
+  .meter { height: 8px; border-radius: 99px; background: var(--line-soft); position: relative; overflow: hidden; }
+  .meter i { position: absolute; inset: 0 auto 0 0; background: var(--primary); border-radius: 99px; }
+  .meter s { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--warn); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--faint); padding: 10px 14px; border-bottom: 1px solid var(--line); }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--line-soft); }
+  tr:last-child td { border-bottom: 0; }
+  .r { text-align: right; }
+  .dot { width: 26px; height: 26px; border-radius: 8px; display: inline-grid; place-items: center; flex: none; }
+  .dot.in { background: var(--primary-soft); } .dot.out { background: var(--danger-soft); color: var(--danger); }
+
+  /* A */
+  .a-head { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+  .a-ico { width: 44px; height: 44px; border-radius: 12px; background: var(--card); border: 1px solid var(--line); display: grid; place-items: center; color: var(--muted); }
+  .a-grid { display: grid; grid-template-columns: 1fr 340px; gap: 16px; align-items: start; }
+  .a-side { display: grid; gap: 12px; }
+  .a-side .card { padding: 16px; }
+  .a-stock { font-size: 34px; font-weight: 800; letter-spacing: -.02em; line-height: 1; }
+  .a-timeline .card-h { display: flex; align-items: center; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+  .seg { display: inline-flex; background: var(--line-soft); border-radius: 9px; padding: 3px; gap: 2px; font-size: 12.5px; font-weight: 600; }
+  .seg span { padding: 4px 10px; border-radius: 7px; color: var(--muted); }
+  .seg span.on { background: var(--card); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+  .tl { list-style: none; margin: 0; padding: 4px 0; }
+  .tl li { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-bottom: 1px solid var(--line-soft); }
+  .tl li:last-child { border-bottom: 0; }
+  .tl .bal { width: 74px; text-align: right; color: var(--faint); font-size: 12px; }
+  .tl .q { width: 70px; text-align: right; font-weight: 700; }
+  .day { padding: 8px 16px 2px; font-size: 11px; font-weight: 700; color: var(--faint); text-transform: uppercase; letter-spacing: .05em; }
+
+  /* B */
+  .b-hero { display: grid; grid-template-columns: 1.15fr 1fr; gap: 0; overflow: hidden; margin-bottom: 14px; }
+  .b-left { padding: 20px 22px; border-right: 1px solid var(--line); }
+  .b-right { padding: 20px 22px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; align-content: start; }
+  .b-big { font-size: 46px; font-weight: 800; letter-spacing: -.03em; line-height: 1; }
+  .b-quick { display: flex; gap: 8px; margin-top: 16px; }
+  .b-quick .btn { flex: 1; justify-content: center; height: 42px; }
+  .stat .v { font-size: 20px; font-weight: 700; letter-spacing: -.01em; margin-top: 2px; }
+  .stat .s { font-size: 12px; color: var(--muted); }
+  .tabs { display: flex; gap: 22px; padding: 0 18px; border-bottom: 1px solid var(--line); font-size: 13.5px; font-weight: 600; color: var(--muted); }
+  .tabs span { padding: 12px 0; border-bottom: 2px solid transparent; }
+  .tabs span.on { color: var(--ink); border-color: var(--primary); }
+  .tabs em { font-style: normal; font-size: 11px; background: var(--line-soft); padding: 1px 7px; border-radius: 99px; margin-left: 4px; color: var(--muted); }
+
+  /* C */
+  .c-strip { display: flex; align-items: stretch; margin-bottom: 14px; overflow: hidden; }
+  .c-id { padding: 14px 18px; min-width: 300px; border-right: 1px solid var(--line); }
+  .c-kpi { padding: 14px 18px; border-right: 1px solid var(--line); min-width: 0; }
+  .c-kpi:last-child { border-right: 0; }
+  .c-kpi .v { font-size: 18px; font-weight: 700; margin-top: 2px; white-space: nowrap; }
+  .c-grid { display: grid; grid-template-columns: 1fr 300px; gap: 14px; align-items: start; }
+  .filters { display: flex; gap: 8px; align-items: center; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  .fchip { height: 30px; padding: 0 12px; border: 1px solid var(--line); border-radius: 999px; display: inline-flex; align-items: center; font-size: 12.5px; font-weight: 600; color: var(--muted); }
+  .fchip.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+  .notes { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 14px; }
+  .notes div { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-size: 13px; }
+  .notes b { display: block; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .notes ul { margin: 0; padding-left: 18px; }
+  .perf { border-left: 3px solid var(--info) !important; }
+  .compare { width: 100%; background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .compare td, .compare th { padding: 10px 14px; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-in" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.7 6.3 8.4a8 8 0 1 0 11.4 0Z"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="12" cy="19" r="1.7"/></symbol>
+  <symbol id="i-adj" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></symbol>
+</svg>
+
+<div class="page">
+  <div class="lead">
+    <h1>Detalhe da peça · 3 propostas</h1>
+    <p>Hoje a tela empilha seis cartões do mesmo peso: quatro números soltos, "Detalhes" com dois campos e um cartão inteiro, fornecedores e, só no fim da rolagem, as movimentações — que é o motivo de abrir a peça. Muito branco, nada puxa o olho, e o único botão de ação abre o formulário genérico de sete tipos.</p>
+    <p>Exemplo em todas: <b>Fita PVC de acabamento 10 m</b> da Master Teste (climatização) — 20 rolos, mínimo 10, custo R$ 7,00, venda R$ 18,00, 2 compras e 4 saídas.</p>
+  </div>
+
+  <div class="problems">
+    <div><b>Espaço morto</b>Cartões de largura total para 1 número ou 2 campos.</div>
+    <div><b>Sem hierarquia</b>Estoque, custo e garantia têm o mesmo peso visual.</div>
+    <div><b>Histórico escondido</b>Movimentações ficam abaixo da dobra, depois dos fornecedores.</div>
+    <div><b>Tela carrega em 3 tempos</b>Peça, movimentações e fornecedores chegam separados; até a peça chegar, a tela fica vazia.</div>
+  </div>
+
+  <!-- ===================== A ===================== -->
+  <section class="opt">
+    <div class="opt-head"><span class="letter">A</span><h2>Ficha ao lado, histórico no centro</h2><span class="rec">aprovada · 10/11/2026</span></div>
+    <p class="opt-sub">O histórico de entradas e saídas vira o conteúdo principal, em linha do tempo com o saldo depois de cada movimento. Tudo que é "ficha" (estoque, preço, onde fica, fornecedor) vai para uma coluna estreita à direita, sempre visível. As ações viram as duas perguntas do dia: <b>Dar entrada</b> e <b>Dar saída</b>.</p>
+    <div class="frame">
+      <div class="topbar">Início › Estoque › <b>Fita PVC de acabamento 10 m</b><span class="search">Buscar ou começar algo…</span></div>
+      <div class="body">
+        <div class="a-head">
+          <span class="btn sm"><svg class="ico"><use href="#i-back"/></svg></span>
+          <span class="a-ico"><svg class="ico" style="width:20px;height:20px"><use href="#i-drop"/></svg></span>
+          <div class="grow">
+            <div class="row"><b style="font-size:20px;letter-spacing:-.01em">Fita PVC de acabamento 10 m</b><span class="chip">Consumível</span></div>
+            <div class="muted"><span class="mono">FITA-PVC-ACAB</span> · 3M · Prateleira D4</div>
+          </div>
+          <span class="btn soft"><svg class="ico"><use href="#i-in"/></svg>Dar entrada</span>
+          <span class="btn out"><svg class="ico"><use href="#i-out"/></svg>Dar saída</span>
+          <span class="btn" style="width:36px;padding:0;justify-content:center"><svg class="ico"><use href="#i-more"/></svg></span>
+        </div>
+
+        <div class="a-grid">
+          <div class="card a-timeline">
+            <div class="card-h"><b class="grow">Movimentações</b><span class="seg"><span class="on">Todas</span><span>Entradas</span><span>Saídas</span></span></div>
+            <div class="day">Novembro</div>
+            <ul class="tl">
+              <li><span class="dot out"><svg class="ico"><use href="#i-out"/></svg></span><div class="grow"><b>Usado em atendimento</b><div class="muted" style="font-size:12px">07/11 · Elves</div></div><span class="q outc num">−4 rolos</span><span class="bal num">saldo 20</span></li>
+              <li><span class="dot out"><svg class="ico"><use href="#i-out"/></svg></span><div class="grow"><b>Usado em atendimento</b><div class="muted" style="font-size:12px">29/10 · Elves</div></div><span class="q outc num">−5 rolos</span><span class="bal num">saldo 24</span></li>
+            </ul>
+            <div class="day">Outubro</div>
+            <ul class="tl">
+              <li><span class="dot in"><svg class="ico in"><use href="#i-in"/></svg></span><div class="grow"><b>Compra · Casa do Cobre</b><div class="muted" style="font-size:12px">23/10 · NF 4143 · R$ 7,00/rolo</div></div><span class="q in num">+12 rolos</span><span class="bal num">saldo 29</span></li>
+              <li><span class="dot out"><svg class="ico"><use href="#i-out"/></svg></span><div class="grow"><b>Usado em atendimento</b><div class="muted" style="font-size:12px">20/10 · Elves</div></div><span class="q outc num">−3 rolos</span><span class="bal num">saldo 17</span></li>
+              <li><span class="dot out"><svg class="ico"><use href="#i-out"/></svg></span><div class="grow"><b>Usado em atendimento</b><div class="muted" style="font-size:12px">11/10 · Elves</div></div><span class="q outc num">−4 rolos</span><span class="bal num">saldo 20</span></li>
+              <li><span class="dot in"><svg class="ico in"><use href="#i-in"/></svg></span><div class="grow"><b>Compra · Casa do Cobre</b><div class="muted" style="font-size:12px">28/09 · NF 4142 · R$ 7,00/rolo</div></div><span class="q in num">+24 rolos</span><span class="bal num">saldo 24</span></li>
+            </ul>
+          </div>
+
+          <div class="a-side">
+            <div class="card">
+              <div class="label">Em estoque</div>
+              <div class="row" style="align-items:baseline;margin:6px 0 10px"><span class="a-stock num">20</span><span class="muted">rolos</span><span class="chip ok" style="margin-left:auto">folga de 10</span></div>
+              <div class="meter"><i style="width:66%"></i><s style="left:33%"></s></div>
+              <div class="row muted" style="font-size:12px;margin-top:6px"><span>mínimo 10</span><span style="margin-left:auto">≈ 7 semanas no ritmo atual</span></div>
+            </div>
+            <div class="card">
+              <div class="label" style="margin-bottom:10px">Preço</div>
+              <dl class="kv"><dt>Você paga</dt><dd class="num">R$ 7,00</dd><dt>Você cobra</dt><dd class="num">R$ 18,00</dd><dt>Margem</dt><dd class="num in">R$ 11,00 · 61%</dd><dt>Parado</dt><dd class="num">R$ 140,00 na prateleira</dd></dl>
+            </div>
+            <div class="card">
+              <div class="label" style="margin-bottom:10px">Ficha</div>
+              <dl class="kv"><dt>Marca</dt><dd>3M</dd><dt>Onde fica</dt><dd>Prateleira D4</dd><dt>Garantia</dt><dd class="muted">sem garantia</dd><dt>Fornecedor</dt><dd>Casa do Cobre<br><span class="muted" style="font-weight:400;font-size:12px">R$ 7,00 · última em 23/10</span></dd></dl>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <div><b>A favor</b><ul><li>O que se procura (o histórico) é o maior bloco.</li><li>Saldo depois de cada movimento: dá para achar onde a conta furou.</li><li>Entrada e saída separadas, cada uma com o seu formulário curto.</li></ul></div>
+      <div><b>Contra</b><ul><li>No celular a coluna da direita desce para baixo do histórico.</li><li>Pede o "Dar saída" (mockup e endpoint já discutidos).</li></ul></div>
+      <div class="perf"><b>Desempenho</b><ul><li>Abre na hora: a ficha vem do cache da lista do estoque.</li><li>Histórico paginado (20 por vez) e fornecedor no mesmo pedido da peça.</li></ul></div>
+    </div>
+  </section>
+
+  <!-- ===================== B ===================== -->
+  <section class="opt">
+    <div class="opt-head"><span class="letter">B</span><h2>Painel do estoque com ações rápidas</h2></div>
+    <p class="opt-sub">Um bloco de destaque responde "quanto tenho e o que faço agora": o número grande com a régua do mínimo e três botões grandes (Entrada, Saída, Ajuste) ali mesmo. O resto fica em abas — o branco some porque cada assunto ocupa a tela só quando é escolhido.</p>
+    <div class="frame">
+      <div class="topbar">Início › Estoque › <b>Fita PVC de acabamento 10 m</b><span class="search">Buscar ou começar algo…</span></div>
+      <div class="body">
+        <div class="row" style="margin-bottom:14px">
+          <span class="btn sm"><svg class="ico"><use href="#i-back"/></svg></span>
+          <div class="grow"><b style="font-size:20px">Fita PVC de acabamento 10 m</b> <span class="chip">Consumível</span><div class="muted"><span class="mono">FITA-PVC-ACAB</span> · 3M</div></div>
+          <span class="btn"><svg class="ico"><use href="#i-edit"/></svg>Editar</span>
+        </div>
+        <div class="card b-hero">
+          <div class="b-left">
+            <div class="label">Em estoque · Prateleira D4</div>
+            <div class="row" style="align-items:baseline;margin:8px 0 12px"><span class="b-big num">20</span><span class="muted" style="font-size:16px">rolos</span><span class="chip ok" style="margin-left:10px">acima do mínimo (10)</span></div>
+            <div class="meter" style="height:10px"><i style="width:66%"></i><s style="left:33%"></s></div>
+            <div class="b-quick">
+              <span class="btn primary"><svg class="ico"><use href="#i-in"/></svg>Entrada</span>
+              <span class="btn out"><svg class="ico"><use href="#i-out"/></svg>Saída</span>
+              <span class="btn"><svg class="ico"><use href="#i-adj"/></svg>Ajuste</span>
+            </div>
+          </div>
+          <div class="b-right">
+            <div class="stat"><div class="label">Você paga</div><div class="v num">R$ 7,00</div><div class="s">por rolo</div></div>
+            <div class="stat"><div class="label">Você cobra</div><div class="v num">R$ 18,00</div><div class="s in">margem 61%</div></div>
+            <div class="stat"><div class="label">Parado</div><div class="v num">R$ 140</div><div class="s">no estoque</div></div>
+            <div class="stat"><div class="label">Saiu em 30 dias</div><div class="v num">9 rolos</div><div class="s">≈ 2 por semana</div></div>
+            <div class="stat"><div class="label">Última compra</div><div class="v num">23/10</div><div class="s">Casa do Cobre</div></div>
+            <div class="stat"><div class="label">Garantia</div><div class="v">—</div><div class="s">sem garantia</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="tabs"><span class="on">Movimentações <em>6</em></span><span>Fornecedores <em>1</em></span><span>Ficha</span></div>
+          <table>
+            <thead><tr><th>Quando</th><th>O quê</th><th>Detalhe</th><th class="r">Quantidade</th><th class="r">Saldo</th></tr></thead>
+            <tbody>
+              <tr><td class="num">07/11</td><td><span class="chip">Saída</span></td><td class="muted">Usado em atendimento · Elves</td><td class="r num outc"><b>−4</b></td><td class="r num">20</td></tr>
+              <tr><td class="num">29/10</td><td><span class="chip">Saída</span></td><td class="muted">Usado em atendimento · Elves</td><td class="r num outc"><b>−5</b></td><td class="r num">24</td></tr>
+              <tr><td class="num">23/10</td><td><span class="chip ok">Compra</span></td><td class="muted">Casa do Cobre · NF 4143 · R$ 7,00</td><td class="r num in"><b>+12</b></td><td class="r num">29</td></tr>
+              <tr><td class="num">20/10</td><td><span class="chip">Saída</span></td><td class="muted">Usado em atendimento · Elves</td><td class="r num outc"><b>−3</b></td><td class="r num">17</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <div><b>A favor</b><ul><li>Responde de cara "quanto tenho, quanto vale, quanto sai".</li><li>Entrada, saída e ajuste a um clique, sem menu.</li><li>Abas escondem o que não é a pergunta da vez.</li></ul></div>
+      <div><b>Contra</b><ul><li>Fornecedor e ficha precisam de um clique a mais.</li><li>"Saiu em 30 dias" é um número novo a calcular na API.</li></ul></div>
+      <div class="perf"><b>Desempenho</b><ul><li>Bloco de destaque vem do cache da lista: aparece na hora.</li><li>Cada aba busca só quando é aberta; Movimentações paginada.</li></ul></div>
+    </div>
+  </section>
+
+  <!-- ===================== C ===================== -->
+  <section class="opt">
+    <div class="opt-head"><span class="letter">C</span><h2>Faixa compacta e extrato em tela cheia</h2></div>
+    <p class="opt-sub">Os quatro cartões viram uma faixa única de altura baixa com tudo que é número. Abaixo, o extrato da peça ocupa a largura toda, com filtro por tipo e período, como um extrato de banco. Fornecedores numa lateral pequena. Para quem confere estoque muitas vezes por dia.</p>
+    <div class="frame">
+      <div class="topbar">Início › Estoque › <b>Fita PVC de acabamento 10 m</b><span class="search">Buscar ou começar algo…</span></div>
+      <div class="body">
+        <div class="card c-strip">
+          <div class="c-id">
+            <div class="row"><b style="font-size:16px">Fita PVC de acabamento 10 m</b></div>
+            <div class="muted" style="font-size:12.5px"><span class="mono">FITA-PVC-ACAB</span> · Consumível · 3M · Prateleira D4</div>
+          </div>
+          <div class="c-kpi"><div class="label">Estoque</div><div class="v num">20 rolos <span class="chip ok">mín. 10</span></div></div>
+          <div class="c-kpi"><div class="label">Custo</div><div class="v num">R$ 7,00</div></div>
+          <div class="c-kpi"><div class="label">Venda</div><div class="v num">R$ 18,00 <span class="muted" style="font-size:12px;font-weight:600">61%</span></div></div>
+          <div class="c-kpi"><div class="label">Parado</div><div class="v num">R$ 140</div></div>
+          <div class="c-kpi" style="display:flex;align-items:center;gap:8px;margin-left:auto">
+            <span class="btn soft sm"><svg class="ico"><use href="#i-in"/></svg>Entrada</span>
+            <span class="btn out sm"><svg class="ico"><use href="#i-out"/></svg>Saída</span>
+            <span class="btn sm" style="width:30px;padding:0;justify-content:center"><svg class="ico"><use href="#i-more"/></svg></span>
+          </div>
+        </div>
+        <div class="c-grid">
+          <div class="card">
+            <div class="filters"><b class="grow">Extrato</b><span class="fchip on">Tudo</span><span class="fchip">Entradas</span><span class="fchip">Saídas</span><span class="fchip">Ajustes</span><span class="fchip">Últimos 90 dias ▾</span></div>
+            <table>
+              <thead><tr><th>Data</th><th>Movimento</th><th>Quem</th><th class="r">Entrou</th><th class="r">Saiu</th><th class="r">Saldo</th></tr></thead>
+              <tbody>
+                <tr><td class="num">07/11 14:10</td><td>Usado em atendimento</td><td class="muted">Elves</td><td class="r faint">—</td><td class="r num outc">4</td><td class="r num"><b>20</b></td></tr>
+                <tr><td class="num">29/10 14:02</td><td>Usado em atendimento</td><td class="muted">Elves</td><td class="r faint">—</td><td class="r num outc">5</td><td class="r num"><b>24</b></td></tr>
+                <tr><td class="num">23/10 10:15</td><td>Compra · Casa do Cobre · NF 4143</td><td class="muted">Elves</td><td class="r num in">12</td><td class="r faint">—</td><td class="r num"><b>29</b></td></tr>
+                <tr><td class="num">20/10 13:40</td><td>Usado em atendimento</td><td class="muted">Elves</td><td class="r faint">—</td><td class="r num outc">3</td><td class="r num"><b>17</b></td></tr>
+                <tr><td class="num">11/10 14:05</td><td>Usado em atendimento</td><td class="muted">Elves</td><td class="r faint">—</td><td class="r num outc">4</td><td class="r num"><b>20</b></td></tr>
+                <tr><td class="num">28/09 10:20</td><td>Compra · Casa do Cobre · NF 4142</td><td class="muted">Elves</td><td class="r num in">24</td><td class="r faint">—</td><td class="r num"><b>24</b></td></tr>
+              </tbody>
+              <tfoot><tr><td colspan="3" class="muted" style="border-top:1px solid var(--line)">No período</td><td class="r num in" style="border-top:1px solid var(--line)"><b>36</b></td><td class="r num outc" style="border-top:1px solid var(--line)"><b>16</b></td><td class="r num" style="border-top:1px solid var(--line)"><b>20</b></td></tr></tfoot>
+            </table>
+          </div>
+          <div class="card" style="padding:14px 16px">
+            <div class="label" style="margin-bottom:10px">Fornecedores</div>
+            <div style="padding:8px 0;border-bottom:1px solid var(--line-soft)"><b>Casa do Cobre</b><div class="muted" style="font-size:12px">R$ 7,00 · última em 23/10 · código FITA-PVC-ACAB-F</div></div>
+            <div class="label" style="margin:14px 0 8px">Garantia</div>
+            <div class="muted">Sem garantia</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <div><b>A favor</b><ul><li>A tela mais densa: tudo cabe sem rolar.</li><li>Colunas Entrou / Saiu / Saldo fecham a conta como um extrato.</li><li>Filtros por tipo e período respondem "quanto saiu este mês".</li></ul></div>
+      <div><b>Contra</b><ul><li>Mais "planilha", menos acolhedora para quem usa pouco.</li><li>A faixa aperta em telas abaixo de 1280 px (quebra em duas linhas).</li></ul></div>
+      <div class="perf"><b>Desempenho</b><ul><li>Faixa do cache da lista; extrato paginado no servidor pelo filtro escolhido.</li><li>Totais do período calculados na API, não somando no navegador.</li></ul></div>
+    </div>
+  </section>
+
+  <section class="opt" style="margin-bottom:0">
+    <div class="opt-head"><h2>Comparação</h2></div>
+    <table class="compare">
+      <thead><tr><th></th><th>A · Ficha ao lado</th><th>B · Painel com ações</th><th>C · Extrato</th></tr></thead>
+      <tbody>
+        <tr><td class="muted">Primeiro olhar</td><td>O histórico</td><td>Quanto tenho e o que faço</td><td>Todos os números numa linha</td></tr>
+        <tr><td class="muted">Rolagem na tela de notebook</td><td>Pouca</td><td>Nenhuma (abas)</td><td>Nenhuma</td></tr>
+        <tr><td class="muted">Para quem</td><td>Quem confere e corrige</td><td>Quem só dá entrada e saída</td><td>Quem audita o estoque</td></tr>
+        <tr><td class="muted">Trabalho na API</td><td>Saldo por linha + paginação</td><td>+ "saiu em 30 dias"</td><td>+ filtros e totais por período</td></tr>
+      </tbody>
+    </table>
+    <p class="muted" style="margin-top:12px"><b>Aprovada em 10/11/2026: a A</b>, com os botões de ação do B (na implementação, "Dar saída" espera a definição da saída sem OS). O cliente que só usa estoque pergunta "o que entrou e o que saiu" — é o histórico que tem de estar na frente. Em todas, "Movimentar estoque" (o formulário de sete tipos) dá lugar a <b>Dar entrada</b> e <b>Dar saída</b>.</p>
+  </section>
+</div>
+</body>
+</html>
