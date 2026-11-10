@@ -455,7 +455,7 @@ body[data-mode="conf"] .integ.mb-conf,body[data-mode="pers"] .integ.mb-pers,body
   <header class="doc-head"><div>
     <h1>Shop · gestão da loja</h1>
     <p>A gestão da loja é um <b>módulo</b>, um código só, com dois hospedeiros. <b>Loja de comida usa o Chef</b>: o Shop só provisiona a vitrine e o módulo aparece dentro do "Minha loja" do Chef (seção 1). <b>Os outros tipos</b> (personalizados, semijoias, moda) têm a gestão no próprio Shop (seções 2 a 10), com Início, Pedidos e Produtos próprios. O <b>tipo de loja</b> muda o vocabulário e o que o produto pede; troque ali embaixo. As fotos são provisórias (da Larissa) até chegarem as da Made in Você e da ESLA.</p>
-    <nav class="toc"><a href="#s0"><b>0</b>Onde cada tela mora</a><a href="#s1"><b>1</b>Dentro do Chef</a><a href="#s2"><b>2</b>Início</a><a href="#s3"><b>3</b>Pedidos</a><a href="#s4"><b>4</b>Produtos</a><a href="#s5"><b>5</b>Editar produto</a><a href="#s6"><b>6</b>Aparência</a><a href="#s7"><b>7</b>Domínio</a><a href="#s8"><b>8</b>Configurações</a><a href="#s9"><b>9</b>Pagamentos</a><a href="#s10"><b>10</b>Celular</a></nav>
+    <nav class="toc"><a href="#s0"><b>0</b>Onde cada tela mora</a><a href="#s1"><b>1</b>Dentro do Chef</a><a href="#s2"><b>2</b>Início</a><a href="#s3"><b>3</b>Pedidos</a><a href="#s4"><b>4</b>Produtos</a><a href="#s5"><b>5</b>Editar produto</a><a href="#s6"><b>6</b>Aparência</a><a href="#s7"><b>7</b>Domínio</a><a href="#s8"><b>8</b>Configurações</a><a href="#s9"><b>9</b>Pagamentos</a><a href="#s10"><b>10</b>Celular</a><a href="#s11"><b>11</b>Entrega por bairro</a></nav>
     <div class="modebar"><span class="lbl">Loja de exemplo</span><div class="seg" id="modes"><button data-m="conf"><i class="ic s14 i-cake"></i>Doces e comida <span class="dep" style="margin-left:4px">no Chef</span></button><button data-m="pers" aria-pressed="true"><i class="ic s14 i-gift"></i>Personalizados</button><button data-m="joia"><i class="ic s14 i-gem"></i>Semijoias e moda</button></div></div>
   </div></header>
 
@@ -920,7 +920,7 @@ body[data-mode="conf"] .integ.mb-conf,body[data-mode="pers"] .integ.mb-pers,body
               <div style="display:flex;flex-direction:column;gap:10px">
                 <div class="sw"><i class="ic s18 i-store"></i><div><b>Retirada</b><span>Rua das Flores, 120 · Centro</span></div><span class="tog on"></span></div>
                 <div class="sw"><i class="ic s18 i-package"></i><div><b>Entrega na cidade</b><span><span class="m-conf">Taxa R$ 10 · grátis acima de R$ 120</span><span class="m-pers">Taxa R$ 10 na cidade</span><span class="m-joia">Taxa R$ 12 · só no centro</span></span></div><span class="tog on"></span></div>
-                <div class="sw"><i class="ic s18 i-upload"></i><div><b>Envio</b><span><span class="m-conf">Não envia</span><span class="m-pers">Correios · frete combinado no WhatsApp</span><span class="m-joia">Correios · frete calculado no pedido</span></span></div><span class="tog"><span class="m-joia"></span></span></div>
+                <div class="sw"><i class="ic s18 i-upload"></i><div><b>Envio</b><span><span class="m-conf">Não envia</span><span class="m-pers">Correios · frete combinado no WhatsApp</span><span class="m-joia">Correios · frete combinado no WhatsApp</span></span></div><span class="tog"><span class="m-joia"></span></span></div>
                 <div class="sw"><i class="ic s18 i-clock"></i><div><b>Padrão pro item novo</b><span>Só uma sugestão: cada item escolhe o seu em "Como vende".</span></div><div class="seg" style="margin-left:auto"><button><span class="m-conf">Pronta entrega</span><span class="m-pers">Pronta entrega</span><span class="m-joia">Pronta entrega</span></button><button aria-pressed="true"><span class="m-conf">Com data</span><span class="m-pers">Sob encomenda</span><span class="m-joia">Pronta entrega</span></button></div></div>
                 <div class="sw"><i class="ic s18 i-pause"></i><div><b>Pausar pedidos</b><span>A loja fica no ar, mas avisa: "Não estou aceitando pedidos até 12/11".</span></div><span class="tog"></span></div>
               </div>
@@ -1090,6 +1090,94 @@ body[data-mode="conf"] .integ.mb-conf,body[data-mode="pers"] .integ.mb-pers,body
       <div><h4>Pendências</h4><ul><li>App instalável (PWA) pra notificação funcionar no iPhone.</li></ul></div>
     </div>
   </section>
+  <!-- ============ 11 · ENTREGA POR BAIRRO ============ -->
+  <section class="sec" id="s11">
+    <div class="sec-label"><span class="sec-num">11</span><h2>Entrega por bairro · cada lugar com a sua taxa</h2></div>
+    <p class="sec-sub">Quem entrega na cidade cobra diferente do centro pro bairro longe. A dona monta a tabela uma vez; a cliente escolhe o bairro no checkout e já vê o total certo. Mexa na tabela, troque "quem mora fora da lista" e toque nos bairros do celular.</p>
+    <style>
+      .zcard{max-width:760px;margin-left:40px}
+      .zrow{display:grid;grid-template-columns:minmax(0,1fr) 160px 32px;gap:10px;align-items:center}
+      .zrow .iconbtn{width:32px;height:32px}
+      .zhead{font-size:12px;font-weight:600;color:hsl(var(--muted-foreground));text-transform:none}
+      .zlist{display:flex;flex-direction:column;gap:8px}
+      .zadd{align-self:flex-start}
+      .zopt{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-top:14px;border-top:1px solid hsl(var(--border))}
+      .zopt b{font-size:13.5px;font-weight:600;flex:1;min-width:200px}
+      .zopt b span{display:block;font-weight:400;font-size:12.5px;color:hsl(var(--muted-foreground))}
+      .hood{display:flex;flex-direction:column;border:1px solid hsl(var(--border));border-radius:12px;overflow:hidden;background:hsl(var(--card))}
+      .hood button{display:flex;align-items:center;gap:10px;padding:12px 14px;border:0;border-top:1px solid hsl(var(--border));background:none;font-size:14px;text-align:left;cursor:pointer}
+      .hood button:first-child{border-top:0}
+      .hood button .r{width:18px;height:18px;border-radius:99px;border:1.5px solid hsl(240 6% 70%);flex:none}
+      .hood button[aria-checked="true"] .r{border:5px solid hsl(var(--primary))}
+      .hood button .v{margin-left:auto;color:hsl(var(--muted-foreground));font-size:13px}
+      .hood button.out{color:hsl(var(--muted-foreground))}
+      .sum{display:flex;flex-direction:column;gap:6px;font-size:14px}
+      .sum div{display:flex;justify-content:space-between}
+      .sum .t{font-weight:700;font-size:16px;padding-top:8px;border-top:1px solid hsl(var(--border))}
+      .m-lbl{font-size:12.5px;font-weight:600;margin-top:4px}
+      .m-cta{position:absolute;left:0;right:0;bottom:0;padding:12px 16px 26px;background:hsl(var(--card));border-top:1px solid hsl(var(--border))}
+      .m-cta .btn{width:100%;height:46px;justify-content:center}
+      .m-cta .btn[disabled]{opacity:.45}
+      .note-out{border:1px solid hsl(var(--border));border-radius:12px;padding:12px 14px;font-size:13.5px;background:hsl(var(--background))}
+      .note-out b{display:block;margin-bottom:4px}
+      .hood button.soon{cursor:default}
+      .hood button.soon .r,.hood button.soon .tx{opacity:.5}
+      .hood button .tx small{display:block;font-size:12.5px;color:hsl(var(--muted-foreground))}
+    </style>
+
+    <div class="card pad zcard" id="zones">
+      <div class="sw" style="border:0;padding:0 0 14px"><i class="ic s18 i-package"></i><div><b>Entrega na cidade</b><span id="z-sum">4 bairros · de R$ 8 a R$ 20 · grátis acima de R$ 150</span></div><span class="tog on"></span></div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><b style="font-size:13.5px;flex:1">Taxa de entrega</b><div class="seg" id="z-mode"><button data-z="one">Uma taxa só</button><button data-z="zones" aria-pressed="true">Por bairro</button></div></div>
+        <div id="z-one" style="display:none"><div class="field" style="max-width:240px"><label>Taxa</label><div class="input"><span class="pre">R$</span>12,00</div></div></div>
+        <div id="z-zones" style="display:flex;flex-direction:column;gap:10px">
+          <div class="zrow zhead"><span>Bairro ou cidade</span><span>Taxa</span><span></span></div>
+          <div class="zlist" id="z-list"></div>
+          <button class="btn btn-outline btn-sm zadd" id="z-add"><i class="ic s16 i-plus"></i>Adicionar bairro</button>
+          <div class="zopt"><b>Quem mora fora da lista<span>Aparece no checkout como "Meu bairro não está aqui".</span></b><div class="seg" id="z-out"><button data-o="no" aria-pressed="true">Não entrego</button><button data-o="talk">Combino no WhatsApp</button></div></div>
+        </div>
+        <div class="row2" style="padding-top:14px;border-top:1px solid hsl(var(--border))">
+          <div class="field"><label>Entrega grátis acima de · opcional</label><div class="input"><span class="pre">R$</span>150,00</div></div>
+          <div class="field"><label>Como funciona · opcional</label><div class="input">Terça a sábado, à tarde</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card pad zcard" style="margin-top:16px">
+      <div class="sw" style="border:0;padding:0 0 14px"><i class="ic s18 i-upload"></i><div><b>Envio</b><span>Frete combinado no WhatsApp</span></div><span class="tog on"></span></div>
+      <div class="hood" role="radiogroup" aria-label="Como o frete é calculado">
+        <button role="radio" aria-checked="true"><span class="r"></span><span class="tx">Frete combinado no WhatsApp<small>A cliente fecha o pedido e você passa o valor do frete na conversa.</small></span></button>
+        <button class="soon" role="radio" aria-checked="false" aria-disabled="true"><span class="r"></span><span class="tx">Correios<small>A cliente vê o frete pelo CEP antes de fechar o pedido.</small></span><span class="badge b-mute" style="margin-left:auto">Em breve</span></button>
+      </div>
+    </div>
+
+    <div class="phones" style="margin-top:32px">
+      <div class="phone"><div class="screen">
+        <div class="status"><span>9:41</span><span class="isl"></span><span>●●●</span></div>
+        <div class="m-top"><a class="back" href="#"><i class="ic s18 i-back"></i>Sacola</a><h1>Como você recebe</h1><span style="width:60px"></span></div>
+        <div class="m-body">
+          <div class="seg" style="width:100%"><button style="flex:1;justify-content:center">Retirar</button><button style="flex:1;justify-content:center" aria-pressed="true">Entrega</button><button style="flex:1;justify-content:center">Envio</button></div>
+          <div class="m-lbl">Seu bairro</div>
+          <div class="hood" id="hood"></div>
+          <div id="m-addr" class="field"><label>Rua e número</label><div class="input">Rua das Flores, 10</div></div>
+          <div id="m-out" class="note-out" style="display:none"></div>
+          <div class="card pad sum" id="m-sum"></div>
+        </div>
+        <div class="m-cta"><button class="btn btn-primary" id="m-send"><i class="ic s16 i-wa"></i>Enviar pedido pelo WhatsApp</button></div>
+      </div></div>
+      <div class="notes" style="max-width:360px;padding-top:20px">
+        <h4>A mensagem que chega pra dona</h4>
+        <div class="card pad" style="font:13px/1.55 ui-monospace,Menlo,monospace;white-space:pre-wrap" id="m-msg"></div>
+      </div>
+    </div>
+
+    <div class="notes-row notes">
+      <div><h4>O que decidimos</h4><ul><li>"Uma taxa só" continua sendo o padrão. "Por bairro" é opção pra quem precisa, sem mudar nada pra quem não precisa.</li><li>Bairro ou cidade é texto da dona: ela escreve como a cliente fala ("Centro", "Rio Verde"). Sem mapa e sem CEP.</li><li>A cliente escolhe o bairro numa lista, nunca digita: não tem como errar a taxa.</li><li>O pedido guarda o bairro e a taxa daquele dia. Mudar a tabela depois não muda pedido antigo.</li><li>"Grátis acima de" vale pra qualquer bairro da lista.</li><li>Envio: por enquanto o frete é combinado no WhatsApp. Correios aparece marcado "Em breve" e não dá pra escolher.</li></ul></div>
+      <div><h4>Estados</h4><ul><li>Fora da lista + "Não entrego": o botão de enviar fica parado e a loja oferece retirar ou receber por envio, quando a loja tem.</li><li>Fora da lista + "Combino no WhatsApp": fecha o pedido com a entrega a combinar; o total diz "+ entrega".</li><li>Tabela vazia com "Por bairro" ligado: não salva, pede pelo menos um bairro.</li><li>Loja que vem do Chef: segue com a taxa única até o Chef ter a tabela.</li></ul></div>
+      <div><h4>Pendências</h4><ul><li>Taxa por distância ou por CEP: precisa de serviço de mapa pago. Só com cliente pedindo.</li><li>Correios: frete pelo CEP no checkout, com peso e medidas do produto (já são números no cadastro).</li><li>Valor mínimo de pedido por bairro: só se aparecer o caso.</li></ul></div>
+    </div>
+  </section>
+
 </div>
 
 <script>
@@ -1138,6 +1226,42 @@ body[data-mode="conf"] .integ.mb-conf,body[data-mode="pers"] .integ.mb-pers,body
     document.getElementById('fluxo').innerHTML=`<div class="fl">${seq}</div><p>${p}</p>`;
   }
   drawFluxo();
+
+  // seção 11: entrega por bairro
+  const Z={mode:'zones',out:'no',sel:0,rows:[['Centro',8],['Jardim das Flores',12],['Vila Nova',15],['Rio Verde',20]]};
+  const PROD=110,FREE=150;
+  const brl=v=>'R$ '+v.toFixed(2).replace('.',',');
+  function drawZones(){
+    document.getElementById('z-one').style.display=Z.mode==='one'?'':'none';
+    document.getElementById('z-zones').style.display=Z.mode==='zones'?'flex':'none';
+    document.querySelectorAll('#z-mode button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.z===Z.mode));
+    document.querySelectorAll('#z-out button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.o===Z.out));
+    document.getElementById('z-list').innerHTML=Z.rows.map((r,i)=>`<div class="zrow"><div class="input">${r[0]}</div><div class="input"><span class="pre">R$</span>${r[1].toFixed(2).replace('.',',')}</div><button class="iconbtn bare" data-del="${i}" title="Remover bairro"><i class="ic s16 i-x"></i></button></div>`).join('');
+    document.querySelectorAll('#z-list [data-del]').forEach(b=>b.onclick=()=>{Z.rows.splice(+b.dataset.del,1);if(Z.sel>=Z.rows.length)Z.sel=Z.rows.length;drawZones();});
+    const fees=Z.rows.map(r=>r[1]);
+    document.getElementById('z-sum').textContent=Z.mode==='one'?'Taxa R$ 12,00 · grátis acima de R$ 150':(Z.rows.length?`${Z.rows.length} ${Z.rows.length===1?'bairro':'bairros'} · de R$ ${Math.min(...fees)} a R$ ${Math.max(...fees)} · grátis acima de R$ 150`:'Nenhum bairro ainda');
+    const opts=Z.mode==='zones'?Z.rows.map((r,i)=>`<button role="radio" aria-checked="${Z.sel===i}" data-h="${i}"><span class="r"></span>${r[0]}<span class="v">${brl(r[1])}</span></button>`).join('')+`<button class="out" role="radio" aria-checked="${Z.sel===Z.rows.length}" data-h="${Z.rows.length}"><span class="r"></span>Meu bairro não está aqui</button>`:'';
+    const hood=document.getElementById('hood');hood.innerHTML=opts;hood.style.display=Z.mode==='zones'?'':'none';
+    document.querySelector('#s11 .m-lbl').style.display=Z.mode==='zones'?'':'none';
+    hood.querySelectorAll('[data-h]').forEach(b=>b.onclick=()=>{Z.sel=+b.dataset.h;drawZones();});
+    const outside=Z.mode==='zones'&&Z.sel===Z.rows.length;
+    const zone=Z.mode==='zones'?Z.rows[Z.sel]:['',12];
+    const fee=outside?null:(PROD>=FREE?0:zone[1]);
+    const o=document.getElementById('m-out');
+    o.style.display=outside?'':'none';
+    o.innerHTML=Z.out==='no'?'<b>Ainda não entregamos no seu bairro</b>Você pode retirar na loja ou receber por envio.<div style="display:flex;gap:8px;margin-top:10px"><button class="btn btn-outline btn-sm">Retirar na loja</button><button class="btn btn-outline btn-sm">Receber por envio</button></div>':'<b>A entrega fica a combinar</b>A loja te passa o valor no WhatsApp antes de confirmar.';
+    const blocked=outside&&Z.out==='no';
+    document.getElementById('m-addr').style.display=blocked?'none':'';
+    document.getElementById('m-send').disabled=blocked;
+    const label=Z.mode==='zones'&&!outside?`Entrega · ${zone[0]}`:'Entrega';
+    document.getElementById('m-sum').innerHTML=`<div><span>Produtos</span><span>${brl(PROD)}</span></div>${blocked?'':`<div><span>${label}</span><span>${fee===null?'a combinar':fee===0?'grátis':brl(fee)}</span></div>`}<div class="t"><span>Total</span><span>${blocked?brl(PROD):fee===null?brl(PROD)+' + entrega':brl(PROD+fee)}</span></div>`;
+    const where=outside?'Entrega em: Rua das Flores, 10 (bairro fora da lista, taxa a combinar)':`Entrega em: Rua das Flores, 10${Z.mode==='zones'?` (${zone[0]}, ${brl(fee)})`:` (${brl(fee)})`}`;
+    document.getElementById('m-msg').textContent=blocked?'O botão fica parado até ela escolher retirar ou envio.':`Oi, ESLA Semijoias. Meu nome é Thamires e fiz o pedido #2 pela loja.\n\n• 2x Brinco Gota: R$ 110,00\n   Cor: Dourado\n\nTotal: ${fee===null?'R$ 110,00 + entrega':brl(PROD+fee)}\n\n${where}\n\nPode confirmar?`;
+  }
+  document.querySelectorAll('#z-mode button').forEach(b=>b.onclick=()=>{Z.mode=b.dataset.z;drawZones();});
+  document.querySelectorAll('#z-out button').forEach(b=>b.onclick=()=>{Z.out=b.dataset.o;drawZones();});
+  document.getElementById('z-add').onclick=()=>{Z.rows.push(['Novo bairro',10]);drawZones();};
+  drawZones();
   // domínio (passos)
   window.domStep=n=>document.querySelectorAll('#domcard .step').forEach(s=>s.classList.toggle('on',s.dataset.s==String(n)));
 </script>
