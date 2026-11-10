@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shop · Primeira vez com a loja</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --background:0 0% 98%; --foreground:240 10% 3.9%; --card:0 0% 100%;
+    --primary:240 10% 3.9%; --primary-foreground:0 0% 100%; --primary-soft:240 6% 93%;
+    --muted:240 4.8% 94%; --muted-foreground:240 3.8% 40%; --border:240 5.9% 90%;
+    --success-soft:160 55% 94%; --success-ink:160 70% 24%;
+    --warning-soft:40 90% 94%; --warning-ink:32 80% 30%;
+    --canvas:225 14% 92%; --ink:240 10% 12%;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Sora,system-ui,sans-serif;background:hsl(var(--canvas));color:hsl(var(--foreground));font-size:14px;line-height:1.5}
+  h1,h2,h3{font-family:Sora,Inter,sans-serif;margin:0;letter-spacing:-.01em}
+  button{font:inherit}
+  .doc{max-width:1500px;margin:0 auto;padding:28px 24px 60px}
+  .doc-hd h1{font-size:22px}
+  .doc-hd p{margin:6px 0 0;color:hsl(var(--muted-foreground));max-width:860px}
+  .bar{display:flex;gap:10px;align-items:center;margin:18px 0;flex-wrap:wrap}
+  .seg{display:inline-flex;background:#fff;border:1px solid hsl(var(--border));border-radius:999px;padding:3px}
+  .seg button{appearance:none;border:0;background:none;border-radius:999px;padding:6px 14px;font-weight:500;cursor:pointer;color:hsl(var(--muted-foreground))}
+  .seg button[aria-pressed=true]{background:hsl(var(--ink));color:#fff}
+
+  .layout{display:grid;grid-template-columns:230px minmax(0,1fr) 300px;gap:18px;align-items:start}
+  .rail{background:#fff;border:1px solid hsl(var(--border));border-radius:14px;padding:10px;position:sticky;top:16px}
+  .rail b{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding:8px 10px 6px}
+  .rail button{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;border:0;background:none;padding:8px 10px;border-radius:10px;cursor:pointer;color:hsl(var(--foreground))}
+  .rail button span{flex:none;width:22px;height:22px;border-radius:99px;display:grid;place-items:center;font-size:11.5px;font-weight:600;background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+  .rail button small{display:block;color:hsl(var(--muted-foreground));font-size:11.5px}
+  .rail button[aria-current=true]{background:hsl(var(--primary-soft))}
+  .rail button[aria-current=true] span{background:hsl(var(--primary));color:#fff}
+  .notes{background:#fff;border:1px solid hsl(var(--border));border-radius:14px;padding:16px 18px;position:sticky;top:16px}
+  .notes h3{font-size:14px}
+  .notes ul{margin:10px 0 0;padding-left:18px;color:hsl(20 10% 28%)}
+  .notes li{margin:6px 0}
+  .notes .ev{margin-top:14px;padding-top:12px;border-top:1px dashed hsl(var(--border));font-size:12px;color:hsl(var(--muted-foreground))}
+  .notes code{font-size:11.5px;background:hsl(var(--muted));padding:1px 5px;border-radius:5px}
+  .walk{display:flex;justify-content:space-between;margin-top:12px}
+  .walk button{border:1px solid hsl(var(--border));background:#fff;border-radius:10px;padding:8px 14px;cursor:pointer;font-weight:500}
+
+  /* app frame (desktop) */
+  .frame{background:hsl(var(--background));border:1px solid hsl(var(--border));border-radius:16px;overflow:hidden;position:relative}
+  .app{display:grid;grid-template-columns:60px 1fr;min-height:820px}
+  .side{background:#fff;border-right:1px solid hsl(var(--border));display:flex;flex-direction:column;align-items:center;gap:6px}
+  .side .brand{width:60px;height:64px;background:hsl(var(--primary));margin-bottom:12px}
+  .side i{width:36px;height:36px;border-radius:10px;display:block;position:relative}
+  .side i::before{content:"";display:block;width:18px;height:18px;margin:9px;border:1.6px solid hsl(var(--muted-foreground));border-radius:4px;opacity:.7}
+  .side i.on{background:hsl(var(--primary-soft))}
+  .side i.on::before{border-color:hsl(var(--primary));opacity:1}
+  .side i.dot::after{content:"";position:absolute;top:6px;right:6px;width:8px;height:8px;border-radius:99px;background:hsl(var(--primary));box-shadow:0 0 0 2px #fff}
+  .top{height:64px;border-bottom:1px solid hsl(var(--border));background:#fff;display:flex;align-items:center;padding:0 24px;gap:16px}
+  .top .crumb{font-weight:600}
+  .top .org{margin-left:auto;display:flex;align-items:center;gap:10px;font-weight:500}
+  .top .org img{width:30px;height:30px;border-radius:99px;object-fit:cover}
+  .main{padding:26px 34px 40px;position:relative}
+  .title{font-family:Sora,Inter,sans-serif;font-size:24px;font-weight:700}
+  .muted{color:hsl(var(--muted-foreground))}
+  .card{background:#fff;border:1px solid hsl(var(--border));border-radius:16px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:42px;padding:0 18px;border-radius:10px;font-weight:600;font-size:14px;border:1px solid transparent;cursor:pointer;white-space:nowrap}
+  .btn-primary{background:hsl(var(--primary));color:#fff}
+  .btn-outline{background:#fff;color:hsl(var(--foreground));border-color:hsl(var(--border))}
+  .btn-ghost{background:transparent;color:hsl(var(--muted-foreground))}
+  .btn-sm{height:34px;padding:0 12px;font-size:13px;border-radius:9px}
+
+  /* Início behind the dialog */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+  .stat{height:104px}
+  .rows{margin-top:16px;height:330px}
+  .scrim{position:absolute;inset:0;background:rgba(28,20,15,.42);display:grid;place-items:center;z-index:5}
+
+  /* dialog */
+  .dlg{width:720px;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 30px 80px -30px rgba(40,20,10,.6)}
+  .dlg-hd{padding:22px 26px 6px}
+  .dlg-hd h2{font-size:22px}
+  .dlg-hd p{margin:6px 0 0;color:hsl(var(--muted-foreground))}
+  .dlg-bd{display:grid;grid-template-columns:250px 1fr;gap:26px;padding:18px 26px 8px;align-items:center}
+  .dlg-ft{display:flex;align-items:center;gap:10px;padding:16px 26px;border-top:1px solid hsl(var(--border));background:hsl(var(--background))}
+  .dlg-ft .cons{margin-right:auto;font-size:13px;color:hsl(var(--muted-foreground))}
+  .plan{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+  .plan li{display:flex;gap:12px;align-items:flex-start}
+  .plan li span{flex:none;width:26px;height:26px;border-radius:99px;background:hsl(var(--primary-soft));color:hsl(var(--primary));display:grid;place-items:center;font-weight:700;font-size:12.5px}
+  .plan li b{display:block;font-size:14px}
+  .plan li small{color:hsl(var(--muted-foreground));font-size:12.5px}
+
+  /* storefront phone */
+  .phone{width:250px;height:500px;border:8px solid #1c140f;border-radius:36px;overflow:hidden;background:#fcfbf8;box-shadow:0 30px 60px -30px rgba(60,30,10,.55);flex:none}
+  .phone.sm{width:210px;height:420px;border-width:7px;border-radius:30px}
+  .v-hd{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid #eee6dc}
+  .v-hd img{width:26px;height:26px;border-radius:99px;object-fit:cover}
+  .v-hd b{font-family:var(--vf,'Cormorant Garamond'),serif;font-size:18px;font-weight:600;color:#272019}
+  .v-banner{position:relative;height:130px}
+  .v-banner img{width:100%;height:100%;object-fit:cover;display:block}
+  .v-banner .bt{position:absolute;inset:auto 0 0 0;padding:12px;background:linear-gradient(transparent,rgba(0,0,0,.6));color:#fff}
+  .v-banner .bh{font-family:var(--vf,'Cormorant Garamond'),serif;font-size:18px;line-height:1.05}
+  .v-banner.empty{background:repeating-linear-gradient(135deg,#efe6db 0 8px,#f6efe6 8px 16px);display:grid;place-items:center;color:#9b8b7c;font-size:11px}
+  .v-sec{padding:10px 12px 6px;font-family:var(--vf,'Cormorant Garamond'),serif;font-size:17px;color:#272019}
+  .v-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 12px}
+  .v-card{background:#fff;border-radius:10px;overflow:hidden;border:1px solid #efe6db}
+  .v-card img{width:100%;height:78px;object-fit:cover;display:block}
+  .v-card .vb{padding:6px 7px}
+  .v-card .vn{font-size:10.5px;font-weight:600;color:#272019}
+  .v-card .vp{display:flex;justify-content:space-between;align-items:center;margin-top:2px;font-size:10.5px;color:var(--va,#9a5a33);font-weight:600}
+  .v-card .vp i{width:18px;height:18px;border-radius:99px;background:var(--va,#9a5a33);color:#fff;font-style:normal;display:grid;place-items:center;font-size:12px}
+  .theme-vibrante{--vf:Sora;--va:#b31d3c}
+  .theme-editorial{--va:#111}
+  .theme-editorial .v-hd b,.theme-editorial .v-sec{letter-spacing:.12em;text-transform:uppercase;font-size:14px}
+
+  /* wizard */
+  .wz-hd{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .steps{display:flex;align-items:center;gap:0;margin:18px 0 20px}
+  .stp{display:flex;align-items:center;gap:8px;font-size:13px;color:hsl(var(--muted-foreground));white-space:nowrap}
+  .stp i{width:24px;height:24px;border-radius:99px;display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:700;border:1.5px solid hsl(var(--border));background:#fff}
+  .stp.done i{background:hsl(var(--success-soft));border-color:transparent;color:hsl(var(--success-ink))}
+  .stp.on{color:hsl(var(--foreground));font-weight:600}
+  .stp.on i{background:hsl(var(--primary));border-color:hsl(var(--primary));color:#fff}
+  .stp-line{flex:1;min-width:24px;height:2px;background:hsl(var(--border));margin:0 10px}
+  .stp-line.done{background:hsl(var(--success-ink) / .5)}
+  .wz{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:24px;align-items:start}
+  .wz-card{padding:22px 24px}
+  .wz-card h2{font-size:19px}
+  .wz-card > p{margin:4px 0 18px;color:hsl(var(--muted-foreground))}
+  .wz-foot{display:flex;align-items:center;gap:10px;margin-top:20px;padding-top:16px;border-top:1px solid hsl(var(--border))}
+  .wz-foot .grow{flex:1}
+  .wz-foot .saved{font-size:12.5px;color:hsl(var(--muted-foreground))}
+  .pv{position:sticky;top:20px;display:flex;flex-direction:column;align-items:center;gap:10px}
+  .pv small{color:hsl(var(--muted-foreground));font-size:12px}
+
+  .choices{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .choice{border:1.5px solid hsl(var(--border));border-radius:14px;padding:14px;cursor:pointer;background:#fff;text-align:left}
+  .choice.on{border-color:hsl(var(--primary));box-shadow:0 0 0 3px hsl(var(--primary-soft))}
+  .choice .nm{font-size:18px;color:#272019}
+  .choice .sw{display:flex;gap:6px;margin:10px 0 8px}
+  .choice .sw i{width:18px;height:18px;border-radius:99px;display:block}
+  .choice small{color:hsl(var(--muted-foreground));font-size:12px}
+  .lbl{font-size:12.5px;font-weight:600;color:hsl(20 10% 30%);margin:18px 0 8px}
+  .swatches{display:flex;gap:10px}
+  .swatches i{width:30px;height:30px;border-radius:99px;display:block;cursor:pointer}
+  .swatches i.on{box-shadow:0 0 0 2px #fff,0 0 0 4px hsl(var(--foreground))}
+
+  .uploads{display:grid;grid-template-columns:180px 1fr;gap:14px}
+  .up{border:1.5px dashed hsl(var(--border));border-radius:14px;padding:14px;background:hsl(var(--background));display:flex;flex-direction:column;gap:8px}
+  .up .logo{width:72px;height:72px;border-radius:99px;object-fit:cover}
+  .up b{font-size:13.5px}
+  .up small{color:hsl(var(--muted-foreground));font-size:12px}
+  .pick{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:4px}
+  .pick img{width:100%;height:70px;object-fit:cover;border-radius:10px;cursor:pointer;border:2px solid transparent}
+  .pick img.on{border-color:hsl(var(--primary))}
+
+  .notice{display:flex;gap:10px;align-items:flex-start;border-radius:12px;padding:10px 12px;font-size:13px;margin-bottom:14px}
+  .notice.ok{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+  .notice.warn{background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+  .prow{display:grid;grid-template-columns:44px minmax(0,1fr) 90px 52px;gap:12px;align-items:center;padding:9px 0;border-top:1px solid hsl(var(--border))}
+  .prow:first-of-type{border-top:0}
+  .prow img,.prow .nophoto{width:44px;height:44px;border-radius:10px;object-fit:cover}
+  .prow .nophoto{background:repeating-linear-gradient(135deg,#efe6db 0 6px,#f6efe6 6px 12px)}
+  .prow b{font-size:13.5px;display:block}
+  .prow small{font-size:12px;color:hsl(var(--muted-foreground))}
+  .prow small.warn{color:hsl(var(--warning-ink))}
+  .prow .price{text-align:right;font-variant-numeric:tabular-nums;font-size:13px}
+  .tg{width:38px;height:22px;border-radius:99px;background:hsl(var(--border));position:relative;justify-self:end}
+  .tg::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:99px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+  .tg.on{background:hsl(var(--primary))}
+  .tg.on::after{left:19px}
+  .chips{display:flex;gap:8px;margin-bottom:6px}
+  .chip{border:1px solid hsl(var(--border));border-radius:99px;padding:4px 12px;font-size:12.5px;background:#fff}
+  .chip.on{background:hsl(var(--ink));color:#fff;border-color:hsl(var(--ink))}
+
+  .srow{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-top:1px solid hsl(var(--border))}
+  .srow:first-of-type{border-top:0;padding-top:4px}
+  .srow .tx{flex:1}
+  .srow b{display:block;font-size:14px}
+  .srow small{color:hsl(var(--muted-foreground));font-size:12.5px}
+  .field{border:2px solid hsl(var(--border));border-radius:10px;padding:16px 12px 8px;position:relative;background:#fff;margin-top:10px}
+  .field label{position:absolute;top:-9px;left:10px;background:#fff;padding:0 4px;font-size:11.5px;font-weight:600}
+  .field span{font-size:14px}
+  .from{display:inline-block;margin-top:6px;font-size:12px;color:hsl(var(--muted-foreground))}
+
+  .review{list-style:none;margin:0;padding:0}
+  .review li{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid hsl(var(--border))}
+  .review li:first-child{border-top:0}
+  .review li .ck{width:22px;height:22px;border-radius:99px;background:hsl(var(--success-soft));color:hsl(var(--success-ink));display:grid;place-items:center;font-size:12px;font-weight:700;flex:none}
+  .review li .ck.warn{background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+  .review li .tx{flex:1}
+  .review li a{font-size:13px;color:hsl(var(--primary));font-weight:600;text-decoration:none}
+  .link{display:flex;align-items:center;gap:10px;border:1px solid hsl(var(--border));border-radius:12px;padding:10px 12px;background:hsl(var(--background));margin-top:16px}
+  .link b{font-family:ui-monospace,Menlo,monospace;font-size:13.5px;font-weight:600}
+  .link .grow{flex:1}
+
+  /* live */
+  .live{display:grid;grid-template-columns:300px minmax(0,1fr);gap:40px;align-items:center;padding:34px 40px;background:linear-gradient(135deg,hsl(var(--primary-soft)) 0%,#fff 65%)}
+  .live h2{font-size:32px;line-height:1.1}
+  .share{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+  .share .card{padding:14px}
+  .share b{display:block;font-size:14px}
+  .share small{color:hsl(var(--muted-foreground));font-size:12.5px}
+  .qr{width:54px;height:54px;background:conic-gradient(#272019 0 25%,#fff 0 50%,#272019 0 75%,#fff 0) 0 0/12px 12px;border-radius:6px;margin-bottom:8px}
+
+  /* editor with checklist */
+  .tabs{display:flex;gap:20px;border-bottom:1px solid hsl(var(--border));padding:0 20px;font-size:13.5px}
+  .tabs span{padding:12px 0;color:hsl(var(--muted-foreground))}
+  .tabs span.on{color:hsl(var(--foreground));font-weight:600;box-shadow:inset 0 -2px 0 hsl(var(--foreground))}
+  .first{padding:18px 20px;margin-bottom:16px}
+  .first .hd{display:flex;align-items:center;gap:12px}
+  .first .hd h3{font-size:16px}
+  .prog{flex:1;max-width:220px;height:6px;border-radius:99px;background:hsl(var(--muted));overflow:hidden}
+  .prog i{display:block;height:100%;background:hsl(var(--success-ink));border-radius:99px}
+  .todo{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}
+  .todo div{border:1px solid hsl(var(--border));border-radius:12px;padding:10px 12px;font-size:13px;background:#fff}
+  .todo div.done{background:hsl(var(--success-soft));border-color:transparent;color:hsl(var(--success-ink))}
+  .todo div b{display:block;font-size:13px}
+  .todo div small{font-size:12px;color:hsl(var(--muted-foreground))}
+  .todo div.done small{color:hsl(var(--success-ink))}
+
+  /* orders + coach */
+  .olist .orow{display:grid;grid-template-columns:90px minmax(0,1fr) 140px 120px 110px;gap:12px;align-items:center;padding:12px 18px;border-top:1px solid hsl(var(--border));font-size:13.5px}
+  .olist .orow.head{border-top:0;color:hsl(var(--muted-foreground));font-size:12.5px}
+  .olist .orow.new{background:hsl(var(--primary-soft))}
+  .pill{display:inline-block;border-radius:99px;padding:2px 9px;font-size:12px;font-weight:600}
+  .pill.q{background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+  .pill.s{background:hsl(var(--primary-soft));color:hsl(var(--primary));box-shadow:inset 0 0 0 1px hsl(var(--primary) / .2)}
+  .coach{position:absolute;width:300px;background:hsl(var(--ink));color:#fff;border-radius:14px;padding:14px 16px;box-shadow:0 20px 40px -20px rgba(0,0,0,.6);z-index:4}
+  .coach::before{content:"";position:absolute;top:-7px;left:40px;width:14px;height:14px;background:hsl(var(--ink));transform:rotate(45deg)}
+  .coach b{display:block;font-size:14px}
+  .coach p{margin:6px 0 12px;font-size:13px;color:rgba(255,255,255,.8)}
+  .coach .btn{height:32px;font-size:13px;background:#fff;color:hsl(var(--ink))}
+  .banner{display:flex;align-items:center;gap:14px;padding:14px 18px;margin-top:16px;background:linear-gradient(90deg,hsl(var(--primary-soft)),#fff)}
+  .banner .grow{flex:1}
+  .banner b{display:block}
+
+  /* phone mode */
+  .ph-wrap{display:flex;justify-content:center;padding:18px 0}
+  .ph{width:390px;height:820px;border:10px solid #1c140f;border-radius:46px;overflow:hidden;background:hsl(var(--background));position:relative;display:flex;flex-direction:column}
+  .ph .ptop{height:54px;flex:none;background:#fff;border-bottom:1px solid hsl(var(--border));display:flex;align-items:center;padding:0 16px;gap:10px;font-weight:600}
+  .ph .ptop img{width:26px;height:26px;border-radius:99px;object-fit:cover;margin-left:auto}
+  .ph .pc{flex:1;overflow:auto;padding:16px}
+  .ph .pfoot{flex:none;background:#fff;border-top:1px solid hsl(var(--border));padding:10px 14px;display:flex;gap:8px}
+  .ph .pfoot .btn{flex:1}
+  .ph .pnav{flex:none;height:60px;background:#fff;border-top:1px solid hsl(var(--border));display:grid;grid-template-columns:repeat(5,1fr);font-size:10.5px;color:hsl(var(--muted-foreground));text-align:center;align-items:center}
+  .ph .pnav span.on{color:hsl(var(--primary));font-weight:600}
+  .ph .pnav span.dot{position:relative}
+  .ph .pnav span.dot::after{content:"";position:absolute;top:-6px;right:22px;width:7px;height:7px;border-radius:99px;background:hsl(var(--primary))}
+  .ph .sheet{position:absolute;inset:auto 0 0 0;background:#fff;border-radius:22px 22px 0 0;padding:18px 18px 16px;box-shadow:0 -20px 40px -20px rgba(0,0,0,.4);z-index:6}
+  .ph .sheet .grab{width:40px;height:4px;border-radius:99px;background:hsl(var(--border));margin:0 auto 14px}
+  .ph .sheet h2{font-size:20px}
+  .ph .sheet p{margin:6px 0 14px;color:hsl(var(--muted-foreground))}
+  .ph .pstep{display:flex;align-items:center;gap:10px;font-size:12.5px;color:hsl(var(--muted-foreground));margin-bottom:12px}
+  .ph .pstep .prog{max-width:none}
+  .ph .choices{grid-template-columns:1fr}
+  .ph .choice{display:flex;align-items:center;gap:12px}
+  .ph .choice .sw{margin:0 0 0 auto}
+  .ph .uploads{grid-template-columns:1fr}
+  .ph .prow{grid-template-columns:44px minmax(0,1fr) 46px}
+  .ph .prow .price{display:none}
+  .ph .live{grid-template-columns:1fr;padding:20px 16px;gap:18px;text-align:left}
+  .ph .live h2{font-size:24px}
+  .ph .share{grid-template-columns:1fr}
+  .ph .todo{grid-template-columns:1fr}
+  .ph .peek{display:flex;align-items:center;gap:10px;border:1px solid hsl(var(--border));border-radius:12px;padding:10px 12px;background:#fff;margin-top:14px;font-size:13px}
+  .ph .peek img{width:34px;height:34px;border-radius:8px;object-fit:cover}
+  .ph .ocard{background:#fff;border:1px solid hsl(var(--border));border-radius:14px;padding:12px 14px;margin-top:10px}
+  .ph .ocard.new{border-color:hsl(var(--primary) / .45);box-shadow:0 0 0 3px hsl(var(--primary-soft))}
+  .ph .coach{left:16px;right:16px;width:auto}
+
+  .choices.six{grid-template-columns:repeat(3,1fr)}
+  .choice .sub{display:block;margin-top:4px;color:hsl(var(--muted-foreground));font-size:12px;line-height:1.4}
+  .choice .nm.plain{font-family:Sora;font-size:15px;font-weight:600}
+  .choices.four{grid-template-columns:repeat(4,1fr)}
+  .drop{border:1.5px dashed hsl(var(--border));border-radius:14px;padding:14px;background:hsl(var(--background));display:flex;align-items:center;gap:12px}
+  .drop img{width:120px;height:46px;object-fit:contain;background:#fff;border-radius:8px;padding:4px}
+  .photos{display:flex;gap:8px;margin-top:8px}
+  .photos img,.photos .add{width:74px;height:74px;border-radius:12px;object-fit:cover}
+  .photos .add{border:1.5px dashed hsl(var(--border));display:grid;place-items:center;color:hsl(var(--muted-foreground));font-size:22px;background:hsl(var(--background))}
+  .photos .cap{position:relative}
+  .photos .cap::after{content:"capa";position:absolute;left:6px;bottom:6px;background:rgba(0,0,0,.7);color:#fff;font-size:10px;border-radius:6px;padding:1px 6px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .chipin{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+  .chipin span{background:hsl(var(--muted));border-radius:99px;padding:3px 10px;font-size:12.5px}
+  .chipin em{font-style:normal;color:hsl(var(--muted-foreground));font-size:12.5px}
+  .import{display:flex;gap:12px;align-items:center;border:1px solid hsl(var(--border));border-radius:12px;padding:12px 14px;margin-top:16px;background:hsl(var(--background))}
+  .import .grow{flex:1}
+  .import b{display:block;font-size:13.5px}
+  .import small{color:hsl(var(--muted-foreground));font-size:12.5px}
+  .v-hd img.lg{width:auto;height:22px;border-radius:0}
+  .theme-editorial .v-card .vp{color:#111}
+  .ph .choices.six,.ph .choices.four{grid-template-columns:1fr 1fr}
+  .ph .grid2{grid-template-columns:1fr}
+
+  .app > div{min-width:0}
+  .layout{grid-template-columns:210px minmax(0,1fr) 270px}
+  .main{padding:24px 26px 36px}
+  .steps{flex-wrap:wrap;row-gap:10px}
+  .stp-line{min-width:16px;margin:0 8px}
+  .wz{grid-template-columns:minmax(0,1fr) 260px}
+  .phone{width:240px}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="doc-hd">
+    <h1>Shop · Primeira vez com a loja</h1>
+    <p>Da primeira entrada no painel até o primeiro pedido chegar pela loja, para quem começa a loja do zero no Shop (ESLA, Made in Você). Clique nos passos ao lado ou use Anterior e Próximo. As regras de cada passo ficam no painel da direita, fora da tela.</p>
+  </div>
+  <div class="bar">
+    <div class="seg" role="group" aria-label="Tamanho">
+      <button type="button" data-mode="desk" aria-pressed="true">Computador</button>
+      <button type="button" data-mode="phone" aria-pressed="false">Celular</button>
+    </div>
+  </div>
+  <div class="layout">
+    <nav class="rail" id="rail"></nav>
+    <div>
+      <div id="screen"></div>
+      <div class="walk"><button type="button" id="prev">Anterior</button><button type="button" id="next">Próximo</button></div>
+    </div>
+    <aside class="notes" id="notes"></aside>
+  </div>
+</div>
+
+<script>
+const ITEMS = [
+  { n: 'Anel Letra Strass', p: 'R$ 89', img: 'img/anel-letra.webp' },
+  { n: 'Brinco Jade', p: 'R$ 69', img: 'img/brinco-jade.webp' },
+  { n: 'Brinco Leca', p: 'R$ 79', img: 'img/brinco-leca.webp' },
+  { n: 'Ear Cuff Caca', p: 'R$ 59', img: 'img/ear-cuff.webp' },
+];
+const state = { step: 0, mode: 'desk', theme: 'editorial', segment: 'jewelry' };
+
+const STEPS = [
+  { id: 'welcome', label: 'Boas-vindas', sub: 'primeira entrada no painel' },
+  { id: 'segment', label: 'O que você vende', sub: 'montar · passo 1' },
+  { id: 'brand', label: 'Cara da loja', sub: 'montar · passo 2' },
+  { id: 'product', label: 'Primeiro produto', sub: 'montar · passo 3' },
+  { id: 'delivery', label: 'Entrega e contato', sub: 'montar · passo 4' },
+  { id: 'review', label: 'Revisar e publicar', sub: 'montar · passo 5' },
+  { id: 'live', label: 'Loja no ar', sub: 'logo depois de publicar' },
+  { id: 'checklist', label: 'Primeiros passos', sub: 'no Início, até concluir' },
+  { id: 'resume', label: 'Parou no meio', sub: 'aviso no Início' },
+  { id: 'order', label: 'Primeiro pedido', sub: 'em Pedidos' },
+];
+
+const SEGMENTS = [
+  ['bakery', 'Doces e comida', 'Cardápio, sabores e tamanhos. Sugere encomenda com data.'],
+  ['daily_food', 'Comida do dia', 'Cardápio que muda, horário de pedido e entrega rápida.'],
+  ['custom_goods', 'Personalizados', 'Nome, tema e prazo de produção em cada pedido.'],
+  ['jewelry', 'Semijoias e moda', 'Coleção, numeração e cor. Sugere pronta entrega e envio.'],
+  ['repair_shop', 'Assistência técnica', 'Serviços e peças, com orçamento antes.'],
+  ['other', 'Outro', 'Palavras padrão: catálogo, produto, pedido.'],
+];
+const segmentName = () => SEGMENTS.find((s) => s[0] === state.segment)[1];
+
+const NOTES = {
+  welcome: { t: 'Quando aparece', items: [
+    'Uma vez, na primeira entrada da dona no painel, logo depois que a Facter libera o Shop pelo Hub.',
+    'O ramo já vem do Hub (escolhido no Liberar produto); no passo 1 ela confirma ou troca.',
+    '“Agora não” fecha e deixa o aviso “Parou no meio” no Início até a loja ser publicada.',
+    'A prévia mostra a loja vazia com o nome dela: é o que ela vai preencher.',
+  ], ev: 'shop_onboarding_shown · shop_onboarding_started · shop_onboarding_dismissed' },
+  segment: { t: 'Passo 1 · O que você vende', items: [
+    'O ramo muda as palavras e as sugestões do painel e da loja (coleção e numeração em semijoias, sabor e tamanho em doces).',
+    'Pode trocar à vontade até publicar. Depois de publicada, a troca passa pela Facter, porque mexe nos produtos que já existem.',
+    'Hoje a loja nasce como “Outro” quando o Hub não manda o ramo: este passo resolve isso.',
+  ], ev: 'shop_onboarding_step · step=segment · segment' },
+  brand: { t: 'Passo 2 · Cara da loja', items: [
+    'Quatro estilos, os mesmos de Aparência. A prévia troca na hora.',
+    'Semijoias e moda já sugere Editorial; Doces sugere Clássica.',
+    'Logo: enviar foto ou ficar só com o nome escrito no estilo escolhido. Capa é opcional (o checklist lembra depois).',
+    'Continuar salva o rascunho (<code>published=false</code>) e o passo em que ela está.',
+  ], ev: 'shop_onboarding_step · step=brand · has_logo · has_cover' },
+  product: { t: 'Passo 3 · Primeiro produto', items: [
+    'Um produto só, para a loja não abrir vazia. O resto ela cadastra depois em Produtos.',
+    'Os campos de variação vêm do ramo: em Semijoias, numeração e cor (Enter adiciona, como no cadastro de produtos).',
+    'A primeira foto vira a capa do produto. Até 5 fotos.',
+    'Quem já vende em outro site pede a importação: a Facter traz o catálogo (o caminho que a ESLA usou). O passo fica marcado como “pedido” e não trava a montagem.',
+  ], ev: 'shop_onboarding_step · step=product · photos · variations · import_requested' },
+  delivery: { t: 'Passo 4 · Entrega e contato', items: [
+    'Três jeitos de receber: retirada, envio para todo o Brasil (frete fixo ou a combinar) e entrega na cidade.',
+    'Semijoias e moda já vem com envio ligado; Doces vem com retirada.',
+    'O WhatsApp é obrigatório: é para onde a cliente vai ao fechar o pedido. Instagram é opcional e aparece no rodapé da loja.',
+  ], ev: 'shop_onboarding_step · step=delivery · methods' },
+  review: { t: 'Passo 5 · Revisar e publicar', items: [
+    'Resumo com “Editar” que volta ao passo, sem perder o resto.',
+    'O link usa o endereço da loja (<code>loja.facter.com.br/store/…</code>). Domínio próprio fica para depois, em Aparência › Domínio.',
+    'Publicar = <code>published=true</code>. Se faltar algo obrigatório (WhatsApp, um produto visível), o botão some e o item fica em amarelo.',
+  ], ev: 'shop_published · from=onboarding · minutes_since_first_login' },
+  live: { t: 'Loja no ar', items: [
+    'Aparece uma vez, logo depois de publicar.',
+    'Cada atalho marca o item no checklist: copiar o link, mandar no WhatsApp, pôr na bio.',
+    'O QR code baixa em PNG para imprimir na embalagem ou no cartão.',
+  ], ev: 'shop_link_copied · shop_shared_whatsapp · shop_qr_downloaded' },
+  checklist: { t: 'Primeiros passos', items: [
+    'Fica no topo do Início até os 5 itens estarem feitos ou ela esconder.',
+    'O sistema marca sozinho: publicou, copiou o link, chegou a 5 produtos com foto, primeiro pedido. “Pôr na bio” ela marca com um toque.',
+    'Esconder vale para a conta inteira, em qualquer aparelho.',
+  ], ev: 'shop_checklist_item · item · shop_checklist_hidden' },
+  resume: { t: 'Parou no meio', items: [
+    'Se ela fechou o “Montar minha loja” sem publicar, o Início mostra onde parou.',
+    '“Continuar” abre no passo salvo, com tudo que ela já escolheu.',
+    'Some quando a loja é publicada. Não insiste com e-mail nem notificação.',
+  ], ev: 'shop_onboarding_resumed · step' },
+  order: { t: 'Primeiro pedido', items: [
+    'O primeiro pedido que chega pela loja ganha destaque e uma dica, uma vez só.',
+    'Ele chega como “Novo”: ela confere o que a cliente escolheu e combina pagamento e envio no WhatsApp.',
+    'Fecha o item “Receber o primeiro pedido” do checklist.',
+  ], ev: 'shop_first_order · minutes_since_publish' },
+};
+
+function phoneStore(sm) {
+  const t = state.theme === 'classica' ? '' : `theme-${state.theme}`;
+  const items = state.step >= 3 ? ITEMS.slice(0, state.step >= 6 ? 4 : 1) : [];
+  const logo = state.step >= 2 ? '<img class="lg" src="img/logo-esla.webp" alt="">' : '<b>ESLA Acessórios</b>';
+  const banner = state.step >= 2 ? '<div class="v-banner"><img src="img/banner-esla.webp" alt=""></div>' : '<div class="v-banner empty">capa</div>';
+  const grid = items.length
+    ? `<div class="v-grid">${items.map((p) => `<div class="v-card"><img src="${p.img}" alt=""><div class="vb"><div class="vn">${p.n}</div><div class="vp"><span>${p.p}</span><i>+</i></div></div></div>`).join('')}</div>`
+    : '<div class="v-grid"><div class="v-card"><div class="v-banner empty" style="height:78px">produto</div></div><div class="v-card"><div class="v-banner empty" style="height:78px">produto</div></div></div>';
+  return `<div class="phone ${sm ? 'sm' : ''} ${t}">
+    <div class="v-hd">${logo}</div>
+    ${banner}
+    <div class="v-sec">${state.segment === 'jewelry' ? 'Coleção' : 'Produtos'}</div>
+    ${grid}
+  </div>`;
+}
+
+const WZ = ['O que você vende', 'Cara da loja', 'Primeiro produto', 'Entrega e contato', 'Publicar'];
+function stepsBar(active) {
+  return `<div class="steps">${WZ.map((s, i) => `${i ? `<span class="stp-line ${i <= active ? 'done' : ''}"></span>` : ''}<span class="stp ${i < active ? 'done' : i === active ? 'on' : ''}"><i>${i < active ? '✓' : i + 1}</i>${s}</span>`).join('')}</div>`;
+}
+function phoneSteps(active) {
+  return `<div class="pstep"><span>Passo ${active + 1} de 5 · ${WZ[active]}</span><span class="prog"><i style="width:${((active + 1) / 5) * 100}%"></i></span></div>`;
+}
+
+function shell(content, { crumb = 'Início', on = 0, dot = false } = {}) {
+  return `<div class="frame"><div class="app">
+    <div class="side"><span class="brand"></span>${[0, 1, 2, 3, 4, 5, 6].map((i) => `<i class="${i === on ? 'on' : ''} ${dot && i === 0 ? 'dot' : ''}"></i>`).join('')}</div>
+    <div><div class="top"><span class="crumb">${crumb}</span><span class="org">ESLA Acessórios</span></div>
+    <div class="main">${content}</div></div>
+  </div></div>`;
+}
+function phone(content, { title = 'Início', foot = '', nav = true, overlay = '', on = 0, dot = false } = {}) {
+  const labels = ['Início', 'Pedidos', 'Produtos', 'Loja', 'Mais'];
+  return `<div class="ph-wrap"><div class="ph">
+    <div class="ptop">${title}</div>
+    <div class="pc">${content}</div>
+    ${foot ? `<div class="pfoot">${foot}</div>` : ''}
+    ${nav ? `<div class="pnav">${labels.map((l, i) => `<span class="${i === on ? 'on' : ''} ${dot && i === 0 ? 'dot' : ''}">${l}</span>`).join('')}</div>` : ''}
+    ${overlay}
+  </div></div>`;
+}
+
+function wizardDesk(active, body, { skip = false, primary = 'Continuar' } = {}) {
+  return shell(`
+    <div class="wz-hd"><div class="title">Montar minha loja</div><span class="muted" style="margin-left:auto">Leva uns 10 minutos</span></div>
+    ${stepsBar(active)}
+    <div class="wz">
+      <div class="card wz-card">${body}
+        <div class="wz-foot">
+          ${active > 0 ? '<button class="btn btn-outline" data-go="-1">Voltar</button>' : '<button class="btn btn-ghost">Sair</button>'}
+          <span class="grow"></span><span class="saved">Rascunho salvo</span>
+          ${skip ? '<button class="btn btn-ghost" data-go="1">Pular</button>' : ''}
+          <button class="btn btn-primary" data-go="1">${primary}</button>
+        </div>
+      </div>
+      <div class="pv">${phoneStore()}<small>Assim a cliente vê</small></div>
+    </div>`, { crumb: 'Montar minha loja', on: -1 });
+}
+function wizardPhone(active, body, { skip = false, primary = 'Continuar' } = {}) {
+  return phone(`${phoneSteps(active)}${body}<div class="peek"><img src="img/anel-letra.webp" alt=""><span>Ver como a cliente vê</span></div>`, {
+    title: 'Montar minha loja',
+    nav: false,
+    foot: `${active > 0 ? '<button class="btn btn-outline" data-go="-1">Voltar</button>' : ''}${skip ? '<button class="btn btn-ghost" data-go="1">Pular</button>' : ''}<button class="btn btn-primary" data-go="1">${primary}</button>`,
+  });
+}
+
+const STYLES = [
+  ['classica', 'Clássica', 'serifa, calma', ['#9a5a33', '#f3e7da'], "font-family:'Cormorant Garamond',serif"],
+  ['vibrante', 'Vibrante', 'cor forte', ['#b31d3c', '#fde7ea'], 'font-family:Sora;font-weight:600'],
+  ['minimal', 'Minimal', 'caixa alta, sem cantos', ['#1f4a40', '#e8efe9'], 'font-family:Sora;text-transform:uppercase;letter-spacing:.08em;font-size:14px'],
+  ['editorial', 'Editorial', 'preto e branco, serifa fina', ['#111', '#eee'], "font-family:'Cormorant Garamond',serif;letter-spacing:.14em;text-transform:uppercase;font-size:14px"],
+];
+
+const BODIES = {
+  segment: () => `<h2>O que você vende?</h2><p>As palavras e as sugestões da loja seguem o seu ramo.</p>
+    <div class="choices six">
+      ${SEGMENTS.map(([id, nm, sub]) => `<button type="button" class="choice ${state.segment === id ? 'on' : ''}" data-segment="${id}"><span class="nm plain">${nm}</span><span class="sub">${sub}</span></button>`).join('')}
+    </div>`,
+  brand: () => `<h2>A cara da sua loja</h2><p>Escolha um estilo e envie o seu logo. Dá para mudar quando quiser.</p>
+    <div class="choices four">
+      ${STYLES.map(([id, nm, sub, sw, st]) => `<button type="button" class="choice ${state.theme === id ? 'on' : ''}" data-theme="${id}"><div class="nm" style="${st}">${nm}</div><div class="sw">${sw.map((c) => `<i style="background:${c}"></i>`).join('')}</div><small>${sub}</small></button>`).join('')}
+    </div>
+    <div class="lbl">Logo</div>
+    <div class="drop"><img src="img/logo-esla.webp" alt=""><div style="flex:1"><b style="font-size:13.5px">logo-esla.png</b><div class="muted" style="font-size:12px">Aparece no topo da loja</div></div><button class="btn btn-outline btn-sm">Trocar</button></div>
+    <div class="lbl">Capa · opcional</div>
+    <div class="drop"><img src="img/banner-esla.webp" alt="" style="object-fit:cover;padding:0"><div style="flex:1"><b style="font-size:13.5px">A primeira coisa que a cliente vê</b><div class="muted" style="font-size:12px">Uma foto larga das suas peças</div></div><button class="btn btn-outline btn-sm">Trocar</button></div>`,
+  product: () => `<h2>Seu primeiro produto</h2><p>Comece por uma peça. As outras você cadastra depois.</p>
+    <div class="lbl" style="margin-top:0">Fotos</div>
+    <div class="photos"><img class="cap" src="img/anel-letra.webp" alt=""><span class="add">+</span></div>
+    <div class="grid2" style="margin-top:6px">
+      <div class="field"><label>Nome</label><span>Anel Letra Strass</span></div>
+      <div class="field"><label>Preço</label><span>R$ 89,00</span></div>
+    </div>
+    <div class="field"><label>Numeração</label><div class="chipin"><span>14</span><span>16</span><span>18</span><em>Enter adiciona</em></div></div>
+    <div class="field"><label>Cor</label><div class="chipin"><span>Dourado</span><span>Prateado</span><em>Enter adiciona</em></div></div>
+    <div class="import"><div class="grow"><b>Já vende em outro site?</b><small>A Facter traz os seus produtos para cá, com fotos e preços.</small></div><button class="btn btn-outline btn-sm">Pedir importação</button></div>`,
+  delivery: () => `<h2>Como a cliente recebe</h2><p>Do jeito que você já trabalha hoje.</p>
+    <div class="srow"><div class="tx"><b>Envio para todo o Brasil</b><small>Correios ou transportadora</small><div class="field"><label>Frete</label><span>R$ 18,00 fixo · grátis acima de R$ 199</span></div></div><span class="tg on"></span></div>
+    <div class="srow"><div class="tx"><b>Entrega na cidade</b><small>Você ou um motoboy leva</small></div><span class="tg"></span></div>
+    <div class="srow"><div class="tx"><b>Retirada</b><small>A cliente busca com você</small></div><span class="tg"></span></div>
+    <div class="srow"><div class="tx"><b>Onde chegam os pedidos</b><small>A cliente fecha o pedido com você pelo WhatsApp</small><div class="grid2"><div class="field"><label>WhatsApp</label><span>(99) 98888-0000</span></div><div class="field"><label>Instagram · opcional</label><span>@esla.semijoias</span></div></div></div></div>`,
+  review: () => `<h2>Tudo pronto para publicar</h2><p>Confira e coloque a loja no ar.</p>
+    <ul class="review">
+      <li><span class="ck">✓</span><div class="tx"><b>${segmentName()}</b></div><a href="#" data-to="1">Editar</a></li>
+      <li><span class="ck">✓</span><div class="tx"><b>Estilo ${STYLES.find((s) => s[0] === state.theme)[1]}, com logo e capa</b></div><a href="#" data-to="2">Editar</a></li>
+      <li><span class="ck">✓</span><div class="tx"><b>1 produto na loja</b><div class="muted" style="font-size:12.5px">Anel Letra Strass, 3 numerações e 2 cores</div></div><a href="#" data-to="3">Editar</a></li>
+      <li><span class="ck">✓</span><div class="tx"><b>Envio para todo o Brasil</b><div class="muted" style="font-size:12.5px">Pedidos no WhatsApp (99) 98888-0000</div></div><a href="#" data-to="4">Editar</a></li>
+    </ul>
+    <div class="link"><span class="muted">Seu link</span><b class="grow">loja.facter.com.br/store/esla-acessorios</b></div>`,
+};
+
+function render() {
+  const s = STEPS[state.step];
+  document.getElementById('rail').innerHTML = `<b>O fluxo</b>${STEPS.map((x, i) => `<button type="button" data-step="${i}" aria-current="${i === state.step}"><span>${i + 1}</span><div>${x.label}<small>${x.sub}</small></div></button>`).join('')}`;
+  const n = NOTES[s.id];
+  document.getElementById('notes').innerHTML = `<h3>${n.t}</h3><ul>${n.items.map((i) => `<li>${i}</li>`).join('')}</ul><div class="ev">Eventos para o funil: ${n.ev}</div>`;
+  const desk = state.mode === 'desk';
+  let html = '';
+  const wzIndex = { segment: 0, brand: 1, product: 2, delivery: 3, review: 4 }[s.id];
+  if (s.id === 'welcome') {
+    const plan = `<ol class="plan">${[['O que você vende', 'muda as palavras da loja'], ['Cara da loja', 'estilo, logo e capa'], ['Primeiro produto', 'uma peça, com foto'], ['Entrega e contato', 'envio, retirada e WhatsApp'], ['Publique', 'e ganhe o link da loja']].map(([b, sm], i) => `<li><span>${i + 1}</span><div><b>${b}</b><small>${sm}</small></div></li>`).join('')}</ol>`;
+    html = desk
+      ? shell(`<div class="title">Início</div><div class="stats">${[0, 1, 2, 3].map(() => '<div class="card stat"></div>').join('')}</div><div class="card rows"></div>
+        <div class="scrim"><div class="dlg"><div class="dlg-hd"><h2>Vamos montar a sua loja</h2><p>Em 5 passos ela abre para as suas clientes.</p></div>
+        <div class="dlg-bd">${phoneStore(true)}${plan}</div>
+        <div class="dlg-ft"><span class="cons">Leva uns 10 minutos. Dá para parar e continuar depois.</span><button class="btn btn-ghost">Agora não</button><button class="btn btn-primary" data-go="1">Montar minha loja</button></div></div></div>`, { dot: true })
+      : phone(`<div class="title" style="font-size:20px">Início</div><div class="card" style="height:90px;margin-top:12px"></div><div class="card" style="height:160px;margin-top:12px"></div>`, {
+          title: 'ESLA Acessórios', dot: true,
+          overlay: `<div class="scrim" style="place-items:end stretch"></div><div class="sheet"><div class="grab"></div><h2>Vamos montar a sua loja</h2><p>Em 5 passos ela abre para as suas clientes.</p><div style="display:flex;justify-content:center;margin-bottom:14px">${phoneStore(true).replace('class="phone sm', 'class="phone sm" style="height:250px')}</div><button class="btn btn-primary" style="width:100%" data-go="1">Montar minha loja</button><button class="btn btn-ghost" style="width:100%;margin-top:6px">Agora não</button></div>`,
+        });
+  } else if (wzIndex !== undefined) {
+    const opts = { primary: s.id === 'review' ? 'Publicar loja' : 'Continuar' };
+    html = desk ? wizardDesk(wzIndex, BODIES[s.id](), opts) : wizardPhone(wzIndex, BODIES[s.id](), opts);
+  } else if (s.id === 'live') {
+    const body = `<div class="live">${desk ? `<div style="display:flex;justify-content:center">${phoneStore()}</div>` : ''}<div>
+      <span class="pill s">No ar</span>
+      <h2 style="margin-top:12px">Sua loja está no ar</h2>
+      <p class="muted" style="margin:10px 0 0;max-width:44ch">Agora é mandar o link. Quem abrir já escolhe a peça, a numeração e a cor.</p>
+      <div class="link" style="background:#fff"><b class="grow">loja.facter.com.br/store/esla-acessorios</b><button class="btn btn-primary btn-sm">Copiar link</button></div>
+      <div class="share">
+        <div class="card"><b>Mandar no WhatsApp</b><small>Para suas clientes e no status</small></div>
+        <div class="card"><b>Pôr na bio do Instagram</b><small>Quem vê a foto já cai na loja</small></div>
+        <div class="card"><span class="qr" style="display:block"></span><b>QR code</b><small>Para a embalagem e o cartão</small></div>
+      </div>
+      <div style="margin-top:18px"><button class="btn btn-outline" data-go="1">Ir para o Início</button></div>
+    </div></div>`;
+    html = desk ? shell(`<div class="card" style="overflow:hidden">${body}</div>`, { crumb: 'Loja no ar', on: -1 }) : phone(`<div class="card" style="overflow:hidden">${body}</div>`, { title: 'Loja no ar', nav: false });
+  } else if (s.id === 'checklist') {
+    const todo = [['Publicar a loja', 'feito', true], ['Copiar o link', 'feito', true], ['Pôr na bio do Instagram', 'marcar como feito', false], ['5 produtos com foto', '1 de 5 · cadastrar', false], ['Receber o primeiro pedido', 'chega em Pedidos', false]];
+    const card = `<div class="card first"><div class="hd"><h3>Primeiros passos da loja</h3><span class="prog"><i style="width:40%"></i></span><span class="muted" style="font-size:12.5px">2 de 5</span>${desk ? '<button class="btn btn-ghost btn-sm" style="margin-left:auto">Esconder</button>' : ''}</div>
+      <div class="todo">${todo.map(([b, sm, d]) => `<div class="${d ? 'done' : ''}"><b>${d ? '✓ ' : ''}${b}</b><small>${sm}</small></div>`).join('')}</div></div>`;
+    html = desk
+      ? shell(`<div class="title" style="margin-bottom:16px">Início</div>${card}<div class="stats" style="margin-top:0">${[0, 1, 2, 3].map(() => '<div class="card stat"></div>').join('')}</div><div class="card rows"></div>`)
+      : phone(`${card}<div class="card" style="height:160px"></div>`, { title: 'ESLA Acessórios' });
+  } else if (s.id === 'resume') {
+    const banner = `<div class="card banner"><img src="img/logo-esla.webp" alt="" style="width:56px;height:24px;object-fit:contain"><div class="grow"><b>Sua loja está quase pronta</b><span class="muted" style="font-size:13px">Você parou em Primeiro produto · passo 3 de 5</span></div><button class="btn btn-primary btn-sm" data-to="3">Continuar</button></div>`;
+    html = desk
+      ? shell(`<div class="title">Início</div>${banner}<div class="stats">${[0, 1, 2, 3].map(() => '<div class="card stat"></div>').join('')}</div><div class="card rows"></div>`, { dot: true })
+      : phone(`<div class="title" style="font-size:20px">Início</div>${banner}<div class="card" style="height:90px;margin-top:12px"></div><div class="card" style="height:160px;margin-top:12px"></div>`, { title: 'ESLA Acessórios', dot: true });
+  } else if (s.id === 'order') {
+    const coach = `<div class="coach" style="${desk ? 'top:150px;left:34px' : 'top:200px'}"><b>Primeiro pedido pela sua loja</b><p>Confira o que a cliente escolheu e combine o pagamento e o envio com ela no WhatsApp.</p><button class="btn">Entendi</button></div>`;
+    if (desk) {
+      html = shell(`<div class="title" style="margin-bottom:16px">Pedidos</div>
+        <div class="card olist">
+          <div class="orow head"><span>Nº</span><span>Cliente e pedido</span><span>Entrega</span><span>Situação</span><span>Valor</span></div>
+          <div class="orow new"><b>1</b><span><b>Júlia Martins</b> · Anel Letra Strass, 16, dourado</span><span>Envio</span><span><span class="pill q">Novo</span></span><span>R$ 107,00</span></div>
+        </div>${coach}`, { crumb: 'Pedidos', on: 1 });
+    } else {
+      html = phone(`<div class="title" style="font-size:20px">Pedidos</div>
+        <div class="ocard new"><div style="display:flex;justify-content:space-between"><b>Nº 1 · Júlia Martins</b><span class="pill q">Novo</span></div><div class="muted" style="font-size:13px">Anel Letra Strass, 16, dourado · Envio</div></div>`, { title: 'Pedidos', on: 1, overlay: coach });
+    }
+  }
+  document.getElementById('screen').innerHTML = html;
+  document.getElementById('prev').disabled = state.step === 0;
+  document.getElementById('next').disabled = state.step === STEPS.length - 1;
+}
+
+document.addEventListener('click', (e) => {
+  const el = e.target.closest('[data-step],[data-go],[data-to],[data-theme],[data-mode],[data-segment]');
+  if (!el) return;
+  e.preventDefault();
+  if (el.dataset.step) state.step = Number(el.dataset.step);
+  if (el.dataset.go) state.step = Math.min(STEPS.length - 1, Math.max(0, state.step + Number(el.dataset.go)));
+  if (el.dataset.to) state.step = Number(el.dataset.to);
+  if (el.dataset.theme) state.theme = el.dataset.theme;
+  if (el.dataset.segment) state.segment = el.dataset.segment;
+  if (el.dataset.mode) {
+    state.mode = el.dataset.mode;
+    document.querySelectorAll('[data-mode]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.mode === state.mode)));
+  }
+  render();
+});
+document.getElementById('prev').addEventListener('click', () => { state.step = Math.max(0, state.step - 1); render(); });
+document.getElementById('next').addEventListener('click', () => { state.step = Math.min(STEPS.length - 1, state.step + 1); render(); });
+render();
+</script>
+</body>
+</html>
