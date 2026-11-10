@@ -41,6 +41,18 @@ Formato de cada entrada: **quando** acontece, **o que usar**, **por quê**, e **
 
 ---
 
+## Texto de exemplo é cinza, valor é escuro
+
+**Quando:** um campo ainda sem valor mostra um texto de exemplo ("Escolha o plano", "Selecione...", "dd/mm/aaaa").
+
+**Use:** o texto de exemplo em `muted-foreground`. Só o valor escolhido sai na cor do texto. Vale para todo campo: `Input`, `Textarea`, `Select`, `Combobox`, `DatePicker`.
+
+**Por quê:** na cor do valor, o exemplo parece já escolhido, e a pessoa pula o campo achando que está preenchido.
+
+**Onde já está:** `facter-design-system` 1.44.1 (`Select.tsx`, `data-[placeholder]:text-muted-foreground`). Os outros campos do DS já faziam assim.
+
+---
+
 ## Diálogo lidera pelo título
 
 **Quando:** qualquer diálogo de ação (criar, editar, confirmar).
