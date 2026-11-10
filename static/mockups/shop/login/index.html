@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entrar · o lado da vitrine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --foreground:240 10% 3.9%;
+  --muted:240 4.8% 95.9%;--muted-foreground:240 3.8% 46%;--border:240 5.9% 90%;
+  --success:160 60% 38%;--success-soft:160 55% 94%;--success-ink:160 70% 24%;
+  --warning-soft:40 90% 94%;--warning-ink:32 80% 30%;
+  --danger-soft:0 90% 96%;--danger-ink:0 72% 38%;
+  --canvas:225 14% 92%;--ink:240 10% 6%;
+}
+*{box-sizing:border-box}
+body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));font:14px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,p{margin:0}
+h1,h2,h3,h4{font-family:Sora,Inter,sans-serif;letter-spacing:-.015em}
+button{font:inherit;color:inherit;cursor:pointer}
+img{display:block}
+
+/* Documento */
+.doc{max-width:1560px;margin:0 auto;padding:28px 24px 64px}
+.doc-hd h1{font-size:22px}
+.doc-hd p{margin-top:6px;color:hsl(var(--muted-foreground));max-width:900px}
+.bar{display:flex;gap:10px;align-items:center;margin:18px 0 10px;flex-wrap:wrap}
+.bar small{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground));min-width:64px}
+.seg{display:inline-flex;background:#fff;border:1px solid hsl(var(--border));border-radius:999px;padding:3px;flex-wrap:wrap}
+.seg button{appearance:none;border:0;background:none;border-radius:999px;padding:6px 14px;font-weight:500;color:hsl(var(--muted-foreground))}
+.seg button[aria-pressed=true]{background:hsl(var(--ink));color:#fff}
+.replay{appearance:none;border:1px solid hsl(var(--border));background:#fff;border-radius:999px;padding:7px 14px;font-weight:500;margin-left:auto}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:18px;align-items:start;margin-top:14px}
+.notes{background:#fff;border:1px solid hsl(var(--border));border-radius:14px;padding:18px;position:sticky;top:16px}
+.notes h3{font-size:15px}
+.notes .tag{display:inline-block;margin-top:6px;font-size:12px;font-weight:600;padding:2px 8px;border-radius:99px;background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.notes .tag.rec{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+.notes dt{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground));margin-top:12px}
+.notes dl{margin:4px 0 0}
+.notes dd{margin:3px 0 0;color:hsl(240 6% 22%)}
+.notes hr{border:0;border-top:1px solid hsl(var(--border));margin:16px 0}
+.notes ul{margin:8px 0 0;padding-left:18px;color:hsl(240 6% 22%)}
+.notes li{margin:5px 0}
+.notes code{font:600 12px ui-monospace,Menlo,monospace;background:hsl(var(--muted));padding:1px 5px;border-radius:5px}
+
+/* Janela */
+.browser{background:#fff;border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden}
+.chrome{display:flex;align-items:center;gap:12px;height:40px;padding:0 14px;border-bottom:1px solid hsl(var(--border));background:hsl(0 0% 98%)}
+.chrome i{width:10px;height:10px;border-radius:50%;background:hsl(var(--border))}
+.chrome .url{flex:1;max-width:420px;margin:0 auto;height:24px;border-radius:7px;background:hsl(var(--muted));font-size:12px;color:hsl(var(--muted-foreground));display:flex;align-items:center;padding:0 10px}
+.viewport{position:relative;overflow:hidden}
+.screen{position:absolute;top:0;left:0;transform-origin:0 0}
+.screen.desktop{width:1280px;height:800px}
+.phone-wrap{display:flex;justify-content:center;padding:28px 0;background:hsl(var(--canvas));border:0}
+.screen.phone{position:relative;width:390px;height:780px;border-radius:44px;border:10px solid hsl(var(--ink));overflow:hidden;background:#fff}
+
+/* Login */
+.theme{--panel-dark:var(--ink);--panel-warm:30 18% 95%;--panel-light:240 5% 96%;--accent:var(--ink)}
+.login{display:grid;grid-template-columns:1fr 1fr;height:100%}
+.login.reverse .show{order:2}
+.lockup{position:absolute;top:32px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:12px;font-family:Sora}
+.lockup svg{display:block;flex:none;width:26px;height:38px;fill:hsl(var(--accent))}
+.lockup .bar{display:block;width:1px;height:36px;background:currentColor;opacity:.3}
+.lockup b{display:block;font-size:20px;line-height:1;font-weight:400}
+.lockup b strong{font-weight:800}
+.lockup small{display:block;margin-top:5px;font:500 11px/1 Inter;color:hsl(var(--muted-foreground))}
+.form.left h1,.form.left .sub{text-align:center}
+.foot{margin-top:24px;text-align:center;font-size:13px;color:hsl(var(--muted-foreground))}
+.form-side{position:relative;display:grid;place-items:center;background:#fff}
+.brand{position:absolute;top:32px;right:32px;display:flex;align-items:center;gap:9px;font-weight:600;font-size:18px}
+.brand .mk{width:32px;height:32px;border-radius:8px;background:hsl(var(--ink));display:grid;place-items:center}
+.brand .mk img{width:18px}
+.form{width:448px}
+.form h1{font-size:24px;text-align:center}
+.form .sub{margin-top:8px;text-align:center;color:hsl(var(--muted-foreground))}
+.field{position:relative;margin-top:22px;height:48px;border:1px solid hsl(var(--border));border-radius:8px;display:flex;align-items:center;padding:0 14px}
+.field label{position:absolute;top:-9px;left:10px;padding:0 4px;background:#fff;font-size:12px;font-weight:500}
+.field label b{color:hsl(0 72% 50%);font-weight:500;margin-left:3px}
+.field span{color:hsl(var(--muted-foreground))}
+.forgot{display:block;margin-top:14px;text-align:right;color:hsl(var(--muted-foreground));font-size:13px}
+.submit{margin-top:22px;height:44px;border-radius:8px;background:hsl(var(--accent));color:#fff;display:grid;place-items:center;font-weight:600}
+
+/* Peças comuns */
+.show{position:relative;overflow:hidden}
+.panel{position:absolute;inset:0}
+.headline{position:absolute;left:56px;right:56px}
+.headline h2{font-size:30px;line-height:1.15;font-weight:600}
+.headline p{margin-top:10px;font-size:15px;max-width:440px}
+.card{position:absolute;background:#fff;border:1px solid hsl(var(--border));border-radius:14px;color:hsl(var(--foreground))}
+.chip{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:99px;font-size:11.5px;font-weight:600;flex:none;white-space:nowrap}
+.chip.new{background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+.chip.ok{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+.chip.bad{background:hsl(var(--danger-soft));color:hsl(var(--danger-ink))}
+.thumb{width:40px;height:40px;border-radius:9px;object-fit:cover;flex:none;background:hsl(var(--muted))}
+.plate{flex:none;width:78px;border:1.5px solid hsl(var(--ink));border-radius:5px;overflow:hidden;text-align:center;background:#fff}
+.plate::before{content:"BRASIL";display:block;background:hsl(222 70% 38%);color:#fff;font-size:6.5px;font-weight:700;letter-spacing:.12em;line-height:9px}
+.plate b{display:block;font:700 12.5px/18px ui-monospace,Menlo,monospace;letter-spacing:.04em;color:hsl(var(--ink))}
+.code{flex:none;min-width:58px;padding:0 6px;height:24px;border-radius:6px;background:hsl(var(--muted));font:700 11px/24px ui-monospace,Menlo,monospace;text-align:center;color:hsl(240 6% 25%)}
+.float1{animation:float 7s ease-in-out infinite}
+.float2{animation:float 9s ease-in-out -3s infinite}
+.float3{animation:float 8s ease-in-out -5s infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.ok-ic{width:34px;height:34px;border-radius:50%;background:hsl(var(--success-soft));color:hsl(var(--success-ink));display:grid;place-items:center;font-weight:700;flex:none}
+
+/* A · Cards ao vivo */
+.pa{background:hsl(var(--panel-dark));color:#fff;
+  background-image:linear-gradient(hsl(0 0% 100% / .04) 1px,transparent 1px),linear-gradient(90deg,hsl(0 0% 100% / .04) 1px,transparent 1px);
+  background-size:40px 40px}
+.pa .headline{top:130px;left:120px;right:120px}
+.pa .headline p{color:hsl(240 5% 70%)}
+.list{left:120px;top:290px;width:400px;padding:16px 16px 6px;overflow:hidden}
+.list-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.list-hd b{font-family:Sora;font-size:14px}
+.count{font-variant-numeric:tabular-nums;font-size:12px;font-weight:600;background:hsl(var(--muted));border-radius:99px;padding:1px 8px}
+.rows{height:264px;overflow:hidden}
+.row{display:flex;align-items:center;gap:10px;border-top:1px solid hsl(var(--border));height:66px}
+.row:first-child{border-top:0}
+.row .who{flex:1;min-width:0}
+.row .who b{display:block;font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .who small{display:block;font-size:12px;color:hsl(var(--muted-foreground));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row.enter{animation:rowIn .6s cubic-bezier(.2,.8,.2,1)}
+@keyframes rowIn{from{opacity:0;transform:translateY(-24px)}to{opacity:1;transform:none}}
+.toast{left:318px;top:590px;width:262px;padding:12px 14px;display:flex;gap:10px;align-items:center;transition:opacity .5s,transform .5s}
+.toast.hide{opacity:0;transform:translateY(-10px) scale(.97)}
+.toast b{display:block;font-size:13px}
+.toast small{color:hsl(var(--muted-foreground));font-size:12px}
+.bars{display:flex;align-items:flex-end;gap:7px;height:64px;margin-top:10px}
+.bars i{flex:1;border-radius:4px 4px 2px 2px;background:hsl(var(--muted));height:6%;transition:height .9s cubic-bezier(.2,.8,.2,1)}
+.bars i:last-child{background:hsl(var(--accent))}
+.days{display:flex;gap:7px;margin-top:6px}
+.days span{flex:1;text-align:center;font-size:10.5px;color:hsl(var(--muted-foreground))}
+
+/* B · O produto no aparelho */
+.pb{background:hsl(var(--panel-warm))}
+.pb .headline{bottom:56px}
+.pb .headline p{color:hsl(240 4% 38%)}
+.device{position:absolute;left:56px;top:64px;width:290px;height:470px;border-radius:38px;border:9px solid hsl(var(--ink));background:#fff;overflow:hidden}
+.device.tablet{left:40px;top:64px;width:320px;height:470px;border-radius:26px}
+.device .notch{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:76px;height:20px;border-radius:99px;background:hsl(var(--ink));z-index:2}
+.device.tablet .notch{width:8px;height:8px;top:6px}
+.scroller{animation:scroll 14s cubic-bezier(.6,0,.4,1) infinite}
+@keyframes scroll{0%,14%{transform:translateY(0)}40%,58%{transform:translateY(var(--travel))}84%,100%{transform:translateY(0)}}
+.app-hd{display:flex;align-items:center;justify-content:center;padding:40px 12px 10px;font-family:Sora;font-weight:600;font-size:14px;gap:8px}
+.app-hd img{height:24px;border-radius:4px}
+.device.tablet .app-hd{justify-content:space-between;padding-top:24px}
+.app-hd small{font:500 11px Inter;color:hsl(0 0% 100% / .75)}
+.device .app-hd{background:hsl(var(--accent));color:#fff;padding-bottom:16px;margin-bottom:4px}
+.banner{height:150px;object-fit:cover;width:100%}
+.device h4{font-size:13px;margin:14px 12px 8px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 12px 12px}
+.prod img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;background:hsl(var(--muted))}
+.prod b{display:block;font-size:11px;font-weight:600;margin-top:5px}
+.prod span{font-size:11px;color:hsl(var(--muted-foreground))}
+.lrows{padding:0 12px 12px;display:flex;flex-direction:column;gap:8px}
+.lrow{border:1px solid hsl(var(--border));border-radius:10px;padding:10px;display:flex;gap:10px;align-items:center}
+.lrow .who{flex:1;min-width:0}
+.lrow .who b{display:block;font-size:12px;font-weight:600}
+.lrow .who small{display:block;font-size:11px;color:hsl(var(--muted-foreground))}
+.lrow .plate{width:66px}
+.lrow .plate b{font-size:10.5px;line-height:15px}
+.callout{position:absolute;padding:10px 12px;display:flex;gap:10px;align-items:center;opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s}
+.callout.in{opacity:1;transform:none}
+.callout b{display:block;font-size:12.5px}
+.callout small{display:block;font-size:11.5px;color:hsl(var(--muted-foreground))}
+.callout .dot{width:30px;height:30px;border-radius:9px;background:hsl(var(--muted));display:grid;place-items:center;font-size:12px;font-weight:700;flex:none}
+.co0{left:376px;top:170px;width:220px}
+.co1{left:376px;top:290px;width:220px}
+.co2{left:52px;top:420px;width:200px}
+.co1 .dot{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+
+/* C · Três tempos */
+.pc{background:hsl(var(--panel-light));color:hsl(var(--foreground));
+  background-image:radial-gradient(hsl(var(--foreground) / .12) 1px,transparent 1.4px);
+  background-size:22px 22px}
+.panel{animation:panelIn .7s ease}
+.panel.out{opacity:0;transition:opacity .5s ease}
+@keyframes panelIn{from{opacity:0}to{opacity:1}}
+.scene{position:absolute;left:56px;right:56px;top:110px;height:400px;display:none}
+.scene.on{display:block;animation:sceneIn .6s cubic-bezier(.2,.8,.2,1)}
+@keyframes sceneIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.pc .headline{bottom:64px}
+.pc .headline p{color:hsl(var(--muted-foreground))}
+.pc .scene{top:150px}
+.checklist{left:40px;top:10px;width:440px;padding:18px}
+.checklist h4{font-size:14px}
+.checklist small.sub{display:block;color:hsl(var(--muted-foreground));font-size:12px}
+.check{display:flex;gap:12px;align-items:center;padding:12px 0;border-top:1px solid hsl(var(--border));font-size:13px;margin-top:0}
+.checklist .check:first-of-type{margin-top:12px}
+.box{width:22px;height:22px;border-radius:6px;border:1.5px solid hsl(var(--border));display:grid;place-items:center;color:#fff;font-size:12px;font-weight:700;transition:background .3s,border-color .3s;flex:none}
+.check.done .box{background:hsl(var(--success));border-color:hsl(var(--success))}
+.check span{flex:1}
+.check em{font-style:normal;font-size:12px;color:hsl(var(--muted-foreground));opacity:0;transition:opacity .4s}
+.check.done em{opacity:1}
+.tracker{left:40px;top:0;width:440px;padding:16px}
+.tr-hd{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.tr-hd b{font-family:Sora;font-size:15px}
+.tr-hd small{display:block;color:hsl(var(--muted-foreground));font-size:12px}
+.tr-items{margin-top:12px;border-top:1px solid hsl(var(--border))}
+.tr-item{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid hsl(var(--border));font-size:13px;min-height:58px}
+.tr-item span{flex:1}
+.tr-item em{font-style:normal;font-variant-numeric:tabular-nums;color:hsl(var(--muted-foreground))}
+.tr-total{display:flex;justify-content:space-between;margin-top:12px;font-weight:600}
+.steps{display:flex;gap:6px;margin-top:16px}
+.steps span{flex:1;text-align:center;padding:7px 0;border-radius:8px;background:hsl(var(--muted));color:hsl(var(--muted-foreground));font-size:12px;font-weight:600;transition:background .4s,color .4s}
+.steps span.lit{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+
+/* App no celular */
+.app-top{background:hsl(var(--accent));color:#fff;padding:40px 12px 14px;margin-bottom:4px}
+.greet{padding:0 2px 12px}
+.greet b{display:block;font-family:Sora;font-size:15px}
+.greet small{font-size:11px;color:hsl(0 0% 100% / .7)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat b.bump{animation:bump .5s ease}
+@keyframes bump{40%{transform:scale(1.18)}}
+.arows{overflow:hidden}
+.arow.enter{animation:rowIn .6s cubic-bezier(.2,.8,.2,1)}
+.stat{background:hsl(0 0% 100% / .12);border-radius:10px;padding:8px 10px}
+.stat small{display:block;font-size:10.5px;color:hsl(0 0% 100% / .75)}
+.stat b{display:block;font-family:Sora;font-size:18px;line-height:1.2}
+.stat em{font-style:normal;font-size:10.5px;color:hsl(0 0% 100% / .7)}
+.arows{margin:0 12px 12px;border:1px solid hsl(var(--border));border-radius:10px;padding:0 10px}
+.arow{display:flex;gap:9px;align-items:center;padding:9px 0;border-top:1px solid hsl(var(--border))}
+.arow:first-child{border-top:0}
+.arow .thumb{width:32px;height:32px;border-radius:7px}
+.arow .who{flex:1;min-width:0}
+.arow .who b{display:block;font-size:11.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.arow .who small{display:block;font-size:10.5px;color:hsl(var(--muted-foreground));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.arow .chip{height:18px;font-size:10px;padding:0 6px}
+.hrow .arow{width:250px;flex:none;background:#fff;border:1px solid hsl(var(--border));border-radius:10px;padding:9px 10px}
+
+/* Cena de números */
+.statcard{left:40px;top:0;width:440px;padding:18px}
+.statcard small.lbl{color:hsl(var(--muted-foreground));font-size:12px}
+.statcard .num{font-family:Sora;font-size:32px;font-weight:600;font-variant-numeric:tabular-nums}
+.statcard .delta{display:inline-block;margin-left:8px;font:600 12px Inter;color:hsl(var(--success-ink));background:hsl(var(--success-soft));padding:2px 8px;border-radius:99px;vertical-align:middle}
+.facts{margin-top:14px;border-top:1px solid hsl(var(--border))}
+.fact{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid hsl(var(--border));font-size:13px;opacity:0;transform:translateY(6px);transition:opacity .5s,transform .5s}
+.fact.in{opacity:1;transform:none}
+.fact span{color:hsl(var(--muted-foreground))}
+.fact b{font-weight:600}
+
+/* Celular */
+.band{position:relative;height:250px;overflow:hidden}
+.pform{padding:28px 24px}
+.phone .form{width:auto}
+.phone .form h1{font-size:22px}
+.phone .form .sub{font-size:13.5px}
+.band .brand{top:22px;left:20px;right:auto;font-size:15px;z-index:3}
+.band .brand .mk{width:26px;height:26px;border-radius:7px}
+.band .brand .mk img{width:14px}
+.band.dark{background:hsl(var(--panel-dark));color:#fff}
+.band.story{height:200px}
+.band.dark .brand .mk{background:#fff}
+.band.warm{background:hsl(var(--panel-warm))}
+.band.light{background:hsl(var(--panel-light))}
+.toastbox{position:absolute;left:20px;right:20px;top:96px;height:70px}
+.toastbox .card{left:0;right:0;top:0;padding:12px 14px;display:flex;gap:10px;align-items:center;opacity:0;animation:toast 9s infinite}
+.toastbox .card:nth-child(2){animation-delay:3s}
+.toastbox .card:nth-child(3){animation-delay:6s}
+@keyframes toast{0%{opacity:0;transform:translateY(10px)}5%,30%{opacity:1;transform:none}35%,100%{opacity:0;transform:translateY(-10px)}}
+.toastbox b{display:block;font-size:13px}
+.toastbox small{color:hsl(var(--muted-foreground));font-size:12px}
+.hrow{position:absolute;left:0;top:74px;display:flex;gap:12px;animation:left 30s linear infinite;width:max-content}
+.hrow .tile{width:120px;flex:none}
+.hrow .lrow{width:230px;background:#fff;flex:none}
+@keyframes left{to{transform:translateX(-50%)}}
+.pstory{position:absolute;left:20px;right:20px;top:72px}
+.pstory h2{font-size:20px;margin-top:0;line-height:1.2}
+.pstory p{font-size:13px;color:hsl(240 5% 70%);margin-top:6px}
+.pstory.light p{color:hsl(var(--muted-foreground))}
+.pstory.light b{color:hsl(var(--foreground))}
+
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}.toastbox .card:first-child,.callout{opacity:1}}
+@media (max-width:1100px){.layout{grid-template-columns:1fr}.notes{position:static}}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="doc-hd">
+    <h1>Entrar · o lado da vitrine</h1>
+    <p>O formulário de cada produto fica como é hoje (o Chef com a marca no topo, o painel à direita e as cores chocolate). O painel ao lado muda com o produto: cada um mostra os próprios cards, com o que acontece no dia a dia de quem usa. São quatro formatos para escolher um; troque o produto para ver o mesmo formato no Shop, no Chef, no Truck e no TechCare.</p>
+  </div>
+
+  <div class="bar"><small>Formato</small>
+    <div class="seg" id="fmts">
+      <button data-v="all">Sequência</button>
+      <button data-v="a">1 · O pedido chegando</button>
+      <button data-v="b">2 · No celular</button>
+      <button data-v="c">3 · A semana</button>
+    </div>
+  </div>
+  <div class="bar"><small>Produto</small>
+    <div class="seg" id="prods">
+      <button data-v="shop">Shop</button>
+      <button data-v="chef">Chef</button>
+      <button data-v="truck">Truck</button>
+      <button data-v="techcare">TechCare</button>
+    </div>
+    <div class="seg" id="devs">
+      <button data-v="desktop">Notebook</button>
+      <button data-v="phone">Celular</button>
+    </div>
+    <button class="replay" id="replay">Rever animação</button>
+  </div>
+
+  <div class="layout">
+    <div>
+      <div class="browser" id="desk">
+        <div class="chrome"><i></i><i></i><i></i><div class="url" id="url"></div></div>
+        <div class="viewport" id="vp">
+          <div class="screen desktop theme" id="screen">
+            <div class="login" id="loginGrid">
+              <div class="show" id="show"></div>
+              <div class="form-side">
+                <div class="brandslot"></div>
+                <div class="form formslot"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="browser phone-wrap" id="mob" hidden>
+        <div class="screen phone theme" id="phoneScreen">
+          <div class="band" id="band"></div>
+          <div class="pform">
+            <div class="form formslot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <aside class="notes" id="notes"></aside>
+  </div>
+</div>
+
+<script>
+/* ---------- Conteúdo de cada produto ---------- */
+const plate = p => `<span class="plate"><b>${p}</b></span>`;
+const code = c => `<span class="code">${c}</span>`;
+const photo = f => `<img class="thumb" src="img/${f}" alt="">`;
+
+const P = {
+  shop: {
+    name: 'Facter Shop', url: 'shop.facter.com.br/login', title: 'Entrar na sua loja', sub: 'Use o e-mail e a senha que a Facter te mandou.',
+    a: {
+      h: 'Cada pedido chega<br>pronto para separar', p: 'As peças, a entrega e o pagamento no mesmo lugar, e a cliente avisada no WhatsApp.',
+      list: 'Pedidos de hoje', start: 7,
+      rows: [
+        [photo('brinco-jade.webp'), 'Ana Paula · R$ 117', 'Brinco Jade + Ear cuff · retirar'],
+        [photo('bracelete.webp'), 'Juliana M. · R$ 240', 'Bracelete · 2 unidades · entrega'],
+        [photo('anel-letra.webp'), 'Rodrigo · R$ 75', 'Anel letra R · presente'],
+        [photo('brinco-cacto.webp'), 'Carla S. · R$ 58', 'Brinco Cacto · entrega'],
+        [photo('brinco-leca.webp'), 'Marina · R$ 133', 'Brinco Leca + Ear cuff · retirar'],
+      ], chipNew: ['new', 'Novo'], chipOld: ['ok', 'Confirmado'],
+      toasts: [['Pix recebido · R$ 117,00', 'Ana Paula · pedido #249'], ['Sinal recebido · R$ 120,00', 'Juliana M. · pedido #250'], ['Pix recebido · R$ 75,00', 'Rodrigo · pedido #251']],
+    },
+    b: {
+      h: 'Sua loja no bolso,<br>o dia inteiro', p: 'Pedido novo, prazo do dia e o que já foi pago, na tela do celular.',
+      device: 'phone', app: true, greet: ['Bom dia, Daniele', 'ESLA Acessórios · loja no ar'],
+      stats: [['Pedidos novos', '3', 'esperando você'], ['Prazo hoje', '4', '1 atrasado']], section: 'Pedidos de hoje',
+      rows: [[photo('brinco-jade.webp'), 'Ana Paula · R$ 117', 'Brinco Jade + Ear cuff', ['new', 'Novo']], [photo('bracelete.webp'), 'Juliana M. · R$ 240', 'Bracelete · entrega', ['new', 'Novo']], [photo('anel-letra.webp'), 'Rodrigo · R$ 75', 'Anel letra R', ['ok', 'Pago']], [photo('brinco-cacto.webp'), 'Carla S. · R$ 58', 'Brinco Cacto', ['ok', 'Separado']], [photo('brinco-leca.webp'), 'Marina · R$ 133', 'Brinco Leca + Ear cuff', ['ok', 'Pago']]],
+      callouts: [['3', 'Pedido novo', 'Ana Paula · R$ 117'], ['✓', 'Confirmado em um toque', 'A cliente recebe no WhatsApp'], ['R$', 'Sinal recebido', 'Juliana M. · R$ 120,00']]
+    },
+    c: [
+      {kind: 'stats', h: 'Veja quanto<br>a loja vendeu', p: 'Os números da semana, sem planilha.',
+        label: 'Vendido esta semana', value: 2480, fmt: 'brl', delta: '+18%', heights: [38, 52, 44, 70, 60, 82, 64],
+        facts: [['Pedidos', '23'], ['Mais pedido', 'Brinco Jade'], ['Falta receber', 'R$ 360,00']]}
+    ],
+  },
+
+  chef: {
+    name: 'Facter Chef', url: 'chef.facter.com.br/entrar', title: 'Entrar', sub: 'Que bom te ver de novo!',
+    login: {side: 'right', lockup: ['Chef', 'Gestão para confeitarias'], forgot: false, foot: 'Ainda não tem acesso? Fale com o suporte da Facter.'},
+    theme: {'--accent': '20 45% 32%', '--panel-dark': '20 40% 14%', '--panel-warm': '20 45% 95%', '--panel-light': '28 30% 96%'},
+    a: {
+      h: 'Cada encomenda<br>no dia certo', p: 'Pedido, sinal e data de entrega juntos. Sem caderno e sem esquecer nada.',
+      list: 'Encomendas da semana', start: 12,
+      rows: [
+        [photo('ig4.jpg'), 'Fernanda · bolo 2 anos', 'Retira sábado 15h · sinal pago'],
+        [photo('p2.jpg'), 'Patrícia · 40 tortinhas', 'Entrega sexta 10h · festa da escola'],
+        [photo('p5.jpg'), 'Lúcia · 100 biscoitos', 'Retira quinta 17h · lembrancinha'],
+        [photo('ig7.jpg'), 'Renata · bolo de aniversário', 'Retira domingo 9h · orçamento'],
+        [photo('p4.jpg'), 'Camila · 3 roscas doces', 'Entrega sábado 8h · café da manhã'],
+      ], chipNew: ['new', 'Nova'], chipOld: ['ok', 'Confirmada'],
+      toasts: [['Sinal recebido · R$ 90,00', 'Fernanda · encomenda #118'], ['Pix recebido · R$ 320,00', 'Patrícia · encomenda #119'], ['Sinal recebido · R$ 75,00', 'Lúcia · encomenda #120']],
+    },
+    b: {
+      h: 'A semana da confeitaria<br>no celular', p: 'Encomendas por dia, sinal pago e o que falta receber, onde você estiver.',
+      device: 'phone', app: true, greet: ['Bom dia, Larissa', 'Semana de 10 a 16/11'],
+      stats: [['Encomendas', '12', 'na semana'], ['Falta receber', 'R$ 840', 'de 5 clientes']], section: 'Sábado · 4 encomendas',
+      rows: [[photo('ig4.jpg'), 'Fernanda · bolo 2 anos', 'Retira 15h', ['ok', 'Sinal pago']], [photo('p4.jpg'), 'Camila · 3 roscas doces', 'Entrega 8h', ['ok', 'Pago']], [photo('ig7.jpg'), 'Renata · bolo de festa', 'Retira 9h', ['new', 'Sem sinal']], [photo('p2.jpg'), 'Patrícia · 40 tortinhas', 'Entrega 10h', ['ok', 'Sinal pago']], [photo('p5.jpg'), 'Lúcia · 100 biscoitos', 'Retira 17h', ['ok', 'Pago']]],
+      callouts: [['+', 'Encomenda nova', 'Pela loja · bolo 2 anos'], ['✓', 'Sinal recebido', 'Fernanda · R$ 90,00'], ['3', 'Produção de sábado', 'Massa, recheio e decoração']]
+    },
+    c: [
+      {kind: 'stats', h: 'Veja o que entrou<br>e o que falta', p: 'O faturado da semana e quem ainda vai pagar.',
+        label: 'Faturado na semana', value: 3260, fmt: 'brl', delta: '+12%', heights: [30, 40, 36, 58, 74, 90, 48],
+        facts: [['Encomendas', '12'], ['Mais pedido', 'Bolo personalizado'], ['Falta receber', 'R$ 840,00']]}
+    ],
+  },
+
+  truck: {
+    name: 'Facter Truck', url: 'truck.facter.com.br/login', title: 'Entrar na sua frota', sub: 'Use o e-mail e a senha da sua empresa.',
+    theme: {'--accent': '233 65% 50%', '--panel-warm': '233 85% 96.5%'},
+    a: {
+      h: 'A frota parada<br>o menor tempo possível', p: 'Cada parada com motivo, tempo e custo, da entrada no pátio até a liberação.',
+      list: 'Pátio agora', start: 9, right: true,
+      rows: [
+        [plate('RTA4B21'), 'Cavalo · lona de freio', 'Box 3 · Diego · 1h40 em serviço'],
+        [plate('SUZ7C40'), 'Carreta florestal · fueiros', 'Box 1 · aguardando peça'],
+        [plate('QPF2E19'), 'Bitrem · pneus do eixo 2', 'Box 5 · Marcos · 35 min'],
+        [plate('RHT9A03'), 'Cavalo · revisão 100 mil km', 'Fila · chegou 07:12'],
+        [plate('SAX4D77'), 'Carreta florestal · barrotes', 'Box 2 · Paulo · 2h05'],
+      ], chipNew: ['new', 'Entrou'], chipOld: ['ok', 'Em serviço'],
+      toasts: [['Veículo liberado · RTA4B21', 'Parado 5h20 · 40 min abaixo da média'], ['Peça chegou · SUZ7C40', 'Fueiro 2,40 m · volta ao box 1'], ['Veículo liberado · QPF2E19', 'Parado 2h10 · pneus trocados']],
+    },
+    b: {
+      h: 'O mecânico registra<br>no tablet', p: 'Começa, pausa e conclui com dois toques. O tempo de cada serviço sai sozinho.',
+      device: 'tablet', head: '<span>Meus serviços</span><small>Diego · Box 3</small>', section: 'Hoje',
+      list: [[plate('RTA4B21'), 'Lona de freio · eixo 1', 'Em andamento · 1h40'], [plate('RTA4B21'), 'Regulagem do freio', 'Próximo'], [plate('QPF2E19'), 'Pneus do eixo 2', 'Depois do almoço'], [plate('SAX4D77'), 'Barrotes · troca de 2', 'Aguardando peça'], [plate('RHT9A03'), 'Revisão 100 mil km', 'Amanhã']],
+      callouts: [['PIN', 'Entrou com o crachá', 'Sem senha no tablet'], ['✓', 'Serviço concluído', 'Lona de freio · 1h40'], ['II', 'Pausa em dois toques', 'Motivo: aguardando peça']]
+    },
+    c: [
+      {kind: 'stats', h: 'Saiba quanto a frota<br>ficou parada', p: 'E por quê, para atacar o motivo que mais pesa.',
+        label: 'Horas paradas na semana', value: 126, fmt: 'h', delta: '-14%', heights: [88, 80, 72, 66, 58, 50, 44],
+        facts: [['Veículos que pararam', '31'], ['Maior motivo', 'Aguardando peça · 38 h'], ['Média por parada', '4h05']]}
+    ],
+  },
+
+  techcare: {
+    name: 'Facter TechCare', url: 'techcare.facter.com.br/login', title: 'Entrar no seu estoque', sub: 'Use o e-mail e a senha da sua conta.',
+    theme: {'--accent': '142 76% 36%', '--panel-warm': '142 60% 95%'},
+    a: {
+      h: 'A peça certa no estoque<br>na hora do serviço', p: 'Você vê o que está acabando e pede ao fornecedor antes de faltar.',
+      list: 'Acabando agora', start: 5, right: true,
+      rows: [
+        [code('R-410A'), 'Gás R-410A', '2 cilindros · mínimo 4'],
+        [code('CAP35'), 'Capacitor 35 µF', '3 unidades · mínimo 10'],
+        [code('CU-1/4'), 'Tubo de cobre 1/4', '6 m · mínimo 20 m'],
+        [code('SUP-500'), 'Suporte 500 mm', '1 par · mínimo 4'],
+        [code('DRN-16'), 'Mangueira de dreno', '4 m · mínimo 10 m'],
+      ], chipNew: ['bad', 'Repor'], chipOld: ['new', 'Pedido feito'],
+      toasts: [['Chegou do fornecedor · 12 itens', 'Refrigeração Norte · nota 4821'], ['Estoque atualizado', 'Gás R-410A · 6 cilindros'], ['Pedido enviado', 'Capacitores · Elétrica Sul']],
+    },
+    b: {
+      h: 'Seu estoque<br>no bolso', p: 'Do carro de serviço você vê o que tem, o que acabou e o que já está a caminho.',
+      device: 'phone', head: '<span>Estoque</span>', section: 'Acabando',
+      list: [[code('R-410A'), 'Gás R-410A', '2 de 4 · repor'], [code('CAP35'), 'Capacitor 35 µF', '3 de 10 · repor'], [code('CU-1/4'), 'Tubo de cobre 1/4', '6 m de 20 m'], [code('SUP-500'), 'Suporte 500 mm', '1 de 4 · a caminho'], [code('DRN-16'), 'Mangueira de dreno', '4 m de 10 m'], [code('FIL-9K'), 'Filtro 9 mil BTU', '8 de 6 · ok']],
+      callouts: [['!', 'Abaixo do mínimo', 'Gás R-410A · 2 cilindros'], ['✓', 'Pedido no WhatsApp', 'Refrigeração Norte'], ['NF', 'Nota de entrada', '12 itens entram de uma vez']]
+    },
+    c: [
+      {kind: 'stats', h: 'Saiba quanto tem<br>parado na prateleira', p: 'O valor do estoque e o que mais sai.',
+        label: 'Valor em estoque', value: 18430, fmt: 'brl', delta: '-6%', heights: [60, 64, 58, 70, 66, 74, 72],
+        facts: [['Itens abaixo do mínimo', '5'], ['Mais usado', 'Gás R-410A'], ['A caminho', 'R$ 1.670,00']]}
+    ],
+  }
+};
+
+const FORMATS = {
+  all: {title: 'Sequência', tag: 'Recomendada', rec: true,
+    motion: 'Três cenas que passam sozinhas (12, 13 e 9 segundos) com um esmaecer suave, e recomeçam. Cada cena tem uma coisa só no centro.',
+    why: 'Conta o dia de quem usa: o pedido chega, você resolve pelo celular, vê o resultado da semana. Fecha no número, que é o ganho. Os fundos mudam (escuro, creme, claro) para cada cena ter cara própria.',
+    weight: 'Só CSS e um script pequeno. Miniaturas pequenas.'},
+  a: {title: '1 · O pedido chegando', tag: 'Fundo escuro com trama',
+    motion: 'Um pedido novo entra no topo da lista a cada 3 segundos e o aviso do Pix aparece e some.',
+    why: 'É o momento que a pessoa mais quer ver: chegou pedido.',
+    weight: 'Só CSS e script.'},
+  b: {title: '2 · No celular', tag: 'Fundo creme',
+    motion: 'Um pedido novo entra na lista do celular e o número de pedidos novos sobe. Dois avisos aparecem em volta.',
+    why: 'Mostra que dá para cuidar de tudo pelo celular. O topo do app na cor do produto dá o contraste.',
+    weight: 'Só CSS e script.'},
+  c: {title: '3 · A semana', tag: 'Fundo claro com pontos',
+    motion: 'O número da semana conta até o valor, as barras crescem e três dados aparecem um a um.',
+    why: 'Fecha a sequência no resultado.',
+    weight: 'Só CSS e script.'}
+};
+
+/* ---------- Motor ---------- */
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const timers = new Set();
+const later = (fn, ms) => { const id = setTimeout(() => { timers.delete(id); fn(); }, ms); timers.add(id); };
+const every = (fn, ms) => { const id = setInterval(fn, ms); timers.add(id); };
+const clearAll = () => { timers.forEach(id => { clearTimeout(id); clearInterval(id); }); timers.clear(); };
+const $ = s => document.querySelector(s);
+const fmt = (n, kind) => kind === 'h' ? `${n} h` : 'R$ ' + n.toLocaleString('pt-BR');
+
+let fmtSel = 'all', prod = 'shop', dev = 'desktop';
+const ROTATION = [['a', 12000], ['b', 13000], ['c', 9000]];
+let rotor = null;
+
+function rowHtml(r, chip, isNew, right) {
+  const lead = right ? '' : r[0];
+  const tail = right ? r[0] : '';
+  return `<div class="row${isNew ? ' enter' : ''}">${lead}<div class="who"><b>${r[1]}</b><small>${r[2]}</small></div>${tail}<span class="chip ${chip[0]}">${chip[1]}</span></div>`;
+}
+
+function panelA(d) {
+  return `<div class="panel pa">
+    <div class="headline"><h2>${d.h}</h2><p>${d.p}</p></div>
+    <div class="card list float1"><div class="list-hd"><b>${d.list}</b><span class="count" id="aCount">${d.start}</span></div><div class="rows" id="aRows"></div></div>
+    <div class="card toast float2" id="aToast"><div class="ok-ic">✓</div><div><b id="aT">${d.toasts[0][0]}</b><small id="aS">${d.toasts[0][1]}</small></div></div>
+  </div>`;
+}
+function runA(d) {
+  const rows = $('#aRows');
+  rows.innerHTML = d.rows.slice(0, 4).map(r => rowHtml(r, d.chipOld, false, d.right)).join('');
+  const shown = d.rows.slice(0, 4), waiting = d.rows.slice(4);
+  let i = 0, count = d.start;
+  const toast = $('#aToast');
+  every(() => {
+    const next = waiting.shift();
+    shown.unshift(next);
+    waiting.push(shown.pop());
+    rows.innerHTML = shown.map((r, k) => rowHtml(r, k === 0 ? d.chipNew : d.chipOld, k === 0, d.right)).join('');
+    $('#aCount').textContent = ++count;
+    const t = d.toasts[(i + 1) % d.toasts.length];
+    toast.classList.add('hide');
+    later(() => { $('#aT').textContent = t[0]; $('#aS').textContent = t[1]; toast.classList.remove('hide'); }, 700);
+    i++;
+  }, 3000);
+}
+
+function panelB(d) {
+  const appRow = r => `<div class="arow">${r[0]}<div class="who"><b>${r[1]}</b><small>${r[2]}</small></div><span class="chip ${r[3][0]}">${r[3][1]}</span></div>`;
+  const body = d.app
+    ? `<div class="app-top"><div class="greet"><b>${d.greet[0]}</b><small>${d.greet[1]}</small></div><div class="stats">${d.stats.map((t, k) => `<div class="stat"><small>${t[0]}</small><b${k === 0 ? ' id="bStat"' : ''}>${t[1]}</b><em>${t[2]}</em></div>`).join('')}</div></div><h4>${d.section}</h4><div class="arows" id="bRows">${d.rows.slice(0, 4).map(appRow).join('')}</div>`
+    : `<h4>${d.section}</h4><div class="lrows">${d.list.map((r, k) => `<div class="lrow"><div class="who"><b>${r[1]}</b><small>${r[2]}</small></div>${r[0]}</div>`).join('')}</div>`;
+  const travel = '0px';
+  return `<div class="panel pb">
+    <div class="device ${d.device}"><div class="notch"></div><div class="scroller" style="--travel:${travel}">${d.app ? '' : `<div class="app-hd">${d.head}</div>`}${body}</div></div>
+    ${d.callouts.slice(0, 2).map((c, k) => `<div class="card callout co${k}"><div class="dot">${c[0]}</div><div><b>${c[1]}</b><small>${c[2]}</small></div></div>`).join('')}
+    <div class="headline"><h2>${d.h}</h2><p>${d.p}</p></div>
+  </div>`;
+}
+function runB(d) {
+  const cos = [...document.querySelectorAll('.pb .callout')];
+  const rows = $('#bRows'), stat = $('#bStat');
+  if (d && d.app && rows && !reduce) {
+    const shown = d.rows.slice(0, 4), waiting = d.rows.slice(4);
+    const row = (r, isNew) => `<div class="arow${isNew ? ' enter' : ''}">${r[0]}<div class="who"><b>${r[1]}</b><small>${r[2]}</small></div><span class="chip ${isNew ? 'new' : r[3][0]}">${isNew ? (prod === 'chef' ? 'Nova' : 'Novo') : r[3][1]}</span></div>`;
+    let n = parseInt(stat.textContent, 10) || 0;
+    every(() => {
+      shown.unshift(waiting.shift()); waiting.push(shown.pop());
+      rows.innerHTML = shown.map((r, k) => row(r, k === 0)).join('');
+      stat.textContent = ++n; stat.classList.remove('bump'); void stat.offsetWidth; stat.classList.add('bump');
+    }, 3500);
+  }
+  if (reduce) { cos.forEach(c => c.classList.add('in')); return; }
+  const cycle = () => { cos.forEach(c => c.classList.remove('in')); cos.forEach((c, k) => later(() => c.classList.add('in'), 1500 + k * 3500)); };
+  cycle(); every(cycle, 14000);
+}
+
+const DUR = 5200;
+function sceneHtml(s, k) {
+  if (s.kind === 'stats') return `<div class="scene" data-k="${k}"><div class="card statcard">
+    <small class="lbl">${s.label}</small><div><span class="num">${fmt(0, s.fmt)}</span><span class="delta">${s.delta}</span></div>
+    <div class="bars">${'<i></i>'.repeat(7)}</div>
+    <div class="days"><span>seg</span><span>ter</span><span>qua</span><span>qui</span><span>sex</span><span>sáb</span><span>hoje</span></div>
+    <div class="facts">${s.facts.map(f => `<div class="fact"><span>${f[0]}</span><b>${f[1]}</b></div>`).join('')}</div></div></div>`;
+  if (s.kind === 'check') return `<div class="scene" data-k="${k}"><div class="card checklist"><h4>${s.title}</h4><small class="sub">${s.sub}</small>
+    ${s.items.map(it => `<div class="check"><i class="box">✓</i><span>${it[0]}</span><em>${it[1]}</em></div>`).join('')}</div></div>`;
+  return `<div class="scene" data-k="${k}"><div class="card tracker">
+    <div class="tr-hd"><div><b>${s.title}</b><small>${s.sub}</small></div><span class="chip ${s.chip[0]}">${s.chip[1]}</span></div>
+    <div class="tr-items">${s.items.map(it => `<div class="tr-item">${it[0]}<span>${it[1]}</span><em>${it[2]}</em></div>`).join('')}</div>
+    <div class="tr-total"><span>${s.total[0]}</span><span>${s.total[1]}</span></div>
+    <div class="steps">${s.steps.map(x => `<span>${x}</span>`).join('')}</div></div></div>`;
+}
+function panelC(scenes) {
+  return `<div class="panel pc">
+    ${scenes.map(sceneHtml).join('')}
+    <div class="headline"><h2 id="cH"></h2><p id="cP"></p></div></div>`;
+}
+function playScene(scenes, n) {
+  const s = scenes[n];
+  const el = document.querySelectorAll('.pc .scene');
+  el.forEach((x, k) => x.classList.toggle('on', k === n));
+  $('#cH').innerHTML = s.h; $('#cP').textContent = s.p;
+  const sc = el[n];
+  if (s.kind === 'stats') {
+    const bars = [...sc.querySelectorAll('.bars i')], num = sc.querySelector('.num'), facts = [...sc.querySelectorAll('.fact')];
+    bars.forEach(b => b.style.height = '6%'); facts.forEach(f => f.classList.remove('in'));
+    if (reduce) { num.textContent = fmt(s.value, s.fmt); bars.forEach((b, k) => b.style.height = s.heights[k] + '%'); facts.forEach(f => f.classList.add('in')); return; }
+    later(() => bars.forEach((b, k) => b.style.height = s.heights[k] + '%'), 150);
+    const t0 = performance.now();
+    const tick = now => { const q = Math.min(1, (now - t0) / 1300); if (!sc.isConnected) return; num.textContent = fmt(Math.round(s.value * (1 - (1 - q) ** 3)), s.fmt); if (q < 1) requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
+    facts.forEach((f, k) => later(() => f.classList.add('in'), 1500 + k * 600));
+  } else if (s.kind === 'check') {
+    const items = [...sc.querySelectorAll('.check')];
+    items.forEach(x => x.classList.remove('done'));
+    items.forEach((x, k) => later(() => x.classList.add('done'), reduce ? 0 : 700 + k * 1100));
+  } else {
+    const steps = [...sc.querySelectorAll('.steps span')];
+    steps.forEach(x => x.classList.remove('lit'));
+    steps.forEach((x, k) => later(() => x.classList.add('lit'), reduce ? 0 : 500 + k * 1000));
+  }
+}
+
+function band(f = fmtSel) {
+  const d = P[prod], el = $('#band');
+  const brand = dark => `<div class="brand"><span class="mk"><img src="img/mark-${dark ? 'black' : 'white'}.png" alt=""></span>${d.name}</div>`;
+  if (f === 'a') {
+    el.className = 'band dark';
+    el.innerHTML = brand(true) + `<div class="toastbox">${d.a.toasts.map(t => `<div class="card"><div class="ok-ic">✓</div><div><b>${t[0]}</b><small>${t[1]}</small></div></div>`).join('')}</div>`;
+  } else if (f === 'c') {
+    const st = d.c.find(x => x.kind === 'stats');
+    el.className = 'band light story';
+    el.innerHTML = brand(false) + `<div class="pstory light"><h2>${st.h.replace('<br>', ' ')}</h2><p>${st.label} · <b>${fmt(st.value, st.fmt)}</b> <span class="chip ok">${st.delta}</span></p></div>`;
+  } else {
+    el.className = 'band warm';
+    const items = d.b.app
+      ? d.b.rows.map(r => `<div class="arow">${r[0]}<div class="who"><b>${r[1]}</b><small>${r[2]}</small></div><span class="chip ${r[3][0]}">${r[3][1]}</span></div>`).join('')
+      : d.b.list.map(r => `<div class="lrow"><div class="who"><b>${r[1]}</b><small>${r[2]}</small></div>${r[0]}</div>`).join('');
+    el.innerHTML = brand(false) + `<div class="hrow">${items}${items}</div>`;
+  }
+}
+
+function notes() {
+  const f = FORMATS[fmtSel];
+  $('#notes').innerHTML = `
+    <h3>${f.title}</h3><span class="tag${f.rec ? ' rec' : ''}">${f.tag}</span>
+    <dl><dt>Movimento</dt><dd>${f.motion}</dd><dt>Por que</dt><dd>${f.why}</dd><dt>Peso</dt><dd>${f.weight}</dd></dl>
+    <hr>
+    <h3>Como fica no código</h3>
+    <ul>
+      <li>O formulário continua o de cada produto. O painel é o <code>AuthLayout.Showcase</code> no design system, no lugar do <code>AuthLayout.Image</code>.</li>
+      <li>O DS guarda o formato e a animação. Cada produto passa só os seus dados: título, texto, linhas da lista, avisos e números.</li>
+      <li>Os textos ficam no arquivo de idioma de cada produto, como o resto da tela.</li>
+      <li>Hub e Vagas entram depois, com os cards deles.</li>
+    </ul>
+    <hr>
+    <h3>Vale para todos</h3>
+    <ul>
+      <li>O painel é só vitrine: nada clicável, nada que atrase o formulário.</li>
+      <li>Quem pede menos movimento no sistema vê a cena parada.</li>
+      <li>A animação pausa com a aba escondida.</li>
+      <li>No celular o painel vira uma faixa de 250 px acima do formulário.</li>
+      <li>Os dados são de exemplo e fixos: o login não lê nada da conta.</li>
+    </ul>`;
+}
+
+function render() {
+  clearAll();
+  clearTimeout(rotor);
+  const d = P[prod];
+  $('#url').textContent = d.url;
+  const L = d.login || {};
+  const form = `<h1>${d.title}</h1><p class="sub">${d.sub}</p>
+    <div class="field"><label>E-mail<b>*</b></label><span>voce@email.com</span></div>
+    <div class="field"><label>Senha<b>*</b></label><span>Sua senha</span></div>
+    ${L.forgot === false ? '' : '<span class="forgot">Esqueci a senha</span>'}
+    <div class="submit">Entrar</div>
+    ${L.foot ? `<p class="foot">${L.foot}</p>` : ''}`;
+  document.querySelectorAll('.formslot').forEach(x => x.innerHTML = form);
+  document.querySelector('.brandslot').innerHTML = L.lockup
+    ? `<div class="lockup"><svg viewBox="0 0 207 304" aria-hidden="true"><path d="M25.8384 196.911L15.4739 183.729C-10.7189 150.411 0.44781 101.422 38.4895 82.7344L206.266 0.307297V34.2396C206.266 60.1875 191.448 83.8698 168.12 95.2396L56.578 149.594C48.4634 153.547 41.3489 159.344 35.9791 166.609C30.5936 173.901 25.9582 183.906 26.3176 196.526C29.9947 193.609 34.0624 191.026 38.4843 188.854L206.26 106.432V140.359C206.26 166.313 191.437 189.995 168.109 201.365L56.578 255.708C48.4634 259.667 41.3489 265.464 35.9791 272.724C30.4426 280.224 25.6978 290.578 26.3593 303.693L15.4739 289.854C-7.54698 260.568 -1.72407 219.193 25.8384 196.911ZM134.818 266.526L206.208 303.724L206.187 210.802L134.953 246.661C126.828 250.755 126.755 262.323 134.818 266.526Z"/></svg><i class="bar"></i><div><b>Facter <strong>${L.lockup[0]}</strong></b><small>${L.lockup[1]}</small></div></div>`
+    : `<div class="brand"><span class="mk"><img src="img/mark-white.png" alt=""></span>${d.name}</div>`;
+  $('#loginGrid').classList.toggle('reverse', L.side === 'right');
+  const vars = ['--accent', '--panel-dark', '--panel-warm', '--panel-light'];
+  ['#screen', '#phoneScreen'].forEach(sel => vars.forEach(v => {
+    if (d.theme && d.theme[v]) $(sel).style.setProperty(v, d.theme[v]); else $(sel).style.removeProperty(v);
+  }));
+  notes();
+  if (fmtSel !== 'all') { play(fmtSel); return; }
+  let i = 0;
+  play(ROTATION[0][0]);
+  if (reduce) return;
+  const next = () => {
+    rotor = setTimeout(() => {
+      document.querySelectorAll('.panel').forEach(x => x.classList.add('out'));
+      rotor = setTimeout(() => { i = (i + 1) % ROTATION.length; clearAll(); play(ROTATION[i][0]); next(); }, 500);
+    }, ROTATION[i][1]);
+  };
+  next();
+}
+
+function play(f) {
+  const d = P[prod];
+  if (dev === 'phone') { band(f); return; }
+  const show = $('#show');
+  if (f === 'a') { show.innerHTML = panelA(d.a); runA(d.a); }
+  if (f === 'b') { show.innerHTML = panelB(d.b); runB(d.b); }
+  if (f === 'c') { const st = [d.c.find(x => x.kind === 'stats')]; show.innerHTML = panelC(st); playScene(st, 0); }
+}
+
+function fit() {
+  const vp = $('#vp'), s = Math.min(1, vp.clientWidth / 1280);
+  $('#screen').style.transform = `scale(${s})`;
+  vp.style.height = 800 * s + 'px';
+}
+function bindSeg(id, get, set) {
+  const btns = document.querySelectorAll(`#${id} button`);
+  const sync = () => btns.forEach(b => b.setAttribute('aria-pressed', b.dataset.v === get()));
+  btns.forEach(b => b.onclick = () => { set(b.dataset.v); sync(); location.hash = `${fmtSel}-${prod}`; render(); });
+  sync();
+  return sync;
+}
+const [h1, h2] = location.hash.slice(1).split('-');
+if (FORMATS[h1]) fmtSel = h1;
+if (P[h2]) prod = h2;
+bindSeg('fmts', () => fmtSel, v => fmtSel = v);
+bindSeg('prods', () => prod, v => prod = v);
+bindSeg('devs', () => dev, v => { dev = v; $('#desk').hidden = v !== 'desktop'; $('#mob').hidden = v !== 'phone'; fit(); });
+$('#replay').onclick = render;
+document.addEventListener('visibilitychange', () => { if (document.hidden) { clearAll(); clearTimeout(rotor); } else render(); });
+addEventListener('resize', fit);
+addEventListener('hashchange', () => {
+  const [f, pr] = location.hash.slice(1).split('-');
+  if (FORMATS[f] && P[pr] && (f !== fmtSel || pr !== prod)) {
+    fmtSel = f; prod = pr;
+    document.querySelectorAll('#fmts button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === fmtSel));
+    document.querySelectorAll('#prods button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === prod));
+    render();
+  }
+});
+fit(); render();
+</script>
+</body>
+</html>
