@@ -297,6 +297,48 @@
   .stp-line{min-width:16px;margin:0 8px}
   .wz{grid-template-columns:minmax(0,1fr) 260px}
   .phone{width:240px}
+
+  /* welcome: full screen, the finished store as the promise */
+  .wel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);min-height:760px;background:#fff;border:1px solid hsl(var(--border));border-radius:16px;overflow:hidden}
+  .wel-l{padding:56px 52px 44px;display:flex;flex-direction:column}
+  .wel-l .who{display:flex;align-items:center;gap:10px;font-weight:600;color:hsl(var(--muted-foreground));font-size:13px}
+  .wel-l .who i{width:8px;height:8px;border-radius:99px;background:hsl(var(--success-ink));display:block}
+  .wel-l h2{font-size:40px;line-height:1.05;letter-spacing:-.025em;margin-top:22px}
+  .wel-l .lead{margin:14px 0 0;font-size:16px;color:hsl(var(--muted-foreground));max-width:36ch}
+  .tl{list-style:none;margin:30px 0 0;padding:0;display:grid;gap:0}
+  .tl li{display:grid;grid-template-columns:28px 1fr;gap:14px;position:relative;padding-bottom:18px}
+  .tl li:not(:last-child)::before{content:"";position:absolute;left:13px;top:28px;bottom:0;width:2px;background:hsl(var(--border))}
+  .tl li span{width:28px;height:28px;border-radius:99px;display:grid;place-items:center;font-weight:700;font-size:12.5px;background:hsl(var(--muted));color:hsl(var(--foreground))}
+  .tl li:first-child span{background:hsl(var(--primary));color:#fff}
+  .tl li b{display:block;font-size:14.5px;line-height:28px}
+  .tl li small{display:block;margin-top:-4px;color:hsl(var(--muted-foreground));font-size:12.5px}
+  .wel-cta{display:flex;align-items:center;gap:14px;margin-top:auto;padding-top:26px}
+  .wel-cta .btn-primary{height:48px;padding:0 24px;font-size:15px}
+  .wel-cta .later{font-size:13px;color:hsl(var(--muted-foreground))}
+  .wel-cta .later u{cursor:pointer}
+  .wel-r{position:relative;background:linear-gradient(160deg,#f3efe9 0%,#e9e2d8 100%);overflow:hidden}
+  .wel-r .tag{position:absolute;top:22px;right:24px;background:rgba(255,255,255,.85);border-radius:99px;padding:5px 12px;font-size:12px;font-weight:600;color:hsl(var(--muted-foreground))}
+  .browser{position:absolute;top:70px;left:56px;right:-60px;height:520px;background:#fcfbf8;border-radius:14px;box-shadow:0 40px 80px -40px rgba(60,40,20,.55);overflow:hidden}
+  .browser .bar{height:34px;background:#efe9e1;display:flex;align-items:center;gap:6px;padding:0 12px}
+  .browser .bar i{width:10px;height:10px;border-radius:99px;background:#d9cfc3;display:block}
+  .browser .bar span{margin-left:14px;background:#fff;border-radius:99px;padding:3px 12px;font-size:11px;color:#8a7d70}
+  .browser .hd{display:flex;align-items:center;justify-content:center;padding:14px 0;border-bottom:1px solid #eee6dc}
+  .browser .hd img{height:30px}
+  .browser .cover{height:190px}
+  .browser .cover img{width:100%;height:100%;object-fit:cover;display:block}
+  .browser .sec{padding:16px 22px 10px;font-family:'Cormorant Garamond',serif;letter-spacing:.14em;text-transform:uppercase;font-size:15px;color:#111}
+  .browser .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:0 22px}
+  .browser .grid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;display:block}
+  .browser .grid b{display:block;font-size:11.5px;margin-top:6px;color:#111}
+  .browser .grid small{font-size:11px;color:#555}
+  .wel-r .phone{position:absolute;left:24px;bottom:-60px;transform:rotate(-4deg)}
+  /* phone version */
+  .ph .wel-m{padding:4px 2px 0}
+  .ph .wel-m h2{font-size:28px;line-height:1.08;margin-top:10px}
+  .ph .wel-m .lead{margin:10px 0 0;color:hsl(var(--muted-foreground))}
+  .ph .wel-m .stage{margin:18px -16px 0;height:250px;background:linear-gradient(160deg,#f3efe9 0%,#e9e2d8 100%);display:flex;justify-content:center;align-items:flex-end;overflow:hidden}
+  .ph .wel-m .stage .phone{height:300px;margin-bottom:-60px}
+  .ph .tl{margin-top:20px}
 </style>
 </head>
 <body>
@@ -355,10 +397,10 @@ const segmentName = () => SEGMENTS.find((s) => s[0] === state.segment)[1];
 
 const NOTES = {
   welcome: { t: 'Quando aparece', items: [
-    'Uma vez, na primeira entrada da dona no painel, logo depois que a Facter libera o Shop pelo Hub.',
+    'Uma vez, na primeira entrada da dona no painel, logo depois que a Facter libera o Shop pelo Hub. Tela cheia: nessa hora o painel ainda está vazio, então não há nada por trás para um diálogo cobrir.',
+    'À direita, a loja pronta de exemplo do ramo dela (marcada “Exemplo”): mostra o que ela vai ter em 10 minutos, em vez da loja vazia.',
     'O ramo já vem do Hub (escolhido no Liberar produto); no passo 1 ela confirma ou troca.',
     '“Agora não” fecha e deixa o aviso “Parou no meio” no Início até a loja ser publicada.',
-    'A prévia mostra a loja vazia com o nome dela: é o que ela vai preencher.',
   ], ev: 'shop_onboarding_shown · shop_onboarding_started · shop_onboarding_dismissed' },
   segment: { t: 'Passo 1 · O que você vende', items: [
     'O ramo muda as palavras e as sugestões do painel e da loja (coleção e numeração em semijoias, sabor e tamanho em doces).',
@@ -529,16 +571,38 @@ function render() {
   let html = '';
   const wzIndex = { segment: 0, brand: 1, product: 2, delivery: 3, review: 4 }[s.id];
   if (s.id === 'welcome') {
-    const plan = `<ol class="plan">${[['O que você vende', 'muda as palavras da loja'], ['Cara da loja', 'estilo, logo e capa'], ['Primeiro produto', 'uma peça, com foto'], ['Entrega e contato', 'envio, retirada e WhatsApp'], ['Publique', 'e ganhe o link da loja']].map(([b, sm], i) => `<li><span>${i + 1}</span><div><b>${b}</b><small>${sm}</small></div></li>`).join('')}</ol>`;
-    html = desk
-      ? shell(`<div class="title">Início</div><div class="stats">${[0, 1, 2, 3].map(() => '<div class="card stat"></div>').join('')}</div><div class="card rows"></div>
-        <div class="scrim"><div class="dlg"><div class="dlg-hd"><h2>Vamos montar a sua loja</h2><p>Em 5 passos ela abre para as suas clientes.</p></div>
-        <div class="dlg-bd">${phoneStore(true)}${plan}</div>
-        <div class="dlg-ft"><span class="cons">Leva uns 10 minutos. Dá para parar e continuar depois.</span><button class="btn btn-ghost">Agora não</button><button class="btn btn-primary" data-go="1">Montar minha loja</button></div></div></div>`, { dot: true })
-      : phone(`<div class="title" style="font-size:20px">Início</div><div class="card" style="height:90px;margin-top:12px"></div><div class="card" style="height:160px;margin-top:12px"></div>`, {
-          title: 'ESLA Acessórios', dot: true,
-          overlay: `<div class="scrim" style="place-items:end stretch"></div><div class="sheet"><div class="grab"></div><h2>Vamos montar a sua loja</h2><p>Em 5 passos ela abre para as suas clientes.</p><div style="display:flex;justify-content:center;margin-bottom:14px">${phoneStore(true).replace('class="phone sm', 'class="phone sm" style="height:250px')}</div><button class="btn btn-primary" style="width:100%" data-go="1">Montar minha loja</button><button class="btn btn-ghost" style="width:100%;margin-top:6px">Agora não</button></div>`,
-        });
+    const steps = [['O que você vende', 'muda as palavras da loja'], ['Cara da loja', 'estilo, logo e capa'], ['Primeiro produto', 'uma peça, com foto'], ['Entrega e contato', 'envio, retirada e WhatsApp'], ['Publique', 'e ganhe o link da loja']];
+    const tl = `<ol class="tl">${steps.map(([b, sm], i) => `<li><span>${i + 1}</span><div><b>${b}</b><small>${sm}</small></div></li>`).join('')}</ol>`;
+    const finished = { ...state };
+    const savedStep = state.step; state.step = 6;
+    const doneStore = phoneStore();
+    state.step = savedStep;
+    if (desk) {
+      html = `<div class="wel">
+        <div class="wel-l">
+          <span class="who"><i></i>ESLA Acessórios · Facter Shop</span>
+          <h2>Vamos montar a sua loja</h2>
+          <p class="lead">Em 5 passos ela abre para as suas clientes, com a sua marca e as suas peças.</p>
+          ${tl}
+          <div class="wel-cta"><div><span class="later" style="display:block;margin-bottom:10px">Leva uns 10 minutos. Dá para parar e continuar depois.</span><div style="display:flex;gap:10px"><button class="btn btn-primary" data-go="1">Montar minha loja</button><button class="btn btn-ghost">Agora não</button></div></div></div>
+        </div>
+        <div class="wel-r">
+          <span class="tag">Exemplo · Semijoias e moda</span>
+          <div class="browser"><div class="bar"><i></i><i></i><i></i><span>loja.facter.com.br/store/esla-acessorios</span></div>
+            <div class="hd"><img src="img/logo-esla.webp" alt=""></div>
+            <div class="cover"><img src="img/banner-esla.webp" alt=""></div>
+            <div class="sec">Coleção</div>
+            <div class="grid">${ITEMS.map((p) => `<div><img src="${p.img}" alt=""><b>${p.n}</b><small>${p.p}</small></div>`).join('')}</div>
+          </div>
+          ${doneStore}
+        </div>
+      </div>`;
+    } else {
+      html = phone(`<div class="wel-m"><span class="who" style="font-size:12px;color:hsl(var(--muted-foreground));font-weight:600">ESLA Acessórios · Facter Shop</span><h2>Vamos montar a sua loja</h2><p class="lead">Em 5 passos ela abre para as suas clientes.</p><div class="stage">${doneStore}</div>${tl}</div>`, {
+        title: 'ESLA Acessórios', nav: false,
+        foot: '<button class="btn btn-ghost">Agora não</button><button class="btn btn-primary" data-go="1">Montar minha loja</button>',
+      });
+    }
   } else if (wzIndex !== undefined) {
     const opts = { primary: s.id === 'review' ? 'Publicar loja' : 'Continuar' };
     html = desk ? wizardDesk(wzIndex, BODIES[s.id](), opts) : wizardPhone(wzIndex, BODIES[s.id](), opts);
