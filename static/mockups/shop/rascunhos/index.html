@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rascunhos do Shop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700&family=Fraunces:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fg:240 10% 3.9%;--muted:240 4.8% 95.9%;--mf:240 3.8% 46%;--border:240 5.9% 90%;--bg:0 0% 98%;
+  --ok-soft:142 55% 94%;--ok-ink:142 70% 24%;--ok:142 71% 40%;
+  --warn-soft:40 95% 93%;--warn-ink:28 85% 28%;
+  --canvas:225 14% 92%;
+}
+*{box-sizing:border-box}
+body{margin:0;background:hsl(var(--canvas));color:hsl(var(--fg));font:14px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+img{display:block}
+.doc{max-width:1560px;margin:0 auto;padding:28px 24px 64px}
+.doc-hd h1{font:600 22px Sora,Inter,sans-serif;letter-spacing:-.015em}
+.doc-hd p{margin-top:6px;color:hsl(var(--mf));max-width:980px}
+.bar{display:flex;gap:10px;align-items:center;margin:18px 0 10px;flex-wrap:wrap}
+.bar small{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--mf));min-width:64px}
+.seg{display:inline-flex;background:#fff;border:1px solid hsl(var(--border));border-radius:999px;padding:3px;flex-wrap:wrap}
+.seg button{appearance:none;border:0;background:none;border-radius:999px;padding:6px 14px;font-weight:500;color:hsl(var(--mf))}
+.seg button[aria-pressed=true]{background:hsl(var(--fg));color:#fff}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start;margin-top:14px}
+.notes{background:#fff;border:1px solid hsl(var(--border));border-radius:14px;padding:18px;position:sticky;top:16px}
+.notes h3{font:600 15px Sora,Inter,sans-serif}
+.notes ul{margin:8px 0 0;padding-left:18px}
+.notes li{margin:5px 0;color:hsl(240 6% 22%)}
+.notes hr{border:0;border-top:1px solid hsl(var(--border));margin:16px 0}
+.stage{background:hsl(var(--bg));border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:38px;padding:0 14px;border-radius:9px;border:1px solid hsl(var(--border));background:#fff;font-weight:600;white-space:nowrap}
+.btn.pri{background:hsl(var(--fg));color:#fff;border-color:hsl(var(--fg))}
+.btn.sm{height:30px;padding:0 10px;font-size:12.5px}
+.btn.ghost{border-color:transparent;background:none;color:hsl(var(--mf))}
+.btn svg{width:15px;height:15px}
+.chip{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:99px;font-size:11.5px;font-weight:600;white-space:nowrap}
+.chip.ok{background:hsl(var(--ok-soft));color:hsl(var(--ok-ink))}
+.chip.draft{background:hsl(var(--muted));color:hsl(var(--mf))}
+
+/* catálogo */
+.cat{padding:22px 24px}
+.cat-hd{display:flex;align-items:flex-end;justify-content:space-between}
+.cat-hd h2{font:700 26px Inter;letter-spacing:-.01em}
+.cat-hd .sub{color:hsl(var(--mf));margin-top:2px}
+.tabs{display:flex;gap:22px;border-bottom:1px solid hsl(var(--border));margin:16px 0 18px}
+.tabs span{padding:8px 2px;color:hsl(var(--mf))}
+.tabs span.on{color:hsl(var(--fg));border-bottom:2px solid hsl(var(--fg));font-weight:500}
+
+/* bancada */
+.bench{background:#fff;border:1px solid hsl(var(--border));border-radius:14px;padding:16px 16px 14px;margin-bottom:18px}
+.bench-hd{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.bench-hd h3{font:600 16px Inter}
+.bench-hd .n{color:hsl(var(--mf))}
+.prog{flex:0 0 160px;height:6px;border-radius:99px;background:hsl(var(--muted));overflow:hidden}
+.prog i{display:block;height:100%;background:hsl(var(--ok));transition:width .3s}
+.bench-hd .acts{margin-left:auto;display:flex;gap:8px}
+.strip{display:flex;gap:12px;overflow-x:auto;padding:14px 2px 4px;scrollbar-width:thin}
+.dc{flex:0 0 172px;border:1px solid hsl(var(--border));border-radius:12px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
+.dc .ph{height:150px;display:grid;place-items:center;text-align:center;color:hsl(var(--mf));font-size:12px;border-bottom:1px solid hsl(var(--border));position:relative;background:repeating-linear-gradient(135deg,hsl(var(--bg)) 0 8px,#fff 8px 16px)}
+.dc .ph.drop{outline:2px dashed hsl(var(--fg));outline-offset:-8px;background:hsl(var(--muted))}
+.dc .ph svg{width:22px;height:22px;margin:0 auto 6px}
+.dc .ph img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.dc .bd{padding:10px 11px 11px;display:flex;flex-direction:column;gap:2px;flex:1}
+.dc .bd b{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dc .bd small{color:hsl(var(--mf));font-size:12px}
+.dc .bd .btn{margin-top:8px;width:100%}
+.dc.done{opacity:.55}
+.dc.done .bd .btn{background:hsl(var(--ok-soft));color:hsl(var(--ok-ink));border-color:transparent}
+
+.lt{width:100%;border-collapse:collapse;border:1px solid hsl(var(--border));background:#fff;border-radius:12px;overflow:hidden}
+.lt th{text-align:left;font-weight:500;color:hsl(var(--mf));padding:11px 14px;border-bottom:1px solid hsl(var(--border))}
+.lt td{padding:10px 14px;border-bottom:1px solid hsl(var(--border))}
+.lt .p{display:flex;align-items:center;gap:10px}
+.lt .p img{width:38px;height:38px;border-radius:8px;object-fit:cover}
+.lt .p b{display:block;font-weight:500}
+
+/* em sequência */
+.seq{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);min-height:600px}
+.seq-top{display:flex;align-items:center;gap:14px;padding:16px 24px;border-bottom:1px solid hsl(var(--border));background:#fff}
+.seq-top h2{font:600 17px Inter}
+.seq-top .prog{flex:0 0 220px}
+.seq-top .n{color:hsl(var(--mf));font-variant-numeric:tabular-nums}
+.seq-top .x{margin-left:auto}
+.shot{margin:24px;border-radius:16px;border:2px dashed hsl(240 5% 78%);display:grid;place-items:center;text-align:center;color:hsl(var(--mf));background:#fff;position:relative;overflow:hidden}
+.shot.has{border-style:solid;border-color:hsl(var(--border))}
+.shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.shot .in{display:flex;flex-direction:column;align-items:center;gap:10px}
+.shot .in svg{width:36px;height:36px}
+.shot .in b{color:hsl(var(--fg));font-size:16px}
+.shot .chg{position:absolute;left:14px;bottom:14px}
+.thumbs{position:absolute;right:14px;bottom:14px;display:flex;gap:6px}
+.thumbs span{width:44px;height:44px;border-radius:8px;border:1.5px dashed hsl(240 5% 78%);background:#fff;display:grid;place-items:center;color:hsl(var(--mf))}
+.facts{padding:24px 24px 24px 0;display:flex;flex-direction:column;gap:14px}
+.facts h3{font:700 24px Inter;letter-spacing:-.01em}
+.facts .meta{color:hsl(var(--mf))}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fld{position:relative;border:1px solid hsl(var(--border));border-radius:9px;padding:16px 12px 8px;background:#fff}
+.fld label{position:absolute;top:-9px;left:10px;background:#fff;padding:0 4px;font-size:12.5px;font-weight:500}
+.fld .v{display:flex;justify-content:space-between;font-weight:600}
+.fld .pre{color:hsl(var(--mf));font-weight:400;font-size:12px}
+.preview{border:1px solid hsl(var(--border));border-radius:12px;padding:12px;background:#fff}
+.preview small{font-size:11px;font-weight:600;letter-spacing:.06em;color:hsl(var(--mf))}
+.preview .r{display:flex;gap:10px;margin-top:8px;align-items:center}
+.preview .r i{width:52px;height:52px;border-radius:8px;background:hsl(var(--muted));flex:none;overflow:hidden}
+.preview .r i img{width:100%;height:100%;object-fit:cover}
+.preview .low{display:block;font-size:12px;color:hsl(40 50% 40%);font-weight:600}
+.seq-ft{display:flex;align-items:center;gap:10px;padding:14px 24px;border-top:1px solid hsl(var(--border));background:#fff}
+.seq-ft .grow{flex:1;color:hsl(var(--mf))}
+.done-all{display:grid;place-items:center;text-align:center;padding:80px 24px;gap:10px}
+.done-all b{font:700 24px Inter}
+
+
+/* sequência, refeita */
+.sq{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;padding:24px 28px 8px;align-items:start}
+.pics{display:flex;flex-direction:column;gap:10px}
+.pics .big{position:relative;aspect-ratio:4/5;border-radius:16px;overflow:hidden;background:#fff;border:2px dashed hsl(240 5% 78%);display:grid;place-items:center;text-align:center;color:hsl(var(--mf))}
+.pics .big.has{border:1px solid hsl(var(--border))}
+.pics .big img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pics .big .in{display:flex;flex-direction:column;align-items:center;gap:10px;padding:24px}
+.pics .big .in svg{width:34px;height:34px}
+.pics .big .in b{color:hsl(var(--fg));font-size:16px}
+.pics .big .swap{position:absolute;left:12px;bottom:12px}
+.pics .row{display:flex;gap:8px}
+.pics .row span{width:58px;height:58px;border-radius:10px;overflow:hidden;border:1px solid hsl(var(--border));background:#fff;display:grid;place-items:center;color:hsl(var(--mf));font-size:18px}
+.pics .row span.on{outline:2px solid hsl(var(--fg));outline-offset:1px}
+.pics .row span.add{border-style:dashed}
+.pics .row img{width:100%;height:100%;object-fit:cover}
+.pics .hint{font-size:12.5px;color:hsl(var(--mf))}
+.sf-card{background:#fbfaf7;border:1px solid #ece7df;border-radius:16px;padding:22px 24px;display:flex;flex-direction:column;gap:14px}
+.sf-card .eyb{font-size:10.5px;letter-spacing:.18em;color:#8a847c;text-transform:uppercase;display:flex;justify-content:space-between}
+.sf-card h3{font:400 30px/1.15 Fraunces,serif;color:#121113}
+.sf-card .price{display:flex;align-items:baseline;gap:10px;font:400 22px Fraunces,serif;color:#121113}
+.sf-card .last{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:hsl(40 50% 40%);font-weight:600}
+.edit{display:inline-flex;align-items:center;gap:6px;border:1px dashed transparent;border-radius:8px;padding:2px 6px;margin:-2px -6px}
+.edit:hover{border-color:#d9d2c7;background:#fff}
+.edit svg{width:13px;height:13px;color:#b5aea4}
+.inline{display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:10px}
+.inline .fld{background:#fff}
+.addesc{align-self:flex-start;font-size:13px;font-weight:600;color:hsl(var(--fg));background:none;border:0;padding:0;text-decoration:underline;text-underline-offset:3px}
+.queue{display:flex;align-items:center;gap:10px;padding:14px 28px;border-top:1px solid hsl(var(--border));background:#fff}
+.queue .lbl{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--mf));white-space:nowrap}
+.qlist{display:flex;gap:8px;overflow:hidden;flex:1}
+.qi{flex:none;width:118px;border:1px solid hsl(var(--border));border-radius:10px;padding:6px 8px;font-size:12px;line-height:1.3;background:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qi small{display:block;color:hsl(var(--mf))}
+.qi.now{border-color:hsl(var(--fg));box-shadow:0 0 0 1px hsl(var(--fg))}
+.qi.ok{color:hsl(var(--ok-ink));background:hsl(var(--ok-soft));border-color:transparent}
+.qi.skip{color:hsl(var(--mf));background:hsl(var(--muted));border-color:transparent}
+.kb{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 5px;border-radius:5px;border:1px solid currentColor;font-size:11px;opacity:.6;margin-left:6px}
+
+
+/* terminou */
+.fin{padding:28px 28px 24px;display:flex;flex-direction:column;gap:18px}
+.fin-hd{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.fin-hd b{display:block;font:700 26px Inter;letter-spacing:-.01em}
+.fin-hd p{color:hsl(var(--mf));margin-top:4px}
+.fin-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.fin-grid figure{margin:0}
+.fin-grid img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:10px;background:#111}
+.fin-grid figcaption{font:400 14px Fraunces,serif;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fin-grid .more{display:grid;place-items:center;aspect-ratio:4/5;border-radius:10px;background:hsl(var(--muted));color:hsl(var(--mf));font-weight:600}
+.fin-row{display:grid;grid-template-columns:1.2fr 1fr;gap:14px}
+.box{border:1px solid hsl(var(--border));border-radius:14px;background:#fff;padding:16px;display:flex;flex-direction:column;gap:10px}
+.box h4{font:600 15px Inter;margin:0}
+.box p{color:hsl(var(--mf));font-size:13px}
+.box .acts{display:flex;gap:8px;flex-wrap:wrap}
+.btn.wa{background:hsl(142 70% 38%);border-color:hsl(142 70% 38%);color:#fff}
+.left-list{display:flex;gap:8px;flex-wrap:wrap}
+.left-list span{border:1px dashed hsl(240 5% 78%);border-radius:8px;padding:4px 8px;font-size:12.5px}
+/* celular, refeito */
+.phones{display:flex;gap:28px;justify-content:center;padding:28px 0;background:hsl(var(--canvas));flex-wrap:wrap}
+.ph2{width:390px;height:844px;border-radius:44px;border:10px solid hsl(var(--fg));overflow:hidden;background:#0d0d0f;position:relative;display:flex;flex-direction:column;color:#fff}
+.ph2 .tp{display:flex;align-items:center;gap:10px;padding:14px 16px 10px}
+.ph2 .tp .x{width:34px;height:34px;border-radius:99px;background:rgb(255 255 255/.12);display:grid;place-items:center}
+.ph2 .tp .bar2{flex:1;height:4px;border-radius:99px;background:rgb(255 255 255/.18);overflow:hidden}
+.ph2 .tp .bar2 i{display:block;height:100%;width:14%;background:#fff}
+.ph2 .tp small{font-size:13px;opacity:.75;font-variant-numeric:tabular-nums}
+.ph2 .cam{position:relative;margin:4px 12px 0;border-radius:22px;overflow:hidden;flex:1;min-height:0;background:linear-gradient(160deg,#2a2a2e,#141416);display:grid;place-items:center}
+.ph2 .cam img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ph2 .cam .frame{position:absolute;inset:18% 12%;border:2px solid rgb(255 255 255/.5);border-radius:18px}
+.ph2 .cam .tip{position:absolute;top:14px;left:0;right:0;text-align:center;font-size:13px;opacity:.85}
+.ph2 .thumbs2{position:absolute;left:12px;bottom:12px;display:flex;gap:6px}
+.ph2 .thumbs2 span{width:42px;height:42px;border-radius:9px;border:1.5px solid rgb(255 255 255/.7);overflow:hidden;display:grid;place-items:center;background:rgb(0 0 0/.35);font-size:18px}
+.ph2 .thumbs2 img{position:static;inset:auto;width:100%;height:100%;object-fit:cover}
+.ph2 .info{padding:14px 18px 8px}
+.ph2 .info b{display:block;font:400 22px/1.2 Fraunces,serif}
+.ph2 .pills{display:flex;gap:8px;margin-top:10px}
+.ph2 .pills span{border:1px solid rgb(255 255 255/.25);border-radius:99px;padding:6px 12px;font-size:13.5px;font-weight:600}
+.ph2 .pills span em{font-style:normal;opacity:.6;font-weight:400;margin-right:4px}
+.ph2 .ctl{display:grid;grid-template-columns:1fr 76px 1fr;align-items:center;padding:10px 18px 22px}
+.ph2 .ctl .side{font-size:14px;font-weight:600;opacity:.8;background:none;border:0;color:#fff;padding:12px 0;text-align:left}
+.ph2 .ctl .side.r{text-align:right}
+.ph2 .shutter{width:76px;height:76px;border-radius:99px;border:4px solid #fff;display:grid;place-items:center;background:none}
+.ph2 .shutter i{width:58px;height:58px;border-radius:99px;background:#fff;display:block}
+.ph2 .pub{margin:0 18px 22px;height:54px;border-radius:14px;border:0;background:#fff;color:#0d0d0f;font-weight:700;font-size:16px}
+.ph2 .sub2{display:flex;justify-content:space-between;padding:0 22px 12px;font-size:13.5px;opacity:.8}
+.cap{color:hsl(var(--mf));font-size:12.5px;text-align:center;margin-top:8px}
+
+
+.ph2 .modes{display:flex;justify-content:center;gap:22px;font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:2px 0 4px}
+.ph2 .modes span{opacity:.5}
+.ph2 .modes span.on{opacity:1;color:#f5c542}
+.ph2 .gal-last{width:44px;height:44px;border-radius:10px;overflow:hidden;border:2px solid #fff;display:block}
+.ph2 .gal-last img{position:static;width:100%;height:100%;object-fit:cover}
+.ph2 .grid{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin:4px 0 0;overflow:hidden;align-content:start}
+.ph2 .grid span{position:relative;aspect-ratio:1;overflow:hidden;background:#222}
+.ph2 .grid img{width:100%;height:100%;object-fit:cover}
+.ph2 .grid .sel::after{content:attr(data-n);position:absolute;top:6px;right:6px;width:22px;height:22px;border-radius:99px;background:#f5c542;color:#0d0d0f;font-weight:700;font-size:12px;display:grid;place-items:center}
+.ph2 .grid .sel{outline:3px solid #f5c542;outline-offset:-3px}
+.ph2 .src{display:flex;gap:8px;padding:8px 14px 0;font-size:13px}
+.ph2 .src span{border-radius:99px;padding:5px 12px;background:rgb(255 255 255/.1)}
+.ph2 .src span.on{background:#fff;color:#0d0d0f;font-weight:600}
+
+/* celular */
+.phone-wrap{display:flex;justify-content:center;padding:28px 0;background:hsl(var(--canvas))}
+.phone{width:390px;height:844px;border-radius:44px;border:10px solid hsl(var(--fg));overflow:auto;background:hsl(var(--bg));scrollbar-width:none;position:relative}
+.m-top{display:flex;align-items:center;gap:10px;padding:14px 16px;background:#fff;border-bottom:1px solid hsl(var(--border))}
+.m-top b{font-weight:600}
+.m-top .n{margin-left:auto;color:hsl(var(--mf));font-size:13px}
+.m-shot{margin:16px;height:360px;border-radius:16px;border:2px dashed hsl(240 5% 78%);background:#fff;display:grid;place-items:center;text-align:center;color:hsl(var(--mf))}
+.m-shot svg{width:40px;height:40px;margin:0 auto 8px}
+.m-shot .btns{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.m-facts{padding:0 16px 16px;display:flex;flex-direction:column;gap:10px}
+.m-ft{position:sticky;bottom:0;display:flex;gap:8px;padding:12px 16px 18px;background:#fff;border-top:1px solid hsl(var(--border))}
+.m-ft .btn{flex:1;height:46px}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="doc-hd">
+    <h1>Rascunhos do Shop</h1>
+    <p>Rascunho é trabalho por terminar, então fica à mão: uma bancada no topo do Catálogo com cada peça que falta publicar, e um modo de publicar em sequência, uma peça por vez, com a foto grande no centro. Exemplo com os 29 rascunhos que a ESLA trouxe do site antigo.</p>
+  </div>
+  <div class="bar"><small>Tela</small>
+    <div class="seg" id="views">
+      <button data-v="bench">Bancada no Catálogo</button>
+      <button data-v="seq">Publicar em sequência</button>
+      <button data-v="done">Terminou</button>
+      <button data-v="phone">Celular</button>
+    </div>
+  </div>
+  <div class="layout">
+    <div class="stage" id="stage"></div>
+    <aside class="notes" id="notes"></aside>
+  </div>
+</div>
+<script>
+const CAM = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3"/></svg>';
+const UP = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5"/><path d="M12 3v12"/></svg>';
+const PLAY = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+const DRAFTS = [
+  { n: 'Anel Alice', p: '15,90', s: 1, img: 'anel-letra', done: true },
+  { n: 'Brinco Flora', p: '39,90', s: 2, img: 'brinco-leca', done: false },
+  { n: 'BRINCO XAXIM', p: '46,90', s: 1 },
+  { n: 'COLAR URTIGA', p: '65,90', s: 1 },
+  { n: 'BRINCO HIBISCO', p: '66,90', s: 1 },
+  { n: 'ANEL SALVIA', p: '47,90', s: 1, drop: true },
+  { n: 'TRIO AÇUCENA', p: '38,90', s: 2 },
+  { n: 'CONJUNTO ALPINA', p: '91,90', s: 1 },
+];
+
+function card(d) {
+  const ph = d.img
+    ? `<div class="ph"><img src="img/${d.img}.webp" alt=""></div>`
+    : `<div class="ph ${d.drop ? 'drop' : ''}"><div>${UP}${d.drop ? '<b style="color:hsl(var(--fg))">Solte a foto</b>' : 'Arraste a foto<br>ou clique'}</div></div>`;
+  const act = d.done ? '<button class="btn sm">✓ Publicada</button>' : d.img ? '<button class="btn sm pri">Publicar</button>' : '<button class="btn sm">Pôr foto</button>';
+  return `<div class="dc ${d.done ? 'done' : ''}">${ph}<div class="bd"><b title="${d.n}">${d.n}</b><small>R$ ${d.p} · ${d.s} un</small>${act}</div></div>`;
+}
+
+function bench() {
+  return `<div class="cat">
+    <div class="cat-hd"><div><h2>Catálogo</h2><p class="sub">111 na loja · 28 em rascunho</p></div><button class="btn pri">+ Novo produto</button></div>
+    <div class="tabs"><span class="on">Produtos</span><span>Categorias</span><span>Extras</span></div>
+    <section class="bench">
+      <div class="bench-hd"><h3>Para publicar</h3><span class="n">28 rascunhos · 1 publicado hoje</span><span class="prog"><i style="width:4%"></i></span>
+        <div class="acts"><button class="btn sm ghost">Recolher</button><button class="btn sm pri">${PLAY}Publicar em sequência</button></div></div>
+      <div class="strip">${DRAFTS.map(card).join('')}</div>
+    </section>
+    <table class="lt"><thead><tr><th>Produto</th><th>Categoria</th><th>Preço</th><th>Estoque</th><th>Situação</th></tr></thead><tbody>
+      <tr><td><div class="p"><img src="img/brinco-jade.webp" alt=""><b>Brinco Jade</b></div></td><td>Brincos</td><td>R$ 23,34</td><td>1 un</td><td><span class="chip ok">Na loja</span></td></tr>
+      <tr><td><div class="p"><img src="img/ear-cuff.webp" alt=""><b>Ear Cuff Caca</b></div></td><td>Ear Cuffs</td><td>R$ 51,90</td><td>1 un</td><td><span class="chip ok">Na loja</span></td></tr>
+      <tr><td><div class="p"><img src="img/brinco-cacto.webp" alt=""><b>BRINCO CACTO</b></div></td><td>Brincos</td><td>R$ 34,93</td><td>1 un</td><td><span class="chip ok">Na loja</span></td></tr>
+    </tbody></table>
+  </div>`;
+}
+
+function seq(withPhoto) {
+  const PEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
+  const queue = [['Anel Alice', 'ok'], ['Brinco Flora', 'ok'], ['BRINCO XAXIM', 'skip'], ['BRACELETE AÇAFRÃO LISO', 'now'], ['COLAR URTIGA', ''], ['BRINCO HIBISCO', ''], ['ANEL SALVIA', ''], ['TRIO AÇUCENA', '']];
+  return `<div class="seq-top"><h2>Publicar rascunhos</h2><span class="prog"><i style="width:${withPhoto ? 11 : 7}%"></i></span><span class="n">2 publicadas · faltam 26</span><button class="btn sm ghost x">Sair</button></div>
+  <div class="sq">
+    <div class="pics">
+      <div class="big ${withPhoto ? 'has' : ''}">${withPhoto
+        ? `<img src="img/bracelete.webp" alt=""><button class="btn sm swap">${CAM} Trocar</button>`
+        : `<div class="in">${UP}<b>Arraste as fotos da peça</b><span>ou</span><button class="btn">Escolher fotos</button></div>`}</div>
+      <div class="row">${withPhoto ? '<span class="on"><img src="img/bracelete.webp" alt=""></span>' : ''}<span class="add">+</span><span class="add">+</span></div>
+      <p class="hint">Até 5 fotos. A primeira é a capa.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="sf-card">
+        <div class="eyb"><span>Assim fica na loja</span><span>Braceletes</span></div>
+        <h3>Bracelete Açafrão Liso</h3>
+        <div class="price">R$ 41,90</div>
+        <div class="last">Última unidade</div>
+      </div>
+      <div class="inline">
+        <div class="fld"><label>Preço</label><div class="v"><span class="pre">R$</span>41,90</div></div>
+        <div class="fld"><label>Em estoque</label><div class="v">1<span class="pre">un</span></div></div>
+        <div class="fld"><label>Categoria</label><div class="v">Braceletes<span class="pre">⌄</span></div></div>
+      </div>
+      <button class="addesc">+ Descrição</button>
+      <button class="addesc" style="font-weight:500;color:hsl(var(--mf))">Variações, ficha e mais no cadastro completo</button>
+    </div>
+  </div>
+  <div class="queue"><span class="lbl">Fila</span><div class="qlist">${queue.map(([n, c]) => `<span class="qi ${c}" title="${n}">${c === 'ok' ? '✓ ' : ''}${n}<small>${c === 'ok' ? 'publicada' : c === 'skip' ? 'pulada' : c === 'now' ? 'agora' : 'sem foto'}</small></span>`).join('')}</div>
+    <button class="btn">Pular<span class="kb">→</span></button><button class="btn pri" ${withPhoto ? '' : 'disabled style="opacity:.4"'}>Publicar e seguir<span class="kb">↵</span></button></div>`;
+}
+
+function done() {
+  const pubs = [['bracelete', 'Bracelete Açafrão Liso'], ['anel-letra', 'Anel Alice'], ['brinco-leca', 'Brinco Flora'], ['brinco-cacto', 'Brinco Hibisco'], ['ear-cuff', 'Colar Urtiga']];
+  return `<div class="seq-top"><h2>Publicar rascunhos</h2><span class="prog"><i style="width:100%"></i></span><span class="n">25 publicadas · 3 para depois</span><button class="btn sm ghost x">Fechar</button></div>
+  <div class="fin">
+    <div class="fin-hd"><div><b>25 peças novas na loja</b><p>Já aparecem para as clientes, com foto, preço e estoque.</p></div><button class="btn">Ver na loja</button></div>
+    <div class="fin-grid">${pubs.map(([img, n]) => `<figure><img src="img/${img}.webp" alt=""><figcaption title="${n}">${n}</figcaption></figure>`).join('')}<div class="more">+20</div></div>
+    <div class="fin-row">
+      <div class="box"><h4>Conte para as clientes</h4><p>Um link com as 25 novidades, pronto para o WhatsApp e o Instagram.</p><div class="acts"><button class="btn wa">Mandar no WhatsApp</button><button class="btn">Copiar link das novidades</button></div></div>
+      <div class="box"><h4>3 ficaram para depois</h4><div class="left-list"><span>BRINCO XAXIM</span><span>ANEL SALVIA</span><span>TRIO AÇUCENA</span></div><div class="acts"><button class="btn pri">Continuar com elas</button><button class="btn ghost">Voltar ao Catálogo</button></div></div>
+    </div>
+  </div>`;
+}
+
+function phone() {
+  const head = '<div class="tp"><span class="x">✕</span><span class="bar2"><i></i></span><small>4 de 28</small></div>';
+  const info = '<div class="info"><b>Bracelete Açafrão Liso</b><div class="pills"><span><em>R$</em>41,90</span><span><em>estoque</em>1</span><span>Braceletes</span></div></div>';
+  const camera = `<div><div class="ph2">${head}
+      <div class="cam"><div class="frame"></div><div class="tip">Enquadre a peça</div></div>${info}
+      <div class="modes"><span class="on">Câmera</span><span>Fotos</span></div>
+      <div class="ctl"><span class="gal-last" aria-label="Última foto da galeria"><img src="img/brinco-cacto.webp" alt=""></span><button class="shutter" aria-label="Tirar foto"><i></i></button><button class="side r">Pular</button></div>
+    </div><p class="cap">Câmera: fotografar a peça na mão</p></div>`;
+  const pics = ['bracelete', 'bracelete', 'brinco-cacto', 'anel-letra', 'ear-cuff', 'brinco-jade', 'brinco-leca', 'bracelete', 'anel-letra', 'brinco-cacto', 'ear-cuff', 'brinco-jade'];
+  const gallery = `<div><div class="ph2">${head}
+      <div class="src"><span class="on">Recentes</span><span>Arquivos</span><span>Drive</span></div>
+      <div class="grid">${pics.map((img, i) => `<span class="${i === 0 ? 'sel' : i === 1 ? 'sel' : ''}" data-n="${i + 1}"><img src="img/${img}.webp" alt=""></span>`).join('')}</div>${info}
+      <div class="modes"><span>Câmera</span><span class="on">Fotos</span></div>
+      <button class="pub">Usar 2 fotos</button>
+    </div><p class="cap">Fotos: as da câmera profissional, já no celular</p></div>`;
+  const ready = `<div><div class="ph2">${head}
+      <div class="cam"><img src="img/bracelete.webp" alt=""><div class="thumbs2"><span><img src="img/bracelete.webp" alt=""></span><span><img src="img/bracelete.webp" alt=""></span><span>+</span></div></div>${info}
+      <div class="sub2"><span>Trocar fotos</span><span>Pular</span></div><button class="pub">Publicar e seguir</button>
+    </div><p class="cap">Com as fotos: publicar e seguir</p></div>`;
+  return `<div class="phones">${camera}${gallery}${ready}</div>`;
+}
+
+const NOTES = {
+  bench: `<h3>Bancada no Catálogo</h3><ul>
+    <li>Aparece no topo do Catálogo só enquanto há rascunho. Some sozinha quando o último é publicado; Recolher guarda numa linha.</li>
+    <li>Cada rascunho é um cartão: a foto que falta como alvo, nome, preço e estoque.</li>
+    <li>Arrasta a foto no cartão (ou clica para escolher) e o botão vira <b>Publicar</b>. Um clique e vai para a loja.</li>
+    <li>O progresso conta o que foi publicado hoje, para dar a sensação de andar.</li>
+    <li>O filtro Rascunhos continua em Situação, para quem procura na lista.</li></ul>`,
+  seq: `<h3>Publicar em sequência</h3><ul>
+    <li>Para sentar e resolver tudo: uma peça por vez, a foto grande no centro, preço e estoque ali para conferir.</li>
+    <li>Soltar várias fotos de uma vez: a primeira vira a capa. Foto de câmera profissional, pesada, é tratada pelo Shop ao subir (fica leve sem perder qualidade na tela).</li>
+    <li><b>Publicar e seguir</b> só acende com foto; <b>Pular</b> deixa a peça na bancada. Enter publica, seta pula.</li><li>À direita, a peça como a cliente vê, no visual da loja. Preço, estoque e categoria se acertam ali mesmo.</li><li>Embaixo, a fila: publicadas, puladas, a atual e as próximas. Clicar numa leva até ela.</li>
+    <li>"Abrir o cadastro completo" leva ao diálogo de sempre, para variações e ficha.</li></ul>`,
+  done: `<h3>Terminou</h3><ul><li>Mostra as peças que entraram, com as fotos: é a recompensa e a conferência ao mesmo tempo.</li><li>O passo seguinte natural é avisar as clientes: link das novidades no WhatsApp ou copiado para o Instagram.</li><li>As puladas aparecem pelo nome, com Continuar com elas.</li></ul>`,
+  phone: `<h3>Celular</h3><ul><li><b>Câmera</b> e <b>Fotos</b>, como nos apps de câmera; abre no último usado. Quem trabalha com fotos de câmera profissional já abre em Fotos.</li><li>Em Fotos: Recentes, Arquivos e Drive; marca uma ou várias (a ordem é a das fotos, a primeira é a capa) e Usar.</li><li>Em Câmera: a dona segura a peça, enquadra e fotografa; a última foto da galeria fica ao lado do disparador.</li><li>Nome, preço, estoque e categoria em pílulas: um toque abre para corrigir.</li><li>Com a foto, um botão só, grande, ao alcance do polegar: Publicar e seguir.</li><li>Fundo escuro como a câmera do celular, para a foto ser o centro.</li></ul>`,
+};
+
+let view = 'bench', withPhoto = true;
+function render() {
+  document.getElementById('stage').innerHTML = view === 'bench' ? bench() : view === 'seq' ? seq(withPhoto) : view === 'done' ? done() : phone();
+  document.getElementById('notes').innerHTML = NOTES[view] + `<hr><h3>Próximo passo</h3><ul><li>Sessão de fotos inteira: soltar todas as fotos de uma vez na bancada e distribuir cada uma para a sua peça.</li></ul><hr><h3>De onde vem</h3><ul><li>Rascunho é a peça fora da loja. Peça nova sem foto também nasce rascunho, em vez de dar erro ao salvar.</li></ul>`;
+  document.querySelectorAll('#views button').forEach((b) => b.setAttribute('aria-pressed', b.dataset.v === view));
+}
+document.querySelectorAll('#views button').forEach((b) => (b.onclick = () => { view = b.dataset.v; render(); }));
+document.getElementById('stage').addEventListener('click', (e) => { if (view === 'seq' && e.target.closest('.shot')) { withPhoto = !withPhoto; render(); } });
+render();
+</script>
+</body>
+</html>
