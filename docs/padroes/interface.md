@@ -65,6 +65,18 @@ Formato de cada entrada: **quando** acontece, **o que usar**, **por quê**, e **
 
 ---
 
+## Botões do diálogo nunca descem
+
+**Quando:** o rodapé de qualquer diálogo, com a linha de consequência ao lado dos botões.
+
+**Use:** a consequência encolhe e quebra o próprio texto; os botões ficam sempre na mesma linha, à direita. Num diálogo pequeno, a consequência fica curta ("Sai do Shop na hora"); o detalhe vai na descrição embaixo do título.
+
+**Por quê:** botão que desce para outra linha parece outro bloco e quebra o ritmo de confirmar; no diálogo pequeno acontecia com qualquer frase um pouco maior.
+
+**Onde já está:** mockup da equipe do Hub (`static/mockups/hub/equipe`). Celular continua com os botões ocupando a largura, embaixo.
+
+---
+
 ## Cor só por token de tom
 
 **Quando:** qualquer cor com significado (deu certo, atenção, erro, informação).
@@ -142,3 +154,15 @@ Formato de cada entrada: **quando** acontece, **o que usar**, **por quê**, e **
 **Por quê:** repetir o nome gasta a altura que a área de trabalho precisa e cria dois nomes para a mesma tela ("Movimentação" na barra, "Movimentação de pneus" no corpo).
 
 **Onde já está:** Truck, modo console da casca (`useConsoleMode`), com receita em `truck/engenharia/padroes/interface-e-ux.md`, seção 15; checklists e pátio já seguem.
+
+---
+
+## Contadores lado a lado têm o mesmo peso
+
+**Quando:** uma fileira de cards de número clicáveis (contadores do Início, resumos no topo de lista).
+
+**Use:** todos com a mesma borda e o mesmo fundo. O que pede ação aparece na lista logo abaixo (botão Confirmar, chip de status), nunca numa borda forte só num card.
+
+**Por quê:** num grupo de cards clicáveis, borda forte em um lê como "selecionado", não como "urgente".
+
+**Onde já está:** mockup `shop/inicio`. O painel do Shop em produção ainda tem a borda em "Pedidos novos" (`Kpi` com `hot` em `home-screen.tsx`) e sai quando o Início novo for implementado.

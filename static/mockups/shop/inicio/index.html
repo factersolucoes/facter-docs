@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Início do Shop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fg:240 10% 3.9%;--muted:240 4.8% 95.9%;--mf:240 3.8% 46%;--border:240 5.9% 90%;--bg:0 0% 98%;
+  --ok-soft:142 55% 94%;--ok-ink:142 70% 24%;--ok:142 71% 40%;
+  --warn-soft:40 95% 93%;--warn-ink:28 85% 28%;
+  --bad-soft:0 86% 96%;--bad-ink:0 72% 38%;
+  --info-soft:214 95% 95%;--info-ink:214 70% 35%;
+  --canvas:225 14% 92%;
+}
+*{box-sizing:border-box}
+body{margin:0;background:hsl(var(--canvas));color:hsl(var(--fg));font:14px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+img{display:block}
+
+/* Documento do mockup */
+.doc{max-width:1600px;margin:0 auto;padding:28px 24px 64px}
+.doc-hd h1{font:600 22px Sora,Inter,sans-serif;letter-spacing:-.015em}
+.doc-hd p{margin-top:6px;color:hsl(var(--mf));max-width:960px}
+.bar{display:flex;gap:10px;align-items:center;margin:18px 0 10px;flex-wrap:wrap}
+.bar small{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--mf));min-width:64px}
+.seg{display:inline-flex;background:#fff;border:1px solid hsl(var(--border));border-radius:999px;padding:3px}
+.seg button{appearance:none;border:0;background:none;border-radius:999px;padding:6px 14px;font-weight:500;color:hsl(var(--mf))}
+.seg button[aria-pressed=true]{background:hsl(var(--fg));color:#fff}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start;margin-top:14px}
+.notes{background:#fff;border:1px solid hsl(var(--border));border-radius:14px;padding:18px;position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto}
+.notes h3{font:600 15px Sora,Inter,sans-serif}
+.notes ul{margin:8px 0 0;padding-left:18px}
+.notes li{margin:5px 0;color:hsl(240 6% 22%)}
+.notes hr{border:0;border-top:1px solid hsl(var(--border));margin:16px 0}
+.browser{background:#fff;border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden}
+.chrome{display:flex;align-items:center;gap:12px;height:40px;padding:0 14px;border-bottom:1px solid hsl(var(--border));background:hsl(0 0% 98%)}
+.chrome i{width:10px;height:10px;border-radius:50%;background:hsl(var(--border))}
+.chrome .url{flex:1;max-width:420px;margin:0 auto;height:24px;border-radius:7px;background:hsl(var(--muted));font-size:12px;color:hsl(var(--mf));display:flex;align-items:center;padding:0 10px}
+.frame{height:calc(100vh - 220px);min-height:680px;overflow:auto}
+.phone-wrap{display:flex;justify-content:center;padding:28px 0;background:hsl(var(--canvas));border:0}
+.phone{width:390px;height:844px;border-radius:44px;border:10px solid hsl(var(--fg));overflow:auto;background:hsl(var(--bg));scrollbar-width:none}
+.phone::-webkit-scrollbar{display:none}
+
+/* Painel do Shop */
+.app{display:flex;min-height:100%;background:hsl(var(--bg))}
+.side{width:60px;flex:none;background:#fff;border-right:1px solid hsl(var(--border));display:flex;flex-direction:column;align-items:center;gap:6px}
+.side .mk{width:60px;height:60px;background:hsl(var(--fg));display:grid;place-items:center;margin-bottom:6px}
+.side .mk img{width:22px}
+.side i{width:34px;height:34px;border-radius:9px;display:grid;place-items:center}
+.side i::before{content:"";width:16px;height:16px;border-radius:4px;border:1.6px solid hsl(var(--mf))}
+.side i.on{background:hsl(var(--muted))}
+.side i.on::before{border-color:hsl(var(--fg))}
+.main{flex:1;min-width:0}
+.top{height:60px;background:#fff;border-bottom:1px solid hsl(var(--border));display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.top b{font-weight:500}
+.top-r{display:flex;align-items:center;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 12px;border-radius:8px;border:1px solid hsl(var(--border));background:#fff;font-weight:600;font-size:13px;white-space:nowrap}
+.btn.pri{background:hsl(var(--fg));color:#fff;border-color:hsl(var(--fg))}
+.btn.sm{height:30px;padding:0 10px;font-size:12.5px}
+.btn.wa{background:hsl(142 70% 38%);border-color:hsl(142 70% 38%);color:#fff}
+.btn svg{width:15px;height:15px;flex:none}
+.iconbtn{color:hsl(142 70% 34%)}
+.who-chip{display:flex;align-items:center;gap:10px;background:hsl(var(--muted));border-radius:10px;padding:5px 12px 5px 6px}
+.av{width:32px;height:32px;border-radius:50%;background:hsl(240 5% 84%);display:grid;place-items:center;font-size:12px;font-weight:600;flex:none}
+.who-chip b{display:block;font-size:13px;font-weight:600}
+.who-chip small{display:block;font-size:11px;color:hsl(var(--mf))}
+.content{padding:24px;max-width:1360px}
+.hello h1{font:700 24px Inter;letter-spacing:-.01em}
+.hello p{color:hsl(var(--mf))}
+
+.card{background:#fff;border:1px solid hsl(var(--border));border-radius:12px}
+.card-hd{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px 0}
+.card-hd h2{font:600 15px Inter}
+.card-hd a{font-size:13px;font-weight:600;color:hsl(var(--fg));text-decoration:none}
+.card-hd small{color:hsl(var(--mf));font-size:12px}
+.pad{padding:14px 16px 16px}
+
+.todo{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}
+.tile{display:flex;gap:12px;align-items:flex-start;padding:16px;text-align:left;border:1px solid hsl(var(--border));border-radius:12px;background:#fff;appearance:none;min-width:0}
+.tile:hover{border-color:hsl(240 5% 70%)}
+.tile .ic{flex:none;width:36px;height:36px;border-radius:9px;background:hsl(var(--muted));color:hsl(var(--mf));display:grid;place-items:center}
+.tile .ic svg{width:16px;height:16px}
+.tile .tx{min-width:0;display:block}
+.tile .l{display:block;font-size:11.5px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--mf))}
+.tile .n{display:block;font:600 24px/1.25 Inter;font-variant-numeric:tabular-nums}
+.tile .d{display:block;font-size:12px;color:hsl(var(--mf));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;margin-top:16px;align-items:start}
+.col{display:grid;gap:16px;min-width:0}
+
+.day{padding:10px 16px 2px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--mf))}
+.ord{display:flex;align-items:center;gap:12px;padding:10px 16px;border-top:1px solid hsl(var(--border))}
+.day + .ord{border-top:0}
+.ord img{width:40px;height:40px;border-radius:8px;object-fit:cover;flex:none;background:hsl(var(--muted))}
+.ord .w{flex:1;min-width:0}
+.ord .w b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ord .w small{display:block;color:hsl(var(--mf));font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:99px;font-size:11.5px;font-weight:600;white-space:nowrap;flex:none}
+.chip.warn{background:hsl(var(--warn-soft));color:hsl(var(--warn-ink))}
+.chip.ok{background:hsl(var(--ok-soft));color:hsl(var(--ok-ink))}
+.chip.info{background:hsl(var(--info-soft));color:hsl(var(--info-ink))}
+.chip.bad{background:hsl(var(--bad-soft));color:hsl(var(--bad-ink))}
+.chip.off{background:hsl(var(--muted));color:hsl(var(--mf))}
+.ord .acts{display:flex;gap:6px;flex:none}
+.iconbtn{width:30px;height:30px;border-radius:8px;border:1px solid hsl(var(--border));background:#fff;display:grid;place-items:center}
+.iconbtn svg{width:15px;height:15px}
+
+.sales{display:grid;grid-template-columns:1.1fr 1fr;gap:16px;padding:14px 16px 16px}
+.big small{display:block;font-size:12px;color:hsl(var(--mf))}
+.big b{display:block;font:700 30px/1.1 Inter;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-top:2px}
+.delta{display:inline-flex;align-items:center;gap:4px;margin-top:6px;font-size:12px;font-weight:600;color:hsl(var(--ok-ink));background:hsl(var(--ok-soft));border-radius:99px;padding:2px 8px}
+.mini{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px}
+.mini div{background:hsl(var(--muted));border-radius:10px;padding:10px}
+.mini small{display:block;font-size:11px;color:hsl(var(--mf))}
+.mini b{display:block;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+.chart{display:flex;align-items:flex-end;gap:3px;height:120px;padding-top:8px}
+.chart i{flex:1;border-radius:3px 3px 1px 1px;background:hsl(240 5% 84%);min-height:3px}
+.chart i.today{background:hsl(var(--fg))}
+.chart-ax{display:flex;justify-content:space-between;font-size:11px;color:hsl(var(--mf));margin-top:4px}
+.money{margin:0 16px 16px;padding:12px 14px;border:1px solid hsl(var(--border));border-radius:10px}
+.money-row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.money-row b{font-variant-numeric:tabular-nums}
+.meter{display:flex;height:8px;border-radius:99px;overflow:hidden;background:hsl(var(--muted));margin:8px 0}
+.meter i:first-child{background:hsl(var(--ok))}
+.meter i:last-child{background:hsl(38 92% 55%)}
+.legend{display:flex;gap:16px;font-size:12px;color:hsl(var(--mf));flex-wrap:wrap}
+.legend span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;vertical-align:0}
+.legend .a::before{background:hsl(var(--ok))}.legend .b::before{background:hsl(38 92% 55%)}
+
+.top5{list-style:none;margin:0;padding:6px 16px 12px}
+.top5 li{display:flex;align-items:center;gap:12px;padding:8px 0;border-top:1px solid hsl(var(--border))}
+.top5 li:first-child{border-top:0}
+.top5 .rk{width:18px;font-weight:700;color:hsl(var(--mf));font-variant-numeric:tabular-nums}
+.top5 img{width:40px;height:40px;border-radius:8px;object-fit:cover}
+.top5 .w{flex:1;min-width:0}
+.top5 .w b{display:block;font-weight:600}
+.top5 .w small{color:hsl(var(--mf));font-size:12px}
+.top5 .bar2{width:90px;height:6px;border-radius:99px;background:hsl(var(--muted));overflow:hidden}
+.top5 .bar2 i{display:block;height:100%;background:hsl(var(--fg))}
+
+.storebox .link{font:500 12.5px ui-monospace,Menlo,monospace;color:hsl(var(--mf));margin-top:2px;word-break:break-all}
+.storebox .row{display:flex;gap:12px;align-items:center;margin-top:12px}
+.qr{width:76px;height:76px;flex:none;border:1px solid hsl(var(--border));border-radius:8px;padding:6px;background:#fff}
+.qr svg{width:100%;height:100%}
+.storebox .btns{display:grid;gap:6px;flex:1}
+.storebox .btn{justify-content:center}
+
+.att{list-style:none;margin:0;padding:4px 16px 12px}
+.att li{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid hsl(var(--border))}
+.att li:first-child{border-top:0}
+.att .w{flex:1}
+.att .w b{display:block;font-weight:600;font-size:13.5px}
+.att .w small{color:hsl(var(--mf));font-size:12px}
+.att .num{font-weight:700;font-variant-numeric:tabular-nums}
+.att a{font-size:12.5px;font-weight:600;color:hsl(var(--fg))}
+
+.split{display:flex;gap:8px;padding:12px 16px 4px}
+.split div{flex:1;background:hsl(var(--muted));border-radius:10px;padding:10px}
+.split small{display:block;font-size:11px;color:hsl(var(--mf))}
+.split b{font-size:18px;font-weight:700}
+.back-hd{padding:12px 16px 4px;font-size:12px;color:hsl(var(--mf))}
+.back{display:flex;align-items:center;gap:10px;padding:8px 16px;border-top:1px solid hsl(var(--border))}
+.back .w{flex:1;min-width:0}
+.back .w b{display:block;font-weight:600;font-size:13px}
+.back .w small{color:hsl(var(--mf));font-size:12px}
+
+.opp{list-style:none;margin:0;padding:6px 16px 12px}
+.opp li{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid hsl(var(--border))}
+.opp li:first-child{border-top:0}
+.opp .w{flex:1;min-width:0}
+.opp .w b{display:block;font-weight:600;font-size:13.5px}
+.opp .w small{display:block;color:hsl(var(--mf));font-size:12px}
+.opp .btn{flex:none}
+.top5 .stock{font-size:12px;color:hsl(var(--mf));white-space:nowrap}
+.top5 .btn{flex:none}
+.coupons{list-style:none;margin:0;padding:6px 16px 12px}
+.coupons li{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid hsl(var(--border))}
+.coupons li:first-child{border-top:0}
+.code{font:700 12px ui-monospace,Menlo,monospace;background:hsl(var(--muted));border-radius:6px;padding:3px 7px}
+.coupons .w{flex:1;font-size:12.5px;color:hsl(var(--mf))}
+
+.steps{padding:14px 16px 16px}
+.steps-hd{display:flex;align-items:center;gap:12px}
+.steps-hd b{font-weight:600}
+.prog{flex:0 0 220px;height:6px;border-radius:99px;background:hsl(var(--muted));overflow:hidden}
+.prog i{display:block;height:100%;background:hsl(var(--ok))}
+.steps-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:12px}
+.st{border:1px solid hsl(var(--border));border-radius:10px;padding:10px 12px}
+.st.done{background:hsl(var(--ok-soft));border-color:transparent}
+.st b{display:block;font-size:13px;font-weight:600}
+.st small{font-size:12px;color:hsl(var(--mf))}
+.st.done small{color:hsl(var(--ok-ink))}
+
+.empty{padding:22px 16px;text-align:center;color:hsl(var(--mf))}
+.empty b{display:block;color:hsl(var(--fg));font-weight:600}
+
+
+/* Loja começando */
+.lead{color:hsl(var(--mf));margin-top:2px}
+.launch{display:grid;grid-template-columns:250px minmax(0,1fr);gap:40px;align-items:center;padding:28px 36px;margin-top:18px;background:linear-gradient(135deg,hsl(32 45% 95%) 0%,#fff 62%)}
+.launch h2{font:700 30px/1.1 Inter;letter-spacing:-.02em;margin-top:10px}
+.launch .sub{color:hsl(var(--mf));margin-top:8px;max-width:52ch}
+.pv-phone{width:250px;height:480px;border:8px solid #1c140f;border-radius:36px;overflow:hidden;background:#fcfbf8;flex:none}
+.pv-hd{display:flex;justify-content:center;padding:10px 12px;border-bottom:1px solid #eee6dc}
+.pv-hd img{height:22px;width:auto}
+.pv-banner{height:130px}.pv-banner img{width:100%;height:100%;object-fit:cover}
+.pv-sec{padding:10px 12px 6px;font:600 14px 'Cormorant Garamond',serif;letter-spacing:.12em;text-transform:uppercase;color:#272019}
+.pv-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 12px}
+.pv-card{background:#fff;border-radius:10px;overflow:hidden;border:1px solid #efe6db}
+.pv-card img{width:100%;height:84px;object-fit:cover}
+.pv-card div{padding:6px 7px;font-size:10.5px;font-weight:600;color:#272019}
+.pv-card span{display:flex;justify-content:space-between;align-items:center;margin-top:2px}
+.pv-card i{width:18px;height:18px;border-radius:99px;background:#111;color:#fff;font-style:normal;display:grid;place-items:center;font-size:12px}
+.pv-cap{text-align:center;font-size:12px;color:hsl(var(--mf));margin-top:10px}
+.fs{margin-top:22px;border-top:1px solid hsl(var(--border));padding-top:16px}
+.fs-hd{display:flex;align-items:center;gap:12px}
+.fs-hd b{font-weight:600}
+.fs-hd .prog{flex:0 0 160px}
+.fs-hd .btn{margin-left:auto}
+.fs ol{list-style:none;margin:10px 0 0;padding:0}
+.fs li{display:flex;gap:12px;padding:8px 0;align-items:flex-start}
+.fs .mk{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;border:1.5px solid hsl(var(--border));color:hsl(var(--mf));background:#fff}
+.fs li.done .mk{background:hsl(var(--ok-soft));border-color:transparent;color:hsl(var(--ok-ink))}
+.fs li.done .t{color:hsl(var(--mf))}
+.fs li.now .mk{background:hsl(var(--fg));border-color:hsl(var(--fg));color:#fff}
+.fs .t{font-weight:600;line-height:22px}
+.fs .t small{font-weight:400;color:hsl(var(--mf));margin-left:6px}
+.fs .w{flex:1;min-width:0}
+.fs .now-box{margin-top:6px}
+.fs .now-box p{color:hsl(var(--mf));font-size:13px}
+.fs .linkbox{display:flex;align-items:center;gap:10px;border:1px solid hsl(var(--border));border-radius:10px;padding:8px 8px 8px 12px;background:#fff;margin-top:10px}
+.fs .linkbox code{flex:1;min-width:0;font:500 12.5px ui-monospace,Menlo,monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fs .now-acts{display:flex;gap:8px;margin-top:8px}
+.fs li a{font-size:12.5px;font-weight:600;color:hsl(var(--fg));margin-left:auto;line-height:22px}
+.spread{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:14px 16px 16px}
+.spread .sh{border:1px solid hsl(var(--border));border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.spread .art{height:96px;border-radius:9px;background:hsl(var(--muted));display:grid;place-items:center;overflow:hidden}
+.spread .art.wa{background:hsl(142 45% 94%)}
+.bubble{background:#fff;border-radius:10px 10px 10px 2px;padding:7px 9px;font-size:10.5px;line-height:1.35;max-width:82%;color:hsl(var(--fg))}
+.bubble u{color:hsl(214 70% 40%);text-decoration:none}
+.story{width:54px;height:96px;border-radius:8px;position:relative;overflow:hidden}
+.story img{width:100%;height:100%;object-fit:cover}
+.story span{position:absolute;left:4px;right:4px;bottom:8px;background:#fff;border-radius:5px;font-size:6.5px;font-weight:700;text-align:center;padding:3px 2px}
+.spread .qrbig{width:76px;height:76px;background:#fff;border-radius:8px;padding:6px}
+.spread .qrbig svg{width:100%;height:100%}
+.spread b{display:block;font-weight:600}
+.spread small{display:block;color:hsl(var(--mf));font-size:12.5px;margin-top:2px}
+.spread .btn{align-self:flex-start;margin-top:auto}
+.after{text-align:center;color:hsl(var(--mf));font-size:13px;padding:22px 16px 6px}
+.m .launch{grid-template-columns:1fr;padding:20px 16px;gap:0}
+.m .launch .pv{display:none}
+.m .launch h2{font-size:24px}
+.m .fs-hd .prog{flex:1}
+.m .spread{grid-template-columns:1fr}
+.m .launch > div{min-width:0}
+.m .spread .sh{display:grid;grid-template-columns:64px minmax(0,1fr);gap:4px 14px;align-items:start}
+.m .spread .art{width:64px;height:64px;grid-row:span 2}
+.m .spread .story{width:36px;height:64px}
+.m .spread .qrbig{width:54px;height:54px}
+.m .spread .bubble{display:none}
+.m .spread .wa-ic{display:grid}
+.m .spread .btn{margin-top:6px;grid-column:2;justify-self:start}
+.wa-ic{display:none;width:30px;height:30px;color:hsl(142 70% 34%);place-items:center}
+.wa-ic svg{width:28px;height:28px}
+
+
+.es{margin:12px 16px 16px;border-radius:10px;padding:26px 20px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px;
+  background-color:hsl(var(--bg));background-image:radial-gradient(hsl(var(--border)) 1px,transparent 1px);background-size:14px 14px}
+.es-ic{width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid hsl(var(--border));display:grid;place-items:center;color:hsl(var(--mf));margin-bottom:6px}
+.es-ic svg{width:18px;height:18px}
+.es b{font-weight:600}
+.es p{color:hsl(var(--mf));font-size:13px;max-width:46ch}
+.es .btn{margin-top:10px}
+.pieces{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;padding:12px 16px 4px}
+.pc img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;background:hsl(var(--muted))}
+.pc b{display:block;font-weight:600;font-size:13px;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pc small{color:hsl(var(--mf));font-size:12px}
+.pieces-ft{padding:6px 16px 16px;color:hsl(var(--mf));font-size:12.5px}
+.m .pieces{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+/* celular */
+.m .side{display:none}
+.m .top{padding:0 16px}
+.m .top .btn,.m .who-chip small,.m .who-chip b{display:none}
+.m .who-chip{padding:4px;background:none}
+.m .content{padding:16px}
+.m .todo{grid-template-columns:1fr 1fr;gap:8px}
+.m .tile{padding:12px;flex-direction:column;gap:8px}
+.m .tile .ic{width:30px;height:30px}
+.m .tile .n{font-size:22px}
+.m .tile .tx{width:100%}
+.m .tile .d{white-space:normal}
+.m .tile .l{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m .grid{grid-template-columns:1fr}
+.m .sales{grid-template-columns:1fr}
+.m .steps-list{grid-template-columns:1fr}
+.m .prog{flex:1}
+.m .card-hd{flex-wrap:wrap}
+.m .ord{flex-wrap:wrap;row-gap:6px}
+.m .top5 li{flex-wrap:wrap;row-gap:6px}
+.m .top5 .w{flex:1 1 calc(100% - 82px)}
+.m .top5 .chip{margin-left:82px}
+.m .top5 .chip + .btn{margin-left:auto}
+.m .top5 .stock{margin-left:82px}
+.m .ord .w{flex:1 1 calc(100% - 52px)}
+.m .ord .chip{margin-left:52px}
+.m .ord .acts{margin-left:auto}
+.m .money-row{font-size:13px}
+.m .bottomnav{display:flex}
+.bottomnav{display:none;position:sticky;bottom:0;background:#fff;border-top:1px solid hsl(var(--border));justify-content:space-around;padding:8px 0 12px}
+.bottomnav span{font-size:11px;color:hsl(var(--mf));text-align:center}
+.bottomnav span.on{color:hsl(var(--fg));font-weight:600}
+.bottomnav span::before{content:"";display:block;width:18px;height:18px;margin:0 auto 2px;border-radius:5px;border:1.6px solid currentColor}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="doc-hd">
+    <h1>Início do Shop</h1>
+    <p>A primeira tela do painel responde três perguntas, nessa ordem: o que eu faço agora, como estão as vendas, o que posso melhorar. Tudo sai do que o Shop já guarda (pedidos, pagamentos, itens, produtos, cupons e clientes pelo WhatsApp). Versão completa para cortar. Exemplo com a ESLA.</p>
+  </div>
+  <div class="bar"><small>Estado</small>
+    <div class="seg" id="states">
+      <button data-v="new">Loja começando</button>
+      <button data-v="busy">Loja movimentada</button>
+    </div>
+  </div>
+  <div class="bar"><small>Tela</small>
+    <div class="seg" id="devs">
+      <button data-v="desktop">Notebook</button>
+      <button data-v="phone">Celular</button>
+    </div>
+  </div>
+  <div class="layout">
+    <div>
+      <div class="browser" id="desk">
+        <div class="chrome"><i></i><i></i><i></i><div class="url">painel.facter.com.br/inicio</div></div>
+        <div class="frame"><div id="page"></div></div>
+      </div>
+      <div class="browser phone-wrap" id="mob" hidden><div class="phone m" id="phone"></div></div>
+    </div>
+    <aside class="notes">
+      <h3>Pensada pra quem usa</h3>
+      <ul>
+        <li>Dona de loja pequena (semijoia, moda, encomenda), vende pelo Instagram e WhatsApp, quase sempre no celular. A tela responde na ordem do dia dela: o que faço agora, como estou indo, como vendo mais, o que repor.</li>
+      </ul>
+      <hr>
+      <h3>De cima para baixo</h3>
+      <ul>
+        <li><b>Fazer agora:</b> quatro contadores no estilo do painel atual, cada um leva à lista filtrada. Em zero, o motivo vira "nenhum pedido novo", sem apagar o card.</li>
+        <li><b>Vendas:</b> o maior número da tela. Mês contra o anterior, semana, pedidos, ticket médio, 30 dias e recebido × a receber.</li>
+        <li><b>Saem hoje e amanhã:</b> pela data de entrega, com Confirmar ou Marcar pronto e o WhatsApp do cliente na linha.</li>
+        <li><b>Mais vendidos com o estoque:</b> "restam 2" e "esgotado" com Repor. Repor o que vende é a decisão da revenda.</li>
+        <li><b>Pra vender mais esta semana:</b> no alto da lateral. Data comercial chegando (Black Friday, Natal, Dia das Mães) com criar cupom, peças novas pra divulgar com um link só, cupom vencendo. Quem sumiu fica no cartão Clientes, com o nome e o WhatsApp. Junta o que antes eram cartões soltos; cada linha tem uma ação.</li>
+        <li><b>Clientes no mês</b>, depois <b>A sua loja</b> (link e QR, ferramenta de vez em quando) e <b>Ajustes no catálogo</b>.</li>
+        <li><b>Celular:</b> fazer agora, vendas, pedidos, vender mais, repor, clientes, loja.</li>
+      </ul>
+      <hr>
+      <h3>Loja começando</h3>
+      <ul>
+        <li>O primeiro pedido pode demorar, então a tela é a mesma da loja movimentada desde o primeiro dia. Nada some.</li>
+        <li>No topo, a faixa compacta de primeiros passos aprovada no onboarding, até os 5 estarem feitos ou ela esconder.</li>
+        <li>Cartão sem dado mostra o vazio no padrão do DS (fundo pontilhado, ícone no círculo, o que vai aparecer) e, quando cabe, a ação que traz o dado: em Pedidos, mandar o link no WhatsApp.</li>
+        <li>Mais vendidos começa como <b>Suas peças na loja</b>, com as fotos dela: a tela já tem a cara da loja antes da primeira venda.</li>
+        <li>A sua loja (link, WhatsApp, bio, QR) sobe para o alto da lateral; no celular vem logo depois dos pedidos.</li>
+      </ul>
+      <hr>
+      <h3>Fica para depois</h3>
+      <ul>
+        <li>Visitas da loja, produtos mais vistos e carrinhos abandonados pedem registrar as visitas na vitrine primeiro.</li>
+      </ul>
+    </aside>
+  </div>
+</div>
+
+<script>
+const WA_ICON = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.4-.3z"/></svg>';
+const QR = (() => { let s = '<svg viewBox="0 0 21 21">'; const r = (x,y) => s += `<rect x="${x}" y="${y}" width="1" height="1"/>`;
+  const box = (x,y) => { for (let i=0;i<7;i++) for (let j=0;j<7;j++) if (i===0||j===0||i===6||j===6||(i>1&&i<5&&j>1&&j<5)) r(x+i,y+j); };
+  box(0,0); box(14,0); box(0,14); let seed = 7; for (let x=0;x<21;x++) for (let y=0;y<21;y++) { if ((x<8&&y<8)||(x>12&&y<8)||(x<8&&y>12)) continue; seed = (seed*31+7)%97; if (seed%3===0) r(x,y); }
+  return s + '</svg>'; })();
+
+const ICON = {
+  bag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>',
+  ready: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 2 2 4-4"/><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14"/><path d="M3.29 7 12 12l8.71-5"/><path d="M12 22V12"/></svg>',
+  wallet: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>',
+  clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
+};
+const tile = t => `<button class="tile"><span class="ic">${ICON[t.icon]}</span><span class="tx"><span class="l" title="${t.t}">${t.t}</span><span class="n">${t.n}</span><span class="d" title="${t.n ? t.d : t.none}">${t.n ? t.d : t.none}</span></span></button>`;
+
+const BUSY = {
+  todo: [
+    { n: 2, t: 'Para confirmar', d: 'pedidos novos', none: 'nenhum pedido novo', icon: 'bag' },
+    { n: 3, t: 'Prontos', d: 'para entregar ou retirar', none: 'nenhum pronto', icon: 'ready' },
+    { n: 1, t: 'Pagamento esperando', d: 'R$ 240 de Juliana M.', none: 'tudo pago', icon: 'wallet' },
+    { n: 1, t: 'Parado', d: 'há 3 dias sem andar', none: 'nada parado', icon: 'clock' },
+  ],
+  today: [
+    { img: 'brinco-jade', who: 'Ana Paula · R$ 117', what: 'Brinco Jade + Ear cuff · retira às 15h', chip: ['warn','Novo'], act: 'Confirmar' },
+    { img: 'bracelete', who: 'Juliana M. · R$ 240', what: 'Bracelete · 2 unidades · entrega', chip: ['info','Pagamento esperando'], act: null },
+    { img: 'anel-letra', who: 'Rodrigo · R$ 75', what: 'Anel letra R · presente · retira às 18h', chip: ['ok','Confirmado'], act: 'Marcar pronto' },
+  ],
+  tomorrow: [
+    { img: 'brinco-cacto', who: 'Carla S. · R$ 58', what: 'Brinco Cacto · entrega', chip: ['warn','Novo'], act: 'Confirmar' },
+    { img: 'brinco-leca', who: 'Marina · R$ 133', what: 'Brinco Leca + Ear cuff · retira', chip: ['ok','Pronto'], act: null },
+  ],
+  bars: [3,5,2,6,4,7,5,2,0,4,6,8,5,3,6,9,7,4,5,6,3,8,10,6,4,7,9,6,8,5],
+  top: [
+    { img: 'brinco-jade', name: 'Brinco Jade', q: 14, v: 'R$ 812', left: 2 },
+    { img: 'ear-cuff', name: 'Ear cuff', q: 11, v: 'R$ 418', left: 9 },
+    { img: 'bracelete', name: 'Bracelete', q: 7, v: 'R$ 840', left: 0 },
+    { img: 'anel-letra', name: 'Anel letra', q: 6, v: 'R$ 450', left: 12 },
+    { img: 'brinco-leca', name: 'Brinco Leca', q: 5, v: 'R$ 375', left: 6 },
+  ],
+};
+
+const ordLine = o => `<div class="ord"><img src="img/${o.img}.webp" alt=""><div class="w"><b>${o.who}</b><small>${o.what}</small></div>
+  <span class="chip ${o.chip[0]}">${o.chip[1]}</span>
+  <div class="acts">${o.act ? `<button class="btn sm ${o.act === 'Confirmar' ? 'pri' : ''}">${o.act}</button>` : ''}<button class="iconbtn" aria-label="WhatsApp do cliente">${WA_ICON}</button></div></div>`;
+
+function store() {
+  return `<div class="card storebox pad">
+    <div style="display:flex;justify-content:space-between;align-items:center"><h2 style="font:600 15px Inter">A sua loja</h2><span class="chip ok">No ar</span></div>
+    <div style="margin-top:8px;font-weight:600">ESLA Acessórios</div>
+    <div class="link">loja.facter.com.br/store/esla</div>
+    <div class="row"><div class="qr">${QR}</div>
+      <div class="btns"><button class="btn sm wa">${WA_ICON} Mandar no WhatsApp</button><button class="btn sm">Copiar para a bio</button><button class="btn sm">Baixar QR code</button></div></div>
+  </div>`;
+}
+
+const opp = list => `<div class="card">
+  <div class="card-hd"><h2>Pra vender mais esta semana</h2></div>
+  <ul class="opp">${list.map(o => `<li><div class="w"><b>${o.t}</b><small>${o.d}</small></div><button class="btn sm ${o.wa ? 'wa' : ''}">${o.wa ? WA_ICON : ''}${o.a}</button></li>`).join('')}</ul>
+</div>`;
+
+const OPP_BUSY = [
+  { t: 'Black Friday em 16 dias', d: 'sexta, 27/11 · dá tempo de criar e divulgar um cupom', a: 'Criar cupom' },
+  { t: '4 peças novas esta semana', d: 'um link com todas, pronto pra postar', a: 'Copiar link' },
+  { t: 'ESLA10 vence sexta', d: 'usado 8 vezes · R$ 640 em pedidos', a: 'Estender' },
+];
+
+function busySections() {
+  const max = Math.max(...BUSY.bars);
+  return {
+    todo: `<div class="todo">${BUSY.todo.map(tile).join('')}</div>`,
+    orders: `<div class="card">
+        <div class="card-hd"><h2>Saem hoje e amanhã</h2><a href="#">Ver todos os pedidos</a></div>
+        <div class="day">Hoje · quarta, 11/11</div>${BUSY.today.map(ordLine).join('')}
+        <div class="day" style="border-top:1px solid hsl(var(--border));margin-top:2px">Amanhã · quinta, 12/11</div>${BUSY.tomorrow.map(ordLine).join('')}
+      </div>`,
+    sales: `<div class="card">
+        <div class="card-hd"><h2>Vendas</h2><small>novembro até hoje</small></div>
+        <div class="sales">
+          <div>
+            <div class="big"><small>Vendido no mês</small><b>R$ 3.480</b><span class="delta">↑ 18% sobre outubro no mesmo dia</span></div>
+            <div class="mini"><div><small>Na semana</small><b>R$ 920</b></div><div><small>Pedidos</small><b>41</b></div><div><small>Ticket médio</small><b>R$ 84</b></div></div>
+          </div>
+          <div><div class="chart">${BUSY.bars.map((v, i) => `<i class="${i === BUSY.bars.length - 1 ? 'today' : ''}" style="height:${Math.max(3, v / max * 100)}%"></i>`).join('')}</div>
+            <div class="chart-ax"><span>13/10</span><span>últimos 30 dias</span><span>hoje</span></div></div>
+        </div>
+        <div class="money">
+          <div class="money-row"><span>Recebido <b>R$ 3.120</b></span><span>A receber <b>R$ 360</b></span></div>
+          <div class="meter"><i style="width:90%"></i><i style="width:10%"></i></div>
+          <div class="money-row"><div class="legend"><span class="a">Pix e cartão pagos</span><span class="b">3 clientes devendo</span></div><a href="#" style="font-size:12.5px;font-weight:600;color:hsl(var(--fg))">Ver quem falta pagar</a></div>
+        </div>
+      </div>`,
+    top: `<div class="card">
+        <div class="card-hd"><h2>Mais vendidos do mês</h2><a href="#">Ver produtos</a></div>
+        <ol class="top5">${BUSY.top.map((p, i) => `<li><span class="rk">${i + 1}</span><img src="img/${p.img}.webp" alt=""><div class="w"><b>${p.name}</b><small>${p.q} vendidos · ${p.v}</small></div>${p.left === 0 ? '<span class="chip bad">esgotado</span><button class="btn sm">Repor</button>' : p.left <= 3 ? `<span class="chip warn">restam ${p.left}</span><button class="btn sm">Repor</button>` : `<span class="stock">${p.left} em estoque</span>`}</li>`).join('')}</ol>
+      </div>`,
+    opp: opp(OPP_BUSY),
+    clients: `<div class="card">
+        <div class="card-hd"><h2>Clientes no mês</h2><a href="#">Ver clientes</a></div>
+        <div class="split"><div><small>Novos</small><b>12</b></div><div><small>Voltaram a comprar</small><b>7</b></div></div>
+        <div class="back-hd">Não compram há mais de 60 dias</div>
+        <div class="back"><span class="av">CS</span><div class="w"><b>Camila Souza</b><small>última compra em 02/09 · R$ 210 no total</small></div><button class="iconbtn" aria-label="Chamar no WhatsApp">${WA_ICON}</button></div>
+        <div class="back"><span class="av">LF</span><div class="w"><b>Letícia Faria</b><small>última compra em 28/08 · R$ 145 no total</small></div><button class="iconbtn" aria-label="Chamar no WhatsApp">${WA_ICON}</button></div>
+        <div class="back" style="padding-bottom:12px"><span class="av">+3</span><div class="w"><small>mais 3 clientes · o WhatsApp abre com uma mensagem pronta</small></div></div>
+      </div>`,
+    store: store(),
+    att: `<div class="card">
+        <div class="card-hd"><h2>Ajustes no catálogo</h2></div>
+        <ul class="att">
+          <li><span class="dot warn" style="width:8px;height:8px;border-radius:50%"></span><div class="w"><b>Sem foto</b><small>vendem menos sem foto</small></div><span class="num">2</span><a href="#">Ver</a></li>
+          <li><span class="dot off" style="width:8px;height:8px;border-radius:50%"></span><div class="w"><b>Escondidos</b><small>não aparecem na loja</small></div><span class="num">3</span><a href="#">Ver</a></li>
+        </ul>
+      </div>`,
+  };
+}
+
+function busy(mobile) {
+  const x = busySections();
+  if (mobile) return x.todo + `<div class="col" style="margin-top:16px">${[x.sales, x.orders, x.opp, x.top, x.clients, x.store, x.att].join('')}</div>`;
+  return x.todo + `<div class="grid">
+    <div class="col">${x.sales}${x.orders}${x.top}</div>
+    <div class="col">${x.opp}${x.clients}${x.store}${x.att}</div>
+  </div>`;
+}
+
+const ES_ICON = {
+  chart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg>',
+  bag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>',
+  people: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+};
+const emptyCard = (title, icon, b, p, act) => `<div class="card"><div class="card-hd"><h2>${title}</h2></div>
+  <div class="es"><span class="es-ic">${ES_ICON[icon]}</span><b>${b}</b><p>${p}</p>${act || ''}</div></div>`;
+
+function fresh(mobile) {
+  const steps = [['Publicar a loja', 'feito', true], ['Copiar o link', 'feito', true], ['Pôr na bio do Instagram', 'marcar como feito', false], ['5 produtos com foto', '3 de 5 · cadastrar', false], ['Receber o primeiro pedido', 'chega em Pedidos', false]];
+  const x = {
+    steps: `<div class="card steps" style="margin-top:18px">
+      <div class="steps-hd"><b>Primeiros passos da loja</b><span class="prog"><i style="width:40%"></i></span><small style="color:hsl(var(--mf))">2 de 5</small>${mobile ? '' : '<button class="btn sm" style="margin-left:auto;border-color:transparent;background:none">Esconder</button>'}</div>
+      <div class="steps-list">${steps.map(s => `<div class="st ${s[2] ? 'done' : ''}"><b>${s[2] ? '✓ ' : ''}${s[0]}</b><small>${s[1]}</small></div>`).join('')}</div>
+    </div>`,
+    todo: `<div class="todo">${BUSY.todo.map(t => tile({ ...t, n: 0 })).join('')}</div>`,
+    sales: emptyCard('Vendas', 'chart', 'As vendas do mês aparecem aqui', 'Depois do primeiro pedido confirmado: o vendido, a semana, o ticket médio e os últimos 30 dias.'),
+    orders: emptyCard('Saem hoje e amanhã', 'bag', 'Nenhum pedido ainda', 'Quando uma cliente pedir pela loja, o pedido aparece aqui com o dia de entrega.', `<button class="btn sm wa">${WA_ICON} Mandar o link no WhatsApp</button>`),
+    pieces: `<div class="card">
+        <div class="card-hd"><h2>Suas peças na loja</h2><a href="#">Ver produtos</a></div>
+        <div class="pieces">${[['anel-letra', 'Anel Letra Strass', 'R$ 89'], ['brinco-jade', 'Brinco Jade', 'R$ 69'], ['brinco-leca', 'Brinco Leca', 'R$ 79'], ['ear-cuff', 'Ear Cuff Caca', 'R$ 59']].map(([img, n, pr]) => `<div class="pc"><img src="img/${img}.webp" alt=""><b>${n}</b><small>${pr}</small></div>`).join('')}</div>
+        <p class="pieces-ft">Quando vender, aqui aparecem as que mais saem e quanto resta de cada uma.</p>
+      </div>`,
+    clients: emptyCard('Clientes no mês', 'people', 'Quem comprar aparece aqui', 'Novas, as que voltaram e quem sumiu, com o WhatsApp a um toque.'),
+    opp: opp([{ t: 'Black Friday em 16 dias', d: 'sexta, 27/11 · um cupom de estreia traz os primeiros pedidos', a: 'Criar cupom' }]),
+    store: store(),
+    att: `<div class="card"><div class="card-hd"><h2>Ajustes no catálogo</h2></div>
+      <ul class="att"><li><span class="dot warn" style="width:8px;height:8px;border-radius:50%"></span><div class="w"><b>Sem foto</b><small>vendem menos sem foto</small></div><span class="num">2</span><a href="#">Ver</a></li></ul></div>`,
+  };
+  if (mobile) return x.steps + x.todo + `<div class="col" style="margin-top:16px">${[x.orders, x.store, x.opp, x.sales, x.pieces, x.clients, x.att].join('')}</div>`;
+  return x.steps + x.todo + `<div class="grid">
+    <div class="col">${x.sales}${x.orders}${x.pieces}</div>
+    <div class="col">${x.store}${x.opp}${x.clients}${x.att}</div>
+  </div>`;
+}
+
+let state = 'busy', dev = 'desktop';
+function page(mobile) {
+  return `<div class="app">
+    <aside class="side"><div class="mk"><img src="img/mark-white.png" alt=""></div><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></aside>
+    <div class="main">
+      <div class="top"><b>Início</b><div class="top-r"><button class="btn">Ver a loja</button><div class="who-chip"><span class="av">EA</span><span><b>ESLA Acessórios</b><small>Semijoias e moda</small></span></div></div></div>
+      <div class="content">
+        <div class="hello"><h1>Bom dia, Daniele</h1><p>quarta-feira, 11 de novembro</p></div>
+        ${state === 'busy' ? busy(mobile) : fresh(mobile)}
+      </div>
+      ${mobile ? '<nav class="bottomnav"><span class="on">Início</span><span>Pedidos</span><span>Produtos</span><span>Clientes</span><span>Mais</span></nav>' : ''}
+    </div>
+  </div>`;
+}
+const $ = s => document.querySelector(s);
+function render() { $('#page').innerHTML = page(false); $('#phone').innerHTML = page(true); }
+function bind(id, get, set) {
+  const btns = document.querySelectorAll(`#${id} button`);
+  const sync = () => btns.forEach(b => b.setAttribute('aria-pressed', b.dataset.v === get()));
+  btns.forEach(b => b.onclick = () => { set(b.dataset.v); sync(); render(); });
+  sync();
+}
+bind('states', () => state, v => state = v);
+bind('devs', () => dev, v => { dev = v; $('#desk').hidden = v !== 'desktop'; $('#mob').hidden = v !== 'phone'; });
+render();
+</script>
+</body>
+</html>

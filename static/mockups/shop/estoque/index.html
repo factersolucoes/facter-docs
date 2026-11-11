@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estoque do Shop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700&family=Fraunces:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fg:240 10% 3.9%;--muted:240 4.8% 95.9%;--mf:240 3.8% 46%;--border:240 5.9% 90%;--bg:0 0% 98%;
+  --ok-soft:142 55% 94%;--ok-ink:142 70% 24%;
+  --warn-soft:40 95% 93%;--warn-ink:28 85% 28%;
+  --bad-soft:0 86% 96%;--bad-ink:0 72% 38%;
+  --canvas:225 14% 92%;
+  --gold:40 50% 40%;
+}
+*{box-sizing:border-box}
+body{margin:0;background:hsl(var(--canvas));color:hsl(var(--fg));font:14px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+img{display:block}
+
+.doc{max-width:1600px;margin:0 auto;padding:28px 24px 64px}
+.doc-hd h1{font:600 22px Sora,Inter,sans-serif;letter-spacing:-.015em}
+.doc-hd p{margin-top:6px;color:hsl(var(--mf));max-width:980px}
+.bar{display:flex;gap:10px;align-items:center;margin:18px 0 10px;flex-wrap:wrap}
+.bar small{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--mf));min-width:64px}
+.seg{display:inline-flex;background:#fff;border:1px solid hsl(var(--border));border-radius:999px;padding:3px;flex-wrap:wrap}
+.seg button{appearance:none;border:0;background:none;border-radius:999px;padding:6px 14px;font-weight:500;color:hsl(var(--mf))}
+.seg button[aria-pressed=true]{background:hsl(var(--fg));color:#fff}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:18px;align-items:start;margin-top:14px}
+.notes{background:#fff;border:1px solid hsl(var(--border));border-radius:14px;padding:18px;position:sticky;top:16px}
+.notes h3{font:600 15px Sora,Inter,sans-serif}
+.notes ul{margin:8px 0 0;padding-left:18px}
+.notes li{margin:5px 0;color:hsl(240 6% 22%)}
+.notes hr{border:0;border-top:1px solid hsl(var(--border));margin:16px 0}
+.stage{background:#fff;border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden}
+
+/* painel: diálogo do produto */
+.dlg-hd{display:flex;gap:14px;align-items:center;padding:20px 24px;border-bottom:1px solid hsl(var(--border));background:linear-gradient(#fafafa,#fff)}
+.dlg-ic{width:48px;height:48px;border-radius:12px;background:hsl(var(--fg));display:grid;place-items:center;color:#fff}
+.dlg-ic svg{width:22px;height:22px}
+.dlg-hd h2{font:600 18px Inter}
+.dlg-hd p{color:hsl(var(--mf))}
+.dlg-body{display:grid;grid-template-columns:minmax(0,1fr) 300px}
+.dlg-main{padding:22px 24px;border-right:1px solid hsl(var(--border))}
+.dlg-side{padding:22px 20px;background:#fff}
+.sec{margin-bottom:22px}
+.sec-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.sec-hd .n{width:24px;height:24px;border-radius:50%;background:hsl(var(--fg));color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700}
+.sec-hd h3{font:600 17px Inter}
+.sec-hd small{margin-left:auto;color:hsl(var(--mf));font-size:12.5px}
+.row{display:grid;gap:12px;margin-bottom:12px}
+.fld{position:relative;border:1px solid hsl(var(--border));border-radius:9px;padding:16px 12px 8px;background:#fff;min-height:46px}
+.fld label{position:absolute;top:-9px;left:10px;background:#fff;padding:0 4px;font-size:12.5px;font-weight:500;display:flex;align-items:center;gap:4px}
+.fld .v{display:flex;justify-content:space-between;gap:8px}
+.fld .ph{color:hsl(var(--mf))}
+.fld .pre{color:hsl(var(--mf));font-size:12px}
+.fld.num .v{justify-content:flex-end;font-weight:600}
+.fld.new{border-color:hsl(var(--fg));box-shadow:0 0 0 3px hsl(var(--muted))}
+.info{width:14px;height:14px;border-radius:50%;border:1.3px solid hsl(var(--mf));color:hsl(var(--mf));font:600 9px/11px Inter;text-align:center}
+.sells{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.sell{border:1px solid hsl(var(--border));border-radius:10px;padding:12px}
+.sell.on{border:1.5px solid hsl(var(--fg))}
+.sell b{display:block;font-weight:600;margin-top:6px}
+.sell span{font-size:12.5px;color:hsl(var(--mf))}
+.line{display:flex;align-items:center;gap:10px;border:1px dashed hsl(var(--border));border-radius:10px;padding:10px 12px;margin-top:10px}
+.line .grow{flex:1}
+.mini-in{width:64px;height:34px;border:1px solid hsl(var(--border));border-radius:8px;display:grid;place-items:center;font-weight:600;background:#fff}
+.mini-in.wide{width:84px}
+.mini-in.empty{color:hsl(var(--mf));font-weight:400}
+.tog{display:flex;align-items:center;justify-content:space-between;border:1px solid hsl(var(--border));border-radius:10px;padding:10px 12px;margin-top:10px}
+.tog.new{border-color:hsl(var(--fg))}
+.tog .w b{display:block;font-weight:500}
+.tog .w small{color:hsl(var(--mf));font-size:12.5px}
+.sw{width:42px;height:24px;border-radius:99px;background:hsl(240 5% 84%);position:relative;flex:none}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.15s}
+.sw.on{background:hsl(var(--fg))}
+.sw.on::after{left:21px}
+.stockbox{display:flex;align-items:center;gap:12px;margin-top:10px;padding:12px;border-radius:10px;background:hsl(var(--muted))}
+.stockbox .grow{flex:1;color:hsl(var(--mf));font-size:13px}
+.chip{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:99px;font-size:11.5px;font-weight:600;white-space:nowrap}
+.chip.ok{background:hsl(var(--ok-soft));color:hsl(var(--ok-ink))}
+.chip.warn{background:hsl(var(--warn-soft));color:hsl(var(--warn-ink))}
+.chip.bad{background:hsl(var(--bad-soft));color:hsl(var(--bad-ink))}
+.chip.off{background:hsl(var(--muted));color:hsl(var(--mf))}
+.picks{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.pick{border:1px solid hsl(var(--border));border-radius:99px;padding:6px 12px;font-size:13px;color:hsl(var(--mf));background:#fff}
+.pick.on{border-color:hsl(var(--fg));color:hsl(var(--fg));font-weight:500}
+.block{border:1px solid hsl(var(--border));border-radius:12px;padding:14px}
+.block-hd{display:flex;align-items:center;gap:8px;font-weight:500;margin-bottom:12px}
+.vt{width:100%;border-collapse:collapse}
+.vt th{font-size:11.5px;font-weight:600;color:hsl(var(--mf));text-align:left;padding:0 8px 8px;letter-spacing:.02em}
+.vt td{padding:6px 8px;border-top:1px solid hsl(var(--border));vertical-align:middle}
+.vt td .cell{height:36px;border:1px solid hsl(var(--border));border-radius:8px;display:flex;align-items:center;padding:0 10px;background:#fff}
+.vt td .cell.num{justify-content:flex-end;font-weight:600;width:96px}
+.vt td .cell.code{width:150px;font:500 12.5px ui-monospace,Menlo,monospace}
+.vt td .cell.ph{color:hsl(var(--mf));font:400 13px Inter}
+.vt tr.out td .cell:first-child{color:hsl(var(--mf))}
+.x{width:30px;height:30px;border:0;background:none;color:hsl(var(--mf));font-size:18px}
+.add{margin-top:10px;border:1px solid hsl(var(--border));border-radius:8px;padding:6px 12px;background:#fff;font-weight:500;font-size:13px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;border:1px solid hsl(var(--border));border-radius:9px;padding:10px;min-height:46px}
+.chips span{background:hsl(var(--muted));border-radius:6px;padding:2px 8px;font-size:12.5px}
+.photo{width:100%;aspect-ratio:1;border-radius:12px;object-fit:cover;background:#111}
+.prev{border:1px solid hsl(var(--border));border-radius:12px;padding:12px;margin-top:12px}
+.prev small{font-size:11px;font-weight:600;letter-spacing:.06em;color:hsl(var(--mf))}
+.prev .r{display:flex;gap:10px;margin-top:8px}
+.prev img{width:56px;height:56px;border-radius:8px;object-fit:cover}
+.prev b{display:block;font-weight:600}
+.prev .low{display:block;font-size:12px;color:hsl(var(--gold));font-weight:600;margin-top:2px}
+.prev .low.out{color:hsl(var(--bad-ink))}
+.ph-main{position:relative}
+.ph-del{position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:8px;border:0;background:#fff;display:grid;place-items:center}
+.ph-swap{position:absolute;left:12px;bottom:12px;display:flex;align-items:center;gap:8px;height:38px;padding:0 14px;border-radius:9px;border:0;background:#fff;font-weight:600}
+.thumbs{display:flex;gap:8px;margin-top:10px}
+.thumbs img{width:54px;height:54px;border-radius:9px;object-fit:cover;border:1px solid hsl(var(--border))}
+.thumbs img.on{outline:2px solid hsl(var(--fg));outline-offset:1px}
+.thumb-add{width:54px;height:54px;border-radius:9px;border:1px dashed hsl(var(--border));display:grid;place-items:center;color:hsl(var(--mf));font-size:20px}
+input.mini-in,input.cell{font:inherit;font-weight:600;text-align:right;outline:none}
+input.cell.code{font:500 12.5px ui-monospace,Menlo,monospace;text-align:left}
+input.cell:focus,input.mini-in:focus,.code-in:focus{border-color:hsl(var(--fg))}
+.label-in{border:0;outline:none;flex:1;min-width:0;font:inherit;background:transparent;color:inherit}
+.code-in{border:0;outline:none;width:100%;padding:0;font:500 13px ui-monospace,Menlo,monospace;background:transparent}
+input[type=number]::-webkit-inner-spin-button{opacity:1}
+.dlg-ft{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-top:1px solid hsl(var(--border))}
+.btn{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 16px;border-radius:9px;border:1px solid hsl(var(--border));background:#fff;font-weight:600}
+.btn.pri{background:hsl(var(--fg));color:#fff;border-color:hsl(var(--fg))}
+
+/* catálogo */
+.cat{padding:22px 24px}
+.cat h2{font:700 26px Inter;letter-spacing:-.01em}
+.cat .sub{color:hsl(var(--mf));margin-top:2px}
+.filters{display:flex;gap:10px;margin:18px 0 14px}
+.search{width:240px;height:38px;border:1px solid hsl(var(--border));border-radius:9px;display:flex;align-items:center;padding:0 12px;color:hsl(var(--mf))}
+.fchip{height:38px;border:1px solid hsl(var(--border));border-radius:99px;display:flex;align-items:center;padding:0 14px;gap:6px}
+.fchip.on{border-color:hsl(var(--fg));font-weight:500}
+.lt{width:100%;border-collapse:collapse;border:1px solid hsl(var(--border));border-radius:12px;overflow:hidden}
+.lt th{text-align:left;font-weight:500;color:hsl(var(--mf));padding:12px 14px;border-bottom:1px solid hsl(var(--border));background:#fff}
+.lt td{padding:10px 14px;border-bottom:1px solid hsl(var(--border));vertical-align:middle}
+.lt .p{display:flex;align-items:center;gap:10px}
+.lt .p img{width:38px;height:38px;border-radius:8px;object-fit:cover}
+.lt .p b{display:block;font-weight:500}
+.lt .p small{color:hsl(var(--mf));font-size:12.5px}
+.lt .st b{font-weight:600}
+.lt .st small{display:block;color:hsl(var(--mf));font-size:12px}
+.lt td.new{background:hsl(48 100% 98%)}
+
+/* vitrine ESLA */
+.sf{background:#fbfaf7;color:#121113;font-family:Inter,sans-serif}
+.sf-ann{background:#0f0e0d;color:#f3efe8;text-align:center;font-size:11px;letter-spacing:.18em;padding:8px}
+.sf-nav{display:flex;align-items:center;justify-content:space-between;padding:18px 40px;border-bottom:1px solid #ece7df;font-size:11.5px;letter-spacing:.18em}
+.sf-nav img{height:30px}
+.sf-item{display:grid;grid-template-columns:1fr 1fr;gap:48px;padding:32px 40px 40px}
+.sf-item .ph{aspect-ratio:4/5;object-fit:cover;width:100%;background:#111}
+.badges{display:flex;gap:8px}
+.badges span{border:1px solid #e3ddd3;padding:5px 10px;font-size:10.5px;letter-spacing:.14em}
+.sf-item h1{font:400 44px/1.1 Fraunces,serif;margin-top:16px}
+.price{display:flex;gap:12px;align-items:baseline;margin-top:14px;font:400 26px Fraunces,serif}
+.price s{font-size:15px;color:#8a847c}
+.mat{font-size:11px;letter-spacing:.18em;color:#8a847c;margin-top:16px}
+.optl{font-size:11.5px;letter-spacing:.16em;margin-top:22px}
+.optl span{letter-spacing:0;color:#8a847c;margin-left:8px}
+.pills{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.pill{border:1px solid transparent;padding:10px 16px;font-size:11.5px;letter-spacing:.16em}
+.pill.on{background:#121113;color:#fff}
+.pill.out{color:#b5aea4;text-decoration:line-through;cursor:not-allowed}
+.last{margin-top:18px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:hsl(var(--gold));font-weight:600}
+.buy{display:flex;gap:12px;margin-top:10px}
+.qty{display:flex;align-items:center;justify-content:space-between;width:122px;border:1px solid #d9d2c7;padding:0 14px;height:54px}
+.qty i{font-style:normal;color:#b5aea4}
+.add2{flex:1;height:54px;background:#121113;color:#fff;display:grid;place-items:center;font-size:12px;letter-spacing:.18em}
+.hint{font-size:12px;color:#8a847c;margin-top:8px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;padding:28px 40px 40px}
+.card img{aspect-ratio:4/5;width:100%;object-fit:cover;background:#111}
+.card b{display:block;font:400 17px Fraunces,serif;margin-top:10px}
+.card .pr{font-size:13px;margin-top:2px}
+.card .tag{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:hsl(var(--gold));font-weight:600;margin-top:4px}
+.card.out img{opacity:.55}
+.card .tag.out{color:#8a847c}
+.sec-t{padding:28px 40px 0;font:400 30px Fraunces,serif}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="doc-hd">
+    <h1>Estoque do Shop</h1>
+    <p>Quantidade na peça, em cada tamanho e em cada cor ou letra, e o código da peça (SKU). Baixa quando a dona confirma o pedido, volta se ela recusar depois, nunca fica negativo e a loja esgota sozinha no zero: a regra que o site da ESLA já tinha. Exemplo com peças da ESLA.</p>
+  </div>
+  <div class="bar"><small>Tela</small>
+    <div class="seg" id="views">
+      <button data-v="piece">Produto sem variação</button>
+      <button data-v="letters">Produto com letras</button>
+      <button data-v="list">Catálogo</button>
+      <button data-v="store">Na loja</button>
+    </div>
+  </div>
+  <div class="layout">
+    <div class="stage" id="stage"></div>
+    <aside class="notes" id="notes"></aside>
+  </div>
+</div>
+
+<script>
+const BOX = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>';
+
+const ic = (d) => `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+const ICONS = {
+  clock: ic('<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>'),
+  cal: ic('<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>'),
+  tool: ic('<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/>'),
+  trash: ic('<path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/>'),
+  cam: ic('<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3"/>'),
+};
+const BOX_SM = BOX.replace('<svg ', '<svg width="16" height="16" ');
+
+const STATE = {
+  piece: { track: true, stock: 1 },
+  letters: {
+    track: true,
+    rows: [
+      { label: 'Letra N', stock: 1, sku: '24465250' },
+      { label: 'Letra B', stock: 1, sku: '' },
+      { label: 'Letra F', stock: 1, sku: '' },
+      { label: 'Letra C', stock: 0, sku: '' },
+    ],
+  },
+};
+const PHOTOS = { piece: ['brinco-jade', 'brinco-jade', 'brinco-jade'], letters: ['anel-letra', 'anel-letra', 'anel-letra'] };
+
+/** What the customer reads under the price, the same rule the storefront uses. */
+function lowLabel(total, track) {
+  if (!track) return '';
+  if (total <= 0) return '<span class="low out">Esgotado</span>';
+  if (total === 1) return '<span class="low">Última unidade</span>';
+  if (total <= 3) return `<span class="low">Últimas ${total} unidades</span>`;
+  return '';
+}
+
+function dialog({ name, img, sku, price, promo, letters }) {
+  const st = letters ? STATE.letters : STATE.piece;
+  const total = letters ? st.rows.reduce((n, r) => n + Math.max(0, r.stock), 0) : st.stock;
+  const stockLine = !st.track ? ''
+    : letters
+      ? `<div class="stockbox"><span class="grow">Cada letra tem o seu estoque, em <b>O que a cliente escolhe</b>.</span><span class="chip ${total > 0 ? 'ok' : 'bad'}">${total > 0 ? `${total} un` : 'esgotado'}</span></div>`
+      : `<div class="stockbox"><span class="grow">Em estoque</span>${total <= 0 ? '<span class="chip bad">esgotado</span>' : ''}<input class="mini-in wide" type="number" min="0" inputmode="numeric" data-stock="piece" value="${st.stock}" aria-label="Em estoque"><span style="color:hsl(var(--mf))">un</span></div>`;
+  const rows = st.rows ?? [];
+  const table = st.track
+    ? `<table class="vt">
+          <thead><tr><th>Opção</th><th style="text-align:right">Em estoque</th><th>Código</th><th></th></tr></thead>
+          <tbody>${rows.map((r, i) => `<tr class="${r.stock <= 0 ? 'out' : ''}">
+            <td><div class="cell" style="justify-content:space-between;gap:8px"><input class="label-in" data-label="${i}" value="${r.label}" placeholder="Ex.: Letra A" aria-label="Opção">${r.stock <= 0 ? '<span class="chip bad">esgotada</span>' : ''}</div></td>
+            <td><input class="cell num" style="margin-left:auto" type="number" min="0" inputmode="numeric" data-row="${i}" value="${r.stock}" aria-label="Em estoque de ${r.label}"></td>
+            <td><input class="cell code" data-sku="${i}" value="${r.sku}" placeholder="Ex.: 2446525${i}" aria-label="Código de ${r.label}"></td>
+            <td><button class="x" data-del="${i}" aria-label="Tirar ${r.label}">×</button></td></tr>`).join('')}</tbody>
+        </table>
+        <button class="add" data-addrow>+ Adicionar letra</button>`
+    : `<div class="fld" style="margin-top:4px"><label>Opções</label><div class="chips" style="border:0;padding:0;min-height:0">${rows.map((r) => `<span>${r.label} ×</span>`).join('')}</div></div>`;
+  const variants = letters ? `
+    <div class="sec">
+      <div class="sec-hd"><span class="n">3</span><h3>O que a cliente escolhe</h3><small>Toque pra ligar ou desligar.</small></div>
+      <div class="picks"><span class="pick">+ Tamanhos com preço</span><span class="pick on">✓ Variações</span><span class="pick">+ Perguntas</span><span class="pick">+ Extras</span></div>
+      <div class="block">
+        <div class="block-hd">Variações <span class="info">i</span></div>
+        <div class="row" style="grid-template-columns:240px 1fr"><div class="fld"><label>Escolha</label><div class="v">Letra</div></div><div></div></div>
+        ${table}
+      </div>
+    </div>` : '';
+  const photos = PHOTOS[letters ? 'letters' : 'piece'];
+  return `
+  <div class="dlg-hd"><span class="dlg-ic">${BOX}</span><div><h2>Editar produto</h2><p>Como a cliente vê e escolhe na loja.</p></div></div>
+  <div class="dlg-body">
+    <div class="dlg-main">
+      <div class="sec">
+        <div class="sec-hd"><span class="n">1</span><h3>O que é</h3></div>
+        <div class="row" style="grid-template-columns:minmax(0,1fr) 180px 240px">
+          <div class="fld"><label>Nome</label><div class="v">${name}</div></div>
+          <div class="fld new"><label>Código <span class="info" title="O seu código da peça, como o do fornecedor. A cliente não vê.">i</span></label><input class="v code-in" value="${sku}" placeholder="Ex.: 33026947" aria-label="Código"></div>
+          <div class="fld"><label>Aparece em</label><div class="v">${letters ? 'Anéis' : 'Brincos'} <span class="ph">⌄</span></div></div>
+        </div>
+        <div class="row" style="grid-template-columns:1fr 1fr 240px">
+          <div class="fld num"><label>Preço</label><div class="v"><span class="pre">R$</span>${price}</div></div>
+          <div class="fld num"><label>Preço promocional <span class="info">i</span></label><div class="v"><span class="pre">R$</span>${promo}</div></div>
+          <div class="fld"><label>Vendido por</label><div class="v">un <span class="ph">⌄</span></div></div>
+        </div>
+      </div>
+      <div class="sec">
+        <div class="sec-hd"><span class="n">2</span><h3>Como vende</h3><small>Muda o que a loja pergunta no pedido.</small></div>
+        <div class="sells">
+          <div class="sell on">${BOX_SM}<b>Pronta entrega</b><span>Tem em estoque. Sai em dias.</span></div>
+          <div class="sell">${ICONS.clock}<b>Sob encomenda</b><span>Faz depois do pedido. Tem prazo.</span></div>
+          <div class="sell">${ICONS.cal}<b>Com data</b><span>A cliente escolhe o dia e a hora.</span></div>
+          <div class="sell">${ICONS.tool}<b>Serviço</b><span>Pede orçamento. Sem valor fechado.</span></div>
+        </div>
+        <div class="line"><span class="grow">Sai em até 2 dias úteis.</span><span class="mini-in">2</span><span style="color:hsl(var(--mf))">dias</span></div>
+        <button class="tog new" data-track type="button" style="width:100%;text-align:left;background:#fff"><div class="w"><b>Controlar estoque</b><small>${st.track ? 'A loja esgota sozinha quando acaba.' : 'A peça não esgota sozinha.'}</small></div><span class="sw ${st.track ? 'on' : ''}"></span></button>
+        ${stockLine}
+        <div class="tog"><div class="w"><b>Disponível</b></div><span class="sw on"></span></div>
+      </div>
+      ${variants}
+    </div>
+    <div class="dlg-side">
+      <div class="ph-main"><img class="photo" src="img/${img}.webp" alt=""><button class="ph-del" aria-label="Apagar foto">${ICONS.trash}</button><button class="ph-swap">${ICONS.cam} Trocar foto</button></div>
+      <div class="thumbs">${photos.map((p, i) => `<img src="img/${p}.webp" alt="" class="${i === 0 ? 'on' : ''}">`).join('')}<span class="thumb-add">+</span></div>
+      <div class="prev"><small>NA LOJA</small><div class="r"><img src="img/${img}.webp" alt=""><div><b>${name}</b>${lowLabel(total, st.track)}<span style="font-weight:600;display:block">R$ ${promo}</span></div></div></div>
+      <div class="tog" style="margin-top:12px"><div class="w"><b>Mostrar na loja</b></div><span class="sw on"></span></div>
+    </div>
+  </div>
+  <div class="dlg-ft"><span style="color:hsl(var(--mf))">✓ Aparece em ${letters ? 'Anéis' : 'Brincos'} · R$ ${promo}</span><span style="display:flex;gap:10px"><button class="btn">Cancelar</button><button class="btn pri">Salvar</button></span></div>`;
+}
+
+function list() {
+  const rows = [
+    ['anel-letra', 'Anel Letra Strass', 'Anéis', 'R$ 26,40', ['3 un', '1 letra esgotada'], ['ok', 'Na loja']],
+    ['brinco-jade', 'Brinco Jade', 'Brincos', 'R$ 23,34', ['1 un', 'última'], ['ok', 'Na loja']],
+    ['brinco-leca', 'Max Brinco Leca', 'Brincos', 'R$ 11,45', ['0', ''], ['bad', 'Esgotado']],
+    ['brinco-cacto', 'Brinco Cacto', 'Brincos', 'R$ 34,93', ['2 un', ''], ['ok', 'Na loja']],
+    ['ear-cuff', 'Ear Cuff Caca', 'Ear Cuffs', 'R$ 51,90', ['—', 'sem controlar'], ['ok', 'Na loja']],
+    ['bracelete', 'Bracelete Campanula', 'Braceletes', 'R$ 49,90', ['1 un', 'última'], ['ok', 'Na loja']],
+  ];
+  return `<div class="cat">
+    <h2>Catálogo</h2><p class="sub">111 na loja · 0 ocultos · 44 esgotados</p>
+    <div class="filters"><span class="search">⌕&nbsp; Buscar produto ou código</span><span class="fchip on">Esgotados · 44 ⌄</span></div>
+    <table class="lt"><thead><tr><th>Produto</th><th>Categoria</th><th>Preço</th><th>Estoque</th><th>Situação</th></tr></thead><tbody>
+    ${rows.map(([img, n, c, p, st, sit]) => `<tr><td><div class="p"><img src="img/${img}.webp" alt=""><div><b>${n}</b><small>nenhum pedido</small></div></div></td><td>${c}</td><td>${p}</td><td class="st new"><b>${st[0]}</b>${st[1] ? `<small>${st[1]}</small>` : ''}</td><td><span class="chip ${sit[0]}">${sit[1]}</span></td></tr>`).join('')}
+    </tbody></table>
+  </div>`;
+}
+
+function store() {
+  return `<div class="sf">
+    <div class="sf-ann">COMPRAS ACIMA DE R$ 199,99 FRETE GRÁTIS EM SÃO LUÍS</div>
+    <div class="sf-nav"><span>RELÓGIO &nbsp; BRINCOS &nbsp; CONJUNTOS &nbsp; ANÉIS</span><img src="img/logo-esla.webp" alt="ESLA"><span>TUDO &nbsp; SACOLA (0)</span></div>
+    <div class="sf-item">
+      <img class="ph" src="img/anel-letra.webp" alt="">
+      <div>
+        <div class="badges"><span>PRONTA ENTREGA</span><span>ANTIALÉRGICO</span><span>SEM NÍQUEL</span></div>
+        <h1>Anel Letra Strass</h1>
+        <div class="price"><s>R$ 34,90</s>R$ 26,40</div>
+        <div class="mat">SEMIJOIA BANHADA A OURO 18K</div>
+        <div class="optl">LETRA<span>Letra N</span></div>
+        <div class="pills"><span class="pill on">LETRA N</span><span class="pill out" title="Esgotada">LETRA C</span><span class="pill">LETRA B</span><span class="pill">LETRA F</span></div>
+        <div class="last">Última unidade</div>
+        <div class="buy"><div class="qty"><span>−</span><b>1</b><i>+</i></div><div class="add2">ADICIONAR À SACOLA · R$ 26,40</div></div>
+        <p class="hint">Só resta 1 da Letra N.</p>
+      </div>
+    </div>
+    <div class="sec-t">Brincos</div>
+    <div class="grid4">
+      <div class="card"><img src="img/brinco-jade.webp" alt=""><b>Brinco Jade</b><div class="pr">R$ 23,34</div><div class="tag">Última unidade</div></div>
+      <div class="card"><img src="img/brinco-cacto.webp" alt=""><b>Brinco Cacto</b><div class="pr">R$ 34,93</div><div class="tag">Últimas 2 unidades</div></div>
+      <div class="card out"><img src="img/brinco-leca.webp" alt=""><b>Max Brinco Leca</b><div class="pr">R$ 11,45</div><div class="tag out">Esgotado</div></div>
+      <div class="card"><img src="img/ear-cuff.webp" alt=""><b>Ear Cuff Caca</b><div class="pr">R$ 51,90</div></div>
+    </div>
+  </div>`;
+}
+
+const NOTES = {
+  piece: `<h3>Produto sem variação</h3><ul>
+    <li><b>Controlar estoque</b> (o nome que o site antigo usava) liga a quantidade. Desligado, a peça nunca esgota sozinha: vale para o que é feito sob encomenda.</li>
+    <li><b>Em estoque</b> fica logo abaixo, só com o controle ligado. Zero = a loja mostra esgotado; Disponível continua sendo a pausa manual.</li>
+    <li><b>Código</b> ao lado do nome, opcional: o código da peça, muitas vezes o do fornecedor. A cliente não vê; aparece no painel, na busca e no pedido.</li>
+    <li>A prévia "Na loja" já mostra "Última unidade" de 3 para baixo.</li></ul>`,
+  letters: `<h3>Produto com letras</h3><ul>
+    <li>Com variações e o controle ligado, cada opção vira uma linha com <b>Em estoque</b> e <b>Código</b>. Sem o controle, as opções seguem em etiquetas, como hoje.</li>
+    <li>A linha em zero mostra <b>esgotada</b>; na loja a letra aparece riscada e não dá pra escolher.</li>
+    <li>O resumo em <b>Como vende</b> soma as letras (3 un).</li>
+    <li>Tamanhos com preço ganham as mesmas duas colunas.</li>
+    <li>Editar a peça não troca as linhas: um pedido confirmado antes da edição devolve a letra certa se for recusado.</li></ul>`,
+  list: `<h3>Catálogo</h3><ul>
+    <li>Nova coluna <b>Estoque</b>: a soma, e embaixo o que pede atenção (última, letra esgotada, sem controlar).</li>
+    <li>O filtro <b>Esgotados</b> conta também quem chegou a zero, além de quem foi marcado indisponível.</li>
+    <li>A busca acha pelo código também.</li></ul>`,
+  store: `<h3>Na loja</h3><ul>
+    <li>"Última unidade" e "Últimas N unidades" de 3 para baixo, como no site antigo: no card e na página da peça.</li>
+    <li>Letra esgotada aparece riscada e não pode ser escolhida; peça toda esgotada fica com "Esgotado" no card.</li>
+    <li>O botão + para no que existe e avisa "Só resta 1 da Letra N."; se outra cliente levar antes, o pedido diz quantas restam em vez de passar.</li>
+    <li>A peça continua disponível até a dona confirmar o pedido: o estoque baixa na confirmação e volta se ela recusar depois.</li></ul>`,
+};
+
+let view = 'piece';
+function render() {
+  document.getElementById('stage').innerHTML =
+    view === 'piece' ? dialog({ name: 'Brinco Jade', img: 'brinco-jade', sku: '59527022', price: '38,90', promo: '23,34', letters: false })
+    : view === 'letters' ? dialog({ name: 'Anel Letra Strass', img: 'anel-letra', sku: '24465250', price: '34,90', promo: '26,40', letters: true })
+    : view === 'list' ? list() : store();
+  document.getElementById('notes').innerHTML = NOTES[view] + `<hr><h3>Do site antigo</h3><ul><li>A sincronização traz as quantidades e os códigos de cada peça, tamanho e letra, e as letras que estavam esgotadas no dia da importação voltam com estoque 0.</li></ul>`;
+  document.querySelectorAll('#views button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === view));
+}
+document.querySelectorAll('#views button').forEach(b => b.onclick = () => { view = b.dataset.v; render(); });
+const stage = document.getElementById('stage');
+stage.addEventListener('click', (e) => {
+  const st = view === 'letters' ? STATE.letters : STATE.piece;
+  if (e.target.closest('[data-track]')) { st.track = !st.track; render(); }
+  const del = e.target.closest('[data-del]');
+  if (del) { STATE.letters.rows.splice(Number(del.dataset.del), 1); render(); }
+  if (e.target.closest('[data-addrow]')) { STATE.letters.rows.push({ label: `Letra ${'ADEGHJ'[STATE.letters.rows.length % 6]}`, stock: 1, sku: '' }); render(); }
+});
+stage.addEventListener('change', (e) => {
+  const n = Math.max(0, Math.floor(Number(e.target.value) || 0));
+  if (e.target.dataset.stock) { STATE.piece.stock = n; render(); }
+  if (e.target.dataset.row) { STATE.letters.rows[Number(e.target.dataset.row)].stock = n; render(); }
+  if (e.target.dataset.label) { STATE.letters.rows[Number(e.target.dataset.label)].label = e.target.value; render(); }
+  if (e.target.dataset.sku) { STATE.letters.rows[Number(e.target.dataset.sku)].sku = e.target.value; }
+});
+render();
+</script>
+</body>
+</html>
