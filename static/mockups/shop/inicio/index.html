@@ -74,10 +74,12 @@ img{display:block}
 .hello p{color:hsl(var(--mf))}
 
 .card{background:#fff;border:1px solid hsl(var(--border));border-radius:12px}
-.card-hd{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px 0}
-.card-hd h2{font:600 15px Inter}
-.card-hd a{font-size:13px;font-weight:600;color:hsl(var(--fg));text-decoration:none}
-.card-hd small{color:hsl(var(--mf));font-size:12px}
+.card-hd{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:14px 16px 12px;border-bottom:1px solid hsl(var(--border))}
+.card-hd h2{font:600 15px/1.3 Sora,Inter,sans-serif;letter-spacing:-.01em}
+.card-hd .sub{display:block;margin-top:2px;color:hsl(var(--mf));font-size:12.5px;font-weight:400}
+.card-hd a{flex:none;display:inline-flex;align-items:center;gap:2px;margin-top:1px;font-size:12.5px;font-weight:600;color:hsl(var(--mf));text-decoration:none;border-radius:6px;padding:2px 6px 2px 8px;margin-right:-6px}
+.card-hd a::after{content:"›";font-size:16px;line-height:1;margin-left:2px}
+.card-hd a:hover{color:hsl(var(--fg));background:hsl(var(--muted))}
 .pad{padding:14px 16px 16px}
 
 .todo{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}
@@ -91,6 +93,27 @@ img{display:block}
 .tile .d{display:block;font-size:12px;color:hsl(var(--mf));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 .grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;margin-top:16px;align-items:start}
+.hello-row{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.hello-row .btn{height:40px;padding:0 16px;font-size:14px}
+.m .hello-row .btn{width:100%;justify-content:center}
+.nudge{display:flex;align-items:center;gap:10px;margin-top:12px;padding:10px 14px;border-radius:10px;background:hsl(var(--muted));font-size:13px}
+.nudge .t{color:hsl(var(--mf));min-width:0}.nudge b{font-weight:600;color:hsl(var(--fg))}
+.nudge a{margin-left:auto;font-weight:600;color:hsl(var(--fg));white-space:nowrap}
+.quick{display:flex;gap:8px;margin-top:12px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.quick::-webkit-scrollbar{display:none}
+.quick a{flex:none;display:inline-flex;align-items:center;gap:9px;height:44px;padding:0 16px 0 8px;border:1px solid hsl(var(--border));border-radius:12px;background:#fff;font-size:13.5px;font-weight:600;color:hsl(var(--fg));text-decoration:none;white-space:nowrap}
+.quick a:hover{border-color:hsl(240 5% 70%)}
+.quick .qi{width:30px;height:30px;border-radius:8px;background:hsl(var(--muted));display:grid;place-items:center;color:hsl(var(--fg))}
+.quick .qi svg{width:16px;height:16px}
+.quick a.main{background:hsl(var(--fg));border-color:hsl(var(--fg));color:#fff}
+.quick a.main .qi{background:hsl(0 0% 100% / .14);color:#fff}
+.m .quick{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}
+.idea{padding:16px}
+.idea .eyebrow{font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--mf))}
+.idea b{display:block;margin-top:6px;font:600 17px/1.3 Inter;letter-spacing:-.01em}
+.idea p{margin-top:4px;color:hsl(var(--mf));font-size:13px}
+.idea .acts{display:flex;align-items:center;gap:12px;margin-top:12px;flex-wrap:wrap}
+.idea .skip{border:0;background:none;padding:0;font-size:12.5px;font-weight:600;color:hsl(var(--mf));cursor:pointer}
 .col{display:grid;gap:16px;min-width:0}
 
 .day{padding:10px 16px 2px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--mf))}
@@ -110,27 +133,42 @@ img{display:block}
 .iconbtn{width:30px;height:30px;border-radius:8px;border:1px solid hsl(var(--border));background:#fff;display:grid;place-items:center}
 .iconbtn svg{width:15px;height:15px}
 
-.sales{display:grid;grid-template-columns:1.1fr 1fr;gap:16px;padding:14px 16px 16px}
+.sales{padding:14px 16px 14px}
+.sales-top{display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
 .big small{display:block;font-size:12px;color:hsl(var(--mf))}
-.big b{display:block;font:700 30px/1.1 Inter;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-top:2px}
+.big b{display:block;font:700 28px/1.1 Inter;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-top:2px}
 .delta{display:inline-flex;align-items:center;gap:4px;margin-top:6px;font-size:12px;font-weight:600;color:hsl(var(--ok-ink));background:hsl(var(--ok-soft));border-radius:99px;padding:2px 8px}
-.mini{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px}
-.mini div{background:hsl(var(--muted));border-radius:10px;padding:10px}
-.mini small{display:block;font-size:11px;color:hsl(var(--mf))}
-.mini b{display:block;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
-.chart{display:flex;align-items:flex-end;gap:3px;height:120px;padding-top:8px}
-.chart i{flex:1;border-radius:3px 3px 1px 1px;background:hsl(240 5% 84%);min-height:3px}
+.spark{flex:1;max-width:260px;min-width:120px;text-align:right}
+.chart{display:flex;align-items:flex-end;gap:2px;height:56px}
+.chart i{flex:1;border-radius:2px 2px 1px 1px;background:hsl(240 5% 86%);min-height:3px}
 .chart i.today{background:hsl(var(--fg))}
-.chart-ax{display:flex;justify-content:space-between;font-size:11px;color:hsl(var(--mf));margin-top:4px}
-.money{margin:0 16px 16px;padding:12px 14px;border:1px solid hsl(var(--border));border-radius:10px}
-.money-row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
-.money-row b{font-variant-numeric:tabular-nums}
-.meter{display:flex;height:8px;border-radius:99px;overflow:hidden;background:hsl(var(--muted));margin:8px 0}
+.chart-ax{display:block;font-size:11px;color:hsl(var(--mf));margin-top:4px}
+.stats{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;padding-top:12px;border-top:1px solid hsl(var(--border));font-size:12.5px;color:hsl(var(--mf))}
+.stats b{color:hsl(var(--fg));font-weight:700;font-variant-numeric:tabular-nums;margin-left:4px}
+.money{margin-top:12px}
+.meter{display:flex;height:6px;border-radius:99px;overflow:hidden;background:hsl(var(--muted))}
 .meter i:first-child{background:hsl(var(--ok))}
 .meter i:last-child{background:hsl(38 92% 55%)}
-.legend{display:flex;gap:16px;font-size:12px;color:hsl(var(--mf));flex-wrap:wrap}
-.legend span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;vertical-align:0}
-.legend .a::before{background:hsl(var(--ok))}.legend .b::before{background:hsl(38 92% 55%)}
+.money-row{display:flex;align-items:center;gap:6px 16px;flex-wrap:wrap;margin-top:8px;font-size:12.5px;color:hsl(var(--mf))}
+.money-row b{color:hsl(var(--fg));font-variant-numeric:tabular-nums;margin-left:3px}
+.money-row .k{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px}
+.money-row .k.a{background:hsl(var(--ok))}.money-row .k.b{background:hsl(38 92% 55%)}
+.money-row a{margin-left:auto;font-weight:600;color:hsl(var(--fg))}
+.more{display:none;margin-top:14px;padding-top:14px;border-top:1px solid hsl(var(--border))}
+.salescard.open .more{display:block}
+.salescard.open .spark{visibility:hidden}
+.more-t{font-size:12px;font-weight:600;color:hsl(var(--mf));margin-bottom:6px}
+.chart.big{height:110px;gap:3px}
+.chart-ax.row{display:flex;justify-content:space-between}
+.more-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+.more-grid div{background:hsl(var(--muted));border-radius:10px;padding:10px 12px;min-width:0}
+.more-grid small{display:block;font-size:11.5px;color:hsl(var(--mf))}
+.more-grid b{display:block;font-size:16px;font-weight:700;font-variant-numeric:tabular-nums}
+.more-grid span{display:block;font-size:11.5px;color:hsl(var(--mf));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.moretoggle{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;border:0;border-top:1px solid hsl(var(--border));background:none;padding:10px;font:600 12.5px Inter;color:hsl(var(--mf));border-radius:0 0 12px 12px;cursor:pointer}
+.moretoggle:hover{color:hsl(var(--fg));background:hsl(var(--muted)/.5)}
+.moretoggle::after{content:"";width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-2px)}
+.salescard.open .moretoggle::after{transform:rotate(-135deg) translateY(-1px)}
 
 .top5{list-style:none;margin:0;padding:6px 16px 12px}
 .top5 li{display:flex;align-items:center;gap:12px;padding:8px 0;border-top:1px solid hsl(var(--border))}
@@ -149,6 +187,9 @@ img{display:block}
 .qr svg{width:100%;height:100%}
 .storebox .btns{display:grid;gap:6px;flex:1}
 .storebox .btn{justify-content:center}
+.btn.soft{background:hsl(var(--muted));border-color:transparent;color:hsl(var(--fg))}
+.btn.soft:hover{background:hsl(240 5% 90%)}
+.btn.soft svg{color:hsl(var(--mf))}
 
 .att{list-style:none;margin:0;padding:4px 16px 12px}
 .att li{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid hsl(var(--border))}
@@ -330,6 +371,12 @@ img{display:block}
       <button data-v="busy">Loja movimentada</button>
     </div>
   </div>
+  <div class="bar"><small>Versão</small>
+    <div class="seg" id="versions">
+      <button data-v="full">Completa</button>
+      <button data-v="simple">Simples</button>
+    </div>
+  </div>
   <div class="bar"><small>Tela</small>
     <div class="seg" id="devs">
       <button data-v="desktop">Notebook</button>
@@ -429,12 +476,12 @@ function store() {
     <div style="margin-top:8px;font-weight:600">ESLA Acessórios</div>
     <div class="link">loja.facter.com.br/store/esla</div>
     <div class="row"><div class="qr">${QR}</div>
-      <div class="btns"><button class="btn sm wa">${WA_ICON} Mandar no WhatsApp</button><button class="btn sm">Copiar para a bio</button><button class="btn sm">Baixar QR code</button></div></div>
+      <div class="btns"><button class="btn sm wa">${WA_ICON} Mandar no WhatsApp</button><button class="btn sm soft"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>Copiar para a bio</button><button class="btn sm soft"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14"/></svg>Baixar QR code</button></div></div>
   </div>`;
 }
 
 const opp = list => `<div class="card">
-  <div class="card-hd"><h2>Pra vender mais esta semana</h2></div>
+  <div class="card-hd"><div><h2>Pra vender mais esta semana</h2><span class="sub">Ideias com o que você já tem</span></div></div>
   <ul class="opp">${list.map(o => `<li><div class="w"><b>${o.t}</b><small>${o.d}</small></div><button class="btn sm ${o.wa ? 'wa' : ''}">${o.wa ? WA_ICON : ''}${o.a}</button></li>`).join('')}</ul>
 </div>`;
 
@@ -449,33 +496,42 @@ function busySections() {
   return {
     todo: `<div class="todo">${BUSY.todo.map(tile).join('')}</div>`,
     orders: `<div class="card">
-        <div class="card-hd"><h2>Saem hoje e amanhã</h2><a href="#">Ver todos os pedidos</a></div>
+        <div class="card-hd"><div><h2>Saem hoje e amanhã</h2><span class="sub">${BUSY.today.length + BUSY.tomorrow.length} pedidos para entregar</span></div><a href="#">Pedidos</a></div>
         <div class="day">Hoje · quarta, 11/11</div>${BUSY.today.map(ordLine).join('')}
         <div class="day" style="border-top:1px solid hsl(var(--border));margin-top:2px">Amanhã · quinta, 12/11</div>${BUSY.tomorrow.map(ordLine).join('')}
       </div>`,
-    sales: `<div class="card">
-        <div class="card-hd"><h2>Vendas</h2><small>novembro até hoje</small></div>
+    sales: `<div class="card salescard">
+        <div class="card-hd"><div><h2>Vendas</h2><span class="sub">Novembro até hoje</span></div><a href="#">Recebimentos</a></div>
         <div class="sales">
-          <div>
-            <div class="big"><small>Vendido no mês</small><b>R$ 3.480</b><span class="delta">↑ 18% sobre outubro no mesmo dia</span></div>
-            <div class="mini"><div><small>Na semana</small><b>R$ 920</b></div><div><small>Pedidos</small><b>41</b></div><div><small>Ticket médio</small><b>R$ 84</b></div></div>
+          <div class="sales-top">
+            <div class="big"><small>Vendido no mês</small><b>R$ 3.480</b><span class="delta">↑ 18% sobre outubro</span></div>
+            <div class="spark" aria-label="Vendas dos últimos 30 dias"><div class="chart">${BUSY.bars.map((v, i) => `<i class="${i === BUSY.bars.length - 1 ? 'today' : ''}" style="height:${Math.max(4, v / max * 100)}%"></i>`).join('')}</div><span class="chart-ax">últimos 30 dias</span></div>
           </div>
-          <div><div class="chart">${BUSY.bars.map((v, i) => `<i class="${i === BUSY.bars.length - 1 ? 'today' : ''}" style="height:${Math.max(3, v / max * 100)}%"></i>`).join('')}</div>
-            <div class="chart-ax"><span>13/10</span><span>últimos 30 dias</span><span>hoje</span></div></div>
+          <div class="stats"><span>Na semana <b>R$ 920</b></span><span>Pedidos <b>41</b></span><span>Ticket médio <b>R$ 84</b></span></div>
+          <div class="money">
+            <div class="meter"><i style="width:90%"></i><i style="width:10%"></i></div>
+            <div class="money-row"><span><i class="k a"></i>Recebido <b>R$ 3.120</b></span><span><i class="k b"></i>A receber <b>R$ 360</b></span><a href="#">Quem falta pagar</a></div>
+          </div>
+          <div class="more">
+            <div class="more-t">Por dia, últimos 30 dias</div>
+            <div class="chart big">${BUSY.bars.map((v, i) => `<i class="${i === BUSY.bars.length - 1 ? 'today' : ''}" style="height:${Math.max(3, v / max * 100)}%" title="R$ ${Math.round(v * 9)}"></i>`).join('')}</div>
+            <div class="chart-ax row"><span>13/10</span><span>hoje</span></div>
+            <div class="more-grid">
+              <div><small>Melhor dia</small><b>R$ 310</b><span>sábado, 07/11</span></div>
+              <div><small>Pagos no Pix e cartão</small><b>R$ 3.120</b><span>38 pedidos</span></div>
+              <div><small>Clientes devendo</small><b>3</b><span>R$ 360 no total</span></div>
+            </div>
+          </div>
         </div>
-        <div class="money">
-          <div class="money-row"><span>Recebido <b>R$ 3.120</b></span><span>A receber <b>R$ 360</b></span></div>
-          <div class="meter"><i style="width:90%"></i><i style="width:10%"></i></div>
-          <div class="money-row"><div class="legend"><span class="a">Pix e cartão pagos</span><span class="b">3 clientes devendo</span></div><a href="#" style="font-size:12.5px;font-weight:600;color:hsl(var(--fg))">Ver quem falta pagar</a></div>
-        </div>
+        <button class="moretoggle" type="button" aria-expanded="false" data-more>Ver detalhes</button>
       </div>`,
     top: `<div class="card">
-        <div class="card-hd"><h2>Mais vendidos do mês</h2><a href="#">Ver produtos</a></div>
+        <div class="card-hd"><div><h2>Mais vendidos do mês</h2><span class="sub">Pelas peças vendidas em novembro</span></div><a href="#">Produtos</a></div>
         <ol class="top5">${BUSY.top.map((p, i) => `<li><span class="rk">${i + 1}</span><img src="img/${p.img}.webp" alt=""><div class="w"><b>${p.name}</b><small>${p.q} vendidos · ${p.v}</small></div>${p.left === 0 ? '<span class="chip bad">esgotado</span><button class="btn sm">Repor</button>' : p.left <= 3 ? `<span class="chip warn">restam ${p.left}</span><button class="btn sm">Repor</button>` : `<span class="stock">${p.left} em estoque</span>`}</li>`).join('')}</ol>
       </div>`,
     opp: opp(OPP_BUSY),
     clients: `<div class="card">
-        <div class="card-hd"><h2>Clientes no mês</h2><a href="#">Ver clientes</a></div>
+        <div class="card-hd"><div><h2>Clientes no mês</h2><span class="sub">Quem chegou, quem voltou e quem sumiu</span></div><a href="#">Clientes</a></div>
         <div class="split"><div><small>Novos</small><b>12</b></div><div><small>Voltaram a comprar</small><b>7</b></div></div>
         <div class="back-hd">Não compram há mais de 60 dias</div>
         <div class="back"><span class="av">CS</span><div class="w"><b>Camila Souza</b><small>última compra em 02/09 · R$ 210 no total</small></div><button class="iconbtn" aria-label="Chamar no WhatsApp">${WA_ICON}</button></div>
@@ -484,7 +540,7 @@ function busySections() {
       </div>`,
     store: store(),
     att: `<div class="card">
-        <div class="card-hd"><h2>Ajustes no catálogo</h2></div>
+        <div class="card-hd"><div><h2>Ajustes no catálogo</h2><span class="sub">O que faz uma peça vender menos</span></div></div>
         <ul class="att">
           <li><span class="dot warn" style="width:8px;height:8px;border-radius:50%"></span><div class="w"><b>Sem foto</b><small>vendem menos sem foto</small></div><span class="num">2</span><a href="#">Ver</a></li>
           <li><span class="dot off" style="width:8px;height:8px;border-radius:50%"></span><div class="w"><b>Escondidos</b><small>não aparecem na loja</small></div><span class="num">3</span><a href="#">Ver</a></li>
@@ -495,8 +551,8 @@ function busySections() {
 
 function busy(mobile) {
   const x = busySections();
-  if (mobile) return x.todo + `<div class="col" style="margin-top:16px">${[x.sales, x.orders, x.opp, x.top, x.clients, x.store, x.att].join('')}</div>`;
-  return x.todo + `<div class="grid">
+  if (mobile) return x.todo + quick + `<div class="col" style="margin-top:16px">${[x.sales, x.orders, x.opp, x.top, x.clients, x.store, x.att].join('')}</div>`;
+  return x.todo + quick + `<div class="grid">
     <div class="col">${x.sales}${x.orders}${x.top}</div>
     <div class="col">${x.opp}${x.clients}${x.store}${x.att}</div>
   </div>`;
@@ -510,7 +566,7 @@ const ES_ICON = {
 const emptyCard = (title, icon, b, p, act) => `<div class="card"><div class="card-hd"><h2>${title}</h2></div>
   <div class="es"><span class="es-ic">${ES_ICON[icon]}</span><b>${b}</b><p>${p}</p>${act || ''}</div></div>`;
 
-function fresh(mobile) {
+function fresh(mobile, simple = false) {
   const steps = [['Publicar a loja', 'feito', true], ['Copiar o link', 'feito', true], ['Pôr na bio do Instagram', 'marcar como feito', false], ['5 produtos com foto', '3 de 5 · cadastrar', false], ['Receber o primeiro pedido', 'chega em Pedidos', false]];
   const x = {
     steps: `<div class="card steps" style="margin-top:18px">
@@ -528,25 +584,64 @@ function fresh(mobile) {
     clients: emptyCard('Clientes no mês', 'people', 'Quem comprar aparece aqui', 'Novas, as que voltaram e quem sumiu, com o WhatsApp a um toque.'),
     opp: opp([{ t: 'Black Friday em 16 dias', d: 'sexta, 27/11 · um cupom de estreia traz os primeiros pedidos', a: 'Criar cupom' }]),
     store: store(),
-    att: `<div class="card"><div class="card-hd"><h2>Ajustes no catálogo</h2></div>
+    att: `<div class="card"><div class="card-hd"><div><h2>Ajustes no catálogo</h2><span class="sub">O que faz uma peça vender menos</span></div></div>
       <ul class="att"><li><span class="dot warn" style="width:8px;height:8px;border-radius:50%"></span><div class="w"><b>Sem foto</b><small>vendem menos sem foto</small></div><span class="num">2</span><a href="#">Ver</a></li></ul></div>`,
   };
-  if (mobile) return x.steps + x.todo + `<div class="col" style="margin-top:16px">${[x.orders, x.store, x.opp, x.sales, x.pieces, x.clients, x.att].join('')}</div>`;
-  return x.steps + x.todo + `<div class="grid">
+  if (simple) {
+    const tip = idea('Um cupom de estreia', 'Um desconto para as primeiras clientes traz os primeiros pedidos mais rápido.', 'Criar cupom');
+    const orders = emptyCard('Saem hoje e amanhã', 'bag', 'Nenhum pedido ainda', 'Quando uma cliente pedir pela loja, o pedido aparece aqui com o dia de entrega.');
+    if (mobile) return x.steps + quick + `<div class="col" style="margin-top:16px">${orders}${tip}</div>`;
+    return x.steps + quick + `<div class="grid"><div class="col">${orders}</div><div class="col">${tip}</div></div>`;
+  }
+  if (mobile) return x.steps + x.todo + quick + `<div class="col" style="margin-top:16px">${[x.orders, x.store, x.opp, x.sales, x.pieces, x.clients, x.att].join('')}</div>`;
+  return x.steps + x.todo + quick + `<div class="grid">
     <div class="col">${x.sales}${x.orders}${x.pieces}</div>
     <div class="col">${x.store}${x.opp}${x.clients}${x.att}</div>
   </div>`;
 }
 
-let state = 'busy', dev = 'desktop';
+const shareBtn = `<button class="btn wa">${WA_ICON} Compartilhar minha loja</button>`;
+const idea = (t, d, a, wa) => `<div class="card idea"><span class="eyebrow">Ideia da semana</span><b>${t}</b><p>${d}</p>
+  <div class="acts"><button class="btn sm ${wa ? 'wa' : 'pri'}">${wa ? WA_ICON : ''}${a}</button><button class="skip" type="button">Outra ideia</button></div></div>`;
+
+const QI = {
+  plus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
+  drafts: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></svg>',
+  tag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.6 2.6A2 2 0 0 0 11.2 2H4a2 2 0 0 0-2 2v7.2a2 2 0 0 0 .6 1.4l8.7 8.7a2.4 2.4 0 0 0 3.4 0l6.6-6.6a2.4 2.4 0 0 0 0-3.4z"/><circle cx="7.5" cy="7.5" r="1"/></svg>',
+  banner: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M6 15h8M6 11h5"/></svg>',
+  brush: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9.1 11.5 6.4-6.4a2.1 2.1 0 1 1 3 3l-6.4 6.4"/><path d="M7 14a3 3 0 0 0-3 3c0 1.3-1 2-2 2 1 1.5 3 3 5 3a4 4 0 0 0 4-4 3 3 0 0 0-3-3"/></svg>',
+};
+const quick = `<nav class="quick" aria-label="Atalhos">
+  <a href="#" class="main"><span class="qi">${QI.plus}</span>Nova peça</a>
+  <a href="#"><span class="qi">${QI.drafts}</span>Rascunhos</a>
+  <a href="#"><span class="qi">${QI.tag}</span>Novo cupom</a>
+  <a href="#"><span class="qi">${QI.banner}</span>Banners da vitrine</a>
+  <a href="#"><span class="qi">${QI.brush}</span>Aparência da loja</a>
+</nav>`;
+
+function simpleBusy(mobile) {
+  const x = busySections();
+  const nudge = `<div class="nudge"><span class="t"><b>2 peças sem foto</b> vendem menos assim</span><a href="#">Pôr foto</a></div>`;
+  const tip = idea('Black Friday em 16 dias', 'Sexta, 27/11. Um cupom agora dá tempo de divulgar.', 'Criar cupom');
+  if (mobile) return x.todo + quick + nudge + `<div class="col" style="margin-top:16px">${x.orders}${x.sales}${tip}</div>`;
+  return x.todo + quick + nudge + `<div class="grid"><div class="col">${x.orders}</div><div class="col">${x.sales}${tip}</div></div>`;
+}
+
+function simpleFresh(mobile) {
+  const f = fresh(mobile, true);
+  return f;
+}
+
+let state = 'busy', dev = 'desktop', version = 'full';
 function page(mobile) {
   return `<div class="app">
     <aside class="side"><div class="mk"><img src="img/mark-white.png" alt=""></div><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></aside>
     <div class="main">
       <div class="top"><b>Início</b><div class="top-r"><button class="btn">Ver a loja</button><div class="who-chip"><span class="av">EA</span><span><b>ESLA Acessórios</b><small>Semijoias e moda</small></span></div></div></div>
       <div class="content">
-        <div class="hello"><h1>Bom dia, Daniele</h1><p>quarta-feira, 11 de novembro</p></div>
-        ${state === 'busy' ? busy(mobile) : fresh(mobile)}
+        ${version === 'simple'
+          ? `<div class="hello-row"><div class="hello"><h1>Bom dia, Daniele</h1><p>quarta-feira, 11 de novembro</p></div>${shareBtn}</div>${state === 'busy' ? simpleBusy(mobile) : simpleFresh(mobile)}`
+          : `<div class="hello"><h1>Bom dia, Daniele</h1><p>quarta-feira, 11 de novembro</p></div>${state === 'busy' ? busy(mobile) : fresh(mobile)}`}
       </div>
       ${mobile ? '<nav class="bottomnav"><span class="on">Início</span><span>Pedidos</span><span>Produtos</span><span>Clientes</span><span>Mais</span></nav>' : ''}
     </div>
@@ -561,8 +656,10 @@ function bind(id, get, set) {
   sync();
 }
 bind('states', () => state, v => state = v);
+bind('versions', () => version, v => version = v);
 bind('devs', () => dev, v => { dev = v; $('#desk').hidden = v !== 'desktop'; $('#mob').hidden = v !== 'phone'; });
 render();
+document.addEventListener('click', e => { const b = e.target.closest('[data-more]'); if (!b) return; const card = b.closest('.salescard'); const open = card.classList.toggle('open'); b.setAttribute('aria-expanded', open); b.textContent = open ? 'Ver menos' : 'Ver detalhes'; });
 </script>
 </body>
 </html>
