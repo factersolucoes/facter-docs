@@ -340,6 +340,49 @@ img{display:block}
 .m .grid{grid-template-columns:1fr}
 .m .sales{grid-template-columns:1fr}
 .m .steps-list{grid-template-columns:1fr}
+/* primeiros passos v3: one low strip, ring with the five, dotted pattern */
+.fs3{position:relative;display:flex;align-items:center;gap:16px;padding:12px 8px 12px 14px;overflow:hidden;background-image:radial-gradient(hsl(240 10% 4%/.13) 1px,transparent 1.4px);background-size:12px 12px;background-position:right center}
+.fs3::before{content:"";position:absolute;inset:0 50% 0 0;background:linear-gradient(90deg,#fff 60%,transparent);pointer-events:none}
+.fs3>*{position:relative}
+.fs3 .ring{width:48px;height:48px;flex:none;display:grid;place-items:center}
+.fs3 .ring svg{position:absolute;inset:0;transform:rotate(-90deg)}
+.fs3 .ring b{font-size:13px;font-weight:700}
+.fs3-tx{flex:1;min-width:0}
+.fs3-tx small{display:block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--mf))}
+.fs3-tx b{display:block;font-size:15px;font-weight:600}
+.fs3-tx span{display:block;font-size:12.5px;color:hsl(var(--mf));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fs3 .btn{height:38px;padding:0 14px;font-size:13.5px}
+.fs3 .x{width:32px;height:32px;border:0;background:none;border-radius:6px;font-size:20px;color:hsl(var(--mf));cursor:pointer}
+.m .fs3{flex-wrap:wrap}.m .fs3-tx span{display:none}.m .fs3 .btn{order:9;width:100%;justify-content:center}
+/* primeiros passos v2: the next step big, the five as a short list */
+.fs2{display:grid;grid-template-columns:minmax(0,1fr) 280px;overflow:hidden}
+.fs2-main{padding:18px 20px 20px}
+.fs2-top{display:flex;align-items:center;gap:10px}
+.fs2-top .eyebrow{font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--mf))}
+.fs2-top .hide{margin-left:auto;border:0;background:none;font:600 12.5px Inter;color:hsl(var(--mf));cursor:pointer;padding:4px 6px;border-radius:6px}
+.fs2-top .hide:hover{background:hsl(var(--muted));color:hsl(var(--fg))}
+.segs{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:10px;max-width:320px}
+.segs i{height:5px;border-radius:99px;background:hsl(var(--muted))}
+.segs i.on{background:hsl(var(--ok))}
+.segs i.now{background:hsl(var(--fg))}
+.fs2-next{margin-top:16px}
+.fs2-next .k{font-size:12.5px;font-weight:600;color:hsl(var(--mf))}
+.fs2-next h3{font:700 20px/1.25 Inter;letter-spacing:-.015em;margin-top:2px}
+.fs2-next p{color:hsl(var(--mf));font-size:13.5px;margin-top:4px;max-width:52ch}
+.fs2-next .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.fs2-next .acts .btn{height:38px;padding:0 14px;font-size:13.5px}
+.fs2-list{list-style:none;margin:0;padding:14px 16px;border-left:1px solid hsl(var(--border));background:hsl(var(--bg))}
+.fs2-list li{display:flex;align-items:center;gap:10px;padding:7px 4px;font-size:13px}
+.fs2-list .c{flex:none;width:20px;height:20px;border-radius:99px;border:1.5px solid hsl(var(--border));display:grid;place-items:center;background:#fff}
+.fs2-list li.done .c{background:hsl(var(--ok));border-color:hsl(var(--ok));color:#fff}
+.fs2-list li.done .c::after{content:"";width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.fs2-list li.done span{color:hsl(var(--mf));text-decoration:line-through;text-decoration-color:hsl(var(--mf)/.5)}
+.fs2-list li.now .c{border-color:hsl(var(--fg));border-width:2px}
+.fs2-list li.now .c::after{content:"";width:8px;height:8px;border-radius:99px;background:hsl(var(--fg))}
+.fs2-list li.now span{font-weight:600}
+.m .fs2{grid-template-columns:1fr}
+.m .fs2-list{border-left:0;border-top:1px solid hsl(var(--border));display:flex;flex-wrap:wrap;gap:0 14px;padding:10px 16px}
+.m .fs2-list li{padding:4px 0;font-size:12.5px}
 .m .prog{flex:1}
 .m .card-hd{flex-wrap:wrap}
 .m .ord{flex-wrap:wrap;row-gap:6px}
@@ -569,6 +612,11 @@ const emptyCard = (title, icon, b, p, act) => `<div class="card"><div class="car
 function fresh(mobile, simple = false) {
   const steps = [['Publicar a loja', 'feito', true], ['Copiar o link', 'feito', true], ['Pôr na bio do Instagram', 'marcar como feito', false], ['5 produtos com foto', '3 de 5 · cadastrar', false], ['Receber o primeiro pedido', 'chega em Pedidos', false]];
   const x = {
+    steps2: `<div class="card fs3" style="margin-top:18px">
+      <span class="ring" title="✓ Publicar a loja · Copiar o link · Link na bio · ✓ 5 peças com foto · ✓ Primeiro pedido"><svg viewBox="0 0 48 48">${[1,2,0,1,1].map((st, i) => { const c = 2 * Math.PI * 19, arc = c / 5 - 4; return `<circle cx="24" cy="24" r="19" fill="none" stroke-width="4" stroke-linecap="round" stroke-dasharray="${arc} ${c - arc}" stroke-dashoffset="${-(i * (arc + 4))}" stroke="${st === 1 ? 'hsl(142 64% 38%)' : st === 2 ? 'hsl(240 10% 4%)' : 'hsl(240 5% 92%)'}"/>`; }).join('')}</svg><b>3/5</b></span>
+      <div class="fs3-tx"><small>Primeiros passos · 3 de 5</small><b>Copie o link da loja</b><span>É o que você manda para as clientes no WhatsApp e no Instagram.</span></div>
+      <button class="btn pri">Copiar o link</button><button class="x" type="button" aria-label="Esconder">×</button>
+    </div>`,
     steps: `<div class="card steps" style="margin-top:18px">
       <div class="steps-hd"><b>Primeiros passos da loja</b><span class="prog"><i style="width:40%"></i></span><small style="color:hsl(var(--mf))">2 de 5</small>${mobile ? '' : '<button class="btn sm" style="margin-left:auto;border-color:transparent;background:none">Esconder</button>'}</div>
       <div class="steps-list">${steps.map(s => `<div class="st ${s[2] ? 'done' : ''}"><b>${s[2] ? '✓ ' : ''}${s[0]}</b><small>${s[1]}</small></div>`).join('')}</div>
@@ -590,8 +638,8 @@ function fresh(mobile, simple = false) {
   if (simple) {
     const tip = idea('Um cupom de estreia', 'Um desconto para as primeiras clientes traz os primeiros pedidos mais rápido.', 'Criar cupom');
     const orders = emptyCard('Saem hoje e amanhã', 'bag', 'Nenhum pedido ainda', 'Quando uma cliente pedir pela loja, o pedido aparece aqui com o dia de entrega.');
-    if (mobile) return x.steps + quick + `<div class="col" style="margin-top:16px">${orders}${tip}</div>`;
-    return x.steps + quick + `<div class="grid"><div class="col">${orders}</div><div class="col">${tip}</div></div>`;
+    if (mobile) return x.steps2 + quick + `<div class="col" style="margin-top:16px">${orders}${tip}</div>`;
+    return x.steps2 + quick + `<div class="grid"><div class="col">${orders}</div><div class="col">${tip}</div></div>`;
   }
   if (mobile) return x.steps + x.todo + quick + `<div class="col" style="margin-top:16px">${[x.orders, x.store, x.opp, x.sales, x.pieces, x.clients, x.att].join('')}</div>`;
   return x.steps + x.todo + quick + `<div class="grid">
