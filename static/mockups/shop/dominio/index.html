@@ -11,8 +11,14 @@
 *{box-sizing:border-box}
 body{margin:0;overflow-x:hidden;background:hsl(var(--canvas));color:hsl(var(--fg));font:15px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 h1,h2,h3,p{margin:0}
-button{font:inherit;color:inherit;cursor:pointer}
-.doc{max-width:1240px;margin:0 auto;padding:40px 24px 80px}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid hsl(var(--fg));outline-offset:2px;border-radius:6px}
+.ic{display:inline-block;width:20px;height:20px;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;flex:none}
+.ic.s14{width:14px;height:14px}.ic.s16{width:16px;height:16px}.ic.s18{width:18px;height:18px}
+
+/* presentation */
+.doc{max-width:1328px;margin:0 auto;padding:40px 24px 80px}
 .doc>h1{font:800 30px/1.15 Sora,Inter,sans-serif;letter-spacing:-.02em}
 .doc>p{color:hsl(var(--mf));margin-top:8px;max-width:780px}
 .bar{display:flex;gap:10px;align-items:center;margin:24px 0 18px;flex-wrap:wrap}
@@ -20,12 +26,40 @@ button{font:inherit;color:inherit;cursor:pointer}
 .seg{display:inline-flex;background:#fff;border:1px solid hsl(var(--border));border-radius:999px;padding:3px;flex-wrap:wrap}
 .seg button{border:0;background:none;border-radius:999px;padding:6px 14px;font-weight:500;color:hsl(var(--mf))}
 .seg button[aria-pressed=true]{background:hsl(var(--fg));color:#fff}
-.layout{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:20px;align-items:start}
-.stage{background:hsl(var(--bg));border:1px solid hsl(var(--border));border-radius:14px;padding:32px 28px;display:flex;justify-content:center}
-.notes{background:#fff;border:1px solid hsl(var(--border));border-radius:14px;padding:18px;font-size:14px;position:sticky;top:16px}
-.notes h3{font:600 15px Sora,Inter,sans-serif}.notes ul{margin:8px 0 0;padding-left:18px}.notes li{margin:5px 0;color:hsl(240 6% 22%)}
-.notes hr{border:0;border-top:1px solid hsl(var(--border));margin:14px 0}
+.sec-t{font:700 18px/1.3 Inter;margin:40px 0 12px}
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px 32px;font-size:14px;color:hsl(240 6% 25%);margin-top:20px}
+.notes h4{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--mf));margin:0 0 6px}
+.notes ul{margin:0;padding-left:18px}.notes li{margin-bottom:6px}
 
+/* panel shell */
+.frame{position:relative;background:hsl(var(--bg));border-radius:14px;border:1px solid hsl(var(--border));overflow:hidden;max-width:1280px;box-shadow:0 12px 40px -16px hsl(230 30% 20%/.18)}
+.app{display:grid;grid-template-columns:56px minmax(0,1fr);min-height:860px}
+.sidenav{background:hsl(var(--card));border-right:1px solid hsl(var(--border));padding:0 0 12px;display:flex;flex-direction:column;align-items:center;gap:2px}
+.brandsq{width:56px;height:56px;background:hsl(var(--fg));color:#fff;display:grid;place-items:center;margin-bottom:10px}
+.navitem{position:relative;width:40px;height:40px;border-radius:9px;display:grid;place-items:center;color:hsl(240 5% 34%)}
+.navitem[aria-current=page]{background:hsl(var(--muted));color:hsl(var(--fg))}
+.navitem[aria-current=page]::before{content:"";position:absolute;left:-8px;top:10px;bottom:10px;width:3px;border-radius:0 3px 3px 0;background:hsl(var(--fg))}
+.navsep{flex:1}
+.avatar{width:34px;height:34px;border-radius:999px;background:hsl(var(--muted));color:hsl(240 6% 26%);display:grid;place-items:center;font-weight:600;font-size:13px;flex:none}
+.avatar.sm{width:30px;height:30px;font-size:11px;margin-top:8px}
+.col{min-width:0;display:flex;flex-direction:column}
+.topbar{height:56px;display:flex;align-items:center;gap:16px;padding:0 20px 0 18px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
+.topbar .spacer{flex:1}
+.crumbs{display:flex;align-items:center;gap:8px;font-size:14px;color:hsl(var(--mf))}
+.crumbs b{color:hsl(var(--fg));font-weight:600}
+.store{display:flex;align-items:center;gap:10px;padding:6px 12px 6px 6px;border-radius:10px;background:hsl(var(--muted))}
+.store b{display:block;font-size:14px;line-height:1.2}.store small{display:block;font-size:12px;color:hsl(var(--mf))}
+.iconbtn{width:36px;height:36px;border-radius:8px;border:0;background:none;display:grid;place-items:center;color:hsl(var(--mf))}
+.iconbtn:hover{background:hsl(var(--muted))}
+.main{padding:32px 40px 48px;min-width:0}
+.pagehead h1{font:700 26px/1.2 Inter;letter-spacing:-.015em}
+.pagehead p{color:hsl(var(--mf));margin-top:4px}
+.tabs{display:flex;gap:24px;border-bottom:1px solid hsl(var(--border));margin:20px 0 28px}
+.tabs a{padding:10px 0;font-size:14px;font-weight:500;color:hsl(var(--mf));text-decoration:none;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs a[aria-current=page]{color:hsl(var(--fg));border-color:hsl(var(--fg));font-weight:600}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:24px;align-items:start}
+.grid>aside{position:sticky;top:16px;display:grid;gap:16px}
+.btn-sm{height:34px;padding:0 12px;font-size:13px;border-radius:8px}
 /* card */
 .card{width:100%;max-width:640px;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;overflow:hidden}
 .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:24px 28px 0}
@@ -97,48 +131,128 @@ button{font:inherit;color:inherit;cursor:pointer}
 .facter .lnk{border:0;background:none;padding:0;font-size:13px;font-weight:500;color:hsl(var(--mf));text-decoration:underline;text-underline-offset:2px}
 .facter .lnk.danger{color:hsl(var(--bad-ink))}
 .facter .r{display:flex;gap:16px}
-@media (max-width:900px){.layout{grid-template-columns:minmax(0,1fr)}.stage{padding:16px}.notes{position:static}}
-@media (max-width:520px){.hd,.prog,.body{padding-left:18px;padding-right:18px}.facter{padding:14px 18px}.field .cp span{display:none}}
+.card{max-width:none}
+.hd .right{display:flex;align-items:center;gap:6px}
+.menu{position:relative}
+.menu .pop{position:absolute;right:0;top:40px;z-index:5;min-width:200px;background:#fff;border:1px solid hsl(var(--border));border-radius:10px;padding:4px;box-shadow:0 12px 32px -12px hsl(240 10% 20%/.25)}
+.menu .pop button{display:flex;align-items:center;gap:8px;width:100%;border:0;background:none;text-align:left;padding:8px 10px;border-radius:7px;font-size:14px}
+.menu .pop button:hover{background:hsl(var(--muted))}
+.menu .pop .danger{color:hsl(var(--bad-ink))}
+
+/* add form */
+.add{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;margin-top:18px}
+.inp{display:flex;align-items:center;height:48px;border:1px solid hsl(240 6% 82%);border-radius:10px;background:#fff;padding:0 14px;gap:2px;min-width:0}
+.inp:focus-within{border-color:hsl(var(--fg));box-shadow:0 0 0 3px hsl(var(--fg)/.08)}
+.inp span{color:hsl(var(--mf));font-size:15px}
+.inp input{flex:1;min-width:0;border:0;outline:0;background:none;font-size:16px;font-weight:500;padding:0}
+.inp.off{background:hsl(var(--muted));border-color:hsl(var(--border))}
+.inp.err{border-color:hsl(var(--bad))}
+.add .btn{height:48px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.hint{font-size:13px;color:hsl(var(--mf));margin-top:8px}
+.hint.err{color:hsl(var(--bad-ink))}
+.hint a{color:inherit;font-weight:600}
+.plan{display:flex;align-items:center;gap:14px;justify-content:space-between;flex-wrap:wrap;margin-top:16px;padding:14px 16px;border-radius:12px;background:hsl(var(--muted))}
+.plan b{display:block;font-size:14px}.plan small{display:block;font-size:13px;color:hsl(var(--mf))}
+.browser .url.typing{color:hsl(var(--mf))}
+.browser .url.typing b{color:hsl(var(--fg));font-weight:600}
+
+/* addresses card */
+.box{background:#fff;border:1px solid hsl(var(--border));border-radius:16px;overflow:hidden}
+.box h3{font:600 15px Inter;padding:18px 20px 4px}
+.box .lead2{font-size:13px;color:hsl(var(--mf));padding:0 20px 10px}
+.addr{display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:2px 12px;align-items:center;padding:12px 20px;border-top:1px solid hsl(var(--border))}
+.addr .ic{grid-row:1/3;color:hsl(var(--mf))}
+.addr b{font-size:14px;font-weight:600;overflow-wrap:anywhere}
+.addr small{grid-column:2;font-size:12.5px;color:hsl(var(--mf));display:flex;align-items:center;gap:6px}
+.addr small.ok{color:hsl(var(--ok-ink))}.addr small.wait{color:hsl(var(--warn-ink))}
+.addr small.ok::before,.addr small.wait::before{content:"";width:6px;height:6px;border-radius:99px;background:currentColor}
+.addr .iconbtn{grid-row:1/3;grid-column:3;width:32px;height:32px;border:1px solid hsl(var(--border))}
+.addr.ghost b{color:hsl(var(--mf));font-weight:500}
+.addr.ghost{background:repeating-linear-gradient(135deg,transparent 0 8px,hsl(var(--muted)/.6) 8px 9px)}
+.boxfoot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:12px 20px;border-top:1px solid hsl(var(--border));background:hsl(var(--bg));font-size:13px;color:hsl(var(--mf))}
+.lnk{border:0;background:none;padding:0;font-size:13px;font-weight:600;color:hsl(var(--fg));text-decoration:underline;text-underline-offset:3px}
+
+/* dialog */
+.scrim{position:absolute;inset:0;background:hsl(240 10% 4%/.45);display:grid;place-items:center;padding:16px;z-index:20}
+.dlg{width:100%;max-width:460px;background:#fff;border-radius:16px;padding:24px;box-shadow:0 24px 60px -20px hsl(240 10% 4%/.45)}
+.dlg h2{font:700 19px/1.3 Inter;letter-spacing:-.01em}
+.dlg p{font-size:14px;color:hsl(var(--mf));margin-top:6px}
+.dlg .inp{margin-top:16px}
+.dlg .was{margin-top:12px;font-size:13px;color:hsl(var(--mf))}
+.dlg .was b{color:hsl(var(--fg))}
+.dlg .row{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
+.btn.danger{background:hsl(var(--bad));border-color:hsl(var(--bad));color:#fff}
+
+/* phone */
+.phone{width:390px;max-width:100%;border:1px solid hsl(var(--border));border-radius:28px;overflow:hidden;background:hsl(var(--bg));position:relative;box-shadow:0 12px 40px -16px hsl(230 30% 20%/.18)}
+.phone .topbar{padding:0 12px;gap:10px}
+.phone .main{padding:20px 16px 32px}
+.phone .grid{grid-template-columns:minmax(0,1fr);gap:16px}
+.phone .grid>aside{position:static}
+.phone .pagehead h1{font-size:22px}
+.phone .hd,.phone .prog,.phone .body{padding-left:18px;padding-right:18px}
+.phone .facter{padding:14px 18px}
+.phone .field .cp span{display:none}
+.phone .add{grid-template-columns:minmax(0,1fr)}
+.phone .tabs{margin:16px 0 20px}
+.phone .browser .tiles i{width:48px}
+
+@media (max-width:1100px){.grid{grid-template-columns:minmax(0,1fr)}.grid>aside{position:static}}
+@media (max-width:720px){.app{grid-template-columns:1fr}.sidenav{display:none}.main{padding:20px 16px}.store span{display:none}.hd,.prog,.body{padding-left:18px;padding-right:18px}.field .cp span{display:none}.add{grid-template-columns:minmax(0,1fr)}}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="facter" viewBox="0 0 207 304"><path fill="currentColor" d="M25.8384 196.911L15.4739 183.729C-10.7189 150.411 0.44781 101.422 38.4895 82.7344L206.266 0.307297V34.2396C206.266 60.1875 191.448 83.8698 168.12 95.2396L56.578 149.594C48.4634 153.547 41.3489 159.344 35.9791 166.609C30.5936 173.901 25.9582 183.906 26.3176 196.526C29.9947 193.609 34.0624 191.026 38.4843 188.854L206.26 106.432V140.359C206.26 166.313 191.437 189.995 168.109 201.365L56.578 255.708C48.4634 259.667 41.3489 265.464 35.9791 272.724C30.4426 280.224 25.6978 290.578 26.3593 303.693L15.4739 289.854C-7.54698 260.568 -1.72407 219.193 25.8384 196.911ZM134.818 266.526L206.208 303.724L206.187 210.802L134.953 246.661C126.828 250.755 126.755 262.323 134.818 266.526Z"/></symbol>
+</svg>
 <div class="doc">
   <h1>Domínio próprio</h1>
-  <p>O cartão em Loja, Domínio. Uma barra de três etapas mostra onde o endereço está; abaixo, só o que a dona precisa fazer agora. Quando o domínio é do Registro.br, o caminho dentro dele aparece escrito. Loja de exemplo, de ninguém.</p>
+  <p>A aba Domínio da tela Loja, inteira. À esquerda, o cartão do domínio próprio, do primeiro clique até o ar. À direita, todos os endereços em que a loja abre, com o endereço Facter. Loja de exemplo, de ninguém.</p>
 
   <div class="bar"><small>Estado</small>
     <div class="seg" id="seg">
-      <button type="button" data-s="records" aria-pressed="true">Criar registros</button>
+      <button type="button" data-s="none" aria-pressed="true">Sem domínio</button>
+      <button type="button" data-s="plan" aria-pressed="false">Fora do plano</button>
+      <button type="button" data-s="change" aria-pressed="false">Trocando</button>
+      <button type="button" data-s="records" aria-pressed="false">Criar registros</button>
       <button type="button" data-s="wrong" aria-pressed="false">Registro diferente</button>
       <button type="button" data-s="almost" aria-pressed="false">Quase no ar</button>
       <button type="button" data-s="live" aria-pressed="false">No ar</button>
     </div>
   </div>
+  <div class="bar"><small>Diálogos</small>
+    <div class="seg" id="dlgs">
+      <button type="button" data-d="slug" aria-pressed="false">Trocar o final</button>
+      <button type="button" data-d="remove" aria-pressed="false">Remover domínio</button>
+    </div>
+  </div>
 
-  <div class="layout">
-    <div class="stage"><section class="card" id="own"></section></div>
-    <aside class="notes">
-      <h3>Como lê</h3>
-      <ul>
-        <li><b>Barra de três etapas</b> no topo: Registros, Endereço seguro, No ar. Feita fica preta, a atual corre, erro fica vermelho.</li>
-        <li>Abaixo, <b>uma frase em negrito</b> do que fazer e <b>uma em cinza</b> com o detalhe.</li>
-        <li>Registros como campos grandes, valor inteiro e "Copiar" ao lado. Nada cortado.</li>
-        <li>Quando erra, o campo errado fica vermelho e mostra o que está lá hoje.</li>
-        <li>Prévia do navegador com o endereço dela: esperando, com a loja apagada; no ar, com o cadeado verde.</li>
-        <li>O endereço Facter vira uma linha no rodapé, junto de Trocar e Remover.</li>
-      </ul>
-      <hr>
-      <h3>Por trás</h3>
-      <ul>
-        <li>Registro.br reconhecido pelos servidores do domínio; outro provedor recebe o texto geral.</li>
-        <li>Confere sozinho a cada minuto com a tela aberta.</li>
-        <li>No ar só quando o endereço abre a loja de verdade.</li>
-      </ul>
-    </aside>
+  <h2 class="sec-t">Notebook 1280</h2>
+  <div class="frame" id="desk"></div>
+
+  <h2 class="sec-t">Celular 390</h2>
+  <div class="phone" id="phone"></div>
+
+  <div class="notes">
+    <div><h4>Como lê</h4><ul>
+      <li>Cabeçalho e abas da tela Loja ficam como estão. A frase de baixo muda com a aba.</li>
+      <li>O cartão grande é o domínio próprio. Sem domínio, ele pede só o endereço e mostra a prévia do navegador enquanto ela digita.</li>
+      <li>Com domínio, a barra de três etapas diz onde está, e abaixo vem só o que fazer agora.</li>
+      <li>Trocar de domínio e Remover ficam no menu ⋯ do cartão, longe do caminho.</li>
+      <li>"Onde a loja abre" junta todos os endereços com o status de cada um e o botão de copiar. O endereço Facter mora aqui, sempre no ar.</li>
+    </ul></div>
+    <div><h4>Por trás</h4><ul>
+      <li>Fora do plano: o campo fica travado e o botão leva ao WhatsApp da Facter. Liberado pelo Hub (custom_domain).</li>
+      <li>Registro.br reconhecido pelos servidores do domínio; outro provedor recebe o texto geral.</li>
+      <li>Confere sozinho a cada minuto com a tela aberta. No ar só quando o endereço abre a loja de verdade.</li>
+      <li>Trocar o final do endereço Facter: uma vez só, e o link antigo redireciona.</li>
+    </ul></div>
   </div>
 </div>
-
 <script>
+const P = n => `https://api.iconify.design/ph/${n}.svg`;
+const ic = (n, s='') => `<i class="ic ${s}" style="--i:url(${P(n)})"></i>`;
 const I = {
   copy:'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
   ext:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>',
@@ -146,6 +260,9 @@ const I = {
   lock:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 9V7a5 5 0 0 0-10 0v2H5v13h14V9h-2Zm-8 0V7a3 3 0 0 1 6 0v2H9Z"/></svg>',
   link:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>',
 };
+const HOST='sualoja.com.br', FACTER='loja.facter.com.br/store/sualoja';
+const ST={s:'none',dlg:null,where:'desk',menu:null};
+
 const prog = (a,b,c) => `<div class="prog">
   <div class="pg ${a[0]}"><span></span><b>Registros</b><small>${a[1]}</small></div>
   <div class="pg ${b[0]}"><span></span><b>Endereço seguro</b><small>${b[1]}</small></div>
@@ -153,45 +270,118 @@ const prog = (a,b,c) => `<div class="prog">
 const field = (type, name, val, wrong) => `<div class="field ${wrong?'wrong':''}">
   <div class="meta"><span>Tipo <b>${type}</b></span><span>Nome <b>${name}</b></span></div>
   <div class="val">${val}</div>${wrong?`<div class="now">Hoje está <s>${wrong}</s></div>`:''}
-  <button class="cp" type="button" data-copy>${I.copy}<span>Copiar</span></button></div>`;
-const browser = (state) => `<div class="browser ${state==='live'?'':'pending'}">
-  <div class="top"><span class="dots"><i></i><i></i><i></i></span><span class="url ${state==='live'?'ok':'wait'}">${I.lock}sualoja.com.br</span></div>
+  <button class="cp" type="button">${I.copy}<span>Copiar</span></button></div>`;
+const browser = (state, url) => `<div class="browser ${state==='live'||state==='typing'?'':'pending'}">
+  <div class="top"><span class="dots"><i></i><i></i><i></i></span>${state==='typing'
+    ? `<span class="url typing">https://<b data-url>${url}</b></span>`
+    : `<span class="url ${state==='live'?'ok':'wait'}">${I.lock}${HOST}</span>`}</div>
   <div class="page"><span class="logo">SUA LOJA</span><span class="tiles"><i></i><i></i><i></i><i></i></span>
-  ${state==='live'?'':'<div class="over"><span><i class="spin"></i>Preparando o endereço seguro</span></div>'}</div></div>`;
-const footer = `<div class="facter"><span>Endereço Facter, sempre no ar: <b>loja.facter.com.br/store/sualoja</b></span><span class="r"><button class="lnk" type="button">Trocar de domínio</button><button class="lnk danger" type="button">Remover</button></span></div>`;
-const S = {
-  records: { chip:'<span class="chip wait">Falta configurar</span>',
+  ${state==='live'||state==='typing'?'':'<div class="over"><span><i class="spin"></i>Preparando o endereço seguro</span></div>'}</div></div>`;
+const menu = where => `<div class="menu"><button class="iconbtn" type="button" aria-label="Mais opções" data-act="menu">${ic('dots-three-bold','s18')}</button>
+  ${ST.menu===where?`<div class="pop"><button type="button" data-s="change">${ic('arrows-left-right','s16')}Trocar de domínio</button><button type="button" class="danger" data-d="remove">${ic('trash','s16')}Remover domínio</button></div>`:''}</div>`;
+const addForm = (off, cancel) => `<div class="add">
+  <label class="inp ${off?'off':''}"><span>https://</span><input data-host placeholder="sualoja.com.br" aria-label="Seu domínio" autocomplete="off" spellcheck="false" ${off?'disabled':''}></label>
+  <div style="display:flex;gap:8px">${cancel?'<button class="btn" type="button" data-s="live">Cancelar</button>':''}<button class="btn pri" type="button" data-go disabled>Continuar</button></div></div>`;
+
+const CARD = {
+  none: () => ({ eyebrow:'Domínio próprio', title:'Sua loja no seu endereço', chip:'', prog:'',
+    body:`<p class="sub">Cole o domínio que você comprou no Registro.br, GoDaddy ou Hostinger.</p>${addForm(false,false)}
+      <p class="hint" data-hint>Ainda não tem um? <a href="#">Compre no Registro.br</a> e volte aqui.</p>${browser('typing','sualoja.com.br')}` }),
+  plan: () => ({ eyebrow:'Domínio próprio', title:'Sua loja no seu endereço', chip:'', prog:'',
+    body:`<p class="sub">Cole o domínio que você comprou no Registro.br, GoDaddy ou Hostinger.</p>${addForm(true,false)}
+      <div class="plan"><span><b>Seu plano ainda não tem domínio próprio</b><small>A Facter inclui para você.</small></span><a class="btn btn-sm" href="#">${ic('whatsapp-logo','s16')}Falar com a Facter</a></div>` }),
+  change: () => ({ eyebrow:'Trocar de domínio', title:'Qual é o novo domínio?', chip:'', prog:'',
+    body:`<p class="sub">${HOST} sai da loja quando você continuar.</p>${addForm(false,true)}
+      <p class="hint" data-hint>&nbsp;</p>${browser('typing','')}` }),
+  records: () => ({ eyebrow:'Domínio próprio', title:HOST, chip:'<span class="chip wait">Falta configurar</span>',
     prog: prog(['now','Falta criar'],['later','Depois'],['later','Depois']),
-    body: `<p class="lead">Crie estes dois registros no Registro.br</p>
+    body:`<p class="lead">Crie estes dois registros no Registro.br</p>
       <p class="sub">Copie e cole do jeito que está. Leva uns 2 minutos.</p>
       <span class="path">DNS <i>›</i> Configurar zona DNS <i>›</i> Nova entrada</span>
       <div class="fields">${field('A','vazio','216.24.57.1')}${field('CNAME','www','facter-shop.onrender.com')}</div>
-      <div class="actions"><button class="btn pri" type="button">${I.ref}Já criei, conferir</button><span class="auto">Conferindo sozinho a cada minuto</span></div>` },
-  wrong: { chip:'<span class="chip bad">Registro diferente</span>',
+      <div class="actions"><button class="btn pri" type="button">${I.ref}Já criei, conferir</button><span class="auto">Conferindo sozinho a cada minuto</span></div>` }),
+  wrong: () => ({ eyebrow:'Domínio próprio', title:HOST, chip:'<span class="chip bad">Registro diferente</span>',
     prog: prog(['bad','1 para trocar'],['later','Depois'],['later','Depois']),
-    body: `<p class="lead">Troque o registro A no Registro.br</p>
+    body:`<p class="lead">Troque o registro A no Registro.br</p>
       <p class="sub">Ele ainda leva para o site antigo. O CNAME já está certo.</p>
       <span class="path">DNS <i>›</i> Configurar zona DNS</span>
       <div class="fields">${field('A','vazio','216.24.57.1','75.2.60.5')}</div>
-      <div class="actions"><button class="btn pri" type="button">${I.ref}Já troquei, conferir</button><span class="auto">Conferindo sozinho a cada minuto</span></div>` },
-  almost: { chip:'<span class="chip wait">Quase no ar</span>',
+      <div class="actions"><button class="btn pri" type="button">${I.ref}Já troquei, conferir</button><span class="auto">Conferindo sozinho a cada minuto</span></div>` }),
+  almost: () => ({ eyebrow:'Domínio próprio', title:HOST, chip:'<span class="chip wait">Quase no ar</span>',
     prog: prog(['done','Certos'],['now','Alguns minutos'],['later','Em seguida']),
-    body: `<p class="lead">Quase pronto</p>
-      <p class="sub">Os registros estão certos. A loja começa a abrir neste endereço em alguns minutos, e você pode fechar a tela.</p>
-      ${browser('almost')}` },
-  live: { chip:'<span class="chip ok">No ar</span>',
+    body:`<p class="lead">Quase pronto</p>
+      <p class="sub">Os registros estão certos. A loja começa a abrir neste endereço em alguns minutos, e você pode fechar a tela.</p>${browser('almost')}` }),
+  live: () => ({ eyebrow:'Domínio próprio', title:HOST, chip:'<span class="chip ok">No ar</span>',
     prog: prog(['done','Certos'],['done','Pronto'],['done','Desde 12 nov, 13:56']),
-    body: `<p class="lead">Sua loja abre em sualoja.com.br</p>
-      <p class="sub">Com e sem www. Quem já visitou o site antigo pode continuar vendo ele por até 1 hora.</p>
-      ${browser('live')}
-      <div class="actions"><a class="btn pri" href="#">${I.ext}Abrir a loja</a><button class="btn" type="button" data-copy>${I.link}Copiar o endereço</button></div>` },
+    body:`<p class="lead">Sua loja abre em ${HOST}</p>
+      <p class="sub">Com e sem www. Quem já visitou o site antigo pode continuar vendo ele por até 1 hora.</p>${browser('live')}
+      <div class="actions"><a class="btn pri" href="#">${I.ext}Abrir a loja</a><button class="btn" type="button">${I.link}Copiar o endereço</button></div>` }),
 };
-function render(k){const s=S[k];
-  document.getElementById('own').innerHTML=`<div class="hd"><div><div class="eyebrow">Domínio próprio</div><h2>sualoja.com.br</h2></div>${s.chip}</div>${s.prog}<div class="body">${s.body}</div>${footer}`;}
-document.getElementById('seg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
-  document.querySelectorAll('#seg button').forEach(x=>x.setAttribute('aria-pressed',x===b));render(b.dataset.s);});
-document.addEventListener('click',e=>{const c=e.target.closest('.cp');if(!c)return;c.classList.add('copied');c.innerHTML='<span>Copiado</span>';});
-render('records');
+const hasDomain = s => ['records','wrong','almost','live'].includes(s);
+const cardHtml = where => { const c = CARD[ST.s]();
+  return `<section class="card"><div class="hd"><div style="min-width:0"><div class="eyebrow">${c.eyebrow}</div><h2 style="overflow-wrap:anywhere">${c.title}</h2></div>
+  <div class="right">${c.chip}${hasDomain(ST.s)?menu(where):''}</div></div>${c.prog}<div class="body">${c.body}</div></section>`; };
+
+const ownRow = () => {
+  const s = ST.s;
+  if (!hasDomain(s)) return `<div class="addr ghost">${ic('globe-simple')}<b>Seu domínio</b><small>Aparece aqui quando você colar</small></div>`;
+  const st = {records:['wait','Esperando os registros'],wrong:['wait','Um registro para trocar'],almost:['wait','Quase no ar'],live:['ok','No ar']}[s];
+  return `<div class="addr">${ic('globe-simple')}<b>${HOST}</b><small class="${st[0]}">${st[1]}</small>${s==='live'?`<button class="iconbtn" type="button" aria-label="Copiar ${HOST}">${ic('copy','s16')}</button>`:''}</div>`
+    + (s==='live'?`<div class="addr">${ic('arrow-bend-down-right')}<b>www.${HOST}</b><small>Leva para ${HOST}</small></div>`:'');
+};
+const asideHtml = () => `<div class="box"><h3>Onde a loja abre</h3><p class="lead2">Qualquer um destes leva suas clientes para a loja.</p>
+  ${ownRow()}
+  <div class="addr">${ic('storefront')}<b>${FACTER}</b><small class="ok">Sempre no ar</small><button class="iconbtn" type="button" aria-label="Copiar ${FACTER}">${ic('copy','s16')}</button></div>
+  <div class="boxfoot"><span>Dá para trocar o final uma vez</span><button class="lnk" type="button" data-d="slug">Trocar o final</button></div></div>`;
+
+const dialogHtml = () => ST.dlg==='slug' ? `<div class="scrim" data-act="close"><div class="dlg" role="dialog" aria-modal="true" aria-labelledby="dt">
+    <h2 id="dt">Trocar o final do endereço Facter</h2><p>Dá para trocar uma vez. Quem tiver o link antigo cai no novo.</p>
+    <label class="inp"><span>loja.facter.com.br/store/</span><input value="ateliê-lume" aria-label="Final do endereço"></label>
+    <p class="was">Hoje: <b>${FACTER}</b></p>
+    <div class="row"><button class="btn" type="button" data-act="close">Cancelar</button><button class="btn pri" type="button" data-act="close">Trocar endereço</button></div></div></div>`
+  : ST.dlg==='remove' ? `<div class="scrim" data-act="close"><div class="dlg" role="dialog" aria-modal="true" aria-labelledby="dt">
+    <h2 id="dt">Remover ${HOST}?</h2><p>A loja volta a abrir só em ${FACTER}. O domínio continua seu no Registro.br.</p>
+    <div class="row"><button class="btn" type="button" data-act="close">Cancelar</button><button class="btn danger" type="button" data-s="none">Remover domínio</button></div></div></div>` : '';
+
+const shell = (where) => {
+  const phone = where==='phone';
+  const nav = ['house','receipt','users','package','ticket','wallet','storefront','at','gear'];
+  return `<div class="app" ${phone?'style="grid-template-columns:1fr;min-height:0"':''}>
+  ${phone?'':`<nav class="sidenav" aria-label="Menu principal"><span class="brandsq"><svg width="15" height="22"><use href="#facter"/></svg></span>
+    ${nav.map(n=>`<span class="navitem" ${n==='storefront'?'aria-current="page"':''}>${ic(n)}</span>`).join('')}<span class="navsep"></span><span class="navitem">${ic('megaphone-simple')}</span><span class="avatar sm">AL</span></nav>`}
+  <div class="col"><header class="topbar">${phone?`<button class="iconbtn" type="button" aria-label="Menu">${ic('list')}</button><b style="font-size:15px">Loja</b>`:`<nav class="crumbs"><span>Início</span>${ic('caret-right','s14')}<b>Loja</b></nav>`}
+    <span class="spacer"></span>${phone?'':`<a class="btn btn-sm" href="#">${ic('arrow-square-out','s16')}Ver a loja</a>`}<span class="store"><span class="avatar">AL</span>${phone?'':'<span><b>Ateliê Lume</b><small>Semijoias</small></span>'}</span></header>
+  <main class="main"><div class="pagehead"><h1>Loja</h1><p>Onde a sua loja abre</p></div>
+    <nav class="tabs"><a href="#">Aparência</a><a href="#" aria-current="page">Domínio</a></nav>
+    <div class="grid"><div>${cardHtml(where)}</div><aside>${asideHtml()}</aside></div></main></div></div>
+  ${ST.where===where?dialogHtml():''}`;
+};
+function render(){ document.getElementById('desk').innerHTML=shell('desk'); document.getElementById('phone').innerHTML=shell('phone');
+  document.querySelectorAll('#seg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.s===ST.s));
+  document.querySelectorAll('#dlgs button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.d===ST.dlg)); }
+
+const valid = h => /^([a-z0-9-]+\.)+[a-z]{2,}$/.test(h);
+document.addEventListener('input', e => { const inp = e.target.closest('[data-host]'); if(!inp) return;
+  const root = inp.closest('.frame,.phone'); const h = inp.value.trim().toLowerCase().replace(/^https?:\/\//,'').replace(/\/.*$/,'').replace(/^www\./,'');
+  const u = root.querySelector('[data-url]'); if(u) u.textContent = h || (ST.s==='change'?'':'sualoja.com.br');
+  root.querySelector('[data-go]').disabled = !valid(h);
+  const hint = root.querySelector('[data-hint]'); const bad = h.length>3 && !valid(h) && !h.endsWith('.');
+  if(hint){ hint.classList.toggle('err', bad); hint.innerHTML = bad ? 'Confira o domínio. Ele termina em .com.br, .com ou parecido.' : ST.s==='change' ? '&nbsp;' : 'Ainda não tem um? <a href="#">Compre no Registro.br</a> e volte aqui.'; }
+  inp.closest('.inp').classList.toggle('err', bad);
+});
+document.addEventListener('click', e => {
+  const t = e.target;
+  const where = t.closest('#phone') ? 'phone' : 'desk';
+  const cp = t.closest('.cp'); if(cp){ cp.classList.add('copied'); cp.innerHTML='<span>Copiado</span>'; return; }
+  if (t.closest('[data-go]')) { ST.s='records'; ST.dlg=null; ST.menu=null; render(); return; }
+  const s = t.closest('[data-s]'); if(s){ ST.s=s.dataset.s; ST.dlg=null; ST.menu=null; render(); return; }
+  const d = t.closest('[data-d]'); if(d){ ST.dlg = ST.dlg===d.dataset.d && t.closest('#dlgs') ? null : d.dataset.d; ST.where = t.closest('#dlgs') ? 'desk' : where; ST.menu=null;
+    if(ST.dlg==='remove' && !hasDomain(ST.s)) ST.s='live'; render(); return; }
+  if (t.closest('[data-act=menu]')) { ST.menu = ST.menu===where ? null : where; render(); return; }
+  if (t.matches('[data-act=close]') || t.closest('button[data-act=close]')) { ST.dlg=null; render(); return; }
+  if (ST.menu && !t.closest('.pop')) { ST.menu=null; render(); }
+});
+render();
 </script>
 </body>
 </html>
