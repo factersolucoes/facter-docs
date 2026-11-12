@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Novidades do Shop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;800&family=Fraunces:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --background:0 0% 98%;
+  --foreground:240 10% 3.9%;
+  --card:0 0% 100%;
+  --primary:233 65% 50%;
+  --primary-foreground:0 0% 100%;
+  --muted:240 4.8% 93.9%;
+  --muted-foreground:240 3.8% 42%;
+  --border:240 5.9% 90%;
+  --success:160 60% 38%;
+  --warning:38 92% 45%;
+  --danger:0 84.2% 60.2%;
+  --info:233 65% 50%;
+  --radius:.5rem;
+
+  /* text-safe variants: the theme's success/danger/warning fail 4.5:1 as text on white */
+  --success-text:160 70% 24%;
+  --danger-text:0 72% 38%;
+  --warning-text:28 85% 28%;
+  --primary-soft:233 85% 96.5%;
+  --success-soft:160 55% 94%;
+  --warning-soft:40 95% 93%;
+
+  --canvas:225 14% 92%;
+  --ring:233 65% 50%;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));font:15px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4,p{margin:0}
+button,input,textarea,select{font:inherit;color:inherit}
+a{color:hsl(var(--primary))}
+:focus-visible{outline:2px solid hsl(var(--ring));outline-offset:2px;border-radius:6px}
+
+.ic{display:inline-block;width:20px;height:20px;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;flex:none}
+.ic.s16{width:16px;height:16px}.ic.s18{width:18px;height:18px}.ic.s24{width:24px;height:24px}.ic.s14{width:14px;height:14px}
+
+/* ---------- presentation page ---------- */
+.doc{max-width:1328px;margin:0 auto;padding:48px 24px 96px}
+.doc-head{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end;justify-content:space-between;margin-bottom:48px}
+.doc-head h1{font:800 32px/1.15 Sora,Inter,sans-serif;letter-spacing:-.02em}
+.doc-head p{color:hsl(var(--muted-foreground));max-width:640px;margin-top:8px}
+.sec{margin-top:72px}
+.sec-label{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font:800 14px Sora,sans-serif;color:hsl(var(--primary));background:hsl(var(--card));border-radius:999px;width:28px;height:28px;display:inline-grid;place-items:center;flex:none}
+.sec h2{font:700 22px/1.3 Inter,sans-serif;letter-spacing:-.01em}
+.sec-sub{color:hsl(var(--muted-foreground));margin:0 0 20px 40px;max-width:760px}
+.notes{margin:20px 0 0 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px 32px;font-size:14px;color:hsl(240 6% 25%)}
+.notes li{margin-bottom:6px}
+.notes ul{margin:0;padding-left:18px}
+.notes h4{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));margin-bottom:6px}
+
+.frame{background:hsl(var(--background));border-radius:14px;box-shadow:0 1px 2px hsl(230 20% 20%/.06),0 12px 40px -12px hsl(230 30% 20%/.18);overflow:hidden;border:1px solid hsl(var(--border));max-width:1280px}
+
+/* ---------- brand ---------- */
+.lockup{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+.lockup svg{color:hsl(var(--primary));flex:none}
+.lockup .rule{width:1px;align-self:stretch;background:hsl(var(--border));margin:2px 0}
+.wordmark{font:400 18px/1.1 Sora,sans-serif;letter-spacing:-.01em;white-space:nowrap}
+.wordmark b{font-weight:800}
+.tagline{font-size:11px;color:hsl(var(--muted-foreground));margin-top:3px;white-space:nowrap}
+
+/* ---------- app shell (desktop) ---------- */
+.app{display:grid;grid-template-columns:72px 1fr;grid-template-rows:64px 1fr;min-height:100%}
+.topbar{grid-column:1/-1;display:flex;align-items:center;gap:16px;padding:0 20px 0 18px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
+.topbar .spacer{flex:1}
+.search{display:flex;align-items:center;gap:8px;width:300px;max-width:30vw;height:38px;padding:0 12px;border:1px solid hsl(var(--border));border-radius:8px;color:hsl(var(--muted-foreground));font-size:14px;background:hsl(var(--background))}
+.org{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500;padding:6px 10px;border-radius:8px;border:0;background:none;cursor:pointer}
+.avatar{width:34px;height:34px;border-radius:999px;background:hsl(233 45% 88%);color:hsl(233 60% 30%);display:grid;place-items:center;font-weight:600;font-size:13px;flex:none}
+.iconbtn{width:38px;height:38px;border-radius:8px;border:0;background:none;display:grid;place-items:center;color:hsl(var(--muted-foreground));cursor:pointer}
+.iconbtn:hover{background:hsl(var(--muted))}
+
+.sidenav{background:hsl(var(--card));border-right:1px solid hsl(var(--border));padding:12px 0;display:flex;flex-direction:column;align-items:center;gap:4px}
+.navitem{position:relative;width:48px;height:48px;border-radius:10px;display:grid;place-items:center;color:hsl(240 5% 34%);text-decoration:none}
+.navitem:hover{background:hsl(var(--muted))}
+.navitem[aria-current="page"]{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+.navitem[aria-current="page"]::before{content:"";position:absolute;left:-12px;top:12px;bottom:12px;width:3px;border-radius:0 3px 3px 0;background:hsl(var(--primary))}
+.navitem .tip{position:absolute;left:58px;top:50%;transform:translateY(-50%);background:hsl(240 10% 12%);color:#fff;font-size:12px;padding:4px 8px;border-radius:6px;white-space:nowrap;pointer-events:none}
+.navsep{flex:1}
+.dot{position:absolute;top:9px;right:9px;width:10px;height:10px;border-radius:999px;background:hsl(var(--primary));box-shadow:0 0 0 2px hsl(var(--card))}
+
+.main{padding:32px 40px 48px;min-width:0}
+.pagehead{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+.pagehead h1{font:700 26px/1.2 Inter,sans-serif;letter-spacing:-.015em}
+.pagehead p{color:hsl(var(--muted-foreground));margin-top:4px}
+
+/* ---------- buttons, chips, badges ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:8px;border:1px solid transparent;font-weight:600;font-size:14px;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn-primary{background:hsl(var(--primary));color:hsl(var(--primary-foreground))}
+.btn-primary:hover{background:hsl(233 65% 44%)}
+.btn-outline{background:hsl(var(--card));border-color:hsl(240 6% 82%);color:hsl(var(--foreground))}
+.btn-outline:hover{background:hsl(var(--muted))}
+.btn-want{background:hsl(var(--card));border-color:hsl(233 60% 78%);color:hsl(var(--primary))}
+.btn-want:hover{background:hsl(var(--primary-soft))}
+.btn-ghost{background:none;color:hsl(var(--primary));padding:0 8px}
+.btn-ghost:hover{background:hsl(var(--primary-soft))}
+.btn-sm{height:34px;padding:0 12px;font-size:13px}
+.linkbtn{background:none;border:0;padding:0;color:hsl(var(--muted-foreground));font-size:13px;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;border-radius:999px;background:hsl(var(--muted));color:hsl(240 6% 26%);font-size:12px;font-weight:500}
+
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;letter-spacing:.01em;height:24px;padding:0 9px 0 7px;border-radius:6px}
+.b-new{background:hsl(var(--primary-soft));color:hsl(233 65% 42%)}
+.b-imp{background:hsl(var(--success-soft));color:hsl(var(--success-text))}
+.b-fix{background:hsl(var(--muted));color:hsl(240 6% 30%)}
+.b-soon{background:hsl(var(--warning-soft));color:hsl(var(--warning-text))}
+.meta{font-size:13px;color:hsl(var(--muted-foreground))}
+.unread{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:hsl(var(--primary))}
+.unread::before{content:"";width:7px;height:7px;border-radius:99px;background:currentColor}
+
+/* segmented filter */
+.seg{display:inline-flex;gap:4px;padding:4px;background:hsl(var(--muted));border-radius:10px;flex-wrap:wrap}
+.seg button{border:0;background:none;height:32px;padding:0 12px;border-radius:7px;font-size:14px;font-weight:500;color:hsl(240 6% 30%);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.seg button .n{font-size:12px;color:hsl(var(--muted-foreground));font-weight:500}
+.seg button[aria-pressed="true"]{background:hsl(var(--card));color:hsl(var(--foreground));box-shadow:0 1px 2px hsl(240 10% 10%/.12)}
+
+/* ---------- novidades layout ---------- */
+.nov{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:40px;align-items:start}
+.feedbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.month{display:flex;align-items:center;gap:12px;margin:28px 0 14px;font-size:13px;font-weight:600;color:hsl(240 6% 30%)}
+.month::after{content:"";flex:1;height:1px;background:hsl(var(--border))}
+.entries{display:flex;flex-direction:column;gap:14px}
+
+.card{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:12px}
+.e-feature{overflow:hidden}
+.e-feature .shot{height:200px;background:
+  linear-gradient(hsl(233 40% 97%),hsl(233 40% 97%)) padding-box;
+  border-bottom:1px solid hsl(var(--border));position:relative;display:grid;place-items:center;
+  background-image:radial-gradient(hsl(233 30% 88%) 1px,transparent 1px);background-size:16px 16px}
+.e-body{padding:20px 24px 22px}
+.e-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.e-feature h3{font-size:19px;line-height:1.3;font-weight:650;letter-spacing:-.01em}
+.e-body p{margin-top:6px;color:hsl(240 6% 22%);max-width:62ch}
+.e-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:18px;padding-top:16px;border-top:1px solid hsl(var(--border))}
+.forwho{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.forwho .lbl{font-size:12px;color:hsl(var(--muted-foreground))}
+
+.e-imp{display:grid;grid-template-columns:36px 1fr;gap:14px;padding:18px 22px}
+.e-imp .ico{width:36px;height:36px;border-radius:10px;background:hsl(var(--success-soft));color:hsl(var(--success-text));display:grid;place-items:center}
+.e-imp h3{font-size:16px;font-weight:600;line-height:1.35}
+.e-imp p{margin-top:4px;color:hsl(240 6% 22%);font-size:14.5px;max-width:62ch}
+.where{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:13.5px;font-weight:500;color:hsl(var(--primary));text-decoration:none}
+.where:hover{text-decoration:underline}
+
+.e-fixes{padding:6px 22px}
+.e-fixes .hd{display:flex;align-items:center;gap:10px;padding:12px 0 6px}
+.fix{display:grid;grid-template-columns:20px 1fr auto;gap:12px;padding:10px 0;border-top:1px solid hsl(var(--border));font-size:14.5px;align-items:start}
+.fix:first-of-type{border-top:0}
+.fix .ok{color:hsl(var(--success-text));margin-top:2px}
+.fix .meta{white-space:nowrap}
+
+/* em breve */
+.soon-col{position:sticky;top:24px}
+.soon-head h2{font-size:17px;font-weight:650;display:flex;align-items:center;gap:8px}
+.soon-head p{font-size:13.5px;color:hsl(var(--muted-foreground));margin-top:4px}
+.soon-list{display:flex;flex-direction:column;gap:12px;margin-top:16px}
+.soon{padding:18px 18px 16px}
+.soon h3{font-size:15.5px;font-weight:600;line-height:1.35;margin-top:10px}
+.soon p{font-size:14px;color:hsl(240 6% 22%);margin-top:4px}
+.collect{display:flex;gap:8px;align-items:flex-start;margin-top:12px;padding:10px 12px;background:hsl(var(--background));border:1px solid hsl(var(--border));border-radius:8px;font-size:13px;color:hsl(240 6% 25%)}
+.collect .ic{color:hsl(var(--success-text));margin-top:1px}
+.soon .actions{margin-top:14px;display:flex;gap:8px;align-items:center}
+.done{margin-top:14px;border-radius:10px;background:hsl(var(--success-soft));padding:12px 14px}
+.done .msg{display:flex;align-items:flex-start;line-height:1.35;gap:8px;font-weight:600;font-size:14px;color:hsl(var(--success-text))}
+.field{display:block;margin-top:12px}
+.field .l{display:block;font-size:13px;font-weight:500;margin-bottom:6px}
+.field .l .opt{font-weight:400;color:hsl(var(--muted-foreground))}
+textarea,.input,select{width:100%;border:1px solid hsl(240 6% 82%);border-radius:8px;background:hsl(var(--card));padding:9px 12px;font-size:14px;line-height:1.45}
+textarea{resize:vertical;min-height:72px}
+textarea::placeholder,.input::placeholder{color:hsl(240 4% 46%)}
+textarea:focus-visible,.input:focus-visible,select:focus-visible{outline:2px solid hsl(var(--ring));outline-offset:0;border-color:transparent}
+.check{display:flex;gap:8px;align-items:flex-start;margin-top:10px;font-size:13.5px}
+.check input{width:16px;height:16px;margin:2px 0 0;accent-color:hsl(var(--primary))}
+.done .row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap}
+
+/* screenshot placeholder art */
+.conj{display:flex;align-items:center;gap:0;padding:18px 22px;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:12px;box-shadow:0 8px 24px -10px hsl(233 40% 30%/.25)}
+.unit{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:96px}
+.unit .box{width:88px;height:48px;border-radius:8px;display:grid;place-items:center;border:1.5px solid hsl(233 50% 80%);background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+.unit .pl{font:600 12px/1 Inter;letter-spacing:.03em}
+.unit .ty{font-size:11px;color:hsl(var(--muted-foreground))}
+.hitch{display:flex;flex-direction:column;align-items:center;color:hsl(var(--success-text));margin:0 -4px 22px}
+.hitch .ln{width:40px;height:2px;background:hsl(160 50% 60%)}
+.shot-cap{position:absolute;left:16px;bottom:12px;font-size:11px;color:hsl(var(--muted-foreground))}
+
+/* ---------- banner ---------- */
+.banner{display:flex;align-items:center;gap:14px;padding:12px 14px 12px 18px;background:hsl(var(--primary-soft));border:1px solid hsl(233 60% 86%);border-radius:12px}
+.banner .bi{width:34px;height:34px;border-radius:9px;background:hsl(var(--primary));color:#fff;display:grid;place-items:center;flex:none}
+.banner .bt{flex:1;min-width:0;font-size:14.5px}
+.banner .bt strong{font-weight:650}
+.banner .bt span{color:hsl(240 6% 25%)}
+
+/* ---------- phone ---------- */
+.phones{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start;margin-left:40px}
+.phones .notes{margin:0;flex:1 1 260px;grid-template-columns:1fr;align-self:center}
+.notif{display:grid;grid-template-columns:34px 1fr;gap:12px;padding:14px;border-radius:10px;background:hsl(var(--card));border:1px solid hsl(var(--border));box-shadow:0 8px 24px -12px hsl(230 30% 20%/.25)}
+.notif .bi{width:34px;height:34px;border-radius:9px;background:hsl(var(--success-soft));color:hsl(var(--success-text));display:grid;place-items:center}
+.notif p{font-size:14px}
+.notif .meta{margin-top:2px}
+.phone-wrap{display:flex;flex-direction:column;gap:12px;align-items:center}
+.phone-cap{font-size:13px;color:hsl(var(--muted-foreground));max-width:360px;text-align:center}
+.phone{width:390px;max-width:calc(100vw - 48px);height:844px;border-radius:48px;background:hsl(240 8% 12%);padding:10px;box-shadow:0 20px 50px -20px hsl(230 30% 15%/.45)}
+.screen{position:relative;height:100%;border-radius:39px;overflow:hidden;background:hsl(var(--background));display:flex;flex-direction:column}
+.status{height:44px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 28px 0 32px;font:600 14px Inter;background:hsl(var(--card))}
+.status .isl{width:110px;height:30px;border-radius:20px;background:hsl(240 8% 12%)}
+.m-top{display:flex;align-items:center;justify-content:space-between;padding:8px 16px 10px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border));flex:none}
+.m-top .wordmark{font-size:16px}
+.m-body{flex:1;overflow:hidden;padding:16px}
+.m-body h1{font-size:22px;font-weight:700;letter-spacing:-.015em}
+.tabs{display:grid;grid-template-columns:1fr 1fr;margin:14px 0 12px;border-bottom:1px solid hsl(var(--border))}
+.tabs button{border:0;background:none;height:40px;font-size:14.5px;font-weight:500;color:hsl(240 5% 38%);border-bottom:2px solid transparent;margin-bottom:-1px;cursor:pointer}
+.tabs button[aria-selected="true"]{color:hsl(var(--primary));border-bottom-color:hsl(var(--primary));font-weight:600}
+.m-body .seg{display:flex;width:100%}
+.m-body .seg button{flex:1 1 auto;padding:0 8px;font-size:13px;justify-content:center}
+.m-body .month{margin:16px 0 10px}
+.m-body .e-body{padding:14px 16px 16px}
+.m-body .e-feature .shot{height:120px}
+.m-body .e-feature h3{font-size:17px}
+.m-body .e-body p{font-size:14px}
+.m-body .e-foot{margin-top:14px;padding-top:12px}
+.m-body .e-foot .btn{width:100%}
+.m-body .e-imp{padding:14px 16px;grid-template-columns:32px 1fr;gap:12px}
+.m-body .e-imp .ico{width:32px;height:32px}
+.m-body .soon{padding:16px}
+.botnav{flex:none;display:grid;grid-template-columns:repeat(5,1fr);background:hsl(var(--card));border-top:1px solid hsl(var(--border));padding:6px 4px 26px}
+.bn{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:500;color:hsl(240 5% 36%);text-decoration:none;padding:6px 0;border-radius:10px}
+.bn[aria-current="page"]{color:hsl(var(--primary));font-weight:600}
+.bn .dot{top:4px;right:calc(50% - 16px)}
+.fade{position:absolute;left:0;right:0;bottom:84px;height:40px;background:linear-gradient(transparent,hsl(var(--background)));pointer-events:none}
+
+/* ---------- indicators section ---------- */
+.ind{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-left:40px}
+.panel{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:14px}
+.panel h3{font-size:14px;font-weight:600}
+.panel .cap{font-size:13.5px;color:hsl(240 6% 28%)}
+.crop{border:1px solid hsl(var(--border));border-radius:10px;overflow:hidden;background:hsl(var(--background))}
+.ind .wide{grid-column:1/-1}
+
+/* ---------- vehicle detail ---------- */
+.vd .main{padding-top:24px}
+.crumb{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;color:hsl(var(--muted-foreground));text-decoration:none;margin-bottom:10px}
+.vhead{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.vhead h1{font:700 26px/1.2 Inter;letter-spacing:.01em}
+.status-ok{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:hsl(var(--success-text))}
+.status-ok::before{content:"";width:8px;height:8px;border-radius:99px;background:hsl(var(--success))}
+.vtabs{display:flex;gap:4px;margin:20px 0 24px;border-bottom:1px solid hsl(var(--border));flex-wrap:wrap}
+.vtabs a{padding:10px 14px;font-size:14px;font-weight:500;color:hsl(240 5% 36%);text-decoration:none;border-bottom:2px solid transparent;margin-bottom:-1px}
+.vtabs a[aria-current="page"]{color:hsl(var(--primary));border-bottom-color:hsl(var(--primary));font-weight:600}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.kpi{padding:16px 18px}
+.kpi .k{font-size:13px;color:hsl(var(--muted-foreground))}
+.kpi .v{font-size:24px;font-weight:700;letter-spacing:-.015em;margin-top:4px;font-variant-numeric:tabular-nums}
+.kpi .s{font-size:12.5px;color:hsl(var(--muted-foreground));margin-top:2px}
+.vgrid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:14px;margin-top:14px}
+.vcard{padding:18px 20px}
+.vcard h2{font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px}
+.inplace{border-color:hsl(40 70% 80%);background:linear-gradient(hsl(var(--card)),hsl(var(--card))) padding-box}
+.inplace .top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.kmbars{display:flex;align-items:flex-end;gap:3px;height:40px;margin-top:12px}
+.kmbars i{flex:1;background:hsl(233 50% 86%);border-radius:2px 2px 0 0}
+.kmbars i:last-child{background:hsl(var(--primary))}
+.oslist{margin-top:10px}
+.osrow{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:10px 0;border-top:1px solid hsl(var(--border));font-size:14px}
+.osrow:first-child{border-top:0}
+.osn{font-weight:600;font-variant-numeric:tabular-nums}
+.pill{font-size:12px;font-weight:600;padding:2px 8px;border-radius:99px}
+.p-run{background:hsl(var(--warning-soft));color:hsl(var(--warning-text))}
+.p-done{background:hsl(var(--success-soft));color:hsl(var(--success-text))}
+
+.side-state{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;margin:24px 0 0 40px}
+.state-card{max-width:440px}
+.state-cap{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));margin-bottom:8px;font-weight:600}
+
+/* ---------- authoring ---------- */
+.author .main{max-width:1120px}
+.frow{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:32px;padding:20px 0;border-top:1px solid hsl(var(--border))}
+.frow:first-of-type{border-top:0}
+.flabel{font-size:14px;font-weight:600;margin-bottom:8px;display:block}
+.flabel .req{color:hsl(var(--danger-text))}
+.hint{font-size:13px;color:hsl(var(--muted-foreground));margin-top:6px}
+.tipbox{font-size:13.5px;color:hsl(240 6% 25%);background:hsl(var(--primary-soft));border-radius:10px;padding:12px 14px;align-self:start}
+.tipbox b{display:flex;align-items:center;gap:6px;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:hsl(233 65% 42%);margin-bottom:6px}
+.tipbox ul{margin:0;padding-left:16px}
+.tipbox li{margin:2px 0}
+.tipbox .ex{margin-top:8px;font-size:13px}
+.tipbox .ex s{color:hsl(var(--danger-text))}
+.tipbox .ex em{font-style:normal;color:hsl(var(--success-text));font-weight:600}
+.types{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.type{position:relative;border:1px solid hsl(240 6% 84%);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:6px;cursor:pointer;background:hsl(var(--card))}
+.type input{position:absolute;opacity:0}
+.type .t{font-size:14px;font-weight:600}
+.type .d{font-size:12.5px;color:hsl(var(--muted-foreground));line-height:1.35}
+.type:has(input:checked){border-color:hsl(var(--primary));box-shadow:0 0 0 1px hsl(var(--primary));background:hsl(var(--primary-soft))}
+.type:has(input:focus-visible){outline:2px solid hsl(var(--ring));outline-offset:2px}
+.counter{display:flex;justify-content:space-between;font-size:12.5px;color:hsl(var(--muted-foreground));margin-top:6px}
+.rolepick{display:flex;flex-wrap:wrap;gap:8px}
+.rolepick label{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 12px;border:1px solid hsl(240 6% 84%);border-radius:999px;font-size:14px;cursor:pointer;background:hsl(var(--card))}
+.rolepick input{accent-color:hsl(var(--primary));width:16px;height:16px;margin:0}
+.rolepick label:has(input:checked){border-color:hsl(233 60% 70%);background:hsl(var(--primary-soft))}
+.drop{border:1.5px dashed hsl(240 6% 78%);border-radius:10px;padding:22px;display:flex;align-items:center;gap:14px;color:hsl(240 6% 30%);font-size:14px;background:hsl(var(--card))}
+.drop .ic{color:hsl(var(--muted-foreground))}
+.formfoot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:20px;border-top:1px solid hsl(var(--border))}
+.formfoot .r{display:flex;gap:8px;flex-wrap:wrap}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.errtext{font-size:13px;color:hsl(var(--danger-text));margin-top:6px;display:flex;gap:6px;align-items:center}
+
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+@media (max-width:1100px){
+  .nov{grid-template-columns:1fr}
+  .soon-col{position:static}
+  .frow{grid-template-columns:1fr}
+  .vgrid{grid-template-columns:1fr}
+  .ind{grid-template-columns:1fr}
+  .types{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:720px){
+  .doc{padding:32px 16px 64px}
+  .app{grid-template-columns:1fr}
+  .sidenav{display:none}
+  .main{padding:20px 16px}
+  .search{display:none}
+  .sec-sub,.notes,.phones,.ind,.side-state{margin-left:0}
+  .tagline{display:none}
+}
+/* ---------- Shop: neutral primary, panel shell ---------- */
+:root{
+  --primary:240 10% 3.9%;
+  --primary-foreground:0 0% 100%;
+  --primary-soft:240 4.8% 93.9%;
+  --info:217 91% 45%;
+  --info-soft:214 95% 95%;
+  --info-text:221 83% 38%;
+  --ring:240 10% 3.9%;
+}
+a{color:inherit}
+.btn-primary:hover{background:hsl(240 6% 20%)}
+.b-new{background:hsl(var(--info-soft));color:hsl(var(--info-text))}
+.unread{color:hsl(var(--info-text))}
+.dot{background:hsl(240 6% 46%)}
+.app{grid-template-columns:56px 1fr;grid-template-rows:1fr}
+.sidenav{grid-row:1;padding:0 0 12px;gap:2px}
+.brandsq{width:56px;height:56px;background:hsl(var(--primary));color:#fff;display:grid;place-items:center;margin-bottom:10px}
+.navitem{width:40px;height:40px;border-radius:9px}
+.navitem[aria-current="page"]{background:hsl(var(--muted));color:hsl(var(--foreground))}
+.navitem[aria-current="page"]::before{left:-8px;top:10px;bottom:10px;background:hsl(var(--foreground))}
+.avatar{background:hsl(var(--muted));color:hsl(240 6% 26%)}
+.avatar.sm{width:30px;height:30px;font-size:11px;margin-top:8px}
+.col{min-width:0;display:flex;flex-direction:column}
+.topbar{height:56px;flex:none}
+.crumbs{display:flex;align-items:center;gap:8px;font-size:14px;color:hsl(var(--muted-foreground))}
+.crumbs a{text-decoration:none}
+.crumbs b{color:hsl(var(--foreground));font-weight:600}
+.store{display:flex;align-items:center;gap:10px;padding:6px 12px 6px 6px;border-radius:10px;background:hsl(var(--muted))}
+.store b{display:block;font-size:14px;line-height:1.2}
+.store small{display:block;font-size:12px;color:hsl(var(--muted-foreground))}
+.main{max-width:none}
+[hidden]{display:none !important}
+.ask{padding:22px;margin-top:16px}
+#desk .nov{grid-template-columns:minmax(0,1fr) 384px;gap:32px}
+.soonbox{overflow:hidden}
+.sb-hd{position:relative;overflow:hidden;display:flex;align-items:center;gap:14px;padding:20px 22px;border-bottom:1px solid hsl(var(--border));background:linear-gradient(100deg,hsl(var(--card)) 35%,hsl(240 10% 3.9%/.09))}
+.sb-hd::before{content:"";position:absolute;inset:0;background-image:radial-gradient(hsl(240 6% 60%/.55) 1.2px,transparent 1.3px);background-size:14px 14px;-webkit-mask:linear-gradient(100deg,transparent 35%,#000 85%);mask:linear-gradient(100deg,transparent 35%,#000 85%);pointer-events:none}
+.sb-hd>*{position:relative}
+.sb-mark{flex:none;width:44px;height:44px;border-radius:12px;background:hsl(var(--primary));color:#fff;display:grid;place-items:center;box-shadow:0 6px 16px -6px hsl(240 10% 4%/.5);transform:rotate(-6deg)}
+.sb-hd h2{font-size:20px;font-weight:700;letter-spacing:-.01em}
+.sb-hd p{font-size:14px;color:hsl(240 6% 30%);margin-top:2px;white-space:nowrap}
+.sb-row{position:relative;display:block;padding:18px 22px;border-top:1px solid hsl(var(--border))}
+.sb-row:first-of-type{border-top:0}
+.sb-row:hover{background:hsl(var(--background))}
+.sb-where{display:block;font-size:12.5px;color:hsl(var(--muted-foreground));margin-bottom:1px}
+.sb-head{display:flex;align-items:center;gap:14px}
+.sb-row h3{font-size:16px;font-weight:600;line-height:1.3}
+.sb-row p{font-size:14px;line-height:1.5;color:hsl(240 6% 30%);margin-top:12px}
+.sb-act{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;flex-wrap:wrap}
+.sb-n{font-size:12.5px;color:hsl(var(--muted-foreground))}
+.sb-prev{flex:none;width:52px;height:52px;border-radius:12px;display:grid;place-items:center;overflow:hidden}
+.pv-pay{width:100%;height:100%;background:hsl(152 60% 94%);display:flex;flex-direction:column;justify-content:center;gap:4px;padding:0 7px}
+.pv-pay b{font-size:10px;font-weight:700;background:#fff;color:hsl(152 60% 26%);border-radius:5px;padding:2px 0;text-align:center}
+.pv-seq{width:100%;height:100%;background:hsl(30 30% 95%);position:relative}
+.pv-seq i{position:absolute;width:26px;height:32px;border-radius:5px;background:linear-gradient(160deg,hsl(35 25% 86%),hsl(30 18% 74%));border:2px solid #fff;box-shadow:0 2px 6px -2px hsl(30 20% 30%/.35)}
+.pv-seq i:nth-child(1){left:8px;top:14px;transform:rotate(-10deg)}
+.pv-seq i:nth-child(2){left:15px;top:11px;transform:rotate(-2deg)}
+.pv-seq i:nth-child(3){left:22px;top:9px;transform:rotate(8deg)}
+.pv-fast{width:100%;height:100%;background:hsl(214 95% 95%);display:grid;place-items:center}
+.pv-fast i{width:34px;height:6px;border-radius:99px;background:hsl(214 60% 85%);position:relative;overflow:hidden}
+.pv-fast i::after{content:"";position:absolute;inset:0;width:100%;background:hsl(var(--info-text));border-radius:99px;animation:fill 1.6s ease-out infinite}
+@keyframes fill{from{width:0}to{width:100%}}
+@media (prefers-reduced-motion:reduce){.pv-fast i::after{animation:none}}
+.want{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:999px;border:1px solid hsl(240 6% 82%);background:hsl(var(--card));font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+.want:hover{background:hsl(var(--muted))}
+.want[aria-pressed="true"]{background:hsl(var(--success-soft));border-color:transparent;color:hsl(var(--success-text))}
+.soon-top{display:flex;align-items:center;gap:8px}
+.soon-top .meta{font-size:12.5px}
+.soon h3{margin-top:8px}
+.btn-want{border-color:hsl(240 6% 82%);color:hsl(var(--foreground))}
+.btn-want:hover{background:hsl(var(--muted))}
+.ask h2{font-size:16px;font-weight:650}
+.ask p{font-size:14px;color:hsl(240 6% 25%);margin-top:4px}
+.ask textarea{margin-top:12px}
+.ask .btn{width:100%;margin-top:10px}
+.ask .done{margin-top:12px}
+.e-feature .shot{background-image:radial-gradient(hsl(240 6% 86%) 1px,transparent 1px);background-color:hsl(240 5% 97%)}
+.e-imp .ico{background:hsl(var(--success-soft));color:hsl(var(--success-text))}
+.where{color:hsl(var(--foreground));text-decoration:underline;text-underline-offset:3px}
+.browser{width:min(420px,80%);background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:10px;overflow:hidden;box-shadow:0 8px 24px -12px hsl(240 10% 20%/.25)}
+.browser .bar{display:flex;align-items:center;gap:10px;padding:8px 10px;background:hsl(var(--muted))}
+.browser .dots{display:flex;gap:5px}.browser .dots i{width:8px;height:8px;border-radius:99px;background:hsl(240 5% 78%)}
+.browser .url{flex:1;display:flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:6px;background:hsl(var(--card));font-size:13px;font-weight:500}
+.browser .url .ic{color:hsl(var(--success-text))}
+.browser .page{padding:16px;display:flex;flex-direction:column;gap:10px;align-items:center}
+.browser .page b{font:600 15px Fraunces,Georgia,serif;letter-spacing:.2em}
+.browser .row{display:flex;gap:8px}.browser .row i{width:76px;height:52px;border-radius:6px;background:hsl(30 20% 90%)}
+.browser.sm{width:86%}
+.pc{display:flex;gap:16px;align-items:center;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:12px;padding:14px;box-shadow:0 8px 24px -12px hsl(240 10% 20%/.25)}
+.pc .ph{width:96px;height:120px;border-radius:8px;background:linear-gradient(160deg,hsl(35 25% 88%),hsl(30 18% 78%))}
+.pc .pi{display:flex;flex-direction:column;gap:6px;align-items:flex-start;font-size:14px}
+.pc .pr{color:hsl(var(--muted-foreground))}
+.pc .last{font-size:12px;font-weight:600;color:hsl(var(--warning-text));background:hsl(var(--warning-soft));padding:2px 8px;border-radius:99px}
+.pc .opts{display:flex;gap:6px}
+.pc .op{font-size:12px;padding:3px 9px;border:1px solid hsl(var(--border));border-radius:99px}
+.pc .op.on{border-color:hsl(var(--foreground))}
+.pc .op.out{color:hsl(var(--muted-foreground));text-decoration:line-through}
+.m-top{height:52px}
+.m-title{font-size:16px}
+.m-body{display:flex;flex-direction:column;gap:0}
+.m-body .seg{margin-bottom:4px}
+.e-imp{grid-template-columns:36px minmax(0,1fr) auto;align-items:center;column-gap:16px}
+.e-imp .where{margin-top:0;text-decoration:none;align-self:center}
+.e-imp p{max-width:none}
+@media (max-width:720px){.e-imp{grid-template-columns:36px minmax(0,1fr)}.e-imp .where{grid-column:2;justify-self:start;margin-top:10px}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="facter" viewBox="0 0 207 304"><path fill="currentColor" d="M25.8384 196.911L15.4739 183.729C-10.7189 150.411 0.44781 101.422 38.4895 82.7344L206.266 0.307297V34.2396C206.266 60.1875 191.448 83.8698 168.12 95.2396L56.578 149.594C48.4634 153.547 41.3489 159.344 35.9791 166.609C30.5936 173.901 25.9582 183.906 26.3176 196.526C29.9947 193.609 34.0624 191.026 38.4843 188.854L206.26 106.432V140.359C206.26 166.313 191.437 189.995 168.109 201.365L56.578 255.708C48.4634 259.667 41.3489 265.464 35.9791 272.724C30.4426 280.224 25.6978 290.578 26.3593 303.693L15.4739 289.854C-7.54698 260.568 -1.72407 219.193 25.8384 196.911ZM134.818 266.526L206.208 303.724L206.187 210.802L134.953 246.661C126.828 250.755 126.755 262.323 134.818 266.526Z"/></symbol>
+</svg>
+
+<div class="doc">
+  <header class="doc-head">
+    <div>
+      <h1>Novidades do Shop</h1>
+      <p>A tela onde a dona da loja vê o que mudou no painel e na loja dela. Segue o modelo aprovado no Truck, com a casca do painel do Shop e as entradas reais de novembro.</p>
+    </div>
+    <div class="lockup" aria-label="Facter Shop">
+      <svg width="27" height="40" aria-hidden="true"><use href="#facter"/></svg>
+      <span class="rule"></span>
+      <div><div class="wordmark">Facter <b>Shop</b></div><div class="tagline">Sua loja online</div></div>
+    </div>
+  </header>
+
+  <!-- =============== 1. DESKTOP =============== -->
+  <section class="sec" id="s1">
+    <div class="sec-label"><span class="sec-num">1</span><h2>Tela de Novidades · notebook 1280</h2></div>
+    <p class="sec-sub">O que saiu fica à esquerda, o mais novo primeiro, agrupado por mês; o que vem fica na coluna da direita, sem data. Função nova ganha card grande com um retrato da tela; melhoria é um card compacto; correção é uma linha. O filtro funciona.</p>
+
+    <div class="frame" id="desk">
+      <div class="app">
+        <nav class="sidenav" aria-label="Menu principal">
+          <span class="brandsq" aria-hidden="true"><svg width="15" height="22"><use href="#facter"/></svg></span>
+          <a class="navitem" href="#" aria-label="Início"><i class="ic" style="--i:url(https://api.iconify.design/ph/house.svg)"></i></a>
+          <a class="navitem" href="#" aria-label="Pedidos"><i class="ic" style="--i:url(https://api.iconify.design/ph/receipt.svg)"></i></a>
+          <a class="navitem" href="#" aria-label="Clientes"><i class="ic" style="--i:url(https://api.iconify.design/ph/users.svg)"></i></a>
+          <a class="navitem" href="#" aria-label="Catálogo"><i class="ic" style="--i:url(https://api.iconify.design/ph/package.svg)"></i></a>
+          <a class="navitem" href="#" aria-label="Cupons"><i class="ic" style="--i:url(https://api.iconify.design/ph/ticket.svg)"></i></a>
+          <a class="navitem" href="#" aria-label="Recebimentos"><i class="ic" style="--i:url(https://api.iconify.design/ph/wallet.svg)"></i></a>
+          <a class="navitem" href="#" aria-label="Loja"><i class="ic" style="--i:url(https://api.iconify.design/ph/storefront.svg)"></i></a>
+          <a class="navitem" href="#" aria-label="Bio"><i class="ic" style="--i:url(https://api.iconify.design/ph/at.svg)"></i></a>
+          <a class="navitem" href="#" aria-label="Configurações"><i class="ic" style="--i:url(https://api.iconify.design/ph/gear.svg)"></i></a>
+          <span class="navsep"></span>
+          <a class="navitem" href="#" aria-current="page" aria-label="Novidades"><i class="ic" style="--i:url(https://api.iconify.design/ph/megaphone-simple-fill.svg)"></i></a>
+          <span class="avatar sm" aria-label="Dona da loja">AL</span>
+        </nav>
+        <div class="col">
+          <header class="topbar">
+            <nav class="crumbs" aria-label="Você está em"><a href="#">Início</a><i class="ic s14" style="--i:url(https://api.iconify.design/ph/caret-right.svg)"></i><b>Novidades</b></nav>
+            <span class="spacer"></span>
+            <a class="btn btn-outline btn-sm" href="#"><i class="ic s16" style="--i:url(https://api.iconify.design/ph/arrow-square-out.svg)"></i>Ver a loja</a>
+            <button class="iconbtn" type="button" aria-label="Tema escuro"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/moon.svg)"></i></button>
+            <span class="store"><span class="avatar">AL</span><span><b>Ateliê Lume</b><small>Semijoias</small></span></span>
+          </header>
+
+          <main class="main">
+            <div class="pagehead">
+              <div>
+                <h1>Novidades</h1>
+                <p>O que mudou no painel e na sua loja</p>
+              </div>
+            </div>
+
+            <div class="nov">
+            <div>
+            <div class="feedbar">
+              <div class="seg" role="group" aria-label="Filtrar por tipo" data-filter="desk">
+                <button type="button" aria-pressed="true" data-f="all">Tudo <span class="n">10</span></button>
+                <button type="button" aria-pressed="false" data-f="new">Novas funções <span class="n">4</span></button>
+                <button type="button" aria-pressed="false" data-f="imp">Melhorias <span class="n">5</span></button>
+                <button type="button" aria-pressed="false" data-f="fix">Correções <span class="n">1</span></button>
+              </div>
+            </div>
+
+            <div class="feed" data-feed="desk">
+              <div class="month">Novembro de 2026</div>
+              <div class="entries">
+                <article class="card e-feature" data-t="new">
+                  <div class="shot" role="img" aria-label="Navegador abrindo a loja em sualoja.com.br, com cadeado">
+                    <div class="browser" aria-hidden="true">
+                      <div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="url"><i class="ic s14" style="--i:url(https://api.iconify.design/ph/lock-simple-fill.svg)"></i>sualoja.com.br</span></div>
+                      <div class="page"><b>SUA LOJA</b><span class="row"><i></i><i></i><i></i></span></div>
+                    </div>
+                  </div>
+                  <div class="e-body">
+                    <div class="e-top">
+                      <span class="badge b-new"><i class="ic s14" style="--i:url(https://api.iconify.design/ph/sparkle-fill.svg)"></i>Nova função</span>
+                      <span class="meta">12 nov</span>
+                      <span class="unread">Nova para você</span>
+                    </div>
+                    <h3>A loja no seu próprio endereço</h3>
+                    <p>Cole o seu domínio em Loja, Domínio. O painel mostra os dois registros para criar onde você comprou o domínio, e a loja passa a abrir nele, com cadeado. O endereço Facter continua funcionando.</p>
+                    <div class="e-foot">
+                      <span></span>
+                      <a class="btn btn-primary" href="#">Experimentar <i class="ic s16" style="--i:url(https://api.iconify.design/ph/arrow-right.svg)"></i></a>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="card e-imp" data-t="imp">
+                  <span class="ico"><i class="ic" style="--i:url(https://api.iconify.design/ph/link-simple.svg)"></i></span>
+                  <div>
+                    <div class="e-top" style="margin-bottom:6px"><span class="badge b-imp">Melhoria</span><span class="meta">12 nov</span><span class="unread">Nova para você</span></div>
+                    <h3>Copiar o link de uma peça</h3>
+                    <p>Em cada peça do Catálogo, Copiar link. Cole no WhatsApp ou no Instagram e a cliente cai direto na peça.</p>
+                  </div>
+                  <a class="where btn btn-outline btn-sm" href="#">Ver no Catálogo <i class="ic s16" style="--i:url(https://api.iconify.design/ph/arrow-right.svg)"></i></a>
+                </article>
+
+                <article class="card e-imp" data-t="imp">
+                  <span class="ico"><i class="ic" style="--i:url(https://api.iconify.design/ph/note-pencil.svg)"></i></span>
+                  <div>
+                    <div class="e-top" style="margin-bottom:6px"><span class="badge b-imp">Melhoria</span><span class="meta">11 nov</span><span class="unread">Nova para você</span></div>
+                    <h3>Rascunhos no topo do Catálogo</h3>
+                    <p>Peça fora da loja agora se chama Rascunho. No topo do Catálogo aparece quantas faltam publicar, e Ver rascunhos mostra só elas.</p>
+                  </div>
+                  <a class="where btn btn-outline btn-sm" href="#">Ver no Catálogo <i class="ic s16" style="--i:url(https://api.iconify.design/ph/arrow-right.svg)"></i></a>
+                </article>
+
+                <article class="card e-feature" data-t="new">
+                  <div class="shot" role="img" aria-label="Peça Anel solitário na loja com o aviso Últimas 2 e a cor Dourado esgotada">
+                    <div class="pc" aria-hidden="true">
+                      <div class="ph"></div>
+                      <div class="pi">
+                        <b>Anel solitário</b><span class="pr">R$ 89,90</span>
+                        <span class="last">Últimas 2</span>
+                        <span class="opts"><span class="op on">Prata</span><span class="op out">Dourado</span><span class="op">Rosé</span></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="e-body">
+                    <div class="e-top">
+                      <span class="badge b-new"><i class="ic s14" style="--i:url(https://api.iconify.design/ph/sparkle-fill.svg)"></i>Nova função</span>
+                      <span class="meta">11 nov</span>
+                      <span class="unread">Nova para você</span>
+                    </div>
+                    <h3>Estoque de cada peça, tamanho e cor</h3>
+                    <p>Diga quantas tem de cada uma. Quando você confirma o pedido, o estoque baixa sozinho, a loja avisa "Últimas unidades" e a cor que acabou aparece esgotada.</p>
+                    <div class="e-foot">
+                      <span></span>
+                      <a class="btn btn-primary" href="#">Experimentar <i class="ic s16" style="--i:url(https://api.iconify.design/ph/arrow-right.svg)"></i></a>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="card e-imp" data-t="imp">
+                  <span class="ico"><i class="ic" style="--i:url(https://api.iconify.design/ph/barcode.svg)"></i></span>
+                  <div>
+                    <div class="e-top" style="margin-bottom:6px"><span class="badge b-imp">Melhoria</span><span class="meta">11 nov</span></div>
+                    <h3>Código da peça</h3>
+                    <p>Guarde o código do fornecedor em cada peça e encontre pela busca do Catálogo. A cliente não vê.</p>
+                  </div>
+                  <a class="where btn btn-outline btn-sm" href="#">Ver no Catálogo <i class="ic s16" style="--i:url(https://api.iconify.design/ph/arrow-right.svg)"></i></a>
+                </article>
+
+                <article class="card e-imp" data-t="imp">
+                  <span class="ico"><i class="ic" style="--i:url(https://api.iconify.design/ph/lightning.svg)"></i></span>
+                  <div>
+                    <div class="e-top" style="margin-bottom:6px"><span class="badge b-imp">Melhoria</span><span class="meta">11 nov</span></div>
+                    <h3>Pronta entrega sai no mesmo dia</h3>
+                    <p>Peça pronta nasce com prazo zero, e a loja mostra "Sai no mesmo dia". Sob encomenda continua com os dias que você escolher.</p>
+                  </div>
+                  <a class="where btn btn-outline btn-sm" href="#">Ver no Catálogo <i class="ic s16" style="--i:url(https://api.iconify.design/ph/arrow-right.svg)"></i></a>
+                </article>
+
+                <article class="card e-feature" data-t="new">
+                  <div class="e-body">
+                    <div class="e-top">
+                      <span class="badge b-new"><i class="ic s14" style="--i:url(https://api.iconify.design/ph/sparkle-fill.svg)"></i>Nova função</span>
+                      <span class="meta">10 nov</span>
+                    </div>
+                    <h3>Entrega por bairro</h3>
+                    <p>Cada bairro com a sua taxa, e frete grátis a partir do valor que você escolher. A cliente vê o valor certo antes de pedir.</p>
+                    <div class="e-foot">
+                      <span></span>
+                      <a class="btn btn-primary" href="#">Experimentar <i class="ic s16" style="--i:url(https://api.iconify.design/ph/arrow-right.svg)"></i></a>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="card e-feature" data-t="new">
+                  <div class="e-body">
+                    <div class="e-top">
+                      <span class="badge b-new"><i class="ic s14" style="--i:url(https://api.iconify.design/ph/sparkle-fill.svg)"></i>Nova função</span>
+                      <span class="meta">10 nov</span>
+                    </div>
+                    <h3>Até 5 fotos por peça</h3>
+                    <p>A primeira vira a capa, e a cliente passa as outras na página da peça.</p>
+                    <div class="e-foot">
+                      <span></span>
+                      <a class="btn btn-primary" href="#">Experimentar <i class="ic s16" style="--i:url(https://api.iconify.design/ph/arrow-right.svg)"></i></a>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="card e-imp" data-t="imp">
+                  <span class="ico"><i class="ic" style="--i:url(https://api.iconify.design/ph/ruler.svg)"></i></span>
+                  <div>
+                    <div class="e-top" style="margin-bottom:6px"><span class="badge b-imp">Melhoria</span><span class="meta">10 nov</span></div>
+                    <h3>Peso, medidas e garantia em números</h3>
+                    <p>Na ficha técnica esses campos aceitam só números, e a loja mostra cada um com a unidade certa.</p>
+                  </div>
+                  <a class="where btn btn-outline btn-sm" href="#">Ver no Catálogo <i class="ic s16" style="--i:url(https://api.iconify.design/ph/arrow-right.svg)"></i></a>
+                </article>
+
+                <section class="card e-fixes" data-t="fix" aria-label="Correções de novembro">
+                  <div class="hd"><span class="badge b-fix"><i class="ic s14" style="--i:url(https://api.iconify.design/ph/check-circle.svg)"></i>Correções</span></div>
+                  <div class="fix"><i class="ic s18 ok" style="--i:url(https://api.iconify.design/ph/check-circle-fill.svg)"></i><span>A garantia na página da peça repetia a palavra "meses". Corrigido</span><span class="meta">11 nov</span></div>
+                </section>
+              </div>
+            </div>
+            </div>
+            <aside class="soon-col" aria-labelledby="soon-d">
+              <section class="card soonbox" aria-labelledby="soon-d">
+                <header class="sb-hd">
+                  <span class="sb-mark" aria-hidden="true"><i class="ic s24" style="--i:url(https://api.iconify.design/ph/rocket-launch-fill.svg)"></i></span>
+                  <div><h2 id="soon-d">Vem aí</h2><p>Marque o que quer usar primeiro</p></div>
+                </header>
+                <article class="sb-row">
+                  <div class="sb-head">
+                    <div class="sb-prev" aria-hidden="true"><span class="pv-pay"><b>Pix</b><b>Cartão</b></span></div>
+                    <div><span class="sb-where">Recebimentos</span><h3>InfinitePay na loja</h3></div>
+                  </div>
+                  <p>Venda da loja na mesma conta da maquininha.</p>
+                  <div class="sb-act"><span class="sb-n">3 lojas querem</span><button class="want" type="button" aria-pressed="false" data-want data-n="3"><i class="ic s16" style="--i:url(https://api.iconify.design/ph/thumbs-up.svg)"></i><span>Quero</span></button></div>
+                </article>
+                <article class="sb-row">
+                  <div class="sb-head">
+                    <div class="sb-prev" aria-hidden="true"><span class="pv-seq"><i></i><i></i><i></i></span></div>
+                    <div><span class="sb-where">Catálogo</span><h3>Dez peças em minutos</h3></div>
+                  </div>
+                  <p>Foto e preço, e a próxima já aparece.</p>
+                  <div class="sb-act"><span class="sb-n">2 lojas querem</span><button class="want" type="button" aria-pressed="false" data-want data-n="2"><i class="ic s16" style="--i:url(https://api.iconify.design/ph/thumbs-up.svg)"></i><span>Quero</span></button></div>
+                </article>
+                <article class="sb-row">
+                  <div class="sb-head">
+                    <div class="sb-prev" aria-hidden="true"><span class="pv-fast"><i></i></span></div>
+                    <div><span class="sb-where">Loja</span><h3>Loja rápida no celular</h3></div>
+                  </div>
+                  <p>Foto direto da câmera, sem pesar a loja.</p>
+                  <div class="sb-act"><span class="sb-n">Você e mais 4 lojas</span><button class="want" type="button" aria-pressed="true" data-want data-n="4"><i class="ic s16" style="--i:url(https://api.iconify.design/ph/check-bold.svg)"></i><span>Anotado</span></button></div>
+                </article>
+              </section>
+              <section class="card ask" data-ask>
+                <h2>Sentiu falta de alguma coisa?</h2>
+                <p>Conte o que ajudaria a sua loja. O que mais lojas pedirem entra em Vem aí.</p>
+                <textarea rows="4" aria-label="O que ajudaria na sua loja" placeholder="Ex.: mandar o link de uma peça direto no WhatsApp"></textarea>
+                <button class="btn btn-primary" type="button" data-send>Mandar sugestão</button>
+              </section>
+            </aside>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <div><h4>Quatro modelos</h4><ul>
+        <li><b>Nova função</b>: card grande, retrato da tela quando ajuda, o ganho para a loja e "Experimentar", que leva ao lugar certo.</li>
+        <li><b>Melhoria</b>: card compacto com ícone, o que ficou melhor e onde ("Ver no Catálogo").</li>
+        <li><b>Correção</b>: uma linha por item, agrupada por mês num card só.</li>
+        <li><b>Vem aí</b>: o que vem e onde vai ficar, com "Quero". Nunca data.</li>
+      </ul></div>
+      <div><h4>Decisões</h4><ul>
+        <li>Vem aí (o Em breve do Truck) na coluna da direita: sem data, num card só com linhas divididas, o lugar onde vai morar e "Quero", que vira "Anotado" e pode ser desfeito. O número de lojas que querem mede o que vem primeiro. "Pedido" ficou de fora porque no Shop pedido é venda. Só entra o que já está desenhado ou em construção.</li>
+        <li>Sem "Para" (papéis): no Shop quem lê é a dona.</li>
+        <li>"Nova para você" marca só o que saiu desde a última visita; abrir a tela apaga o ponto do menu.</li>
+        <li>Novidades fica no rodapé do menu, longe dos módulos de trabalho.</li>
+        <li>A coluna da direita é o canal de volta: "Sentiu falta de alguma coisa?" vira um pedido para a equipe Facter. "Quero isso" e o pedido precisam de API (guardar e avisar a equipe).</li>
+      </ul></div>
+      <div><h4>Escrita</h4><ul>
+        <li>Título diz o ganho na loja; o corpo diz onde fica e o que muda.</li>
+        <li>As entradas vivem no código da API, no mesmo PR da entrega.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <!-- =============== 2. PHONE =============== -->
+  <section class="sec" id="s2">
+    <div class="sec-label"><span class="sec-num">2</span><h2>No celular · 390 px</h2></div>
+    <p class="sec-sub">Mesmo feed numa coluna. O filtro quebra em linhas em vez de rolar para o lado, e o botão ocupa a largura toda.</p>
+
+    <div class="phones">
+      <div class="phone-wrap">
+        <div class="phone"><div class="screen">
+          <div class="status"><span>9:41</span><span class="isl"></span><span>5G</span></div>
+          <div class="m-top">
+            <button class="iconbtn" type="button" aria-label="Menu" style="position:relative"><i class="ic" style="--i:url(https://api.iconify.design/ph/list.svg)"></i></button>
+            <b class="m-title">Novidades</b>
+            <span class="avatar" style="width:30px;height:30px;font-size:12px">AL</span>
+          </div>
+          <div class="m-body">
+            <div class="tabs" role="tablist" style="margin-top:0"><button role="tab" aria-selected="true" type="button">O que saiu</button><button role="tab" aria-selected="false" type="button">Vem aí</button></div>
+            <div class="seg" role="group" aria-label="Filtrar por tipo" data-filter="m">
+              <button type="button" aria-pressed="true" data-f="all">Tudo</button>
+              <button type="button" aria-pressed="false" data-f="new">Novas</button>
+              <button type="button" aria-pressed="false" data-f="imp">Melhorias</button>
+              <button type="button" aria-pressed="false" data-f="fix">Correções</button>
+            </div>
+            <div class="feed" data-feed="m">
+              <div class="month">Novembro de 2026</div>
+              <div class="entries">
+                <article class="card e-feature" data-t="new">
+                  <div class="shot" role="img" aria-label="Navegador abrindo a loja em sualoja.com.br">
+                    <div class="browser sm" aria-hidden="true"><div class="bar"><span class="url"><i class="ic s14" style="--i:url(https://api.iconify.design/ph/lock-simple-fill.svg)"></i>sualoja.com.br</span></div></div>
+                  </div>
+                  <div class="e-body">
+                    <div class="e-top"><span class="badge b-new"><i class="ic s14" style="--i:url(https://api.iconify.design/ph/sparkle-fill.svg)"></i>Nova função</span><span class="meta">12 nov</span><span class="unread">Nova</span></div>
+                    <h3>A loja no seu próprio endereço</h3>
+                    <p>Cole o seu domínio em Loja, Domínio. O painel mostra os dois registros, e a loja passa a abrir nele, com cadeado.</p>
+                    <div class="e-foot"><a class="btn btn-primary" href="#">Experimentar</a></div>
+                  </div>
+                </article>
+                <article class="card e-imp" data-t="imp">
+                  <span class="ico"><i class="ic" style="--i:url(https://api.iconify.design/ph/link-simple.svg)"></i></span>
+                  <div>
+                    <div class="e-top" style="margin-bottom:6px"><span class="badge b-imp">Melhoria</span><span class="meta">12 nov</span></div>
+                    <h3>Copiar o link de uma peça</h3>
+                    <p>Cole no WhatsApp ou no Instagram e a cliente cai direto na peça.</p>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+          <div class="fade" style="bottom:0"></div>
+        </div></div>
+        <span class="phone-cap">O menu do celular abre por cima; o ponto aparece no ícone do menu e no item Novidades.</span>
+      </div>
+      <div class="notes">
+        <div><h4>No celular</h4><ul>
+          <li>As duas colunas viram duas abas: O que saiu e Vem aí.</li>
+          <li>Rótulos curtos no filtro ("Novas") para caber em uma linha.</li>
+          <li>O retrato da tela encolhe, o texto não.</li>
+          <li>"Experimentar" com a largura toda, ao alcance do polegar.</li>
+        </ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============== 3. INDICATORS =============== -->
+  <section class="sec" id="s3">
+    <div class="sec-label"><span class="sec-num">3</span><h2>Como ela fica sabendo</h2></div>
+    <p class="sec-sub">Só um ponto discreto no menu. Nada de janela que pula na frente do trabalho: ela abre quando quiser, e o ponto some quando abre.</p>
+    <div class="ind">
+      <div class="panel">
+        <h3>Ponto no menu lateral</h3>
+        <div class="crop" style="padding:14px;display:flex;gap:10px;align-items:center;justify-content:center">
+          <a class="navitem" href="#" aria-label="Configurações"><i class="ic" style="--i:url(https://api.iconify.design/ph/gear.svg)"></i></a>
+          <a class="navitem" href="#" aria-label="Novidades, há novidade"><i class="ic" style="--i:url(https://api.iconify.design/ph/megaphone-simple.svg)"></i><span class="dot"></span></a>
+        </div>
+        <p class="cap">Mesmo ponto que o menu já usa em Recebimentos. A dica do item diz "Novidades".</p>
+      </div>
+      <div class="panel">
+        <h3>Ponto no menu do celular</h3>
+        <div class="crop" style="padding:14px;display:flex;justify-content:center">
+          <button class="iconbtn" type="button" aria-label="Menu, há novidade" style="position:relative"><i class="ic" style="--i:url(https://api.iconify.design/ph/list.svg)"></i><span class="dot" style="top:6px;right:6px"></span></button>
+        </div>
+        <p class="cap">Fechado, o ponto fica no ícone do menu. Aberto, no item Novidades.</p>
+      </div>
+      <div class="panel">
+        <h3>Sem nada novo</h3>
+        <div class="crop" style="padding:14px;display:flex;justify-content:center">
+          <a class="navitem" href="#" aria-label="Novidades"><i class="ic" style="--i:url(https://api.iconify.design/ph/megaphone-simple.svg)"></i></a>
+        </div>
+        <p class="cap">O item continua no menu para ela consultar quando quiser.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+document.querySelectorAll('[data-filter]').forEach(function (group) {
+  var feed = document.querySelector('[data-feed="' + group.dataset.filter + '"]');
+  group.addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    group.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); });
+    var f = b.dataset.f;
+    feed.querySelectorAll('[data-t]').forEach(function (el) { el.hidden = f !== 'all' && el.dataset.t !== f; });
+    feed.querySelectorAll('.month').forEach(function (m) {
+      var list = m.nextElementSibling;
+      m.hidden = !list.querySelector('[data-t]:not([hidden])');
+    });
+  });
+});
+document.addEventListener('click', function (e) {
+  var w = e.target.closest('[data-want]');
+  if (w) { var on = w.getAttribute('aria-pressed') !== 'true'; var n = +w.dataset.n; w.setAttribute('aria-pressed', on);
+    w.querySelector('span').textContent = on ? 'Anotado' : 'Quero';
+    w.querySelector('.ic').style.setProperty('--i', 'url(https://api.iconify.design/ph/' + (on ? 'check-bold' : 'thumbs-up') + '.svg)');
+    w.previousElementSibling.textContent = on ? 'Você e mais ' + n + ' lojas' : n + ' lojas querem'; return; }
+  var b = e.target.closest('[data-send]'); if (!b) return;
+  var box = document.createElement('div'); box.className = 'done'; box.setAttribute('role', 'status');
+  box.innerHTML = '<div class="msg"><i class="ic s18" style="--i:url(https://api.iconify.design/ph/check-circle-fill.svg)"></i>Sugestão recebida. Obrigada por contar</div>';
+  b.closest('[data-ask]').querySelector('textarea').remove(); b.replaceWith(box);
+});
+</script>
+</body>
+</html>
