@@ -4,117 +4,135 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Domínio próprio do Shop</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;800&family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:0 0% 98%;--fg:240 10% 3.9%;--card:0 0% 100%;--muted:240 4.8% 93.9%;--mf:240 3.8% 42%;--border:240 5.9% 90%;
---ok-soft:142 55% 94%;--ok-ink:142 70% 24%;--warn-soft:40 95% 93%;--warn-ink:28 85% 28%;--bad-soft:0 85% 96%;--bad-ink:0 72% 38%;--canvas:225 14% 92%}
+:root{--bg:0 0% 98%;--fg:240 10% 3.9%;--card:0 0% 100%;--muted:240 4.8% 95%;--mf:240 3.8% 44%;--border:240 5.9% 90%;
+--ok:142 64% 38%;--ok-soft:142 55% 94%;--ok-ink:142 70% 24%;--warn-soft:40 95% 93%;--warn-ink:28 85% 28%;--bad:0 72% 51%;--bad-soft:0 85% 96%;--bad-ink:0 72% 38%;--canvas:225 14% 92%}
 *{box-sizing:border-box}
-body{margin:0;background:hsl(var(--canvas));color:hsl(var(--fg));font:15px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{margin:0;overflow-x:hidden;background:hsl(var(--canvas));color:hsl(var(--fg));font:15px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 h1,h2,h3,p{margin:0}
 button{font:inherit;color:inherit;cursor:pointer}
-.doc{max-width:1200px;margin:0 auto;padding:40px 24px 80px}
-.doc h1{font:800 30px/1.15 Sora,Inter,sans-serif;letter-spacing:-.02em}
-.doc>p{color:hsl(var(--mf));margin-top:8px;max-width:760px}
+.doc{max-width:1240px;margin:0 auto;padding:40px 24px 80px}
+.doc>h1{font:800 30px/1.15 Sora,Inter,sans-serif;letter-spacing:-.02em}
+.doc>p{color:hsl(var(--mf));margin-top:8px;max-width:780px}
 .bar{display:flex;gap:10px;align-items:center;margin:24px 0 18px;flex-wrap:wrap}
 .bar small{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--mf))}
 .seg{display:inline-flex;background:#fff;border:1px solid hsl(var(--border));border-radius:999px;padding:3px;flex-wrap:wrap}
 .seg button{border:0;background:none;border-radius:999px;padding:6px 14px;font-weight:500;color:hsl(var(--mf))}
 .seg button[aria-pressed=true]{background:hsl(var(--fg));color:#fff}
-.layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:start}
-.stage{background:hsl(var(--bg));border:1px solid hsl(var(--border));border-radius:14px;padding:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;align-items:start}
-.notes{background:#fff;border:1px solid hsl(var(--border));border-radius:14px;padding:18px;font-size:14px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:20px;align-items:start}
+.stage{background:hsl(var(--bg));border:1px solid hsl(var(--border));border-radius:14px;padding:32px 28px;display:flex;justify-content:center}
+.notes{background:#fff;border:1px solid hsl(var(--border));border-radius:14px;padding:18px;font-size:14px;position:sticky;top:16px}
 .notes h3{font:600 15px Sora,Inter,sans-serif}.notes ul{margin:8px 0 0;padding-left:18px}.notes li{margin:5px 0;color:hsl(240 6% 22%)}
 .notes hr{border:0;border-top:1px solid hsl(var(--border));margin:14px 0}
 
-.card{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:12px}
-.c-hd{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:20px 22px 6px}
-.c-hd h2{font:700 20px/1.2 Inter;letter-spacing:-.01em}
-.c-bd{padding:8px 22px 22px}
-.c-bd>p{font-size:14px;color:hsl(var(--mf))}
-.chip{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:99px;font-size:12px;font-weight:600;white-space:nowrap}
+/* card */
+.card{width:100%;max-width:640px;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;overflow:hidden}
+.hd{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:24px 28px 0}
+.eyebrow{font-size:12.5px;color:hsl(var(--mf));font-weight:500}
+.hd h2{font:700 24px/1.2 Inter;letter-spacing:-.015em;margin-top:2px}
+.chip{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:99px;font-size:12.5px;font-weight:600;white-space:nowrap;margin-top:4px}
+.chip::before{content:"";width:7px;height:7px;border-radius:99px;background:currentColor}
 .chip.ok{background:hsl(var(--ok-soft));color:hsl(var(--ok-ink))}
 .chip.wait{background:hsl(var(--warn-soft));color:hsl(var(--warn-ink))}
 .chip.bad{background:hsl(var(--bad-soft));color:hsl(var(--bad-ink))}
-.chip.mut{background:hsl(var(--muted));color:hsl(var(--mf))}
 
-.steps{list-style:none;margin:6px 0 0;padding:0;position:relative}
-.step{position:relative;display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px;padding:10px 0}
-.step:not(:last-child)::before{content:"";position:absolute;left:13px;top:38px;bottom:-10px;width:2px;background:hsl(var(--border))}
-.step.done:not(:last-child)::before{background:hsl(142 45% 80%)}
-.dot{width:28px;height:28px;border-radius:99px;border:1.5px solid hsl(var(--border));background:#fff;display:grid;place-items:center;position:relative;z-index:1}
-.done .dot{background:hsl(var(--ok-soft));border-color:transparent;color:hsl(var(--ok-ink))}
-.now .dot{border-color:hsl(var(--fg))}
-.now .dot i{width:9px;height:9px;border-radius:99px;background:hsl(var(--fg));animation:pulse 1.4s ease-in-out infinite}
-.bad .dot{background:hsl(var(--bad-soft));border-color:transparent;color:hsl(var(--bad-ink))}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
-@media (prefers-reduced-motion:reduce){.now .dot i{animation:none}}
-.dot svg{width:15px;height:15px}
-.st-t{font-size:15px;font-weight:600;line-height:1.35;padding-top:3px}
-.later .st-t{color:hsl(var(--mf));font-weight:500}
-.st-d{font-size:13.5px;color:hsl(var(--mf));margin-top:2px}
-.bad .st-d b{color:hsl(var(--bad-ink));font-weight:600}
-.recs{margin-top:12px;border:1px solid hsl(var(--border));border-radius:10px;overflow:hidden}
-.rec{display:grid;grid-template-columns:56px 40px minmax(0,1fr) auto;gap:8px;align-items:center;padding:10px 12px;border-top:1px solid hsl(var(--border));font-size:13.5px}
-.rec:first-child{border-top:0}
-.rec.hd{background:hsl(var(--bg));font-size:11.5px;color:hsl(var(--mf));font-weight:600;padding:7px 12px}
-.rec code{font:500 12.5px ui-monospace,SFMono-Regular,Menlo,monospace;overflow-wrap:anywhere}
-.rec .ok{color:hsl(var(--ok-ink));display:flex}
-.rec.wrong code.v{color:hsl(var(--bad-ink))}
-.copy{border:0;background:none;font-size:12.5px;font-weight:600;padding:4px 6px;border-radius:6px;display:inline-flex;gap:4px;align-items:center}
-.copy:hover{background:hsl(var(--muted))}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:36px;padding:0 14px;border-radius:9px;border:1px solid hsl(240 6% 82%);background:#fff;font-weight:600;font-size:13.5px;white-space:nowrap;text-decoration:none;color:inherit}
+/* progress */
+.prog{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:22px 28px 0}
+.pg span{display:block;height:4px;border-radius:99px;background:hsl(var(--border));overflow:hidden;position:relative}
+.pg.done span{background:hsl(var(--fg))}
+.pg.now span::after{content:"";position:absolute;inset:0;width:40%;background:hsl(var(--fg));border-radius:99px;animation:run 1.6s ease-in-out infinite}
+.pg.bad span{background:hsl(var(--bad))}
+@keyframes run{0%{transform:translateX(-100%)}100%{transform:translateX(260%)}}
+@media (prefers-reduced-motion:reduce){.pg.now span::after{animation:none;width:50%}}
+.pg{min-width:0}.pg b{display:block;font-size:12.5px;font-weight:600;margin-top:8px}
+.pg small{display:block;font-size:12px;color:hsl(var(--mf))}
+.pg.later b{color:hsl(var(--mf));font-weight:500}
+.pg.bad b{color:hsl(var(--bad-ink))}
+
+.body{padding:26px 28px 28px}
+.lead{font-size:17px;font-weight:650;letter-spacing:-.01em;line-height:1.35}
+.sub{font-size:14px;color:hsl(var(--mf));margin-top:4px}
+.path{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:13px;color:hsl(240 6% 25%);background:hsl(var(--muted));border-radius:8px;padding:5px 10px;flex-wrap:wrap}
+.path i{font-style:normal;color:hsl(var(--mf))}
+
+.fields{display:grid;gap:10px;margin-top:18px}
+.field{border:1px solid hsl(var(--border));border-radius:12px;padding:12px 14px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center}
+.field .meta{font-size:12px;color:hsl(var(--mf));display:flex;gap:10px}
+.field .meta b{color:hsl(var(--fg));font-weight:600}
+.field .val{grid-column:1;font:500 15px ui-monospace,SFMono-Regular,Menlo,monospace;overflow-wrap:anywhere;letter-spacing:-.01em}
+.field .cp{grid-row:1/3;grid-column:2;display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px;border:1px solid hsl(var(--border));border-radius:9px;background:#fff;font-size:13px;font-weight:600}
+.field .cp:hover{background:hsl(var(--muted))}
+.field .cp.copied{background:hsl(var(--ok-soft));border-color:transparent;color:hsl(var(--ok-ink))}
+.field.wrong{border-color:hsl(0 72% 51%/.45);background:hsl(var(--bad-soft)/.5)}
+.field .now{grid-column:1;font-size:12.5px;color:hsl(var(--bad-ink))}
+.field .now s{color:hsl(var(--mf))}
+
+.actions{display:flex;align-items:center;gap:12px;margin-top:20px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid hsl(240 6% 82%);background:#fff;font-weight:600;font-size:14px;white-space:nowrap;text-decoration:none;color:inherit}
 .btn.pri{background:hsl(var(--fg));color:#fff;border-color:hsl(var(--fg))}
-.btn.ghost{border-color:transparent;color:hsl(var(--mf))}
-.btn.danger{border-color:transparent;color:hsl(var(--bad-ink))}
-.btn svg{width:15px;height:15px}
-.st-act{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.foot{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:14px;border-top:1px solid hsl(var(--border))}
-.hint{font-size:12.5px;color:hsl(var(--mf));margin-top:8px}
-.facter{opacity:.9}
-.facter .addr{display:flex;align-items:center;gap:8px;margin-top:12px;padding:10px 12px;border:1px solid hsl(var(--border));border-radius:10px;font-size:14px;background:hsl(var(--bg))}
-.facter .addr b{font-weight:600}
-@media (max-width:900px){.layout{grid-template-columns:1fr}}
+.btn svg{width:16px;height:16px}
+.auto{font-size:12.5px;color:hsl(var(--mf));display:inline-flex;align-items:center;gap:6px}
+.auto::before{content:"";width:6px;height:6px;border-radius:99px;background:hsl(var(--ok));box-shadow:0 0 0 3px hsl(var(--ok-soft))}
+
+/* browser preview */
+.browser{margin-top:18px;border:1px solid hsl(var(--border));border-radius:12px;overflow:hidden;background:hsl(var(--bg))}
+.browser .top{display:flex;align-items:center;gap:10px;padding:9px 12px;background:hsl(var(--muted));border-bottom:1px solid hsl(var(--border))}
+.browser .dots{display:flex;gap:5px}.browser .dots i{width:9px;height:9px;border-radius:99px;background:hsl(240 5% 82%)}
+.browser .url{flex:1;display:flex;align-items:center;gap:7px;height:28px;padding:0 10px;border-radius:7px;background:#fff;font-size:13px;font-weight:500}
+.browser .url svg{width:13px;height:13px}
+.browser .url.ok svg{color:hsl(var(--ok))}
+.browser .url.wait svg{color:hsl(var(--mf))}
+.browser .page{height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;position:relative}
+.browser .logo{font:500 26px/1 "Cormorant Garamond",Georgia,serif;letter-spacing:.32em}
+.browser .tiles{display:flex;gap:8px}.browser .tiles i{width:64px;height:44px;border-radius:6px;background:linear-gradient(160deg,hsl(35 25% 90%),hsl(30 18% 80%))}
+.browser.pending .page>:not(.over){opacity:.35;filter:blur(1.5px)}
+.browser .over{position:absolute;inset:0;display:grid;place-items:center}
+.browser .over span{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid hsl(var(--border));border-radius:99px;padding:6px 12px;font-size:13px;font-weight:600;box-shadow:0 6px 18px -8px hsl(240 10% 20%/.3)}
+.spin{width:14px;height:14px;border-radius:99px;border:2px solid hsl(var(--border));border-top-color:hsl(var(--fg));animation:sp 0.9s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+.facter{display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap;padding:14px 28px;border-top:1px solid hsl(var(--border));background:hsl(var(--bg));font-size:13px;color:hsl(var(--mf))}
+.facter b{color:hsl(var(--fg));font-weight:600}
+.facter .lnk{border:0;background:none;padding:0;font-size:13px;font-weight:500;color:hsl(var(--mf));text-decoration:underline;text-underline-offset:2px}
+.facter .lnk.danger{color:hsl(var(--bad-ink))}
+.facter .r{display:flex;gap:16px}
+@media (max-width:900px){.layout{grid-template-columns:minmax(0,1fr)}.stage{padding:16px}.notes{position:static}}
+@media (max-width:520px){.hd,.prog,.body{padding-left:18px;padding-right:18px}.facter{padding:14px 18px}.field .cp span{display:none}}
 </style>
 </head>
 <body>
 <div class="doc">
-  <h1>Domínio próprio, em etapas</h1>
-  <p>O cartão Domínio próprio em Loja, Domínio. Em vez de um aviso solto, a dona vê as quatro etapas que o endereço dela atravessa, no modelo do "Liberar produto" do Hub: feitas com ✓, a atual pulsando, as próximas em cinza. Exemplo com uma loja que é de ninguém.</p>
+  <h1>Domínio próprio</h1>
+  <p>O cartão em Loja, Domínio. Uma barra de três etapas mostra onde o endereço está; abaixo, só o que a dona precisa fazer agora. Quando o domínio é do Registro.br, o caminho dentro dele aparece escrito. Loja de exemplo, de ninguém.</p>
 
   <div class="bar"><small>Estado</small>
     <div class="seg" id="seg">
-      <button type="button" data-s="records" aria-pressed="true">1. Criar os registros</button>
+      <button type="button" data-s="records" aria-pressed="true">Criar registros</button>
       <button type="button" data-s="wrong" aria-pressed="false">Registro diferente</button>
-      <button type="button" data-s="almost" aria-pressed="false">2. Quase no ar</button>
-      <button type="button" data-s="live" aria-pressed="false">3. No ar</button>
+      <button type="button" data-s="almost" aria-pressed="false">Quase no ar</button>
+      <button type="button" data-s="live" aria-pressed="false">No ar</button>
     </div>
   </div>
 
   <div class="layout">
-    <div class="stage">
-      <section class="card facter">
-        <div class="c-hd"><h2>Endereço Facter</h2><span class="chip ok">Sempre no ar</span></div>
-        <div class="c-bd"><p>Esse endereço é seu desde o primeiro dia e continua funcionando com o domínio próprio.</p>
-          <div class="addr">loja.facter.com.br/store/<b>sualoja</b></div></div>
-      </section>
-      <section class="card" id="own"></section>
-    </div>
+    <div class="stage"><section class="card" id="own"></section></div>
     <aside class="notes">
-      <h3>Etapas</h3>
+      <h3>Como lê</h3>
       <ul>
-        <li><b>Domínio salvo</b>: sempre feito, com o endereço.</li>
-        <li><b>Registros no seu provedor</b>: aberto enquanto falta; mostra os dois registros para copiar e onde criar.</li>
-        <li><b>Endereço seguro</b>: o painel conferiu os registros e espera a loja abrir no endereço. Sai sozinho em minutos.</li>
-        <li><b>Loja no ar</b>: só quando o endereço abre a loja de verdade. Aí aparece "Abrir a loja".</li>
+        <li><b>Barra de três etapas</b> no topo: Registros, Endereço seguro, No ar. Feita fica preta, a atual corre, erro fica vermelho.</li>
+        <li>Abaixo, <b>uma frase em negrito</b> do que fazer e <b>uma em cinza</b> com o detalhe.</li>
+        <li>Registros como campos grandes, valor inteiro e "Copiar" ao lado. Nada cortado.</li>
+        <li>Quando erra, o campo errado fica vermelho e mostra o que está lá hoje.</li>
+        <li>Prévia do navegador com o endereço dela: esperando, com a loja apagada; no ar, com o cadeado verde.</li>
+        <li>O endereço Facter vira uma linha no rodapé, junto de Trocar e Remover.</li>
       </ul>
       <hr>
-      <h3>Decisões</h3>
+      <h3>Por trás</h3>
       <ul>
-        <li>Selo do cartão diz em que etapa está: Falta configurar, Quase no ar, No ar.</li>
-        <li>Erro mora na etapa, em vermelho, com o que achou e o que era esperado. Nada de aviso solto.</li>
-        <li>Etapa feita fecha e vira uma linha; só a atual mostra conteúdo.</li>
-        <li>Na primeira hora no ar, uma linha cinza avisa que quem já visitou o site antigo pode continuar vendo ele por até 1 hora.</li>
-        <li>O painel confere sozinho a cada minuto enquanto a tela está aberta; o botão é para quem não quer esperar.</li>
+        <li>Registro.br reconhecido pelos servidores do domínio; outro provedor recebe o texto geral.</li>
+        <li>Confere sozinho a cada minuto com a tela aberta.</li>
+        <li>No ar só quando o endereço abre a loja de verdade.</li>
       </ul>
     </aside>
   </div>
@@ -122,44 +140,57 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 const I = {
-  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
-  x:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>',
-  copy:'<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
+  copy:'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
   ext:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>',
   ref:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-3-6.7L21 8M21 3v5h-5"/></svg>',
+  lock:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 9V7a5 5 0 0 0-10 0v2H5v13h14V9h-2Zm-8 0V7a3 3 0 0 1 6 0v2H9Z"/></svg>',
+  link:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>',
 };
-const step = (cls, dot, title, body='') => `<li class="step ${cls}"><span class="dot">${dot}</span><div><div class="st-t">${title}</div>${body}</div></li>`;
-const recs = (wrong) => `<div class="recs">
-  <div class="rec hd"><span>Tipo</span><span>Nome</span><span>Valor</span><span></span></div>
-  <div class="rec ${wrong?'wrong':''}"><b>A</b><code>@</code><code class="v">216.24.57.1</code><button class="copy" type="button">${I.copy}copiar</button></div>
-  <div class="rec"><b>CNAME</b><code>www</code><code class="v">facter-shop.onrender.com</code><button class="copy" type="button">${I.copy}copiar</button></div>
-</div>`;
+const prog = (a,b,c) => `<div class="prog">
+  <div class="pg ${a[0]}"><span></span><b>Registros</b><small>${a[1]}</small></div>
+  <div class="pg ${b[0]}"><span></span><b>Endereço seguro</b><small>${b[1]}</small></div>
+  <div class="pg ${c[0]}"><span></span><b>No ar</b><small>${c[1]}</small></div></div>`;
+const field = (type, name, val, wrong) => `<div class="field ${wrong?'wrong':''}">
+  <div class="meta"><span>Tipo <b>${type}</b></span><span>Nome <b>${name}</b></span></div>
+  <div class="val">${val}</div>${wrong?`<div class="now">Hoje está <s>${wrong}</s></div>`:''}
+  <button class="cp" type="button" data-copy>${I.copy}<span>Copiar</span></button></div>`;
+const browser = (state) => `<div class="browser ${state==='live'?'':'pending'}">
+  <div class="top"><span class="dots"><i></i><i></i><i></i></span><span class="url ${state==='live'?'ok':'wait'}">${I.lock}sualoja.com.br</span></div>
+  <div class="page"><span class="logo">SUA LOJA</span><span class="tiles"><i></i><i></i><i></i><i></i></span>
+  ${state==='live'?'':'<div class="over"><span><i class="spin"></i>Preparando o endereço seguro</span></div>'}</div></div>`;
+const footer = `<div class="facter"><span>Endereço Facter, sempre no ar: <b>loja.facter.com.br/store/sualoja</b></span><span class="r"><button class="lnk" type="button">Trocar de domínio</button><button class="lnk danger" type="button">Remover</button></span></div>`;
 const S = {
-  records: { chip:'<span class="chip wait">Falta configurar</span>', steps:
-    step('done', I.check, 'Domínio salvo', '<div class="st-d">sualoja.com.br</div>') +
-    step('now', '<i></i>', 'Criar os registros no seu provedor', `<div class="st-d">Entre onde comprou o domínio, procure por DNS e crie estes dois. Copie e cole do jeito que está.</div>${recs(false)}<div class="st-act"><button class="btn" type="button">${I.ref}Já criei, conferir</button></div><div class="hint">Conferimos sozinhos a cada minuto. Última vez: agora há pouco.</div>`) +
-    step('later', '', 'Endereço seguro') + step('later', '', 'Loja no ar') },
-  wrong: { chip:'<span class="chip bad">Registro diferente</span>', steps:
-    step('done', I.check, 'Domínio salvo', '<div class="st-d">sualoja.com.br</div>') +
-    step('bad', I.x, 'Um registro está diferente', `<div class="st-d"><b>O registro A aponta para 75.2.60.5.</b> Troque por 216.24.57.1 onde comprou o domínio.</div>${recs(true)}<div class="st-act"><button class="btn" type="button">${I.ref}Já troquei, conferir</button></div>`) +
-    step('later', '', 'Endereço seguro') + step('later', '', 'Loja no ar') },
-  almost: { chip:'<span class="chip wait">Quase no ar</span>', steps:
-    step('done', I.check, 'Domínio salvo', '<div class="st-d">sualoja.com.br</div>') +
-    step('done', I.check, 'Registros encontrados', '<div class="st-d">A e CNAME do jeito certo</div>') +
-    step('now', '<i></i>', 'Preparando o endereço seguro', '<div class="st-d">A loja começa a abrir neste endereço em alguns minutos. Pode fechar a tela.</div>') +
-    step('later', '', 'Loja no ar') },
-  live: { chip:'<span class="chip ok">No ar</span>', steps:
-    step('done', I.check, 'Domínio salvo', '<div class="st-d">sualoja.com.br</div>') +
-    step('done', I.check, 'Registros encontrados', '<div class="st-d">A e CNAME do jeito certo</div>') +
-    step('done', I.check, 'Endereço seguro', '<div class="st-d">Abre com https, com e sem www</div>') +
-    step('done', I.check, 'Sua loja abre neste endereço', `<div class="st-d">Desde 12 de nov., 13:56</div><div class="hint">Quem já visitou o site antigo pode continuar vendo ele por até 1 hora.</div><div class="st-act"><a class="btn pri" href="#">${I.ext}Abrir a loja no domínio</a></div>`) },
+  records: { chip:'<span class="chip wait">Falta configurar</span>',
+    prog: prog(['now','Falta criar'],['later','Depois'],['later','Depois']),
+    body: `<p class="lead">Crie estes dois registros no Registro.br</p>
+      <p class="sub">Copie e cole do jeito que está. Leva uns 2 minutos.</p>
+      <span class="path">DNS <i>›</i> Configurar zona DNS <i>›</i> Nova entrada</span>
+      <div class="fields">${field('A','vazio','216.24.57.1')}${field('CNAME','www','facter-shop.onrender.com')}</div>
+      <div class="actions"><button class="btn pri" type="button">${I.ref}Já criei, conferir</button><span class="auto">Conferindo sozinho a cada minuto</span></div>` },
+  wrong: { chip:'<span class="chip bad">Registro diferente</span>',
+    prog: prog(['bad','1 para trocar'],['later','Depois'],['later','Depois']),
+    body: `<p class="lead">Troque o registro A no Registro.br</p>
+      <p class="sub">Ele ainda leva para o site antigo. O CNAME já está certo.</p>
+      <span class="path">DNS <i>›</i> Configurar zona DNS</span>
+      <div class="fields">${field('A','vazio','216.24.57.1','75.2.60.5')}</div>
+      <div class="actions"><button class="btn pri" type="button">${I.ref}Já troquei, conferir</button><span class="auto">Conferindo sozinho a cada minuto</span></div>` },
+  almost: { chip:'<span class="chip wait">Quase no ar</span>',
+    prog: prog(['done','Certos'],['now','Alguns minutos'],['later','Em seguida']),
+    body: `<p class="lead">Quase pronto</p>
+      <p class="sub">Os registros estão certos. A loja começa a abrir neste endereço em alguns minutos, e você pode fechar a tela.</p>
+      ${browser('almost')}` },
+  live: { chip:'<span class="chip ok">No ar</span>',
+    prog: prog(['done','Certos'],['done','Pronto'],['done','Desde 12 nov, 13:56']),
+    body: `<p class="lead">Sua loja abre em sualoja.com.br</p>
+      <p class="sub">Com e sem www. Quem já visitou o site antigo pode continuar vendo ele por até 1 hora.</p>
+      ${browser('live')}
+      <div class="actions"><a class="btn pri" href="#">${I.ext}Abrir a loja</a><button class="btn" type="button" data-copy>${I.link}Copiar o endereço</button></div>` },
 };
-function render(k){
-  const s=S[k];
-  document.getElementById('own').innerHTML=`<div class="c-hd"><h2>sualoja.com.br</h2>${s.chip}</div><div class="c-bd"><ol class="steps">${s.steps}</ol><div class="foot"><button class="btn danger" type="button">Remover domínio</button><button class="btn ghost" type="button">Trocar de domínio</button></div></div>`;
-}
+function render(k){const s=S[k];
+  document.getElementById('own').innerHTML=`<div class="hd"><div><div class="eyebrow">Domínio próprio</div><h2>sualoja.com.br</h2></div>${s.chip}</div>${s.prog}<div class="body">${s.body}</div>${footer}`;}
 document.getElementById('seg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
   document.querySelectorAll('#seg button').forEach(x=>x.setAttribute('aria-pressed',x===b));render(b.dataset.s);});
+document.addEventListener('click',e=>{const c=e.target.closest('.cp');if(!c)return;c.classList.add('copied');c.innerHTML='<span>Copiado</span>';});
 render('records');
 </script>
 </body>
