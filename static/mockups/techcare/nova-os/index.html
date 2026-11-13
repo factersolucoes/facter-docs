@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TechCare · Nova ordem de serviço</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #eef0ee; --card: #fff; --line: #e4e7e4; --soft: #f2f4f2; --toolbar: #f7f8f7;
+    --ink: #111613; --muted: #66706a; --faint: #9aa29d;
+    --primary: #16a34a; --primary-ink: #0f7a37; --primary-soft: #e7f6ec;
+    --warn: #b7791f; --warn-soft: #fdf3e1; --danger: #dc2626; --danger-soft: #fdecec;
+    --info: #2563eb; --info-soft: #e9f0fe; --cold: #0e7490; --cold-soft: #e3f4f8;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); font: 14px/1.45 Inter, system-ui, sans-serif; color: var(--ink); }
+  h1, h2, h3, .sora { font-family: Sora, Inter, sans-serif; letter-spacing: -.02em; }
+  .page { max-width: 1320px; margin: 0 auto; padding: 40px 24px 90px; }
+  h1 { font-size: 32px; margin: 0 0 8px; }
+  .lead { color: var(--muted); max-width: 980px; margin: 0 0 8px; font-size: 15px; }
+  .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 22px 0 46px; }
+  .principles div { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; font-size: 13.5px; }
+  .principles b { display: block; font-family: Sora; margin-bottom: 3px; }
+
+  .opt { margin-bottom: 70px; }
+  .opt-head { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+  .letter { width: 32px; height: 32px; border-radius: 9px; background: var(--ink); color: #fff; display: grid; place-items: center; font: 800 15px Sora; }
+  .opt-head h2 { margin: 0; font-size: 22px; }
+  .rec { background: var(--primary); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 99px; text-transform: uppercase; letter-spacing: .04em; }
+  .sub { color: var(--muted); margin: 0 0 14px 44px; max-width: 1000px; }
+  .switch { margin: 0 0 14px 44px; display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 13px; }
+  .switch button { font: 600 13px Inter; border: 1px solid var(--line); background: var(--card); border-radius: 99px; height: 34px; padding: 0 14px; cursor: pointer; color: var(--ink); }
+  .switch button.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+  [data-seg="hvac"] .only-it, [data-seg="it"] .only-hvac { display: none !important; }
+
+  /* canvas + dialog, like the Truck reception */
+  .canvas { border-radius: 18px; padding: 34px; background-color: #e3e7e3; background-image: radial-gradient(#c9cfca 1px, transparent 1px); background-size: 16px 16px; }
+  .dialog { background: var(--card); border-radius: 18px; box-shadow: 0 24px 60px -24px rgba(16,24,20,.35); overflow: hidden; }
+  .d-head { display: flex; align-items: flex-start; gap: 12px; padding: 20px 22px 14px; }
+  .eyebrow { font: 700 11px Inter; letter-spacing: .08em; text-transform: uppercase; color: var(--primary-ink); }
+  .d-title { font: 700 22px Sora; margin: 2px 0 2px; }
+  .x { margin-left: auto; width: 34px; height: 34px; border-radius: 10px; background: var(--soft); display: grid; place-items: center; color: var(--muted); }
+  .who { display: flex; align-items: center; gap: 14px; margin: 0 22px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--toolbar); }
+  .who-ico { width: 44px; height: 44px; border-radius: 12px; background: var(--card); border: 1px solid var(--line); display: grid; place-items: center; color: var(--muted); flex: none; }
+  .tag { font: 600 12px 'JetBrains Mono', monospace; border: 1.5px solid var(--ink); border-radius: 7px; padding: 4px 8px; background: var(--card); white-space: nowrap; }
+  .d-body { padding: 18px 22px 20px; border-top: 1px solid var(--line); margin-top: 16px; }
+  .d-foot { display: flex; align-items: center; gap: 10px; padding: 14px 22px; background: var(--toolbar); border-top: 1px solid var(--line); }
+  .muted { color: var(--muted); } .faint { color: var(--faint); }
+  .mono { font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+  .label { font: 700 11px Inter; letter-spacing: .07em; text-transform: uppercase; color: var(--faint); margin-bottom: 8px; }
+  .row { display: flex; align-items: center; gap: 10px; } .grow { flex: 1; min-width: 0; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 42px; padding: 0 18px; border-radius: 11px; font-weight: 600; font-size: 14px; border: 1px solid var(--line); background: var(--card); white-space: nowrap; }
+  .btn.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .btn.cold { background: var(--cold); border-color: var(--cold); color: #fff; }
+  .btn.ghost { border-color: transparent; background: transparent; color: var(--muted); }
+  .split { display: inline-flex; } .split .btn:first-child { border-radius: 11px 0 0 11px; } .split .btn:last-child { border-radius: 0 11px 11px 0; border-left: 1px solid rgba(255,255,255,.35); padding: 0 12px; }
+  .ico { width: 18px; height: 18px; flex: none; }
+  .relato { position: relative; border: 1.5px solid var(--line); border-radius: 14px; padding: 14px 64px 14px 16px; min-height: 86px; font-size: 15px; }
+  .mic { position: absolute; right: 12px; top: 12px; width: 42px; height: 42px; border-radius: 99px; background: var(--primary); color: #fff; display: grid; place-items: center; box-shadow: 0 6px 16px -6px rgba(22,163,74,.6); }
+  .sym { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .sym div { display: flex; align-items: center; gap: 10px; height: 50px; padding: 0 12px; border: 1px solid var(--line); border-radius: 12px; font-weight: 600; font-size: 13.5px; background: var(--card); }
+  .sym div.on { border-color: var(--primary); background: var(--primary-soft); color: var(--primary-ink); box-shadow: 0 0 0 3px rgba(22,163,74,.10); }
+  .sym .si { width: 30px; height: 30px; border-radius: 9px; background: var(--soft); display: grid; place-items: center; color: var(--muted); flex: none; }
+  .sym div.on .si { background: #fff; color: var(--primary-ink); }
+  .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .cards div { border: 1.5px solid var(--line); border-radius: 12px; padding: 12px; }
+  .cards div.on { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(17,22,19,.08); }
+  .cards b { display: block; font-size: 14px; } .cards span { font-size: 12px; color: var(--muted); }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 99px; margin-right: 6px; vertical-align: 1px; }
+  .pick { display: inline-flex; align-items: center; height: 34px; padding: 0 13px; border-radius: 99px; border: 1px solid var(--line); background: var(--card); font-size: 13px; font-weight: 500; margin: 0 6px 8px 0; }
+  .pick.on { border-color: var(--primary); background: var(--primary-soft); color: var(--primary-ink); font-weight: 600; }
+  .field { border: 1.5px solid var(--line); border-radius: 11px; padding: 10px 13px; }
+  .field small { display: block; font-size: 11.5px; color: var(--faint); font-weight: 600; } .field b { font-weight: 500; }
+  .kbd { font: 500 11px 'JetBrains Mono', monospace; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; padding: 1px 5px; background: var(--card); color: var(--muted); }
+
+  /* stepper bar */
+  .stepbar { display: flex; align-items: center; padding: 12px 22px; background: var(--toolbar); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-top: 16px; }
+  .sb { display: flex; align-items: center; gap: 9px; font-weight: 600; font-size: 13px; color: var(--faint); cursor: pointer; }
+  .sb .n { width: 24px; height: 24px; border-radius: 99px; display: grid; place-items: center; font-size: 12px; border: 1.5px solid var(--line); background: var(--card); }
+  .sb.done { color: var(--muted); } .sb.done .n { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .sb.now { color: var(--ink); } .sb.now .n { border-color: var(--ink); color: var(--ink); }
+  .sb-line { flex: 1; height: 1.5px; background: var(--line); margin: 0 12px; }
+  .two { display: grid; grid-template-columns: 1fr 320px; }
+  .two > .side { border-left: 1px solid var(--line); background: var(--toolbar); padding: 18px 20px; }
+  .summary dl { display: grid; grid-template-columns: 96px 1fr; gap: 8px 10px; margin: 0; font-size: 13px; }
+  .summary dt { color: var(--muted); } .summary dd { margin: 0; font-weight: 600; }
+  .note { border-radius: 11px; padding: 10px 12px; font-size: 12.5px; }
+  .note.warn { background: var(--warn-soft); color: var(--warn); } .note.cold { background: var(--cold-soft); color: var(--cold); } .note.info { background: var(--info-soft); color: var(--info); }
+  .step { display: none; } .step.on { display: block; }
+
+  /* B: flow on the left, Chef style */
+  .flow { display: grid; grid-template-columns: 230px 1fr 300px; gap: 16px; align-items: start; }
+  .flow-list { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 14px; }
+  .fl { display: flex; gap: 10px; padding: 9px 10px; border-radius: 11px; }
+  .fl.now { background: var(--primary-soft); }
+  .fl .n { width: 24px; height: 24px; border-radius: 99px; display: grid; place-items: center; font-size: 12px; font-weight: 700; background: var(--soft); color: var(--muted); flex: none; }
+  .fl.done .n { background: var(--primary); color: #fff; } .fl.now .n { background: var(--ink); color: #fff; }
+  .fl b { display: block; font-size: 13.5px; } .fl span { font-size: 12px; color: var(--muted); }
+  .paper { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px; position: relative; }
+  .paper::after { content: ''; position: absolute; left: 14px; right: 14px; bottom: -7px; height: 14px; background: radial-gradient(circle at 7px -1px, transparent 7px, var(--card) 7.5px) 0 0 / 14px 14px repeat-x; }
+  .paper .rule { border-top: 1.5px dashed var(--line); margin: 12px 0; }
+
+  /* C: console, Socorro style */
+  .console { display: grid; grid-template-columns: 1fr 1.05fr; }
+  .ctx { padding: 18px 20px; border-right: 1px solid var(--line); }
+  .map { height: 210px; border-radius: 14px; position: relative; overflow: hidden; background: repeating-linear-gradient(45deg, #dfece3, #dfece3 12px, #e6f1e9 12px, #e6f1e9 24px); border: 1px solid var(--line); }
+  .road { position: absolute; left: -10%; right: -10%; top: 46%; height: 26px; background: #59615c; transform: rotate(-8deg); }
+  .road::after { content: ''; position: absolute; left: 0; right: 0; top: 12px; border-top: 2px dashed #fff; }
+  .pin { position: absolute; left: 44%; top: 26%; background: var(--card); border-radius: 10px; padding: 6px 10px; font-size: 12px; font-weight: 700; box-shadow: 0 6px 16px -8px rgba(0,0,0,.4); }
+  .pin::after { content: ''; position: absolute; left: 50%; bottom: -6px; border: 6px solid transparent; border-top-color: var(--card); border-bottom: 0; transform: translateX(-50%); }
+  .eta { position: absolute; right: 12px; top: 12px; background: var(--card); border-radius: 11px; padding: 8px 12px; display: flex; gap: 14px; font-size: 12px; }
+  .eta b { display: block; font: 700 16px Sora; }
+  .device { height: 210px; border-radius: 14px; border: 1px solid var(--line); background: var(--toolbar); display: grid; place-items: center; }
+  .acts { padding: 18px 20px; display: grid; gap: 16px; }
+  .history { display: grid; gap: 8px; font-size: 13px; margin-top: 14px; }
+  .history div { display: flex; gap: 10px; align-items: center; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; }
+
+  .notes { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 16px; }
+  .notes div { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; font-size: 13px; }
+  .notes b { display: block; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .notes ul { margin: 0; padding-left: 18px; }
+  table.cmp { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; font-size: 13px; }
+  .cmp th, .cmp td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--soft); }
+  .cmp th { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--faint); border-bottom: 1px solid var(--line); }
+
+  /* A, lighter */
+  .seg-lite { display: inline-flex; background: var(--soft); border-radius: 11px; padding: 3px; gap: 2px; }
+  .seg-lite span { padding: 7px 16px; border-radius: 9px; font-weight: 600; font-size: 13.5px; color: var(--muted); cursor: pointer; }
+  .seg-lite span.on { background: var(--card); color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.1); }
+  .more { color: var(--primary-ink); font-weight: 600; font-size: 13.5px; cursor: pointer; }
+  .extra-body { display: none; margin-top: 10px; }
+  .extra.open .extra-body { display: block; }
+  .extra:not(.open) .extra-body { display: none !important; }
+  .extra.open .more { display: none !important; }
+  [data-seg="hvac"] .extra-body.only-it, [data-seg="it"] .extra-body.only-hvac { display: none !important; }
+  .extra-body textarea { width: 100%; min-height: 60px; border: 1.5px solid var(--line); border-radius: 11px; padding: 10px 12px; font: 14px Inter; resize: none; }
+  .dots { display: inline-flex; gap: 6px; }
+  .dots .d { width: 22px; height: 6px; border-radius: 99px; background: var(--line); }
+  .dots .d.on { background: var(--primary); }
+
+  /* A, one centered dialog */
+  .dialog.one { position: relative; text-align: center; }
+  .one-in { padding: 30px 40px 6px; }
+  .one-in .eyebrow { margin-bottom: 14px; }
+  .device-pill { display: inline-flex; align-items: center; gap: 12px; padding: 8px 10px 8px 8px; border: 1px solid var(--line); border-radius: 16px; background: var(--toolbar); }
+  .device-pill .trocar { margin-left: 12px; font-size: 13px; font-weight: 600; color: var(--muted); text-decoration: underline; cursor: pointer; }
+  .q { font: 700 19px Sora; margin: 26px 0 12px; }
+  .center-picks { display: flex; flex-wrap: wrap; justify-content: center; margin-top: 12px; }
+  .center-picks .pick { cursor: pointer; }
+  .one-foot { padding: 18px 40px 24px; }
+  .btn.wide { width: 100%; height: 48px; font-size: 15px; border-radius: 13px; }
+
+  /* A, dialog as a form */
+  .form { padding: 8px 22px 20px; display: grid; gap: 16px; }
+  .fld label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+  .device-row { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border: 1.5px solid var(--line); border-radius: 12px; }
+  .link { font-size: 13px; font-weight: 600; color: var(--primary-ink); cursor: pointer; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .chips .pick { margin: 0; cursor: pointer; height: 30px; font-size: 12.5px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .segw { display: flex; background: var(--soft); border-radius: 11px; padding: 3px; gap: 2px; }
+  .segw span { flex: 1; display: grid; place-items: center; height: 34px; border-radius: 9px; font-weight: 600; font-size: 13px; color: var(--muted); cursor: pointer; }
+  .segw span.on { background: var(--card); color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.1); }
+  .input-row { display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 12px; border: 1.5px solid var(--line); border-radius: 11px; font-size: 13.5px; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="laptop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/></symbol>
+  <symbol id="split" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="9" rx="2"/><path d="M6 11h12M8 17v2M12 17v3M16 17v2"/></symbol>
+  <symbol id="mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></symbol>
+  <symbol id="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></symbol>
+  <symbol id="power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v8M6.3 6.3a8 8 0 1 0 11.4 0"/></symbol>
+  <symbol id="crack" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="m11 4 2 4-3 3 3 3-1 3"/></symbol>
+  <symbol id="slow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 13V9M10 3h4"/></symbol>
+  <symbol id="bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></symbol>
+  <symbol id="heat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 14V4a2 2 0 1 0-4 0v10a4 4 0 1 0 4 0z"/></symbol>
+  <symbol id="drop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 6.5 10a7 7 0 1 0 11 0z"/></symbol>
+  <symbol id="keys" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M8 14h8"/></symbol>
+  <symbol id="wifi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M12 19.5h.01"/></symbol>
+  <symbol id="snow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M4.9 4.9l14.2 14.2M2 12h20M4.9 19.1 19.1 4.9"/></symbol>
+  <symbol id="noise" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5 6 9H2v6h4l5 4zM15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></symbol>
+  <symbol id="smell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 20c-2-3 2-5 0-8s2-5 0-8M16 20c-2-3 2-5 0-8s2-5 0-8M12 20c-2-3 2-5 0-8"/></symbol>
+  <symbol id="ice" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3 5-3 5-3-5zM12 12l3 5-3 5-3-5z"/></symbol>
+  <symbol id="remote" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="7" y="2" width="10" height="20" rx="3"/><path d="M12 6h.01M10 10h4M10 14h4"/></symbol>
+  <symbol id="pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></symbol>
+  <symbol id="cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="box" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 7 9-4 9 4-9 4zM3 7v10l9 4 9-4V7M12 11v10"/></symbol>
+  <symbol id="print" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6M6 18H4v-7h16v7h-2M7 14h10v7H7z"/></symbol>
+  <symbol id="whats" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.6-4.7A8.5 8.5 0 1 1 7.7 19.4z"/></symbol>
+</svg>
+
+<div class="page">
+  <h1>Nova ordem de serviço · 3 propostas</h1>
+  <p class="lead">Um TechCare, dois jeitos de trabalhar. Na <b>informática</b> o cliente traz o aparelho ao balcão: a OS começa com o aparelho na mão, uma conferência de como chegou e um comprovante para o cliente. Na <b>refrigeração</b> o técnico vai até o cliente: a OS é uma <b>visita</b> — onde, quando, quem recebe e o que levar. A tela é a mesma; o ramo da empresa troca as palavras, os sintomas e o último passo.</p>
+  <p class="lead">Inspirado na <b>Recepção</b> e no <b>Socorro mecânico</b> do Truck e no fluxo do <b>Chef</b>. Use o seletor de cada opção para ver os dois ramos.</p>
+
+  <div class="principles">
+    <div><b>Começa por quem e o quê</b>Uma busca só para cliente, telefone, aparelho ou número de série — cliente que volta não passa por duas telas.</div>
+    <div><b>O problema em cartões</b>Relato por voz ou texto e sintomas frequentes do ramo, como na Recepção do Truck. Enter avança.</div>
+    <div><b>O último passo muda com o ramo</b>Informática: conferência de entrada e comprovante. Refrigeração: endereço, dia, janela e o que levar do estoque.</div>
+  </div>
+
+  <!-- ===================== A ===================== -->
+  <section class="opt" data-seg="it" id="optA">
+    <div class="opt-head"><span class="letter">A</span><h2>Um diálogo só, no centro da tela</h2><span class="rec">recomendada</span></div>
+    <p class="sub">Sem passos: um diálogo no meio da tela com três campos inteiros, de ponta a ponta — <b>aparelho</b>, <b>o que aconteceu</b>, <b>quando</b> — e o botão no rodapé. O que é de cada ramo e opcional fica atrás de um link. Clique nos sintomas, nos seletores e no link.</p>
+    <div class="switch">Ramo da empresa: <button class="on" data-set="it">Informática · balcão</button><button data-set="hvac">Refrigeração · visita</button></div>
+    <div class="canvas">
+      <div class="dialog" style="max-width:620px;margin:0 auto">
+        <div class="d-head" style="padding-bottom:6px">
+          <div class="grow"><div class="eyebrow">Nova ordem de serviço</div><div class="d-title" style="font-size:20px"><span class="only-it">Abrir OS no balcão</span><span class="only-hvac">Agendar visita técnica</span></div></div>
+          <span class="x"><svg class="ico"><use href="#x"/></svg></span>
+        </div>
+        <div class="form">
+          <div class="fld">
+            <label>Aparelho</label>
+            <div class="device-row only-it"><span class="who-ico" style="width:36px;height:36px"><svg class="ico"><use href="#laptop"/></svg></span><div class="grow"><b>Dell Inspiron 15 3520</b><div class="muted" style="font-size:12.5px">Carla Mendes · (11) 98877-1200</div></div><a class="link">Trocar</a></div>
+            <div class="device-row only-hvac"><span class="who-ico" style="width:36px;height:36px"><svg class="ico"><use href="#split"/></svg></span><div class="grow"><b>Split Piso-Teto 36.000 BTUs</b><div class="muted" style="font-size:12.5px">Restaurante Sabor da Serra · (11) 3210-4455</div></div><a class="link">Trocar</a></div>
+          </div>
+
+          <div class="fld">
+            <label>O que aconteceu</label>
+            <div class="relato only-it" style="min-height:76px">Liga, mostra a logo e desliga. Caiu café no teclado.<span class="mic" style="width:36px;height:36px;top:10px"><svg class="ico" style="width:16px;height:16px"><use href="#mic"/></svg></span></div>
+            <div class="relato only-hvac" style="min-height:76px">Salão quente na hora do almoço, o split não vence.<span class="mic" style="width:36px;height:36px;top:10px"><svg class="ico" style="width:16px;height:16px"><use href="#mic"/></svg></span></div>
+            <div class="chips only-it toggles"><span class="pick on">Não liga</span><span class="pick on">Caiu líquido</span><span class="pick">Tela quebrada</span><span class="pick">Lento</span><span class="pick">Não carrega</span></div>
+            <div class="chips only-hvac toggles"><span class="pick on">Não gela</span><span class="pick">Pingando água</span><span class="pick">Barulho</span><span class="pick">Não liga</span></div>
+          </div>
+
+          <div class="grid2 only-it">
+            <div class="fld"><label>Entrega</label><div class="segw"><span>Hoje</span><span class="on">Amanhã</span><span>3 dias</span><span><svg class="ico" style="width:15px;height:15px"><use href="#cal"/></svg></span></div></div>
+            <div class="fld"><label>Urgência</label><div class="segw"><span>Normal</span><span class="on">Alta</span><span>Urgente</span></div></div>
+          </div>
+          <div class="only-hvac">
+            <div class="grid2">
+              <div class="fld"><label>Dia da visita</label><div class="segw"><span>Hoje</span><span class="on">Amanhã</span><span><svg class="ico" style="width:15px;height:15px"><use href="#cal"/></svg></span></div></div>
+              <div class="fld"><label>Período</label><div class="segw"><span class="on">Manhã</span><span>Tarde</span></div></div>
+            </div>
+            <div class="grid2" style="margin-top:16px">
+              <div class="fld"><label>Endereço</label><div class="input-row"><svg class="ico muted" style="width:15px;height:15px"><use href="#pin"/></svg><span class="grow">Rua dos Pinheiros, 870</span></div></div>
+              <div class="fld"><label>Urgência</label><div class="segw"><span>Normal</span><span class="on">Alta</span><span>Urgente</span></div></div>
+            </div>
+          </div>
+
+          <div class="extra">
+            <a class="more only-it">+ Anotar algo da entrada <span class="faint">(opcional)</span></a>
+            <a class="more only-hvac">+ Levar peças do estoque <span class="faint">(opcional)</span></a>
+            <div class="extra-body only-it fld"><label>Observação da entrada</label><textarea placeholder="Ex.: veio com o carregador, risco na tampa">Veio com o carregador.</textarea></div>
+            <div class="extra-body only-hvac fld"><label>Levar do estoque</label><div class="chips toggles"><span class="pick on">Gás R410A · 2 kg</span><span class="pick">Capacitor 40+5 µF</span><span class="pick">+ peça</span></div></div>
+          </div>
+        </div>
+        <div class="d-foot">
+          <span class="muted grow" style="font-size:12.5px"><span class="only-it">Sai o comprovante para imprimir ou mandar no WhatsApp.</span><span class="only-hvac">O dia e o período vão no WhatsApp do cliente.</span></span>
+          <span class="btn ghost">Cancelar</span>
+          <span class="btn primary only-it">Abrir OS</span>
+          <span class="btn cold only-hvac">Agendar visita</span>
+        </div>
+      </div>
+      <p class="muted" style="text-align:center;margin:14px 0 0;font-size:12.5px">Antes deste diálogo: uma busca só (cliente, telefone ou aparelho). Escolher o aparelho já abre aqui.</p>
+    </div>
+    <div class="notes">
+      <div><b>A favor</b><ul><li>Uma tela, três campos, um botão: nada para navegar.</li><li>Só o problema é obrigatório; data e urgência já vêm sugeridas.</li><li>O que é de cada ramo aparece só quando alguém pede ("+").</li></ul></div>
+      <div><b>Contra</b><ul><li>Conferência de entrada vira opcional, em texto livre.</li><li>"Visita" (dia, período, endereço) ainda pede campos na OS.</li></ul></div>
+      <div><b>No código</b><ul><li>Um diálogo no lugar dos 4 passos de hoje.</li><li>Sintomas por ramo (web); dia e período da visita (migração aditiva + API).</li></ul></div>
+    </div>
+  </section>
+
+  <!-- ===================== B ===================== -->
+  <section class="opt" data-seg="it" id="optB">
+    <div class="opt-head"><span class="letter">B</span><h2>O fluxo ao lado e o comprovante se montando</h2></div>
+    <p class="sub">O jeito do Chef: à esquerda <b>o fluxo</b>, cada passo com a resposta já dada embaixo (clica para voltar a qualquer um); no centro, o passo da vez; à direita, o <b>papel</b> que vai sair — o comprovante de entrada na informática, a ordem de visita na refrigeração — preenchendo-se enquanto se responde.</p>
+    <div class="switch">Ramo da empresa: <button class="on" data-set="it">Informática · balcão</button><button data-set="hvac">Refrigeração · visita</button></div>
+    <div class="canvas">
+      <div class="flow">
+        <div class="flow-list">
+          <div class="label" style="padding:4px 10px">O fluxo</div>
+          <div class="fl done"><span class="n"><svg class="ico" style="width:12px;height:12px"><use href="#check"/></svg></span><div><b>Cliente</b><span class="only-it">Carla Mendes</span><span class="only-hvac">Restaurante Sabor da Serra</span></div></div>
+          <div class="fl done"><span class="n"><svg class="ico" style="width:12px;height:12px"><use href="#check"/></svg></span><div><b>Aparelho</b><span class="only-it">Dell Inspiron 15 3520</span><span class="only-hvac">Split Piso-Teto 36k</span></div></div>
+          <div class="fl now"><span class="n">3</span><div><b>Problema</b><span>agora</span></div></div>
+          <div class="fl"><span class="n">4</span><div><b>Urgência e prazo</b><span>—</span></div></div>
+          <div class="fl"><span class="n">5</span><div><b class="only-it">Como chegou</b><b class="only-hvac">Visita</b><span>—</span></div></div>
+        </div>
+        <div class="dialog">
+          <div class="d-head"><div class="grow"><div class="eyebrow">Passo 3 de 5</div><div class="d-title">O que está acontecendo?</div><div class="muted">Fale, escreva ou toque no que o cliente descreveu.</div></div></div>
+          <div class="d-body" style="margin-top:0">
+            <div class="relato only-it">Liga, mostra a logo e desliga. Caiu café no teclado ontem à noite.<span class="mic"><svg class="ico"><use href="#mic"/></svg></span></div>
+            <div class="relato only-hvac">Salão quente na hora do almoço, o split não vence. Pinga água na frente.<span class="mic"><svg class="ico"><use href="#mic"/></svg></span></div>
+            <div class="label" style="margin-top:16px">Sintomas frequentes</div>
+            <div class="sym only-it" style="grid-template-columns:repeat(2,1fr)"><div class="on"><span class="si"><svg class="ico"><use href="#power"/></svg></span>Não liga</div><div class="on"><span class="si"><svg class="ico"><use href="#drop"/></svg></span>Caiu líquido</div><div><span class="si"><svg class="ico"><use href="#crack"/></svg></span>Tela quebrada</div><div><span class="si"><svg class="ico"><use href="#slow"/></svg></span>Lento / travando</div><div><span class="si"><svg class="ico"><use href="#bolt"/></svg></span>Não carrega</div><div><span class="si"><svg class="ico"><use href="#keys"/></svg></span>Teclado falhando</div></div>
+            <div class="sym only-hvac" style="grid-template-columns:repeat(2,1fr)"><div class="on"><span class="si"><svg class="ico"><use href="#snow"/></svg></span>Não gela</div><div class="on"><span class="si"><svg class="ico"><use href="#drop"/></svg></span>Pingando água</div><div><span class="si"><svg class="ico"><use href="#noise"/></svg></span>Barulho</div><div><span class="si"><svg class="ico"><use href="#bolt"/></svg></span>Desarma o disjuntor</div><div><span class="si"><svg class="ico"><use href="#smell"/></svg></span>Cheiro ruim</div><div><span class="si"><svg class="ico"><use href="#ice"/></svg></span>Gelo na serpentina</div></div>
+          </div>
+          <div class="d-foot"><span class="btn ghost">Anterior</span><span class="grow"></span><span class="btn primary">Próximo <svg class="ico"><use href="#arrow"/></svg></span></div>
+        </div>
+        <div class="paper">
+          <div class="row"><b class="sora only-it" style="font-size:15px">Comprovante de entrada</b><b class="sora only-hvac" style="font-size:15px">Ordem de visita</b><span class="grow"></span><span class="mono faint">OS-202611-00017</span></div>
+          <div class="muted" style="font-size:12px">Master Teste · (11) 3456-7890</div>
+          <div class="rule"></div>
+          <div class="summary"><dl class="only-it"><dt>Cliente</dt><dd>Carla Mendes</dd><dt>Aparelho</dt><dd>Dell Inspiron 15 3520 · SN 7HX2KQ3</dd><dt>Relato</dt><dd style="font-weight:500">"Liga, mostra a logo e desliga…"</dd><dt>Entrada</dt><dd class="faint" style="font-weight:400">a conferir</dd></dl>
+          <dl class="only-hvac"><dt>Cliente</dt><dd>Restaurante Sabor da Serra</dd><dt>Endereço</dt><dd>Rua dos Pinheiros, 870</dd><dt>Aparelho</dt><dd>Split Piso-Teto 36.000 BTUs</dd><dt>Relato</dt><dd style="font-weight:500">"Salão quente na hora do almoço…"</dd><dt>Visita</dt><dd class="faint" style="font-weight:400">a agendar</dd></dl></div>
+          <div class="rule"></div>
+          <div class="row" style="font-size:12px" ><svg class="ico muted" style="width:15px;height:15px"><use href="#whats"/></svg><span class="muted only-it">Sai impresso ou no WhatsApp da cliente ao abrir.</span><span class="muted only-hvac">Vai para o WhatsApp do cliente com o dia e a janela.</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <div><b>A favor</b><ul><li>Nunca se perde: o fluxo inteiro e as respostas sempre à vista.</li><li>O papel ao lado mostra exatamente o que o cliente vai receber.</li></ul></div>
+      <div><b>Contra</b><ul><li>Cinco passos: mais cliques que a A para o cliente que volta.</li><li>Três colunas pedem tela larga (no celular vira passo a passo simples).</li></ul></div>
+      <div><b>No código</b><ul><li>Reaproveita os passos de hoje, com o fluxo à esquerda.</li><li>Comprovante e ordem de visita como documento (impressão/WhatsApp).</li></ul></div>
+    </div>
+  </section>
+
+  <!-- ===================== C ===================== -->
+  <section class="opt" data-seg="hvac" id="optC">
+    <div class="opt-head"><span class="letter">C</span><h2>Console numa tela só · balcão e despacho</h2></div>
+    <p class="sub">O jeito do Socorro mecânico: sem passos. À esquerda o <b>contexto</b> — na refrigeração, o mapa com o endereço e o deslocamento; na informática, o aparelho com o histórico de OS. À direita, tudo o que se decide, em seções, com um botão só no fim. Para quem abre muitas OS por dia e já sabe o que perguntar.</p>
+    <div class="switch">Ramo da empresa: <button data-set="it">Informática · balcão</button><button class="on" data-set="hvac">Refrigeração · visita</button></div>
+    <div class="canvas">
+      <div class="dialog">
+        <div class="d-head" style="align-items:center;border-bottom:1px solid var(--line);padding-bottom:16px">
+          <span class="who-ico"><svg class="ico only-it" style="width:22px;height:22px"><use href="#laptop"/></svg><svg class="ico only-hvac" style="width:22px;height:22px"><use href="#split"/></svg></span>
+          <div class="grow"><div class="eyebrow only-it">Balcão · nova OS</div><div class="eyebrow only-hvac" style="color:var(--cold)">Visita técnica · nova OS</div>
+            <div class="d-title only-it" style="font-size:19px">Carla Mendes · Dell Inspiron 15 3520</div><div class="d-title only-hvac" style="font-size:19px">Restaurante Sabor da Serra · Split Piso-Teto 36k</div></div>
+          <span class="tag only-it">SN 7HX2KQ3</span><span class="tag only-hvac">EL36PT0145</span>
+          <span class="x"><svg class="ico"><use href="#x"/></svg></span>
+        </div>
+        <div class="console">
+          <div class="ctx">
+            <div class="only-hvac">
+              <div class="map"><div class="road"></div><span class="pin">Sabor da Serra</span><div class="eta"><div><b>6,2 km</b>da assistência</div><div><b>~22 min</b>deslocamento</div></div></div>
+              <div class="row" style="margin-top:12px"><svg class="ico muted"><use href="#pin"/></svg><div class="grow"><b>Rua dos Pinheiros, 870 · Pinheiros</b><div class="muted" style="font-size:12.5px">Falar com Sr. Antônio · atender antes das 11h</div></div><span class="btn" style="height:34px">Ajustar</span></div>
+            </div>
+            <div class="only-it">
+              <div class="device"><div style="text-align:center;color:var(--muted)"><svg class="ico" style="width:56px;height:56px"><use href="#laptop"/></svg><div style="font-weight:600;margin-top:6px">Dell Inspiron 15 3520</div><div class="mono">SN 7HX2KQ3 · 2ª vez aqui</div></div></div>
+            </div>
+            <div class="label" style="margin-top:16px">Histórico deste aparelho</div>
+            <div class="history only-it"><div><span class="note info" style="padding:2px 8px;font-size:11.5px">ago</span><span class="grow">Troca de teclado · garantia até 20/11</span><b style="color:var(--primary-ink)">em garantia</b></div><div><span class="note" style="background:var(--soft);padding:2px 8px;font-size:11.5px">mar</span><span class="grow">Formatação e backup</span><span class="muted">entregue</span></div></div>
+            <div class="history only-hvac"><div><span class="note warn" style="padding:2px 8px;font-size:11.5px">nov</span><span class="grow">OS-00010 · capacitor + gás</span><b style="color:var(--warn)">aguardando aprovação</b></div><div><span class="note" style="background:var(--soft);padding:2px 8px;font-size:11.5px">ago</span><span class="grow">Higienização</span><span class="muted">entregue</span></div></div>
+          </div>
+          <div class="acts">
+            <div><div class="label">O que está acontecendo</div>
+              <div class="only-it"><span class="pick on">Não liga</span><span class="pick on">Caiu líquido</span><span class="pick">Tela quebrada</span><span class="pick">Lento</span><span class="pick">Não carrega</span><span class="pick">+ outro</span></div>
+              <div class="only-hvac"><span class="pick on">Não gela</span><span class="pick on">Pingando água</span><span class="pick">Barulho</span><span class="pick">Desarma o disjuntor</span><span class="pick">+ outro</span></div>
+              <div class="relato" style="min-height:58px;font-size:14px;padding-right:58px"><span class="only-it">Liga, mostra a logo e desliga. Caiu café no teclado.</span><span class="only-hvac">Salão quente no almoço, pinga água na frente.</span><span class="mic" style="width:36px;height:36px;top:10px"><svg class="ico" style="width:16px;height:16px"><use href="#mic"/></svg></span></div>
+            </div>
+            <div class="row" style="gap:12px;align-items:flex-start">
+              <div class="grow"><div class="label">Urgência</div><span class="pick">Normal</span><span class="pick on">Alta</span><span class="pick">Urgente</span></div>
+              <div class="grow only-it"><div class="label">Entrega</div><span class="pick on">Amanhã 18h</span><span class="pick">3 dias</span></div>
+              <div class="grow only-hvac"><div class="label">Visita</div><span class="pick on">Qua · manhã</span><span class="pick">Escolher…</span></div>
+            </div>
+            <div class="only-it"><div class="label">Entrada</div><span class="pick on">Sinal de líquido</span><span class="pick on">Carregador</span><span class="pick">Riscos</span><span class="pick">Bolsa</span><div class="field" style="margin-top:2px"><small>Senha</small><b>•••• 4412</b></div></div>
+            <div class="only-hvac"><div class="label">Levar do estoque</div><span class="pick on">Gás R410A · 2 kg</span><span class="pick on">Capacitor 40+5 µF</span><span class="pick">+ peça</span></div>
+          </div>
+        </div>
+        <div class="d-foot"><span class="muted grow" style="font-size:12.5px"><span class="only-it">Abre a OS e imprime o comprovante.</span><span class="only-hvac">Agenda a visita e manda o dia e a janela no WhatsApp do cliente.</span></span><span class="btn ghost">Só salvar rascunho</span><span class="btn primary only-it">Abrir OS</span><span class="btn cold only-hvac">Agendar visita</span></div>
+      </div>
+    </div>
+    <div class="notes">
+      <div><b>A favor</b><ul><li>O mais rápido: tudo numa tela, um botão.</li><li>Mapa e deslocamento ajudam a montar a rota das visitas.</li><li>Histórico do aparelho na frente (garantia, OS aberta).</li></ul></div>
+      <div><b>Contra</b><ul><li>Denso para quem usa pouco; menos guiado que A e B.</li><li>Mapa e distância pedem serviço de mapas (custo e integração).</li></ul></div>
+      <div><b>No código</b><ul><li>Uma tela nova no lugar do passo a passo.</li><li>Campos de visita na OS; mapa é etapa à parte.</li></ul></div>
+    </div>
+  </section>
+
+  <section class="opt" style="margin-bottom:0">
+    <div class="opt-head"><h2>Comparação</h2></div>
+    <table class="cmp">
+      <thead><tr><th></th><th>A · Diálogo único</th><th>B · Fluxo ao lado</th><th>C · Console</th></tr></thead>
+      <tbody>
+        <tr><td class="muted">Inspiração</td><td>Recepção do Truck</td><td>Primeira vez com a loja (Chef)</td><td>Socorro mecânico do Truck</td></tr>
+        <tr><td class="muted">Cliente que volta</td><td>busca + 1 tela</td><td>5 passos</td><td>busca + 1 tela</td></tr>
+        <tr><td class="muted">Guia quem usa pouco</td><td>Sim</td><td>Muito</td><td>Pouco</td></tr>
+        <tr><td class="muted">Informática</td><td>Entrega + entrada opcional</td><td>Comprovante se montando</td><td>Histórico + entrada</td></tr>
+        <tr><td class="muted">Refrigeração</td><td>Dia e manhã/tarde; peças opcional</td><td>Ordem de visita se montando</td><td>Mapa + deslocamento + visita</td></tr>
+      </tbody>
+    </table>
+    <p class="muted" style="margin-top:12px">Recomendação: <b>A</b>. Uma tela, três perguntas lidas de cima para baixo e um botão; o que é de cada ramo aparece só quando alguém pede. O mapa da C pode entrar depois, como evolução da visita.</p>
+  </section>
+</div>
+
+<script>
+  // Per option: the segment switch, and in A the clickable steps.
+  document.querySelectorAll('.opt[id]').forEach((opt) => {
+    opt.querySelectorAll('.switch button').forEach((b) => b.addEventListener('click', () => {
+      opt.dataset.seg = b.dataset.set;
+      opt.querySelectorAll('.switch button').forEach((x) => x.classList.toggle('on', x === b));
+    }));
+  });
+  const A = document.getElementById('optA');
+  A.querySelectorAll('.toggles .pick').forEach((p) => p.addEventListener('click', () => p.classList.toggle('on')));
+  A.querySelectorAll('.segw span').forEach((s) => s.addEventListener('click', () => s.parentElement.querySelectorAll('span').forEach((x) => x.classList.toggle('on', x === s))));
+  A.querySelectorAll('.more').forEach((m) => m.addEventListener('click', () => m.closest('.extra').classList.add('open')));
+  const q = new URLSearchParams(location.search);
+  if (q.get('seg')) document.querySelectorAll('.opt[id]').forEach((o) => { o.dataset.seg = q.get('seg'); o.querySelectorAll('.switch button').forEach((x) => x.classList.toggle('on', x.dataset.set === q.get('seg'))); });
+  if (q.get('extra')) A.querySelector('.extra').classList.add('open');
+</script>
+</body>
+</html>

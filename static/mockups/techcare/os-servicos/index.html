@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TechCare · Serviços e peças na OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f7f6; --card: #ffffff; --line: #e6e8e6; --line-soft: #f0f1f0;
+    --ink: #121614; --muted: #6b726e; --faint: #9aa19d;
+    --primary: #16a34a; --primary-ink: #11823b; --primary-soft: #e8f6ed;
+    --warn: #b7791f; --warn-soft: #fdf3e2; --info: #2556c4; --info-soft: #e9f0fe;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #eceeec; font: 14px/1.45 Inter, system-ui, sans-serif; color: var(--ink); }
+  .page { max-width: 1180px; margin: 0 auto; padding: 32px 20px 80px; }
+  .lead h1 { font-size: 28px; margin: 0 0 6px; letter-spacing: -.02em; }
+  .lead p { margin: 0 0 6px; color: var(--muted); max-width: 940px; }
+  .opt { margin: 34px 0 52px; }
+  .opt-head { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+  .letter { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; background: var(--ink); color: #fff; font-weight: 800; }
+  .opt-head h2 { margin: 0; font-size: 20px; }
+  .opt-sub { color: var(--muted); margin: 0 0 14px 42px; max-width: 940px; }
+  .rec { background: var(--primary); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: .04em; }
+
+  .frame { background: var(--bg); border: 1px solid #d9dcd9; border-radius: 14px; padding: 18px 22px 22px; box-shadow: 0 10px 30px -18px rgba(0,0,0,.25); position: relative; }
+  .title { font-size: 22px; font-weight: 800; letter-spacing: -.02em; }
+  .sub { color: var(--muted); font-size: 13px; margin: 2px 0 14px; }
+  .grid { display: grid; grid-template-columns: minmax(0,1fr) 300px; gap: 16px; align-items: start; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
+  .band { background: #f1faf4; border: 1px solid #b9e2c7; border-radius: 12px; padding: 14px 18px; display: flex; align-items: center; gap: 16px; }
+  .who { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--primary-ink); }
+  .what { font-size: 16px; font-weight: 700; margin-top: 2px; }
+  .grow { flex: 1; min-width: 0; }
+  .row { display: flex; align-items: center; gap: 10px; }
+  .btn { display: inline-flex; align-items: center; gap: 7px; height: 36px; padding: 0 14px; border-radius: 9px; font-weight: 600; font-size: 13px; border: 1px solid var(--line); background: var(--card); white-space: nowrap; }
+  .btn.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .btn.sm { height: 30px; padding: 0 10px; font-size: 12.5px; }
+  .ico { width: 15px; height: 15px; flex: none; }
+  .tabs { display: flex; gap: 22px; margin: 16px 0 10px; border-bottom: 1px solid var(--line); font-weight: 600; color: var(--muted); font-size: 13.5px; }
+  .tabs span { padding: 10px 0; border-bottom: 2px solid transparent; }
+  .tabs span.on { color: var(--primary-ink); border-color: var(--primary); }
+  .sec { padding: 12px 16px; border-bottom: 1px solid var(--line-soft); }
+  .sec:last-child { border-bottom: 0; }
+  .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  .muted { color: var(--muted); } .faint { color: var(--faint); }
+  .side .card { padding: 14px 16px; margin-bottom: 12px; font-size: 13px; }
+  .seg { display: grid; grid-template-columns: 1fr 1fr; width: 180px; flex: none; background: var(--line-soft); border-radius: 9px; padding: 3px; font-size: 12.5px; font-weight: 600; text-align: center; }
+  .seg span { padding: 6px 0; border-radius: 7px; color: var(--muted); }
+  .seg span.on { background: var(--card); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+  .find { flex: 1; display: flex; align-items: center; gap: 10px; height: 38px; border: 1px solid var(--line); border-radius: 9px; padding: 0 12px; color: var(--faint); background: var(--card); font-size: 13px; }
+  .line { display: grid; grid-template-columns: 70px minmax(0,1fr) 50px 100px 24px; gap: 10px; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--line-soft); font-size: 13.5px; }
+  .line:last-child { border-bottom: 0; }
+  .kind { display: inline-flex; height: 20px; align-items: center; padding: 0 7px; border-radius: 6px; font-size: 11px; font-weight: 700; background: var(--info-soft); color: var(--info); }
+  .kind.p { background: var(--warn-soft); color: var(--warn); }
+  .r { text-align: right; }
+  .note { border: 1px dashed var(--line); border-radius: 9px; padding: 9px 12px; color: var(--faint); font-size: 13px; }
+  .modal { position: absolute; right: 40px; top: 110px; width: 520px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 24px 50px -20px rgba(0,0,0,.35); }
+  .modal .h { padding: 14px 18px; border-bottom: 1px solid var(--line); font-weight: 800; font-size: 16px; }
+  .modal .b { padding: 14px 18px; display: grid; gap: 12px; }
+  .modal .f { padding: 12px 18px; border-top: 1px solid var(--line); display: flex; align-items: center; gap: 10px; }
+  .dim { min-height: 560px; }
+  .dim::after { content: ''; position: absolute; inset: 0; background: rgba(18,22,20,.35); border-radius: 14px; }
+  .dim .modal { z-index: 2; }
+  .compare { width: 100%; background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; border-collapse: collapse; font-size: 13px; }
+  .compare th { text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--faint); padding: 10px 14px; border-bottom: 1px solid var(--line); }
+  .compare td { padding: 10px 14px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0 5 5L22 14l-8 8-2.3-2.3a4 4 0 0 0-5-5L2 10l8-8Z"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 8-9-5-9 5 9 5 9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+</svg>
+
+<div class="page">
+  <div class="lead">
+    <h1>Serviços e peças dentro da OS · 3 propostas</h1>
+    <p>Hoje a OS em diagnóstico mostra um botão "Registrar Diagnóstico", que abre um formulário de texto e depois manda para o orçamento. A ideia é trocar por adicionar serviço e peça direto: o que o técnico lança já vira o rascunho do orçamento.</p>
+    <p>Nas três: o texto do diagnóstico continua existindo, mas opcional ("o que encontrei"), e aparece no Resumo como hoje. Exemplo: <b>Dell Note 10</b>, "não liga".</p>
+  </div>
+
+  <!-- A -->
+  <section class="opt">
+    <div class="opt-head"><span class="letter">A</span><h2>Um botão que abre o orçamento</h2></div>
+    <p class="opt-sub">O botão da faixa vira <b>"Adicionar serviço e peça"</b> e abre o mesmo modal do orçamento (com o seletor Serviço | Peça). No topo do modal, um campo opcional "O que encontrei". Salvou, o rascunho aparece na aba Orçamentos e a faixa passa a "Enviar ao cliente".</p>
+    <div class="frame dim">
+      <div class="title">dell Note 10</div><div class="sub">entrou 12/11/2026 · aberta por Elves</div>
+      <div class="grid">
+        <div>
+          <div class="band"><div class="grow"><div class="who">É a sua vez · hoje</div><div class="what">Diagnosticar</div></div><span class="btn primary"><svg class="ico"><use href="#i-plus"/></svg>Adicionar serviço e peça</span></div>
+          <div class="tabs"><span class="on">Resumo</span><span>Orçamentos 0</span><span>Pagamentos 0</span><span>Histórico</span></div>
+          <div class="card"><div class="sec"><div class="label">Problema relatado</div>não liga</div></div>
+        </div>
+        <div class="side"><div class="card">Sem valor a cobrar</div><div class="card">Cliente e aparelho</div></div>
+      </div>
+      <div class="modal">
+        <div class="h">Serviços e peças · OS-202611-00023</div>
+        <div class="b">
+          <div class="note">O que encontrei (opcional)…</div>
+          <div class="row"><div class="seg"><span class="on">Serviço</span><span>Peça</span></div><div class="find"><svg class="ico"><use href="#i-search"/></svg>Buscar serviço…</div></div>
+          <div class="line"><span class="kind">Serviço</span><b>Troca de tela</b><span>1 ×</span><b class="r">R$ 350,00</b><span class="faint">✕</span></div>
+          <div class="line"><span class="kind p">Peça</span><b>Tela LCD 15.6" HD</b><span>1 ×</span><b class="r">R$ 450,00</b><span class="faint">✕</span></div>
+        </div>
+        <div class="f"><b>R$ 800,00</b><span class="grow"></span><span class="btn sm">Cancelar</span><span class="btn sm primary">Salvar rascunho</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- B -->
+  <section class="opt">
+    <div class="opt-head"><span class="letter">B</span><h2>Lançar direto no Resumo</h2><span class="rec">Recomendada</span></div>
+    <p class="opt-sub">Sem modal. O Resumo ganha a seção <b>"Serviços e peças"</b> com o seletor e a busca, e cada item lançado já entra no rascunho do orçamento. A faixa troca o botão por <b>"Enviar orçamento"</b>, que só acende quando há item. O diagnóstico vira uma linha "O que encontrei" logo acima, que se escreve quando quiser.</p>
+    <div class="frame">
+      <div class="title">dell Note 10</div><div class="sub">entrou 12/11/2026 · aberta por Elves</div>
+      <div class="grid">
+        <div>
+          <div class="band"><div class="grow"><div class="who">É a sua vez · hoje</div><div class="what">Lance os serviços e peças</div></div><span class="btn primary"><svg class="ico"><use href="#i-send"/></svg>Enviar orçamento · R$ 800,00</span></div>
+          <div class="tabs"><span class="on">Resumo</span><span>Orçamentos 1</span><span>Pagamentos 0</span><span>Histórico</span></div>
+          <div class="card">
+            <div class="sec"><div class="label">Problema relatado</div>não liga</div>
+            <div class="sec"><div class="label">O que encontrei</div><div class="note" style="margin-top:6px">Escreva o diagnóstico, se quiser…</div></div>
+            <div class="sec">
+              <div class="row" style="margin-bottom:8px"><span class="label grow">Serviços e peças</span><span class="faint" style="font-size:12px">rascunho ORC-202611-00078</span></div>
+              <div class="row"><div class="seg"><span class="on">Serviço</span><span>Peça</span></div><div class="find"><svg class="ico"><use href="#i-search"/></svg>Buscar serviço e Enter…</div></div>
+              <div class="line" style="margin-top:6px"><span class="kind">Serviço</span><b>Troca de tela</b><span>1 ×</span><b class="r">R$ 350,00</b><span class="faint">✕</span></div>
+              <div class="line"><span class="kind p">Peça</span><b>Tela LCD 15.6" HD</b><span>1 ×</span><b class="r">R$ 450,00</b><span class="faint">✕</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="side"><div class="card"><b>R$ 800,00</b> no rascunho<br><span class="muted">ainda não enviado</span></div><div class="card">Cliente e aparelho</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- C -->
+  <section class="opt">
+    <div class="opt-head"><span class="letter">C</span><h2>Dois botões na faixa</h2></div>
+    <p class="opt-sub">A faixa ganha <b>"+ Serviço"</b> e <b>"+ Peça"</b>, cada um abre a busca já no tipo certo, num balão pequeno. O que entra aparece numa lista no Resumo. O diagnóstico vira um link "Anotar o que encontrei". É o mais rápido para um item só, mas dois botões disputam o lugar do próximo passo.</p>
+    <div class="frame">
+      <div class="title">dell Note 10</div><div class="sub">entrou 12/11/2026 · aberta por Elves</div>
+      <div class="grid">
+        <div>
+          <div class="band"><div class="grow"><div class="who">É a sua vez · hoje</div><div class="what">Diagnosticar</div><span class="muted" style="font-size:12.5px;text-decoration:underline">Anotar o que encontrei</span></div><span class="btn primary"><svg class="ico"><use href="#i-wrench"/></svg>+ Serviço</span><span class="btn"><svg class="ico"><use href="#i-box"/></svg>+ Peça</span></div>
+          <div class="tabs"><span class="on">Resumo</span><span>Orçamentos 1</span><span>Pagamentos 0</span><span>Histórico</span></div>
+          <div class="card">
+            <div class="sec"><div class="label">Problema relatado</div>não liga</div>
+            <div class="sec"><div class="label" style="margin-bottom:4px">Serviços e peças</div>
+              <div class="line"><span class="kind">Serviço</span><b>Troca de tela</b><span>1 ×</span><b class="r">R$ 350,00</b><span class="faint">✕</span></div>
+              <div class="line"><span class="kind p">Peça</span><b>Tela LCD 15.6" HD</b><span>1 ×</span><b class="r">R$ 450,00</b><span class="faint">✕</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="side"><div class="card"><b>R$ 800,00</b> no rascunho</div><div class="card">Cliente e aparelho</div></div>
+      </div>
+    </div>
+  </section>
+
+  <h2 style="font-size:20px;margin:0 0 12px">Comparando</h2>
+  <table class="compare">
+    <thead><tr><th></th><th>A · Botão abre o orçamento</th><th>B · Direto no Resumo</th><th>C · Dois botões</th></tr></thead>
+    <tbody>
+      <tr><td><b>Cliques para lançar 2 itens</b></td><td>Abrir, buscar, buscar, salvar</td><td>Buscar, buscar (salva sozinho)</td><td>+Serviço, buscar, +Peça, buscar</td></tr>
+      <tr><td><b>Próximo passo na faixa</b></td><td>Depois de salvar: "Enviar ao cliente"</td><td>"Enviar orçamento" com o valor</td><td>Dois botões, sem o envio</td></tr>
+      <tr><td><b>Diagnóstico (texto)</b></td><td>Campo opcional no modal</td><td>Linha opcional no Resumo</td><td>Link "Anotar"</td></tr>
+      <tr><td><b>Muda a API?</b></td><td>Não: usa o orçamento de hoje</td><td>Não: o primeiro item cria o rascunho e os outros usam a edição de rascunho que acabamos de fazer</td><td>Igual à B</td></tr>
+      <tr><td><b>Esforço</b></td><td>Pequeno</td><td>Médio</td><td>Médio</td></tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

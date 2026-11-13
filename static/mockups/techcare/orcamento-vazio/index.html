@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TechCare · Orçamento vazio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --card: #ffffff; --line: #e6e8e6; --line-soft: #f0f1f0;
+    --ink: #121614; --muted: #6b726e; --faint: #9aa19d;
+    --primary: #16a34a; --primary-ink: #11823b; --primary-soft: #e8f6ed;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #eceeec; font: 14px/1.45 Inter, system-ui, sans-serif; color: var(--ink); }
+  .page { max-width: 1000px; margin: 0 auto; padding: 32px 20px 80px; }
+  .lead h1 { font-size: 28px; margin: 0 0 6px; letter-spacing: -.02em; }
+  .lead p { margin: 0 0 6px; color: var(--muted); max-width: 860px; }
+  .opt { margin: 34px 0 48px; }
+  .opt-head { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+  .letter { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; background: var(--ink); color: #fff; font-weight: 800; }
+  .opt-head h2 { margin: 0; font-size: 20px; }
+  .opt-sub { color: var(--muted); margin: 0 0 14px 42px; max-width: 860px; }
+  .rec { background: var(--primary); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: .04em; }
+  .sheet { background: var(--card); border: 1px solid #d9dcd9; border-radius: 14px; padding: 18px 32px 22px; box-shadow: 0 10px 30px -18px rgba(0,0,0,.25); }
+  .small { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+  .bar { display: flex; gap: 8px; }
+  .seg { display: grid; grid-template-columns: 1fr 1fr; width: 200px; flex: none; background: var(--line-soft); border-radius: 9px; padding: 3px; font-size: 13px; font-weight: 600; text-align: center; }
+  .seg span { padding: 8px 0; border-radius: 7px; color: var(--muted); }
+  .seg span.on { background: var(--card); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+  .find { flex: 1; display: flex; align-items: center; gap: 10px; height: 42px; border: 1px solid var(--line); border-radius: 10px; padding: 0 12px; color: var(--faint); }
+  .find svg { width: 16px; height: 16px; }
+  .ico { width: 18px; height: 18px; }
+  .tile { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; flex: none; background: var(--primary-soft); color: var(--primary-ink); }
+  .muted { color: var(--muted); } .faint { color: var(--faint); }
+  .btn { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; border-radius: 9px; font-weight: 600; font-size: 13px; border: 1px solid var(--line); background: var(--card); white-space: nowrap; }
+
+  /* A */
+  .a-empty { display: flex; align-items: center; gap: 14px; margin-top: 14px; padding: 14px 16px; border: 1px dashed var(--line); border-radius: 12px; }
+  .a-empty b { display: block; }
+  /* B */
+  .head { display: grid; grid-template-columns: 76px minmax(0,1fr) 70px 110px 100px; gap: 12px; padding: 10px 0 8px; margin-top: 12px; border-bottom: 1px solid var(--line); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--faint); }
+  .ghost { display: grid; grid-template-columns: 76px minmax(0,1fr) 70px 110px 100px; gap: 12px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line-soft); }
+  .ghost i { display: block; height: 10px; border-radius: 99px; background: var(--line-soft); }
+  .b-msg { text-align: center; margin-top: 14px; font-size: 13px; color: var(--muted); }
+  /* C */
+  .c-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+  .c-card { display: flex; align-items: center; gap: 12px; padding: 16px; border: 1px dashed var(--line); border-radius: 12px; }
+  .c-card.part .tile { background: var(--line-soft); color: var(--muted); }
+  .c-card b { display: block; }
+
+  .compare { width: 100%; background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; border-collapse: collapse; font-size: 13px; }
+  .compare th { text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--faint); padding: 10px 14px; border-bottom: 1px solid var(--line); }
+  .compare td { padding: 10px 14px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0 5 5L22 14l-8 8-2.3-2.3a4 4 0 0 0-5-5L2 10l8-8Z"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 8-9-5-9 5 9 5 9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></symbol>
+</svg>
+
+<div class="page">
+  <div class="lead">
+    <h1>Orçamento vazio · 3 propostas</h1>
+    <p>Hoje, sem itens, o meio da folha mostra um ícone grande de ferramenta e "Adicione um serviço", centralizados e soltos. Ocupa muito espaço, não diz que também dá para lançar peça e não leva a lugar nenhum: a busca fica acima, longe do aviso.</p>
+  </div>
+
+  <!-- A -->
+  <section class="opt">
+    <div class="opt-head"><span class="letter">A</span><h2>Aviso baixo, numa linha</h2></div>
+    <p class="opt-sub">O mesmo EmptyState do DS, na versão horizontal: ícone e duas linhas de texto lado a lado, numa faixa tracejada logo abaixo da busca. Ocupa um terço do espaço de hoje.</p>
+    <div class="sheet">
+      <div class="small">Itens</div>
+      <div class="bar"><div class="seg"><span class="on">Serviço</span><span>Peça</span></div><div class="find"><svg><use href="#i-search"/></svg>Buscar serviço e pressionar Enter...</div></div>
+      <div class="a-empty"><span class="tile"><svg class="ico"><use href="#i-wrench"/></svg></span><div><b>Comece pela busca</b><span class="muted" style="font-size:13px">Escolha serviço ou peça, digite e aperte Enter.</span></div></div>
+    </div>
+  </section>
+
+  <!-- B -->
+  <section class="opt">
+    <div class="opt-head"><span class="letter">B</span><h2>Tabela já desenhada, vazia</h2></div>
+    <p class="opt-sub">As colunas da tabela aparecem desde o início, com duas linhas apagadas no lugar dos itens. A pessoa vê onde o item vai cair antes de lançar. Uma frase curta embaixo.</p>
+    <div class="sheet">
+      <div class="small">Itens</div>
+      <div class="bar"><div class="seg"><span class="on">Serviço</span><span>Peça</span></div><div class="find"><svg><use href="#i-search"/></svg>Buscar serviço e pressionar Enter...</div></div>
+      <div class="head"><span>Tipo</span><span>Item</span><span>Qtd</span><span>Valor un.</span><span style="text-align:right">Total</span></div>
+      <div class="ghost"><i style="width:56px"></i><i style="width:60%"></i><i style="width:30px"></i><i style="width:80px"></i><i style="width:70px;justify-self:end"></i></div>
+      <div class="ghost"><i style="width:44px"></i><i style="width:45%"></i><i style="width:30px"></i><i style="width:80px"></i><i style="width:70px;justify-self:end"></i></div>
+      <div class="b-msg">Os itens lançados aparecem aqui.</div>
+    </div>
+  </section>
+
+  <!-- C -->
+  <section class="opt">
+    <div class="opt-head"><span class="letter">C</span><h2>Dois atalhos: serviço ou peça</h2><span class="rec">Recomendada</span></div>
+    <p class="opt-sub">No lugar do aviso, dois cartões tracejados lado a lado: "Adicionar serviço" e "Adicionar peça". Clicar escolhe o lado no seletor e põe o cursor na busca. O vazio vira o primeiro passo e deixa claro que dá para lançar os dois.</p>
+    <div class="sheet">
+      <div class="small">Itens</div>
+      <div class="bar"><div class="seg"><span class="on">Serviço</span><span>Peça</span></div><div class="find"><svg><use href="#i-search"/></svg>Buscar serviço e pressionar Enter...</div></div>
+      <div class="c-grid">
+        <div class="c-card"><span class="tile"><svg class="ico"><use href="#i-wrench"/></svg></span><div><b>Adicionar serviço</b><span class="muted" style="font-size:12.5px">Mão de obra do catálogo</span></div></div>
+        <div class="c-card part"><span class="tile"><svg class="ico"><use href="#i-box"/></svg></span><div><b>Adicionar peça</b><span class="muted" style="font-size:12.5px">Do estoque, com a quantidade</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <h2 style="font-size:20px;margin:0 0 12px">Comparando</h2>
+  <table class="compare">
+    <thead><tr><th></th><th>A · Aviso baixo</th><th>B · Tabela vazia</th><th>C · Dois atalhos</th></tr></thead>
+    <tbody>
+      <tr><td><b>Espaço</b></td><td>Pequeno</td><td>Médio</td><td>Pequeno</td></tr>
+      <tr><td><b>Leva a uma ação</b></td><td>Não, só explica</td><td>Não, só mostra</td><td>Sim: escolhe o lado e foca a busca</td></tr>
+      <tr><td><b>Diz que tem peça também</b></td><td>Não</td><td>Não</td><td>Sim</td></tr>
+      <tr><td><b>Componente</b></td><td>EmptyState do DS (horizontal)</td><td>Novo, desenhado aqui</td><td>Novo, desenhado aqui</td></tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

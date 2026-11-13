@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TechCare · Desconto do orçamento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --card: #ffffff; --line: #e6e8e6; --line-soft: #f0f1f0;
+    --ink: #121614; --muted: #6b726e; --faint: #9aa19d;
+    --primary: #16a34a; --primary-ink: #11823b; --primary-soft: #e8f6ed;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #eceeec; font: 14px/1.45 Inter, system-ui, sans-serif; color: var(--ink); }
+  .page { max-width: 1000px; margin: 0 auto; padding: 32px 20px 80px; }
+  .lead h1 { font-size: 28px; margin: 0 0 6px; letter-spacing: -.02em; }
+  .lead p { margin: 0 0 6px; color: var(--muted); max-width: 860px; }
+  .opt { margin: 34px 0 48px; }
+  .opt-head { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+  .letter { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; background: var(--ink); color: #fff; font-weight: 800; }
+  .opt-head h2 { margin: 0; font-size: 20px; }
+  .opt-sub { color: var(--muted); margin: 0 0 14px 42px; max-width: 860px; }
+  .rec { background: var(--primary); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: .04em; }
+  .states { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-left: 42px; }
+  .state { display: grid; gap: 6px; align-content: start; }
+  .state > .cap { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--faint); }
+  .half { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 4px 16px; position: relative; }
+  .r { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 44px; border-bottom: 1px solid var(--line-soft); font-size: 13.5px; }
+  .r:last-child { border-bottom: 0; }
+  .r > .l { color: var(--muted); }
+  .r b { font-variant-numeric: tabular-nums; }
+  .add { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--line); font-size: 12.5px; font-weight: 600; background: var(--card); white-space: nowrap; }
+  .pill { display: inline-flex; align-items: center; gap: 8px; height: 30px; padding: 0 10px; border-radius: 8px; background: var(--primary-soft); color: var(--primary-ink); font-size: 12.5px; font-weight: 700; white-space: nowrap; }
+  .pill i { font-style: normal; color: var(--primary-ink); opacity: .6; font-weight: 600; }
+  .field { display: inline-flex; align-items: center; height: 32px; border: 2px solid var(--primary); border-radius: 8px; overflow: hidden; background: var(--card); }
+  .field input { width: 52px; border: 0; outline: 0; text-align: right; font: 600 13.5px Inter; padding: 0 6px; }
+  .unit { display: inline-flex; height: 100%; border-left: 1px solid var(--line); }
+  .unit span { display: grid; place-items: center; width: 32px; font-size: 12px; font-weight: 700; color: var(--muted); }
+  .unit span.on { background: var(--primary-soft); color: var(--primary-ink); }
+  .minus { color: var(--primary-ink); font-weight: 700; font-size: 12.5px; white-space: nowrap; }
+  .x { color: var(--faint); font-size: 14px; }
+  .chip { display: inline-grid; place-items: center; height: 28px; min-width: 44px; padding: 0 8px; border-radius: 8px; border: 1px solid var(--line); font-size: 12.5px; font-weight: 600; background: var(--card); }
+  .chip.on { border-color: var(--primary); background: var(--primary-soft); color: var(--primary-ink); }
+  .pop { position: absolute; right: 12px; top: 92px; width: 280px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 16px 34px -14px rgba(0,0,0,.3); padding: 14px; display: grid; gap: 12px; z-index: 2; }
+  .pop .t { font-weight: 700; }
+  .seg { display: grid; grid-template-columns: 1fr 1fr; background: var(--line-soft); border-radius: 9px; padding: 3px; font-size: 12.5px; font-weight: 600; text-align: center; }
+  .seg span { padding: 5px 0; border-radius: 7px; color: var(--muted); }
+  .seg span.on { background: var(--card); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+  .bigfield { display: flex; align-items: center; height: 42px; border: 2px solid var(--primary); border-radius: 9px; padding: 0 12px; font-weight: 700; font-size: 16px; }
+  .bigfield span { margin-left: auto; color: var(--faint); font-weight: 600; font-size: 13px; }
+  .chips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .preview { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--muted); }
+  .preview b { color: var(--primary-ink); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; height: 34px; border-radius: 9px; font-weight: 600; font-size: 13px; border: 1px solid var(--line); background: var(--card); }
+  .btn.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .compare { width: 100%; background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; border-collapse: collapse; font-size: 13px; }
+  .compare th { text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--faint); padding: 10px 14px; border-bottom: 1px solid var(--line); }
+  .compare td { padding: 10px 14px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="lead">
+    <h1>Desconto do orçamento · 3 propostas</h1>
+    <p>Hoje, ao clicar em "Adicionar", a linha do desconto mostra sete controles ao mesmo tempo: % ou R$, o número com − e +, os atalhos 5, 10 e 15 e o X. Não cabe na metade do bloco e ninguém sabe por onde começar.</p>
+    <p>Cada proposta mostra os três momentos: sem desconto, decidindo e decidido. Exemplo: subtotal de R$ 310,00, desconto de 10%.</p>
+  </div>
+
+  <!-- A -->
+  <section class="opt">
+    <div class="opt-head"><span class="letter">A</span><h2>Um campo com a unidade dentro</h2></div>
+    <p class="opt-sub">Um campo só, com % e R$ grudados nele. Sai o − e +, saem os atalhos. Ao lado aparece quanto sai em reais. É o mais simples, e cabe na linha.</p>
+    <div class="states">
+      <div class="state"><span class="cap">Sem desconto</span><div class="half"><div class="r"><span class="l">Subtotal</span><b>R$ 310,00</b></div><div class="r"><span class="l">Desconto</span><span class="add">+ Adicionar</span></div><div class="r"><span class="l">Total</span><b>R$ 310,00</b></div></div></div>
+      <div class="state"><span class="cap">Decidindo</span><div class="half"><div class="r"><span class="l">Subtotal</span><b>R$ 310,00</b></div><div class="r"><span class="l">Desconto</span><span style="display:flex;align-items:center;gap:8px"><span class="minus">− R$ 31,00</span><span class="field"><input value="10"><span class="unit"><span class="on">%</span><span>R$</span></span></span><span class="x">✕</span></span></div><div class="r"><span class="l">Total</span><b>R$ 279,00</b></div></div></div>
+      <div class="state"><span class="cap">Decidido</span><div class="half"><div class="r"><span class="l">Subtotal</span><b>R$ 310,00</b></div><div class="r"><span class="l">Desconto</span><span class="pill">10% <i>·</i> − R$ 31,00 <span class="x">✕</span></span></div><div class="r"><span class="l">Total</span><b>R$ 279,00</b></div></div></div>
+    </div>
+  </section>
+
+  <!-- B -->
+  <section class="opt">
+    <div class="opt-head"><span class="letter">B</span><h2>Um balão para decidir</h2><span class="rec">Recomendada</span></div>
+    <p class="opt-sub">A linha nunca cresce: "Adicionar" abre um balão pequeno com tudo em ordem — unidade, valor, atalhos e a prévia do que sai — e o botão Aplicar. Na linha fica só o resultado. É o padrão de popover do DS.</p>
+    <div class="states">
+      <div class="state"><span class="cap">Sem desconto</span><div class="half"><div class="r"><span class="l">Subtotal</span><b>R$ 310,00</b></div><div class="r"><span class="l">Desconto</span><span class="add">+ Adicionar</span></div><div class="r"><span class="l">Total</span><b>R$ 310,00</b></div></div></div>
+      <div class="state"><span class="cap">Decidindo</span><div class="half" style="min-height:330px"><div class="r"><span class="l">Subtotal</span><b>R$ 310,00</b></div><div class="r"><span class="l">Desconto</span><span class="add">+ Adicionar</span></div><div class="r"><span class="l">Total</span><b>R$ 310,00</b></div>
+        <div class="pop" style="top:96px;right:8px;left:8px;width:auto">
+          <span class="t">Desconto</span>
+          <div class="seg"><span class="on">Porcentagem</span><span>Valor em R$</span></div>
+          <div class="bigfield">10<span>%</span></div>
+          <div class="chips"><span class="chip">5%</span><span class="chip on">10%</span><span class="chip">15%</span></div>
+          <div class="preview"><span>Sai do orçamento</span><b>− R$ 31,00</b></div>
+          <div class="two"><span class="btn">Cancelar</span><span class="btn primary">Aplicar</span></div>
+        </div>
+      </div></div>
+      <div class="state"><span class="cap">Decidido</span><div class="half"><div class="r"><span class="l">Subtotal</span><b>R$ 310,00</b></div><div class="r"><span class="l">Desconto</span><span class="pill">10% <i>·</i> − R$ 31,00 <span class="x">✕</span></span></div><div class="r"><span class="l">Total</span><b>R$ 279,00</b></div></div></div>
+    </div>
+  </section>
+
+  <!-- C -->
+  <section class="opt">
+    <div class="opt-head"><span class="letter">C</span><h2>Atalhos primeiro, valor livre depois</h2></div>
+    <p class="opt-sub">A linha já mostra os descontos mais comuns como botões: um clique e está aplicado. "Outro" abre o campo com a unidade, para um valor diferente ou em reais.</p>
+    <div class="states">
+      <div class="state"><span class="cap">Sem desconto</span><div class="half"><div class="r"><span class="l">Subtotal</span><b>R$ 310,00</b></div><div class="r"><span class="l">Desconto</span><span style="display:flex;gap:6px"><span class="chip">5%</span><span class="chip">10%</span><span class="chip">15%</span><span class="chip">Outro</span></span></div><div class="r"><span class="l">Total</span><b>R$ 310,00</b></div></div></div>
+      <div class="state"><span class="cap">"Outro"</span><div class="half"><div class="r"><span class="l">Subtotal</span><b>R$ 310,00</b></div><div class="r"><span class="l">Desconto</span><span style="display:flex;align-items:center;gap:8px"><span class="minus">− R$ 25,00</span><span class="field"><input value="25"><span class="unit"><span>%</span><span class="on">R$</span></span></span><span class="x">✕</span></span></div><div class="r"><span class="l">Total</span><b>R$ 285,00</b></div></div></div>
+      <div class="state"><span class="cap">Decidido</span><div class="half"><div class="r"><span class="l">Subtotal</span><b>R$ 310,00</b></div><div class="r"><span class="l">Desconto</span><span class="pill">10% <i>·</i> − R$ 31,00 <span class="x">✕</span></span></div><div class="r"><span class="l">Total</span><b>R$ 279,00</b></div></div></div>
+    </div>
+  </section>
+
+  <h2 style="font-size:20px;margin:0 0 12px">Comparando</h2>
+  <table class="compare">
+    <thead><tr><th></th><th>A · Campo com unidade</th><th>B · Balão</th><th>C · Atalhos primeiro</th></tr></thead>
+    <tbody>
+      <tr><td><b>Cliques para 10%</b></td><td>2 (Adicionar, digitar)</td><td>3 (Adicionar, 10%, Aplicar)</td><td>1</td></tr>
+      <tr><td><b>A linha cresce?</b></td><td>Um pouco, enquanto digita</td><td>Nunca</td><td>Sempre mostra 4 botões</td></tr>
+      <tr><td><b>Desconto em reais</b></td><td>Trocar para R$ no campo</td><td>Aba "Valor em R$"</td><td>"Outro" e trocar para R$</td></tr>
+      <tr><td><b>Mostra quanto sai antes de aplicar</b></td><td>Sim, ao lado</td><td>Sim, no balão</td><td>Só depois</td></tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TechCare · Dentro da OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f7f6; --card: #ffffff; --line: #e6e8e6; --line-soft: #f0f1f0;
+    --ink: #121614; --muted: #6b726e; --faint: #9aa19d;
+    --primary: #16a34a; --primary-ink: #11823b; --primary-soft: #e8f6ed;
+    --warn: #b7791f; --warn-soft: #fdf3e2; --danger: #dc2626; --danger-soft: #fdecec;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #eceeec; font: 14px/1.45 Inter, system-ui, sans-serif; color: var(--ink); }
+  .page { max-width: 1320px; margin: 0 auto; padding: 32px 20px 80px; }
+  .lead h1 { font-size: 28px; margin: 0 0 6px; letter-spacing: -.02em; }
+  .lead p { margin: 0 0 6px; color: var(--muted); max-width: 920px; }
+  .problems { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 18px 0 34px; }
+  .problems div { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-size: 13px; }
+  .problems b { display: block; font-size: 13px; margin-bottom: 2px; }
+  .opt { margin: 0 0 56px; }
+  .opt-head { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+  .letter { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; background: var(--ink); color: #fff; font-weight: 800; }
+  .opt-head h2 { margin: 0; font-size: 20px; letter-spacing: -.01em; }
+  .opt-sub { color: var(--muted); margin: 0 0 14px 42px; max-width: 980px; }
+  .rec { background: var(--primary); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: .04em; }
+
+  /* App frame */
+  .frame { background: var(--bg); border: 1px solid #d9dcd9; border-radius: 14px; overflow: hidden; box-shadow: 0 10px 30px -18px rgba(0,0,0,.25); }
+  .topbar { display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 20px; background: var(--card); border-bottom: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+  .topbar b { color: var(--primary-ink); font-weight: 600; }
+  .search { margin-left: auto; width: 300px; height: 32px; border: 1px solid var(--line); border-radius: 999px; padding: 0 14px; display: flex; align-items: center; color: var(--faint); }
+  .body { padding: 20px 24px 24px; }
+
+  /* Shared pieces */
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); }
+  .card-h { display: flex; align-items: center; gap: 10px; height: 48px; padding: 0 16px; border-bottom: 1px solid var(--line); }
+  .card-b { padding: 16px; }
+  .muted { color: var(--muted); } .faint { color: var(--faint); }
+  .mono { font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+  .chip { display: inline-flex; align-items: center; gap: 4px; height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11.5px; font-weight: 600; background: var(--line-soft); color: var(--muted); white-space: nowrap; }
+  .chip.ok { background: var(--primary-soft); color: var(--primary-ink); }
+  .chip.warn { background: var(--warn-soft); color: var(--warn); }
+  .chip.key { background: #eef0ff; color: #3a44b0; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 7px; height: 36px; padding: 0 14px; border-radius: 9px; font-weight: 600; font-size: 13px; border: 1px solid var(--line); background: var(--card); color: var(--ink); white-space: nowrap; }
+  .btn.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .btn.sm { height: 30px; padding: 0 10px; font-size: 12.5px; }
+  .btn.icon { width: 36px; padding: 0; }
+  .ico { width: 15px; height: 15px; flex: none; }
+  .row { display: flex; align-items: center; gap: 10px; }
+  .grow { flex: 1; min-width: 0; }
+  .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--faint); white-space: nowrap; }
+  .num { font-variant-numeric: tabular-nums; }
+  .ell { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* Head of the order: same in all three */
+  .head { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+  .head-ico { width: 44px; height: 44px; border-radius: 12px; background: var(--card); border: 1px solid var(--line); display: grid; place-items: center; color: var(--muted); flex: none; }
+  .head h3 { margin: 0; font-size: 22px; letter-spacing: -.02em; line-height: 1.2; }
+  .head .sub { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); margin-top: 2px; white-space: nowrap; }
+  .head .sub b { color: var(--ink); font-weight: 600; }
+
+  /* Now band */
+  .now { display: flex; align-items: center; gap: 16px; padding: 14px 18px; border: 1px solid #b9e2c7; background: #f1faf4; border-radius: var(--radius); }
+  .now .who { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--primary-ink); white-space: nowrap; }
+  .now .what { font-size: 17px; font-weight: 700; letter-spacing: -.01em; margin-top: 1px; white-space: nowrap; }
+
+  /* Steps: fixed five columns, never wraps */
+  .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .step { display: grid; gap: 5px; }
+  .step i { display: block; height: 4px; border-radius: 99px; background: var(--line); }
+  .step.done i { background: var(--primary); }
+  .step.cur i { background: linear-gradient(90deg, var(--primary) 50%, var(--line) 50%); }
+  .step span { font-size: 11.5px; font-weight: 600; color: var(--faint); white-space: nowrap; }
+  .step.done span, .step.cur span { color: var(--ink); }
+  .step em { font-style: normal; font-weight: 500; color: var(--faint); margin-left: 4px; }
+
+  /* Key/value list: one label column, values aligned on the same line */
+  .kv { display: grid; grid-template-columns: 112px 1fr; font-size: 13px; }
+  .kv dt, .kv dd { margin: 0; padding: 9px 0; border-bottom: 1px solid var(--line-soft); }
+  .kv dt { color: var(--muted); white-space: nowrap; }
+  .kv dd { font-weight: 500; text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .kv dt:nth-last-child(2), .kv dd:last-child { border-bottom: 0; }
+  .kv.left dd { text-align: left; white-space: normal; }
+  .kv .strong { font-weight: 800; color: var(--danger); }
+
+  /* Text sections */
+  .txt h4 { margin: 0 0 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--faint); display: flex; justify-content: space-between; }
+  .txt h4 span { text-transform: none; letter-spacing: 0; font-weight: 500; }
+  .txt p { margin: 0; }
+  .txt + .txt { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line-soft); }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 22px; padding: 0 16px; height: 48px; align-items: stretch; border-bottom: 1px solid var(--line); font-size: 13.5px; font-weight: 600; color: var(--muted); }
+  .tabs span { display: flex; align-items: center; border-bottom: 2px solid transparent; white-space: nowrap; }
+  .tabs span.on { color: var(--ink); border-color: var(--primary); }
+  .tabs em { font-style: normal; font-size: 11px; background: var(--line-soft); padding: 1px 7px; border-radius: 99px; margin-left: 6px; color: var(--muted); }
+
+  /* History */
+  .tl { list-style: none; margin: 0; padding: 0; }
+  .tl li { display: grid; grid-template-columns: 54px 1fr auto; align-items: center; gap: 12px; padding: 10px 16px; border-bottom: 1px solid var(--line-soft); font-size: 13px; }
+  .tl li:last-child { border-bottom: 0; }
+  .tl .d { color: var(--faint); font-size: 12px; }
+  .tl .p { color: var(--muted); font-size: 12px; white-space: nowrap; }
+
+  /* Quote table */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--faint); padding: 10px 16px; border-bottom: 1px solid var(--line); }
+  td { padding: 10px 16px; border-bottom: 1px solid var(--line-soft); white-space: nowrap; }
+  tr:last-child td { border-bottom: 0; }
+  .r { text-align: right; }
+  tfoot td { font-weight: 700; border-top: 1px solid var(--line); }
+
+  /* A */
+  .a-wrap { max-width: 860px; margin: 0 auto; display: grid; gap: 14px; }
+  .a-now { display: grid; gap: 14px; }
+  .a-now .top { display: flex; align-items: center; gap: 16px; }
+  .a-money { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .a-money div { padding: 12px 16px; border-right: 1px solid var(--line); }
+  .a-money div:last-child { border-right: 0; }
+  .a-money .v { font-size: 18px; font-weight: 700; margin-top: 2px; }
+
+  /* B */
+  .b-grid { display: grid; grid-template-columns: 1fr 320px; gap: 16px; align-items: start; }
+  .b-main { display: grid; gap: 14px; }
+  .b-side { display: grid; gap: 12px; }
+  .b-side .card-h { height: 44px; }
+  .b-side .card-b { padding: 4px 16px; }
+  .pay { padding: 16px; display: grid; gap: 10px; }
+  .pay-top { display: flex; align-items: center; justify-content: space-between; height: 22px; }
+  .pay-v { font-size: 28px; font-weight: 800; letter-spacing: -.02em; line-height: 1.1; }
+  .meter { height: 6px; border-radius: 99px; background: var(--line-soft); overflow: hidden; }
+  .meter i { display: block; height: 100%; background: var(--primary); border-radius: 99px; }
+  .link { font-size: 12.5px; color: var(--muted); text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .who-row { display: flex; align-items: center; gap: 12px; height: 64px; padding: 0 16px; border-bottom: 1px solid var(--line-soft); }
+  .who-row:last-child { border-bottom: 0; }
+  .avatar { width: 34px; height: 34px; border-radius: 99px; background: var(--primary-soft); color: var(--primary-ink); display: grid; place-items: center; font-size: 12px; font-weight: 700; flex: none; }
+  .avatar.sq { border-radius: 9px; background: var(--line-soft); color: var(--muted); }
+  .btn.icon.sm { width: 30px; }
+  .states-t { font-size: 15px; margin: 22px 0 10px 42px; }
+  .states { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-left: 42px; align-items: start; }
+  .pay-dlg { padding: 16px; }
+  .field { display: flex; align-items: center; justify-content: space-between; height: 40px; border-bottom: 1px solid var(--line-soft); font-size: 13px; }
+  .field > span { color: var(--muted); }
+  .seg { display: inline-flex; background: var(--line-soft); border-radius: 9px; padding: 3px; gap: 2px; font-size: 12px; font-weight: 600; }
+  .seg span { padding: 3px 9px; border-radius: 7px; color: var(--muted); }
+  .seg span.on { background: var(--card); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+  .b-chips { display: flex; gap: 6px; flex-wrap: wrap; padding: 12px 0 10px; }
+
+  /* C */
+  .c-strip { display: grid; grid-template-columns: repeat(5, 1fr); margin-bottom: 14px; overflow: hidden; }
+  .c-strip > div { padding: 12px 16px; border-right: 1px solid var(--line); min-width: 0; }
+  .c-strip > div:last-child { border-right: 0; }
+  .c-strip .v { font-size: 16px; font-weight: 700; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .c-strip .s { font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .c-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 16px; }
+  .c-grid .card { display: flex; flex-direction: column; }
+  .c-grid .card-b { flex: 1; }
+
+  .notes { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 14px; }
+  .notes div { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-size: 13px; }
+  .notes b { display: block; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .notes ul { margin: 0; padding-left: 18px; }
+  .compare { width: 100%; background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .compare td { white-space: normal; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></symbol>
+  <symbol id="i-laptop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="12" cy="19" r="1.7"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7Z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></symbol>
+  <symbol id="i-print" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></symbol>
+</svg>
+
+<div class="page">
+  <div class="lead">
+    <h1>Dentro da OS · 3 propostas</h1>
+    <p>Hoje a OS mostra cabeçalho, faixa do momento com as cinco etapas, quatro abas e até quatro caixas na lateral (dinheiro, bancada, quem toca, na entrada). As caixas têm o mesmo peso, o prazo aparece em duas delas, e quem abre a OS para saber "o que eu faço agora" precisa ler tudo para achar.</p>
+    <p>Exemplo em todas: <b>OS 1042 · Notebook Dell Inspiron 15</b> da Maria Souza. Orçamento de R$ 480,00 aprovado, nada pago ainda, com o técnico Carlos.</p>
+  </div>
+
+  <div class="problems">
+    <div><b>Caixas demais na lateral</b>Até quatro caixas iguais, e nenhuma se destaca.</div>
+    <div><b>Dado repetido</b>O prazo aparece em "A bancada" e em "Quem toca"; a senha, em "O aparelho" e na lateral.</div>
+    <div><b>Texto longe da ação</b>Problema e diagnóstico ficam lá embaixo, em blocos soltos.</div>
+    <div><b>Desalinhamento</b>Cada caixa tem uma altura e um espaçamento, e os valores não ficam alinhados.</div>
+  </div>
+
+  <!-- ============ A ============ -->
+  <section class="opt">
+    <div class="opt-head"><span class="letter">A</span><h2>Uma coluna, de cima para baixo</h2></div>
+    <p class="opt-sub">Sem lateral. A tela lê como uma folha: quem é, o que fazer, o que foi combinado e quanto custa. Orçamento, pagamentos e histórico ficam nas abas do fim.</p>
+
+    <div class="frame">
+      <div class="topbar"><svg class="ico"><use href="#i-back"/></svg>Ordens de serviço <span>/</span> <b>OS 1042</b><div class="search">Buscar…</div></div>
+      <div class="body">
+        <div class="a-wrap">
+          <div class="head" style="margin:0">
+            <div class="head-ico"><svg class="ico" style="width:22px;height:22px"><use href="#i-laptop"/></svg></div>
+            <div class="grow">
+              <h3>Notebook Dell Inspiron 15</h3>
+              <div class="sub"><b>Maria Souza</b> · (85) 99812-4410 · entrou 08/11</div>
+            </div>
+            <span class="btn icon"><svg class="ico"><use href="#i-print"/></svg></span>
+            <span class="btn icon"><svg class="ico"><use href="#i-more"/></svg></span>
+          </div>
+
+          <div class="now a-now">
+            <div class="top">
+              <div class="grow">
+                <div class="who">É a vez do Carlos · aprovado há 2 dias</div>
+                <div class="what">Executar o reparo</div>
+              </div>
+              <span class="chip warn">prazo 14/11</span>
+              <span class="btn primary"><svg class="ico"><use href="#i-play"/></svg>Iniciar execução</span>
+            </div>
+            <div class="steps">
+              <div class="step done"><i></i><span>Recebido<em>08/11</em></span></div>
+              <div class="step done"><i></i><span>Diagnóstico<em>09/11</em></span></div>
+              <div class="step done"><i></i><span>Orçamento<em>10/11</em></span></div>
+              <div class="step cur"><i></i><span>Execução</span></div>
+              <div class="step"><i></i><span>Entrega</span></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-b">
+              <div class="txt"><h4>Problema relatado <span>08/11</span></h4><p>Não liga desde a chuva de domingo. Sentiu cheiro de queimado perto do carregador.</p></div>
+              <div class="txt"><h4>Diagnóstico <span>09/11 · Carlos</span></h4><p>Conector DC oxidado e curto no circuito de carga. Trocar o conector e refazer a trilha.</p></div>
+              <div class="txt">
+                <h4>Na entrada</h4>
+                <dl class="kv left" style="margin:0">
+                  <dt>Senha</dt><dd><span class="chip key">1234</span></dd>
+                  <dt>Veio junto</dt><dd>Carregador</dd>
+                  <dt>Avarias</dt><dd>Risco na tampa · pé de borracha solto</dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="a-money">
+              <div><div class="label">Aprovado</div><div class="v num">R$ 480,00</div></div>
+              <div><div class="label">Pago</div><div class="v num">R$ 0,00</div></div>
+              <div><div class="label">Falta receber</div><div class="v num" style="color:var(--danger)">R$ 480,00</div></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="tabs"><span class="on">Orçamento<em>1</em></span><span>Pagamentos<em>0</em></span><span>Histórico<em>5</em></span></div>
+            <table>
+              <thead><tr><th>Item</th><th class="r">Qtd</th><th class="r">Valor</th></tr></thead>
+              <tbody>
+                <tr><td>Conector DC Dell 4.5 mm</td><td class="r num">1</td><td class="r num">R$ 90,00</td></tr>
+                <tr><td>Mão de obra · reparo de placa</td><td class="r num">1</td><td class="r num">R$ 390,00</td></tr>
+              </tbody>
+              <tfoot><tr><td colspan="2">Aprovado em 10/11 pelo WhatsApp</td><td class="r num">R$ 480,00</td></tr></tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ B ============ -->
+  <section class="opt">
+    <div class="opt-head"><span class="letter">B</span><h2>Ficha ao lado, trabalho no centro</h2><span class="rec">Recomendada</span></div>
+    <p class="opt-sub">O mesmo desenho já aprovado no detalhe da peça. No centro fica o que muda (o momento e as abas); na lateral, só duas caixas: o pagamento, com o botão para marcar como pago, e uma ficha curta com o cliente e o aparelho em uma linha cada. As caixas "bancada", "quem toca" e "na entrada" deixam de existir: o técnico e o prazo sobem para a faixa do momento.</p>
+
+    <div class="frame">
+      <div class="topbar"><svg class="ico"><use href="#i-back"/></svg>Ordens de serviço <span>/</span> <b>OS 1042</b><div class="search">Buscar…</div></div>
+      <div class="body">
+        <div class="head">
+          <div class="head-ico"><svg class="ico" style="width:22px;height:22px"><use href="#i-laptop"/></svg></div>
+          <div class="grow">
+            <h3>Notebook Dell Inspiron 15</h3>
+            <div class="sub"><span class="mono">OS 1042</span> · entrou 08/11 · aberta por Ana</div>
+          </div>
+          <span class="btn"><svg class="ico"><use href="#i-print"/></svg>Imprimir</span>
+          <span class="btn icon"><svg class="ico"><use href="#i-more"/></svg></span>
+        </div>
+
+        <div class="b-grid">
+          <div class="b-main">
+            <div class="now" style="display:grid;gap:14px">
+              <div class="row" style="gap:16px">
+                <div class="grow">
+                  <div class="who">É a vez do Carlos · prazo 14/11</div>
+                  <div class="what">Executar o reparo</div>
+                </div>
+                <span class="btn primary"><svg class="ico"><use href="#i-play"/></svg>Iniciar execução</span>
+              </div>
+              <div class="steps">
+                <div class="step done"><i></i><span>Recebido<em>08/11</em></span></div>
+                <div class="step done"><i></i><span>Diagnóstico<em>09/11</em></span></div>
+                <div class="step done"><i></i><span>Orçamento<em>10/11</em></span></div>
+                <div class="step cur"><i></i><span>Execução</span></div>
+                <div class="step"><i></i><span>Entrega</span></div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="tabs"><span class="on">Resumo</span><span>Orçamento<em>1</em></span><span>Pagamentos<em>0</em></span><span>Histórico<em>5</em></span></div>
+              <div class="card-b">
+                <div class="txt"><h4>Problema relatado <span>08/11</span></h4><p>Não liga desde a chuva de domingo. Sentiu cheiro de queimado perto do carregador.</p></div>
+                <div class="txt"><h4>Diagnóstico <span>09/11 · Carlos</span></h4><p>Conector DC oxidado e curto no circuito de carga. Trocar o conector e refazer a trilha.</p></div>
+                <div class="txt"><h4>Orçamento aprovado <span>10/11 · WhatsApp</span></h4><p>Conector DC Dell 4.5 mm e reparo de placa · <b>R$ 480,00</b></p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="b-side">
+            <!-- Payment first: it is the one box with something to do. -->
+            <div class="card pay">
+              <div class="pay-top">
+                <span class="chip warn">Falta receber</span>
+                <span class="faint" style="font-size:12px">de R$ 480,00</span>
+              </div>
+              <div class="pay-v num" style="color:var(--danger)">R$ 480,00</div>
+              <div class="meter"><i style="width:0"></i></div>
+              <span class="btn primary" style="width:100%"><svg class="ico"><use href="#i-check"/></svg>Marcar como pago</span>
+              <span class="link">Recebeu só uma parte?</span>
+            </div>
+
+            <!-- Customer and device: one line each, the rest is one click away. -->
+            <div class="card">
+              <div class="who-row">
+                <span class="avatar">MS</span>
+                <div class="grow"><div class="ell" style="font-weight:600">Maria Souza</div><div class="faint num" style="font-size:12px">(85) 99812-4410</div></div>
+                <span class="btn icon sm"><svg class="ico"><use href="#i-phone"/></svg></span>
+              </div>
+              <div class="who-row">
+                <span class="avatar sq"><svg class="ico"><use href="#i-laptop"/></svg></span>
+                <div class="grow"><div class="ell" style="font-weight:600">Carregador junto</div><div class="faint ell" style="font-size:12px">Risco na tampa</div></div>
+                <span class="chip key">senha 1234</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="states-t">O quadro do pagamento nos três momentos</h3>
+    <div class="states">
+      <div class="card pay">
+        <div class="pay-top"><span class="chip warn">Falta receber</span><span class="faint" style="font-size:12px">de R$ 480,00</span></div>
+        <div class="pay-v num" style="color:var(--danger)">R$ 480,00</div>
+        <div class="meter"><i style="width:0"></i></div>
+        <span class="btn primary" style="width:100%"><svg class="ico"><use href="#i-check"/></svg>Marcar como pago</span>
+        <span class="link">Recebeu só uma parte?</span>
+      </div>
+      <div class="card pay">
+        <div class="pay-top"><span class="chip warn">Falta receber</span><span class="faint" style="font-size:12px">de R$ 480,00</span></div>
+        <div class="pay-v num" style="color:var(--danger)">R$ 280,00</div>
+        <div class="meter"><i style="width:42%"></i></div>
+        <span class="btn primary" style="width:100%"><svg class="ico"><use href="#i-check"/></svg>Marcar como pago</span>
+        <span class="link">Pix de R$ 200,00 em 10/11</span>
+      </div>
+      <div class="card pay done">
+        <div class="pay-top"><span class="chip ok">Pago</span><span class="faint" style="font-size:12px">em 15/11</span></div>
+        <div class="pay-v num" style="color:var(--primary-ink)">R$ 480,00</div>
+        <div class="meter"><i style="width:100%"></i></div>
+        <span class="btn" style="width:100%">Ver recibo</span>
+        <span class="link">Pix R$ 200,00 · dinheiro R$ 280,00</span>
+      </div>
+      <div class="card pay-dlg">
+        <div class="label" style="margin-bottom:10px">Ao clicar em "Marcar como pago"</div>
+        <div class="field"><span>Valor</span><b class="num">R$ 480,00</b></div>
+        <div class="field"><span>Forma</span>
+          <div class="seg"><span class="on">Pix</span><span>Dinheiro</span><span>Cartão</span></div>
+        </div>
+        <div class="row" style="justify-content:flex-end;margin-top:12px"><span class="btn sm">Cancelar</span><span class="btn sm primary">Confirmar</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ C ============ -->
+  <section class="opt">
+    <div class="opt-head"><span class="letter">C</span><h2>Faixa de números e resumo em quadro</h2></div>
+    <p class="opt-sub">Os cinco dados que se procuram num relance ficam numa faixa só, todos do mesmo tamanho. Embaixo, o resumo vira um quadro 2×2 de caixas com a mesma altura. Sem lateral.</p>
+
+    <div class="frame">
+      <div class="topbar"><svg class="ico"><use href="#i-back"/></svg>Ordens de serviço <span>/</span> <b>OS 1042</b><div class="search">Buscar…</div></div>
+      <div class="body">
+        <div class="head">
+          <div class="head-ico"><svg class="ico" style="width:22px;height:22px"><use href="#i-laptop"/></svg></div>
+          <div class="grow">
+            <h3>Notebook Dell Inspiron 15</h3>
+            <div class="sub"><b>Maria Souza</b> · (85) 99812-4410 · <span class="mono">OS 1042</span></div>
+          </div>
+          <span class="btn primary"><svg class="ico"><use href="#i-play"/></svg>Iniciar execução</span>
+          <span class="btn icon"><svg class="ico"><use href="#i-more"/></svg></span>
+        </div>
+
+        <div class="card c-strip">
+          <div><div class="label">Etapa</div><div class="v">Execução</div><div class="s">4 de 5</div></div>
+          <div><div class="label">Técnico</div><div class="v">Carlos</div><div class="s">aprovado há 2 dias</div></div>
+          <div><div class="label">Prazo</div><div class="v" style="color:var(--warn)">14/11</div><div class="s">em 2 dias</div></div>
+          <div><div class="label">Aprovado</div><div class="v num">R$ 480,00</div><div class="s">em 10/11</div></div>
+          <div><div class="label">Falta receber</div><div class="v num" style="color:var(--danger)">R$ 480,00</div><div class="s">nada pago</div></div>
+        </div>
+
+        <div class="card">
+          <div class="tabs"><span class="on">Resumo</span><span>Orçamento<em>1</em></span><span>Pagamentos<em>0</em></span><span>Histórico<em>5</em></span></div>
+          <div class="c-grid">
+            <div class="card"><div class="card-h"><span class="label grow">Problema relatado</span><span class="faint" style="font-size:12px">08/11</span></div><div class="card-b">Não liga desde a chuva de domingo. Sentiu cheiro de queimado perto do carregador.</div></div>
+            <div class="card"><div class="card-h"><span class="label grow">Diagnóstico</span><span class="faint" style="font-size:12px">09/11 · Carlos</span></div><div class="card-b">Conector DC oxidado e curto no circuito de carga. Trocar o conector e refazer a trilha.</div></div>
+            <div class="card"><div class="card-h"><span class="label grow">Na entrada</span><span class="chip key">senha 1234</span></div><div class="card-b" style="padding:4px 16px">
+              <dl class="kv" style="margin:0"><dt>Veio junto</dt><dd>Carregador</dd><dt>Avarias</dt><dd>Risco na tampa, pé solto</dd><dt>Série</dt><dd class="mono">8XK2P93</dd></dl>
+            </div></div>
+            <div class="card"><div class="card-h"><span class="label grow">Últimos passos</span><span class="faint" style="font-size:12px">ver histórico</span></div>
+              <ul class="tl">
+                <li><span class="d">10/11</span><span class="ell">Cliente aprovou o orçamento</span><span class="p">Ana</span></li>
+                <li><span class="d">10/11</span><span class="ell">Orçamento enviado</span><span class="p">Ana</span></li>
+                <li><span class="d">09/11</span><span class="ell">Diagnóstico concluído</span><span class="p">Carlos</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <h2 style="font-size:20px;margin:0 0 12px">Comparando</h2>
+  <table class="compare">
+    <thead><tr><th></th><th>A · Uma coluna</th><th>B · Ficha ao lado</th><th>C · Faixa e quadro</th></tr></thead>
+    <tbody>
+      <tr><td><b>O que fazer agora</b></td><td>Faixa logo abaixo do título</td><td>Faixa no topo do centro</td><td>Botão no cabeçalho; sem frase</td></tr>
+      <tr><td><b>Caixas na lateral</b></td><td>Nenhuma</td><td>2: pagamento e ficha curta</td><td>Nenhuma</td></tr>
+      <tr><td><b>Dinheiro</b></td><td>Faixa de 3 números</td><td>Status e botão "Marcar como pago"</td><td>2 números na faixa</td></tr>
+      <tr><td><b>Rolagem</b></td><td>A maior das três</td><td>Pouca: a lateral fica parada</td><td>Pouca</td></tr>
+      <tr><td><b>Na gaveta (tela estreita)</b></td><td>Igual à página</td><td>Lateral desce para baixo do centro</td><td>Faixa quebra em 2 linhas</td></tr>
+      <tr><td><b>Segue padrão aprovado</b></td><td>Não</td><td>Sim, o do detalhe da peça</td><td>Parcial, a faixa da opção C da peça</td></tr>
+    </tbody>
+  </table>
+
+  <div class="notes">
+    <div><b>Vale para as três</b><ul><li>Uma etapa só, sem selo de status repetido.</li><li>Técnico e prazo aparecem uma vez.</li><li>Rótulos à esquerda e valores alinhados na mesma linha.</li></ul></div>
+    <div><b>Sai da tela</b><ul><li>"Quem toca" e "A bancada" como caixas.</li><li>"Criado por" com avatar no cabeçalho (vai para o histórico).</li></ul></div>
+    <div><b>Fica por capacidade</b><ul><li>Quem não vê dinheiro não vê a caixa nem a aba de pagamentos.</li><li>O botão do momento muda conforme quem olha.</li></ul></div>
+  </div>
+</div>
+</body>
+</html>

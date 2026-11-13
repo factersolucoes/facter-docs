@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TechCare · Itens do orçamento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f7f6; --card: #ffffff; --line: #e6e8e6; --line-soft: #f0f1f0;
+    --ink: #121614; --muted: #6b726e; --faint: #9aa19d;
+    --primary: #16a34a; --primary-ink: #11823b; --primary-soft: #e8f6ed;
+    --warn: #b7791f; --warn-soft: #fdf3e2; --info: #2556c4; --info-soft: #e9f0fe;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #eceeec; font: 14px/1.45 Inter, system-ui, sans-serif; color: var(--ink); }
+  .page { max-width: 1100px; margin: 0 auto; padding: 32px 20px 80px; }
+  .lead h1 { font-size: 28px; margin: 0 0 6px; letter-spacing: -.02em; }
+  .lead p { margin: 0 0 6px; color: var(--muted); max-width: 900px; }
+  .opt { margin: 34px 0 56px; }
+  .opt-head { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+  .letter { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; background: var(--ink); color: #fff; font-weight: 800; }
+  .opt-head h2 { margin: 0; font-size: 20px; }
+  .opt-sub { color: var(--muted); margin: 0 0 14px 42px; max-width: 900px; }
+  .rec { background: var(--primary); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: .04em; }
+  .sheet { background: var(--card); border: 1px solid #d9dcd9; border-radius: 14px; padding: 20px 24px; box-shadow: 0 10px 30px -18px rgba(0,0,0,.25); }
+  .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  .find { display: flex; align-items: center; gap: 10px; height: 44px; border: 2px solid var(--line); border-radius: 10px; padding: 0 12px; color: var(--faint); background: var(--card); }
+  .find.on { border-color: var(--primary); }
+  .find svg { width: 16px; height: 16px; flex: none; }
+  .kbd { margin-left: auto; font-size: 11px; border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; }
+  .seg { display: inline-flex; background: var(--line-soft); border-radius: 9px; padding: 3px; gap: 2px; font-size: 13px; font-weight: 600; flex: none; }
+  .seg span { padding: 6px 14px; border-radius: 7px; color: var(--muted); white-space: nowrap; }
+  .seg span.on { background: var(--card); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+  .seg em { font-style: normal; font-size: 11px; color: var(--faint); margin-left: 4px; }
+  .drop { margin-top: 6px; border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 12px 28px -16px rgba(0,0,0,.3); overflow: hidden; }
+  .opt-row { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--line-soft); }
+  .opt-row:last-child { border-bottom: 0; }
+  .opt-row.hl { background: #f1faf4; }
+  .tile { width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; flex: none; }
+  .tile.s { background: var(--primary-soft); color: var(--primary-ink); }
+  .tile.p { background: var(--line-soft); color: var(--muted); }
+  .tile svg { width: 15px; height: 15px; }
+  .grow { flex: 1; min-width: 0; }
+  .name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sub { font-size: 12px; color: var(--muted); }
+  .sub.warn { color: var(--warn); }
+  .price { font-weight: 700; white-space: nowrap; }
+  .kind { display: inline-flex; height: 20px; align-items: center; padding: 0 7px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+  .kind.s { background: var(--info-soft); color: var(--info); }
+  .kind.p { background: var(--warn-soft); color: var(--warn); }
+  .line { display: grid; grid-template-columns: 76px minmax(0,1fr) 70px 110px 100px 24px; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line-soft); font-size: 13.5px; }
+  .line.h { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--faint); border-bottom: 1px solid var(--line); padding: 8px 0; }
+  .line.nokind { grid-template-columns: minmax(0,1fr) 70px 110px 100px 24px; }
+  .r { text-align: right; }
+  .x { color: var(--faint); text-align: center; }
+  .group { margin-top: 18px; }
+  .group-h { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .group-h .sum { margin-left: auto; font-weight: 700; font-size: 13px; }
+  .row { display: flex; align-items: center; gap: 10px; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .compare { width: 100%; background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; border-collapse: collapse; font-size: 13px; }
+  .compare th { text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--faint); padding: 10px 14px; border-bottom: 1px solid var(--line); }
+  .compare td { padding: 10px 14px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0 5 5L22 14l-8 8-2.3-2.3a4 4 0 0 0-5-5L2 10l8-8Z"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 8-9-5-9 5 9 5 9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+</svg>
+
+<div class="page">
+  <div class="lead">
+    <h1>Itens do orçamento · serviço e peça separados</h1>
+    <p>Hoje uma busca só traz serviços e peças misturados na mesma lista, e na tabela as linhas dos dois ficam intercaladas. Três jeitos de separar, do mais leve ao mais separado.</p>
+    <p>Exemplo: buscando <b>"capacitor"</b> num orçamento de ar-condicionado.</p>
+  </div>
+
+  <!-- A -->
+  <section class="opt">
+    <div class="opt-head"><span class="letter">A</span><h2>Uma busca, com a escolha ao lado</h2></div>
+    <p class="opt-sub">A busca ganha um seletor "Serviço | Peça" ao lado. A lista mostra só o tipo escolhido, e a tabela continua uma só. É a mudança menor: o campo e a tabela ficam como estão hoje.</p>
+    <div class="sheet">
+      <div class="label" style="margin-bottom:6px">Itens</div>
+      <div class="row">
+        <div class="seg"><span>Serviço <em>1</em></span><span class="on">Peça <em>3</em></span></div>
+        <div class="find on grow"><svg><use href="#i-search"/></svg><span style="color:var(--ink)">capacitor</span><span class="kbd">/</span></div>
+      </div>
+      <div class="drop">
+        <div class="opt-row hl"><span class="tile p"><svg><use href="#i-box"/></svg></span><div class="grow"><div class="name">Capacitor de partida 25 µF 440 V</div><div class="sub warn">1 em estoque · 90 dias de garantia</div></div><span class="price">R$ 70,00</span></div>
+        <div class="opt-row"><span class="tile p"><svg><use href="#i-box"/></svg></span><div class="grow"><div class="name">Capacitor de partida 35 µF 440 V</div><div class="sub">3 em estoque · 90 dias de garantia</div></div><span class="price">R$ 80,00</span></div>
+        <div class="opt-row"><span class="tile p"><svg><use href="#i-box"/></svg></span><div class="grow"><div class="name">Capacitor do ventilador 2,5 µF 450 V</div><div class="sub">11 em estoque · 90 dias de garantia</div></div><span class="price">R$ 35,00</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- B -->
+  <section class="opt">
+    <div class="opt-head"><span class="letter">B</span><h2>Serviços e peças em blocos separados</h2><span class="rec">Recomendada</span></div>
+    <p class="opt-sub">A folha ganha dois blocos, um embaixo do outro: <b>Serviços</b> e <b>Peças</b>. Cada um tem a própria busca, que só procura aquele tipo, e o próprio subtotal. A etiqueta "Serviço/Peça" sai das linhas, porque o bloco já diz o que é. É o formato de uma nota de oficina.</p>
+    <div class="sheet">
+      <div class="group" style="margin-top:0">
+        <div class="group-h"><span class="tile s"><svg><use href="#i-wrench"/></svg></span><b>Serviços</b><span class="sum">R$ 90,00</span></div>
+        <div class="find"><svg><use href="#i-search"/></svg>Adicionar serviço…</div>
+        <div class="line h nokind"><span>Serviço</span><span>Qtd</span><span>Valor un.</span><span class="r">Total</span><span></span></div>
+        <div class="line nokind"><div><div class="name">Troca de capacitor</div><div class="sub">garantia de 90 dias</div></div><span>1 ×</span><span>R$ 90,00</span><b class="r">R$ 90,00</b><svg class="x" width="14" height="14"><use href="#i-x"/></svg></div>
+      </div>
+      <div class="group">
+        <div class="group-h"><span class="tile p"><svg><use href="#i-box"/></svg></span><b>Peças</b><span class="sum">R$ 70,00</span></div>
+        <div class="find on"><svg><use href="#i-search"/></svg><span style="color:var(--ink)">capacitor</span></div>
+        <div class="drop">
+          <div class="opt-row hl"><span class="tile p"><svg><use href="#i-box"/></svg></span><div class="grow"><div class="name">Capacitor de partida 25 µF 440 V</div><div class="sub warn">1 em estoque · 90 dias de garantia</div></div><span class="price">R$ 70,00</span></div>
+          <div class="opt-row"><span class="tile p"><svg><use href="#i-box"/></svg></span><div class="grow"><div class="name">Capacitor de partida 35 µF 440 V</div><div class="sub">3 em estoque · 90 dias de garantia</div></div><span class="price">R$ 80,00</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- C -->
+  <section class="opt">
+    <div class="opt-head"><span class="letter">C</span><h2>Uma busca, lista dividida em duas colunas</h2></div>
+    <p class="opt-sub">A busca continua uma só, mas a lista abre em duas colunas lado a lado: serviços à esquerda, peças à direita. Nada muda na tabela. Dá para comparar os dois de relance, mas a lista fica mais estreita e os nomes longos cortam.</p>
+    <div class="sheet">
+      <div class="label" style="margin-bottom:6px">Itens</div>
+      <div class="find on"><svg><use href="#i-search"/></svg><span style="color:var(--ink)">capacitor</span><span class="kbd">/</span></div>
+      <div class="drop two" style="gap:0">
+        <div style="border-right:1px solid var(--line)">
+          <div class="label" style="padding:10px 14px 4px">Serviços</div>
+          <div class="opt-row hl"><span class="tile s"><svg><use href="#i-wrench"/></svg></span><div class="grow"><div class="name">Troca de capacitor</div><div class="sub">40min · 90 dias</div></div><span class="price">R$ 90,00</span></div>
+        </div>
+        <div>
+          <div class="label" style="padding:10px 14px 4px">Peças</div>
+          <div class="opt-row"><span class="tile p"><svg><use href="#i-box"/></svg></span><div class="grow"><div class="name">Capacitor de partida 25 µF…</div><div class="sub warn">1 em estoque</div></div><span class="price">R$ 70,00</span></div>
+          <div class="opt-row"><span class="tile p"><svg><use href="#i-box"/></svg></span><div class="grow"><div class="name">Capacitor de partida 35 µF…</div><div class="sub">3 em estoque</div></div><span class="price">R$ 80,00</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <h2 style="font-size:20px;margin:0 0 12px">Comparando</h2>
+  <table class="compare">
+    <thead><tr><th></th><th>A · Escolha ao lado</th><th>B · Blocos separados</th><th>C · Lista em duas colunas</th></tr></thead>
+    <tbody>
+      <tr><td><b>Ao buscar</b></td><td>Só o tipo escolhido</td><td>Cada busca só procura o seu tipo</td><td>Os dois, lado a lado</td></tr>
+      <tr><td><b>Na tabela</b></td><td>Uma tabela, misturada</td><td>Dois blocos, cada um com subtotal</td><td>Uma tabela, misturada</td></tr>
+      <tr><td><b>Lançar rápido</b></td><td>Um clique a mais para trocar o tipo</td><td>Clicar na busca certa</td><td>Igual a hoje</td></tr>
+      <tr><td><b>O que o cliente vê</b></td><td>Igual a hoje</td><td>Igual a hoje (separar também o orçamento enviado é outra mudança)</td><td>Igual a hoje</td></tr>
+      <tr><td><b>Tamanho da mudança</b></td><td>Pequena</td><td>Média: muda a tabela e o resumo</td><td>Pequena, mas mexe no componente do DS</td></tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

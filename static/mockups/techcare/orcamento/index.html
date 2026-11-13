@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TechCare · Orçamento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f7f6; --card: #ffffff; --line: #e6e8e6; --line-soft: #f0f1f0;
+    --ink: #121614; --muted: #6b726e; --faint: #9aa19d;
+    --primary: #16a34a; --primary-ink: #11823b; --primary-soft: #e8f6ed;
+    --warn: #b7791f; --warn-soft: #fdf3e2; --danger: #dc2626; --danger-soft: #fdecec;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #eceeec; font: 14px/1.45 Inter, system-ui, sans-serif; color: var(--ink); }
+  .page { max-width: 1320px; margin: 0 auto; padding: 32px 20px 80px; }
+  .lead h1 { font-size: 28px; margin: 0 0 6px; letter-spacing: -.02em; }
+  .lead p { margin: 0 0 6px; color: var(--muted); max-width: 920px; }
+  .problems { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 18px 0 34px; }
+  .problems div { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-size: 13px; }
+  .problems b { display: block; font-size: 13px; margin-bottom: 2px; }
+  .opt { margin: 0 0 56px; }
+  .opt-head { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+  .letter { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; background: var(--ink); color: #fff; font-weight: 800; }
+  .opt-head h2 { margin: 0; font-size: 20px; letter-spacing: -.01em; }
+  .opt-sub { color: var(--muted); margin: 0 0 14px 42px; max-width: 980px; }
+  .rec { background: var(--primary); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: .04em; }
+
+  .frame { background: var(--bg); border: 1px solid #d9dcd9; border-radius: 14px; overflow: hidden; box-shadow: 0 10px 30px -18px rgba(0,0,0,.25); }
+  .topbar { display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 20px; background: var(--card); border-bottom: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+  .topbar b { color: var(--primary-ink); font-weight: 600; }
+  .search { margin-left: auto; width: 300px; height: 32px; border: 1px solid var(--line); border-radius: 999px; padding: 0 14px; display: flex; align-items: center; color: var(--faint); }
+  .body { padding: 20px 24px 24px; }
+
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); }
+  .card-h { display: flex; align-items: center; gap: 10px; height: 48px; padding: 0 16px; border-bottom: 1px solid var(--line); }
+  .muted { color: var(--muted); } .faint { color: var(--faint); }
+  .chip { display: inline-flex; align-items: center; gap: 4px; height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11.5px; font-weight: 600; background: var(--line-soft); color: var(--muted); white-space: nowrap; }
+  .chip.ok { background: var(--primary-soft); color: var(--primary-ink); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 7px; height: 38px; padding: 0 16px; border-radius: 9px; font-weight: 600; font-size: 13px; border: 1px solid var(--line); background: var(--card); color: var(--ink); white-space: nowrap; }
+  .btn.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .btn.ghost { border-color: transparent; background: transparent; color: var(--muted); }
+  .btn.sm { height: 30px; padding: 0 10px; font-size: 12.5px; }
+  .ico { width: 15px; height: 15px; flex: none; }
+  .row { display: flex; align-items: center; gap: 10px; }
+  .grow { flex: 1; min-width: 0; }
+  .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--faint); white-space: nowrap; }
+  .num { font-variant-numeric: tabular-nums; }
+  .ell { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* Fields shaped like the DS input with floating label */
+  .field { position: relative; height: 48px; border: 2px solid var(--line); border-radius: 9px; background: var(--card); display: flex; align-items: center; gap: 10px; padding: 0 12px; font-size: 14px; }
+  .field .fl { position: absolute; top: -8px; left: 10px; background: var(--card); padding: 0 4px; font-size: 13px; font-weight: 500; line-height: 16px; }
+  .field .ph { color: var(--faint); }
+  .field .chev { margin-left: auto; color: var(--faint); }
+  .tile { width: 28px; height: 28px; border-radius: 8px; background: var(--line-soft); display: grid; place-items: center; color: var(--muted); flex: none; font-size: 11px; font-weight: 700; }
+  .tile.p { background: var(--primary-soft); color: var(--primary-ink); }
+
+  /* Search box */
+  .find { display: flex; align-items: center; gap: 10px; height: 44px; border: 1px solid var(--line); border-radius: 10px; padding: 0 12px; color: var(--faint); background: var(--card); }
+  .kbd { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; }
+
+  /* Items table: fixed columns, never wraps */
+  .items { width: 100%; border-collapse: collapse; font-size: 13.5px; table-layout: fixed; }
+  .items th { text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--faint); padding: 10px 12px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  .items td { padding: 10px 12px; border-bottom: 1px solid var(--line-soft); vertical-align: middle; }
+  .items .r { text-align: right; }
+  .items .name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .items .sub { font-size: 12px; color: var(--muted); margin-top: 1px; white-space: nowrap; }
+  .kind { display: inline-flex; height: 20px; align-items: center; padding: 0 7px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+  .kind.s { background: #e9f0fe; color: #2556c4; }
+  .kind.pc { background: var(--warn-soft); color: var(--warn); }
+  .qty { display: inline-flex; align-items: center; height: 30px; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .qty span { width: 26px; text-align: center; color: var(--muted); }
+  .qty b { width: 28px; text-align: center; border-left: 1px solid var(--line); border-right: 1px solid var(--line); line-height: 28px; font-weight: 600; }
+  .price { display: inline-flex; align-items: center; justify-content: space-between; width: 112px; height: 30px; border: 1px solid var(--line); border-radius: 8px; padding: 0 10px; font-weight: 600; background: var(--bg); }
+  .price i { font-style: normal; font-weight: 500; color: var(--faint); font-size: 12px; }
+  .x { color: var(--faint); text-align: center; }
+
+  /* Key/value */
+  .kv { display: grid; grid-template-columns: 1fr auto; font-size: 13px; }
+  .kv dt, .kv dd { margin: 0; padding: 8px 0; border-bottom: 1px solid var(--line-soft); }
+  .kv dt { color: var(--muted); }
+  .kv dd { text-align: right; font-weight: 600; white-space: nowrap; }
+  .kv dt:nth-last-child(2), .kv dd:last-child { border-bottom: 0; }
+  .total { display: flex; align-items: baseline; justify-content: space-between; padding: 14px 0 4px; }
+  .total .v { font-size: 30px; font-weight: 800; letter-spacing: -.02em; color: var(--primary-ink); }
+
+  .seg { display: inline-flex; background: var(--line-soft); border-radius: 9px; padding: 3px; gap: 2px; font-size: 12.5px; font-weight: 600; }
+  .seg span { padding: 4px 12px; border-radius: 7px; color: var(--muted); }
+  .seg span.on { background: var(--card); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+  .add { display: flex; align-items: center; gap: 8px; height: 40px; border: 1px dashed var(--line); border-radius: 9px; padding: 0 12px; color: var(--muted); font-size: 13px; font-weight: 600; }
+  .inner { background: var(--bg); border: 1px dashed var(--line); border-radius: 10px; padding: 10px 12px; font-size: 12.5px; color: var(--muted); }
+
+  /* Console: main + 420 panel */
+  .console { display: grid; grid-template-columns: minmax(0,1fr) 420px; gap: 16px; height: 620px; }
+  .main { display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+  .main .scroll { flex: 1; min-height: 0; overflow: hidden; }
+  .panel { display: flex; flex-direction: column; overflow: hidden; }
+  .panel .scroll { flex: 1; min-height: 0; padding: 16px; display: grid; gap: 18px; align-content: start; }
+  .panel .foot { border-top: 1px solid var(--line); background: #fafbfa; padding: 14px 16px; display: grid; gap: 10px; }
+  .sec { display: grid; gap: 10px; }
+
+  /* C: steps */
+  .wiz { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-bottom: 16px; }
+  .wiz div { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 3px solid var(--line); font-weight: 600; color: var(--faint); white-space: nowrap; }
+  .wiz div.done { color: var(--ink); border-color: var(--primary); }
+  .wiz div.on { color: var(--ink); border-color: var(--primary); }
+  .wiz em { font-style: normal; display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 99px; background: var(--line-soft); font-size: 12px; }
+  .wiz .done em, .wiz .on em { background: var(--primary); color: #fff; }
+  .c-foot { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-top: 1px solid var(--line); }
+
+  .notes { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 14px; }
+  .notes div { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-size: 13px; }
+  .notes b { display: block; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .notes ul { margin: 0; padding-left: 18px; }
+  .compare { width: 100%; background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; border-collapse: collapse; font-size: 13px; }
+  .compare th { text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--faint); padding: 10px 14px; border-bottom: 1px solid var(--line); }
+  .compare td { padding: 10px 14px; border-bottom: 1px solid var(--line-soft); }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-ac" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="9" rx="2"/><path d="M6 18v2M12 18v3M18 18v2M6 11h12"/></symbol>
+</svg>
+
+<div class="page">
+  <div class="lead">
+    <h1>Orçamento · 3 propostas</h1>
+    <p>Hoje o cliente aparece em três lugares (título "Escolher cliente", painel "Sem cliente" e o botão do painel), o aparelho é um texto sublinhado que não parece campo, cada item mostra "custo —" e "1 ×" soltos, e há dois rodapés: um com validade, desconto e observação, e outro com o total e os botões.</p>
+    <p>Exemplo em todas: orçamento para o <b>Mercadinho Bom Preço</b>, ar-condicionado split de 12.000 BTUs, com dois serviços e uma peça.</p>
+  </div>
+
+  <div class="problems">
+    <div><b>Cliente em três lugares</b>Título, painel vazio e botão dizem a mesma coisa.</div>
+    <div><b>Campo que não parece campo</b>"Descreva o aparelho · escolher um cadastrado" é texto e link.</div>
+    <div><b>Linha do item confusa</b>"custo —" e "1 ×" sem rótulo; quantidade não parece editável.</div>
+    <div><b>Números repetidos</b>R$ 400 em "Serviços" e no "Total"; 19/11 duas vezes.</div>
+  </div>
+
+  <!-- ============ A ============ -->
+  <section class="opt">
+    <div class="opt-head"><span class="letter">A</span><h2>Console: itens à esquerda, decisões à direita</h2><span class="rec">Recomendada</span></div>
+    <p class="opt-sub">O mesmo esqueleto da OS. À esquerda só a lista: busca em cima e uma tabela com colunas fixas (tipo, item, qtd, valor). À direita, em ordem de preenchimento: para quem, condições e o total com o botão. Custo e margem ficam numa linha só, para quem pode ver.</p>
+
+    <div class="frame">
+      <div class="topbar">Orçamentos <span>/</span> <b>Novo orçamento</b><div class="search">Buscar…</div></div>
+      <div class="body">
+        <div class="console">
+          <div class="card main">
+            <div style="padding:16px 16px 12px"><div class="find"><svg class="ico"><use href="#i-search"/></svg>Buscar serviço ou peça e Enter<span class="kbd">/</span></div></div>
+            <div class="scroll">
+              <table class="items">
+                <colgroup><col style="width:76px"><col><col style="width:104px"><col style="width:136px"><col style="width:110px"><col style="width:40px"></colgroup>
+                <thead><tr><th>Tipo</th><th>Item</th><th>Qtd</th><th>Valor un.</th><th class="r">Total</th><th></th></tr></thead>
+                <tbody>
+                  <tr><td><span class="kind s">Serviço</span></td><td><div class="name">Carga de gás (com teste de vazamento)</div><div class="sub">garantia de 90 dias</div></td><td><span class="qty"><span>−</span><b>1</b><span>+</span></span></td><td><span class="price"><i>R$</i>220,00</span></td><td class="r num"><b>R$ 220,00</b></td><td class="x"><svg class="ico"><use href="#i-x"/></svg></td></tr>
+                  <tr><td><span class="kind s">Serviço</span></td><td><div class="name">Higienização de split até 12.000 BTUs</div><div class="sub">garantia de 30 dias</div></td><td><span class="qty"><span>−</span><b>1</b><span>+</span></span></td><td><span class="price"><i>R$</i>180,00</span></td><td class="r num"><b>R$ 180,00</b></td><td class="x"><svg class="ico"><use href="#i-x"/></svg></td></tr>
+                  <tr><td><span class="kind pc">Peça</span></td><td><div class="name">Capacitor 35 µF</div><div class="sub">4 no estoque</div></td><td><span class="qty"><span>−</span><b>1</b><span>+</span></span></td><td><span class="price"><i>R$</i>45,00</span></td><td class="r num"><b>R$ 45,00</b></td><td class="x"><svg class="ico"><use href="#i-x"/></svg></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="row" style="padding:12px 16px;border-top:1px solid var(--line);font-size:13px">
+              <span class="muted">2 serviços · 1 peça</span>
+              <span class="grow"></span>
+              <span class="muted">Subtotal</span><b class="num">R$ 445,00</b>
+            </div>
+          </div>
+
+          <div class="card panel">
+            <div class="scroll">
+              <div class="sec">
+                <div class="label">Para quem</div>
+                <div class="field"><span class="fl">Cliente</span><span class="tile p">MB</span><span class="grow ell">Mercadinho Bom Preço</span><svg class="ico chev"><use href="#i-down"/></svg></div>
+                <div class="field"><span class="fl">Aparelho</span><span class="tile"><svg class="ico"><use href="#i-ac"/></svg></span><span class="grow ell">Split Midea 12.000 BTUs</span><svg class="ico chev"><use href="#i-down"/></svg></div>
+              </div>
+              <div class="sec">
+                <div class="label">Condições</div>
+                <div class="row"><span class="grow muted" style="font-size:13px">Vale por</span><span class="seg"><span class="on">7 dias</span><span>15</span><span>30</span></span></div>
+                <div class="row"><span class="grow muted" style="font-size:13px">Desconto</span><span class="btn sm"><svg class="ico"><use href="#i-plus"/></svg>Adicionar</span></div>
+                <div class="row"><span class="grow muted" style="font-size:13px">Observação para o cliente</span><span class="btn sm"><svg class="ico"><use href="#i-plus"/></svg>Adicionar</span></div>
+              </div>
+              <div class="inner">Custo das peças R$ 18,00 · margem R$ 427,00 (96%)</div>
+            </div>
+            <div class="foot">
+              <div class="total"><span class="muted">Total · vale até 19/11</span><span class="v num">R$ 445,00</span></div>
+              <div class="row"><span class="btn" style="flex:1">Cancelar</span><span class="btn primary" style="flex:2"><svg class="ico"><use href="#i-send"/></svg>Criar orçamento</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ B ============ -->
+  <section class="opt">
+    <div class="opt-head"><span class="letter">B</span><h2>Folha do orçamento</h2></div>
+    <p class="opt-sub">A tela tem a cara do que o cliente vai receber: cabeçalho com cliente e aparelho, tabela de itens, e embaixo dela subtotal, desconto e total, como numa nota. Sem painel lateral; validade e observação ficam no pé da folha.</p>
+
+    <div class="frame">
+      <div class="topbar">Orçamentos <span>/</span> <b>Novo orçamento</b><div class="search">Buscar…</div></div>
+      <div class="body">
+        <div class="card" style="max-width:900px;margin:0 auto">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:20px 20px 8px">
+            <div class="field"><span class="fl">Cliente</span><span class="tile p">MB</span><span class="grow ell">Mercadinho Bom Preço</span><svg class="ico chev"><use href="#i-down"/></svg></div>
+            <div class="field"><span class="fl">Aparelho</span><span class="tile"><svg class="ico"><use href="#i-ac"/></svg></span><span class="grow ell">Split Midea 12.000 BTUs</span><svg class="ico chev"><use href="#i-down"/></svg></div>
+          </div>
+          <div style="padding:12px 20px"><div class="find"><svg class="ico"><use href="#i-search"/></svg>Buscar serviço ou peça e Enter<span class="kbd">/</span></div></div>
+          <table class="items">
+            <colgroup><col style="width:96px"><col><col style="width:104px"><col style="width:136px"><col style="width:120px"><col style="width:48px"></colgroup>
+            <thead><tr><th style="padding-left:20px">Tipo</th><th>Item</th><th>Qtd</th><th>Valor un.</th><th class="r">Total</th><th></th></tr></thead>
+            <tbody>
+              <tr><td style="padding-left:20px"><span class="kind s">Serviço</span></td><td><div class="name">Carga de gás (com teste de vazamento)</div><div class="sub">garantia de 90 dias</div></td><td><span class="qty"><span>−</span><b>1</b><span>+</span></span></td><td><span class="price"><i>R$</i>220,00</span></td><td class="r num"><b>R$ 220,00</b></td><td class="x"><svg class="ico"><use href="#i-x"/></svg></td></tr>
+              <tr><td style="padding-left:20px"><span class="kind s">Serviço</span></td><td><div class="name">Higienização de split até 12.000 BTUs</div><div class="sub">garantia de 30 dias</div></td><td><span class="qty"><span>−</span><b>1</b><span>+</span></span></td><td><span class="price"><i>R$</i>180,00</span></td><td class="r num"><b>R$ 180,00</b></td><td class="x"><svg class="ico"><use href="#i-x"/></svg></td></tr>
+              <tr><td style="padding-left:20px"><span class="kind pc">Peça</span></td><td><div class="name">Capacitor 35 µF</div><div class="sub">4 no estoque</div></td><td><span class="qty"><span>−</span><b>1</b><span>+</span></span></td><td><span class="price"><i>R$</i>45,00</span></td><td class="r num"><b>R$ 45,00</b></td><td class="x"><svg class="ico"><use href="#i-x"/></svg></td></tr>
+            </tbody>
+          </table>
+          <div style="display:grid;grid-template-columns:1fr 300px;gap:24px;padding:16px 20px 20px">
+            <div class="sec">
+              <div class="row"><span class="muted" style="width:90px;font-size:13px">Vale por</span><span class="seg"><span class="on">7 dias</span><span>15</span><span>30</span></span><span class="faint" style="font-size:12px">até 19/11</span></div>
+              <div class="add"><svg class="ico"><use href="#i-plus"/></svg>Observação para o cliente</div>
+            </div>
+            <dl class="kv" style="margin:0">
+              <dt>Subtotal</dt><dd class="num">R$ 445,00</dd>
+              <dt>Desconto</dt><dd><span class="btn sm"><svg class="ico"><use href="#i-plus"/></svg>Adicionar</span></dd>
+            </dl>
+          </div>
+          <div class="c-foot">
+            <span class="muted">Total</span><span class="num" style="font-size:26px;font-weight:800;color:var(--primary-ink)">R$ 445,00</span>
+            <span class="grow"></span>
+            <span class="btn">Cancelar</span><span class="btn primary"><svg class="ico"><use href="#i-send"/></svg>Criar orçamento</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ C ============ -->
+  <section class="opt">
+    <div class="opt-head"><span class="letter">C</span><h2>Em três passos</h2></div>
+    <p class="opt-sub">Uma pergunta por vez: para quem, o que entra, e as condições antes de criar. Cada passo cabe na tela sem rolar. Mostrado aqui o passo 2, que é onde se passa mais tempo.</p>
+
+    <div class="frame">
+      <div class="topbar">Orçamentos <span>/</span> <b>Novo orçamento</b><div class="search">Buscar…</div></div>
+      <div class="body">
+        <div class="card" style="max-width:900px;margin:0 auto">
+          <div class="wiz">
+            <div class="done"><em>✓</em>Para quem <span class="faint ell" style="font-weight:500">· Mercadinho Bom Preço</span></div>
+            <div class="on"><em>2</em>Itens</div>
+            <div><em>3</em>Condições</div>
+          </div>
+          <div style="padding:0 20px 12px"><div class="find"><svg class="ico"><use href="#i-search"/></svg>Buscar serviço ou peça e Enter<span class="kbd">/</span></div></div>
+          <table class="items">
+            <colgroup><col style="width:96px"><col><col style="width:104px"><col style="width:136px"><col style="width:120px"><col style="width:48px"></colgroup>
+            <thead><tr><th style="padding-left:20px">Tipo</th><th>Item</th><th>Qtd</th><th>Valor un.</th><th class="r">Total</th><th></th></tr></thead>
+            <tbody>
+              <tr><td style="padding-left:20px"><span class="kind s">Serviço</span></td><td><div class="name">Carga de gás (com teste de vazamento)</div><div class="sub">garantia de 90 dias</div></td><td><span class="qty"><span>−</span><b>1</b><span>+</span></span></td><td><span class="price"><i>R$</i>220,00</span></td><td class="r num"><b>R$ 220,00</b></td><td class="x"><svg class="ico"><use href="#i-x"/></svg></td></tr>
+              <tr><td style="padding-left:20px"><span class="kind s">Serviço</span></td><td><div class="name">Higienização de split até 12.000 BTUs</div><div class="sub">garantia de 30 dias</div></td><td><span class="qty"><span>−</span><b>1</b><span>+</span></span></td><td><span class="price"><i>R$</i>180,00</span></td><td class="r num"><b>R$ 180,00</b></td><td class="x"><svg class="ico"><use href="#i-x"/></svg></td></tr>
+              <tr><td style="padding-left:20px"><span class="kind pc">Peça</span></td><td><div class="name">Capacitor 35 µF</div><div class="sub">4 no estoque</div></td><td><span class="qty"><span>−</span><b>1</b><span>+</span></span></td><td><span class="price"><i>R$</i>45,00</span></td><td class="r num"><b>R$ 45,00</b></td><td class="x"><svg class="ico"><use href="#i-x"/></svg></td></tr>
+            </tbody>
+          </table>
+          <div class="c-foot">
+            <span class="btn">Voltar</span>
+            <span class="grow"></span>
+            <span class="muted">3 itens</span><b class="num" style="font-size:18px">R$ 445,00</b>
+            <span class="btn primary">Continuar para condições</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <h2 style="font-size:20px;margin:0 0 12px">Comparando</h2>
+  <table class="compare">
+    <thead><tr><th></th><th>A · Console</th><th>B · Folha</th><th>C · Três passos</th></tr></thead>
+    <tbody>
+      <tr><td><b>Cliente e aparelho</b></td><td>Dois campos no painel</td><td>Dois campos no topo da folha</td><td>Passo 1, depois vira resumo</td></tr>
+      <tr><td><b>Total</b></td><td>Uma vez, no pé do painel</td><td>Uma vez, no rodapé</td><td>No rodapé de cada passo</td></tr>
+      <tr><td><b>Custo e margem</b></td><td>Uma linha no painel</td><td>Fora da tela (só na lista)</td><td>No passo 3</td></tr>
+      <tr><td><b>Muitos itens</b></td><td>Só a lista rola; o painel fica parado</td><td>A folha toda rola</td><td>Só a lista rola</td></tr>
+      <tr><td><b>Orçamento rápido no balcão</b></td><td>Rápido: tudo numa tela</td><td>Rápido: tudo numa tela</td><td>Mais lento: três telas</td></tr>
+      <tr><td><b>Segue padrão aprovado</b></td><td>Sim, o console da OS</td><td>Não</td><td>Não</td></tr>
+    </tbody>
+  </table>
+
+  <div class="notes">
+    <div><b>Vale para as três</b><ul><li>Cliente e aparelho viram campos de verdade, iguais aos da Nova OS.</li><li>Quantidade com − e +; valor em caixa com R$.</li><li>Etiqueta Serviço ou Peça em cada linha.</li></ul></div>
+    <div><b>Sai da tela</b><ul><li>"custo —" em cada linha.</li><li>O painel vazio "Sem cliente".</li><li>A data e o total repetidos.</li></ul></div>
+    <div><b>Fica como está</b><ul><li>Busca por serviço ou peça com Enter.</li><li>Orçamento sem cliente continua possível (pergunta antes de criar).</li><li>Vindo de uma OS, cliente e aparelho já vêm preenchidos.</li></ul></div>
+  </div>
+</div>
+</body>
+</html>

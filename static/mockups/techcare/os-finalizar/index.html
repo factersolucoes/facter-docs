@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TechCare · Finalizar a OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f7f6; --card: #ffffff; --line: #e6e8e6; --line-soft: #f0f1f0;
+    --ink: #121614; --muted: #6b726e; --faint: #9aa19d;
+    --primary: #16a34a; --primary-ink: #11823b; --primary-soft: #e8f6ed;
+    --warn: #b7791f; --warn-soft: #fdf3e2;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #eceeec; font: 14px/1.45 Inter, system-ui, sans-serif; color: var(--ink); }
+  .page { max-width: 1180px; margin: 0 auto; padding: 32px 20px 80px; }
+  .lead h1 { font-size: 28px; margin: 0 0 6px; letter-spacing: -.02em; }
+  .lead p { margin: 0 0 6px; color: var(--muted); max-width: 980px; }
+  .opt { margin: 30px 0 46px; }
+  .opt-head { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+  .letter { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; background: var(--ink); color: #fff; font-weight: 800; }
+  .opt-head h2 { margin: 0; font-size: 20px; }
+  .opt-sub { color: var(--muted); margin: 0 0 14px 42px; max-width: 1000px; }
+  .rec { background: var(--primary); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: .04em; }
+
+  .band { display: flex; align-items: center; gap: 18px; padding: 10px 16px; background: #f1faf4; border: 1px solid #b9e2c7; border-radius: 12px; }
+  .who { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--primary-ink); white-space: nowrap; }
+  .what { font-weight: 700; white-space: nowrap; }
+  .steps { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; flex: 1; }
+  .d { width: 18px; height: 18px; border-radius: 99px; border: 2px solid var(--line); flex: none; }
+  .d.ok { background: var(--primary); border-color: var(--primary); }
+  .d.cur { border-color: var(--primary); background: var(--primary); box-shadow: inset 0 0 0 3px #fff; }
+  .l { flex: 1; height: 2px; background: var(--line); max-width: 120px; }
+  .l.ok { background: var(--primary); }
+  .off { color: var(--faint); }
+  .btn { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; border-radius: 9px; font-weight: 600; font-size: 13px; border: 1px solid var(--line); background: var(--card); white-space: nowrap; }
+  .btn.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+
+  .flow { display: flex; align-items: stretch; gap: 10px; margin: 14px 0 0 42px; flex-wrap: wrap; }
+  .gesture { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; min-width: 180px; font-size: 13px; }
+  .gesture b { display: block; }
+  .gesture .n { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 99px; background: var(--ink); color: #fff; font-size: 11px; font-weight: 800; margin-right: 6px; }
+  .arrow { align-self: center; color: var(--faint); font-size: 18px; }
+  .count { margin: 10px 0 0 42px; font-size: 13px; color: var(--muted); }
+  .count b { color: var(--ink); }
+
+  .dlg { width: 460px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 20px 44px -22px rgba(0,0,0,.35); margin: 14px 0 0 42px; }
+  .dlg .h { padding: 14px 18px; border-bottom: 1px solid var(--line); font-weight: 800; font-size: 16px; }
+  .dlg .b { padding: 12px 18px; display: grid; gap: 12px; font-size: 13px; }
+  .dlg .f { padding: 12px 18px; border-top: 1px solid var(--line); display: flex; gap: 8px; justify-content: flex-end; }
+  .field { border: 2px solid var(--line); border-radius: 9px; padding: 8px 10px; color: var(--faint); }
+  .check { display: flex; align-items: center; gap: 8px; }
+  .box { width: 16px; height: 16px; border-radius: 4px; border: 2px solid var(--primary); background: var(--primary); }
+  .box.no { background: transparent; border-color: var(--line); }
+  .label { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  .compare { width: 100%; background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; border-collapse: collapse; font-size: 13px; }
+  .compare th { text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--faint); padding: 10px 14px; border-bottom: 1px solid var(--line); }
+  .compare td { padding: 10px 14px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="lead">
+    <h1>Finalizar a OS com menos passos · 3 propostas</h1>
+    <p>Hoje, depois de lançar os serviços e peças, fechar a OS pede <b>3 gestos, cada um com um diálogo</b>, e o pagamento à parte:</p>
+  </div>
+  <div class="flow" style="margin-left:0">
+    <div class="gesture"><span class="n">1</span><b style="display:inline">Cliente aprovou</b><div class="muted">vai para Conserto</div></div><span class="arrow">→</span>
+    <div class="gesture"><span class="n">2</span><b style="display:inline">Registrar conserto</b><div class="muted">diálogo: o que foi feito → Pronta</div></div><span class="arrow">→</span>
+    <div class="gesture"><span class="n">3</span><b style="display:inline">Entregar</b><div class="muted">conferência de saída → Entregue</div></div><span class="arrow">+</span>
+    <div class="gesture"><b>Marcar como pago</b><div class="muted">na ficha, separado</div></div>
+  </div>
+
+  <!-- A -->
+  <section class="opt">
+    <div class="opt-head"><span class="letter">A</span><h2>Concluir e entregar num diálogo só</h2><span class="rec">Recomendada</span></div>
+    <p class="opt-sub">Depois de aprovado, a faixa oferece <b>"Concluir e entregar"</b>: um diálogo com o que foi feito, a conferência de saída e o pagamento. Um clique fecha a OS quando o cliente está no balcão. Quem vai buscar depois usa "Só concluir", e a entrega fica para quando ele vier.</p>
+    <div class="band" style="margin-left:42px">
+      <div><div class="who">É a sua vez · consertando</div><div class="what">Conserto aprovado · R$ 350,00</div></div>
+      <div class="steps"><span class="d ok"></span>Recebido<span class="l ok"></span><span class="d ok"></span>Orçamento<span class="l ok"></span><span class="d cur"></span>Conserto<span class="l"></span><span class="d"></span><span class="off">Entrega</span></div>
+      <span class="btn">Só concluir</span><span class="btn primary">✓ Concluir e entregar</span>
+    </div>
+    <div class="dlg">
+      <div class="h">Concluir e entregar · OS-202611-00237</div>
+      <div class="b">
+        <div><div class="label" style="margin-bottom:4px">O que foi feito</div><div class="field">Troca da tela, testada com o cliente…</div></div>
+        <div><div class="label" style="margin-bottom:6px">Conferência de saída</div>
+          <div class="check"><span class="box"></span>Carregador</div>
+          <div class="check" style="margin-top:4px"><span class="box"></span>Aparelho ligando</div></div>
+        <div class="check"><span class="box"></span><b>Recebi R$ 350,00</b> <span class="muted">· Pix</span></div>
+      </div>
+      <div class="f"><span class="btn">Cancelar</span><span class="btn primary">Concluir e entregar</span></div>
+    </div>
+    <p class="count"><b>1 gesto</b> depois de aprovado (antes: 2 diálogos + pagamento).</p>
+  </section>
+
+  <!-- B -->
+  <section class="opt">
+    <div class="opt-head"><span class="letter">B</span><h2>Três etapas em vez de quatro</h2></div>
+    <p class="opt-sub">A trilha mostra só o que o cliente acompanha: <b>Orçamento → Conserto → Entregue</b>. "Recebido" sai, porque toda OS nasce recebida. Os gestos continuam os mesmos de hoje; muda o que se vê, não quantos cliques são.</p>
+    <div class="band" style="margin-left:42px">
+      <div><div class="who">É a sua vez · hoje</div><div class="what">Lançar serviços e peças</div></div>
+      <div class="steps"><span class="d cur"></span>Orçamento<span class="l"></span><span class="d"></span><span class="off">Conserto</span><span class="l"></span><span class="d"></span><span class="off">Entregue</span></div>
+    </div>
+    <p class="count"><b>3 gestos</b>, como hoje, numa trilha mais curta.</p>
+  </section>
+
+  <!-- C -->
+  <section class="opt">
+    <div class="opt-head"><span class="letter">C</span><h2>"Pronto" sem diálogo</h2></div>
+    <p class="opt-sub">"Cliente aprovou" continua levando direto para Conserto. O "Registrar conserto" vira um botão sem diálogo, <b>"Pronto"</b>, e o que foi feito passa a ser escrito na ficha, como o "Encontrei". A entrega mantém a conferência, porque é quando o aparelho sai. <b>Atenção:</b> hoje a API só conclui a OS com a solução escrita; para o "Pronto" sem diálogo, ela teria de aceitar concluir sem solução.</p>
+    <div class="band" style="margin-left:42px">
+      <div><div class="who">É a sua vez · consertando</div><div class="what">Conserto aprovado · R$ 350,00</div></div>
+      <div class="steps"><span class="d ok"></span>Recebido<span class="l ok"></span><span class="d ok"></span>Orçamento<span class="l ok"></span><span class="d cur"></span>Conserto<span class="l"></span><span class="d"></span><span class="off">Entrega</span></div>
+      <span class="btn primary">✓ Pronto</span>
+    </div>
+    <p class="count"><b>2 gestos</b> depois de aprovado: "Pronto" (sem diálogo) e "Entregar" (com a conferência).</p>
+  </section>
+
+  <h2 style="font-size:20px;margin:0 0 12px">Comparando</h2>
+  <table class="compare">
+    <thead><tr><th></th><th>A · Concluir e entregar</th><th>B · Três etapas</th><th>C · "Pronto" sem diálogo</th></tr></thead>
+    <tbody>
+      <tr><td><b>Gestos depois de aprovado</b></td><td>1 (ou 2, se o cliente busca depois)</td><td>2, como hoje</td><td>2</td></tr>
+      <tr><td><b>Pagamento</b></td><td>Dentro do mesmo diálogo</td><td>Separado, na ficha</td><td>Separado, na ficha</td></tr>
+      <tr><td><b>O que foi feito (solução)</b></td><td>No diálogo, obrigatório (a API exige)</td><td>Diálogo de hoje</td><td>Na ficha</td></tr>
+      <tr><td><b>Muda a API?</b></td><td>Não: a tela conclui e entrega em seguida</td><td>Não</td><td>Sim: aceitar concluir sem solução escrita</td></tr>
+      <tr><td><b>Garantia</b></td><td>Nasce ao concluir, como hoje</td><td>Igual</td><td>Igual</td></tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
