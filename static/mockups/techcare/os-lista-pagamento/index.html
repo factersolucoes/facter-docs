@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TechCare · Lista de OS com pagamento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f7f6; --card: #ffffff; --line: #e6e8e6; --line-soft: #f0f1f0;
+    --ink: #121614; --muted: #6b726e; --faint: #9aa19d;
+    --primary: #16a34a; --primary-ink: #11823b; --primary-soft: #e8f6ed;
+    --warn: #b7791f; --warn-soft: #fdf3e2; --danger: #dc2626; --danger-soft: #fdecec;
+    --info: #2556c4; --info-soft: #e9f0fe;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #eceeec; font: 14px/1.4 Inter, system-ui, sans-serif; color: var(--ink); }
+  .page { max-width: 1240px; margin: 0 auto; padding: 32px 20px 80px; }
+  .lead h1 { font-size: 28px; margin: 0 0 6px; letter-spacing: -.02em; }
+  .lead p { margin: 0 0 6px; color: var(--muted); max-width: 980px; }
+  .opt { margin-top: 34px; }
+  .opt > h2 { font-size: 17px; margin: 0 0 4px; display: flex; align-items: center; gap: 8px; }
+  .opt > p.d { color: var(--muted); font-size: 13px; margin: 0 0 12px; max-width: 980px; }
+  .letter { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 7px; background: var(--ink); color: #fff; font-weight: 800; font-size: 12px; }
+  .rec { background: var(--primary); color: #fff; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 999px; text-transform: uppercase; letter-spacing: .04em; }
+
+  /* The screen */
+  .screen { background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 22px 24px 24px; box-shadow: 0 10px 30px -20px rgba(0,0,0,.3); }
+  .top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+  .top h3 { font-size: 24px; margin: 0; letter-spacing: -.02em; }
+  .top .sub { color: var(--muted); font-size: 14px; margin-top: 2px; }
+  .actions { display: flex; gap: 10px; align-items: center; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 10px; padding: 3px; background: #fff; }
+  .seg span { padding: 5px 10px; border-radius: 7px; font-size: 13px; font-weight: 500; color: var(--muted); }
+  .seg span.on { background: var(--primary-soft); color: var(--primary-ink); font-weight: 600; }
+  .btn { display: inline-flex; align-items: center; gap: 6px; height: 38px; padding: 0 14px; border-radius: 9px; font-weight: 600; font-size: 13.5px; border: 1px solid var(--line); background: #fff; white-space: nowrap; }
+  .btn.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .btn.sm { height: 28px; padding: 0 10px; font-size: 12px; border-radius: 7px; }
+  .tabs { display: flex; gap: 4px; margin-top: 18px; border-bottom: 1px solid var(--line); }
+  .tabs span { padding: 9px 14px; font-size: 13.5px; font-weight: 500; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -1px; display: inline-flex; gap: 6px; align-items: center; }
+  .tabs span.on { color: var(--primary-ink); border-color: var(--primary); font-weight: 600; }
+  .tabs em { font-style: normal; font-size: 11px; background: var(--line-soft); padding: 0 7px; border-radius: 99px; color: var(--muted); }
+  .tabs span.on em { background: var(--primary-soft); color: var(--primary-ink); }
+  .tabs .new { color: var(--warn); }
+  .tabs .new em { background: var(--warn-soft); color: var(--warn); }
+  .filters { display: flex; gap: 10px; margin-top: 12px; align-items: center; }
+  .search { width: 440px; height: 38px; border: 1px solid var(--line); border-radius: 9px; background: #fff; display: flex; align-items: center; gap: 8px; padding: 0 12px; color: var(--faint); font-size: 13.5px; }
+  .pill { height: 30px; padding: 0 11px; border-radius: 99px; border: 1px solid var(--line); background: #fff; font-size: 12.5px; font-weight: 500; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; }
+  .pill.on { border-color: var(--primary); color: var(--primary-ink); background: var(--primary-soft); font-weight: 600; }
+  .list { margin-top: 12px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .r { display: grid; align-items: center; gap: 16px; padding: 13px 18px; border-bottom: 1px solid var(--line-soft); }
+  .r:last-child { border-bottom: 0; }
+  .num { font-family: 'JetBrains Mono', monospace; font-weight: 500; color: var(--primary-ink); font-size: 11px; }
+  .who { min-width: 0; }
+  .who .n { font-weight: 700; font-size: 14.5px; display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+  .who .dv { color: var(--muted); font-size: 12.5px; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .chip { display: inline-flex; align-items: center; gap: 5px; height: 21px; padding: 0 8px; border-radius: 6px; font-size: 11.5px; font-weight: 600; white-space: nowrap; }
+  .c-blue { background: var(--info-soft); color: var(--info); }
+  .c-green { background: var(--primary-soft); color: var(--primary-ink); }
+  .c-warn { background: var(--warn-soft); color: var(--warn); }
+  .c-gray { background: var(--line-soft); color: var(--muted); }
+  .c-red { background: var(--danger-soft); color: var(--danger); }
+  .due { text-align: right; white-space: nowrap; }
+  .due b { display: block; font-size: 13.5px; }
+  .due small { font-size: 11.5px; color: var(--muted); }
+  .late b, .late small { color: var(--danger); }
+  .arrow { color: var(--faint); }
+  .tnum { font-variant-numeric: tabular-nums; }
+  .ico { width: 14px; height: 14px; flex: none; }
+  .dot { width: 8px; height: 8px; border-radius: 99px; display: inline-block; flex: none; }
+
+  /* A — money column */
+  .a .r { grid-template-columns: 112px minmax(0,1fr) 210px 120px 14px; }
+  .money { text-align: right; }
+  .money .v { font-weight: 700; font-size: 14px; }
+  .money .s { font-size: 12px; font-weight: 600; margin-top: 2px; display: inline-flex; align-items: center; gap: 5px; }
+
+  /* B — progress under the line */
+  .b .r { grid-template-columns: 112px minmax(0,1fr) 260px 120px 14px; }
+  .bar { height: 6px; border-radius: 99px; background: var(--line-soft); overflow: hidden; margin-top: 6px; }
+  .bar i { display: block; height: 100%; border-radius: 99px; }
+  .prog .t { display: flex; justify-content: space-between; font-size: 12.5px; }
+  .prog .t b { font-size: 13px; }
+
+  /* C — table */
+  .c .head { display: grid; grid-template-columns: 112px minmax(0,1fr) 150px 108px 108px 118px 112px; gap: 14px; padding: 9px 18px; background: #fafbfa; border-bottom: 1px solid var(--line); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .c .r { grid-template-columns: 112px minmax(0,1fr) 150px 108px 108px 118px 112px; gap: 14px; }
+  .c .right { text-align: right; }
+  .c .foot { display: grid; grid-template-columns: 112px minmax(0,1fr) 150px 108px 108px 118px 112px; gap: 14px; padding: 11px 18px; background: #fafbfa; border-top: 1px solid var(--line); font-size: 13px; font-weight: 700; }
+
+  .why { margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 12.5px; }
+  .why div { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+  .why b { display: block; margin-bottom: 2px; }
+  .legend { margin-top: 26px; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; font-size: 13px; }
+  .legend h3 { margin: 0 0 8px; font-size: 14px; }
+  .legend ul { margin: 0; padding-left: 18px; color: var(--muted); }
+  .legend li { margin: 3px 0; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-dev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17l9-10"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></symbol>
+  <symbol id="i-kanban" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18"/></symbol>
+</svg>
+
+<div class="page">
+  <div class="lead">
+    <h1>Lista de OS · quanto foi pago e quanto falta · 3 propostas</h1>
+    <p>Os cinco cartões do topo saem: números de dinheiro e de atraso vão para as telas de <b>Financeiro</b> e <b>Relatórios</b>. A lista ganha o que faltava: olhar uma linha e saber se o cliente já pagou, pagou uma parte ou ainda deve.</p>
+    <p>As mesmas 6 ordens nas três propostas, cobrindo todos os casos: sem valor ainda, orçamento esperando o cliente, nada recebido, pagamento parcial, pago adiantado e pago.</p>
+  </div>
+
+  <!-- A -->
+  <section class="opt">
+    <h2><span class="letter">A</span>Coluna de dinheiro com selo <span class="rec">Recomendada</span></h2>
+    <p class="d">Uma coluna nova antes do prazo: o valor da OS em cima e, embaixo, um selo que diz em uma palavra onde o dinheiro está. A linha continua do mesmo jeito; quem só quer o andamento ignora a coluna.</p>
+    <div class="screen a" data-variant="a"></div>
+    <div class="why">
+      <div><b>Por que funciona</b>Pago (verde), falta (amarelo) e sem valor (cinza) se separam de longe, sem ler número. O valor que falta é o que aparece, não o total.</div>
+      <div><b>O que custa</b>A linha fica um pouco mais larga; em tela pequena o defeito entre aspas corta antes.</div>
+    </div>
+  </section>
+
+  <!-- B -->
+  <section class="opt">
+    <h2><span class="letter">B</span>Barra de pagamento na linha</h2>
+    <p class="d">A mesma barra da ficha da OS, em miniatura: quanto foi recebido do total. Mostra o parcial com clareza ("R$ 200 de R$ 520"), mas exige ler um número a mais por linha.</p>
+    <div class="screen b" data-variant="b"></div>
+    <div class="why">
+      <div><b>Por que funciona</b>Igual ao bloco de pagamento da OS: quem já usa a ficha reconhece na hora. O parcial fica visível de verdade.</div>
+      <div><b>O que custa</b>Seis barras empilhadas chamam mais atenção que o andamento da OS, que é o assunto principal da lista.</div>
+    </div>
+  </section>
+
+  <!-- C -->
+  <section class="opt">
+    <h2><span class="letter">C</span>Tabela com Total, Recebido e Falta</h2>
+    <p class="d">Colunas de planilha, com soma no rodapé. É a mais completa para conferir dinheiro, mas transforma a lista de trabalho numa tela de financeiro — que vai existir separada.</p>
+    <div class="screen c" data-variant="c"></div>
+    <div class="why">
+      <div><b>Por que funciona</b>Tudo à vista e somado: dá para fechar o caixa olhando a lista.</div>
+      <div><b>O que custa</b>Repete o que a tela de Financeiro vai fazer, e a situação da OS perde espaço.</div>
+    </div>
+  </section>
+
+  <div class="legend">
+    <h3>Regras usadas nas três</h3>
+    <ul>
+      <li><b>Sem valor ainda</b>: nenhum orçamento aprovado (Diagnóstico).</li>
+      <li><b>Orçado</b>: orçamento enviado e sem resposta — o valor aparece claro, mas ainda não é dívida.</li>
+      <li><b>Falta receber</b>: aprovado, nada pago. <b>Parcial</b>: pagou uma parte. <b>Pago</b>: recebido tudo, mesmo antes de terminar o conserto.</li>
+      <li>Nenhum botão de "receber" na lista: receber continua na OS, onde está o valor certo e a forma de pagamento.</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  const orders = [
+    { n: 'OS-202611-00031', who: 'Luciana Teixeira', dev: 'Consul Geladeira Frost Free 340 L', issue: 'testes 1', st: ['Em conserto', 'c-blue'], tag: null, due: ['ontem', 'entrega 14/11', true], total: 340, paid: 0, kind: 'due' },
+    { n: 'OS-202611-00029', who: 'Luciana Teixeira', dev: 'Consul Geladeira Frost Free 340 L', issue: 'adqd', st: ['Concluído', 'c-green'], tag: null, due: ['ontem', 'entrega 14/11', true], total: 340, paid: 340, kind: 'paid' },
+    { n: 'OS-202611-00027', who: 'Luciana Teixeira', dev: 'Consul Geladeira Frost Free 340 L', issue: 'não gela embaixo', st: ['Aguardando aprovação', 'c-warn'], tag: null, due: ['ontem', 'entrega 13/11', true], total: 80, paid: 0, kind: 'quoted' },
+    { n: 'OS-202611-00026', who: 'Luciana Teixeira', dev: 'Consul Geladeira Frost Free 340 L', issue: 'Caiu líquido', st: ['Aguardando aprovação', 'c-warn'], tag: null, due: ['hoje', 'entrega 15/11', false], total: 0, paid: 0, kind: 'none' },
+    { n: 'OS-202611-00024', who: 'José Carlos Pereira', dev: 'Samsung Split 12.000 BTUs', issue: 'pinga água na sala', st: ['Concluído', 'c-green'], tag: null, due: ['amanhã', 'entrega 16/11', false], total: 520, paid: 200, kind: 'partial' },
+    { n: 'OS-202611-00022', who: 'Advocacia Silva & Associados', dev: 'Dell Latitude 5420', issue: 'tela pisca', st: ['Em conserto', 'c-blue'], tag: null, due: ['sex', 'entrega 21/11', false], total: 450, paid: 450, kind: 'paid' },
+  ];
+  const brl = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  const icon = (id, cls = 'ico') => `<svg class="${cls}"><use href="#i-${id}"/></svg>`;
+  const left = (o) => o.total - o.paid;
+
+  const frame = (variant, inner) => `
+    <div class="top">
+      <div><h3>Ordens de Serviço</h3><div class="sub">O que está na assistência agora</div></div>
+      <div class="actions">
+        <div class="seg"><span class="on">${icon('list')} Lista</span><span>${icon('kanban')} Kanban</span></div>
+        <span class="btn primary">${icon('plus')} Abrir Nova Ordem de Serviço</span>
+      </div>
+    </div>
+    <div class="tabs">
+      <span class="on">Abertas <em>22</em></span><span>Concluídas <em>5</em></span>
+    </div>
+    <div class="filters">
+      <div class="search">${icon('search')} Número, cliente, aparelho, defeito…</div>
+      ${variant === 'b' ? '<span class="pill on">Todas</span><span class="pill">Falta receber</span><span class="pill">Pagas</span>' : ''}
+    </div>
+    ${inner}`;
+
+  const who = (o, chips = true) => `
+    <div class="who">
+      <div class="n">${o.who} ${chips ? `<span class="chip ${o.st[1]}">${o.st[0]}</span>${o.tag ? `<span class="chip ${o.tag[1]}">${o.tag[0]}</span>` : ''}` : ''}</div>
+      <div class="dv">${icon('dev')} ${o.dev} · “${o.issue}”</div>
+    </div>`;
+  const due = (o) => `<div class="due ${o.due[2] ? 'late' : ''}"><b>${icon('clock')} ${o.due[0]}</b><small>${o.due[1]}</small></div>`;
+
+  // A — value on top, one-word seal under it.
+  const moneyA = (o) => {
+    if (o.kind === 'none') return `<div class="money"><div class="v" style="color:var(--faint)">—</div><span class="s" style="color:var(--faint)">sem valor ainda</span></div>`;
+    if (o.kind === 'quoted') return `<div class="money"><div class="v tnum" style="color:var(--muted)">${brl(o.total)}</div><span class="s" style="color:var(--muted)"><span class="dot" style="background:var(--faint)"></span>orçado, sem resposta</span></div>`;
+    if (o.kind === 'paid') return `<div class="money"><div class="v tnum">${brl(o.total)}</div><span class="chip c-green" style="margin-top:3px">${icon('check')} Pago</span></div>`;
+    if (o.kind === 'partial') return `<div class="money"><div class="v tnum">${brl(o.total)}</div><span class="chip c-warn" style="margin-top:3px">Falta ${brl(left(o))} · parcial</span></div>`;
+    return `<div class="money"><div class="v tnum">${brl(o.total)}</div><span class="chip c-warn" style="margin-top:3px">Falta ${brl(left(o))}</span></div>`;
+  };
+
+  // B — received of total, with the bar.
+  const moneyB = (o) => {
+    if (o.kind === 'none') return `<div class="prog"><div class="t"><span style="color:var(--faint)">Sem valor ainda</span></div><div class="bar"></div></div>`;
+    if (o.kind === 'quoted') return `<div class="prog"><div class="t"><span class="muted">Orçado, sem resposta</span><b class="tnum" style="color:var(--muted)">${brl(o.total)}</b></div><div class="bar" style="background:repeating-linear-gradient(90deg,var(--line-soft) 0 6px,#fff 6px 9px)"></div></div>`;
+    const pct = Math.round((o.paid / o.total) * 100);
+    const color = o.kind === 'paid' ? 'var(--primary)' : 'var(--warn)';
+    const label = o.kind === 'paid'
+      ? `<span style="color:var(--primary-ink);font-weight:600">${icon('check')} Pago</span>`
+      : `<span style="color:var(--warn);font-weight:600">Falta ${brl(left(o))}</span>`;
+    return `<div class="prog"><div class="t">${label}<span class="tnum muted">${brl(o.paid)} de <b style="color:var(--ink)">${brl(o.total)}</b></span></div><div class="bar"><i style="width:${Math.max(pct, o.paid ? pct : 0)}%;background:${color}"></i></div></div>`;
+  };
+
+  // C — spreadsheet columns.
+  const cell = (v, style = '') => `<div class="right tnum" style="${style}">${v}</div>`;
+  const rowC = (o) => {
+    const none = o.kind === 'none', quoted = o.kind === 'quoted';
+    const total = none ? cell('—', 'color:var(--faint)') : cell(brl(o.total), quoted ? 'color:var(--muted)' : 'font-weight:600');
+    const paid = none || quoted ? cell('—', 'color:var(--faint)') : cell(o.paid ? brl(o.paid) : 'R$ 0,00', o.paid ? 'color:var(--primary-ink);font-weight:600' : 'color:var(--muted)');
+    const owe = none ? cell('—', 'color:var(--faint)')
+      : quoted ? cell('orçado', 'color:var(--muted);font-size:12px')
+      : left(o) === 0 ? `<div class="right"><span class="chip c-green">${icon('check')} Pago</span></div>`
+      : cell(brl(left(o)), 'color:var(--warn);font-weight:700');
+    return `<div class="r"><span class="num">${o.n}</span>${who(o, false)}<div><span class="chip ${o.st[1]}">${o.st[0]}</span></div>${total}${paid}${owe}${due(o)}</div>`;
+  };
+
+  for (const el of document.querySelectorAll('.screen')) {
+    const v = el.dataset.variant;
+    let inner;
+    if (v === 'a') inner = `<div class="list">${orders.map((o) => `<div class="r"><span class="num">${o.n}</span>${who(o)}${moneyA(o)}${due(o)}<span class="arrow">${icon('chev')}</span></div>`).join('')}</div>`;
+    if (v === 'b') inner = `<div class="list">${orders.map((o) => `<div class="r"><span class="num">${o.n}</span>${who(o)}${moneyB(o)}${due(o)}<span class="arrow">${icon('chev')}</span></div>`).join('')}</div>`;
+    if (v === 'c') {
+      const approved = orders.filter((o) => o.kind !== 'none' && o.kind !== 'quoted');
+      const sum = (f) => brl(approved.reduce((a, o) => a + f(o), 0));
+      inner = `<div class="list"><div class="head"><span>OS</span><span>Cliente e aparelho</span><span>Situação</span><span class="right">Total</span><span class="right">Recebido</span><span class="right">Falta</span><span class="right">Prazo</span></div>
+        ${orders.map(rowC).join('')}
+        <div class="foot"><span></span><span class="muted" style="font-weight:600">6 ordens · 4 aprovadas</span><span></span>${cell(sum((o) => o.total))}${cell(sum((o) => o.paid), 'color:var(--primary-ink)')}${cell(sum(left), 'color:var(--warn)')}<span></span></div></div>`;
+    }
+    el.innerHTML = frame(v, inner);
+  }
+</script>
+</body>
+</html>
