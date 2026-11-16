@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TechCare · Financeiro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f7f6; --card: #ffffff; --line: #e6e8e6; --line-soft: #f0f1f0;
+    --ink: #121614; --muted: #6b726e; --faint: #9aa19d;
+    --primary: #16a34a; --primary-ink: #11823b; --primary-soft: #e8f6ed;
+    --warn: #b7791f; --warn-soft: #fdf3e2; --danger: #dc2626; --danger-soft: #fdecec;
+    --info: #2556c4; --info-soft: #e9f0fe;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #eceeec; font: 14px/1.4 Inter, system-ui, sans-serif; color: var(--ink); }
+  .page { max-width: 1240px; margin: 0 auto; padding: 32px 20px 80px; }
+  .lead h1 { font-size: 28px; margin: 0 0 6px; letter-spacing: -.02em; }
+  .lead p { margin: 0 0 6px; color: var(--muted); max-width: 980px; }
+  .opt { margin-top: 34px; }
+  .opt > h2 { font-size: 17px; margin: 0 0 4px; display: flex; align-items: center; gap: 8px; }
+  .opt > p.d { color: var(--muted); font-size: 13px; margin: 0 0 12px; max-width: 980px; }
+  .letter { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 7px; background: var(--ink); color: #fff; font-weight: 800; font-size: 12px; }
+  .rec { background: var(--primary); color: #fff; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 999px; text-transform: uppercase; letter-spacing: .04em; }
+
+  .screen { background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 22px 24px 24px; box-shadow: 0 10px 30px -20px rgba(0,0,0,.3); }
+  .top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+  .top h3 { font-size: 24px; margin: 0; letter-spacing: -.02em; }
+  .top .sub { color: var(--muted); font-size: 14px; margin-top: 2px; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 10px; padding: 3px; background: #fff; }
+  .seg span { padding: 5px 11px; border-radius: 7px; font-size: 13px; font-weight: 500; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; }
+  .seg span.on { background: var(--primary-soft); color: var(--primary-ink); font-weight: 600; }
+  .btn { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; border-radius: 9px; font-weight: 600; font-size: 13px; border: 1px solid var(--line); background: #fff; white-space: nowrap; }
+  .btn.sm { height: 28px; padding: 0 10px; font-size: 12px; border-radius: 7px; }
+  .pill { height: 30px; padding: 0 11px; border-radius: 99px; border: 1px solid var(--line); background: #fff; font-size: 12.5px; font-weight: 500; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; }
+  .pill.on { border-color: var(--primary); color: var(--primary-ink); background: var(--primary-soft); font-weight: 600; }
+  .pill em { font-style: normal; font-size: 11px; color: var(--faint); }
+
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .card > header { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 13px 16px; border-bottom: 1px solid var(--line-soft); }
+  .card > header h4 { margin: 0; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+  .card > header small { color: var(--muted); font-size: 12px; }
+  .count { font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 99px; background: var(--line-soft); color: var(--muted); }
+
+  .strip { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 16px; }
+  .strip > div { padding: 14px 18px; border-right: 1px solid var(--line-soft); }
+  .strip > div:last-child { border-right: 0; }
+  .strip .l { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+  .strip .v { font-size: 24px; font-weight: 800; letter-spacing: -.02em; margin-top: 4px; }
+  .strip .h { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .ok .v { color: var(--primary-ink); } .wa .v { color: var(--warn); } .da .v { color: var(--danger); }
+
+  .row { display: grid; align-items: center; gap: 14px; padding: 11px 16px; border-bottom: 1px solid var(--line-soft); }
+  .row:last-child { border-bottom: 0; }
+  .num { font-family: 'JetBrains Mono', monospace; font-weight: 500; color: var(--primary-ink); font-size: 11px; }
+  .who { min-width: 0; }
+  .who .n { font-weight: 700; font-size: 14px; }
+  .who .dv { color: var(--muted); font-size: 12.5px; margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .chip { display: inline-flex; align-items: center; gap: 5px; height: 21px; padding: 0 8px; border-radius: 6px; font-size: 11.5px; font-weight: 600; white-space: nowrap; }
+  .c-blue { background: var(--info-soft); color: var(--info); }
+  .c-green { background: var(--primary-soft); color: var(--primary-ink); }
+  .c-warn { background: var(--warn-soft); color: var(--warn); }
+  .c-gray { background: var(--line-soft); color: var(--muted); }
+  .c-red { background: var(--danger-soft); color: var(--danger); }
+  .right { text-align: right; }
+  .amt { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .muted { color: var(--muted); }
+  .small { font-size: 12px; }
+  .ico { width: 14px; height: 14px; flex: none; }
+  .arrow { color: var(--faint); }
+  .groupt { padding: 8px 16px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; background: #fafbfa; border-bottom: 1px solid var(--line-soft); display: flex; justify-content: space-between; }
+  .groupt.red { color: var(--danger); } .groupt.warn { color: var(--warn); } .groupt.blue { color: var(--info); }
+
+  .meth { padding: 12px 16px; display: grid; gap: 11px; }
+  .meth .t { display: flex; justify-content: space-between; font-size: 13px; }
+  .bar { height: 7px; border-radius: 99px; background: var(--line-soft); overflow: hidden; margin-top: 5px; }
+  .bar i { display: block; height: 100%; border-radius: 99px; background: var(--primary); }
+
+  .grid2 { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 14px; margin-top: 14px; align-items: start; }
+  .grid2b { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 14px; margin-top: 14px; align-items: start; }
+  .stack { display: grid; gap: 14px; }
+
+  .drawer { padding: 14px 16px; display: grid; gap: 8px; font-size: 13px; }
+  .drawer .ln { display: flex; justify-content: space-between; }
+  .drawer .tot { border-top: 1px dashed var(--line); padding-top: 8px; font-weight: 800; font-size: 15px; }
+  .field { height: 36px; border: 1px solid var(--line); border-radius: 9px; display: flex; align-items: center; padding: 0 10px; color: var(--faint); font-size: 13px; }
+
+  .chart { padding: 14px 16px 8px; }
+  .chart svg { width: 100%; height: 180px; display: block; }
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 16px; }
+  .kpi { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+  .kpi .l { font-size: 12px; color: var(--muted); font-weight: 600; }
+  .kpi .v { font-size: 24px; font-weight: 800; margin-top: 4px; letter-spacing: -.02em; }
+  .kpi .h { font-size: 12px; margin-top: 2px; }
+  .up { color: var(--primary-ink); font-weight: 600; } .down { color: var(--danger); font-weight: 600; }
+  .donut { display: flex; gap: 16px; align-items: center; padding: 14px 16px; }
+  .legendl { display: grid; gap: 7px; font-size: 12.5px; flex: 1; }
+  .legendl div { display: flex; justify-content: space-between; gap: 8px; }
+  .sw { display: inline-block; width: 9px; height: 9px; border-radius: 3px; margin-right: 6px; }
+
+  .need { display: inline-flex; align-items: center; gap: 4px; font-size: 10.5px; font-weight: 700; padding: 1px 7px; border-radius: 99px; background: var(--info-soft); color: var(--info); text-transform: uppercase; letter-spacing: .03em; }
+
+  .why { margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; font-size: 12.5px; }
+  .why div { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+  .why b { display: block; margin-bottom: 2px; }
+  .legend { margin-top: 26px; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; font-size: 13px; }
+  .legend h3 { margin: 0 0 8px; font-size: 14px; }
+  .legend ul { margin: 0; padding-left: 18px; color: var(--muted); }
+  .legend li { margin: 3px 0; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17l9-10"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-dots" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="19" r="1.6"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v12M6 11l6 6 6-6M4 20h16"/></symbol>
+</svg>
+
+<div class="page">
+  <div class="lead">
+    <h1>Financeiro · extrato com painel ao lado · 3 propostas</h1>
+    <p>Rodada 2. Ficou o <b>extrato</b> da proposta B: cada pagamento numa linha, agrupado por dia. Saiu a "Gaveta de hoje": ela pedia abertura de caixa, troco e contagem, e nada disso existe no TechCare.</p>
+    <p>O extrato é igual nas três. Muda só o painel da direita, e os três funcionam <b>com a API de hoje</b>: usam só a forma do pagamento, a data e quem lançou. O painel segue o período escolhido em cima.</p>
+  </div>
+
+  <section class="opt">
+    <h2><span class="letter">A</span>Onde está o dinheiro <span class="rec">Recomendada</span></h2>
+    <p class="d">Em vez de contar a gaveta, o painel separa o que entrou pelo lugar onde o dinheiro foi parar: <b>na conta</b> (PIX e transferência), <b>na maquininha</b> (débito e crédito) e <b>em espécie</b>. Conferir vira olhar o extrato do banco, o relatório da maquininha e o dinheiro em mãos, cada um com o seu número.</p>
+    <div class="screen" data-variant="a"></div>
+    <div class="why">
+      <div><b>Por que funciona</b>É assim que o dono confere de verdade: um número para cada lugar. Clicar num grupo filtra o extrato.</div>
+      <div><b>O que já existe</b>O resumo de pagamentos já soma por forma no período. O agrupamento é só na tela.</div>
+      <div><b>O que custa</b>Não mostra a taxa da maquininha nem quando o crédito cai, porque o sistema não guarda isso.</div>
+    </div>
+  </section>
+
+  <section class="opt">
+    <h2><span class="letter">B</span>Quem recebeu</h2>
+    <p class="d">O total do período separado por quem lançou o pagamento. Responde "quanto passou pela mão de cada um?" e ajuda a achar um lançamento errado: clicar na pessoa filtra o extrato.</p>
+    <div class="screen" data-variant="b"></div>
+    <div class="why">
+      <div><b>Por que funciona</b>Troca a gaveta pela responsabilidade: cada um confere o que lançou.</div>
+      <div><b>O que já existe</b>Cada pagamento já guarda quem lançou.</div>
+      <div><b>O que custa</b>Em loja de uma pessoa só (modo individual) o painel tem uma linha. Ali ele daria lugar à proposta A.</div>
+    </div>
+  </section>
+
+  <section class="opt">
+    <h2><span class="letter">C</span>Resumo do período</h2>
+    <p class="d">Um resumo compacto: total, quantidade de pagamentos, média e cancelados, com um gráfico pequeno de quanto entrou em cada dia. Clicar numa barra leva ao dia no extrato.</p>
+    <div class="screen" data-variant="c"></div>
+    <div class="why">
+      <div><b>Por que funciona</b>Dá a ideia do período sem sair da tela e põe em evidência os cancelados, que são o que mais pede conferência.</div>
+      <div><b>O que já existe</b>Total, quantidade e cancelados saem da lista. O gráfico soma por dia na tela.</div>
+      <div><b>O que custa</b>Com mais de 100 pagamentos no período o gráfico precisa de um endpoint por dia. É o que mais se aproxima de relatório.</div>
+    </div>
+  </section>
+
+  <div class="legend">
+    <h3>Regras usadas nas três</h3>
+    <ul>
+      <li><b>Entrou</b> = pagamentos com situação Pago no período, pela data do pagamento. Cancelados aparecem riscados e não somam.</li>
+      <li>Cada linha do extrato abre a OS. O ⋮ tem "Ver a OS" e "Cancelar pagamento" (com motivo, como já é hoje).</li>
+      <li>Filtros por forma (PIX, Dinheiro, Cartão, Cancelados) e período (Hoje, 7 dias, Mês, Datas) ficam na URL.</li>
+      <li>Só para quem vê dinheiro: o técnico não vê o item no menu.</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  const brl = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  const icon = (id, cls = 'ico') => `<svg class="${cls}"><use href="#i-${id}"/></svg>`;
+  const need = '<span class="need">API nova</span>';
+
+  const header = (sub, extra = '') => `
+    <div class="top">
+      <div><h3>Financeiro</h3><div class="sub">${sub}</div></div>
+      <div style="display:flex;gap:10px;align-items:center">${extra}
+        <div class="seg"><span>Hoje</span><span>7 dias</span><span class="on">Novembro</span><span>${icon('cal')} Datas</span></div>
+      </div>
+    </div>`;
+
+  const methods = [
+    ['PIX', 6180, 24], ['Dinheiro', 2350, 11], ['Débito', 1640, 7], ['Crédito à vista', 1210, 4], ['Crédito parcelado', 1100, 2],
+  ];
+  const mTotal = methods.reduce((a, m) => a + m[1], 0);
+  const methodBars = () => `<div class="meth">${methods.map(([n, v, c]) => `
+      <div><div class="t"><span>${n} <span class="muted small">· ${c}</span></span><b class="amt">${brl(v)}</b></div>
+      <div class="bar"><i style="width:${Math.round((v / mTotal) * 100)}%"></i></div></div>`).join('')}</div>`;
+
+  const owe = [
+    { g: 'red', n: 'OS-202611-00018', who: 'Marcos Vieira', dev: 'iPhone 12 · troca de tela', when: 'entregue 08/11', v: 350 },
+    { g: 'red', n: 'OS-202611-00011', who: 'Padaria Pão Quente', dev: 'Freezer horizontal 400 L', when: 'entregue 03/11', v: 620 },
+    { g: 'warn', n: 'OS-202611-00029', who: 'Luciana Teixeira', dev: 'Consul Geladeira Frost Free 340 L', when: 'pronto há 2 dias', v: 340 },
+    { g: 'warn', n: 'OS-202611-00024', who: 'José Carlos Pereira', dev: 'Samsung Split 12.000 BTUs', when: 'pronto hoje · pagou R$ 200', v: 320 },
+    { g: 'blue', n: 'OS-202611-00031', who: 'Luciana Teixeira', dev: 'Consul Geladeira Frost Free 340 L', when: 'em conserto', v: 340 },
+    { g: 'blue', n: 'OS-202611-00022', who: 'Advocacia Silva & Associados', dev: 'Dell Latitude 5420', when: 'em conserto', v: 1300 },
+  ];
+  const groups = { red: ['Entregue sem pagar', 'O aparelho já saiu'], warn: ['Pronto, cobra na retirada', ''], blue: ['Em conserto, aprovado', ''] };
+  const oweList = () => Object.entries(groups).map(([g, [t]]) => {
+    const items = owe.filter((o) => o.g === g);
+    const sum = items.reduce((a, o) => a + o.v, 0);
+    return `<div class="groupt ${g}"><span>${t} · ${items.length}</span><span>${brl(sum)}</span></div>` + items.map((o) => `
+      <div class="row" style="grid-template-columns:112px minmax(0,1fr) 110px 14px">
+        <span class="num">${o.n}</span>
+        <div class="who"><div class="n">${o.who}</div><div class="dv">${o.dev} · <span style="${g === 'red' ? 'color:var(--danger);font-weight:600' : ''}">${o.when}</span></div></div>
+        <div class="right amt" style="color:${g === 'red' ? 'var(--danger)' : 'var(--warn)'}">${brl(o.v)}</div>
+        <span class="arrow">${icon('chev')}</span>
+      </div>`).join('');
+  }).join('');
+
+  const pays = [
+    { d: 'Hoje · sáb 16/11', items: [
+      ['14:32', 'OS-202611-00024', 'José Carlos Pereira', 'PIX', 200, 'Ana (balcão)'],
+      ['11:05', 'OS-202611-00020', 'Rafael Moura', 'Dinheiro', 150, 'Ana (balcão)'],
+      ['09:48', 'OS-202611-00019', 'Clínica Sorriso', 'Crédito 3x', 900, 'Elves'],
+    ] },
+    { d: 'Ontem · sex 15/11', items: [
+      ['17:40', 'OS-202611-00017', 'Beatriz Lima', 'Débito', 280, 'Ana (balcão)'],
+      ['15:12', 'OS-202611-00016', 'Marcos Vieira', 'PIX', 120, 'Ana (balcão)', 'cancelled'],
+      ['10:20', 'OS-202611-00015', 'Oficina do Zé', 'Dinheiro', 450, 'Elves'],
+    ] },
+  ];
+  const payRow = ([h, n, who, m, v, by, st], compact = false) => `
+    <div class="row" style="grid-template-columns:${compact ? '44px minmax(0,1fr) 96px' : '48px 112px minmax(0,1fr) 140px 120px 28px'}">
+      <span class="muted small tnum">${h}</span>
+      ${compact ? '' : `<span class="num">${n}</span>`}
+      <div class="who"><div class="n" style="${st ? 'text-decoration:line-through;color:var(--faint)' : ''}">${who}</div><div class="dv">${compact ? `${m} · ${n}` : `lançado por ${by}`}</div></div>
+      ${compact ? '' : `<div>${st ? '<span class="chip c-gray">Cancelado</span>' : `<span class="chip c-green">${m}</span>`}</div>`}
+      <div class="right amt" style="${st ? 'color:var(--faint);text-decoration:line-through' : 'color:var(--primary-ink)'}">+ ${brl(v)}</div>
+      ${compact ? '' : `<span class="arrow">${icon('dots')}</span>`}
+    </div>`;
+
+  const svgBars = () => {
+    const vals = [320, 0, 540, 880, 410, 760, 290, 0, 650, 1120, 470, 980, 560, 300, 1340, 900];
+    const max = 1400, w = 1000 / 30;
+    const bars = vals.map((v, i) => `<rect x="${i * w + 4}" y="${170 - (v / max) * 160}" width="${w - 8}" height="${(v / max) * 160}" rx="3" fill="${i === vals.length - 1 ? '#16a34a' : '#a7dcb8'}"/>`).join('');
+    const prev = Array.from({ length: 30 }, (_, i) => `${i * w + w / 2},${170 - ((480 + 260 * Math.sin(i / 2.3)) / max) * 160}`).join(' ');
+    return `<svg viewBox="0 0 1000 180" preserveAspectRatio="none"><line x1="0" y1="170" x2="1000" y2="170" stroke="#e6e8e6"/>${bars}<polyline points="${prev}" fill="none" stroke="#9aa19d" stroke-width="2" stroke-dasharray="5 5"/></svg>`;
+  };
+  const donut = () => {
+    const colors = ['#16a34a', '#2556c4', '#b7791f', '#7c3aed', '#9aa19d'];
+    let acc = 0;
+    const r = 42, c = 2 * Math.PI * r;
+    const arcs = methods.map(([, v], i) => { const len = (v / mTotal) * c; const s = `<circle r="${r}" cx="55" cy="55" fill="none" stroke="${colors[i]}" stroke-width="16" stroke-dasharray="${len} ${c - len}" stroke-dashoffset="${-acc}" transform="rotate(-90 55 55)"/>`; acc += len; return s; }).join('');
+    return `<div class="donut"><svg width="110" height="110">${arcs}</svg><div class="legendl">${methods.map(([n, v], i) => `<div><span><span class="sw" style="background:${colors[i]}"></span>${n}</span><b class="amt">${Math.round((v / mTotal) * 100)}%</b></div>`).join('')}</div></div>`;
+  };
+
+  const daily = [320, 0, 540, 880, 410, 760, 290, 0, 650, 1120, 470, 980, 560, 300, 730, 1250];
+  const miniBars = () => {
+    const max = Math.max(...daily), w = 268 / daily.length;
+    return `<svg viewBox="0 0 268 70" style="width:100%;height:70px;display:block">${daily.map((v, i) => `<rect x="${i * w + 2}" y="${66 - (v / max) * 60}" width="${w - 4}" height="${(v / max) * 60}" rx="2" fill="${i === daily.length - 1 ? '#16a34a' : '#a7dcb8'}"/>`).join('')}<line x1="0" y1="66.5" x2="268" y2="66.5" stroke="#e6e8e6"/></svg>`;
+  };
+  const place = (title, hint, total, parts, color) => `
+    <div style="padding:12px 16px;border-bottom:1px solid var(--line-soft)">
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-size:13.5px"><span class="sw" style="background:${color}"></span>${title}</b><b class="amt" style="font-size:15px">${brl(total)}</b></div>
+      <div class="muted small" style="margin:1px 0 6px 15px">${hint}</div>
+      ${parts.map(([n, v, c]) => `<div style="display:flex;justify-content:space-between;font-size:12.5px;margin-left:15px;padding:2px 0"><span class="muted">${n} · ${c}</span><span class="amt" style="font-weight:600">${brl(v)}</span></div>`).join('')}
+    </div>`;
+
+  const panels = {
+    a: () => `<div class="card"><header><h4>Onde está o dinheiro</h4><small>novembro</small></header>
+        ${place('Na conta', 'confira no extrato do banco', 6180, [['PIX', 6180, 24], ['Transferência', 0, 0]], '#2556c4')}
+        ${place('Na maquininha', 'confira no relatório da maquininha', 3950, [['Débito', 1640, 7], ['Crédito à vista', 1210, 4], ['Crédito parcelado', 1100, 2]], '#7c3aed')}
+        ${place('Em espécie', 'é o que deve estar em mãos', 2350, [['Dinheiro', 2350, 11]], '#16a34a')}
+        <div style="padding:12px 16px;display:flex;justify-content:space-between;font-weight:800;font-size:15px"><span>Entrou</span><span class="amt" style="color:var(--primary-ink)">${brl(mTotal)}</span></div>
+      </div>`,
+    b: () => {
+      const people = [['Ana Souza', 'balcão', 7420, 31], ['Elves', 'dono', 4310, 14], ['Carlos Lima', 'técnico', 750, 3]];
+      return `<div class="card"><header><h4>Quem recebeu</h4><small>novembro</small></header>
+        ${people.map(([n, r, v, c], i) => `
+          <div class="row" style="grid-template-columns:32px minmax(0,1fr) auto">
+            <span style="width:32px;height:32px;border-radius:99px;background:${['#d7efe0', '#e3e8f8', '#f4ead6'][i]};display:grid;place-items:center;font-weight:700;font-size:12px">${n.split(' ').map((p) => p[0]).join('')}</span>
+            <div class="who"><div class="n">${n}</div><div class="dv">${r} · ${c} pagamentos</div></div>
+            <b class="amt">${brl(v)}</b>
+          </div>`).join('')}
+        <div class="row" style="grid-template-columns:1fr auto"><span class="muted small">2 pagamentos cancelados no mês</span><span class="btn sm">Ver</span></div>
+      </div>`;
+    },
+    c: () => `<div class="card"><header><h4>Resumo de novembro</h4></header>
+        <div style="padding:14px 16px 6px"><div class="muted small">Entrou</div><div style="font-size:26px;font-weight:800;letter-spacing:-.02em;color:var(--primary-ink)">${brl(mTotal)}</div></div>
+        <div style="padding:4px 16px 10px">${miniBars()}<div style="display:flex;justify-content:space-between" class="muted small"><span>1/11</span><span>hoje</span></div></div>
+        <div class="drawer" style="border-top:1px solid var(--line-soft)">
+          <div class="ln"><span class="muted">Pagamentos</span><b class="amt">48</b></div>
+          <div class="ln"><span class="muted">Média por pagamento</span><b class="amt">${brl(260)}</b></div>
+          <div class="ln"><span class="muted">Melhor dia</span><b class="amt">16/11 · ${brl(1250)}</b></div>
+          <div class="ln"><span style="color:var(--danger)">Cancelados</span><b class="amt" style="color:var(--danger)">2 · ${brl(240)}</b></div>
+        </div>
+      </div>`,
+  };
+
+  const extrato = () => `<div class="card">${pays.map((g) => {
+    const sum = g.items.filter((p) => !p[6]).reduce((a, p) => a + p[4], 0);
+    return `<div class="groupt" style="color:var(--ink)"><span>${g.d}</span><span style="color:var(--primary-ink)">${brl(sum)}</span></div>${g.items.map((p) => payRow(p)).join('')}`;
+  }).join('')}</div>`;
+
+  const variants = Object.fromEntries(['a', 'b', 'c'].map((v) => [v, () => `${header('Cada pagamento, dia a dia', `<span class="btn">${icon('down')} Exportar</span>`)}
+      <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">
+        <span class="pill on">Todas <em>48</em></span><span class="pill">PIX <em>24</em></span><span class="pill">Dinheiro <em>11</em></span><span class="pill">Cartão <em>13</em></span><span class="pill">Cancelados <em>2</em></span>
+      </div>
+      <div class="grid2b">${extrato()}<div class="stack">${panels[v]()}</div></div>`]));
+
+  for (const el of document.querySelectorAll('.screen')) el.innerHTML = variants[el.dataset.variant]();
+</script>
+</body>
+</html>
