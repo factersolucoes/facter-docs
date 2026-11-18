@@ -138,7 +138,7 @@ const A={
 const WO_ROWS=[
   {n:'OS-001042',set:'C-320',fronts:['working','working','done'],plates:'RTF6K38 · RTE1J77 · SRK9H46',problem:'Freio puxando para a direita e vazamento de ar',kind:'Corretiva',prio:'high',base:'Base Curitiba',box:'Box 3',stop:'2d 8h',status:'in_maintenance',open:2,done:1,left:0,
    add:{who:[['Carlos Souza','busy']],block:['warning','package','Esperando mola de retorno']}},
-  {n:'OS-001040',plate:'DLY1J07',fleet:'812',problem:'Vazamento no circuito do freio',kind:'Corretiva',prio:'critical',base:'Base Curitiba',box:'Box 7',stop:'3d 2h',status:'in_maintenance',
+  {n:'OS-001040',plate:'DLY1J07',fleet:'812',problem:'Vazamento no circuito do freio',kind:'Corretiva',prio:'critical',base:'Base Curitiba',box:'Box 7',stop:'3d 2h',status:'in_maintenance',svc:[2,4],
    add:{who:[['Ana Lima','busy'],['Bruno Reis','busy']],block:null}},
   {n:'OS-001038',set:'C-900',fronts:['done','left','working','working','working','working'],plates:'RTA1A11 · RTA2A22 · RTA3A33 · RTA4A44 · RTA5A55 · RTA6A66',problem:'Preventiva de 50 mil km',kind:'Preventiva',prio:'medium',base:'Base Curitiba',box:'Box 1',stop:'4d 1h',status:'in_maintenance',open:4,done:1,left:1,
    add:{who:[],block:['warning','user','2 serviços sem mecânico']}},
@@ -204,13 +204,27 @@ function woRowP(r,v,o={}){
   if(v==='C') return `<div class="fx-prow C ${edge}"><div class="idc">${idTitle(r)}<span class="os">${r.n}</span></div>
       <div class="m"><div class="pb">${r.problem}</div><div class="mt">${A.kind(r.kind)}${pr}<span class="trunc2">${rowMeta(r)}</span></div>${rowAdd(r,o)}</div>
       <div class="rt">${stopBlock(r)}${rowStatus(r)}</div>${ic('caret-right','s16 car')}</div>`;
+  if(v==='A'){
+    const prog=r.set?[r.done,r.fronts.length,`${r.done} de ${r.fronts.length} prontos`,`${r.done}/${r.fronts.length} prontos`]:[r.svc[0],r.svc[1],`${r.svc[0]} de ${r.svc[1]} serviços`,`${r.svc[0]}/${r.svc[1]} serviços`];
+    const flag=r.prio==='critical'||r.prio==='high'?`<span class="fl ${r.prio}">${ic('flag','s12',1)}${({critical:'Crítica',high:'Alta'})[r.prio]}</span>`:'';
+    const who=r.add.who.length?`<span class="who">${r.add.who.map(w=>A.initials(w[0],w[1])).join('')}<span class="trunc2">${r.add.who.map(w=>w[0].split(' ')[0]).join(' e ')}</span></span>`:'<span class="who muted">Ninguém trabalhando</span>';
+    const block=r.add.block?`<span class="fx-badge ${r.add.block[0]} label" title="${r.add.block[2]}">${ic(r.add.block[1],'s14')}<span class="trunc2">${r.add.block[2]}</span></span>`:'<span class="muted" style="font-size:12px">Sem bloqueio</span>';
+    const bar=`<span class="fx-pb"><i style="width:${prog[1]?prog[0]/prog[1]*100:0}%"></i></span>`;
+    return `<div class="fx-arow ${edge}">
+      <div class="c1">${idTitle(r)}<div class="sub"><span class="os">${r.n}</span><span class="fx-dot"></span>${r.kind}${flag?'<span class="fx-dot"></span>'+flag:''}<span class="p2"><span class="fx-dot"></span>${prog[3]}</span></div></div>
+      <div class="c2"><b class="trunc2" title="${r.problem}">${r.problem}</b><span class="trunc2">${r.base}${r.box?' · '+r.box:''}</span></div>
+      <div class="c3">${who}${block}</div>
+      <div class="c4"><span>${prog[2]}</span>${bar}</div>
+      <div class="c5">${stopBlock(r)}${rowStatus(r)}</div>${ic('caret-right','s16 car')}</div>`;
+  }
   return `<div class="fx-prow A ${edge}"><div class="m">${idTitle(r)}<div class="sub"><span class="os">${r.n}</span><span class="fx-dot"></span>${r.kind}${pr?'<span class="fx-dot"></span>'+pr:''}</div>
       <div class="pb">${r.problem}</div><div class="mt trunc2">${rowMeta(r)}</div>${rowAdd(r,o)}</div>
       <div class="rt">${stopBlock(r)}${rowStatus(r)}</div>${ic('caret-right','s16 car')}</div>`;
 }
 A.real.workOrdersProposal=(v,o={})=>{
   const page=A.real.workOrdersPage({...o,rows:[]});
-  const list=o.state==='loading'||o.state==='empty'?'':`<div class="fx-wolist">${WO_ROWS.map(r=>woRowP(r,v,o)).join('')}</div>`;
+  const head=v==='A'?`<div class="fx-ahead"><span>Veículo e OS</span><span>Problema</span><span>Quem está e o que trava <span class="fx-newtag">novo</span></span><span class="c4">Andamento</span><span style="text-align:right">Parado</span><span></span></div>`:'';
+  const list=o.state==='loading'||o.state==='empty'?'':`<div class="fx-wolist">${head}${WO_ROWS.map(r=>woRowP(r,v,o)).join('')}</div>`;
   return o.state?page:page.replace('<ul class="fx-wolist"></ul>',list);
 };
 
