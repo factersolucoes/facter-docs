@@ -380,13 +380,12 @@ function attnFor(s,phone){
 /* ===== 3 detalhe ===== */
 function vcard(v,o={}){
   let line;
-  if(v.now) line=`<div class="vsl primary" title="${v.now[1]} · ${v.now[2]} · ${v.now[3]}">${av(v.now[0],1)}<span class="trunc">${v.now[1]} · ${v.now[2].replace('Troca de ','troca de ').replace(' de freio','')}</span><b class="num">${v.now[3]}</b></div>`;
-  else if(v.block) line=`<div class="vsl warning" title="${v.block[0]} · ${v.block[1]}"><span class="ic i-box s16"></span><span class="trunc">${v.block[0]}</span><b class="num">${v.block[1].replace('pedido há ','')}</b></div>`;
-  else if(v.st==='done') line=`<div class="vsl success"><span class="ic i-check s16"></span><span class="trunc">${v.ready}</span></div>`;
-  else line=`<div class="vsl muted"><span class="ic i-clock s16"></span><span class="trunc">Na fila · ninguém</span></div>`;
-  return `<div class="vcard2 ${o.on?'on':''} ${v.st==='out'?'dim':''}"><div class="h">${ring(v.done,v.total,36)}<span class="pos">${v.pos}</span><b class="plate">${v.plate}</b><span style="flex:1"></span><button class="ib2 ghost" title="Ações do veículo" aria-label="Ações do veículo"><span class="ic i-dots s16"></span></button></div>
-    ${o.note?`<div class="lnote warn" style="font-size:12px"><span class="ic i-swap s14"></span>${o.note}</div>`:''}${line}
-    <div class="f"><span><span class="muted">Parado</span> <b class="num">${v.stop}</b></span>${o.nocost?'':`<span class="num muted">R$ ${v.cost}</span>`}</div></div>`;}
+  if(v.now) line=`<span class="vs2 primary">${av(v.now[0],1)}<span class="trunc">${v.now[1]} · ${v.now[2].replace('Troca de ','troca de ').replace(' de freio','')} · ${v.now[3]}</span></span>`;
+  else if(v.block) line=`<span class="vs2 warning"><span class="ic i-box s14"></span><span class="trunc" title="${v.block[0]} · ${v.block[1]}">${v.block[0]} · ${v.block[1].replace('pedido há ','')}</span></span>`;
+  else if(v.st==='done') line=`<span class="vs2 success"><span class="ic i-check s14"></span><span class="trunc">${v.ready}</span></span>`;
+  else line=`<span class="vs2 muted"><span class="ic i-clock s14"></span><span class="trunc">Na fila · ninguém</span></span>`;
+  const tip=`Parado ${v.stop}${o.nocost?'':` · custo R$ ${v.cost}`}`;
+  return `<div class="vc3 ${o.on?'on':''} ${v.st==='out'?'dim':''}" title="${tip}">${ring(v.done,v.total,38)}<span class="tx"><span class="l1"><span class="pos">${v.pos}</span><b class="plate">${v.plate}</b><span class="stp" title="${tip}">${v.stop}</span></span>${o.note?`<span class="vs2 warning"><span class="ic i-swap s14"></span><span class="trunc">${o.note}</span></span>`:line}</span><button class="ib2 ghost" title="Ações do veículo" aria-label="Ações do veículo"><span class="ic i-dots s16"></span></button></div>`;}
 R.detalhe2=s=>{
   if(s==='loading') return `<div class="dpad"><span class="sk" style="height:120px;border-radius:16px"></span><div class="dgrid" style="margin-top:14px"><div style="display:flex;flex-direction:column;gap:10px">${[1,2,3,4].map(()=>'<span class="sk" style="height:96px;border-radius:14px"></span>').join('')}</div><div style="display:flex;flex-direction:column;gap:10px">${[1,2,3,4,5].map(()=>'<span class="sk" style="height:58px;border-radius:12px"></span>').join('')}</div></div></div>`;
   const nocost=s==='noperm';
@@ -400,7 +399,7 @@ R.detalhe2=s=>{
   const attn=attnFor(s,false);
   const only=s==='filtered'?'RTF6K38':null;
   const vs=OSV.map(v=>vcard(v,{on:only===v.plate,nocost,note:s==='left'&&v.plate==='SRK9H46'?'Saiu do conjunto às 10:20':''})).join('');
-  const all=`<button type="button" class="vall ${only?'':'on'}">${ring(2,6,36)}<span><b>Todos</b><span>6 serviços</span></span></button>`;
+  const all=`<button type="button" class="vc3 ${only?'':'on'}">${ring(2,6,38)}<span class="tx"><span class="l1"><b>Todos</b></span><span class="vs2 muted"><span class="trunc">6 serviços · 2 feitos</span></span></span></button>`;
   const filt=only?`<div class="fbar"><span class="fchip on">1º RTF6K38 <span class="ic i-x s14"></span></span><button class="btn sm" style="color:hsl(var(--primary))">Ver todos</button></div>`:'';
   const list=`<div class="card" style="overflow:hidden"><div class="lhd2"><b style="font-family:Sora">Serviços</b><span class="muted num" style="font-size:12.5px">${only?'3 de 6':'6'}</span>${filt}</div>${svcGroups({only,menuFor:s==='menu'?'RTE1J77':null})}</div>`;
   return `<div class="dpad">${hero}${attn}<div class="vrow">${all}${vs}</div>${list}</div>`;

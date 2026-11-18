@@ -471,3 +471,16 @@ kbd{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 
 .vcard2 .f{display:flex;justify-content:space-between;font-size:12.5px}
 @container fx (max-width:900px){.vrow{grid-template-columns:1fr 1fr}.vrow .vall{grid-column:1/-1;flex-direction:row;align-items:center;padding:8px 12px}.vrow .vall b{display:inline}.vrow .vall span>span{display:inline;margin-left:8px}}
 .peek>.vcard2{flex:0 0 calc(100% - 36px);scroll-snap-align:start}
+
+/* vehicle row: compact horizontal cards, same size as "Todos" */
+.vrow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;align-items:stretch}
+.vc3{display:flex;align-items:center;gap:10px;min-width:0;min-height:64px;padding:10px 6px 10px 12px;border:1px solid hsl(var(--border));border-radius:14px;background:hsl(var(--card));box-shadow:0 1px 2px hsl(233 30% 20%/.05);font:inherit;color:inherit;text-align:left;cursor:pointer}
+.vc3.on{background:hsl(var(--muted)/.7);border-color:hsl(var(--foreground)/.3)}.vc3.dim{opacity:.6}
+.vc3 .tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.vc3 .l1{display:flex;align-items:baseline;gap:6px;min-width:0}.vc3 .l1 b{font:700 14.5px Sora;white-space:nowrap}.vc3 .l1 .pos{font:600 10.5px Inter;color:hsl(var(--muted-foreground))}
+.vc3 .stp{margin-left:auto;font:600 12px Inter;color:hsl(var(--muted-foreground));font-variant-numeric:tabular-nums;white-space:nowrap}
+.vs2{display:flex;align-items:center;gap:6px;min-width:0;font-size:12.5px;font-weight:600}
+.vs2 .av{width:18px;height:18px;font-size:8.5px}
+.vs2.primary{color:hsl(var(--primary))}.vs2.warning{color:hsl(var(--warning-ink))}.vs2.success{color:hsl(var(--success-ink))}.vs2.muted{color:hsl(var(--muted-foreground));font-weight:500}
+@container fx (max-width:900px){.vrow{grid-template-columns:1fr 1fr}.vrow .vall{grid-column:auto}}
+.peek>.vc3{flex:0 0 calc(100% - 36px);scroll-snap-align:start}
