@@ -272,7 +272,7 @@ function srow(x,o={}){
     <div class="sa">${act}</div>${o.nomenu?'':'<button class="ib2 ghost" title="Mais ações" aria-label="Mais ações"><span class="ic i-dots s16"></span></button>'}</div>`;
 }
 function ghd(v,o={}){const [c,l]=VST[v.st];
-  return `<div class="ghd"><span class="pos">${v.pos}</span><b class="plate">${v.plate}</b><span class="muted" style="font-size:12.5px">${v.kind}</span><span class="chip ${c} sm">${l}</span><span class="gprog"><span class="bar"><i style="width:${v.total?v.done/v.total*100:0}%;${v.done===v.total?'background:hsl(var(--success))':''}"></i></span><span class="num">${v.done} de ${v.total} ${v.total>1?'feitos':'feito'}</span></span>${o.menu?'':'<button class="ib2 ghost" title="Ações do veículo" aria-label="Ações do veículo"><span class="ic i-dots s16"></span></button>'}${o.menuOpen||''}</div>`;}
+  return `<div class="ghd"><span class="pos">${v.pos}</span><b class="plate">${v.plate}</b><span class="muted" style="font-size:12.5px">${v.kind}</span><span class="gprog"><span class="bar"><i style="width:${v.total?v.done/v.total*100:0}%;${v.done===v.total?'background:hsl(var(--success))':''}"></i></span><span class="num">${v.done} de ${v.total} ${v.total>1?'feitos':'feito'}</span></span>${o.menu?'':'<button class="ib2 ghost" title="Ações do veículo" aria-label="Ações do veículo"><span class="ic i-dots s16"></span></button>'}${o.menuOpen||''}</div>`;}
 function svcGroups(o={}){return OSV.filter(v=>!o.only||v.plate===o.only).map(v=>`<div class="grp">${ghd(v,{menuOpen:o.menuFor===v.plate?vmenu():''})}${SVC2[v.plate].map(x=>srow(x,o)).join('')}</div>`).join('');}
 const vmenu=()=>`<div class="popover" style="right:10px;top:40px;width:240px;padding:6px"><div class="mi"><span class="ic i-pause s16"></span>Pausar o veículo</div><div class="mi"><span class="ic i-check s16"></span>Marcar pronto</div><div class="mi"><span class="ic i-exit s16"></span>Sai antes</div><div class="mi"><span class="ic i-swap s16"></span>Transferir para outra OS</div></div>`;
 
@@ -339,30 +339,54 @@ R.abrir=s=>{
   return `<div class="dh"><div class="t"><div class="eyebrow">Ordens de serviço</div><h3>Abrir OS</h3></div>${X}</div><div class="db">${what}${km}<div class="cols" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))"><div style="grid-column:1/-1">${prob}</div></div>${pick?'':box}</div><div class="df" style="flex-wrap:wrap"><span class="grow" style="min-width:220px;color:hsl(var(--foreground))">${foot}</span><div style="display:flex;gap:10px;margin-left:auto"><button class="btn outline">Cancelar</button><button class="btn primary" ${ok?'':'disabled'}>Abrir OS</button></div></div>`;
 };
 
-/* "Precisa de atenção": collapsed by default (one line), open on demand; the choice is kept per viewer in browser storage */
-function attnBar(items,open,phone){
+/* "Precisa de atenção": only what is abnormal, merged by cause per vehicle, aggregated by kind, ranked by impact, at most 3 shown */
+const ATT_ALL=[
+  {k:'idle',tone:'danger',icon:'i-clock',title:'RTE1J77 parado · esperando mola de retorno',sub:'pedida há 3 h, ainda sem entrega · parado há 2d 8h',action:'Ver pedido',roles:['lead','mech'],mechAction:null,preview:'RTE1J77 parado há 2d 8h, esperando mola'},
+  {k:'nomech',tone:'warning',icon:'i-person',title:'2 serviços sem mecânico',sub:'Regulagem de catraca e troca de cuíca',action:'Escolher mecânico',roles:['lead']},
+  {k:'chk',tone:'warning',icon:'i-warn',title:'1 falha do checklist sem decisão',sub:'CK-0041 · RTE1J77, eixo 2',action:'Decidir',roles:['lead']},
+  {k:'ready',tone:'warning',icon:'i-flag',title:'SRK9H46 pronto há 2 h, sem liberar',sub:'Liberar devolve o veículo ao conjunto',action:'Liberar',roles:['lead']},
+];
+function attnBar(o={}){
+  const role=o.role||'lead', phone=o.phone;
+  let items=ATT_ALL.filter(i=>i.roles.includes(role));
+  if(o.only) items=items.slice(0,o.only);
+  if(!items.length) return '';
   const crit=items.some(i=>i.tone==='danger');
-  const preview=items.slice(0,2).map((i,k)=>k?i.title.charAt(0).toLowerCase()+i.title.slice(1):i.title).join(' · ')+(items.length>2?` · +${items.length-2}`:'');
-  const head=`<button type="button" class="attnbar ${open?'open':''}" aria-expanded="${open}"><span class="ic i-tri s16"></span><b>Precisa de atenção</b><span class="cnt ${crit?'crit':''}">${items.length}</span>${open?'':`<span class="pv" title="${preview}">${preview}</span>`}<span style="flex:1"></span><span class="tg">${open?'Recolher':'Ver'}<span class="ic i-chev-r s14"></span></span></button>`;
-  if(!open) return `<div class="attn2">${head}</div>`;
-  const list=phone?`<div class="arows">${items.map(a=>`<button type="button" class="arow2">${tt(a.tone,a.icon)}<span class="t"><b class="clamp2">${a.title}</b><span>${a.sub}</span></span><span class="ic i-chev-r s16"></span></button>`).join('')}</div>`
-    :`<div class="agrid">${items.map(a=>`<div class="arow2">${tt(a.tone,a.icon)}<span class="t"><b class="trunc" title="${a.title}">${a.title}</b><span class="trunc" title="${a.sub}">${a.sub}</span></span><button class="btn outline sm">${a.action}</button></div>`).join('')}</div>`;
-  return `<div class="attn2 open">${head}${list}</div>`;
+  const actOf=i=>role==='mech'?i.mechAction:i.action;
+  const row=(i,hover)=>phone
+    ?`<button type="button" class="arow3">${tt(i.tone,i.icon)}<span class="t"><b class="clamp2">${i.title}</b><span>${i.sub}</span></span>${actOf(i)?'<span class="ic i-chev-r s16"></span>':''}</button>`
+    :`<div class="arow3 ${hover?'hov':''}">${tt(i.tone,i.icon)}<span class="t"><b class="trunc" title="${i.title}">${i.title}</b><span class="trunc" title="${i.sub}">${i.sub}</span></span>${actOf(i)?`<span class="go">${actOf(i)}<span class="ic i-arrow-r s14"></span></span>`:''}</div>`;
+  if(items.length===1){const i=items[0];return `<div class="attn2 one">${row(i,false).replace('arow3','arow3 slim')}</div>`;}
+  const top=items[0];
+  const head=open=>`<button type="button" class="attnbar ${open?'open':''}" aria-expanded="${open}"><span class="ic i-tri s16"></span><b>Precisa de atenção</b><span class="cnt ${crit?'crit':''}">${items.length}</span>${open?'':`<span class="pv" title="${top.preview||top.title}">${top.preview||top.title}</span>`}<span style="flex:1"></span><span class="tg">${open?'Recolher':'Ver'}<span class="ic i-chev-r s14"></span></span></button>`;
+  if(!o.open) return `<div class="attn2">${head(false)}</div>`;
+  const shown=o.more?items:items.slice(0,3), rest=items.length-shown.length;
+  return `<div class="attn2 open">${head(true)}<div class="arows3">${shown.map((i,k)=>row(i,k===0&&!phone&&o.hover)).join('')}${rest>0?`<button type="button" class="moreline">e mais ${rest}<span class="ic i-chev-r s14"></span></button>`:''}</div></div>`;
 }
-
-function attnTints(d){
-  const items=[{tone:'danger',icon:'i-clock',title:'RTE1J77 parado sem ninguém',sub:'há 2d 8h',action:'Escolher mecânico'},{tone:'warning',icon:'i-box',title:'Esperando mola de retorno',sub:'RTE1J77 · pedido há 3 h',action:'Ver pedido'},{tone:'warning',icon:'i-person',title:'2 serviços sem mecânico',sub:'Regulagem de catraca, troca de cuíca',action:'Escolher'},{tone:'warning',icon:'i-warn',title:'1 falha do checklist sem decisão',sub:'CK-0041 · RTE1J77, eixo 2',action:'Decidir'}];
-  return `<div class="dpad"><div class="tints">${[['Mais claro · 35%',.35],['Médio · 50%',.5],['Mais forte · 65%',.65]].map(([l,v])=>`<div><div class="lbl">${l}</div><div style="--attn-body:${v}" class="tintwrap">${attnBar(items,true,true).replace('class="attn2 open"',`class="attn2 open" style="--attn-body:${v}"`)}</div></div>`).join('')}</div></div>`;
+function attnMerge(phone){
+  const before=`<div class="attn2 open"><div class="attnbar open"><span class="ic i-tri s16"></span><b>Sem juntar</b><span class="cnt crit">2</span></div><div class="arows3">${[['danger','i-clock','RTE1J77 parado sem ninguém','há 2d 8h'],['warning','i-box','Esperando mola de retorno','RTE1J77 · pedido há 3 h']].map(a=>`<div class="arow3">${tt(a[0],a[1])}<span class="t"><b>${a[2]}</b><span>${a[3]}</span></span></div>`).join('')}</div></div>`;
+  const after=`<div class="attn2 open"><div class="attnbar open"><span class="ic i-tri s16"></span><b>Juntando pela causa</b><span class="cnt crit">1</span></div><div class="arows3"><div class="arow3">${tt('danger','i-clock')}<span class="t"><b>RTE1J77 parado · esperando mola de retorno</b><span>pedida há 3 h, ainda sem entrega · parado há 2d 8h</span></span><span class="go">Ver pedido<span class="ic i-arrow-r s14"></span></span></div></div></div>`;
+  return `<div class="tints"><div><div class="lbl">Antes</div>${before}</div><div><div class="lbl">Depois · um item por veículo, a causa primeiro</div>${after}</div></div>`;
+}
+function attnFor(s,phone){
+  if(s==='attnZero') return '';
+  if(s==='attnMerge') return attnMerge(phone);
+  if(s==='attnOne') return attnBar({only:1,phone});
+  if(s==='attnMech') return attnBar({role:'mech',open:true,phone});
+  if(s==='attnOpen') return attnBar({open:true,phone,hover:true});
+  if(s==='attnMore') return attnBar({open:true,more:true,phone});
+  return attnBar({phone});
 }
 /* ===== 3 detalhe ===== */
-function vcard(v,o={}){const [c,l,tone]=VST[v.st];
-  let now;
-  if(v.now) now=`<div class="vnow">${av(v.now[0],1)}<span style="flex:1;min-width:0" class="trunc" title="${v.now[1]} · ${v.now[2]}"><b>${v.now[1]}</b> · ${v.now[2].toLowerCase()}</span><span class="num run">${v.now[3]}</span></div>`;
-  else if(v.block) now=`<div class="vnow warn"><span class="ic i-box s16"></span><span style="flex:1;min-width:0" class="trunc" title="${v.block[0]} · ${v.block[1]}"><b>${v.block[0]}</b></span><span style="font-size:11.5px">${v.block[1]}</span></div>`;
-  else now=`<div class="vnow ok"><span class="ic i-check s16"></span><b>${v.ready}</b></div>`;
-  return `<div class="vcard ${o.on?'on':''} ${v.st==='out'?'dim':''}"><div class="vch">${ring(v.done,v.total,42)}<div style="flex:1;min-width:0"><div style="display:flex;gap:6px;align-items:baseline"><span class="pos">${v.pos}</span><b class="plate">${v.plate}</b></div><span class="chip ${c} sm">${l}</span></div><button class="ib2 ghost" title="Ações do veículo" aria-label="Ações do veículo"><span class="ic i-dots s16"></span></button></div>
-    ${o.note?`<div class="lnote warn" style="font-size:12px"><span class="ic i-swap s14"></span>${o.note}</div>`:''}${now}
-    <div class="vfoot"><span><span class="muted">Parado</span> <b class="num">${v.stop}</b></span>${o.nocost?'':`<span class="num">R$ ${v.cost}</span>`}</div></div>`;}
+function vcard(v,o={}){
+  let line;
+  if(v.now) line=`<div class="vsl primary" title="${v.now[1]} · ${v.now[2]} · ${v.now[3]}">${av(v.now[0],1)}<span class="trunc">${v.now[1]} · ${v.now[2].replace('Troca de ','troca de ').replace(' de freio','')}</span><b class="num">${v.now[3]}</b></div>`;
+  else if(v.block) line=`<div class="vsl warning" title="${v.block[0]} · ${v.block[1]}"><span class="ic i-box s16"></span><span class="trunc">${v.block[0]}</span><b class="num">${v.block[1].replace('pedido há ','')}</b></div>`;
+  else if(v.st==='done') line=`<div class="vsl success"><span class="ic i-check s16"></span><span class="trunc">${v.ready}</span></div>`;
+  else line=`<div class="vsl muted"><span class="ic i-clock s16"></span><span class="trunc">Na fila · ninguém</span></div>`;
+  return `<div class="vcard2 ${o.on?'on':''} ${v.st==='out'?'dim':''}"><div class="h">${ring(v.done,v.total,36)}<span class="pos">${v.pos}</span><b class="plate">${v.plate}</b><span style="flex:1"></span><button class="ib2 ghost" title="Ações do veículo" aria-label="Ações do veículo"><span class="ic i-dots s16"></span></button></div>
+    ${o.note?`<div class="lnote warn" style="font-size:12px"><span class="ic i-swap s14"></span>${o.note}</div>`:''}${line}
+    <div class="f"><span><span class="muted">Parado</span> <b class="num">${v.stop}</b></span>${o.nocost?'':`<span class="num muted">R$ ${v.cost}</span>`}</div></div>`;}
 R.detalhe2=s=>{
   if(s==='loading') return `<div class="dpad"><span class="sk" style="height:120px;border-radius:16px"></span><div class="dgrid" style="margin-top:14px"><div style="display:flex;flex-direction:column;gap:10px">${[1,2,3,4].map(()=>'<span class="sk" style="height:96px;border-radius:14px"></span>').join('')}</div><div style="display:flex;flex-direction:column;gap:10px">${[1,2,3,4,5].map(()=>'<span class="sk" style="height:58px;border-radius:12px"></span>').join('')}</div></div></div>`;
   const nocost=s==='noperm';
@@ -373,13 +397,13 @@ R.detalhe2=s=>{
     <div class="hact"><button class="btn primary"><span class="ic i-plus s16"></span>Adicionar serviços</button><button class="btn outline"><span class="ic i-truck s16"></span>Adicionar veículo</button><button class="btn outline" title="Falta 2 veículos ficarem prontos" disabled><span class="ic i-flag s16"></span>Concluir OS</button><button class="ib2" title="Mais ações da OS" aria-label="Mais ações da OS"><span class="ic i-dots s16"></span></button></div></div>`;
   const att=[['danger','i-clock','RTE1J77 parado sem ninguém','há 2 d 8 h','Escolher mecânico'],['warning','i-box','Esperando mola de retorno','RTE1J77 · pedido há 3 h','Ver pedido'],['warning','i-person','2 serviços sem mecânico','Regulagem de catraca, troca de cuíca','Escolher'],['warning','i-warn','1 falha do checklist sem decisão','CK-0041 · RTE1J77, eixo 2','Decidir']];
   if(s==='left') att.unshift(['warning','i-swap','SRK9H46 saiu do conjunto','hoje 10:20 · agora no C-118','Decidir']);
-  const attn=attnBar(att.map(a=>({tone:a[0],icon:a[1],title:a[2],sub:a[3],action:a[4]})),s==='attnOpen',false);
+  const attn=attnFor(s,false);
   const only=s==='filtered'?'RTF6K38':null;
   const vs=OSV.map(v=>vcard(v,{on:only===v.plate,nocost,note:s==='left'&&v.plate==='SRK9H46'?'Saiu do conjunto às 10:20':''})).join('');
-  const all=`<div class="vcard all ${only?'':'on'}"><div class="vch">${ring(2,6,42)}<div style="flex:1"><b style="font-family:Sora">Todos</b><div class="muted" style="font-size:12px">6 serviços · 2 feitos</div></div></div></div>`;
+  const all=`<button type="button" class="vall ${only?'':'on'}">${ring(2,6,36)}<span><b>Todos</b><span>6 serviços</span></span></button>`;
   const filt=only?`<div class="fbar"><span class="fchip on">1º RTF6K38 <span class="ic i-x s14"></span></span><button class="btn sm" style="color:hsl(var(--primary))">Ver todos</button></div>`:'';
   const list=`<div class="card" style="overflow:hidden"><div class="lhd2"><b style="font-family:Sora">Serviços</b><span class="muted num" style="font-size:12.5px">${only?'3 de 6':'6'}</span>${filt}</div>${svcGroups({only,menuFor:s==='menu'?'RTE1J77':null})}</div>`;
-  return `<div class="dpad">${hero}${attn}<div class="dgrid"><div class="vcol">${all}${vs}</div>${list}</div></div>`;
+  return `<div class="dpad">${hero}${attn}<div class="vrow">${all}${vs}</div>${list}</div>`;
 };
 /* ===== 4a linha do serviço (grupo por veículo) ===== */
 R.linha2=s=>{
@@ -479,13 +503,13 @@ function detalhePhone(s){
     <div class="kpis">${kp('1 de 3','prontos')}${kp('2d 8h','na oficina')}${s==='noperm'?kp('2','sem mecânico','warning-ink'):kp('R$ 1.730','custo')}</div></div>`;
   const att=[['danger','i-clock','RTE1J77 parado sem ninguém','há 2d 8h'],['warning','i-box','Esperando mola de retorno','RTE1J77 · pedido há 3 h']];
   if(s==='left') att.unshift(['warning','i-swap','SRK9H46 saiu do conjunto','hoje 10:20 · agora no C-118']);
-  const attn=attnBar(att.map(a=>({tone:a[0],icon:a[1],title:a[2],sub:a[3]})).concat([{tone:'warning',icon:'i-person',title:'2 serviços sem mecânico',sub:'Regulagem de catraca, troca de cuíca'},{tone:'warning',icon:'i-warn',title:'1 falha do checklist sem decisão',sub:'CK-0041 · RTE1J77, eixo 2'}]),s==='attnOpen',true);
+  const attn=attnFor(s,true);
   const only=s==='filtered'?'RTF6K38':null;
   const strip=`<div class="sech"><b>Veículos</b><span>3</span></div><div class="peek">${OSV.map(v=>vcard(v,{on:only===v.plate,nocost:s==='noperm'})).join('')}</div>`;
-  const groups=OSV.filter(v=>!only||v.plate===only).map(v=>{const [c,l]=VST[v.st];return `<div class="pcard" style="overflow:clip"><div class="ghd2"><span class="pos">${v.pos}</span><b class="plate">${v.plate}</b><span class="chip ${c} sm">${l}</span><span style="flex:1"></span><span class="muted num" style="font-size:12px">${v.done}/${v.total}</span><button class="ib2 ghost" aria-label="Ações do veículo" title="Ações do veículo"><span class="ic i-dots s16"></span></button></div>${SVC2[v.plate].map(prow).join('')}</div>`;}).join('');
+  const groups=OSV.filter(v=>!only||v.plate===only).map(v=>{const [c,l]=VST[v.st];return `<div class="pcard" style="overflow:clip"><div class="ghd2"><span class="pos">${v.pos}</span><b class="plate">${v.plate}</b><span style="flex:1"></span><span class="muted num" style="font-size:12px">${v.done}/${v.total}</span><button class="ib2 ghost" aria-label="Ações do veículo" title="Ações do veículo"><span class="ic i-dots s16"></span></button></div>${SVC2[v.plate].map(prow).join('')}</div>`;}).join('');
   return `<div class="mec">${hero}${attn}${strip}<div class="sech"><b>Serviços</b><span>${only?'3 de 6':'6'}</span>${only?`<span style="flex:1"></span>${F.fchip('1º RTF6K38',{on:1,removable:1,size:'sm'})}`:''}</div>${groups}<div style="height:96px"></div></div><span class="fx-efab"><span class="ic i-plus s20"></span>Adicionar serviços</span>`;
 }
-RR.detalhe=(s,d)=>s==='attnTints'?attnTints(d):s==='today'?`<div class="dpad">${F.real.workOrderHeader()}<div class="fx-delta" style="margin-top:14px"><span class="fx-newtag">a copiar</span><span style="font-size:12.5px">Abaixo do topo, hoje: a faixa de frentes, o painel de serviços e o de peças (work-order-fronts-panel, work-order-services-panel). Entram aqui na próxima rodada, copiados do código.</span></div></div>`:isPhone(d)?detalhePhone(s):R.detalhe2(s);
+RR.detalhe=(s,d)=>s==='today'?`<div class="dpad">${F.real.workOrderHeader()}<div class="fx-delta" style="margin-top:14px"><span class="fx-newtag">a copiar</span><span style="font-size:12.5px">Abaixo do topo, hoje: a faixa de frentes, o painel de serviços e o de peças (work-order-fronts-panel, work-order-services-panel). Entram aqui na próxima rodada, copiados do código.</span></div></div>`:isPhone(d)?detalhePhone(s):R.detalhe2(s);
 
 /* ---------- 4 montar ---------- */
 function montarPhone(s){
