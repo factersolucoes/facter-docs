@@ -196,6 +196,74 @@ section.sc{margin-top:56px}
 .sheet .stats{grid-template-columns:1fr 1fr}.sheet .stat:nth-child(3){grid-column:span 2}
 .after{display:flex;flex-direction:column;gap:6px;padding:12px 14px;border-radius:14px;background:hsl(var(--toolbar))}
 .lnk{color:hsl(var(--primary));font-weight:600;text-decoration:none}
+/* tela 5 · montar a lista */
+.i-play{--i:url(https://api.iconify.design/ph/play-fill.svg)}
+.vtoggle{display:inline-flex;gap:2px;padding:3px;border-radius:12px;background:hsl(var(--card));margin:0 0 12px 38px;box-shadow:0 1px 2px hsl(233 30% 20%/.08)}
+.vtoggle button{border:0;background:none;border-radius:9px;padding:6px 14px;font-weight:600;font-size:13px;color:hsl(var(--muted-foreground));cursor:pointer}
+.vtoggle button[aria-pressed=true]{background:hsl(var(--muted));color:hsl(var(--foreground))}
+.ws{background:hsl(var(--card));border-radius:20px;box-shadow:0 30px 60px -20px hsl(233 40% 15%/.45);display:flex;flex-direction:column}
+.ws>.df{border-radius:0 0 20px 20px}
+.wstool{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;padding:0 20px 12px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;align-items:center}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.bdot{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:99px;background:hsl(var(--foreground));color:#fff;font:800 9.5px Inter;font-style:normal}
+.bdot::after{content:"1"}.bdot.w{background:hsl(var(--warning))}.bdot.w::after{content:""}
+.hintbar{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:0 20px 12px;padding:9px 12px;border-radius:12px;background:hsl(var(--primary-soft));color:hsl(var(--primary));font-size:13px}
+.hintbar b{color:hsl(var(--foreground))}
+.wsgrid{display:flex;flex-wrap:wrap;gap:14px;padding:0 20px 16px;align-items:flex-start;min-height:560px}
+.setplan{flex:3 1 560px;min-width:0;display:flex;flex-wrap:wrap;gap:10px;padding-bottom:4px}
+.veh{flex:1 0 180px;min-width:0;border:1px solid hsl(var(--border));border-radius:16px;background:hsl(var(--background));display:flex;flex-direction:column}
+.veh.act{border-color:hsl(var(--foreground)/.35)}
+.vhd{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;padding:9px 11px;border-bottom:1px solid hsl(var(--border));min-width:0}
+.vhd .pos{font:600 10.5px Inter;color:hsl(var(--muted-foreground))}
+.vbody{position:relative;padding:6px 4px 10px}
+.noax{display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center;padding:40px 14px;min-height:280px;justify-content:center}
+.pop{position:absolute;z-index:6;width:300px;max-width:calc(100vw - 48px);background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;padding:12px;box-shadow:0 22px 44px -16px hsl(233 40% 15%/.5);display:flex;flex-direction:column;gap:4px}
+.pop.big{width:340px}
+.pophd{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px}
+.last{display:flex;gap:6px;align-items:center;font-size:12px;color:hsl(var(--muted-foreground));margin:2px 0 4px}
+.shorts{display:flex;flex-wrap:wrap;gap:4px;margin:4px 0}
+.shorts span{padding:4px 9px;border-radius:99px;border:1px solid hsl(var(--border));font-size:12px;font-weight:600;background:hsl(var(--card));color:hsl(var(--foreground)/.8);cursor:pointer}
+.shorts span.on{background:hsl(var(--muted));border-color:hsl(var(--foreground)/.35);color:hsl(var(--foreground))}
+.sug{display:flex;gap:10px;align-items:center;padding:7px 8px;border-radius:10px;cursor:pointer}.sug:hover,.sug.hl{background:hsl(var(--muted)/.7)}
+.sug.big{padding:8px;border:1px solid hsl(var(--border));margin-top:6px}
+.rw{display:flex;gap:8px;align-items:flex-start;margin-top:8px;padding:9px 10px;border-radius:10px;background:hsl(var(--warning-soft));color:hsl(var(--warning-text))}
+.lpanel{flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:8px}
+.lphd{display:flex;align-items:center;min-height:26px}
+.line{border:1px solid hsl(var(--border));border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;background:hsl(var(--card));box-shadow:0 1px 2px hsl(233 30% 20%/.05)}
+.line.new{box-shadow:0 0 0 3px hsl(var(--primary)/.12);border-color:hsl(var(--primary)/.5)}
+.line.err{border-color:hsl(var(--danger));background:hsl(var(--danger-soft)/.4)}
+.line.editing{background:hsl(var(--primary-soft)/.5);border-style:dashed}
+.lhd{display:flex;align-items:center;gap:8px;min-width:0}
+.lhd .n{display:grid;place-items:center;width:20px;height:20px;border-radius:99px;background:hsl(var(--muted));font:700 11px Inter;flex:none}
+.lwhere{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px}
+.lsvc{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.lmeta{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.lmeta:empty{display:none}
+.pill{display:inline-flex;align-items:center;gap:5px;height:26px;padding:0 9px;border-radius:99px;border:1px solid hsl(var(--border));font-size:12.5px;font-weight:600}
+.pill.m{color:hsl(var(--muted-foreground));font-weight:500}
+.tog{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600}
+.tog i{width:30px;height:18px;border-radius:99px;background:hsl(var(--muted));position:relative}
+.tog i::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:99px;background:#fff;box-shadow:0 1px 2px hsl(0 0% 0%/.2)}
+.tog.on i{background:hsl(var(--primary))}.tog.on i::after{left:14px}
+.parts{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:12px}
+.part{display:inline-flex;gap:4px;align-items:center;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.part .ic{color:hsl(var(--success-text))}.part .q{color:hsl(var(--muted-foreground))}
+.part.out{color:hsl(var(--danger-text));font-weight:600}.part.out .ic{color:hsl(var(--danger-text))}
+.lnote{display:flex;gap:6px;align-items:flex-start;font-size:12.5px;font-weight:600;text-wrap:pretty}
+.lnote.warn{color:hsl(var(--warning-text))}.lnote.danger{color:hsl(var(--danger-text))}
+.lnote .ic{margin-top:2px}
+.ib{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:8px;border:0;background:hsl(var(--toolbar));color:hsl(var(--muted-foreground));cursor:pointer;flex:none}
+.lempty{display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center;padding:40px 18px;border:1px solid hsl(var(--border));border-radius:14px}
+.why0{display:inline-flex;gap:6px;align-items:center;color:hsl(var(--warning-text));font-weight:600}
+kbd{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 5px;border-radius:6px;border:1px solid hsl(var(--border));border-bottom-width:2px;background:hsl(var(--card));font:600 11px Inter;color:hsl(var(--foreground)/.75)}
+.kbdh{display:inline-flex}
+.kbds{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:center;font-size:11.5px;color:hsl(var(--muted-foreground));margin-top:4px}
+.egrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.input.sm{height:34px}
+.tablet-l{width:1000px;max-width:100%;height:660px;border-radius:30px;padding:14px;background:#111;box-shadow:0 24px 60px -30px hsl(233 40% 20%/.6)}
+.tbar{display:flex;align-items:center;gap:12px;padding:10px 16px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
+.tfoot{margin-top:auto;display:flex;align-items:center;gap:12px;padding:10px 16px;border-top:1px solid hsl(var(--border));background:hsl(var(--toolbar))}
 .tablet{width:600px;max-width:100%;height:900px;border-radius:30px;padding:14px;background:#111;box-shadow:0 24px 60px -30px hsl(233 40% 20%/.6)}
 </style>
 </head>
@@ -207,7 +275,7 @@ section.sc{margin-top:56px}
   </div>
   <nav class="tabs">
     <a href="#lista"><b>1</b> Lista de OS</a><a href="#alvo"><b>2</b> Abrir · o que entra</a><a href="#entrada"><b>3</b> Abrir · entrada e km</a>
-    <a href="#detalhe"><b>4</b> Detalhe · frentes</a><a href="#servico"><b>5</b> Adicionar serviço com posição</a><a href="#servico-linha"><b>5a</b> Posição na linha</a><a href="#servico-tipo"><b>5b</b> Tipo pede posição</a><a href="#servico-toque"><b>5c</b> Celular e tablet</a><a href="#servico-checklist"><b>5d</b> Do checklist</a><a href="#adicionar"><b>6</b> Adicionar veículo</a>
+    <a href="#detalhe"><b>4</b> Detalhe · frentes</a><a href="#servico"><b>5</b> Adicionar serviços</a><a href="#servico-linha"><b>5a</b> Posição na linha</a><a href="#servico-tipo"><b>5b</b> Tipo pede posição</a><a href="#servico-checklist"><b>5c</b> Do checklist</a><a href="#adicionar"><b>6</b> Adicionar veículo</a>
     <a href="#sai"><b>7</b> Reboque sai</a><a href="#transferir"><b>8</b> Transferir frente</a><a href="#concluir"><b>9</b> Concluir OS</a>
     <a href="#engate"><b>10</b> Engate e desengate</a><a href="#celular"><b>11</b> Celular</a>
   </nav>
@@ -245,14 +313,41 @@ section.sc{margin-top:56px}
     <span class="note">A frente "Saiu" e a "Transferida" ficam na OS, apagadas, com o motivo: o histórico não some.</span>
   </section>
 
-  <section class="sc" id="servico"><h2><span class="tag">5</span>Posição no serviço · adicionar serviço</h2>
-    <p class="why">O título é a ação; a OS e o conjunto ficam no sobretítulo. À esquerda, <b>o veículo</b> (um cartão por veículo, na ordem de engate, com o que já tem nesta OS) e <b>o serviço</b> (busca com sugestões: falhas do checklist ainda sem decisão, recentes neste veículo e mais usados). À direita, <b>a planta do veículo ao vivo</b>: quando o tipo pede posição, a pessoa toca um ou mais lugares ("eixo 2, os dois lados" é um serviço só); serviço do veículo todo mostra a planta calma. O rodapé resume o que vai ser criado e, enquanto falta algo, diz o que falta. No tablet em pé e no celular, uma coluna, com a planta embaixo (tela 5c).</p>
+  <section class="sc" id="servico"><h2><span class="tag">5</span>Adicionar serviços · montar a lista do conjunto</h2>
+    <p class="why">O conjunto chega com vários problemas de uma vez (do motorista e do checklist). O encarregado <b>monta a lista numa sentada</b> e cria tudo com um botão. A planta mostra <b>o conjunto inteiro</b>, na ordem de engate: a pessoa toca direto onde está o problema ("o pneu de trás, esquerdo, da 2ª carreta") e escolhe entre os serviços que cabem ali; quem pensa pelo serviço busca primeiro e a planta acende onde ele se aplica. A planta mostra o que já está acontecendo (serviço nesta OS, falha do checklist sem decisão, retrabalho) para ninguém duplicar nem esquecer. Cada linha mostra as peças do kit com o estoque.</p>
+    <div class="vtoggle" id="ver5"><button data-v="new" aria-pressed="true">Depois · montar a lista</button><button data-v="old" aria-pressed="false">Antes · um serviço por vez</button></div>
+    <div id="ver5-new">
+    <div class="states" data-for="montar"><button data-s="empty" aria-pressed="false">Planta vazia</button><button data-s="loading" aria-pressed="false">Carregando</button><button data-s="tap" aria-pressed="true">Toque numa roda · sugestões</button><button data-s="servicefirst" aria-pressed="false">Serviço primeiro · onde se aplica</button><button data-s="general" aria-pressed="false">Geral · nos 3 veículos</button><button data-s="checklist" aria-pressed="false">Falha do checklist vira linha</button><button data-s="rework" aria-pressed="false">Aviso de retrabalho</button><button data-s="list" aria-pressed="false">Lista montada · peças</button><button data-s="keyboard" aria-pressed="false">Na mesa · pelo teclado</button><button data-s="noaxles" aria-pressed="false">Veículo sem eixos</button><button data-s="nomech" aria-pressed="false">Sem permissão de escolher mecânico</button><button data-s="offline" aria-pressed="false">Sem sinal · pendente</button><button data-s="error" aria-pressed="false">Erro ao criar · linha com problema</button></div>
+    <div class="app"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav on"></span><span class="nav"></span></nav>
+      <div class="main"><header class="top"><div><div class="eb">Ordens de serviço</div><div class="tt">OS 1042</div></div><span class="sp"></span></header>
+      <div class="body dots" style="min-height:900px;padding:18px"><div id="montar-body"></div></div></div></div>
+    <span class="note">Por linha, obrigatórios: veículo e onde (os dois saem do toque) e serviço. Mecânico é opcional. A posição segue o nível do tipo: tocar uma roda e escolher lona marca "eixo 3, esquerdo".</span><br>
+    <span class="note">Criar é um comando só, numa transação: ou entram todas as linhas, ou nenhuma, e a resposta diz qual linha impediu.</span><br>
+    <span class="note">Atalhos no tablet: "Só esta roda / As duas do lado / O eixo todo / Todas as rodas". Na mesa: digitar busca, Enter adiciona a linha, Tab vai ao próximo campo, / foca a busca.</span>
+    <h3 style="font:800 17px Sora;margin:28px 0 6px 38px">No pátio e no celular</h3>
+    <p class="why">Tablet deitado no pátio: alvos de 44 px, sinal fraco aceito (a lista fica no aparelho e envia depois). O mecânico que abre o próprio serviço faz em 2 toques: toca a roda e toca Começar. No celular, os veículos rolam um embaixo do outro e a lista abre numa folha.</p>
+    <div style="display:flex;gap:28px;flex-wrap:wrap;margin-left:38px;align-items:flex-start">
+      <div class="tablet-l"><div class="screen" id="montar-tablet" style="position:relative"></div></div>
+      <div class="phone"><div class="screen" id="montar-phone" style="position:relative"></div></div>
+      <div class="phone"><div class="screen" id="montar-phone2" style="position:relative"></div></div>
+    </div>
+    </div>
+    <div id="ver5-old" hidden>
     <div class="states" data-for="servico"><button data-s="picking" aria-pressed="false">Escolhendo o serviço</button><button data-s="nofound" aria-pressed="false">Busca sem resultado</button><button data-s="none" aria-pressed="false">Nenhuma · lubrificação</button><button data-s="side" aria-pressed="false">Lado · para-lama</button><button data-s="axle" aria-pressed="false">Eixo · suspensão</button><button data-s="axle_side" aria-pressed="true">Eixo e lado · freio</button><button data-s="wheel" aria-pressed="false">Roda · eixo duplo</button><button data-s="single" aria-pressed="false">OS de um veículo · roda simples e dupla</button><button data-s="empty" aria-pressed="false">Nada marcado ainda</button><button data-s="mismatch" aria-pressed="false">Serviço trocado depois de marcar</button><button data-s="loading" aria-pressed="false">Carregando a planta</button><button data-s="noaxles" aria-pressed="false">Veículo sem eixos</button><button data-s="error" aria-pressed="false">Erro na planta</button></div>
     <div class="app"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav on"></span><span class="nav"></span></nav>
       <div class="main"><header class="top"><div><div class="eb">Ordens de serviço</div><div class="tt">OS 1042</div></div><span class="sp"></span></header>
       <div class="body dots" style="min-height:880px"><div class="scrim" style="background:transparent;align-items:start"><div class="dialog" id="servico-dialog" style="max-height:none;width:min(980px,100%)"></div></div></div></div></div>
     <span class="note">Planta: selecionado em primary (como na movimentação de pneus). Cartão do veículo escolhido com o anel primary (regra dos cartões numa faixa). Cada alvo de toque tem no mínimo 44 px no tablet; a planta encolhe pela largura da coluna, nunca rola para o lado. Campos obrigatórios: veículo, serviço e, quando o tipo pede, a posição; o componente vem do tipo.</span><br>
     <span class="note">Como o texto se monta: lado → "lado esquerdo", "os dois lados" · eixo → "eixo 2", "eixos 1 e 2" · eixo e lado → "eixo 2, os dois lados", "eixos 1 e 2, esquerdo; eixo 3, direito" · roda → "eixo 3, direito interno", "eixo 2, as 4 rodas". Eixos com o mesmo lado se juntam.</span>
+  
+    <h3 style="font:800 17px Sora;margin:28px 0 6px 38px">Antes · celular e tablet em pé</h3>
+    <p class="why">No celular o diálogo vira folha de baixo; a planta vem logo depois do serviço, ocupa a largura e o resumo fica numa linha própria acima dos botões. No tablet em pé, uma coluna com a planta embaixo; o corpo rola e o rodapé com o resumo fica sempre à vista.</p>
+    <div style="display:flex;gap:28px;flex-wrap:wrap;margin-left:38px;align-items:flex-start">
+      <div class="phone"><div class="screen" id="svc-phone" style="position:relative"></div></div>
+      <div class="tablet"><div class="screen" id="svc-tablet" style="position:relative"></div></div>
+    </div>
+  
+    </div>
   </section>
 
   <section class="sc" id="servico-linha"><h2><span class="tag">5a</span>Posição na linha do serviço</h2>
@@ -273,15 +368,7 @@ section.sc{margin-top:56px}
     <span class="note">O nível vale para serviços novos. Mudar o tipo depois não reescreve a posição de serviço já criado.</span>
   </section>
 
-  <section class="sc" id="servico-toque"><h2><span class="tag">5c</span>Adicionar serviço no celular e no tablet em pé</h2>
-    <p class="why">No celular o diálogo vira folha de baixo; a planta vem logo depois do serviço, ocupa a largura e o resumo fica numa linha própria acima dos botões. No tablet em pé, uma coluna com a planta embaixo; o corpo rola e o rodapé com o resumo fica sempre à vista.</p>
-    <div style="display:flex;gap:28px;flex-wrap:wrap;margin-left:38px;align-items:flex-start">
-      <div class="phone"><div class="screen" id="svc-phone" style="position:relative"></div></div>
-      <div class="tablet"><div class="screen" id="svc-tablet" style="position:relative"></div></div>
-    </div>
-  </section>
-
-  <section class="sc" id="servico-checklist"><h2><span class="tag">5d</span>Serviço que veio do checklist · prévia da 3.2.3</h2>
+  <section class="sc" id="servico-checklist"><h2><span class="tag">5c</span>Serviço que veio do checklist · prévia da 3.2.3</h2>
     <p class="why">Quem inspeciona marca a posição na faixa do não conforme, na mesma planta. O serviço que nasce dessa falha já chega na OS com a posição e mostra de onde veio. <b>Fica para a 3.2.3</b>; aqui só para ver que o desenho fecha.</p>
     <div class="app" style="grid-template-columns:64px 1fr"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav on"></span><span class="nav"></span></nav>
       <div class="main"><header class="top"><div><div class="eb">Checklists</div><div class="tt">Inspeção CK-0041</div></div><span class="sp"></span></header>
@@ -524,7 +611,7 @@ function planSVG(v,level,sel,o={}){
     if(level==='axle_side') ['L','R'].forEach(s=>{const sx=ws.filter(w=>w[0]===s).map(w=>w[2]); g+=box(Math.min(...sx)-17,y-28,Math.max(...sx)-Math.min(...sx)+34,56,sel.has('a'+a.no+s),10);});
     const axOn=level==='axle'&&sel.has('a'+a.no);
     g+=`<rect x="${x0}" y="${y-4}" width="${x1-x0}" height="8" rx="4" fill="${axOn?PR:'#d3d8de'}" stroke="${axOn?PR:'#9aa0aa'}"/>`;
-    g+=`<text x="${CX}" y="${y-33}" text-anchor="middle" font-size="10.5" font-weight="700" font-family="Sora,Inter" fill="hsl(240 4% 44%)" stroke="hsl(var(--background))" stroke-width="4" paint-order="stroke">Eixo ${a.no} · ${a.fn}</text>`;
+    g+=`<text x="${x0-12}" y="${y-34}" font-size="10.5" font-weight="700" font-family="Sora,Inter" fill="hsl(240 4% 44%)">Eixo ${a.no} · ${a.fn}</text>`;
     ws.forEach(([s,sl,x])=>{const on=level==='wheel'?sel.has('a'+a.no+s+sl):level==='axle'?sel.has('a'+a.no):level==='axle_side'?sel.has('a'+a.no+s):false;
       const dim=(level==='side'||level==='none')||(o.readonly&&!on);
       if(on&&level==='wheel') g+=`<rect x="${x-13}" y="${y-25}" width="26" height="50" rx="8" fill="none" stroke="hsl(var(--primary)/.3)" stroke-width="4"/>`;
@@ -653,6 +740,138 @@ function svcTouch(){
   document.getElementById('svc-tablet').innerHTML=`<div style="height:52px;display:flex;align-items:center;padding:0 16px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))"><div><div class="eyebrow" style="font-size:9px">Ordens de serviço</div><b style="font:800 15px Sora">OS 1042</b></div></div><div style="position:absolute;inset:52px 0 0;background:hsl(240 10% 4%/.35);padding:18px 16px;overflow:hidden"><div class="dialog" style="width:100%;height:100%;max-height:100%"><div class="dh"><div class="t"><div class="eyebrow">${b.eyebrow}</div><h3>Adicionar serviço</h3></div>${X}</div><div class="db" style="flex:1;min-height:0">${stacked}</div>${addFooter(b)}</div></div>`;
 }
 
+/* ---------- tela 5 · montar a lista ---------- */
+const AX2D=[{no:1,fn:'livre',dual:true},{no:2,fn:'livre',dual:true}];
+const SETV=()=>[
+  {pos:'1º',plate:'RTF6K38',kind:'Carreta',axles:AX3,n:2},
+  {pos:'2º',plate:'RTE1J77',kind:'Carreta',axles:AX3,n:1},
+  {pos:'3º',plate:'SRK9H46',kind:'Carreta',axles:AX2D,n:1}];
+const PRc='hsl(var(--primary))',PSc='hsl(var(--primary-soft))';
+const vxs=a=>a.dual?[['L','o',36],['L','i',66],['R','i',194],['R','o',224]]:[['L','s',58],['R','s',202]];
+function vplan(v,o={}){
+  const W=260,CX=130,top=34,gap=80,yOf=i=>top+54+i*gap,last=yOf(v.axles.length-1),H=last+40;
+  const sel=o.sel||new Set(),bd=o.badges||{};
+  let g='';
+  const whole=sel.has('whole');
+  if(o.hl==='whole'||whole) g+=`<rect x="4" y="4" width="${W-8}" height="${H-8}" rx="16" fill="${whole?PSc:'transparent'}" stroke="${PRc}" stroke-width="1.5" ${whole?'':'stroke-dasharray="5 4"'}/>`;
+  g+=`<rect x="${CX-14}" y="${top}" width="8" height="${last+22-top}" rx="4" fill="#d3d8de" stroke="#9aa0aa"/><rect x="${CX+6}" y="${top}" width="8" height="${last+22-top}" rx="4" fill="#d3d8de" stroke="#9aa0aa"/>`;
+  g+=`<rect x="${CX-10}" y="${top-14}" width="20" height="14" rx="4" fill="#d3d8de" stroke="#9aa0aa"/><circle cx="${CX}" cy="${top-7}" r="3.5" fill="#9aa0aa"/>`;
+  v.axles.forEach((a,i)=>{const y=yOf(i),ws=vxs(a),xs=ws.map(w=>w[2]),x0=Math.min(...xs)-12,x1=Math.max(...xs)+12;
+    if(o.hl==='axle_side') ['L','R'].forEach(s=>{const sx=ws.filter(w=>w[0]===s).map(w=>w[2]);const on=ws.filter(w=>w[0]===s).every(w=>sel.has('a'+a.no+w[0]+w[1]));
+      g+=`<rect x="${Math.min(...sx)-16}" y="${y-28}" width="${Math.max(...sx)-Math.min(...sx)+32}" height="56" rx="10" fill="${on?PSc:'transparent'}" stroke="${PRc}" stroke-width="1.4" ${on?'':'stroke-dasharray="4 3"'}/>`;});
+    g+=`<rect x="${x0}" y="${y-4}" width="${x1-x0}" height="8" rx="4" fill="#d3d8de" stroke="#9aa0aa"/>`;
+    g+=`<text x="${x0}" y="${y-33}" font-size="11" font-weight="700" font-family="Sora,Inter" fill="hsl(240 4% 44%)">Eixo ${a.no}</text>`;
+    ws.forEach(([s,sl,x])=>{const k='a'+a.no+s+sl,on=sel.has(k),foc=o.focus&&o.focus.includes(k);
+      if(foc) g+=`<rect x="${x-14}" y="${y-26}" width="28" height="52" rx="9" fill="none" stroke="hsl(var(--primary)/.3)" stroke-width="5"/>`;
+      if(o.hl==='wheel'&&!on&&!foc) g+=`<rect x="${x-13}" y="${y-25}" width="26" height="50" rx="8" fill="none" stroke="${PRc}" stroke-width="1.2" stroke-dasharray="4 3"/>`;
+      g+=`<rect x="${x-9}" y="${y-21}" width="18" height="42" rx="5" fill="${on||foc?PRc:'#23262c'}" opacity="${o.dim&&!on?.35:1}"/>`;
+      const b=bd[k]; if(b) g+=`<circle cx="${x+9}" cy="${y-21}" r="8.5" fill="${b==='chk'?'hsl(var(--warning))':'hsl(var(--foreground))'}" stroke="hsl(var(--background))" stroke-width="2"/><text x="${x+9}" y="${y-17.5}" text-anchor="middle" font-size="10" font-weight="800" fill="#fff">${b==='chk'?'!':b}</text>`;});
+  });
+  return `<svg viewBox="0 0 ${W} ${H}" style="display:block;width:100%;max-width:${o.big?320:250}px;margin:0 auto" role="img">${g}</svg>`;
+}
+function vcol(v,o={}){
+  const hd=`<div class="vhd"><span class="pos">${v.pos}</span><b class="plate">${v.plate}</b><span class="muted" style="font-size:12px">${v.kind}</span>${v.n&&!o.nobadge?`<span class="chip t-none" style="margin-left:auto;height:20px;font-size:11px" title="${v.n} serviço${v.n>1?'s':''} já nesta OS">${v.n} nesta OS</span>`:''}</div>`;
+  const body=v.axles.length?vplan(v,o):`<div class="noax dots"><span class="tile" style="width:44px;height:44px;border-radius:99px;background:hsl(var(--warning-soft));color:hsl(var(--warning-text))"><span class="ic i-warn s20"></span></span><b>Sem eixos cadastrados</b><span class="muted" style="font-size:12.5px;text-wrap:pretty">Serviços do veículo todo entram normalmente. Os de eixo ou roda entram sem posição.</span><button class="btn outline" style="height:32px">Cadastrar eixos</button></div>`;
+  return `<div class="veh ${o.act?'act':''}">${hd}<div class="vbody">${body}${o.pop||''}</div></div>`;
+}
+const pill=(t,muted)=>`<span class="pill ${muted?'m':''}"><span class="ic i-user s14"></span>${t}</span>`;
+const LN={
+  cat:{plate:'RTF6K38',pos:'1º',where:'eixo 3, os dois lados',svc:'Regulagem de catraca',mech:'Carlos',parts:[['Graxa para came','0,1 kg',1]]},
+  lona:{plate:'RTE1J77',pos:'2º',where:'eixo 2, esquerdo',svc:'Troca de lona de freio',mech:'',parts:[['Lona de freio','2',1],['Rebite 6 mm','16',1],['Mola de retorno','1',0]],chips:['rework','chk']},
+  pneu:{plate:'RTE1J77',pos:'2º',where:'eixo 3, esquerdo externo',svc:'Troca de pneu',mech:'Ana',parts:[['Válvula','1',1]]},
+  lub:{plate:'RTF6K38 e SRK9H46',pos:'1º e 3º',where:'veículo todo',svc:'Lubrificação geral',mech:'',parts:[['Graxa','2 × 0,5 kg',1],['Óleo de cubo','2 × 1 L',1]],count:2},
+  cuica:{plate:'SRK9H46',pos:'3º',where:'sem posição',svc:'Troca de cuíca',mech:'',parts:[['Cuíca','1',1]],noax:true},
+};
+function lineCard(l,i,o={}){
+  const chips=(l.chips||[]).map(c=>c==='rework'?'<span class="chip t-wait" style="height:20px;font-size:11px">Retrabalho</span>':'<span class="chip t-none" style="height:20px;font-size:11px">Do checklist CK-0041</span>').join('');
+  const miss=l.parts.filter(p=>!p[2]);
+  const right=o.status==='pending'?'<span class="chip t-wait" style="height:20px;font-size:11px">Pendente</span>':o.status==='sending'?'<span class="chip t-work" style="height:20px;font-size:11px">Enviando…</span>':'<button class="ib" title="Tirar da lista" aria-label="Tirar da lista"><span class="ic i-x s14"></span></button>';
+  return `<div class="line ${o.err?'err':''} ${o.new?'new':''}">
+    <div class="lhd"><span class="n">${i}</span><div class="lwhere" title="${l.plate} · ${l.where}"><span class="muted">${l.pos}</span> <b>${l.plate}</b> · <span class="${l.noax?'muted':''}">${l.where}</span></div>${right}</div>
+    <div class="lsvc"><b>${l.svc}</b>${l.count?`<span class="chip t-none" style="height:20px;font-size:11px">${l.count} serviços</span>`:''}${chips}</div>
+    <div class="lmeta">${o.nomech?'':(l.mech?pill(l.mech):pill('Sem mecânico',1))}${o.start?'<span class="tog on"><i></i>Começar agora</span>':''}</div>
+    <div class="parts">${l.parts.map(p=>`<span class="part ${p[2]?'':'out'}" title="${p[0]} · ${p[1]} · ${p[2]?'em estoque':'em falta'}"><span class="ic ${p[2]?'i-check':'i-warn'} s14"></span>${p[0]} <span class="q">${p[1]}</span></span>`).join('')}</div>
+    ${miss.length?`<div class="lnote warn"><span class="ic i-clock s14"></span>${miss[0][0]} em falta: o serviço vai esperar peça</div>`:''}
+    ${o.err?`<div class="lnote danger"><span class="ic i-warn s14"></span>${o.err}</div>`:''}
+  </div>`;
+}
+const KBD=k=>`<kbd>${k}</kbd>`;
+function popTap(){return `<div class="pop" style="left:64px;top:214px">
+  <div class="pophd"><b>RTE1J77</b><span class="muted">eixo 3, esquerdo externo</span><span class="ib" style="margin-left:auto"><span class="ic i-x s14"></span></span></div>
+  <div class="last"><span class="ic i-clock s14"></span>Último aqui: troca de pneu há 4 meses, 31.000 km</div>
+  <div class="shorts"><span class="on">Só esta roda</span><span>As duas do lado</span><span>O eixo todo</span><span>Todas as rodas</span></div>
+  <div class="og" style="padding-left:2px">Para esta roda</div>
+  ${[['Troca de pneu','Roda','1 peça do kit'],['Troca de lona de freio','Eixo e lado','3 peças do kit'],['Revisão do cubo','Eixo e lado','2 peças do kit'],['Regulagem de catraca','Eixo e lado','']].map((r,i)=>`<div class="sug ${i===0?'hl':''}"><div style="flex:1;min-width:0"><b>${r[0]}</b><div class="muted" style="font-size:12px">${r[1]}${r[2]?' · '+r[2]:''}</div></div><span class="ic i-plus s14 muted"></span></div>`).join('')}
+  <div class="input" style="height:36px;margin-top:6px"><span class="ic i-search s14 muted"></span><input type="search" autocomplete="off" placeholder="Outro serviço"></div></div>`;}
+function popRework(){return `<div class="pop" style="left:96px;top:120px">
+  <div class="pophd"><b>RTE1J77</b><span class="muted">eixo 2, esquerdo</span></div>
+  <div style="font-weight:600;margin-top:2px">Troca de lona de freio</div>
+  <div class="rw"><span class="ic i-warn s16"></span><div><b>Lona trocada aqui há 18 dias, 4.200 km</b><div style="font-size:12.5px">OS 1029 · Carlos · vai como retrabalho?</div></div></div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px"><button class="btn outline" style="height:34px;flex:1">Seguir sem marcar</button><button class="btn primary" style="height:34px;flex:1">Marcar retrabalho</button></div></div>`;}
+function popChk(){return `<div class="pop" style="left:64px;top:136px">
+  <div class="pophd"><span class="chip t-wait" style="height:20px;font-size:11px">Sem decisão</span><span class="muted">CK-0041 · ontem 18:10</span></div>
+  <div style="font-weight:600;margin-top:4px">Lona de freio fora do limite</div>
+  <div class="muted" style="font-size:12.5px">RTE1J77 · eixo 2, esquerdo · “lona no rebite, lado do motorista”</div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px"><button class="btn outline" style="height:34px">Ver no checklist</button><button class="btn primary" style="height:34px;flex:1"><span class="ic i-plus s14"></span>Adicionar troca de lona</button></div></div>`;}
+R.montar=s=>{
+  const V=SETV(); let o=[{},{},{}],lines=[],search='',bar='',listTop='',kb=false,foot='',ready=true,count='';
+  const B={0:{a2Lo:'1',a2Ro:'1',a3Lo:'1'},1:{a2Lo:'chk',a3Lo:'chk'},2:{a1Ro:'1'}};
+  const withB=()=>o.forEach((x,i)=>x.badges=B[i]);
+  if(s!=='empty'&&s!=='loading') withB();
+  if(s==='empty'){V.forEach(v=>v.n=0);}
+  if(s==='tap'){o[1].focus=['a3Lo'];o[1].pop=popTap();o[1].act=true;lines=[['cat',{}]];}
+  if(s==='rework'){o[1].sel=new Set(['a2Lo','a2Li']);o[1].pop=popRework();o[1].act=true;lines=[['cat',{}]];}
+  if(s==='checklist'){o[1].focus=['a2Lo'];o[1].pop=popChk();o[1].act=true;listTop=`<div class="notice warn" style="align-items:center"><span class="ic i-warn s16"></span><span style="flex:1"><b>2 falhas do checklist sem decisão</b> no RTE1J77</span><button class="btn outline" style="height:30px;font-size:12.5px">Adicionar as 2</button></div>`;}
+  if(s==='servicefirst'){search='Troca de lona de freio';o.forEach(x=>x.hl='axle_side');o[1].sel=new Set(['a2Lo','a2Li']);bar=`<div class="hintbar"><span class="ic i-hand s16"></span><span style="flex:1;min-width:200px"><b>Troca de lona de freio</b> · toque no lado de cada eixo</span><span class="shorts" style="margin:0"><span>Os dois lados</span><span>O eixo todo</span></span></div>`;lines=[['cat',{}],['lona',{new:1}]];}
+  if(s==='general'){search='Lubrificação geral';o.forEach(x=>{x.hl='whole';x.dim=true;});o[0].sel=new Set(['whole']);o[2].sel=new Set(['whole']);bar=`<div class="hintbar"><span class="ic i-hand s16"></span><span style="flex:1;min-width:200px"><b>Lubrificação geral</b> vale para o veículo todo · toque nos veículos</span><button class="btn outline" style="height:30px;font-size:12.5px">Aplicar nos 3 veículos</button></div>`;lines=[['cat',{}],['lub',{new:1}]];}
+  if(['list','nomech','offline','error'].includes(s)) lines=[['cat',{}],['lona',{}],['pneu',{}],['lub',{}]];
+  if(s==='list'){o[1].sel=new Set(['a2Lo','a2Li','a3Lo']);o[0].sel=new Set(['a3Lo','a3Li','a3Ri','a3Ro']);}
+  if(s==='nomech') listTop=`<div class="notice info"><span class="ic i-lock s16"></span><span>Seu papel não permite escolher o mecânico. O encarregado escolhe depois</span></div>`;
+  if(s==='offline'){listTop=`<div class="notice warn"><span class="ic i-wifi s16"></span><span>Sem sinal. A lista fica salva neste aparelho e vai quando a conexão voltar</span></div>`;lines=lines.map((l,i)=>[l[0],{status:i===0?'sending':'pending'}]);}
+  if(s==='error'){listTop=`<div class="notice danger"><span class="ic i-warn s16"></span><span>Nenhum serviço foi criado. Ajuste a linha 2 e crie de novo</span></div>`;lines[1]=['lona',{err:'RTE1J77 já tem troca de lona no eixo 2, esquerdo, nesta OS. Tire a linha ou troque o lugar'}];}
+  if(s==='keyboard'){kb=true;o[1].focus=['a2Lo','a2Li'];lines=[['cat',{}]];}
+  if(s==='noaxles'){V[2].axles=[];V[2].n=0;lines=[['cat',{}],['cuica',{}]];}
+  if(s==='nomech') lines=lines.map(l=>[l[0],{nomech:1}]);
+  // totals
+  const svcN=lines.reduce((n,[k])=>n+(LN[k].count||1),0);
+  const vehs=new Set(lines.flatMap(([k])=>LN[k].plate.split(' e ')));
+  const partsN=lines.reduce((n,[k])=>n+LN[k].parts.length*(LN[k].count||1),0), miss=lines.reduce((n,[k])=>n+LN[k].parts.filter(p=>!p[2]).length,0);
+  if(!lines.length){ready=false;foot=`<span class="why0"><span class="ic i-info s14"></span>Toque num lugar da planta ou busque um serviço</span>`;}
+  else foot=`<b>${svcN} serviço${svcN>1?'s':''} em ${vehs.size} veículo${vehs.size>1?'s':''}</b> · ${partsN} ${partsN>1?'peças':'peça'} do kit${miss?`, <span style="color:hsl(var(--danger-text));font-weight:600">${miss} em falta</span>`:''}`;
+  const btn=s==='offline'?`<button class="btn primary" disabled>${svcN} pendentes</button>`:`<button class="btn primary" ${ready&&!kb?'':'disabled'}>${lines.length?`Criar ${svcN} serviço${svcN>1?'s':''}`:'Criar serviços'}</button>`;
+  const planArea=s==='loading'?V.map(()=>`<div class="veh"><div class="vhd"><span class="sk" style="width:120px;height:18px"></span></div><div class="vbody" style="display:flex;flex-direction:column;gap:34px;align-items:center;padding:30px 10px"><span class="sk" style="width:20px;height:14px"></span><span class="sk" style="width:200px;height:42px"></span><span class="sk" style="width:200px;height:42px"></span></div></div>`).join(''):V.map((v,i)=>vcol(v,o[i])).join('');
+  const legend=`<div class="legend"><span><i class="bdot"></i>Serviço nesta OS</span><span><i class="bdot w">!</i>Falha do checklist sem decisão</span><span class="muted">Passe o mouse ou segure para ver o último serviço no lugar</span></div>`;
+  const editor=kb?`<div class="line editing"><div class="egrid"><div class="field"><label>Veículo</label><div class="input sm"><input value="2º RTE1J77"></div></div><div class="field"><label>Onde</label><div class="input sm"><input value="eixo 2, os dois lados"></div></div><div class="field" style="grid-column:1/-1;position:relative"><label>Serviço</label><div class="input sm" style="border-color:hsl(var(--foreground)/.55)"><span class="ic i-search s14 muted"></span><input type="search" autocomplete="off" value="lona"></div>
+      <div class="optlist" style="margin-top:4px"><div class="opt" style="background:hsl(var(--muted))"><div style="flex:1"><b style="font-weight:600">Troca de lona de freio</b><div class="muted" style="font-size:12px">Freios · 3 peças do kit</div></div>${KBD('Enter')}</div><div class="opt"><div style="flex:1"><b style="font-weight:600">Regulagem de lona</b><div class="muted" style="font-size:12px">Freios</div></div></div></div></div></div>
+      <div class="kbds">${KBD('Enter')} adiciona a linha ${KBD('Tab')} próximo campo ${KBD('↑')}${KBD('↓')} escolhe ${KBD('Esc')} cancela</div></div>`:'';
+  const listEmpty=!lines.length&&!kb?`<div class="lempty dots"><span class="tile" style="width:52px;height:52px;border-radius:99px;background:hsl(var(--primary-soft));color:hsl(var(--primary));box-shadow:0 0 0 8px hsl(var(--primary-soft)/.45)"><span class="ic i-hand s24"></span></span><b style="font:700 15px Sora">Monte a lista do conjunto</b><span class="muted" style="font-size:13px;text-wrap:pretty">Toque onde está o problema, em qualquer veículo, ou busque o serviço. Tudo entra de uma vez.</span></div>`:'';
+  const listLoading=s==='loading'?[1,2].map(()=>`<span class="sk" style="height:110px;border-radius:14px"></span>`).join(''):'';
+  return `<div class="ws">
+    <div class="dh" style="padding-bottom:8px"><div class="t"><div class="eyebrow">OS 1042 · Conjunto C-320</div><h3>Adicionar serviços</h3></div>${X}</div>
+    <div class="wstool"><div class="input" style="flex:1 1 260px;height:40px"><span class="ic i-search s16 muted"></span><input type="search" autocomplete="off" placeholder="Buscar serviço (ex.: lubrificação)" value="${search}">${search?'<span class="ib"><span class="ic i-x s14"></span></span>':`<span class="kbdh">${KBD('/')}</span>`}</div>${s==='loading'?'':legend}</div>
+    ${bar}
+    <div class="wsgrid">
+      <div class="setplan">${planArea}</div>
+      <div class="lpanel"><div class="lphd"><span class="eyebrow">Lista${lines.length?` · ${lines.length}`:''}</span>${lines.length?'<button class="btn" style="height:26px;padding:0 6px;font-size:12px;margin-left:auto;color:hsl(var(--muted-foreground))">Limpar</button>':''}</div>${listTop}${editor}${listEmpty}${listLoading}${lines.map(([k,lo],i)=>lineCard(LN[k],i+1,lo)).join('')}</div>
+    </div>
+    <div class="df" style="flex-wrap:wrap"><span class="grow" style="min-width:240px;color:hsl(var(--foreground));text-wrap:pretty">${foot}</span><div style="display:flex;gap:10px;margin-left:auto"><button class="btn outline">Cancelar</button>${btn}</div></div>
+  </div>`;
+};
+function montarTouch(){
+  const V=SETV(),B={1:{a2Lo:'chk'}};
+  // yard tablet, landscape, mechanic mode: tap a wheel, tap Começar
+  const pop=`<div class="pop big" style="left:70px;top:150px"><div class="pophd"><b>RTE1J77</b><span class="muted">eixo 3, esquerdo externo</span></div>
+    ${[['Troca de pneu','1 peça do kit'],['Revisão do cubo','2 peças do kit']].map((r,i)=>`<div class="sug big"><div style="flex:1;min-width:0"><b>${r[0]}</b><div class="muted" style="font-size:12.5px">${r[1]} · em estoque</div></div><button class="btn ${i?'outline':'primary'}" style="height:44px"><span class="ic i-play s16"></span>Começar</button></div>`).join('')}
+    <button class="btn outline" style="height:44px;width:100%;margin-top:6px"><span class="ic i-plus s16"></span>Só pôr na lista</button></div>`;
+  document.getElementById('montar-tablet').innerHTML=`<div class="tbar"><div><div class="eyebrow" style="font-size:9px">OS 1042 · Conjunto C-320</div><b style="font:800 16px Sora">Adicionar serviços</b></div><span class="chip t-wait" style="margin-left:auto"><span class="ic i-wifi s14"></span>Sem sinal · 1 pendente</span><span class="ib" style="width:40px;height:40px"><span class="ic i-x s16"></span></span></div>
+    <div class="setplan" style="padding:12px;gap:10px">${V.map((v,i)=>vcol(v,{badges:B[i],big:true,...(i===1?{focus:['a3Lo'],pop,act:true}:{})})).join('')}</div>
+    <div class="tfoot"><span style="flex:1;font-size:13px"><b>Ana</b> · <span class="muted">1 serviço pendente de envio</span></span><button class="btn outline" style="height:44px">Ver lista</button></div>`;
+  document.getElementById('montar-phone').innerHTML=`<div style="padding:14px 14px 8px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))"><div class="eyebrow">OS 1042 · Conjunto C-320</div><div style="display:flex;align-items:center"><b style="font:800 18px Sora;flex:1">Adicionar serviços</b><span class="ib"><span class="ic i-x s14"></span></span></div><div class="input" style="height:40px;margin-top:8px"><span class="ic i-search s16 muted"></span><input type="search" autocomplete="off" placeholder="Buscar serviço"></div></div>
+    <div style="flex:1;overflow:hidden;padding:10px;display:flex;flex-direction:column;gap:10px">${V.slice(0,2).map((v,i)=>vcol(v,{badges:{0:{a2Lo:'1'},1:{a2Lo:'chk'}}[i],...(i===1?{sel:new Set(['a3Lo'])}:{})})).join('')}</div>
+    <div style="padding:10px 12px;border-top:1px solid hsl(var(--border));background:hsl(var(--toolbar));display:flex;align-items:center;gap:10px"><span style="flex:1;font-size:12.5px"><b>3 serviços em 2 veículos</b><br><span class="muted">5 peças do kit</span></span><button class="btn primary" style="height:44px">Revisar e criar</button></div>`;
+  document.getElementById('montar-phone2').innerHTML=`<div style="position:absolute;inset:0;background:hsl(240 10% 4%/.35)"></div><div class="sheet"><div style="width:40px;height:4px;border-radius:9px;background:hsl(var(--border));margin:8px auto 0"></div><div class="dh" style="padding:10px 14px 6px"><div class="t"><div class="eyebrow">OS 1042 · Conjunto C-320</div><h3 style="font-size:18px">Lista · 3 serviços</h3></div>${X}</div><div class="db" style="padding:4px 12px 12px;gap:8px">${[['cat',{}],['lona',{}],['pneu',{}]].map(([k,lo],i)=>lineCard(LN[k],i+1,lo)).join('')}</div><div style="padding:10px 14px;border-top:1px solid hsl(var(--border));background:hsl(var(--toolbar))"><div style="font-size:12.5px;margin-bottom:8px"><b>3 serviços em 2 veículos</b> · 5 peças do kit, <span style="color:hsl(var(--danger-text));font-weight:600">1 em falta</span></div><div style="display:flex;gap:8px"><button class="btn outline" style="flex:1;height:44px">Voltar à planta</button><button class="btn primary" style="flex:1;height:44px">Criar 3 serviços</button></div></div></div>`;
+}
+
 function phones(){
   document.getElementById('phone-1').innerHTML=`<div style="padding:16px 16px 10px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))"><div class="eyebrow">OS 1042 · Box 3</div><div style="font:800 19px Sora">Conjunto C-320</div><div class="muted" style="font-size:12.5px">1 de 3 prontas · há 2 dias</div></div>
     <div style="padding:12px;display:flex;flex-direction:column;gap:8px">${FRONTS.map((f,i)=>frontCard(f,i===0,'')).join('')}</div>
@@ -662,7 +881,7 @@ function phones(){
     <div style="padding:12px"><button class="btn outline" style="width:100%"><span class="ic i-plus s14"></span>Adicionar serviço</button></div>`;
 }
 
-const TARGET={svclinha:'svclinha-pane',tipo:'tipo-body',lista:'lista-pane',alvo:'alvo-dialog',entrada:'entrada-dialog',detalhe:'detalhe-pane',servico:'servico-dialog',adicionar:'adicionar-dialog',sai:'sai-dialog',transferir:'transferir-dialog',concluir:'concluir-dialog',engate:'engate-body'};
+const TARGET={montar:'montar-body',svclinha:'svclinha-pane',tipo:'tipo-body',lista:'lista-pane',alvo:'alvo-dialog',entrada:'entrada-dialog',detalhe:'detalhe-pane',servico:'servico-dialog',adicionar:'adicionar-dialog',sai:'sai-dialog',transferir:'transferir-dialog',concluir:'concluir-dialog',engate:'engate-body'};
 function draw(k,s){document.getElementById(TARGET[k]).innerHTML=R[k](s); if(k==='detalhe') document.getElementById('detalhe-bar').innerHTML=s==='loading'?'':detalheBar();}
 for(const k of Object.keys(TARGET)){const g=document.querySelector(`.states[data-for="${k}"]`); const first=g?(g.querySelector('button[aria-pressed=true]')||g.querySelector('button')).dataset.s:undefined; draw(k,first);
   if(g) g.querySelectorAll('button').forEach(b=>b.onclick=()=>{g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b)); draw(k,b.dataset.s);});}
@@ -670,6 +889,8 @@ phones();
 svcTouch();
 chkPreview();
 concluirPhone();
+montarTouch();
+document.querySelectorAll('#ver5 button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#ver5 button').forEach(x=>x.setAttribute('aria-pressed',x===b));document.getElementById('ver5-new').hidden=b.dataset.v!=='new';document.getElementById('ver5-old').hidden=b.dataset.v!=='old';});
 </script>
 </body>
 </html>
