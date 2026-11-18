@@ -338,6 +338,17 @@ R.abrir=s=>{
   const foot=ok?`<b>${single?'DLY1J07':`Conjunto C-320 · ${n} carretas`}</b> · Box 3`:`<span class="why0"><span class="ic i-info s14"></span>${pick?'Escolha o conjunto ou o veículo':s==='lower'?'Confira o km':'Informe o hodômetro de cubo'}</span>`;
   return `<div class="dh"><div class="t"><div class="eyebrow">Ordens de serviço</div><h3>Abrir OS</h3></div>${X}</div><div class="db">${what}${km}<div class="cols" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))"><div style="grid-column:1/-1">${prob}</div></div>${pick?'':box}</div><div class="df" style="flex-wrap:wrap"><span class="grow" style="min-width:220px;color:hsl(var(--foreground))">${foot}</span><div style="display:flex;gap:10px;margin-left:auto"><button class="btn outline">Cancelar</button><button class="btn primary" ${ok?'':'disabled'}>Abrir OS</button></div></div>`;
 };
+
+/* "Precisa de atenção": collapsed by default (one line), open on demand; the choice is kept per viewer in browser storage */
+function attnBar(items,open,phone){
+  const crit=items.some(i=>i.tone==='danger');
+  const preview=items.slice(0,2).map((i,k)=>k?i.title.charAt(0).toLowerCase()+i.title.slice(1):i.title).join(' · ')+(items.length>2?` · +${items.length-2}`:'');
+  const head=`<button type="button" class="attnbar ${open?'open':''}" aria-expanded="${open}"><span class="ic i-tri s16"></span><b>Precisa de atenção</b><span class="cnt ${crit?'crit':''}">${items.length}</span>${open?'':`<span class="pv" title="${preview}">${preview}</span>`}<span style="flex:1"></span><span class="tg">${open?'Recolher':'Ver'}<span class="ic i-chev-r s14"></span></span></button>`;
+  if(!open) return `<div class="attn2">${head}</div>`;
+  const list=phone?`<div style="display:flex;flex-direction:column;gap:6px;padding:0 8px 8px">${items.map(a=>`<button type="button" class="arow">${tt(a.tone,a.icon)}<span class="t"><b class="clamp2">${a.title}</b><span>${a.sub}</span></span><span class="ic i-chev-r s16"></span></button>`).join('')}</div>`
+    :`<div class="alist" style="padding:0 10px 10px">${items.map(a=>`<div class="aitem">${tt(a.tone,a.icon)}<div style="flex:1;min-width:0"><b class="trunc" title="${a.title}">${a.title}</b><div class="muted trunc" style="font-size:12px" title="${a.sub}">${a.sub}</div></div><button class="btn outline sm">${a.action}</button></div>`).join('')}</div>`;
+  return `<div class="attn2 open">${head}${list}</div>`;
+}
 /* ===== 3 detalhe ===== */
 function vcard(v,o={}){const [c,l,tone]=VST[v.st];
   let now;
@@ -357,7 +368,7 @@ R.detalhe2=s=>{
     <div class="hact"><button class="btn primary"><span class="ic i-plus s16"></span>Adicionar serviços</button><button class="btn outline"><span class="ic i-truck s16"></span>Adicionar veículo</button><button class="btn outline" title="Falta 2 veículos ficarem prontos" disabled><span class="ic i-flag s16"></span>Concluir OS</button><button class="ib2" title="Mais ações da OS" aria-label="Mais ações da OS"><span class="ic i-dots s16"></span></button></div></div>`;
   const att=[['danger','i-clock','RTE1J77 parado sem ninguém','há 2 d 8 h','Escolher mecânico'],['warning','i-box','Esperando mola de retorno','RTE1J77 · pedido há 3 h','Ver pedido'],['warning','i-person','2 serviços sem mecânico','Regulagem de catraca, troca de cuíca','Escolher'],['warning','i-warn','1 falha do checklist sem decisão','CK-0041 · RTE1J77, eixo 2','Decidir']];
   if(s==='left') att.unshift(['warning','i-swap','SRK9H46 saiu do conjunto','hoje 10:20 · agora no C-118','Decidir']);
-  const attn=`<div class="attn"><div class="ahd"><span class="ic i-warn s16"></span><b>Precisa de atenção</b><span class="num chip t-wait sm">${att.length}</span></div><div class="alist">${att.map(a=>`<div class="aitem">${tt(a[0],a[1])}<div style="flex:1;min-width:0"><b class="trunc" title="${a[2]}">${a[2]}</b><div class="muted trunc" style="font-size:12px" title="${a[3]}">${a[3]}</div></div><button class="btn outline sm">${a[4]}</button></div>`).join('')}</div></div>`;
+  const attn=attnBar(att.map(a=>({tone:a[0],icon:a[1],title:a[2],sub:a[3],action:a[4]})),s==='attnOpen',false);
   const only=s==='filtered'?'RTF6K38':null;
   const vs=OSV.map(v=>vcard(v,{on:only===v.plate,nocost,note:s==='left'&&v.plate==='SRK9H46'?'Saiu do conjunto às 10:20':''})).join('');
   const all=`<div class="vcard all ${only?'':'on'}"><div class="vch">${ring(2,6,42)}<div style="flex:1"><b style="font-family:Sora">Todos</b><div class="muted" style="font-size:12px">6 serviços · 2 feitos</div></div></div></div>`;
@@ -463,7 +474,7 @@ function detalhePhone(s){
     <div class="kpis">${kp('1 de 3','prontos')}${kp('2d 8h','na oficina')}${s==='noperm'?kp('2','sem mecânico','warning-ink'):kp('R$ 1.730','custo')}</div></div>`;
   const att=[['danger','i-clock','RTE1J77 parado sem ninguém','há 2d 8h'],['warning','i-box','Esperando mola de retorno','RTE1J77 · pedido há 3 h']];
   if(s==='left') att.unshift(['warning','i-swap','SRK9H46 saiu do conjunto','hoje 10:20 · agora no C-118']);
-  const attn=`<div class="attn" style="margin:0;padding:10px"><div class="ahd" style="margin-bottom:6px"><span class="ic i-warn s16"></span><b>Precisa de atenção</b><span class="chip t-wait sm num">${att.length+2}</span></div><div style="display:flex;flex-direction:column;gap:6px">${att.map(a=>`<button type="button" class="arow">${tt(a[0],a[1])}<span class="t"><b class="clamp2">${a[2]}</b><span>${a[3]}</span></span><span class="ic i-chev-r s16"></span></button>`).join('')}<button type="button" class="arow more">Ver mais 2<span class="ic i-chev-r s16"></span></button></div></div>`;
+  const attn=attnBar(att.map(a=>({tone:a[0],icon:a[1],title:a[2],sub:a[3]})).concat([{tone:'warning',icon:'i-person',title:'2 serviços sem mecânico',sub:'Regulagem de catraca, troca de cuíca'},{tone:'warning',icon:'i-warn',title:'1 falha do checklist sem decisão',sub:'CK-0041 · RTE1J77, eixo 2'}]),s==='attnOpen',true);
   const only=s==='filtered'?'RTF6K38':null;
   const strip=`<div class="sech"><b>Veículos</b><span>3</span></div><div class="peek">${OSV.map(v=>vcard(v,{on:only===v.plate,nocost:s==='noperm'})).join('')}</div>`;
   const groups=OSV.filter(v=>!only||v.plate===only).map(v=>{const [c,l]=VST[v.st];return `<div class="pcard" style="overflow:clip"><div class="ghd2"><span class="pos">${v.pos}</span><b class="plate">${v.plate}</b><span class="chip ${c} sm">${l}</span><span style="flex:1"></span><span class="muted num" style="font-size:12px">${v.done}/${v.total}</span><button class="ib2 ghost" aria-label="Ações do veículo" title="Ações do veículo"><span class="ic i-dots s16"></span></button></div>${SVC2[v.plate].map(prow).join('')}</div>`;}).join('');
@@ -533,3 +544,7 @@ RR.mec=(s,d)=>{
 
 /* ---------- boot ---------- */
 FX.bind({lista:RR.lista,abrir:RR.abrir,detalhe:RR.detalhe,montar:RR.montar,linha:RR.linha,tipo:RR.tipo,chk:RR.chk,adicionar:RR.adicionar,sai:RR.sai,transf:RR.transf,concluir:RR.concluir,engate:RR.engate,mec:RR.mec});
+/* the bar toggles; the choice is kept per viewer, like any collapsed section */
+document.addEventListener('click',e=>{const bar=e.target.closest('.attnbar');if(!bar)return;const open=!bar.classList.contains('open');
+  try{localStorage.setItem('truck.os.attention.open',open?'1':'0');}catch(err){}
+  const b=document.querySelector(`#detalhe .states button[data-s="${open?'attnOpen':'ok'}"]`);if(b)b.click();});

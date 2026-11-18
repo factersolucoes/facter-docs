@@ -404,3 +404,16 @@ kbd{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 
 .kpi2 .v{white-space:nowrap;font-size:16px}
 .clamp2,.arow .t b,.sm2 .sn,.qcard .t>b,.nextcard b,.runcard2 b,.vnow,.lnote,.aitem b,.sech b,.l3,.hero p,.hero h2{text-wrap:balance}
 .why,.hint,.muted{text-wrap:pretty}
+
+/* attention bar, round 7 */
+.i-tri{--i:url(https://api.iconify.design/ph/warning.svg)}
+.attn2{border-radius:14px;background:hsl(var(--warning-soft)/.7);border:1px solid hsl(var(--warning)/.25);overflow:hidden}
+.attnbar{display:flex;align-items:center;gap:10px;width:100%;min-height:44px;padding:0 12px;border:0;background:none;font:inherit;color:hsl(var(--foreground));text-align:left;cursor:pointer}
+.attnbar>.i-tri{color:hsl(var(--warning-ink))}
+.attnbar b{font-weight:600;white-space:nowrap}
+.attnbar .cnt{display:inline-grid;place-items:center;min-width:22px;height:20px;padding:0 6px;border-radius:99px;background:hsl(var(--warning)/.18);color:hsl(var(--warning-ink));font:700 11.5px Inter;font-variant-numeric:tabular-nums}
+.attnbar .cnt.crit{background:hsl(var(--danger-soft));color:hsl(var(--danger-ink))}
+.attnbar .pv{min-width:0;flex:0 1 auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;color:hsl(var(--muted-foreground))}
+.attnbar .tg{display:inline-flex;align-items:center;gap:4px;flex:none;font-size:13px;font-weight:600;color:hsl(var(--warning-ink))}
+.attnbar .tg .ic{transition:transform .2s ease-out}.attnbar.open .tg .ic{transform:rotate(90deg)}
+@container fx (max-width:440px){.attnbar .pv{display:none}}
