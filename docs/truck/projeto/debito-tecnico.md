@@ -32,7 +32,6 @@ A OS por conjunto (uma frente por veículo, [análise](../produto/propostas/os-p
 | Ações disponíveis por frente | A tela decide pelas permissões e pelo estado; a regra devia vir da API | detalhe da OS |
 | Tempo parado e custo por frente | O cartão da frente mostra só a mão de obra somada na tela | agregação por frente |
 | Aviso de conjunto desfeito e de veículo que saiu do conjunto com a OS aberta | O detalhe não avisa | porta de assets + detalhe |
-| Busca da fila pelo código do conjunto | Hoje acha pela placa ou frota de qualquer frente | lista de OS |
 | Eixo e lado no serviço, transferir frente entre OS, km no engate e telemetria | Fora desta entrega, de propósito | próximas fatias |
 
 ## Inspeções — o que a lista em cartões deixou de fora (09/11/2026)
