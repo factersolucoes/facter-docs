@@ -417,3 +417,16 @@ kbd{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 
 .attnbar .tg{display:inline-flex;align-items:center;gap:4px;flex:none;font-size:13px;font-weight:600;color:hsl(var(--warning-ink))}
 .attnbar .tg .ic{transition:transform .2s ease-out}.attnbar.open .tg .ic{transform:rotate(90deg)}
 @container fx (max-width:440px){.attnbar .pv{display:none}}
+
+/* expanded attention: a normal card whose header carries the warning tone; rows separated by dividers */
+.attn2.open{background:hsl(var(--card));border:1px solid hsl(var(--border));box-shadow:var(--shadow-card)}
+.attn2.open .attnbar{background:hsl(var(--warning-soft)/.7);border-bottom:1px solid hsl(var(--warning)/.2)}
+.agrid{display:grid;grid-template-columns:1fr 1fr}
+.agrid .arow2{border-top:1px solid hsl(var(--border))}.agrid .arow2:nth-child(-n+2){border-top:0}
+.agrid .arow2:nth-child(odd){border-right:1px solid hsl(var(--border))}
+.arow2{display:flex;align-items:center;gap:12px;min-width:0;min-height:60px;padding:10px 14px;background:none;border:0;font:inherit;color:inherit;text-align:left;width:100%}
+.arow2 .t{flex:1;min-width:0;display:flex;flex-direction:column}.arow2 .t b{font-size:14px;font-weight:600;line-height:1.3}.arow2 .t>span{font-size:12px;color:hsl(var(--muted-foreground))}
+.arow2>.ic{color:hsl(var(--muted-foreground))}
+.arows .arow2+.arow2{border-top:1px solid hsl(var(--border))}
+@container fx (max-width:900px){.agrid{grid-template-columns:1fr}.agrid .arow2{border-right:0!important;border-top:1px solid hsl(var(--border))}.agrid .arow2:first-child{border-top:0}}
+@container fx (max-width:900px){.agrid .arow2:nth-child(2){border-top:1px solid hsl(var(--border))}}

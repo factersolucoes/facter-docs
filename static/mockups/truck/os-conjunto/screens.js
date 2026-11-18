@@ -345,8 +345,8 @@ function attnBar(items,open,phone){
   const preview=items.slice(0,2).map((i,k)=>k?i.title.charAt(0).toLowerCase()+i.title.slice(1):i.title).join(' · ')+(items.length>2?` · +${items.length-2}`:'');
   const head=`<button type="button" class="attnbar ${open?'open':''}" aria-expanded="${open}"><span class="ic i-tri s16"></span><b>Precisa de atenção</b><span class="cnt ${crit?'crit':''}">${items.length}</span>${open?'':`<span class="pv" title="${preview}">${preview}</span>`}<span style="flex:1"></span><span class="tg">${open?'Recolher':'Ver'}<span class="ic i-chev-r s14"></span></span></button>`;
   if(!open) return `<div class="attn2">${head}</div>`;
-  const list=phone?`<div style="display:flex;flex-direction:column;gap:6px;padding:0 8px 8px">${items.map(a=>`<button type="button" class="arow">${tt(a.tone,a.icon)}<span class="t"><b class="clamp2">${a.title}</b><span>${a.sub}</span></span><span class="ic i-chev-r s16"></span></button>`).join('')}</div>`
-    :`<div class="alist" style="padding:0 10px 10px">${items.map(a=>`<div class="aitem">${tt(a.tone,a.icon)}<div style="flex:1;min-width:0"><b class="trunc" title="${a.title}">${a.title}</b><div class="muted trunc" style="font-size:12px" title="${a.sub}">${a.sub}</div></div><button class="btn outline sm">${a.action}</button></div>`).join('')}</div>`;
+  const list=phone?`<div class="arows">${items.map(a=>`<button type="button" class="arow2">${tt(a.tone,a.icon)}<span class="t"><b class="clamp2">${a.title}</b><span>${a.sub}</span></span><span class="ic i-chev-r s16"></span></button>`).join('')}</div>`
+    :`<div class="agrid">${items.map(a=>`<div class="arow2">${tt(a.tone,a.icon)}<span class="t"><b class="trunc" title="${a.title}">${a.title}</b><span class="trunc" title="${a.sub}">${a.sub}</span></span><button class="btn outline sm">${a.action}</button></div>`).join('')}</div>`;
   return `<div class="attn2 open">${head}${list}</div>`;
 }
 /* ===== 3 detalhe ===== */
