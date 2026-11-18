@@ -210,7 +210,9 @@ section.sc{margin-top:56px}
 .bdot::after{content:"1"}.bdot.w{background:hsl(var(--warning))}.bdot.w::after{content:""}
 .hintbar{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:0 20px 12px;padding:9px 12px;border-radius:12px;background:hsl(var(--primary-soft));color:hsl(var(--primary));font-size:13px}
 .hintbar b{color:hsl(var(--foreground))}
-.wsgrid{display:flex;flex-wrap:wrap;gap:14px;padding:0 20px 16px;align-items:flex-start;min-height:560px}
+.wsgrid{display:flex;flex-wrap:wrap;gap:14px;padding:0 20px 16px;align-items:flex-start}
+.setplan{position:sticky;top:12px;align-self:flex-start}
+.setplan .legend{flex-basis:100%;padding:2px 4px;color:hsl(var(--muted-foreground))}
 .setplan{flex:3 1 560px;min-width:0;display:flex;flex-wrap:wrap;gap:10px;padding-bottom:4px}
 .veh{flex:1 0 180px;min-width:0;border:1px solid hsl(var(--border));border-radius:16px;background:hsl(var(--background));display:flex;flex-direction:column}
 .veh.act{border-color:hsl(var(--foreground)/.35)}
@@ -228,7 +230,8 @@ section.sc{margin-top:56px}
 .sug{display:flex;gap:10px;align-items:center;padding:7px 8px;border-radius:10px;cursor:pointer}.sug:hover,.sug.hl{background:hsl(var(--muted)/.7)}
 .sug.big{padding:8px;border:1px solid hsl(var(--border));margin-top:6px}
 .rw{display:flex;gap:8px;align-items:flex-start;margin-top:8px;padding:9px 10px;border-radius:10px;background:hsl(var(--warning-soft));color:hsl(var(--warning-text))}
-.lpanel{flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:8px}
+.lpanel{flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:8px}
+@media (min-width:1200px){.lpanel{max-width:380px}}
 .lphd{display:flex;align-items:center;min-height:26px}
 .line{border:1px solid hsl(var(--border));border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;background:hsl(var(--card));box-shadow:0 1px 2px hsl(233 30% 20%/.05)}
 .line.new{box-shadow:0 0 0 3px hsl(var(--primary)/.12);border-color:hsl(var(--primary)/.5)}
@@ -264,6 +267,110 @@ kbd{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 
 .tablet-l{width:1000px;max-width:100%;height:660px;border-radius:30px;padding:14px;background:#111;box-shadow:0 24px 60px -30px hsl(233 40% 20%/.6)}
 .tbar{display:flex;align-items:center;gap:12px;padding:10px 16px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
 .tfoot{margin-top:auto;display:flex;align-items:center;gap:12px;padding:10px 16px;border-top:1px solid hsl(var(--border));background:hsl(var(--toolbar))}
+/* ===== round 3 visual language ===== */
+.i-disc{--i:url(https://api.iconify.design/ph/disc.svg)}.i-drop{--i:url(https://api.iconify.design/ph/drop.svg)}.i-bolt{--i:url(https://api.iconify.design/ph/lightning.svg)}
+.i-person{--i:url(https://api.iconify.design/ph/user.svg)}.i-timer{--i:url(https://api.iconify.design/ph/timer.svg)}.i-list{--i:url(https://api.iconify.design/ph/list-checks.svg)}
+.num{font-variant-numeric:tabular-nums}
+.req{color:hsl(var(--danger-text))}
+.trunc{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}
+.card{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;box-shadow:0 1px 2px hsl(233 30% 20%/.05),0 12px 32px -16px hsl(233 40% 25%/.25)}
+.tt{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;flex:none}
+.tt.lg{width:44px;height:44px;border-radius:12px}.tt.xl{width:52px;height:52px;border-radius:14px}.tt.xl .ic{width:24px;height:24px}
+.tt.primary{background:hsl(var(--primary-soft));color:hsl(var(--primary))}.tt.success{background:hsl(var(--success-soft));color:hsl(var(--success-text))}
+.tt.warning{background:hsl(var(--warning-soft));color:hsl(var(--warning-text))}.tt.danger{background:hsl(var(--danger-soft));color:hsl(var(--danger-text))}
+.tt.muted{background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.av{width:26px;height:26px;border-radius:99px;display:inline-grid;place-items:center;font:700 10px Inter;background:hsl(var(--muted));color:hsl(var(--foreground)/.75);flex:none}
+.av.on{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+.av.dash{background:none;border:1.5px dashed hsl(var(--border));color:hsl(var(--muted-foreground))}
+.avs{display:inline-flex}.avs .av+.av{margin-left:-7px;box-shadow:0 0 0 2px hsl(var(--card))}
+.ring{position:relative;display:inline-grid;place-items:center;flex:none}.ring svg{position:absolute;inset:0}.ring b{font:700 11px Sora;font-variant-numeric:tabular-nums}
+.cbar{display:inline-flex;gap:3px;align-items:center}.cbar i{display:block;width:16px;height:7px;border-radius:3px;background:hsl(var(--foreground)/.2)}
+.cbar i.work{background:hsl(var(--primary))}.cbar i.wait{background:hsl(var(--warning))}.cbar i.done{background:hsl(var(--success))}.cbar i.out{background:none;outline:1px dashed hsl(var(--foreground)/.35)}
+.chip.sm{height:20px;font-size:11px;padding:0 7px}
+.btn.soft{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+.btn.sm{height:32px;padding:0 11px;font-size:12.5px;border-radius:9px}
+.ib2{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:9px;border:1px solid hsl(var(--border));background:hsl(var(--card));color:hsl(var(--foreground)/.75);cursor:pointer;flex:none}
+.ib2.ghost{border-color:transparent;background:none;color:hsl(var(--muted-foreground))}
+.mi2{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;white-space:nowrap}
+.mi2.warn{color:hsl(var(--warning-text));font-weight:600}.mi2.run{color:hsl(var(--primary));font-weight:700}
+.mi2.st{font-weight:600}.mi2.st.primary{color:hsl(var(--primary))}.mi2.st.warning{color:hsl(var(--warning-text))}.mi2.st.success{color:hsl(var(--success-text))}.mi2.st.muted{color:hsl(var(--muted-foreground))}
+.bchip{display:inline-flex;align-items:center;gap:5px;max-width:100%;height:24px;padding:0 9px;border-radius:99px;font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;align-self:flex-start}
+.bchip.warning{background:hsl(var(--warning-soft));color:hsl(var(--warning-text))}.bchip.danger{background:hsl(var(--danger-soft));color:hsl(var(--danger-text))}
+/* list */
+.phead{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin-bottom:14px}
+.phead h1{font:800 26px Sora;letter-spacing:-.01em}
+.ltabs{display:flex;gap:18px;margin-bottom:12px;border-bottom:1px solid hsl(var(--border))}
+.ltabs a{padding:8px 2px;font-weight:600;color:hsl(var(--muted-foreground));border-bottom:2px solid transparent;margin-bottom:-1px;cursor:pointer}
+.ltabs a[aria-current]{color:hsl(var(--foreground));border-color:hsl(var(--primary))}
+.ltabs .n{font-size:12px;color:hsl(var(--muted-foreground))}
+.ltool{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:12px 16px;border-bottom:1px solid hsl(var(--border))}
+.fchips{display:flex;flex-wrap:wrap;gap:6px}
+.fchip{display:inline-flex;align-items:center;gap:5px;height:30px;padding:0 11px;border-radius:99px;border:1px solid hsl(var(--border));background:hsl(var(--card));font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.fchip.gen{color:hsl(var(--muted-foreground))}.fchip.on{background:hsl(var(--muted));border-color:hsl(var(--foreground)/.35);color:hsl(var(--foreground))}
+.fchip.clear{border:0;color:hsl(var(--primary))}
+.lrow3{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1.4fr) minmax(0,1fr) minmax(0,1.3fr) 110px;gap:14px;align-items:center;padding:12px 16px;border-top:1px solid hsl(var(--border))}
+.lrow3:hover{background:hsl(var(--muted)/.35)}
+.lrow3.lh{background:hsl(var(--toolbar));border-top:0;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground));padding:9px 16px}
+.lrow3 .c1{display:flex;gap:10px;align-items:center;min-width:0}.lrow3 .c3{display:flex;gap:10px;align-items:center;min-width:0}
+/* abrir */
+.setcard{display:flex;gap:12px;align-items:center;padding:12px;border:1px solid hsl(var(--border));border-radius:14px;background:hsl(var(--background))}
+.utiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
+.utile{display:flex;flex-direction:column;gap:1px;padding:8px 10px;border:1px solid hsl(var(--border));border-radius:12px;background:hsl(var(--card));position:relative;min-width:0;cursor:pointer}
+.utile.row{flex-direction:row;gap:10px;align-items:center}
+.utile .pos{font:600 10.5px Inter;color:hsl(var(--muted-foreground))}
+.utile.lock{background:hsl(var(--warning-soft)/.6);border-color:hsl(var(--warning)/.5)}.utile.off{opacity:.55}
+.utile.sel{border-color:hsl(var(--primary));box-shadow:0 0 0 3px hsl(var(--primary)/.15)}
+.cb{position:absolute;right:8px;top:8px;width:16px;height:16px;border-radius:5px;border:1.5px solid hsl(var(--border))}.cb.on{background:hsl(var(--primary));border-color:hsl(var(--primary))}
+.kmrow{display:flex;flex-wrap:wrap;gap:8px 12px}
+/* detalhe */
+.dpad{padding:16px 18px;display:flex;flex-direction:column;gap:14px}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px 18px;padding:18px 20px}
+.hero .hl{display:flex;gap:14px;min-width:0}.hero h2{font:800 24px Sora;margin:6px 0 2px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.hero .hr{display:flex;gap:8px;align-self:start}
+.kpi{min-width:110px;padding:10px 12px;border-radius:12px;background:hsl(var(--background));border:1px solid hsl(var(--border))}.kpi .v{font:800 19px Sora;margin-top:2px}
+.hact{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;padding-top:12px;border-top:1px solid hsl(var(--border))}
+.attn{border-radius:16px;background:hsl(var(--warning-soft)/.55);border:1px solid hsl(var(--warning)/.25);padding:10px 12px}
+.ahd{display:flex;gap:8px;align-items:center;color:hsl(var(--warning-text));margin-bottom:8px}.ahd b{color:hsl(var(--foreground))}
+.alist{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:8px}
+.top .tt{white-space:nowrap}
+.aitem{display:flex;gap:10px;align-items:center;padding:8px 10px;border-radius:12px;background:hsl(var(--card));box-shadow:0 1px 2px hsl(233 30% 20%/.06);min-width:0}
+.dgrid{display:grid;grid-template-columns:290px minmax(0,1fr);gap:14px;align-items:start}
+.vcol{display:flex;flex-direction:column;gap:8px;position:sticky;top:8px}
+.vcard{display:flex;flex-direction:column;gap:8px;padding:10px 12px;border:1px solid hsl(var(--border));border-radius:14px;background:hsl(var(--card));box-shadow:0 1px 2px hsl(233 30% 20%/.05);cursor:pointer}
+.vcard.on{background:hsl(var(--muted)/.7);border-color:hsl(var(--foreground)/.3)}
+.vcard.dim{opacity:.6}
+.vch{display:flex;gap:10px;align-items:center}.vch .pos{font:600 10.5px Inter;color:hsl(var(--muted-foreground))}
+.vnow{display:flex;gap:8px;align-items:center;font-size:12.5px;padding:6px 8px;border-radius:10px;background:hsl(var(--primary-soft)/.6);min-width:0}
+.vnow .run{color:hsl(var(--primary));font-weight:700}
+.vnow.warn{background:hsl(var(--warning-soft));color:hsl(var(--warning-text))}.vnow.ok{background:hsl(var(--success-soft));color:hsl(var(--success-text))}
+.vfoot{display:flex;justify-content:space-between;font-size:12.5px}
+.lhd2{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px 14px;border-bottom:1px solid hsl(var(--border))}
+.fbar{display:flex;gap:6px;align-items:center;margin-left:auto}
+.grp+.grp{border-top:6px solid hsl(var(--background))}
+.ghd{position:sticky;top:0;z-index:2;display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;padding:9px 14px;background:hsl(var(--toolbar));border-bottom:1px solid hsl(var(--border))}
+.ghd .pos{font:600 10.5px Inter;color:hsl(var(--muted-foreground))}
+.gprog{display:inline-flex;gap:8px;align-items:center;margin-left:auto;font-size:12px;color:hsl(var(--muted-foreground))}
+.gprog .bar{width:80px;height:6px;border-radius:99px;background:hsl(var(--muted));overflow:hidden}.gprog .bar i{display:block;height:100%;background:hsl(var(--primary));border-radius:99px}
+.srow2{display:flex;gap:12px;align-items:center;padding:10px 14px;border-top:1px solid hsl(var(--border));position:relative}
+.ghd+.srow2{border-top:0}
+.srow2.done .sn{color:hsl(var(--foreground)/.7)}
+.sm2{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.sm2 .l1{display:flex;gap:6px;align-items:center;min-width:0;flex-wrap:wrap}.sm2 .sn{font-weight:600;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sm2 .l2{display:flex;gap:4px 14px;align-items:center;flex-wrap:wrap}
+.sa{display:flex;gap:6px;align-items:center;flex:none}
+.sm2 .loc{max-width:260px}
+/* transferir / engate */
+.tcols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.tcol{display:flex;flex-direction:column;gap:6px;padding:10px;border-radius:14px;background:hsl(var(--background));border:1px solid hsl(var(--border))}
+.titem{display:flex;gap:8px;align-items:center;font-size:13px;min-width:0}
+.hrow{display:grid;grid-template-columns:36px minmax(0,1.2fr) 1fr 1fr 90px;gap:12px;padding:12px 18px;border-top:1px solid hsl(var(--border));align-items:center}
+/* phone */
+.phd{padding:16px 16px 10px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
+.runcard{display:flex;flex-direction:column;gap:6px;padding:14px;border-radius:18px;background:hsl(var(--primary));color:#fff;box-shadow:0 18px 36px -18px hsl(var(--primary)/.8)}
+.runcard .big{font:800 40px Sora;letter-spacing:-.02em;line-height:1.1}
+.ptabs{display:flex;border-top:1px solid hsl(var(--border));background:hsl(var(--card))}
+.ptabs span{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0 10px;font-size:11px;font-weight:600;color:hsl(var(--muted-foreground))}.ptabs span.on{color:hsl(var(--primary))}
+@media (max-width:1100px){.dgrid{grid-template-columns:1fr}.vcol{position:static;display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr))}.hero{grid-template-columns:1fr}.lrow3{grid-template-columns:minmax(0,1.4fr) minmax(0,1.2fr) minmax(0,1fr) minmax(0,1.2fr) 90px}}
 .tablet{width:600px;max-width:100%;height:900px;border-radius:30px;padding:14px;background:#111;box-shadow:0 24px 60px -30px hsl(233 40% 20%/.6)}
 </style>
 </head>
@@ -271,49 +378,57 @@ kbd{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 
 <div class="page">
   <div class="lead">
     <h1>OS por conjunto · telas e estados</h1>
-    <p>O caminho <b>F</b> da <a href="/docs/truck/produto/propostas/os-por-conjunto">análise</a>: <b>uma OS para o conjunto</b>, com <b>uma frente por reboque</b>. Cada frente tem status, serviços, trava e custo próprios; o cavalo fica fora (OS própria) e o km dos reboques vem do km do cavalo nos engates. O exemplo: conjunto <b>C-320</b> (rodotrem, 3 reboques) deixado no box 3 pelo cavalo QRT4B22, que foi embora. Os botões cinza acima de cada tela trocam o estado. Etiqueta tracejada roxa = anotação do mockup.</p>
+    <p>O caminho <b>F</b> da <a href="/docs/truck/produto/propostas/os-por-conjunto">análise</a>: <b>uma OS para o conjunto</b>, com cada carreta acompanhada por conta própria (estado, serviços, tempo parado e custo). Na tela, a palavra é <b>veículo</b>; "frente" fica só no código. O exemplo: conjunto <b>C-320</b> (rodotrem, 3 carretas) deixado no box 3 pelo cavalo QRT4B22. Os botões cinza acima de cada tela trocam o estado; "Depois / Antes" compara com a versão anterior. Etiqueta tracejada roxa = anotação do mockup.</p>
   </div>
-  <nav class="tabs">
-    <a href="#lista"><b>1</b> Lista de OS</a><a href="#alvo"><b>2</b> Abrir · o que entra</a><a href="#entrada"><b>3</b> Abrir · entrada e km</a>
-    <a href="#detalhe"><b>4</b> Detalhe · frentes</a><a href="#servico"><b>5</b> Adicionar serviços</a><a href="#servico-linha"><b>5a</b> Posição na linha</a><a href="#servico-tipo"><b>5b</b> Tipo pede posição</a><a href="#servico-checklist"><b>5c</b> Do checklist</a><a href="#adicionar"><b>6</b> Adicionar veículo</a>
-    <a href="#sai"><b>7</b> Reboque sai</a><a href="#transferir"><b>8</b> Transferir frente</a><a href="#concluir"><b>9</b> Concluir OS</a>
-    <a href="#engate"><b>10</b> Engate e desengate</a><a href="#celular"><b>11</b> Celular</a>
-  </nav>
+  <nav class="tabs"><a href="#lista"><b>1</b> Lista de OS</a><a href="#alvo"><b>2</b> Abrir OS</a><a href="#detalhe"><b>3</b> Detalhe</a><a href="#servico"><b>4</b> Adicionar serviços</a><a href="#servico-linha"><b>4a</b> Linha do serviço</a><a href="#servico-tipo"><b>4b</b> Tipo pede posição</a><a href="#servico-checklist"><b>4c</b> Do checklist</a><a href="#adicionar"><b>5</b> Adicionar veículo</a><a href="#sai"><b>6</b> Sai antes</a><a href="#transferir"><b>7</b> Transferir</a><a href="#concluir"><b>8</b> Concluir OS</a><a href="#engate"><b>9</b> Engate</a><a href="#celular"><b>10</b> Celular</a></nav>
 
   <section class="sc" id="lista"><h2><span class="tag">1</span>Lista de OS</h2>
+    <p class="why">Responde as duas perguntas do dia: <b>o que está parado e por quê</b>, e <b>quem está em cada OS</b>. Cabeçalho na própria página (decisão da lista). As abas trocam o contexto (abertas ou concluídas); os chips recortam por bloqueio, com a contagem. O andamento é um anel e uma linha só; o detalhe de cada veículo fica no tooltip.</p>
+    <div class="vtoggle" data-sec><button data-v="new" aria-pressed="true">Depois</button><button data-v="old" aria-pressed="false">Antes</button></div>
+    <div class="ver-new"><div class="states" data-for="lista2"><button data-s="ok" aria-pressed="true">Com dados</button><button data-s="filter" aria-pressed="false">Filtro: esperando peça</button><button data-s="loading" aria-pressed="false">Carregando</button><button data-s="empty" aria-pressed="false">Vazia</button><button data-s="nofound" aria-pressed="false">Busca sem resultado</button><button data-s="error" aria-pressed="false">Erro</button></div><div class="app"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav"></span><span class="nav on"></span><span class="nav"></span></nav><div class="main"><header class="top"><span class="sp"></span></header><div class="body dots" style="min-height:600px"><div id="lista2-body"></div></div></div></div></div>
+    <div class="ver-old" hidden>
     <p class="why">Uma linha por OS. A OS de conjunto mostra o <b>código do conjunto</b>, a <b>composição desenhada</b> (um traço por reboque, na cor do estado da frente) e o <b>resumo das frentes</b>. OS de um veículo só continua como hoje.</p>
     <div class="states" data-for="lista"><button data-s="ok" aria-pressed="true">Com dados</button><button data-s="loading" aria-pressed="false">Carregando</button><button data-s="empty" aria-pressed="false">Vazia</button><button data-s="nofound" aria-pressed="false">Busca sem resultado</button><button data-s="error" aria-pressed="false">Erro</button></div>
     <div class="app"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav on"></span><span class="nav"></span><span class="nav"></span></nav>
       <div class="main"><header class="top"><div><div class="eb">Oficina</div><div class="tt">Ordens de serviço</div></div><span class="sp"></span></header>
       <div class="body"><div class="pane" id="lista-pane"></div></div></div></div>
+  </div>
   </section>
 
-  <section class="sc" id="alvo"><h2><span class="tag">2</span>Abrir OS · o que entra</h2>
+  <section class="sc" id="alvo"><h2><span class="tag">2</span>Abrir OS · uma tela</h2>
+    <p class="why">Abrir em menos de 60 s: <b>uma tela</b>, três campos obrigatórios (o que entra, km do cavalo que trouxe, problema) e o box já sugerido. O km vem preenchido pela telemetria e pode ser corrigido ali mesmo. Os casos especiais aparecem dentro da própria tela, sem passo extra.</p>
+    <div class="vtoggle" data-sec><button data-v="new" aria-pressed="true">Depois</button><button data-v="old" aria-pressed="false">Antes</button></div>
+    <div class="ver-new"><div class="states" data-for="abrir"><button data-s="pick" aria-pressed="false">Escolhendo</button><button data-s="set" aria-pressed="true">Conjunto escolhido</button><button data-s="typed" aria-pressed="false">Km digitado</button><button data-s="lower" aria-pressed="false">Km menor que o último</button><button data-s="external" aria-pressed="false">Cavalo de terceiro</button><button data-s="hub" aria-pressed="false">Carreta com hodômetro de cubo</button><button data-s="lock" aria-pressed="false">Carreta em outra OS</button><button data-s="disbanded" aria-pressed="false">Conjunto desfeito</button><button data-s="single" aria-pressed="false">Um veículo só</button></div><div class="app"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav"></span><span class="nav on"></span><span class="nav"></span></nav><div class="main"><header class="top"><span class="sp"></span></header><div class="body dots" style="min-height:780px"><div class="scrim" style="background:transparent;align-items:start"><div class="dialog" id="abrir-dialog" style="width:min(680px,100%);max-height:none"></div></div></div></div></div></div>
+    <div class="ver-old" hidden><h3 style="font:800 15px Sora;margin:10px 0 6px 38px">Antes · passo 1</h3>
     <p class="why">Primeiro passo do diálogo aprovado, antes do problema relatado. <b>O padrão é o conjunto</b>; um veículo só é a exceção, no link de baixo. A busca acha o conjunto por número ou pela placa de qualquer reboque. Ao escolher, mostra o que vai entrar (os reboques, na ordem) e avisa o que não pode entrar.</p>
     <div class="states" data-for="alvo"><button data-s="set" aria-pressed="true">Conjunto escolhido</button><button data-s="lock" aria-pressed="false">Reboque já em outra OS</button><button data-s="single" aria-pressed="false">Um veículo só</button><button data-s="disbanded" aria-pressed="false">Conjunto desfeito</button></div>
     <div class="app"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav on"></span><span class="nav"></span></nav>
       <div class="main"><header class="top"><div><div class="eb">Oficina</div><div class="tt">Ordens de serviço</div></div><span class="sp"></span></header>
       <div class="body dots" style="min-height:640px"><div class="scrim" style="background:transparent"><div class="dialog" id="alvo-dialog"></div></div></div></div></div>
-  </section>
-
-  <section class="sc" id="entrada"><h2><span class="tag">3</span>Abrir OS · entrada e km</h2>
+  <h3 style="font:800 15px Sora;margin:24px 0 6px 38px">Antes · passo 2</h3>
     <p class="why">A entrada do conjunto é um <b>desengate</b>: o km do cavalo que trouxe fecha o período dos reboques. O cavalo não entra na OS, mas a leitura dele é registrada. O campo vem preenchido pela telemetria ou pelo último km conhecido; reboque com hodômetro de cubo pede a leitura dele. Os passos aprovados (Problema → Triagem) seguem depois deste.</p>
     <div class="states" data-for="entrada"><button data-s="telemetry" aria-pressed="true">Km da telemetria</button><button data-s="typed" aria-pressed="false">Digitado</button><button data-s="lower" aria-pressed="false">Km menor que o último</button><button data-s="external" aria-pressed="false">Cavalo de terceiro</button><button data-s="hub" aria-pressed="false">Reboque com hodômetro de cubo</button></div>
     <div class="app"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav on"></span><span class="nav"></span></nav>
       <div class="main"><header class="top"><div><div class="eb">Oficina</div><div class="tt">Ordens de serviço</div></div><span class="sp"></span></header>
       <div class="body dots" style="min-height:640px"><div class="scrim" style="background:transparent"><div class="dialog" id="entrada-dialog"></div></div></div></div></div>
+  </div>
   </section>
 
-  <section class="sc" id="detalhe"><h2><span class="tag">4</span>Detalhe da OS · frentes</h2>
+  <section class="sc" id="detalhe"><h2><span class="tag">3</span>Detalhe da OS</h2>
+    <p class="why">A tela mais usada. No topo, o conjunto, os números da OS e as ações da OS. Logo abaixo, <b>Precisa de atenção</b>: o que está travando, com a ação de um toque. À esquerda, um cartão por veículo (andamento, quem está agora, o bloqueio, tempo parado); à direita, todos os serviços agrupados por veículo, com o cabeçalho do veículo fixo ao rolar. Tocar num cartão filtra a lista, e o filtro aparece com "Ver todos". As ações de cada veículo ficam no menu dele.</p>
+    <div class="vtoggle" data-sec><button data-v="new" aria-pressed="true">Depois</button><button data-v="old" aria-pressed="false">Antes</button></div>
+    <div class="ver-new"><div class="states" data-for="detalhe2"><button data-s="ok" aria-pressed="true">Todos os veículos</button><button data-s="filtered" aria-pressed="false">Filtrado por um veículo</button><button data-s="menu" aria-pressed="false">Menu do veículo</button><button data-s="left" aria-pressed="false">Carreta saiu do conjunto</button><button data-s="disbanded" aria-pressed="false">Conjunto desfeito</button><button data-s="noperm" aria-pressed="false">Sem permissão de custo</button><button data-s="loading" aria-pressed="false">Carregando</button></div><div class="app"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav"></span><span class="nav on"></span><span class="nav"></span></nav><div class="main"><header class="top"><div><div class="eb">Ordens de serviço</div><div class="tt">OS 1042</div></div><span class="sp"></span></header><div class="body" style="min-height:900px"><div id="detalhe2-body"></div></div></div></div></div>
+    <div class="ver-old" hidden>
     <p class="why">O topo aprovado do detalhe continua (OS, estado, onde está, há quanto tempo). Abaixo, <b>uma frente por reboque</b>, na ordem de engate, cada uma com estado, tempo parado e serviços. Clicar numa frente filtra os serviços dela. A barra escura de ações vale para a frente escolhida. O estado da OS sai das frentes: <b>em manutenção</b> se alguma estiver, <b>concluída</b> quando todas terminarem.</p>
     <div class="states" data-for="detalhe"><button data-s="ok" aria-pressed="true">Andando</button><button data-s="left" aria-pressed="false">Reboque saiu do conjunto</button><button data-s="disbanded" aria-pressed="false">Conjunto desfeito</button><button data-s="loading" aria-pressed="false">Carregando</button><button data-s="noperm" aria-pressed="false">Sem permissão de custo</button></div>
     <div class="app"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav on"></span><span class="nav"></span></nav>
       <div class="main"><header class="top"><div><div class="eb">Ordens de serviço</div><div class="tt">OS 1042</div></div><span class="sp"></span></header>
       <div class="body" style="min-height:700px"><div class="pane" id="detalhe-pane" style="padding-bottom:70px"></div><div id="detalhe-bar"></div></div></div></div>
     <span class="note">A frente "Saiu" e a "Transferida" ficam na OS, apagadas, com o motivo: o histórico não some.</span>
+  </div>
   </section>
 
-  <section class="sc" id="servico"><h2><span class="tag">5</span>Adicionar serviços · montar a lista do conjunto</h2>
+  <section class="sc" id="servico"><h2><span class="tag">4</span>Adicionar serviços · montar a lista do conjunto</h2>
     <p class="why">O conjunto chega com vários problemas de uma vez (do motorista e do checklist). O encarregado <b>monta a lista numa sentada</b> e cria tudo com um botão. A planta mostra <b>o conjunto inteiro</b>, na ordem de engate: a pessoa toca direto onde está o problema ("o pneu de trás, esquerdo, da 2ª carreta") e escolhe entre os serviços que cabem ali; quem pensa pelo serviço busca primeiro e a planta acende onde ele se aplica. A planta mostra o que já está acontecendo (serviço nesta OS, falha do checklist sem decisão, retrabalho) para ninguém duplicar nem esquecer. Cada linha mostra as peças do kit com o estoque.</p>
     <div class="vtoggle" id="ver5"><button data-v="new" aria-pressed="true">Depois · montar a lista</button><button data-v="old" aria-pressed="false">Antes · um serviço por vez</button></div>
     <div id="ver5-new">
@@ -350,16 +465,21 @@ kbd{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 
     </div>
   </section>
 
-  <section class="sc" id="servico-linha"><h2><span class="tag">5a</span>Posição na linha do serviço</h2>
+  <section class="sc" id="servico-linha"><h2><span class="tag">4a</span>Linha do serviço</h2>
+    <p class="why">Cada serviço diz o que importa no dia: o estado (ícone e palavra), <b>quem faz</b>, o tempo correndo ou gasto, a situação das peças, a origem (checklist, retrabalho) e a <b>ação na própria linha</b> (Começar, Pausar, Concluir, Escolher mecânico). Agrupado por veículo, a posição aparece sem repetir a placa.</p>
+    <div class="vtoggle" data-sec><button data-v="new" aria-pressed="true">Depois</button><button data-v="old" aria-pressed="false">Antes</button></div>
+    <div class="ver-new"><div class="states" data-for="linha2"><button data-s="ok" aria-pressed="true">Agrupado por veículo</button><button data-s="tip" aria-pressed="false">Posição cortada · tooltip</button><button data-s="plan" aria-pressed="false">Ver na planta</button><button data-s="menu" aria-pressed="false">Menu do serviço</button><button data-s="noperm" aria-pressed="false">Sem permissão de agir</button><button data-s="loading" aria-pressed="false">Carregando</button></div><div class="app"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav"></span><span class="nav on"></span><span class="nav"></span></nav><div class="main"><header class="top"><div><div class="eb">Ordens de serviço</div><div class="tt">OS 1042</div></div><span class="sp"></span></header><div class="body dots" style="min-height:560px"><div id="linha2-pane" style="max-width:980px;margin:0 auto"></div></div></div></div></div>
+    <div class="ver-old" hidden>
     <p class="why">Cada serviço mostra onde foi feito num chip: <b>placa · posição</b> ("RTF6K38 · eixo 2, os dois lados"). Texto longo corta com reticências e o tooltip mostra tudo, um eixo por linha. Tocar no chip abre a planta só para ver. Enquanto o serviço não começou, o menu dele oferece <b>Trocar posição</b>; depois de começar, a posição fica.</p>
     <div class="states" data-for="svclinha"><button data-s="ok" aria-pressed="true">Com posições</button><button data-s="tip" aria-pressed="false">Texto cortado · tooltip</button><button data-s="plan" aria-pressed="false">Ver na planta</button><button data-s="menu" aria-pressed="false">Menu do serviço</button><button data-s="change" aria-pressed="false">Trocar posição</button><button data-s="loading" aria-pressed="false">Carregando</button><button data-s="noperm" aria-pressed="false">Sem permissão de adicionar</button></div>
     <div class="app"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav on"></span><span class="nav"></span></nav>
       <div class="main"><header class="top"><div><div class="eb">Ordens de serviço</div><div class="tt">OS 1042</div></div><span class="sp"></span></header>
       <div class="body" style="min-height:560px"><div class="pane" id="svclinha-pane" style="max-width:900px;margin:0 auto;overflow:visible"></div></div></div></div>
     <span class="note">"Sem posição" só aparece quando o tipo pedia posição e o veículo não tinha eixos: é o registro de que faltou, não um valor inventado. Serviço que não pede posição mostra só a placa.</span>
+  </div>
   </section>
 
-  <section class="sc" id="servico-tipo"><h2><span class="tag">5b</span>Tipo de serviço · pede posição</h2>
+  <section class="sc" id="servico-tipo"><h2><span class="tag">4b</span>Tipo de serviço · pede posição</h2>
     <p class="why">Em Configurações, no catálogo de tipos de serviço. Uma escolha só, do mais geral ao mais fino; abaixo, a planta mostra o que a OS vai pedir. <b>Substitui o campo "Onde marca"</b> (escolha múltipla) que existe hoje: os tipos já cadastrados ficam com o nível mais fino que estava marcado.</p>
     <div class="states" data-for="tipo"><button data-s="none" aria-pressed="false">Nenhuma</button><button data-s="side" aria-pressed="false">Lado</button><button data-s="axle" aria-pressed="false">Eixo</button><button data-s="axle_side" aria-pressed="true">Eixo e lado</button><button data-s="wheel" aria-pressed="false">Roda</button><button data-s="list" aria-pressed="false">Na lista do catálogo</button></div>
     <div class="app"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav"></span><span class="nav on"></span></nav>
@@ -368,38 +488,48 @@ kbd{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 
     <span class="note">O nível vale para serviços novos. Mudar o tipo depois não reescreve a posição de serviço já criado.</span>
   </section>
 
-  <section class="sc" id="servico-checklist"><h2><span class="tag">5c</span>Serviço que veio do checklist · prévia da 3.2.3</h2>
+  <section class="sc" id="servico-checklist"><h2><span class="tag">4c</span>Serviço que veio do checklist · prévia da 3.2.3</h2>
     <p class="why">Quem inspeciona marca a posição na faixa do não conforme, na mesma planta. O serviço que nasce dessa falha já chega na OS com a posição e mostra de onde veio. <b>Fica para a 3.2.3</b>; aqui só para ver que o desenho fecha.</p>
     <div class="app" style="grid-template-columns:64px 1fr"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav on"></span><span class="nav"></span></nav>
       <div class="main"><header class="top"><div><div class="eb">Checklists</div><div class="tt">Inspeção CK-0041</div></div><span class="sp"></span></header>
       <div class="body" style="min-height:520px"><div id="chk-body" style="display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start"></div></div></div></div>
   </section>
 
-  <section class="sc" id="adicionar"><h2><span class="tag">6</span>Adicionar veículo à OS</h2>
-    <p class="why">Para o reboque que entrou depois, ou para quando o conjunto ganhou um reboque com a OS aberta. Cria uma frente nova; a OS não muda de número.</p>
+  <section class="sc" id="adicionar"><h2><span class="tag">5</span>Adicionar veículo à OS</h2>
+    <p class="why">Para a carreta que entrou no conjunto com a OS aberta. A sugestão diz por que aparece e avisa se ela tem falha do checklist sem decisão.</p>
     <div class="states" data-for="adicionar"><button data-s="ok" aria-pressed="true">Sugestão do conjunto</button><button data-s="lock" aria-pressed="false">Veículo em outra OS</button></div>
     <div class="app"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav on"></span><span class="nav"></span></nav>
       <div class="main"><header class="top"><div><div class="eb">Ordens de serviço</div><div class="tt">OS 1042</div></div><span class="sp"></span></header>
       <div class="body dots" style="min-height:560px"><div class="scrim" style="background:transparent"><div class="dialog" id="adicionar-dialog"></div></div></div></div></div>
   </section>
 
-  <section class="sc" id="sai"><h2><span class="tag">7</span>Reboque sai antes</h2>
+  <section class="sc" id="sai"><h2><span class="tag">6</span>Veículo sai antes</h2>
+    <p class="why">Para o veículo que vai embora antes dos outros. O motivo em chips, com texto quando é "Outro". Se ficou serviço aberto, a tela mostra exatamente quais e o que acontece com eles.</p>
+    <div class="vtoggle" data-sec><button data-v="new" aria-pressed="true">Depois</button><button data-v="old" aria-pressed="false">Antes</button></div>
+    <div class="ver-new"><div class="states" data-for="sai2"><button data-s="clean" aria-pressed="true">Nada aberto</button><button data-s="other" aria-pressed="false">Motivo: outro</button><button data-s="pending" aria-pressed="false">Com serviços abertos</button><button data-s="cancel" aria-pressed="false">Cancelar os abertos</button></div><div class="app"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav"></span><span class="nav on"></span><span class="nav"></span></nav><div class="main"><header class="top"><div><div class="eb">Ordens de serviço</div><div class="tt">OS 1042</div></div><span class="sp"></span></header><div class="body dots" style="min-height:700px"><div class="scrim" style="background:transparent;align-items:start"><div class="dialog" id="sai2-dialog" style="max-height:none"></div></div></div></div></div></div>
+    <div class="ver-old" hidden>
     <p class="why">Fecha a frente de um reboque sem esperar os outros. Sem pendência, a frente fica "Saiu" com o motivo. Com pendência, o que ficou aberto vai para uma <b>OS nova só daquele reboque</b>, ligada a esta (o mesmo que o SAP chama de ordem de acompanhamento).</p>
     <div class="states" data-for="sai"><button data-s="clean" aria-pressed="true">Sem pendência</button><button data-s="pending" aria-pressed="false">Com pendência</button></div>
     <div class="app"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav on"></span><span class="nav"></span></nav>
       <div class="main"><header class="top"><div><div class="eb">Ordens de serviço</div><div class="tt">OS 1042</div></div><span class="sp"></span></header>
       <div class="body dots" style="min-height:600px"><div class="scrim" style="background:transparent"><div class="dialog" id="sai-dialog"></div></div></div></div></div>
+  </div>
   </section>
 
-  <section class="sc" id="transferir"><h2><span class="tag">8</span>Transferir frente para outra OS</h2>
+  <section class="sc" id="transferir"><h2><span class="tag">7</span>Transferir para outra OS</h2>
+    <p class="why">Quando dois conjuntos trocam uma carreta. A OS sugerida vem primeiro, com o porquê. Antes de confirmar, a pessoa vê o que fica e o que vai.</p>
+    <div class="vtoggle" data-sec><button data-v="new" aria-pressed="true">Depois</button><button data-v="old" aria-pressed="false">Antes</button></div>
+    <div class="ver-new"><div class="states" data-for="transf2"><button data-s="ok" aria-pressed="true">OS sugerida</button><button data-s="none" aria-pressed="false">Sem OS de destino</button></div><div class="app"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav"></span><span class="nav on"></span><span class="nav"></span></nav><div class="main"><header class="top"><div><div class="eb">Ordens de serviço</div><div class="tt">OS 1042</div></div><span class="sp"></span></header><div class="body dots" style="min-height:600px"><div class="scrim" style="background:transparent;align-items:start"><div class="dialog" id="transf2-dialog" style="max-height:none"></div></div></div></div></div></div>
+    <div class="ver-old" hidden>
     <p class="why">Quando dois conjuntos na oficina trocam um reboque. A frente fecha aqui como "Transferida" e abre na OS de destino com os serviços pendentes; o que já foi feito fica nesta OS.</p>
     <div class="app"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav on"></span><span class="nav"></span></nav>
       <div class="main"><header class="top"><div><div class="eb">Ordens de serviço</div><div class="tt">OS 1042</div></div><span class="sp"></span></header>
       <div class="body dots" style="min-height:560px"><div class="scrim" style="background:transparent"><div class="dialog" id="transferir-dialog"></div></div></div></div></div>
+  </div>
   </section>
 
-  <section class="sc" id="concluir"><h2><span class="tag">9</span>Concluir a OS</h2>
-    <p class="why">A OS conclui quando todas as frentes terminaram ou saíram. O diálogo conta a história de cada veículo (o que foi feito, quando e por quem; ou para onde foi o que ficou aberto), resume a OS no topo e diz <b>o que acontece ao concluir</b>. Tempo parado e custo só aparecem para quem pode ver custo. Se faltar uma frente, o botão fica desabilitado com o motivo e a frente que trava leva até ela.</p>
+  <section class="sc" id="concluir"><h2><span class="tag">8</span>Concluir a OS</h2>
+    <p class="why">A OS conclui quando todos os veículos ficaram prontos ou saíram. O diálogo conta a história de cada veículo (o que foi feito, quando e por quem; ou para onde foi o que ficou aberto), resume a OS no topo e diz <b>o que acontece ao concluir</b>. Tempo parado e custo só aparecem para quem pode ver custo. Se faltar um veículo, o botão fica desabilitado com o motivo e o veículo que trava leva até ele.</p>
     <div class="states" data-for="concluir"><button data-s="ready" aria-pressed="true">Tudo pronto</button><button data-s="followup" aria-pressed="false">Um saiu, com OS de acompanhamento</button><button data-s="blocked" aria-pressed="false">Frente ainda aberta</button><button data-s="noperm" aria-pressed="false">Sem permissão de custo</button></div>
     <div class="app"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav on"></span><span class="nav"></span></nav>
       <div class="main"><header class="top"><div><div class="eb">Ordens de serviço</div><div class="tt">OS 1042</div></div><span class="sp"></span></header>
@@ -408,20 +538,30 @@ kbd{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 
     <div style="margin-left:38px"><div class="phone"><div class="screen" id="concluir-phone" style="position:relative"></div></div></div>
   </section>
 
-  <section class="sc" id="engate"><h2><span class="tag">10</span>Engate e desengate no pátio</h2>
+  <section class="sc" id="engate"><h2><span class="tag">9</span>Engate para sair e histórico</h2>
+    <p class="why">A saída do conjunto pede só o cavalo (sugeridos: o que trouxe e os livres no pátio) e o km dele, já preenchido pela telemetria. No histórico, o km estimado leva o porquê no tooltip.</p>
+    <div class="vtoggle" data-sec><button data-v="new" aria-pressed="true">Depois</button><button data-v="old" aria-pressed="false">Antes</button></div>
+    <div class="ver-new"><div class="states" data-for="engate2"><button data-s="couple" aria-pressed="true">Engatar para sair</button><button data-s="lower" aria-pressed="false">Km menor que o último</button><button data-s="external" aria-pressed="false">Cavalo de terceiro</button><button data-s="estimated" aria-pressed="false">Histórico com km estimado</button></div><div class="app"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav"></span><span class="nav"></span><span class="nav on"></span></nav><div class="main"><header class="top"><div><div class="eb">Frota</div><div class="tt">Conjunto C-320</div></div><span class="sp"></span></header><div class="body dots" style="min-height:560px;padding:18px"><div id="engate2-body"></div></div></div></div></div>
+    <div class="ver-old" hidden>
     <p class="why">Todo engate e desengate registra o km do cavalo naquela hora: é o que dá km aos reboques. A entrada do conjunto na oficina (tela 3) é um desengate; a saída, um engate. Sem leitura, o sistema estima entre a anterior e a seguinte e marca o km como <b>estimado</b>.</p>
     <div class="states" data-for="engate"><button data-s="couple" aria-pressed="true">Engatar para sair</button><button data-s="estimated" aria-pressed="false">Km estimado no histórico</button></div>
     <div class="app"><nav class="side"><span class="logo"></span><span class="nav"></span><span class="nav"></span><span class="nav on"></span></nav>
       <div class="main"><header class="top"><div><div class="eb">Frota</div><div class="tt">Conjunto C-320</div></div><span class="sp"></span></header>
       <div class="body dots" style="min-height:560px" id="engate-body"></div></div></div>
+  </div>
   </section>
 
-  <section class="sc" id="celular"><h2><span class="tag">11</span>Celular</h2>
+  <section class="sc" id="celular"><h2><span class="tag">10</span>Celular</h2>
+    <p class="why">O celular é do mecânico: abre em <b>Meus serviços</b>, com o que está correndo (tempo grande, Pausar e Concluir), o próximo com Começar e o que vem depois. A visão do encarregado vem em seguida: o que precisa de atenção e um cartão por veículo.</p>
+    <div class="vtoggle" data-sec><button data-v="new" aria-pressed="true">Depois</button><button data-v="old" aria-pressed="false">Antes</button></div>
+    <div class="ver-new"><div style="display:flex;gap:28px;flex-wrap:wrap;margin-left:38px"><div class="phone"><div class="screen" id="phone-3"></div></div><div class="phone"><div class="screen" id="phone-4"></div></div></div></div>
+    <div class="ver-old" hidden>
     <p class="why">No celular, as frentes viram uma fila de cartões; tocar abre a frente com os serviços dela. A barra de ações vira ícones.</p>
     <div style="display:flex;gap:28px;flex-wrap:wrap;margin-left:38px">
       <div class="phone"><div class="screen" id="phone-1"></div></div>
       <div class="phone"><div class="screen" id="phone-2"></div></div>
     </div>
+  </div>
   </section>
 </div>
 
@@ -553,7 +693,7 @@ function concluirBody(s,narrow){
       <div style="flex:1 1 220px;min-width:0"><div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap"><b class="plate">${f.plate}</b><span class="muted" style="font-size:12.5px">${f.pos} · ${f.kind}</span>${f.tone==='left'?'<span class="chip t-pause" style="height:20px;font-size:11px">Saiu</span>':f.tone==='open'?'<span class="chip t-work" style="height:20px;font-size:11px">Em manutenção</span>':''}</div><div style="font-size:12.5px;margin-top:1px;text-wrap:pretty">${f.line}</div>${f.go?'<button class="btn outline" style="height:30px;margin-top:8px;font-size:12.5px">Ir para RTE1J77<span class="ic i-right s14"></span></button>':''}</div>
       ${cost?`<div class="nums"><div><span class="muted">parado</span> ${f.stop}</div><div><b>R$ ${f.cost}</b></div></div>`:''}</div>`;}).join('');
   const after=[];
-  if(s==='blocked') after.push(['i-lock','muted','Os veículos continuam nesta OS até a última frente terminar']);
+  if(s==='blocked') after.push(['i-lock','muted','Os veículos continuam nesta OS até o último ficar pronto']);
   else after.push(['i-check','ok',s==='followup'?'RTF6K38 e RTE1J77 ficam livres para outra OS':'RTF6K38, RTE1J77 e SRK9H46 ficam livres para outra OS']);
   if(s==='followup'){after.push(['i-link','muted','A <a href="#" class="lnk">OS 1043</a> continua aberta com 1 serviço do SRK9H46']);after.push(['i-warn','warn','2 falhas do checklist CK-0041 ainda sem decisão. <a href="#" class="lnk">Decidir agora</a>']);}
   const C={ok:'hsl(var(--success-text))',muted:'hsl(var(--muted-foreground))',warn:'hsl(var(--warning-text))'};
@@ -767,7 +907,7 @@ function vplan(v,o={}){
       g+=`<rect x="${x-9}" y="${y-21}" width="18" height="42" rx="5" fill="${on||foc?PRc:'#23262c'}" opacity="${o.dim&&!on?.35:1}"/>`;
       const b=bd[k]; if(b) g+=`<circle cx="${x+9}" cy="${y-21}" r="8.5" fill="${b==='chk'?'hsl(var(--warning))':'hsl(var(--foreground))'}" stroke="hsl(var(--background))" stroke-width="2"/><text x="${x+9}" y="${y-17.5}" text-anchor="middle" font-size="10" font-weight="800" fill="#fff">${b==='chk'?'!':b}</text>`;});
   });
-  return `<svg viewBox="0 0 ${W} ${H}" style="display:block;width:100%;max-width:${o.big?320:250}px;margin:0 auto" role="img">${g}</svg>`;
+  return `<svg viewBox="0 0 ${W} ${H}" style="display:block;width:100%;max-width:${o.big?340:300}px;margin:0 auto" role="img">${g}</svg>`;
 }
 function vcol(v,o={}){
   const hd=`<div class="vhd"><span class="pos">${v.pos}</span><b class="plate">${v.plate}</b><span class="muted" style="font-size:12px">${v.kind}</span>${v.n&&!o.nobadge?`<span class="chip t-none" style="margin-left:auto;height:20px;font-size:11px" title="${v.n} serviço${v.n>1?'s':''} já nesta OS">${v.n} nesta OS</span>`:''}</div>`;
@@ -840,7 +980,7 @@ R.montar=s=>{
   else foot=`<b>${svcN} serviço${svcN>1?'s':''} em ${vehs.size} veículo${vehs.size>1?'s':''}</b> · ${partsN} ${partsN>1?'peças':'peça'} do kit${miss?`, <span style="color:hsl(var(--danger-text));font-weight:600">${miss} em falta</span>`:''}`;
   const btn=s==='offline'?`<button class="btn primary" disabled>${svcN} pendentes</button>`:`<button class="btn primary" ${ready&&!kb?'':'disabled'}>${lines.length?`Criar ${svcN} serviço${svcN>1?'s':''}`:'Criar serviços'}</button>`;
   const planArea=s==='loading'?V.map(()=>`<div class="veh"><div class="vhd"><span class="sk" style="width:120px;height:18px"></span></div><div class="vbody" style="display:flex;flex-direction:column;gap:34px;align-items:center;padding:30px 10px"><span class="sk" style="width:20px;height:14px"></span><span class="sk" style="width:200px;height:42px"></span><span class="sk" style="width:200px;height:42px"></span></div></div>`).join(''):V.map((v,i)=>vcol(v,o[i])).join('');
-  const legend=`<div class="legend"><span><i class="bdot"></i>Serviço nesta OS</span><span><i class="bdot w">!</i>Falha do checklist sem decisão</span><span class="muted">Passe o mouse ou segure para ver o último serviço no lugar</span></div>`;
+  const legend=`<div class="legend"><span><i class="bdot"></i>Serviço nesta OS</span><span><i class="bdot w">!</i>Falha do checklist sem decisão</span></div>`;
   const editor=kb?`<div class="line editing"><div class="egrid"><div class="field"><label>Veículo</label><div class="input sm"><input value="2º RTE1J77"></div></div><div class="field"><label>Onde</label><div class="input sm"><input value="eixo 2, os dois lados"></div></div><div class="field" style="grid-column:1/-1;position:relative"><label>Serviço</label><div class="input sm" style="border-color:hsl(var(--foreground)/.55)"><span class="ic i-search s14 muted"></span><input type="search" autocomplete="off" value="lona"></div>
       <div class="optlist" style="margin-top:4px"><div class="opt" style="background:hsl(var(--muted))"><div style="flex:1"><b style="font-weight:600">Troca de lona de freio</b><div class="muted" style="font-size:12px">Freios · 3 peças do kit</div></div>${KBD('Enter')}</div><div class="opt"><div style="flex:1"><b style="font-weight:600">Regulagem de lona</b><div class="muted" style="font-size:12px">Freios</div></div></div></div></div></div>
       <div class="kbds">${KBD('Enter')} adiciona a linha ${KBD('Tab')} próximo campo ${KBD('↑')}${KBD('↓')} escolhe ${KBD('Esc')} cancela</div></div>`:'';
@@ -848,10 +988,10 @@ R.montar=s=>{
   const listLoading=s==='loading'?[1,2].map(()=>`<span class="sk" style="height:110px;border-radius:14px"></span>`).join(''):'';
   return `<div class="ws">
     <div class="dh" style="padding-bottom:8px"><div class="t"><div class="eyebrow">OS 1042 · Conjunto C-320</div><h3>Adicionar serviços</h3></div>${X}</div>
-    <div class="wstool"><div class="input" style="flex:1 1 260px;height:40px"><span class="ic i-search s16 muted"></span><input type="search" autocomplete="off" placeholder="Buscar serviço (ex.: lubrificação)" value="${search}">${search?'<span class="ib"><span class="ic i-x s14"></span></span>':`<span class="kbdh">${KBD('/')}</span>`}</div>${s==='loading'?'':legend}</div>
+    <div class="wstool"><div class="input" style="flex:1 1 260px;height:40px"><span class="ic i-search s16 muted"></span><input type="search" autocomplete="off" placeholder="Buscar serviço (ex.: lubrificação)" value="${search}">${search?'<span class="ib"><span class="ic i-x s14"></span></span>':`<span class="kbdh">${KBD('/')}</span>`}</div></div>
     ${bar}
     <div class="wsgrid">
-      <div class="setplan">${planArea}</div>
+      <div class="setplan">${planArea}${s==='loading'?'':legend}</div>
       <div class="lpanel"><div class="lphd"><span class="eyebrow">Lista${lines.length?` · ${lines.length}`:''}</span>${lines.length?'<button class="btn" style="height:26px;padding:0 6px;font-size:12px;margin-left:auto;color:hsl(var(--muted-foreground))">Limpar</button>':''}</div>${listTop}${editor}${listEmpty}${listLoading}${lines.map(([k,lo],i)=>lineCard(LN[k],i+1,lo)).join('')}</div>
     </div>
     <div class="df" style="flex-wrap:wrap"><span class="grow" style="min-width:240px;color:hsl(var(--foreground));text-wrap:pretty">${foot}</span><div style="display:flex;gap:10px;margin-left:auto"><button class="btn outline">Cancelar</button>${btn}</div></div>
@@ -872,6 +1012,214 @@ function montarTouch(){
   document.getElementById('montar-phone2').innerHTML=`<div style="position:absolute;inset:0;background:hsl(240 10% 4%/.35)"></div><div class="sheet"><div style="width:40px;height:4px;border-radius:9px;background:hsl(var(--border));margin:8px auto 0"></div><div class="dh" style="padding:10px 14px 6px"><div class="t"><div class="eyebrow">OS 1042 · Conjunto C-320</div><h3 style="font-size:18px">Lista · 3 serviços</h3></div>${X}</div><div class="db" style="padding:4px 12px 12px;gap:8px">${[['cat',{}],['lona',{}],['pneu',{}]].map(([k,lo],i)=>lineCard(LN[k],i+1,lo)).join('')}</div><div style="padding:10px 14px;border-top:1px solid hsl(var(--border));background:hsl(var(--toolbar))"><div style="font-size:12.5px;margin-bottom:8px"><b>3 serviços em 2 veículos</b> · 5 peças do kit, <span style="color:hsl(var(--danger-text));font-weight:600">1 em falta</span></div><div style="display:flex;gap:8px"><button class="btn outline" style="flex:1;height:44px">Voltar à planta</button><button class="btn primary" style="flex:1;height:44px">Criar 3 serviços</button></div></div></div>`;
 }
 
+/* ===== round 3: shared visual language ===== */
+const tt=(tone,ic,sz='')=>`<span class="tt ${tone} ${sz}"><span class="ic ${ic} ${sz==='lg'?'s20':'s16'}"></span></span>`;
+const av=(ini,on)=>`<span class="av ${on?'on':''}">${ini}</span>`;
+function ring(d,t,sz=40,label){const r=(sz-6)/2,c=2*Math.PI*r,f=t?d/t:0,col=d===t&&t?'hsl(var(--success))':'hsl(var(--primary))';
+  return `<span class="ring" style="width:${sz}px;height:${sz}px"><svg width="${sz}" height="${sz}" viewBox="0 0 ${sz} ${sz}"><circle cx="${sz/2}" cy="${sz/2}" r="${r}" fill="none" stroke="hsl(var(--muted))" stroke-width="4"/>${f>0?`<circle cx="${sz/2}" cy="${sz/2}" r="${r}" fill="none" stroke="${col}" stroke-width="4" stroke-linecap="round" stroke-dasharray="${c*f} ${c}" transform="rotate(-90 ${sz/2} ${sz/2})"/>`:''}</svg><b>${label??`${d}/${t}`}</b></span>`;}
+const cbar=fs=>`<span class="cbar">${fs.map(f=>`<i class="${f}"></i>`).join('')}</span>`;
+const VST={work:['t-work','Em manutenção','primary'],part:['t-wait','Esperando peça','warning'],wait:['t-none','Na fila','muted'],done:['t-ok','Pronto','success'],out:['t-pause','Saiu','muted'],pause:['t-pause','Pausado','muted']};
+const SST={work:['primary','Em andamento'],wait:['muted','Na fila'],part:['warning','Esperando peça'],done:['success','Feito'],pause:['muted','Pausado']};
+const KIND={brake:'i-disc',lube:'i-drop',elec:'i-bolt',tire:'i-tire',struct:'i-wrench'};
+const OSV=[
+  {pos:'1º',plate:'RTF6K38',kind:'Carreta',st:'work',done:1,total:3,now:['CS','Carlos','Troca de lona de freio','0:42'],stop:'2 d 8 h',cost:'1.240,00'},
+  {pos:'2º',plate:'RTE1J77',kind:'Carreta',st:'part',done:0,total:2,block:['Esperando mola de retorno','pedido há 3 h'],stop:'2 d 8 h',cost:'180,00',chk:1},
+  {pos:'3º',plate:'SRK9H46',kind:'Carreta',st:'done',done:1,total:1,ready:'Pronto há 2 h',stop:'1 d 9 h',cost:'310,00'}];
+const SVC2={
+  RTF6K38:[
+    {n:'Troca de lona de freio',k:'brake',loc:'eixo 2, os dois lados',st:'work',who:['CS','Carlos'],time:'0:42',parts:['ok','Peças separadas']},
+    {n:'Regulagem de catraca',k:'brake',loc:'eixos 1, 2 e 3, os dois lados',st:'wait',who:null,parts:['ok','Sem peças do kit']},
+    {n:'Lubrificação geral',k:'lube',loc:'',st:'done',who:['AL','Ana'],time:'0:35',parts:['ok','2 peças usadas']}],
+  RTE1J77:[
+    {n:'Troca de lona de freio',k:'brake',loc:'eixo 2, esquerdo',st:'part',who:['AL','Ana'],parts:['wait','Esperando mola de retorno'],chips:['chk','rework']},
+    {n:'Troca de cuíca',k:'brake',loc:'eixo 1, direito',st:'wait',who:null,parts:['ok','Peças separadas']}],
+  SRK9H46:[
+    {n:'Revisão elétrica',k:'elec',loc:'lado direito',st:'done',who:['BR','Bruno'],time:'1:05',parts:['ok','1 peça usada']}]};
+function srow(x,o={}){
+  const [tone,word]=SST[x.st];
+  const chips=(x.chips||[]).map(c=>c==='chk'?'<span class="chip t-none sm">Do checklist CK-0041</span>':'<span class="chip t-wait sm">Retrabalho</span>').join('');
+  const who=x.who?`<span class="mi2">${av(x.who[0],x.st==='work')}${x.who[1]}</span>`:`<span class="mi2 muted"><span class="av dash"><span class="ic i-person s14"></span></span>Sem mecânico</span>`;
+  const time=x.time?`<span class="mi2 num ${x.st==='work'?'run':''}">${x.st==='work'?'<span class="ic i-timer s14"></span>':''}${x.time}${x.st==='done'?' de trabalho':''}</span>`:'';
+  const parts=`<span class="mi2 ${x.parts[0]==='wait'?'warn':''}"><span class="ic ${x.parts[0]==='wait'?'i-clock':'i-box'} s14"></span>${x.parts[1]}</span>`;
+  let act='';
+  if(!o.noact){
+    if(x.st==='work') act=`<button class="ib2" title="Pausar" aria-label="Pausar"><span class="ic i-pause s16"></span></button><button class="btn outline sm"><span class="ic i-check s14"></span>Concluir</button>`;
+    else if(x.st==='wait'&&!x.who) act=`<button class="btn outline sm"><span class="ic i-person s14"></span>Escolher mecânico</button>`;
+    else if(x.st==='wait') act=`<button class="btn soft sm"><span class="ic i-play s14"></span>Começar</button>`;
+    else if(x.st==='part') act=`<button class="btn outline sm">Ver pedido</button>`;
+  }
+  return `<div class="srow2 ${x.st==='done'?'done':''}">${tt(tone,KIND[x.k])}
+    <div class="sm2"><div class="l1"><b class="sn" title="${x.n}">${x.n}</b>${x.loc?`<span class="loc" title="${x.loc}">${x.loc}</span>`:''}${chips}</div>
+    <div class="l2"><span class="mi2 st ${tone}">${word}</span>${who}${time}${parts}</div></div>
+    <div class="sa">${act}</div>${o.nomenu?'':'<button class="ib2 ghost" title="Mais ações" aria-label="Mais ações"><span class="ic i-dots s16"></span></button>'}</div>`;
+}
+function ghd(v,o={}){const [c,l]=VST[v.st];
+  return `<div class="ghd"><span class="pos">${v.pos}</span><b class="plate">${v.plate}</b><span class="muted" style="font-size:12.5px">${v.kind}</span><span class="chip ${c} sm">${l}</span><span class="gprog"><span class="bar"><i style="width:${v.total?v.done/v.total*100:0}%;${v.done===v.total?'background:hsl(var(--success))':''}"></i></span><span class="num">${v.done} de ${v.total} ${v.total>1?'feitos':'feito'}</span></span>${o.menu?'':'<button class="ib2 ghost" title="Ações do veículo" aria-label="Ações do veículo"><span class="ic i-dots s16"></span></button>'}${o.menuOpen||''}</div>`;}
+function svcGroups(o={}){return OSV.filter(v=>!o.only||v.plate===o.only).map(v=>`<div class="grp">${ghd(v,{menuOpen:o.menuFor===v.plate?vmenu():''})}${SVC2[v.plate].map(x=>srow(x,o)).join('')}</div>`).join('');}
+const vmenu=()=>`<div class="popover" style="right:10px;top:40px;width:240px;padding:6px"><div class="mi"><span class="ic i-pause s16"></span>Pausar o veículo</div><div class="mi"><span class="ic i-check s16"></span>Marcar pronto</div><div class="mi"><span class="ic i-exit s16"></span>Sai antes</div><div class="mi"><span class="ic i-swap s16"></span>Transferir para outra OS</div></div>`;
+
+/* ===== 1 lista ===== */
+const LROWS=[
+  {set:'Conjunto C-320',tile:['primary','i-link'],train:['work','wait','done'],sub:'Rodotrem · RTF6K38 · RTE1J77 · SRK9H46',os:'OS 1042',p:'Freio puxando, vazamento de ar',d:1,t:3,sum:'1 de 3 prontos',tip:'RTE1J77 esperando peça · RTF6K38 em manutenção · SRK9H46 pronto',who:[['CS']],whoT:'Carlos',block:['warning','i-box','Esperando mola de retorno'],stop:'2 d 8 h',hot:1,where:'Box 3',f:['part','stale']},
+  {set:'Conjunto C-118',tile:['primary','i-link'],train:['wait','wait'],sub:'Bitrem · RTC3G56 · SRK9H45',os:'OS 1043',p:'Ruído metálico ao frear',d:0,t:2,sum:'2 na fila',tip:'RTC3G56 e SRK9H45 na fila',who:[],whoT:'Ninguém ainda',block:['warning','i-person','2 serviços sem mecânico'],stop:'5 h',where:'Sem box',f:['nomech']},
+  {set:'DLY1J07',tile:['muted','i-truck'],train:null,sub:'Caminhão · frota 812',os:'OS 1040',p:'Vazamento no circuito do freio',d:2,t:4,sum:'2 de 4 feitos',tip:'2 serviços em andamento',who:[['AL'],['BR']],whoT:'Ana e Bruno',block:null,stop:'3 d 2 h',hot:1,where:'Box 7',f:['stale']},
+  {set:'Conjunto C-900',tile:['primary','i-link'],train:['done','out','work','work','wait','wait'],sub:'Hexatrem · 6 carretas, 1 saiu',os:'OS 1038',p:'Preventiva de 50 mil km',d:1,t:5,sum:'1 de 5 prontos',tip:'RTA1A11 pronto · RTA2A22 saiu · RTA3A33 e RTA4A44 em manutenção · RTA5A55 e RTA6A66 na fila',who:[['DM'],['RF']],whoT:'Diego e Rafa',block:['warning','i-warn','1 falha do checklist sem decisão'],stop:'4 d 1 h',hot:1,where:'Box 1',f:['chk','stale']}];
+R.lista2=s=>{
+  const hdr=`<div class="phead"><div style="flex:1;min-width:240px"><h1>Ordens de serviço</h1><p class="muted">O que está na oficina, quem está em cada uma e o que está travando</p></div><button class="btn primary lg"><span class="ic i-plus s16"></span>Abrir OS</button></div>`;
+  const tabs=`<div class="ltabs"><a aria-current="page">Abertas <span class="n">4</span></a><a>Concluídas</a></div>`;
+  const chipsF=[['all','Todas',''],['part','Esperando peça','1'],['nomech','Sem mecânico','1'],['chk','Falha sem decisão','1'],['stale','Parada há mais de 1 dia','3']];
+  const act=s==='filter'?'part':'all';
+  const tb=`<div class="ltool"><div class="input" style="flex:0 1 320px;height:38px"><span class="ic i-search s16 muted"></span><input type="search" autocomplete="off" placeholder="Placa, frota, conjunto ou OS" value="${s==='nofound'?'XYZ9':''}"></div><div class="fchips">${chipsF.map(([k,l,n])=>`<span class="fchip ${k==='all'?'gen':''} ${k===act?'on':''}">${l}${n?` <b class="num">${n}</b>`:''}</span>`).join('')}${s==='filter'?'<span class="fchip clear">Limpar filtros</span>':''}</div></div>`;
+  const head=`<div class="lrow3 lh"><span>Veículo</span><span>OS e problema</span><span>Andamento</span><span>Agora</span><span style="text-align:right">Parada há</span></div>`;
+  let body;
+  if(s==='loading') body=head+[1,2,3,4].map(()=>`<div class="lrow3"><span style="display:flex;gap:10px"><span class="sk" style="width:36px;height:36px"></span><span class="sk" style="flex:1;height:36px"></span></span><span class="sk" style="height:32px"></span><span class="sk" style="height:24px"></span><span class="sk" style="height:28px"></span><span class="sk" style="height:28px"></span></div>`).join('');
+  else if(s==='empty') body=`<div class="dots" style="padding:70px 20px;text-align:center"><div class="tile" style="margin:0 auto;width:56px;height:56px;border-radius:99px;background:hsl(var(--primary-soft));color:hsl(var(--primary));box-shadow:0 0 0 10px hsl(var(--primary-soft)/.45)"><span class="ic i-wrench s24"></span></div><p style="font:700 17px Sora;margin-top:18px">Nenhuma OS aberta</p><p class="muted">Quando um conjunto ou veículo entrar na oficina, abra a OS para acompanhar o trabalho</p><button class="btn primary" style="margin-top:12px"><span class="ic i-plus s14"></span>Abrir OS</button></div>`;
+  else if(s==='nofound') body=`<div class="dots" style="padding:56px 20px;text-align:center"><p style="font:700 15px Sora">Nenhuma OS encontrada para “XYZ9”</p><p class="muted">Confira a placa, a frota, o conjunto ou o número da OS</p><button class="btn outline" style="margin-top:10px">Limpar busca</button></div>`;
+  else if(s==='error') body=`<div style="padding:24px"><div class="notice danger"><span class="ic i-warn s16"></span><span>Não conseguimos carregar as OS agora. Tente de novo em alguns segundos</span></div><button class="btn outline" style="margin-top:10px">Tentar de novo</button></div>`;
+  else body=head+LROWS.filter(r=>s!=='filter'||r.f.includes('part')).map(r=>`<div class="lrow3">
+    <div class="c1">${tt(r.tile[0],r.tile[1])}<div style="min-width:0"><div style="display:flex;gap:4px 8px;align-items:center;flex-wrap:wrap"><b class="plate" style="white-space:nowrap">${r.set}</b>${r.train?cbar(r.train):''}</div><div class="muted trunc" style="font-size:12px" title="${r.sub}">${r.sub}</div></div></div>
+    <div style="min-width:0"><div class="num muted" style="font-size:11.5px;font-weight:700">${r.os}</div><div class="trunc" title="${r.p}">${r.p}</div></div>
+    <div class="c3" ${r.tip?`title="${r.tip}"`:''}>${ring(r.d,r.t,32,'')}<span style="min-width:0"><b class="num" style="font-size:13px;white-space:nowrap">${r.sum}</b>${r.tip?`<span class="muted trunc" style="font-size:11.5px">${r.tip}</span>`:''}</span></div>
+    <div style="min-width:0;display:flex;flex-direction:column;gap:4px"><span class="mi2">${r.who.length?`<span class="avs">${r.who.map(w=>av(w[0],1)).join('')}</span>`:'<span class="av dash"><span class="ic i-person s14"></span></span>'}<span class="${r.who.length?'':'muted'}">${r.whoT}</span></span>${r.block?`<span class="bchip ${r.block[0]}" title="${r.block[2]}"><span class="ic ${r.block[1]} s14"></span><span class="trunc">${r.block[2]}</span></span>`:'<span class="muted" style="font-size:12px">Sem bloqueio</span>'}</div>
+    <div style="text-align:right"><div class="num" style="font-size:15px;font-weight:700;${r.hot?'color:hsl(var(--warning-text))':''}">${r.stop}</div><div class="muted" style="font-size:12px">${r.where}</div></div></div>`).join('');
+  const pag=['ok','filter'].includes(s)?`<div class="muted" style="padding:12px 16px;font-size:12.5px;border-top:1px solid hsl(var(--border))">Mostrando ${s==='filter'?1:4} de ${s==='filter'?1:4}</div>`:'';
+  return `<div style="padding:20px 22px">${hdr}${tabs}<div class="card" style="overflow:hidden">${tb}${body}${pag}</div></div>`;
+};
+/* ===== 2 abrir OS (uma tela) ===== */
+R.abrir=s=>{
+  const single=s==='single', pick=s==='pick';
+  let what;
+  if(pick) what=`<div class="field"><label>O que entra <span class="req">*</span></label><div class="input" style="border-color:hsl(var(--foreground)/.5)"><span class="ic i-search s16 muted"></span><input type="search" autocomplete="off" placeholder="Conjunto, placa ou frota"></div>
+      <div class="optlist"><div class="og">Chegaram no pátio hoje</div>${[['Conjunto C-320','Rodotrem · 3 carretas · deixado pelo QRT4B22 às 08:42',['done','done','done']],['Conjunto C-118','Bitrem · 2 carretas · na portaria desde 07:10',['done','done']]].map((r,i)=>`<div class="opt ${i?'':'hl'}" style="align-items:center">${tt('primary','i-link')}<div style="flex:1;min-width:0"><b>${r[0]}</b> ${cbar(r[2].map(()=>''))}<div class="muted trunc" style="font-size:12px">${r[1]}</div></div></div>`).join('')}<div class="og">Veículo solto</div><div class="opt" style="align-items:center">${tt('muted','i-truck')}<div style="flex:1"><b>DLY1J07</b><div class="muted" style="font-size:12px">Caminhão · frota 812</div></div></div></div></div>`;
+  else if(single) what=`<div class="field"><label>O que entra <span class="req">*</span></label><div class="setcard">${tt('muted','i-truck','lg')}<div style="flex:1;min-width:0"><div style="display:flex;gap:8px;align-items:center"><b class="plate" style="font-size:16px">DLY1J07</b><span class="chip t-none sm">Caminhão</span></div><div class="muted" style="font-size:12.5px">Frota 812 · última OS há 2 meses</div></div><button class="btn sm">Trocar</button></div></div>`;
+  else{
+    const units=[['1º','RTF6K38'],['2º','RTE1J77'],['3º','SRK9H46']];
+    const vt=units.map(([n,p],i)=>{const locked=s==='lock'&&i===1, off=s==='disbanded'&&i===2;
+      return `<div class="utile ${locked?'lock':''} ${off?'off':''}">${s==='disbanded'?`<span class="cb ${off?'':'on'}"></span>`:''}<span class="pos">${n}</span><b class="plate" style="font-size:13.5px">${p}</b><span class="${locked?'':'muted'}" style="font-size:11.5px;${locked?'color:hsl(var(--warning-text));font-weight:600':''}">${locked?'Na OS 1031':'Carreta'}</span></div>`;}).join('');
+    what=`<div class="field"><label>O que entra <span class="req">*</span></label><div class="setcard" style="flex-direction:column;align-items:stretch">
+      <div style="display:flex;gap:12px;align-items:center">${tt('primary','i-link','lg')}<div style="flex:1;min-width:0"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><b class="plate" style="font-size:16px">Conjunto C-320</b><span class="chip t-none sm">Rodotrem</span></div><div class="muted" style="font-size:12.5px">${s==='disbanded'?'Desfeito em 06/11 · escolha quais entram':'Deixado pelo QRT4B22 hoje às 08:42'}</div></div><button class="btn sm">Trocar</button></div>
+      <div class="utiles">${vt}</div>
+      ${s==='lock'?'<div class="lnote warn"><span class="ic i-lock s14"></span>RTE1J77 está na OS 1031 e entra quando ela fechar. As outras 2 carretas entram agora</div>':''}</div>
+      <button class="btn" style="align-self:flex-start;height:26px;padding:0;font-size:12.5px;color:hsl(var(--muted-foreground))">Abrir só para um veículo</button></div>`;
+  }
+  let km='';
+  if(!pick){
+    const who=single?'DLY1J07':s==='external'?'ABC1D23':'QRT4B22';
+    const tag=s==='external'?'<span class="chip t-none sm">De terceiro · Transportes Lima</span>':single?'':'<span class="muted" style="font-size:12px;font-weight:500">cavalo que trouxe</span>';
+    const val={typed:'152.300',lower:'15.230',external:'88.410'}[s]||(single?'98.112':'152.318');
+    const chip=['typed','lower','external'].includes(s)?'':`<span class="chip t-ok sm"><span class="ic i-wifi s14"></span>Telemetria 08:42</span>`;
+    km=`<div class="kmrow"><div class="field" style="flex:1 1 240px"><label>Km do ${who} <span class="req">*</span> ${tag}</label><div class="input ${s==='lower'?'err':''}"><span class="ic i-road s16 muted"></span><input inputmode="numeric" class="num" value="${val}"><span class="muted">km</span>${chip}</div>
+      ${s==='lower'?'<span class="hint err">Menor que o último (151.980 km em 06/11). Confira o número</span>':s==='typed'?'<span class="hint">Último: 151.980 km em 06/11</span>':''}</div>
+      ${s!=='external'&&!single?'<button class="btn sm" style="align-self:flex-end;margin-bottom:4px">Outro cavalo</button>':''}</div>`;
+    if(s==='hub') km+=`<div class="field"><label>Hodômetro de cubo do RTE1J77 <span class="req">*</span></label><div class="input"><span class="ic i-gear s16 muted"></span><input inputmode="numeric" class="num" placeholder="Leitura do cubo"><span class="muted">km</span></div></div>`;
+  }
+  const prob=`<div class="field"><label>Problema relatado <span class="req">*</span></label><div class="input" style="height:72px;align-items:flex-start;padding-top:10px"><span style="font-size:14.5px">${pick?'':'Freio puxando para a direita e vazamento de ar'}</span></div></div>`;
+  const box=`<div class="field"><label>Box</label><div class="input"><span class="ic i-wrench s16 muted"></span><span style="flex:1">Box 3</span><span class="chip t-ok sm">Livre</span></div></div>`;
+  const ok=!['pick','lower','hub'].includes(s);
+  const n=s==='lock'?2:s==='disbanded'?2:3;
+  const foot=ok?`<b>${single?'DLY1J07':`Conjunto C-320 · ${n} carretas`}</b> · Box 3`:`<span class="why0"><span class="ic i-info s14"></span>${pick?'Escolha o conjunto ou o veículo':s==='lower'?'Confira o km':'Informe o hodômetro de cubo'}</span>`;
+  return `<div class="dh"><div class="t"><div class="eyebrow">Ordens de serviço</div><h3>Abrir OS</h3></div>${X}</div><div class="db">${what}${km}<div class="cols" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))"><div style="grid-column:1/-1">${prob}</div></div>${pick?'':box}</div><div class="df" style="flex-wrap:wrap"><span class="grow" style="min-width:220px;color:hsl(var(--foreground))">${foot}</span><div style="display:flex;gap:10px;margin-left:auto"><button class="btn outline">Cancelar</button><button class="btn primary" ${ok?'':'disabled'}>Abrir OS</button></div></div>`;
+};
+/* ===== 3 detalhe ===== */
+function vcard(v,o={}){const [c,l,tone]=VST[v.st];
+  let now;
+  if(v.now) now=`<div class="vnow">${av(v.now[0],1)}<span style="flex:1;min-width:0" class="trunc" title="${v.now[1]} · ${v.now[2]}"><b>${v.now[1]}</b> · ${v.now[2].toLowerCase()}</span><span class="num run">${v.now[3]}</span></div>`;
+  else if(v.block) now=`<div class="vnow warn"><span class="ic i-box s16"></span><span style="flex:1;min-width:0" class="trunc" title="${v.block[0]} · ${v.block[1]}"><b>${v.block[0]}</b></span><span style="font-size:11.5px">${v.block[1]}</span></div>`;
+  else now=`<div class="vnow ok"><span class="ic i-check s16"></span><b>${v.ready}</b></div>`;
+  return `<div class="vcard ${o.on?'on':''} ${v.st==='out'?'dim':''}"><div class="vch">${ring(v.done,v.total,42)}<div style="flex:1;min-width:0"><div style="display:flex;gap:6px;align-items:baseline"><span class="pos">${v.pos}</span><b class="plate">${v.plate}</b></div><span class="chip ${c} sm">${l}</span></div><button class="ib2 ghost" title="Ações do veículo" aria-label="Ações do veículo"><span class="ic i-dots s16"></span></button></div>
+    ${o.note?`<div class="lnote warn" style="font-size:12px"><span class="ic i-swap s14"></span>${o.note}</div>`:''}${now}
+    <div class="vfoot"><span><span class="muted">Parado</span> <b class="num">${v.stop}</b></span>${o.nocost?'':`<span class="num">R$ ${v.cost}</span>`}</div></div>`;}
+R.detalhe2=s=>{
+  if(s==='loading') return `<div class="dpad"><span class="sk" style="height:120px;border-radius:16px"></span><div class="dgrid" style="margin-top:14px"><div style="display:flex;flex-direction:column;gap:10px">${[1,2,3,4].map(()=>'<span class="sk" style="height:96px;border-radius:14px"></span>').join('')}</div><div style="display:flex;flex-direction:column;gap:10px">${[1,2,3,4,5].map(()=>'<span class="sk" style="height:58px;border-radius:12px"></span>').join('')}</div></div></div>`;
+  const nocost=s==='noperm';
+  const kpi=(l,v,h)=>`<div class="kpi"><div class="eyebrow">${l}</div><div class="v num">${v}</div>${h?`<div class="muted" style="font-size:12px">${h}</div>`:''}</div>`;
+  const hero=`<div class="card hero"><div class="hl">${tt('primary','i-link','xl')}<div style="min-width:0;flex:1"><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="chip t-work">Em manutenção</span><span class="chip t-none">Corretiva</span><span class="chip t-none">Box 3</span></div>
+      <h2>Conjunto C-320 ${cbar(['work','wait','done'])}</h2><p>Freio puxando para a direita e vazamento de ar</p><p class="muted" style="font-size:12.5px">${s==='disbanded'?'Conjunto desfeito hoje às 11:00 · ':''}Entrou em 07/11 às 08:42 · QRT4B22 deixou com 152.318 km</p></div></div>
+    <div class="hr">${kpi('Prontos','1 de 3','')}${kpi('Na oficina','2 d 8 h','desde 07/11')}${nocost?'':kpi('Custo','R$ 1.730','até agora')}</div>
+    <div class="hact"><button class="btn primary"><span class="ic i-plus s16"></span>Adicionar serviços</button><button class="btn outline"><span class="ic i-truck s16"></span>Adicionar veículo</button><button class="btn outline" title="Falta 2 veículos ficarem prontos" disabled><span class="ic i-flag s16"></span>Concluir OS</button><button class="ib2" title="Mais ações da OS" aria-label="Mais ações da OS"><span class="ic i-dots s16"></span></button></div></div>`;
+  const att=[['danger','i-clock','RTE1J77 parado sem ninguém','há 2 d 8 h','Escolher mecânico'],['warning','i-box','Esperando mola de retorno','RTE1J77 · pedido há 3 h','Ver pedido'],['warning','i-person','2 serviços sem mecânico','Regulagem de catraca, troca de cuíca','Escolher'],['warning','i-warn','1 falha do checklist sem decisão','CK-0041 · RTE1J77, eixo 2','Decidir']];
+  if(s==='left') att.unshift(['warning','i-swap','SRK9H46 saiu do conjunto','hoje 10:20 · agora no C-118','Decidir']);
+  const attn=`<div class="attn"><div class="ahd"><span class="ic i-warn s16"></span><b>Precisa de atenção</b><span class="num chip t-wait sm">${att.length}</span></div><div class="alist">${att.map(a=>`<div class="aitem">${tt(a[0],a[1])}<div style="flex:1;min-width:0"><b class="trunc" title="${a[2]}">${a[2]}</b><div class="muted trunc" style="font-size:12px" title="${a[3]}">${a[3]}</div></div><button class="btn outline sm">${a[4]}</button></div>`).join('')}</div></div>`;
+  const only=s==='filtered'?'RTF6K38':null;
+  const vs=OSV.map(v=>vcard(v,{on:only===v.plate,nocost,note:s==='left'&&v.plate==='SRK9H46'?'Saiu do conjunto às 10:20':''})).join('');
+  const all=`<div class="vcard all ${only?'':'on'}"><div class="vch">${ring(2,6,42)}<div style="flex:1"><b style="font-family:Sora">Todos</b><div class="muted" style="font-size:12px">6 serviços · 2 feitos</div></div></div></div>`;
+  const filt=only?`<div class="fbar"><span class="fchip on">1º RTF6K38 <span class="ic i-x s14"></span></span><button class="btn sm" style="color:hsl(var(--primary))">Ver todos</button></div>`:'';
+  const list=`<div class="card" style="overflow:hidden"><div class="lhd2"><b style="font-family:Sora">Serviços</b><span class="muted num" style="font-size:12.5px">${only?'3 de 6':'6'}</span>${filt}</div>${svcGroups({only,menuFor:s==='menu'?'RTE1J77':null})}</div>`;
+  return `<div class="dpad">${hero}${attn}<div class="dgrid"><div class="vcol">${all}${vs}</div>${list}</div></div>`;
+};
+/* ===== 4a linha do serviço (grupo por veículo) ===== */
+R.linha2=s=>{
+  if(s==='loading') return `<div class="card" style="overflow:hidden">${[1,2,3,4].map(()=>`<div class="srow2"><span class="sk" style="width:36px;height:36px"></span><div style="flex:1;display:flex;flex-direction:column;gap:6px"><span class="sk" style="width:260px;height:14px"></span><span class="sk" style="width:340px;height:14px"></span></div><span class="sk" style="width:110px;height:32px"></span></div>`).join('')}</div>`;
+  let extra='';
+  if(s==='tip') extra=`<div class="tipbox" style="left:68px;top:150px">eixos 1, 2 e 3, os dois lados</div>`;
+  if(s==='plan') extra=`<div class="popover" style="left:200px;top:96px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><b>RTF6K38</b><span class="muted" style="font-size:12px">eixo 2, os dois lados</span><span class="x" style="margin-left:auto;width:26px;height:26px"><span class="ic i-x s14"></span></span></div><div class="planbox">${planSVG(VEH.RTF6K38,'axle_side',new Set(['a2L','a2R']),{readonly:true,w:220})}</div></div>`;
+  if(s==='menu') extra=`<div class="popover" style="right:14px;top:150px;width:220px;padding:6px"><div class="mi"><span class="ic i-pin s16"></span>Trocar posição</div><div class="mi"><span class="ic i-person s16"></span>Mecânicos</div><div class="mi"><span class="ic i-box s16"></span>Peças</div><div class="mi" style="color:hsl(var(--danger-text))"><span class="ic i-x s16"></span>Cancelar serviço</div></div>`;
+  const note=s==='noperm'?`<div class="notice info" style="margin:10px 14px"><span class="ic i-lock s16"></span><span>Seu papel permite ver os serviços. Começar e concluir ficam com quem está no serviço</span></div>`:'';
+  return `<div class="card" style="overflow:visible;position:relative"><div class="lhd2"><b style="font-family:Sora">Serviços</b><span class="muted num" style="font-size:12.5px">6</span>${s==='noperm'?'':'<button class="btn outline sm" style="margin-left:auto"><span class="ic i-plus s14"></span>Adicionar serviços</button>'}</div>${note}${svcGroups({noact:s==='noperm'})}${extra}</div>`;
+};
+/* ===== adicionar veículo (ajuste) ===== */
+R.adicionar=s=>head('OS 1042 · Conjunto C-320','Adicionar veículo','')+`<div class="db">
+  <div class="input"><span class="ic i-search s16 muted"></span><input type="search" autocomplete="off" value="${s==='lock'?'RTB9A01':''}" placeholder="Placa ou frota"></div>
+  <div class="eyebrow">${s==='lock'?'Resultado':'Sugestão'}</div>
+  <div class="choice on" style="align-items:flex-start"><span class="radio" style="margin-top:4px"></span>${tt(s==='lock'?'warning':'primary',s==='lock'?'i-lock':'i-truck')}<div style="flex:1;min-width:0"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><b class="plate">${s==='lock'?'RTB9A01':'RTA2B33'}</b><span class="chip t-none sm">Carreta</span>${s==='lock'?'':'<span class="bchip warning"><span class="ic i-warn s14"></span>1 falha sem decisão</span>'}</div><div class="muted" style="font-size:12.5px">${s==='lock'?'<b style="color:hsl(var(--warning-text))">Na OS 1035</b>, em manutenção há 1 dia':'Engatado no C-320 hoje às 09:10, depois da abertura'}</div></div></div>
+  ${s==='lock'?`<div class="notice warn"><span class="ic i-lock s16"></span><span>RTB9A01 está na OS 1035. Para trazer para cá, transfira a partir da OS 1035</span></div>`:''}
+</div><div class="df"><span class="grow">${s==='lock'?'':'<b>RTA2B33</b> entra como 4º veículo'}</span><button class="btn outline">Cancelar</button><button class="btn primary" ${s==='lock'?'disabled':''}>Adicionar</button></div>`;
+/* ===== sai antes ===== */
+R.sai2=s=>{
+  const reasons=['Seguir viagem','Foi para outro conjunto','Outro'];
+  const r=s==='other'?2:0;
+  const pend=s==='pending'||s==='cancel';
+  const svcs=pend?SVC2.RTE1J77.map(x=>srow(x,{noact:1,nomenu:1})).join(''):'';
+  return head('OS 1042 · Conjunto C-320',`${pend?'RTE1J77':'SRK9H46'} sai antes`,'')+`<div class="db">
+    <div class="field"><label>Por quê <span class="req">*</span></label><div class="fchips">${reasons.map((x,i)=>`<span class="fchip ${i===r?'on':''}">${x}</span>`).join('')}</div></div>
+    ${s==='other'?'<div class="field"><label>Conte em poucas palavras <span class="req">*</span></label><div class="input"><input value="Cliente pediu de volta para carregar" ></div></div>':''}
+    ${pend?`<div class="field"><label>2 serviços ainda abertos</label><div class="card" style="overflow:hidden;box-shadow:none">${svcs}</div></div>
+      <div class="field"><label>O que fazer com eles</label>
+      <div class="choice ${s==='pending'?'on':''}"><span class="radio"></span>${tt('primary','i-plus')}<div style="flex:1"><b>Levar para uma OS nova do RTE1J77</b><div class="muted" style="font-size:12.5px">Os 2 serviços seguem nela, ligada a esta</div></div></div>
+      <div class="choice ${s==='cancel'?'on':''}"><span class="radio"></span>${tt('muted','i-x')}<div style="flex:1"><b>Cancelar os 2 serviços</b><div class="muted" style="font-size:12.5px">Ficam no histórico como cancelados</div></div></div></div>
+      ${s==='cancel'?'<div class="field"><label>Motivo do cancelamento <span class="req">*</span></label><div class="input"><input placeholder="Ex.: o cliente vai fazer em outra oficina"></div></div>':''}`
+    :`<div class="setcard">${tt('success','i-check')}<div><b>Nada aberto no SRK9H46</b><div class="muted" style="font-size:12.5px">1 serviço feito · revisão elétrica, com Bruno</div></div></div>`}
+  </div><div class="df" style="flex-wrap:wrap"><span class="grow" style="min-width:200px;color:hsl(var(--foreground))">${pend?(s==='cancel'?'<span class="why0"><span class="ic i-info s14"></span>Informe o motivo</span>':'<b>RTE1J77</b> sai · OS nova com 2 serviços'):'<b>SRK9H46</b> sai · os outros 2 seguem na OS'}</span><div style="display:flex;gap:10px;margin-left:auto"><button class="btn outline">Cancelar</button><button class="btn primary" ${s==='cancel'?'disabled':''}>${pend&&s==='pending'?'Registrar saída e abrir OS':'Registrar saída'}</button></div></div>`;
+};
+/* ===== transferir ===== */
+R.transf2=s=>{
+  const none=s==='none';
+  const opts=none?`<div class="setcard dots" style="flex-direction:column;text-align:center;padding:22px">${tt('primary','i-link','lg')}<b>Nenhuma OS aberta para o C-118</b><span class="muted" style="font-size:12.5px">Abra a OS do C-118 e a transferência já vai junto</span><button class="btn outline sm">Abrir OS para o C-118</button></div>`
+    :`<div class="choice on" style="align-items:flex-start"><span class="radio" style="margin-top:4px"></span>${tt('primary','i-link')}<div style="flex:1;min-width:0"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><b>OS 1043 · Conjunto C-118</b><span class="chip t-work sm">Sugerida</span></div><div class="muted" style="font-size:12.5px">SRK9H46 engatou nele hoje às 10:20 · na fila</div></div></div>
+      <div class="choice" style="align-items:flex-start"><span class="radio" style="margin-top:4px"></span>${tt('muted','i-link')}<div style="flex:1;min-width:0"><b>OS 1038 · Conjunto C-900</b><div class="muted" style="font-size:12.5px">Em manutenção · box 1</div></div></div>`;
+  const col=(t,items,tone)=>`<div class="tcol"><div class="eyebrow">${t}</div>${items.map(x=>`<div class="titem">${tt(tone,KIND[x[1]])}<span style="flex:1;min-width:0" class="trunc" title="${x[0]}">${x[0]}</span><span class="muted" style="font-size:12px">${x[2]}</span></div>`).join('')}</div>`;
+  return head('OS 1042 · Conjunto C-320','Transferir SRK9H46','')+`<div class="db"><div class="field"><label>Para qual OS <span class="req">*</span></label>${opts}</div>
+    ${none?'':`<div class="tcols">${col('Fica nesta OS',[['Revisão elétrica','elec','feito']],'success')}${col('Vai para a OS 1043',[['Vazamento de ar na linha','struct','na fila']],'primary')}</div>`}
+  </div><div class="df"><span class="grow">${none?'':'<b>SRK9H46</b> vai para a OS 1043 com 1 serviço'}</span><button class="btn outline">Cancelar</button><button class="btn primary" ${none?'disabled':''}>Transferir</button></div>`;
+};
+/* ===== engate ===== */
+R.engate2=s=>{
+  if(s==='estimated') return `<div class="card" style="max-width:860px;margin:0 auto;overflow:hidden"><div style="padding:16px 18px;border-bottom:1px solid hsl(var(--border));display:flex;align-items:center;gap:10px">${tt('primary','i-link')}<div><b style="font-family:Sora">Histórico de engate</b><div class="muted" style="font-size:12.5px">RTE1J77 · carreta</div></div></div>
+    ${[['QRT4B22','02/11 06:10','151.120','08/11 08:42','152.318','1.198',''],['ABC1D23','28/10 14:00','87.900','01/11 18:30','88.410','510','terceiro'],['QRT4B22','20/10 07:00','149.300','27/10 22:10','150.040','740','est']].map(r=>`<div class="hrow">${tt('muted','i-truck')}<div><b class="plate">${r[0]}</b>${r[6]==='terceiro'?' <span class="chip t-none sm">De terceiro</span>':''}</div><div class="num" style="font-size:12.5px"><span class="muted">Engatou</span> ${r[1]}<div>${r[2]} km</div></div><div class="num" style="font-size:12.5px"><span class="muted">Soltou</span> ${r[3]}<div>${r[4]} km ${r[6]==='est'?'<span class="chip t-wait sm" title="Sem leitura no desengate: estimado entre as leituras de 27/10 e 29/10">Estimado</span>':''}</div></div><b class="num" style="text-align:right;font-size:15px">${r[5]} km</b></div>`).join('')}</div>`;
+  const lower=s==='lower', ext=s==='external';
+  const opts=[['QRT4B22','Trouxe o conjunto · frota 812'],['RTB7F31','Livre no pátio · frota 815']];
+  return `<div class="scrim" style="background:transparent;align-items:start"><div class="dialog" style="max-height:none">${head('Conjunto C-320 · OS 1042 concluída','Engatar para sair','')}<div class="db">
+    <div class="field"><label>Cavalo <span class="req">*</span></label>${ext?`<div class="input"><span class="ic i-truck s16 muted"></span><input value="ABC1D23"><span class="chip t-none sm">De terceiro</span></div><div class="input"><input value="Transportes Lima" placeholder="Transportadora"></div>`:`<div class="utiles" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">${opts.map((o,i)=>`<div class="utile row ${i===1?'sel':''}">${tt(i===1?'primary':'muted','i-truck')}<span style="min-width:0"><b class="plate" style="font-size:14px">${o[0]}</b><span class="muted trunc" style="display:block;font-size:11.5px" title="${o[1]}">${o[1]}</span></span></div>`).join('')}</div><button class="btn" style="align-self:flex-start;height:24px;padding:0;font-size:12.5px;color:hsl(var(--muted-foreground))">Cavalo de terceiro</button>`}</div>
+    <div class="field"><label>Km do ${ext?'ABC1D23':'RTB7F31'} <span class="req">*</span></label><div class="input ${lower?'err':''}"><span class="ic i-road s16 muted"></span><input class="num" inputmode="numeric" value="${lower?'9.775':ext?'88.990':'98.775'}"><span class="muted">km</span>${lower||ext?'':'<span class="chip t-ok sm"><span class="ic i-wifi s14"></span>Telemetria</span>'}</div>${lower?'<span class="hint err">Menor que o último (98.402 km em 08/11). Confira o número</span>':''}</div>
+  </div><div class="df" style="flex-wrap:wrap"><span class="grow" style="min-width:200px;color:hsl(var(--foreground))">${lower?'<span class="why0"><span class="ic i-info s14"></span>Confira o km</span>':`<b>C-320</b> sai com 3 carretas, puxado pelo ${ext?'ABC1D23':'RTB7F31'}`}</span><div style="display:flex;gap:10px;margin-left:auto"><button class="btn outline">Cancelar</button><button class="btn primary" ${lower?'disabled':''}>Engatar</button></div></div></div></div>`;
+};
+/* ===== celular ===== */
+function phones2(){
+  document.getElementById('phone-3').innerHTML=`<div class="phd"><div class="eyebrow">Oficina · Box 3</div><div style="font:800 20px Sora">Meus serviços</div></div>
+   <div style="padding:12px;display:flex;flex-direction:column;gap:10px;overflow:hidden;flex:1">
+    <div class="runcard"><div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;opacity:.85"><span>Em andamento</span><span>OS 1042</span></div><b style="font:700 16px Sora">Troca de lona de freio</b><div style="font-size:13px;opacity:.9">RTF6K38 · eixo 2, os dois lados</div><div class="big num">0:42</div><div style="display:flex;gap:8px"><button class="btn lg" style="flex:1;background:hsl(var(--primary-foreground)/.16);color:#fff"><span class="ic i-pause s16"></span>Pausar</button><button class="btn lg" style="flex:1;background:#fff;color:hsl(var(--primary))"><span class="ic i-check s16"></span>Concluir</button></div></div>
+    <div class="card" style="padding:12px;display:flex;flex-direction:column;gap:8px"><div class="eyebrow">Próximo</div><div style="display:flex;gap:10px;align-items:center">${tt('muted','i-disc')}<div style="flex:1;min-width:0"><b>Regulagem de catraca</b><div class="muted trunc" style="font-size:12.5px" title="RTF6K38 · eixos 1, 2 e 3, os dois lados">RTF6K38 · eixos 1, 2 e 3, os dois lados</div></div></div><div class="mi2" style="font-size:12px"><span class="ic i-box s14"></span>Sem peças do kit</div><button class="btn soft lg" style="width:100%"><span class="ic i-play s16"></span>Começar</button></div>
+    <div class="card" style="padding:4px 12px"><div class="eyebrow" style="padding:8px 0 4px">Depois</div>${[['Troca de cuíca','RTE1J77 · eixo 1, direito','Na fila'],['Troca de lona de freio','RTE1J77 · eixo 2, esquerdo','Esperando peça']].map(r=>`<div style="display:flex;gap:10px;align-items:center;padding:8px 0;border-top:1px solid hsl(var(--border))">${tt(r[2]==='Na fila'?'muted':'warning','i-disc')}<div style="flex:1;min-width:0"><b style="font-size:13.5px">${r[0]}</b><div class="muted trunc" style="font-size:12px">${r[1]}</div></div><span class="chip ${r[2]==='Na fila'?'t-none':'t-wait'} sm">${r[2]}</span></div>`).join('')}</div>
+   </div>
+   <div class="ptabs"><span class="on"><span class="ic i-person s20"></span>Meus</span><span><span class="ic i-wrench s20"></span>OS</span><span><span class="ic i-list s20"></span>Checklist</span></div>`;
+  document.getElementById('phone-4').innerHTML=`<div class="phd"><div class="eyebrow">OS 1042 · Box 3</div><div style="display:flex;align-items:center;gap:8px"><b style="font:800 19px Sora">Conjunto C-320</b>${cbar(['work','wait','done'])}</div><div class="muted" style="font-size:12.5px">1 de 3 prontos · na oficina há 2 d 8 h</div></div>
+   <div style="padding:12px;display:flex;flex-direction:column;gap:8px;overflow:hidden;flex:1">
+    <div class="attn" style="margin:0"><div class="ahd"><span class="ic i-warn s16"></span><b>Precisa de atenção</b><span class="chip t-wait sm num">4</span></div><div class="alist" style="grid-template-columns:1fr">${[['danger','i-clock','RTE1J77 parado sem ninguém','Escolher'],['warning','i-box','Esperando mola de retorno','Ver']].map(a=>`<div class="aitem">${tt(a[0],a[1])}<b style="flex:1;min-width:0;font-size:13px" class="trunc" title="${a[2]}">${a[2]}</b><button class="btn outline sm">${a[3]}</button></div>`).join('')}<span class="muted" style="font-size:12px;padding:0 4px">e mais 2</span></div></div>
+    ${OSV.map(v=>vcard(v,{nocost:1})).join('')}
+   </div>
+   <div style="padding:10px 12px;border-top:1px solid hsl(var(--border));background:hsl(var(--card))"><button class="btn primary lg" style="width:100%"><span class="ic i-plus s16"></span>Adicionar serviços</button></div>`;
+}
+
 function phones(){
   document.getElementById('phone-1').innerHTML=`<div style="padding:16px 16px 10px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))"><div class="eyebrow">OS 1042 · Box 3</div><div style="font:800 19px Sora">Conjunto C-320</div><div class="muted" style="font-size:12.5px">1 de 3 prontas · há 2 dias</div></div>
     <div style="padding:12px;display:flex;flex-direction:column;gap:8px">${FRONTS.map((f,i)=>frontCard(f,i===0,'')).join('')}</div>
@@ -881,7 +1229,7 @@ function phones(){
     <div style="padding:12px"><button class="btn outline" style="width:100%"><span class="ic i-plus s14"></span>Adicionar serviço</button></div>`;
 }
 
-const TARGET={montar:'montar-body',svclinha:'svclinha-pane',tipo:'tipo-body',lista:'lista-pane',alvo:'alvo-dialog',entrada:'entrada-dialog',detalhe:'detalhe-pane',servico:'servico-dialog',adicionar:'adicionar-dialog',sai:'sai-dialog',transferir:'transferir-dialog',concluir:'concluir-dialog',engate:'engate-body'};
+const TARGET={lista2:'lista2-body',abrir:'abrir-dialog',detalhe2:'detalhe2-body',linha2:'linha2-pane',sai2:'sai2-dialog',transf2:'transf2-dialog',engate2:'engate2-body',montar:'montar-body',svclinha:'svclinha-pane',tipo:'tipo-body',lista:'lista-pane',alvo:'alvo-dialog',entrada:'entrada-dialog',detalhe:'detalhe-pane',servico:'servico-dialog',adicionar:'adicionar-dialog',sai:'sai-dialog',transferir:'transferir-dialog',concluir:'concluir-dialog',engate:'engate-body'};
 function draw(k,s){document.getElementById(TARGET[k]).innerHTML=R[k](s); if(k==='detalhe') document.getElementById('detalhe-bar').innerHTML=s==='loading'?'':detalheBar();}
 for(const k of Object.keys(TARGET)){const g=document.querySelector(`.states[data-for="${k}"]`); const first=g?(g.querySelector('button[aria-pressed=true]')||g.querySelector('button')).dataset.s:undefined; draw(k,first);
   if(g) g.querySelectorAll('button').forEach(b=>b.onclick=()=>{g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b)); draw(k,b.dataset.s);});}
@@ -890,6 +1238,8 @@ svcTouch();
 chkPreview();
 concluirPhone();
 montarTouch();
+phones2();
+document.querySelectorAll('.vtoggle[data-sec]').forEach(t=>t.querySelectorAll('button').forEach(b=>b.onclick=()=>{t.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));const sc=t.closest('section');sc.querySelector(':scope>.ver-new').hidden=b.dataset.v!=='new';sc.querySelector(':scope>.ver-old').hidden=b.dataset.v!=='old';}));
 document.querySelectorAll('#ver5 button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#ver5 button').forEach(x=>x.setAttribute('aria-pressed',x===b));document.getElementById('ver5-new').hidden=b.dataset.v!=='new';document.getElementById('ver5-old').hidden=b.dataset.v!=='old';});
 </script>
 </body>
