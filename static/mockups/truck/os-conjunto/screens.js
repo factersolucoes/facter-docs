@@ -447,10 +447,10 @@ function listaPhone(s){
     <div style="display:flex;gap:10px;align-items:center;padding:0 14px 10px">${ring(r.d,r.t,34,'')}<b class="num" style="font-size:13px;white-space:nowrap">${r.sum}</b><span style="flex:1"></span><span class="mi2">${r.who.length?`<span class="avs">${r.who.map(w=>av(w[0],1)).join('')}</span>`:'<span class="av dash"><span class="ic i-person s14"></span></span>'}<span class="${r.who.length?'':'muted'}">${r.whoT}</span></span></div>
     ${r.block?`<div style="padding:8px 14px;border-top:1px solid hsl(var(--border));background:hsl(var(--${r.block[0]}-soft)/.6)"><span class="bchip ${r.block[0]}" style="background:none;padding:0;height:auto" title="${r.block[2]}"><span class="ic ${r.block[1]} s14"></span><span class="trunc">${r.block[2]}</span></span></div>`:''}</div>`).join('')}</div>`;
 }
-RR.lista=(s,d)=>isPhone(d)?listaPhone(s):R.lista2(s);
+RR.lista=(s,d)=>s==='loading'||s==='empty'?F.real.workOrdersPage({state:s}):F.real.workOrdersPage({deltas:s==='proposal'});
 
 /* ---------- 2 abrir ---------- */
-RR.abrir=(s,d)=>isPhone(d)?bg(listaPhone('ok'))+sht(R.abrir(s)):bg(R.lista2('ok'))+dlg(R.abrir(s),680);
+RR.abrir=(s,d)=>bg(F.real.workOrdersPage())+(isPhone(d)?sht(R.abrir(s)):dlg(R.abrir(s),680));
 
 /* ---------- 3 detalhe ---------- */
 function prow(x){const [tone,word]=SST[x.st];
@@ -468,7 +468,7 @@ function detalhePhone(s){
   const groups=OSV.filter(v=>!only||v.plate===only).map(v=>`<div class="pcard" style="overflow:hidden">${ghd(v)}${SVC2[v.plate].map(prow).join('')}</div>`).join('');
   return `<div class="mec">${hero}${attn}${strip}${only?`<div style="display:flex;gap:8px;align-items:center">${F.fchip('1º RTF6K38 ✕',{on:1})}<span class="muted" style="font-size:12.5px">3 de 6 serviços</span></div>`:''}${groups}<div style="height:70px"></div></div><span class="fab"><span class="ic i-plus s20"></span>Serviços</span>`;
 }
-RR.detalhe=(s,d)=>isPhone(d)?detalhePhone(s):R.detalhe2(s);
+RR.detalhe=(s,d)=>s==='today'?`<div class="dpad">${F.real.workOrderHeader()}<div class="fx-delta" style="margin-top:14px"><span class="fx-newtag">a copiar</span><span style="font-size:12.5px">Abaixo do topo, hoje: a faixa de frentes, o painel de serviços e o de peças (work-order-fronts-panel, work-order-services-panel). Entram aqui na próxima rodada, copiados do código.</span></div></div>`:isPhone(d)?detalhePhone(s):R.detalhe2(s);
 
 /* ---------- 4 montar ---------- */
 function montarPhone(s){

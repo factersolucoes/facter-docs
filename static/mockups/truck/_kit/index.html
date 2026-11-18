@@ -5,10 +5,11 @@
 <title>Kit de mockups do Truck</title>
 <link rel="stylesheet" href="kit.css">
 <style>
-.atoms{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-left:38px}
+.atoms{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:14px;margin-left:38px}
 .atom{padding:16px;display:flex;flex-direction:column;gap:10px}
 .atom h4{font:700 11px Inter;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
 .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.atom .src{font-size:11px;color:hsl(var(--muted-foreground))}.st{display:flex;flex-direction:column;gap:6px}.st>span{font:600 10.5px Inter;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground)/.8)}.dlgbox{position:relative;height:420px;border-radius:12px;overflow:hidden;background:hsl(var(--background))}
 pre{margin:8px 0 0 38px;padding:12px 14px;border-radius:12px;background:hsl(var(--card));font-size:12px;overflow:auto;max-width:900px}
 </style>
 </head>
@@ -21,9 +22,9 @@ pre{margin:8px 0 0 38px;padding:12px 14px;border-radius:12px;background:hsl(var(
   <section class="sc" id="web"><h2><span class="tag">1</span>Notebook · página com cabeçalho e página console</h2>
     <p class="why">Menu lateral recolhido (64 px, abre ao passar o mouse), barra do topo com a busca no meio, empresa e perfil à direita. Página comum leva o cabeçalho na própria página; página console leva o grupo e o nome na barra do topo.</p>
     <div class="devices">
-      <div style="flex:1 1 100%;min-width:0"><div class="devlabel">Página com cabeçalho · menu aberto</div>
-        <fx-app device="web" section="os" crumb="Ordens de serviço" sidebar="expanded" height="520"><div data-render="demoPage"></div></fx-app></div>
-      <div style="flex:1 1 100%;min-width:0"><div class="devlabel">Console · menu recolhido</div>
+      <div style="flex:1 1 100%;min-width:0"><div class="devlabel">Página com cabeçalho · menu aberto · a lista de OS como está no app</div>
+        <fx-app device="web" section="os" crumb="Ordens de serviço" sidebar="expanded" height="760"><div data-render="demoPage"></div></fx-app></div>
+      <div style="flex:1 1 100%;min-width:0"><div class="devlabel">Console · menu recolhido (conteúdo de exemplo)</div>
         <fx-app device="web" section="os" console eyebrow="Ordens de serviço" title="OS 1042" height="520"><div data-render="demoConsole"></div></fx-app></div>
     </div>
   </section>
@@ -37,12 +38,12 @@ pre{margin:8px 0 0 38px;padding:12px 14px;border-radius:12px;background:hsl(var(
   </section>
 
   <section class="sc" id="phone"><h2><span class="tag">3</span>Celular · 390 × 844</h2>
-    <p class="why">Sem menu lateral: a navegação de baixo do DS, com os 9 itens do app (o mesmo menu). A página comum mostra a marca na barra do topo; a console mostra o grupo e o nome. Diálogo vira folha de baixo.</p>
+    <p class="why">Sem menu lateral: a navegação de baixo do DS 1.45, com no máximo 5 posições (Início, Ativos, OS, Pátio e "Mais", que abre o resto numa folha), rótulo numa linha só. A página comum mostra a marca na barra do topo; a console mostra o grupo e o nome. Diálogo vira folha de baixo.</p>
     <div class="devices">
-      <div><div class="devlabel">Página comum</div><fx-app device="phone" section="os"><div data-render="demoPhoneList"></div></fx-app></div>
+      <div><div class="devlabel">Página comum · lista de OS do app</div><fx-app device="phone" section="os"><div data-render="demoPhoneList"></div></fx-app></div><div><div class="devlabel">Navegação · "Mais" aberto</div><fx-app device="phone" section="runs" more><div data-render="demoPhoneMore"></div></fx-app></div>
       <div><div class="devlabel">Console com folha</div><fx-app device="phone" section="os" console eyebrow="Ordens de serviço" title="OS 1042"><div data-render="demoPhoneSheet"></div></fx-app></div>
     </div>
-    <span class="note">Achado: com 9 itens, os rótulos da navegação de baixo quebram em duas linhas no celular ("Ordens de serviço", "Configurações"). É assim no app hoje.</span>
+    <span class="note">O app ainda está no DS 1.43 (9 itens, rótulos quebrando). Ao subir para a 1.45, passar shortLabel "OS" em Ordens de serviço.</span>
   </section>
 
   <section class="sc" id="atoms"><h2><span class="tag">4</span>Átomos</h2>
@@ -66,28 +67,69 @@ section: home, vehicles, sets, os, yard, runs, templates, stock, tirestock, move
 <script src="kit.js"></script>
 <script>
 const F=FX;
-const card=(inner,pad=14)=>`<div class="fx-card" style="padding:${pad}px">${inner}</div>`;
-const osCard=(n,plate,st,tone,d,t)=>card(`<div class="row" style="gap:12px;flex-wrap:nowrap">${F.ring(d,t,48)}<div style="flex:1;min-width:0"><div class="row">${F.plate(plate)}<b style="font:700 13px Sora;color:hsl(var(--primary))">${n}</b></div><div style="color:hsl(var(--muted-foreground));font-size:12.5px;margin-top:4px">Freio puxando, vazamento de ar</div></div>${F.chip(tone,st)}</div>`);
+const box=(title,src,inner,miss)=>`<div class="fx-card atom"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><h4 style="flex:1">${title}</h4>${miss?F.missing(miss):''}</div><code class="src">${src}</code>${inner}</div>`;
+const st=(label,html)=>`<div class="st"><span>${label}</span><div class="row">${html}</div></div>`;
 F.bind({
-  demoPage:()=>F.pageHeader('Ordens de serviço','O que está na oficina e o que está travando',F.btn('Abrir OS',{icon:'plus'}))+`<div class="row" style="margin-bottom:12px">${F.fchip('Todas',{general:1,on:1})}${F.fchip('Esperando peça',{count:1})}${F.fchip('Sem mecânico',{count:2})}</div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px">${osCard('OS 1042','RTF6K38','Em manutenção','primary',1,3)}${osCard('OS 1043','RTC3G56','Na fila','muted',0,2)}${osCard('OS 1040','DLY1J07','Esperando peça','warning',2,4)}</div>`,
-  demoConsole:()=>`<div style="display:grid;grid-template-columns:260px 1fr;gap:12px;height:100%">${card(`<div class="row">${F.tile('primary','link-simple','lg')}<div><b style="font:800 16px Sora">Conjunto C-320</b><div>${F.cbar(['work','wait','done'])}</div></div></div>`)}<div style="position:relative">${F.empty({canvas:1,icon:'hand-pointing',title:'Escolha um veículo',hint:'Os serviços dele aparecem aqui'})}<div style="position:absolute;left:50%;bottom:14px;transform:translateX(-50%)">${F.selbar('1º','RTF6K38',[{label:'Pausar',icon:'pause'},{label:'Liberar',icon:'flag-checkered',primary:1}])}</div></div></div>`,
+  demoPage:()=>F.real.workOrdersPage(),
+  demoConsole:()=>`<div style="display:grid;grid-template-columns:260px 1fr;gap:12px;height:100%">${F.card(`<div class="row">${F.tile('primary','link-simple','lg')}<div><b style="font:800 16px Sora">Conjunto C-320</b><div style="margin-top:6px">${F.comp(['working','waiting','done'])}</div></div></div>`,{app:1,pad:14})}<div style="position:relative">${F.empty({canvas:1,icon:'hand-pointing',title:'Escolha um veículo',hint:'Os serviços dele aparecem aqui'})}<div style="position:absolute;left:50%;bottom:14px;transform:translateX(-50%)">${F.selbar('1º','RTF6K38',[{label:'Pausar',icon:'pause'},{label:'Liberar',icon:'flag-checkered',primary:1}])}</div></div></div>`,
   demoEmpty:()=>F.empty({canvas:1,icon:'garage',title:'Escolha um box',hint:'Toque num box do pátio para ver o que está nele'}),
-  demoCards:()=>`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px">${[1,2,3,4,5,6].map(i=>osCard('CK-00'+(40+i),['RTF6K38','RTE1J77','SRK9H46'][i%3],i%2?'Em andamento':'Concluído',i%2?'primary':'success',i,6)).join('')}</div>`,
-  demoPhoneList:()=>F.pageHeader('Ordens de serviço','',F.btn('Abrir OS',{icon:'plus',size:'sm'}))+`<div style="display:flex;flex-direction:column;gap:10px">${osCard('OS 1042','RTF6K38','Em manutenção','primary',1,3)}${osCard('OS 1043','RTC3G56','Na fila','muted',0,2)}${osCard('OS 1040','DLY1J07','Esperando peça','warning',2,4)}</div>`,
-  demoPhoneSheet:()=>osCard('OS 1042','RTF6K38','Em manutenção','primary',1,3)+F.sheet({eyebrow:'OS 1042 · Conjunto C-320',title:'Concluir serviço',body:`<div class="row">${F.tile('primary','disc','lg')}<div><b>Troca de lona de freio</b><div style="color:hsl(var(--muted-foreground));font-size:13px">RTF6K38 · eixo 2, os dois lados</div></div></div>${F.notice('success','check','Peças separadas: lona, rebite e mola')}`,foot:`${F.btn('Concluir',{icon:'check',size:'lg'})}${F.btn('Cancelar',{variant:'outline',size:'lg'})}`}),
+  demoCards:()=>`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px">${[1,2,3,4,5,6].map(i=>F.card(`<div class="row" style="flex-wrap:nowrap;gap:12px">${F.ring2(60-i*5,i*4,(60-i*5+i*4)+'%')}<div style="flex:1;min-width:0"><div class="row">${F.plate(['RTF6K38','RTE1J77','SRK9H46'][i%3])}${F.plate('QRT4B22')}</div><div style="color:hsl(var(--muted-foreground));font-size:12.5px;margin-top:6px">Conjunto C-320 · 3 veículos</div></div>${F.badge(i%2?'Em andamento':'Concluída',{variant:i%2?'default':'success',shape:'label'})}</div>`,{app:1,pad:14})).join('')}</div>`,
+  demoPhoneList:()=>F.real.workOrdersPage(),
+  demoPhoneMore:()=>F.real.workOrdersPage({state:'loading'}),
+  demoPhoneSheet:()=>F.real.workOrdersPage({state:'loading'})+F.sheet({eyebrow:'OS-001042 · Conjunto C-320',title:'Concluir serviço',body:`<div class="row" style="flex-wrap:nowrap">${F.tile('primary','disc','lg')}<div><b>Troca de lona de freio</b><div style="color:hsl(var(--muted-foreground));font-size:13px">RTF6K38 · eixo 2, os dois lados</div></div></div>${F.notice('success','check','Peças separadas: lona, rebite e mola')}`,consequence:'O tempo para em 0:42',action:'Concluir'}),
 });
-const atom=(t,html)=>`<div class="fx-card atom"><h4>${t}</h4>${html}</div>`;
 document.getElementById('atoms-grid').innerHTML=[
-  atom('Placa e chip de tom',`<div class="row">${F.plate('RTF6K38')}${F.plate('QRT4B22')}</div><div class="row">${['primary','success','warning','danger','muted'].map(t=>F.chip(t,{primary:'Em manutenção',success:'Pronto',warning:'Esperando peça',danger:'Atrasado',muted:'Na fila'}[t])).join('')}</div>`),
-  atom('Bloco de tom com ícone',`<div class="row">${F.tile('primary','wrench')}${F.tile('success','check')}${F.tile('warning','package')}${F.tile('danger','clock')}${F.tile('muted','pause')}${F.tile('primary','link-simple','lg')}${F.tile('primary','truck','xl')}</div>`),
-  atom('Pessoas',`<div class="row">${F.avatar('Carlos Souza',1)}${F.avatar('Ana Lima')}${F.avatar('Bruno Reis',0,'lg')}</div>`),
-  atom('Andamento',`<div class="row">${F.ring(0,3)}${F.ring(1,3)}${F.ring(3,3)}${F.ring(2,6,56,'2/6')}${F.cbar(['done','work','wait','out'])}</div>`),
-  atom('Botões',`<div class="row">${F.btn('Abrir OS',{icon:'plus'})}${F.btn('Cancelar',{variant:'outline'})}${F.btn('Começar',{variant:'soft',icon:'play',fill:1})}${F.btn('Próximo veículo',{variant:'ghost'})}${F.btn('Concluir',{disabled:1})}</div>`),
-  atom('Filtros e segmentado',`<div class="row">${F.fchip('Todas',{general:1,on:1})}${F.fchip('Esperando peça',{count:1})}${F.fchip('Sem mecânico',{count:2})}</div>${F.seg(['Abertas','Concluídas'],'Abertas')}`),
-  atom('Avisos',`${F.notice('warning','warning-circle','RTE1J77 está na OS 1031')}${F.notice('danger','warning-circle','Não conseguimos carregar agora. Tente de novo')}${F.notice('info','info','Sem sinal. A lista fica salva neste aparelho')}`),
-  atom('Esqueleto e tooltip',`<div class="row">${F.sk(48,48,99)}<div style="flex:1;display:flex;flex-direction:column;gap:6px">${F.sk('80%',14)}${F.sk('50%',12)}</div></div>${F.tooltip('eixos 1, 2 e 3, os dois lados')}`),
-  atom('Barra escura de seleção',F.selbar('2','serviços',[{label:'Escolher mecânico',icon:'user'},{label:'Começar',icon:'play',primary:1}])),
-  atom('Área vazia (canvas)',F.empty({canvas:1,icon:'hand-pointing',title:'Escolha um veículo',hint:'Os serviços dele aparecem aqui'})),
+  box('Button','ds-core · Button',[
+    st('variantes',F.btn('Abrir OS',{icon:'plus'})+F.btn('Cancelar',{variant:'outline'})+F.btn('Ver pedido',{variant:'outline-primary'})+F.btn('Começar',{variant:'secondary',icon:'play',fill:1})+F.btn('Próximo veículo',{variant:'ghost'})+F.btn('Excluir',{variant:'danger'})+F.btn('Ver todos',{variant:'link'})),
+    st('tamanhos',F.btn('sm',{size:'sm'})+F.btn('default')+F.btn('lg',{size:'lg'})+F.btn('',{size:'icon',icon:'dots-three-vertical',variant:'outline'})+F.btn('',{size:'icon-sm',icon:'x',variant:'ghost'})),
+    st('estados',F.btn('Padrão')+F.btn('Hover',{state:'hover'})+F.btn('Foco',{state:'focus'})+F.btn('Desabilitado',{disabled:1})+F.btn('Salvar',{loading:1,loadingText:'Salvando…'}))].join('')),
+  box('Badge','ds-core · Badge (pill e label)',[
+    st('pill',['default','secondary','success','warning','danger','info','outline'].map(v=>F.badge(v,{variant:v})).join('')),
+    st('label',[['default','Em manutenção'],['secondary','Na fila'],['warning','Esperando peça'],['success','Pronto'],['danger','Atrasado']].map(([v,t])=>F.badge(t,{variant:v,shape:'label'})).join('')),
+    st('tamanhos',F.badge('sm',{size:'sm'})+F.badge('default')+F.badge('lg',{size:'lg'}))].join('')),
+  box('Chips da OS','app · work-orders-feed.tsx',[
+    st('placa e conjunto',F.plateOs('RTF6K38')+F.plateOs('C-320')+F.plate('QRT4B22')),
+    st('tipo e prioridade',F.kind('Corretiva')+F.prio('critical')+F.prio('high')+F.prio('medium')),
+    st('situação',F.status('queued')+F.status('in_maintenance')+F.status('paused')+F.status('finished')),
+    st('composição (CompositionStrip)',F.comp(['working','waiting','done'])+F.comp(['done','left','working','working','paused','waiting'],120))].join('')),
+  box('Pessoas','ds-core · Avatar e ChoiceInitials; app · ExecutorAvatar',[
+    st('Avatar',F.avatar('Rafael Lima')+F.avatar('Carlos Souza',{size:'sm'})),
+    st('Iniciais (tom pelo nome)',['Carlos Souza','Ana Lima','Bruno Reis','Diego Melo','Rafa Freitas'].map(n=>F.initials(n)).join('')),
+    st('Executor livre e ocupado',F.initials('Carlos Souza','free')+F.initials('Ana Lima','busy'))].join('')),
+  box('Andamento','ds-core · ProgressDonut; app · anel do checklist',[
+    st('ProgressDonut',F.donut(1,3,{size:96,thickness:10,label:'serviços'})+F.donut(5,8,{size:140,label:'serviços'})),
+    st('Anel de duas cores (checklist)',F.ring2(70,10,'80%')+F.ring2(40,25,'65%')),
+    st('Anel fino do mockup',F.ring(1,3)+F.ring(3,3))].join(''),'anel de duas cores e anel fino: falta no DS'),
+  box('Bloco de tom com ícone','app · checklist-cards.tsx (h-9 w-9 rounded-[9px])',st('tons',F.tile('primary','wrench')+F.tile('success','check')+F.tile('warning','package')+F.tile('danger','clock')+F.tile('muted','pause')+F.tile('primary','link-simple','lg')),'falta no DS'),
+  box('FilterChip','ds-core · FilterChip',[
+    st('estados',F.fchip('Todas')+F.fchip('Esperando peça',{on:1,removable:1})+F.fchip('Base',{menu:1})),
+    st('tamanhos',F.fchip('sm',{size:'sm'})+F.fchip('md')+F.fchip('lg',{size:'lg'}))].join('')),
+  box('SegmentedControl','ds-core · SegmentedControl',[
+    st('boxed',F.seg(['Abertas','Concluídas'],'Abertas')),
+    st('pill',F.seg(['Dia','Semana','Mês'],'Semana',{variant:'pill'})),
+    st('soft com contagem',F.seg([['Todos',12],['Ativos',9],['Inativos',3]],'Todos',{variant:'soft'})),
+    st('sm',F.seg(['Lista','Cartões'],'Lista',{size:'sm'}))].join('')),
+  box('Tabs','ds-core · Tabs e DataTable.Tabs',[
+    st('Tabs',F.tabs(['Tipos de serviço','Componentes','Categorias'],'Tipos de serviço')),
+    st('DataTable.Tabs (lista de OS)',F.dtabs([['Fila',2],['Em manutenção',3],['Pausadas',1],['Concluídas',128]],'Em manutenção'))].join('')),
+  box('Input, Select, SearchField','ds-core · Input (rótulo flutuante), Select, SearchField',[
+    st('Input',F.input({label:'Placa',required:1,value:'RTF6K38'})+F.input({label:'Km',value:'152.318',state:'focus'})),
+    st('erro e desabilitado',F.input({label:'Km',value:'15.230',state:'error',help:'Menor que o último (151.980 km)'})+F.input({label:'Box',value:'Box 3',state:'disabled'})),
+    st('sem rótulo, com ícone',F.input({icon:'magnifying-glass',placeholder:'Buscar por nº, placa ou frota'})),
+    st('Select aberto',F.input({label:'Base',value:'Base Curitiba',select:1})+F.menu([{label:'Bases',items:[{label:'Base Curitiba',on:1},{label:'Base Ponta Grossa',hl:1},{label:'Base Paranaguá'}]}])),
+    st('SearchField',F.search('Buscar veículo',{width:240})+F.search('Buscar veículo',{width:240,state:'focus',value:'RTF'}))].join('')),
+  box('NoticeBar','ds-core · NoticeBar (inline)',['info','warning','danger','primary'].map(t=>F.notice(t,{info:'info',warning:'warning-circle',danger:'warning-circle',primary:'sparkle'}[t],{info:'Sem sinal. A lista fica salva neste aparelho',warning:'RTE1J77 está na OS-001031',danger:'Não conseguimos carregar agora. Tente de novo',primary:'Nova versão do catálogo disponível'}[t])).join('')),
+  box('Tooltip','ds-core · Tooltip (ink, xs e sm)',st('',F.tooltip('eixos 1, 2 e 3, os dois lados','xs')+F.tooltip('Sem leitura no desengate: estimado entre 27/10 e 29/10'))),
+  box('EmptyState','ds-core · EmptyState (plain, canvas, sm)',`<div class="row" style="align-items:stretch;flex-wrap:nowrap">${F.card(F.empty({icon:'wrench',title:'Nenhuma OS na fila',hint:'Abra uma OS para um veículo que chegou à oficina.',action:F.btn('Abrir OS',{variant:'secondary'})}))}${F.card(F.empty({canvas:1,size:'sm',icon:'hand-pointing',title:'Escolha um veículo',hint:'Os serviços dele aparecem aqui'}))}</div>`),
+  box('Skeleton','ds-core · Skeleton',`<div class="row" style="flex-wrap:nowrap">${F.sk(40,40,99)}<div style="flex:1;display:flex;flex-direction:column;gap:6px">${F.sk('80%',16)}${F.sk('50%',12)}</div></div>${F.sk('100%',64)}`),
+  box('Card, ItemRow, StatStrip, BigNumberCard','ds-core',[
+    F.card(F.itemRow({icon:'disc',tone:'primary',chip:'Em andamento',chipTone:'primary',title:'Troca de lona de freio',sub:'RTF6K38 · eixo 2, os dois lados',right:'0:42',rightSub:'Carlos'})+F.itemRow({icon:'package',tone:'warning',chip:'Esperando peça',chipTone:'warning',title:'Troca de cuíca',sub:'RTE1J77 · eixo 1, direito',right:'—',rightSub:'sem mecânico'})),
+    F.statStrip([{label:'Na fila',value:2},{label:'Em manutenção',value:3,tone:'primary'},{label:'Paradas há mais de 1 dia',value:3,tone:'warning'},{label:'Atrasadas',value:1,tone:'danger'}]),
+    `<div class="row" style="flex-wrap:nowrap;align-items:stretch">${F.bignum({label:'Custo por km',value:'R$ 0,42',delta:'3% em outubro',hint:'frota inteira'})}${F.bignum({label:'Disponibilidade',value:'94%',hint:'últimos 30 dias'})}</div>`].join('')),
+  box('Diálogo (ActionDialog)','ds-core · ActionDialog',`<div class="dlgbox">${F.dialog({eyebrow:'OS-001042 · Conjunto C-320',title:'Concluir serviço',desc:'Troca de lona de freio · RTF6K38',body:F.input({label:'Observação',value:'Lona trocada nos dois lados'}),consequence:'<b>0:42</b> de trabalho ficam registrados',action:'Concluir',actionIcon:'check'})}</div>`),
+  box('Folha lateral (Sheet)','ds-core · Sheet',`<div class="dlgbox">${F.sideSheet({title:'RTF6K38',desc:'Carreta · frota 2207',body:F.itemRow({icon:'disc',tone:'success',title:'Troca de lona de freio',sub:'há 18 dias · OS-001029',right:'4.200 km'}),foot:F.btn('Fechar',{variant:'outline'})})}</div>`),
+  box('Barra escura de seleção','ds-core · SelectionBar',F.selbar('2','serviços',[{label:'Escolher mecânico',icon:'user'},{label:'Começar',icon:'play',primary:1}]),'ação cheia em primary: falta no DS'),
+  box('Cronômetro e FAB','ds-core · LiveTimer (pill) e Fab',st('',F.timer('0:42')+F.timer('1:58','warning')+F.timer('3:10','danger')+F.fab())),
 ].join('');
 </script>
 </body>
