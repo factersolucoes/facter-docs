@@ -349,6 +349,11 @@ function attnBar(items,open,phone){
     :`<div class="agrid">${items.map(a=>`<div class="arow2">${tt(a.tone,a.icon)}<span class="t"><b class="trunc" title="${a.title}">${a.title}</b><span class="trunc" title="${a.sub}">${a.sub}</span></span><button class="btn outline sm">${a.action}</button></div>`).join('')}</div>`;
   return `<div class="attn2 open">${head}${list}</div>`;
 }
+
+function attnTints(d){
+  const items=[{tone:'danger',icon:'i-clock',title:'RTE1J77 parado sem ninguém',sub:'há 2d 8h',action:'Escolher mecânico'},{tone:'warning',icon:'i-box',title:'Esperando mola de retorno',sub:'RTE1J77 · pedido há 3 h',action:'Ver pedido'},{tone:'warning',icon:'i-person',title:'2 serviços sem mecânico',sub:'Regulagem de catraca, troca de cuíca',action:'Escolher'},{tone:'warning',icon:'i-warn',title:'1 falha do checklist sem decisão',sub:'CK-0041 · RTE1J77, eixo 2',action:'Decidir'}];
+  return `<div class="dpad"><div class="tints">${[['Mais claro · 35%',.35],['Médio · 50%',.5],['Mais forte · 65%',.65]].map(([l,v])=>`<div><div class="lbl">${l}</div><div style="--attn-body:${v}" class="tintwrap">${attnBar(items,true,true).replace('class="attn2 open"',`class="attn2 open" style="--attn-body:${v}"`)}</div></div>`).join('')}</div></div>`;
+}
 /* ===== 3 detalhe ===== */
 function vcard(v,o={}){const [c,l,tone]=VST[v.st];
   let now;
@@ -480,7 +485,7 @@ function detalhePhone(s){
   const groups=OSV.filter(v=>!only||v.plate===only).map(v=>{const [c,l]=VST[v.st];return `<div class="pcard" style="overflow:clip"><div class="ghd2"><span class="pos">${v.pos}</span><b class="plate">${v.plate}</b><span class="chip ${c} sm">${l}</span><span style="flex:1"></span><span class="muted num" style="font-size:12px">${v.done}/${v.total}</span><button class="ib2 ghost" aria-label="Ações do veículo" title="Ações do veículo"><span class="ic i-dots s16"></span></button></div>${SVC2[v.plate].map(prow).join('')}</div>`;}).join('');
   return `<div class="mec">${hero}${attn}${strip}<div class="sech"><b>Serviços</b><span>${only?'3 de 6':'6'}</span>${only?`<span style="flex:1"></span>${F.fchip('1º RTF6K38',{on:1,removable:1,size:'sm'})}`:''}</div>${groups}<div style="height:96px"></div></div><span class="fx-efab"><span class="ic i-plus s20"></span>Adicionar serviços</span>`;
 }
-RR.detalhe=(s,d)=>s==='today'?`<div class="dpad">${F.real.workOrderHeader()}<div class="fx-delta" style="margin-top:14px"><span class="fx-newtag">a copiar</span><span style="font-size:12.5px">Abaixo do topo, hoje: a faixa de frentes, o painel de serviços e o de peças (work-order-fronts-panel, work-order-services-panel). Entram aqui na próxima rodada, copiados do código.</span></div></div>`:isPhone(d)?detalhePhone(s):R.detalhe2(s);
+RR.detalhe=(s,d)=>s==='attnTints'?attnTints(d):s==='today'?`<div class="dpad">${F.real.workOrderHeader()}<div class="fx-delta" style="margin-top:14px"><span class="fx-newtag">a copiar</span><span style="font-size:12.5px">Abaixo do topo, hoje: a faixa de frentes, o painel de serviços e o de peças (work-order-fronts-panel, work-order-services-panel). Entram aqui na próxima rodada, copiados do código.</span></div></div>`:isPhone(d)?detalhePhone(s):R.detalhe2(s);
 
 /* ---------- 4 montar ---------- */
 function montarPhone(s){

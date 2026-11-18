@@ -430,3 +430,14 @@ kbd{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 
 .arows .arow2+.arow2{border-top:1px solid hsl(var(--border))}
 @container fx (max-width:900px){.agrid{grid-template-columns:1fr}.agrid .arow2{border-right:0!important;border-top:1px solid hsl(var(--border))}.agrid .arow2:first-child{border-top:0}}
 @container fx (max-width:900px){.agrid .arow2:nth-child(2){border-top:1px solid hsl(var(--border))}}
+
+/* expanded attention, round 9: one warm family */
+.attn2{--attn-body:.5}
+.attn2.open{background:hsl(var(--warning-soft)/var(--attn-body));border:1px solid hsl(var(--warning)/.28);box-shadow:none}
+.attn2 .attnbar,.attn2.open .attnbar{background:hsl(var(--warning-soft))}
+.attn2.open .attnbar{border-bottom:1px solid hsl(var(--warning)/.25)}
+.attn2 .agrid .arow2,.attn2 .arows .arow2+.arow2{border-color:hsl(var(--warning)/.22)!important}
+.attn2 .arow2 .btn{background:hsl(var(--card)/.8);border-color:hsl(var(--warning)/.3)}
+.tints{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.tints .lbl{font:600 11px Inter;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground));margin:0 0 6px 2px}
+.attn2 .tt.warning{background:hsl(var(--warning)/.18)}.attn2 .tt.danger{background:hsl(var(--danger)/.14)}
