@@ -49,7 +49,7 @@ const statusBar=()=>`<div class="fx-status"><b>9:41</b><span>${ic('cell-signal-f
 function frame(o){
   const dev=o.device||'web', phone=dev==='phone';
   const pad=o.console?'p3':(dev==='web'||dev==='tablet-l'?'p6':'p4');
-  const before=`<div class="fx-device ${dev}" ${o.scale?`style="zoom:${o.scale}"`:''}>${dev==='web'?'':'<div class="fx-bezel">'}<div class="fx-screen" ${o.height?`style="height:${o.height}px"`:''}>${dev==='web'?'':statusBar()}<div class="fx-shell">${phone?'':sidebar(o.section,o.sidebar==='expanded')}<div class="fx-main">${navbar({...o,device:dev})}<main class="fx-body ${pad} ${o.dots?'fx-dots':''}">`;
+  const before=`<div class="fx-device ${dev}" ${o.scale?`style="zoom:${o.scale}"`:''}>${dev==='web'?'':'<div class="fx-bezel">'}<div class="fx-screen" style="${o.height?`height:${o.height}px;`:''}${o.width?`width:${o.width}px;`:''}">${dev==='web'?'':statusBar()}<div class="fx-shell">${phone?'':sidebar(o.section,o.sidebar==='expanded')}<div class="fx-main">${navbar({...o,device:dev})}<main class="fx-body ${pad} ${o.dots?'fx-dots':''}">`;
   const after=`</main>${phone?mobileNav(o.section,o.more):''}</div></div></div>${dev==='web'?'':'</div>'}</div>`;
   return [before,after];
 }
@@ -60,7 +60,7 @@ class FxApp extends HTMLElement{
   connectedCallback(){
     if(this._built) return;
     const build=()=>{ if(this._built) return; this._built=true;
-      const o={device:this.getAttribute('device')||'web',section:this.getAttribute('section')||'home',eyebrow:this.getAttribute('eyebrow'),title:this.getAttribute('title')||'',console:this.hasAttribute('console'),user:this.getAttribute('user')||'Rafael Lima',dots:this.hasAttribute('dots'),height:this.getAttribute('height'),scale:this.getAttribute('scale'),sidebar:this.getAttribute('sidebar'),search:this.getAttribute('search'),controls:this.getAttribute('controls'),crumb:this.getAttribute('crumb'),more:this.hasAttribute('more')};
+      const o={device:this.getAttribute('device')||'web',section:this.getAttribute('section')||'home',eyebrow:this.getAttribute('eyebrow'),title:this.getAttribute('title')||'',console:this.hasAttribute('console'),user:this.getAttribute('user')||'Rafael Lima',dots:this.hasAttribute('dots'),height:this.getAttribute('height'),scale:this.getAttribute('scale'),sidebar:this.getAttribute('sidebar'),search:this.getAttribute('search'),controls:this.getAttribute('controls'),crumb:this.getAttribute('crumb'),more:this.hasAttribute('more'),width:this.getAttribute('width')};
       this.removeAttribute('title');
       const kids=[...this.childNodes]; const [a,b]=frame(o); this.innerHTML=a+'<span data-fx-slot></span>'+b;
       const slot=this.querySelector('[data-fx-slot]'); kids.forEach(k=>slot.parentNode.insertBefore(k,slot)); slot.remove();
@@ -104,7 +104,7 @@ const A={
   sk:(w,h,r)=>`<span class="fx-sk" style="width:${typeof w==='number'?w+'px':w};height:${h}px;${r?`border-radius:${r}px`:''}"></span>`,
   empty:o=>`<div class="fx-empty ${o.canvas?'canvas':''} ${o.size||''}"><span class="fx-halo">${ic(o.icon||'tray','s24')}</span><b>${o.title}</b>${o.hint?`<p>${o.hint}</p>`:'<p></p>'}${o.action||''}</div>`,
   notice:(tone,icon,text,action='',bar)=>`<div class="fx-notice ${tone==='muted'?'info':tone} ${bar?'bar':''}">${ic(icon,'s16')}<span>${text}</span>${action}</div>`,
-  seg:(opts,on,o={})=>`<div class="fx-seg ${o.variant||''} ${o.size||''} ${o.full?'full':''}">${opts.map(x=>{const [l,n]=Array.isArray(x)?x:[x];return `<span class="${l===on?'on':''}">${l}${n!=null?` <span class="n">${n}</span>`:''}</span>`;}).join('')}</div>`,
+  seg:(opts,on,o={})=>`<div class="fx-seg ${o.size==='xs'?'xs':(o.variant||'boxed')} ${o.size||''} ${o.size!=='xs'&&o.full!==false?'full':''}" role="radiogroup">${opts.map(x=>{const [l,n]=Array.isArray(x)?x:[x];return `<span class="${l===on?'on':''}">${l}${n!=null?` <span class="n">${n}</span>`:''}</span>`;}).join('')}</div>`,
   fchip:(label,o={})=>`<span class="fx-fchip ${o.on?'on':''} ${o.size||''}">${o.icon?ic(o.icon,'s14'):''}${label}${o.count!=null?` <b>${o.count}</b>`:''}${o.removable&&o.on?ic('x','s14'):''}${o.menu?ic('caret-down','s14'):''}</span>`,
   tooltip:(text,size='sm')=>`<span class="fx-tip ${size}">${text}</span>`,
   input:o=>`<div><div class="fx-input ${o.label?'':'nolabel'} ${o.icon?'icon':''} ${o.state||''}">${o.icon?ic(o.icon,'s16'):''}${o.label?`<label>${o.label}${o.required?'<span style="color:hsl(var(--danger));margin-left:2px">*</span>':''}</label>`:''}${o.value?`<span>${o.value}</span>`:`<span class="ph">${o.placeholder||''}</span>`}${o.select?ic('caret-down','s16 chev'):''}</div>${o.help?`<div class="fx-help ${o.state==='error'?'err':''}">${o.help}</div>`:''}</div>`,
@@ -184,6 +184,35 @@ A.real.workOrderHeader=(o={})=>{
     <p>Corretiva<span class="fx-dot"></span>cavalo QRT4B22 deixou com 152.318 km<span class="fx-dot"></span>3 veículos</p>
     <div class="facts">${facts.map(f=>`<div><span>${f[0]}</span><b>${f[1]}</b></div>`).join('')}</div></div></div>
     <div class="r"><span class="lb">Progresso</span>${A.donut(2,6,{label:'serviços'})}<div class="ms"><div><b style="color:hsl(var(--primary))">3</b><span>abertos</span></div><div><b style="color:hsl(var(--warning-ink))">1</b><span>travados</span></div><div><b>2d 8h</b><span>Parada</span></div></div></div></section>`;
+};
+
+/* ---------- mobile designs (phone and tablet in portrait): what the screens should be below 860 px ---------- */
+function woCard(r,o={}){
+  const asSet=!!r.set;
+  const openSt=r.status==='in_maintenance'?'working':r.status==='paused'?'paused':'waiting';
+  const status=asSet&&r.open?`<span class="fx-stat ${openSt}">${r.open} ${({working:'em manutenção',paused:'pausadas',waiting:'na fila'})[openSt]}</span>`:A.status(r.status);
+  const rest=[r.done?`${r.done} ${r.done>1?'prontas':'pronta'}`:'',r.left?`${r.left} ${r.left>1?'saíram':'saiu'}`:''].filter(Boolean).join(' · ');
+  const add=o.deltas&&r.add?`<div class="fx-delta" style="margin:0 14px 10px"><span class="fx-newtag">novo</span>${r.add.who.length?`<span class="who">${r.add.who.map(w=>A.initials(w[0],w[1])).join('')}<span>${r.add.who.map(w=>w[0].split(' ')[0]).join(' e ')}</span></span>`:'<span class="who muted">Ninguém trabalhando</span>'}${r.add.block?`<span class="fx-badge ${r.add.block[0]} label" title="${r.add.block[2]}">${ic(r.add.block[1],'s14')}<span class="trunc2">${r.add.block[2]}</span></span>`:''}</div>`:'';
+  return `<button type="button" class="fx-wocard">
+    <span class="l1"><span class="num">${r.n}</span><span style="flex:1"></span>${status}</span>
+    <span class="l2">${asSet?`<span class="fx-plate-os sm">${r.set}</span>${A.comp(r.fronts,'auto')}${rest?`<span class="m">${rest}</span>`:''}`:`<span class="fx-plate-os sm">${r.plate}</span><span class="m">frota ${r.fleet}</span>`}</span>
+    <span class="l3">${r.problem}</span>
+    <span class="l4">${ic('map-pin','s14')}<span class="trunc2">${r.base}${r.box?' · '+r.box:''}</span></span>
+    ${add}
+    <span class="ft">${A.kind(r.kind)}${A.prio(r.prio)}<span style="flex:1"></span><span class="stop ${r.prio==='critical'?'d':''}">${ic('clock','s14')}${r.stop}</span></span></button>`;
+}
+A.mobile={
+  workOrders(o={}){
+    const tabs=`<div class="fx-mtabs">${[['Fila',2],['Em manutenção',3],['Pausadas',1],['Concluídas',128]].map(([t,n])=>`<span class="${t===(o.tab||'Em manutenção')?'on':''}">${t}<b>${n}</b></span>`).join('')}</div>`;
+    const search=`<div class="fx-msearch"><span class="fx-searchf" style="flex:1;height:44px;font-size:14px">${ic('magnifying-glass','s16')}<span class="trunc2">Buscar por nº, placa ou frota</span></span><span class="fx-btn outline icon" style="height:44px;width:44px">${ic('sliders-horizontal','s20')}</span></div>`;
+    let body;
+    if(o.state==='loading') body=[1,2,3].map(()=>`<div class="fx-wocard sk">${A.sk('40%',16)}${A.sk('60%',22)}${A.sk('100%',36)}${A.sk('100%',28)}</div>`).join('');
+    else if(o.state==='empty') body=A.empty({icon:'wrench',title:'Nenhuma OS em manutenção',hint:'Uma OS aparece aqui quando entra num box e o serviço começa.'});
+    else body=(o.rows||WO_ROWS).map(r=>woCard(r,o)).join('');
+    const sheet=o.state==='filters'?A.sheet({title:'Filtrar OS',body:`<div class="st"><span>Base</span><div class="row" style="display:flex;flex-wrap:wrap;gap:8px">${A.fchip('Todas',{on:1})}${A.fchip('Base Curitiba')}${A.fchip('Base Ponta Grossa')}</div></div><div class="st"><span>Prioridade</span><div class="row" style="display:flex;flex-wrap:wrap;gap:8px">${A.fchip('Crítica')}${A.fchip('Alta',{on:1})}${A.fchip('Média')}${A.fchip('Baixa')}</div></div><div class="st"><span>Tipo</span><div class="row" style="display:flex;flex-wrap:wrap;gap:8px">${A.fchip('Corretiva')}${A.fchip('Preventiva')}${A.fchip('Inspeção')}</div></div>`,foot:A.btn('Limpar',{variant:'outline',size:'lg'})+A.btn('Ver 2 OS',{size:'lg',action:1})}):'';
+    return `<div class="fx-mlist"><div class="fx-msticky">${search}${tabs}</div><div class="fx-mcards ${o.cols2?'two':''}">${body}</div><div style="height:72px"></div></div><span class="fx-efab">${ic('plus','s20')}Abrir OS</span>${sheet}`;
+  },
+  woCard,
 };
 window.FX=A;
 })();

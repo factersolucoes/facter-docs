@@ -16,17 +16,18 @@
 
   <section class="sc" id="lista"><h2><span class="tag">1</span>Lista de OS</h2>
     <p class="why">Ponto de partida: <b>a lista como está no app hoje</b> (cabeçalho, números por situação, abas Fila, Em manutenção, Pausadas e Concluídas, busca e a linha com OS, placa ou conjunto, problema, tipo, prioridade, tempo parado e situação). A proposta acrescenta só o que está marcado com <b>novo</b>: quem está trabalhando e o que está travando, numa linha a mais.</p>
-    <div class="states" data-for="lista"><button data-s="today" aria-pressed="false">Hoje no app</button><button data-s="proposal" aria-pressed="true">Proposta</button><button data-s="loading" aria-pressed="false">Carregando</button><button data-s="empty" aria-pressed="false">Aba vazia</button></div>
+    <div class="states" data-for="lista"><button data-s="today" aria-pressed="false">Hoje no app</button><button data-s="proposal" aria-pressed="true">Proposta</button><button data-s="loading" aria-pressed="false">Carregando</button><button data-s="empty" aria-pressed="false">Aba vazia</button><button data-s="filters" aria-pressed="false">Filtros (celular)</button></div>
     <div class="devices"><div style="flex:1 1 100%;min-width:0"><div class="devlabel">Notebook</div><fx-app device="web" section="os" crumb="Ordens de serviço" height="820"><div data-render="lista" data-device="web"></div></fx-app></div>
-      <div><div class="devlabel">Celular</div><fx-app device="phone" section="os"><div data-render="lista" data-device="phone"></div></fx-app></div></div>
-    <span class="note">No celular, a linha de hoje (grade de 86 px + 96 px + texto + direita) não cabe em 390 px: é o que o app faz hoje, mostrado como está.</span>
+      <div><div class="devlabel">Tablet em pé</div><fx-app device="tablet-p" section="os" console title="Ordens de serviço"><div data-render="lista" data-device="tablet-p"></div></fx-app></div>
+      <div><div class="devlabel">Celular</div><fx-app device="phone" section="os" console title="Ordens de serviço"><div data-render="lista" data-device="phone"></div></fx-app></div></div>
+    <span class="note">No celular e no tablet em pé a lista vira cartões: título na barra do topo, busca fixa, abas com contagem que rolam (os números do topo saem), filtros numa folha e "Abrir OS" no botão flutuante. O app hoje usa a linha do notebook também no celular e quebra; vale corrigir no app.</span>
   </section>
 
   <section class="sc" id="abrir"><h2><span class="tag">2</span>Abrir OS · uma tela</h2>
     <p class="why">Menos de 60 s: três campos obrigatórios (o que entra, km do cavalo que trouxe, problema) e o box já sugerido. O km vem da telemetria e se corrige ali mesmo; os casos especiais aparecem na própria tela. No celular, folha de baixo.</p>
     <div class="states" data-for="abrir"><button data-s="pick" aria-pressed="false">Escolhendo</button><button data-s="set" aria-pressed="true">Conjunto escolhido</button><button data-s="typed" aria-pressed="false">Km digitado</button><button data-s="lower" aria-pressed="false">Km menor que o último</button><button data-s="external" aria-pressed="false">Cavalo de terceiro</button><button data-s="hub" aria-pressed="false">Hodômetro de cubo</button><button data-s="lock" aria-pressed="false">Carreta em outra OS</button><button data-s="disbanded" aria-pressed="false">Conjunto desfeito</button><button data-s="single" aria-pressed="false">Um veículo só</button></div>
     <div class="devices"><div style="flex:1 1 100%;min-width:0"><div class="devlabel">Notebook</div><fx-app device="web" section="os" crumb="Ordens de serviço" height="860"><div data-render="abrir" data-device="web"></div></fx-app></div>
-      <div><div class="devlabel">Celular</div><fx-app device="phone" section="os"><div data-render="abrir" data-device="phone"></div></fx-app></div></div>
+      <div><div class="devlabel">Celular</div><fx-app device="phone" section="os" console title="Ordens de serviço"><div data-render="abrir" data-device="phone"></div></fx-app></div></div>
   </section>
 
   <section class="sc" id="detalhe"><h2><span class="tag">3</span>Detalhe da OS</h2>

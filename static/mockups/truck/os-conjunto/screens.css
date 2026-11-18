@@ -384,3 +384,7 @@ kbd{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 
 .fchip{height:32px;padding:0 12px;border-radius:99px;font:500 14px Inter;background:hsl(var(--background));color:hsl(var(--muted-foreground))}
 .fchip.on{border-color:hsl(var(--primary));background:hsl(var(--primary)/.05);color:hsl(var(--primary))}.fchip.gen{color:hsl(var(--muted-foreground))}
 .card{border-radius:16px}
+/* legacy segmented = DS SegmentedControl boxed, inline (fullWidth=false) */
+.seg{display:inline-flex;gap:0;padding:4px;border-radius:8px;border:1px solid hsl(var(--border));background:hsl(var(--muted)/.5)}
+.seg span{border-radius:6px;padding:6px 16px;font:500 14px Inter;color:hsl(var(--muted-foreground));white-space:nowrap}
+.seg span.on{background:hsl(var(--card));color:hsl(var(--foreground));box-shadow:0 1px 2px rgb(0 0 0/.05)}
