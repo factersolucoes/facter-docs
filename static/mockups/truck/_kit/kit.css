@@ -467,3 +467,30 @@ p,.fx-pht p,.fx-empty p,.fx-help{text-wrap:pretty}
   .fx-ahead,.fx-arow{grid-template-columns:33% minmax(0,1fr) 23% 104px 18px}
   .fx-ahead .c4,.fx-arow .c4{display:none}.fx-arow .p2{display:inline-flex;align-items:center}
 }
+
+/* approved OS row */
+.fx-aprow{display:grid;grid-template-columns:86px minmax(0,1fr) 76px 150px 18px;align-items:center;gap:16px;padding:14px 18px;text-align:left}
+.fx-wolist>.fx-aprow+.fx-aprow{border-top:1px solid hsl(var(--border))}
+.fx-aprow:hover{background:hsl(var(--muted)/.4)}
+.fx-aprow.acc-d{box-shadow:inset 3px 0 0 0 hsl(var(--danger))}.fx-aprow.acc-w{box-shadow:inset 3px 0 0 0 hsl(var(--warning))}
+.fx-aprow>.num{font:700 14px Sora;color:hsl(var(--primary));font-variant-numeric:tabular-nums}
+.fx-aprow .m{min-width:0}
+.fx-aprow .l1{display:flex;align-items:center;gap:8px;font-weight:600;min-width:0;height:24px}
+.fx-aprow .l2{margin-top:6px;display:flex;align-items:center;gap:6px;font-size:12.5px;color:hsl(var(--muted-foreground));min-width:0;height:20px}
+.fx-aprow .l2 b{font-weight:600;color:hsl(var(--foreground)/.85);white-space:nowrap}.fx-aprow .l2 .fx-dot{margin:0}.fx-aprow .l2 .fx-comp{flex:none;margin:0 2px}.fx-aprow .nw{white-space:nowrap}
+.fx-aprow .apst{display:flex;flex-direction:column;align-items:flex-end;justify-content:center}
+.fx-aprow .apst b{height:24px;display:flex;align-items:center;font:700 15px Sora;color:hsl(var(--warning-ink));font-variant-numeric:tabular-nums;white-space:nowrap}.fx-aprow .apst b.d{color:hsl(var(--danger-ink))}
+.fx-aprow .apst span,.fx-aprow .apss .sub{margin-top:6px;height:20px;display:flex;align-items:center;font-size:11.5px;color:hsl(var(--muted-foreground));white-space:nowrap}
+.fx-aprow .apss{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+.fx-aprow .apss .sub{gap:6px}
+.fx-aprow .whos{display:inline-flex}.fx-aprow .whos .fx-ini{width:20px;height:20px;border-radius:6px;font-size:9px}.fx-aprow .whos .fx-ini .dot{width:8px;height:8px;border-width:1.5px}.fx-aprow .whos .fx-ini+.fx-ini{margin-left:2px;box-shadow:0 0 0 2px hsl(var(--card))}
+.fx-badge.fx-bsm{height:22px;font-size:11.5px;padding:0 7px 0 5px;gap:4px;flex:none}
+.fx-aprow .car{width:18px;height:18px;color:hsl(var(--muted-foreground)/.5)}
+@container fx (max-width:1100px){.fx-aprow{grid-template-columns:86px minmax(0,1fr) 70px 140px 18px;gap:12px}}
+/* phone card consistent with the approved row */
+.fx-wocard .lv{display:flex;align-items:center;gap:6px;padding:8px 14px 0;font-size:12.5px;color:hsl(var(--muted-foreground));min-width:0}
+.fx-wocard .lv b{font-weight:600;color:hsl(var(--foreground)/.85);white-space:nowrap}.fx-wocard .lv .fx-comp{flex:none}.fx-wocard .lv .fx-dot{margin:0}.fx-wocard .lv .m{white-space:nowrap}
+.fx-wocard .l1 + .l3{padding-top:6px}
+.fx-aprow .l2 .nw{flex:none}
+.fx-wocard .lw{display:flex;align-items:center;flex-wrap:wrap;gap:6px 8px;padding:0 14px 10px;font-size:12.5px;color:hsl(var(--muted-foreground))}
+.fx-wocard .lw .whos{display:inline-flex;gap:2px}.fx-wocard .lw .fx-ini{width:22px;height:22px;border-radius:6px;font-size:9.5px}.fx-wocard .lw .fx-ini .dot{width:8px;height:8px;border-width:1.5px}

@@ -228,20 +228,44 @@ A.real.workOrdersProposal=(v,o={})=>{
   return o.state?page:page.replace('<ul class="fx-wolist"></ul>',list);
 };
 
+
+/* ---------- approved OS row: the real row without the identity box; vehicle and strip on the meta line; right side in two fixed columns ---------- */
+function woRowApproved(r,o={}){
+  const asSet=!!r.set;
+  const openSt=r.status==='in_maintenance'?'working':r.status==='paused'?'paused':'waiting';
+  const badge=asSet&&r.open?`<span class="fx-stat ${openSt}">${r.open} ${({working:'em manutenção',paused:'pausadas',waiting:'na fila'})[openSt]}</span>`:A.status(r.status);
+  const rest=[r.done?`${r.done} ${r.done>1?'prontas':'pronta'}`:'',r.left?`${r.left} ${r.left>1?'saíram':'saiu'}`:''].filter(Boolean).join(' · ');
+  const who=o.deltas&&r.add&&r.add.who.length?`<span class="whos" title="${r.add.who.map(w=>w[0]).join(', ')} trabalhando">${r.add.who.map(w=>A.initials(w[0],w[1])).join('')}</span>`:'';
+  const block=o.deltas&&r.add&&r.add.block?`<span class="fx-badge ${r.add.block[0]} label fx-bsm" title="${r.add.block[2]}">${ic(r.add.block[1],'s12')}${({package:'Esperando peça',user:'Sem mecânico','warning-circle':'Falha sem decisão'})[r.add.block[1]]||r.add.block[2]}</span>`:'';
+  const veh=asSet?`${ic('link-simple','s14')}<b>Conjunto ${r.set}</b>${A.comp(r.fronts,Math.min(14*r.fronts.length,84))}<span class="trunc2" title="${r.plates}">${r.plates}</span>`:`${ic('truck','s14')}<b>${r.plate}</b><span class="fx-dot"></span><span>frota ${r.fleet}</span>`;
+  return `<div class="fx-aprow ${r.prio==='critical'?'acc-d':r.prio==='high'?'acc-w':''}">
+    <span class="num">${r.n}</span>
+    <div class="m"><div class="l1"><span class="trunc2" title="${r.problem}">${r.problem}</span>${A.kind(r.kind)}${A.prio(r.prio)}${block}</div>
+      <div class="l2">${veh}<span class="fx-dot"></span><span class="nw">${r.base}</span>${r.box?`<span class="fx-dot"></span><span class="nw">${r.box}</span>`:''}</div></div>
+    <div class="apst"><b class="${r.prio==='critical'?'d':''}">${r.stop}</b><span>parado</span></div>
+    <div class="apss">${badge}<span class="sub">${who}${rest?`<span>${rest}</span>`:''}</span></div>
+    ${ic('caret-right','s16 car')}</div>`;
+}
+A.real.workOrdersApproved=(o={})=>{
+  const page=A.real.workOrdersPage({...o,rows:[]});
+  return o.state?page:page.replace('<ul class="fx-wolist"></ul>',`<div class="fx-wolist">${WO_ROWS.map(r=>woRowApproved(r,o)).join('')}</div>`);
+};
+
 /* ---------- mobile designs (phone and tablet in portrait): what the screens should be below 860 px ---------- */
 function woCard(r,o={}){
   const asSet=!!r.set;
   const openSt=r.status==='in_maintenance'?'working':r.status==='paused'?'paused':'waiting';
   const status=asSet&&r.open?`<span class="fx-stat ${openSt}">${r.open} ${({working:'em manutenção',paused:'pausadas',waiting:'na fila'})[openSt]}</span>`:A.status(r.status);
   const rest=[r.done?`${r.done} ${r.done>1?'prontas':'pronta'}`:'',r.left?`${r.left} ${r.left>1?'saíram':'saiu'}`:''].filter(Boolean).join(' · ');
-  const add=o.deltas&&r.add?`<div class="fx-delta" style="margin:0 14px 10px"><span class="fx-newtag">novo</span>${r.add.who.length?`<span class="who">${r.add.who.map(w=>A.initials(w[0],w[1])).join('')}<span>${r.add.who.map(w=>w[0].split(' ')[0]).join(' e ')}</span></span>`:'<span class="who muted">Ninguém trabalhando</span>'}${r.add.block?`<span class="fx-badge ${r.add.block[0]} label" title="${r.add.block[2]}">${ic(r.add.block[1],'s14')}<span class="trunc2">${r.add.block[2]}</span></span>`:''}</div>`:'';
+  const add=o.deltas&&r.add?`<span class="lw">${r.add.who.length?`<span class="whos">${r.add.who.map(w=>A.initials(w[0],w[1])).join('')}</span><span>${r.add.who.map(w=>w[0].split(' ')[0]).join(' e ')}</span>`:'<span>Ninguém trabalhando</span>'}${r.add.block?`<span class="fx-badge ${r.add.block[0]} label fx-bsm">${ic(r.add.block[1],'s12')}${({package:'Esperando peça',user:'Sem mecânico','warning-circle':'Falha sem decisão'})[r.add.block[1]]||r.add.block[2]}</span>`:''}</span>`:'';
+  const vline=asSet?`${ic('link-simple','s14')}<b>Conjunto ${r.set}</b>${A.comp(r.fronts,Math.min(14*r.fronts.length,84))}${rest?`<span class="m">${rest}</span>`:''}`:`${ic('truck','s14')}<b>${r.plate}</b><span class="fx-dot"></span><span class="m">frota ${r.fleet}</span>`;
   return `<button type="button" class="fx-wocard ${r.prio==='critical'?'e-d':r.prio==='high'?'e-w':''}">
-    <span class="l1">${idTitle(r)}<span style="flex:1"></span>${status}</span>
-    <span class="l2"><span class="os">${r.n}</span><span class="fx-dot"></span>${r.kind}${r.prio==='critical'||r.prio==='high'?'<span class="fx-dot"></span>'+A.prio(r.prio):''}</span>
+    <span class="l1"><span class="num">${r.n}</span><span style="flex:1"></span>${status}</span>
     <span class="l3">${r.problem}</span>
-    <span class="l4"><span class="trunc2">${rowMeta(r)}</span></span>
+    <span class="lv">${vline}</span>
+    <span class="l4"><span class="trunc2">${r.base}${r.box?' · '+r.box:''}</span></span>
     ${add}
-    <span class="ft"><span class="stopm ${r.prio==='critical'?'d':''}">${ic('clock','s16')}<b>${r.stop}</b> parado</span><span style="flex:1"></span>${ic('caret-right','s16 car')}</span></button>`;
+    <span class="ft">${A.kind(r.kind)}${A.prio(r.prio)}<span style="flex:1"></span><span class="stopm ${r.prio==='critical'?'d':''}"><b>${r.stop}</b> parado</span></span></button>`;
 }
 A.mobile={
   workOrders(o={}){
