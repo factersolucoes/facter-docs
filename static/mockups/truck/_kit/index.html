@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kit de mockups do Truck</title>
+<link rel="stylesheet" href="kit.css">
+<style>
+.atoms{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-left:38px}
+.atom{padding:16px;display:flex;flex-direction:column;gap:10px}
+.atom h4{font:700 11px Inter;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+pre{margin:8px 0 0 38px;padding:12px 14px;border-radius:12px;background:hsl(var(--card));font-size:12px;overflow:auto;max-width:900px}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="lead"><h1>Kit de mockups do Truck</h1>
+    <p>A casca de verdade do Truck (menu lateral, barra do topo, navegação de baixo no celular) e os átomos que o app usa, com os tokens do DS. <b>Todo mockup novo do Truck usa este kit</b>; o mockup desenha só o conteúdo da tela. Fonte: <code>apps/web/src/app/shell/app-shell.tsx</code> e <code>@facter/ds-core</code> 1.43.</p></div>
+  <nav class="tabs"><a href="#web"><b>1</b> Notebook</a><a href="#tablet"><b>2</b> Tablet</a><a href="#phone"><b>3</b> Celular</a><a href="#atoms"><b>4</b> Átomos</a><a href="#uso"><b>5</b> Como usar</a></nav>
+
+  <section class="sc" id="web"><h2><span class="tag">1</span>Notebook · página com cabeçalho e página console</h2>
+    <p class="why">Menu lateral recolhido (64 px, abre ao passar o mouse), barra do topo com a busca no meio, empresa e perfil à direita. Página comum leva o cabeçalho na própria página; página console leva o grupo e o nome na barra do topo.</p>
+    <div class="devices">
+      <div style="flex:1 1 100%;min-width:0"><div class="devlabel">Página com cabeçalho · menu aberto</div>
+        <fx-app device="web" section="os" crumb="Ordens de serviço" sidebar="expanded" height="520"><div data-render="demoPage"></div></fx-app></div>
+      <div style="flex:1 1 100%;min-width:0"><div class="devlabel">Console · menu recolhido</div>
+        <fx-app device="web" section="os" console eyebrow="Ordens de serviço" title="OS 1042" height="520"><div data-render="demoConsole"></div></fx-app></div>
+    </div>
+  </section>
+
+  <section class="sc" id="tablet"><h2><span class="tag">2</span>Tablet deitado e em pé</h2>
+    <p class="why">A partir de 768 px o app mostra o menu lateral recolhido; abaixo disso, a navegação de baixo. Tamanhos reais: 1180 × 820 e 820 × 1180.</p>
+    <div class="devices">
+      <div><div class="devlabel">Tablet deitado · 1180 × 820</div><fx-app device="tablet-l" section="yard" console eyebrow="Oficina" title="Pátio" dots><div data-render="demoEmpty"></div></fx-app></div>
+      <div><div class="devlabel">Tablet em pé · 820 × 1180</div><fx-app device="tablet-p" section="checklists" console eyebrow="Checklists" title="Inspeções"><div data-render="demoCards"></div></fx-app></div>
+    </div>
+  </section>
+
+  <section class="sc" id="phone"><h2><span class="tag">3</span>Celular · 390 × 844</h2>
+    <p class="why">Sem menu lateral: a navegação de baixo do DS, com os 9 itens do app (o mesmo menu). A página comum mostra a marca na barra do topo; a console mostra o grupo e o nome. Diálogo vira folha de baixo.</p>
+    <div class="devices">
+      <div><div class="devlabel">Página comum</div><fx-app device="phone" section="os"><div data-render="demoPhoneList"></div></fx-app></div>
+      <div><div class="devlabel">Console com folha</div><fx-app device="phone" section="os" console eyebrow="Ordens de serviço" title="OS 1042"><div data-render="demoPhoneSheet"></div></fx-app></div>
+    </div>
+    <span class="note">Achado: com 9 itens, os rótulos da navegação de baixo quebram em duas linhas no celular ("Ordens de serviço", "Configurações"). É assim no app hoje.</span>
+  </section>
+
+  <section class="sc" id="atoms"><h2><span class="tag">4</span>Átomos</h2>
+    <div class="atoms" id="atoms-grid"></div>
+  </section>
+
+  <section class="sc" id="uso"><h2><span class="tag">5</span>Como usar</h2>
+<pre>&lt;link rel="stylesheet" href="/mockups/truck/_kit/kit.css"&gt;
+...
+&lt;fx-app device="web|tablet-l|tablet-p|phone" section="os" console eyebrow="Ordens de serviço" title="OS 1042" dots&gt;
+  &lt;div data-render="detalhe"&gt;&lt;/div&gt;
+&lt;/fx-app&gt;
+&lt;div class="states" data-for="detalhe"&gt;&lt;button data-s="ok" aria-pressed="true"&gt;Com dados&lt;/button&gt;...&lt;/div&gt;
+&lt;script src="/mockups/truck/_kit/kit.js"&gt;&lt;/script&gt;
+&lt;script&gt;FX.bind({ detalhe: (state, device) =&gt; '...html...' })&lt;/script&gt;
+
+section: home, vehicles, sets, os, yard, runs, templates, stock, tirestock, movement, shop, updates, settings
+Átomos: FX.pageHeader, plate, chip, tile, avatar, ring, cbar, selbar, btn, dialog, sheet, sk, empty, notice, seg, fchip, tooltip, ic</pre>
+  </section>
+</div>
+<script src="kit.js"></script>
+<script>
+const F=FX;
+const card=(inner,pad=14)=>`<div class="fx-card" style="padding:${pad}px">${inner}</div>`;
+const osCard=(n,plate,st,tone,d,t)=>card(`<div class="row" style="gap:12px;flex-wrap:nowrap">${F.ring(d,t,48)}<div style="flex:1;min-width:0"><div class="row">${F.plate(plate)}<b style="font:700 13px Sora;color:hsl(var(--primary))">${n}</b></div><div style="color:hsl(var(--muted-foreground));font-size:12.5px;margin-top:4px">Freio puxando, vazamento de ar</div></div>${F.chip(tone,st)}</div>`);
+F.bind({
+  demoPage:()=>F.pageHeader('Ordens de serviço','O que está na oficina e o que está travando',F.btn('Abrir OS',{icon:'plus'}))+`<div class="row" style="margin-bottom:12px">${F.fchip('Todas',{general:1,on:1})}${F.fchip('Esperando peça',{count:1})}${F.fchip('Sem mecânico',{count:2})}</div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px">${osCard('OS 1042','RTF6K38','Em manutenção','primary',1,3)}${osCard('OS 1043','RTC3G56','Na fila','muted',0,2)}${osCard('OS 1040','DLY1J07','Esperando peça','warning',2,4)}</div>`,
+  demoConsole:()=>`<div style="display:grid;grid-template-columns:260px 1fr;gap:12px;height:100%">${card(`<div class="row">${F.tile('primary','link-simple','lg')}<div><b style="font:800 16px Sora">Conjunto C-320</b><div>${F.cbar(['work','wait','done'])}</div></div></div>`)}<div style="position:relative">${F.empty({canvas:1,icon:'hand-pointing',title:'Escolha um veículo',hint:'Os serviços dele aparecem aqui'})}<div style="position:absolute;left:50%;bottom:14px;transform:translateX(-50%)">${F.selbar('1º','RTF6K38',[{label:'Pausar',icon:'pause'},{label:'Liberar',icon:'flag-checkered',primary:1}])}</div></div></div>`,
+  demoEmpty:()=>F.empty({canvas:1,icon:'garage',title:'Escolha um box',hint:'Toque num box do pátio para ver o que está nele'}),
+  demoCards:()=>`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px">${[1,2,3,4,5,6].map(i=>osCard('CK-00'+(40+i),['RTF6K38','RTE1J77','SRK9H46'][i%3],i%2?'Em andamento':'Concluído',i%2?'primary':'success',i,6)).join('')}</div>`,
+  demoPhoneList:()=>F.pageHeader('Ordens de serviço','',F.btn('Abrir OS',{icon:'plus',size:'sm'}))+`<div style="display:flex;flex-direction:column;gap:10px">${osCard('OS 1042','RTF6K38','Em manutenção','primary',1,3)}${osCard('OS 1043','RTC3G56','Na fila','muted',0,2)}${osCard('OS 1040','DLY1J07','Esperando peça','warning',2,4)}</div>`,
+  demoPhoneSheet:()=>osCard('OS 1042','RTF6K38','Em manutenção','primary',1,3)+F.sheet({eyebrow:'OS 1042 · Conjunto C-320',title:'Concluir serviço',body:`<div class="row">${F.tile('primary','disc','lg')}<div><b>Troca de lona de freio</b><div style="color:hsl(var(--muted-foreground));font-size:13px">RTF6K38 · eixo 2, os dois lados</div></div></div>${F.notice('success','check','Peças separadas: lona, rebite e mola')}`,foot:`${F.btn('Concluir',{icon:'check',size:'lg'})}${F.btn('Cancelar',{variant:'outline',size:'lg'})}`}),
+});
+const atom=(t,html)=>`<div class="fx-card atom"><h4>${t}</h4>${html}</div>`;
+document.getElementById('atoms-grid').innerHTML=[
+  atom('Placa e chip de tom',`<div class="row">${F.plate('RTF6K38')}${F.plate('QRT4B22')}</div><div class="row">${['primary','success','warning','danger','muted'].map(t=>F.chip(t,{primary:'Em manutenção',success:'Pronto',warning:'Esperando peça',danger:'Atrasado',muted:'Na fila'}[t])).join('')}</div>`),
+  atom('Bloco de tom com ícone',`<div class="row">${F.tile('primary','wrench')}${F.tile('success','check')}${F.tile('warning','package')}${F.tile('danger','clock')}${F.tile('muted','pause')}${F.tile('primary','link-simple','lg')}${F.tile('primary','truck','xl')}</div>`),
+  atom('Pessoas',`<div class="row">${F.avatar('Carlos Souza',1)}${F.avatar('Ana Lima')}${F.avatar('Bruno Reis',0,'lg')}</div>`),
+  atom('Andamento',`<div class="row">${F.ring(0,3)}${F.ring(1,3)}${F.ring(3,3)}${F.ring(2,6,56,'2/6')}${F.cbar(['done','work','wait','out'])}</div>`),
+  atom('Botões',`<div class="row">${F.btn('Abrir OS',{icon:'plus'})}${F.btn('Cancelar',{variant:'outline'})}${F.btn('Começar',{variant:'soft',icon:'play',fill:1})}${F.btn('Próximo veículo',{variant:'ghost'})}${F.btn('Concluir',{disabled:1})}</div>`),
+  atom('Filtros e segmentado',`<div class="row">${F.fchip('Todas',{general:1,on:1})}${F.fchip('Esperando peça',{count:1})}${F.fchip('Sem mecânico',{count:2})}</div>${F.seg(['Abertas','Concluídas'],'Abertas')}`),
+  atom('Avisos',`${F.notice('warning','warning-circle','RTE1J77 está na OS 1031')}${F.notice('danger','warning-circle','Não conseguimos carregar agora. Tente de novo')}${F.notice('info','info','Sem sinal. A lista fica salva neste aparelho')}`),
+  atom('Esqueleto e tooltip',`<div class="row">${F.sk(48,48,99)}<div style="flex:1;display:flex;flex-direction:column;gap:6px">${F.sk('80%',14)}${F.sk('50%',12)}</div></div>${F.tooltip('eixos 1, 2 e 3, os dois lados')}`),
+  atom('Barra escura de seleção',F.selbar('2','serviços',[{label:'Escolher mecânico',icon:'user'},{label:'Começar',icon:'play',primary:1}])),
+  atom('Área vazia (canvas)',F.empty({canvas:1,icon:'hand-pointing',title:'Escolha um veículo',hint:'Os serviços dele aparecem aqui'})),
+].join('');
+</script>
+</body>
+</html>
