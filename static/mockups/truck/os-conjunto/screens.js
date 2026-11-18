@@ -447,7 +447,7 @@ function listaPhone(s){
     <div style="display:flex;gap:10px;align-items:center;padding:0 14px 10px">${ring(r.d,r.t,34,'')}<b class="num" style="font-size:13px;white-space:nowrap">${r.sum}</b><span style="flex:1"></span><span class="mi2">${r.who.length?`<span class="avs">${r.who.map(w=>av(w[0],1)).join('')}</span>`:'<span class="av dash"><span class="ic i-person s14"></span></span>'}<span class="${r.who.length?'':'muted'}">${r.whoT}</span></span></div>
     ${r.block?`<div style="padding:8px 14px;border-top:1px solid hsl(var(--border));background:hsl(var(--${r.block[0]}-soft)/.6)"><span class="bchip ${r.block[0]}" style="background:none;padding:0;height:auto" title="${r.block[2]}"><span class="ic ${r.block[1]} s14"></span><span class="trunc">${r.block[2]}</span></span></div>`:''}</div>`).join('')}</div>`;
 }
-RR.lista=(s,d)=>(isPhone(d)||d==='tablet-p')?F.mobile.workOrders({deltas:s==='proposal',state:s,cols2:d==='tablet-p'}):s==='loading'||s==='empty'?F.real.workOrdersPage({state:s}):F.real.workOrdersPage({deltas:s==='proposal',state:s==='filters'?null:s});
+RR.lista=(s,d)=>{const prop=/^prop/.test(s);if(isPhone(d)||d==='tablet-p') return F.mobile.workOrders({deltas:prop,state:['loading','empty','filters'].includes(s)?s:null,cols2:d==='tablet-p'});if(s==='loading'||s==='empty') return F.real.workOrdersPage({state:s});if(prop) return F.real.workOrdersProposal(s.slice(4),{deltas:1});return F.real.workOrdersPage({});};
 
 /* ---------- 2 abrir ---------- */
 RR.abrir=(s,d)=>bg(isPhone(d)?F.mobile.workOrders():F.real.workOrdersPage())+(isPhone(d)?sht(R.abrir(s)):dlg(R.abrir(s),680));

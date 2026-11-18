@@ -402,3 +402,5 @@ kbd{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 
 .ghd2{position:sticky;top:-12px;z-index:2;display:flex;align-items:center;gap:8px;padding:8px 8px 8px 14px;background:hsl(var(--accent));border-bottom:1px solid hsl(var(--border))}
 .ghd2 .pos{font:600 10.5px Inter;color:hsl(var(--muted-foreground))}
 .kpi2 .v{white-space:nowrap;font-size:16px}
+.clamp2,.arow .t b,.sm2 .sn,.qcard .t>b,.nextcard b,.runcard2 b,.vnow,.lnote,.aitem b,.sech b,.l3,.hero p,.hero h2{text-wrap:balance}
+.why,.hint,.muted{text-wrap:pretty}
