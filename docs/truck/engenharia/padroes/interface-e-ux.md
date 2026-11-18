@@ -81,7 +81,7 @@ Toda lista/tela nasce completa, não em pedaços:
 
 Padrão que vale para toda tela. Os itens marcados como **não** foram recusados e não voltam como proposta.
 
-- **Título da tela na barra do topo, em toda tela**, pelo modo console (`useConsoleMode`, com `eyebrow` e `title`). O corpo não repete o nome da tela com `<h1>` nem `PageHeader`. Passo a passo na receita da seção 15.
+- **Título da tela na barra do topo, em toda tela**, pelo modo console (`useConsoleMode`, com `eyebrow` e `title`). O corpo não repete o nome da tela com `<h1>` nem `PageHeader`. Passo a passo na receita da seção 15. **Exceção decidida em 18/11/2026:** a lista de OS fica com o cabeçalho na página (`PageHeader`, sem modo console), como está.
 - **Edição em linha, como no Jira:** o texto editável parece texto; ganha um fundo leve no hover e o foco só ao clicar. **Não** usar caixa de campo branca com borda para editar nome de seção, item ou título.
 - **Criar na própria lista, como no Jira:** "Adicionar item" abre uma linha suave na lista (sem caixa branca, sem borda azul, fundo levemente tingido enquanto ativa), Enter cria e deixa a linha pronta para o próximo, Esc fecha. **Não** criar registro vazio com erro vermelho nem abrir painel lateral para criar.
 - **Foco onde a pessoa vai digitar:** abrir algo para editar já põe o cursor no campo.

@@ -34,7 +34,6 @@ A OS por conjunto (uma frente por veículo, [análise](../produto/propostas/os-p
 | Aviso de conjunto desfeito e de veículo que saiu do conjunto com a OS aberta | O detalhe não avisa | porta de assets + detalhe |
 | Busca da fila pelo código do conjunto | Hoje acha pela placa ou frota de qualquer frente | lista de OS |
 | Eixo e lado no serviço, transferir frente entre OS, km no engate e telemetria | Fora desta entrega, de propósito | próximas fatias |
-| Lista de OS com título na barra do topo | Ainda usa `PageHeader` | receita da seção 15 |
 
 ## Inspeções — o que a lista em cartões deixou de fora (09/11/2026)
 
