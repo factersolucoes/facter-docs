@@ -872,3 +872,7 @@
 .fx-device.phone .fx-ctl{gap:10px}
 .fx-device.phone .fx-cons{gap:10px;align-items:center}
 .pm .jump.fx-mtabs{margin:0 -16px;background:hsl(var(--background));border-bottom:1px solid hsl(var(--border))}
+/* phone: base chip at the right, next to the avatar */
+.fx-device.phone .fx-cons{flex:1;min-width:0}
+.fx-device.phone .fx-cons .fx-vdiv{display:none}
+.fx-device.phone .fx-ctl{margin-left:auto;margin-right:10px}
