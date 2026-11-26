@@ -39,23 +39,32 @@ function row(id,sel){const v=V[id];
 function group(g,sel){
   return `<section class="grp"><header><span class="gt ${g.tone}">${ic(g.icon,'s16')}</span><h3>${g.title}</h3><span class="gc">${g.count}</span></header><div class="rows">${g.ids.map(id=>row(id,sel)).join('')}</div>${g.more?`<div class="more">${g.more}${ic('caret-down','s14')}</div>`:''}</section>`;}
 
-const ITEMS_C320=[['Lona de freio, eixo 3','2ª carreta RTE1J77','vencida há 1.850 km','d'],['Lubrificação geral','2ª carreta RTE1J77','vence hoje','w'],['Troca de óleo e filtros','Cavalo QRT4B22','em 1.200 km','']];
-const item=([n,s,v,t])=>`<div class="it"><i class="dot ${t}"></i><div class="n"><b>${n}</b><span>${s}</span></div><span class="v ${t}">${v}</span></div>`;
-function pHead(v,o={}){return `<div class="phd">${o.phone?'<div class="grab"></div>':''}<div class="ph">${o.back?`<span class="xb back" role="button" aria-label="Voltar">${ic('arrow-left','s16')}</span>`:''}<div class="t"><h2>${o.title||v.full}</h2><p>${o.title?'':mark(v.parts)}${o.sub||v.sub}</p></div>${o.back?'':`<span class="xb" role="button" aria-label="Fechar">${ic('x','s16')}</span>`}</div></div>`;}
+const ITEMS_C320=[['Lona de freio','2ª carreta · eixo 3','vencida há 1.850 km','d'],['Lubrificação geral','2ª carreta','vence hoje','w'],['Troca de óleo e filtros','Cavalo','em 1.200 km','']];
+/* visit items: the most urgent first, lifted; position as a neutral chip; state as a tone pill */
+const item=([n,pos,v,t],i)=>`<div class="ii ${i===0?'lead':''}"><div class="n"><b>${n}</b><span class="pos">${pos}</span></div><span class="tp ${t}">${v}</span></div>`;
+const items=list=>`<div class="ilist">${list.map(item).join('')}</div>`;
+const secHead=(title,right='')=>`<div class="sh"><h3>${title}</h3>${right}</div>`;
+const count=n=>`<span class="cnt">${n}</span>`;
+const pill=(tone,icon,text)=>`<span class="spill ${tone}">${ic(icon,'s16')}${text}</span>`;
+const metrics=m=>`<div class="mstrip">${m.map(([l,v,t])=>`<div><span>${l}</span><b class="${t||''}">${v}</b></div>`).join('')}</div>`;
+const parts=(ok,list,note)=>`<div class="sec">${secHead('Peças do kit',ok?`<span class="kchip s">${ic('check-circle','s16')}Tudo em estoque</span>`:`<span class="kchip w">${ic('package','s16')}${note[0]}</span>`)}<p class="sub">${list}${ok?'':`. ${note[1]}`}</p></div>`;
+const foot=t=>`<p class="foot">${ic('clock-counter-clockwise','s14')}<span>${t}</span></p>`;
+function pHead(v,o={}){return `<div class="phd">${o.phone?'<div class="grab"></div>':''}<div class="ph">${o.back?`<span class="xb back" role="button" aria-label="Voltar">${ic('arrow-left','s16')}</span>`:''}<div class="t"><h2>${o.title||v.full}</h2><p>${mark(v.parts)}${o.sub||v.sub}</p></div>${o.back?'':`<span class="xb" role="button" aria-label="Fechar">${ic('x','s16')}</span>`}</div>${o.status?`<div class="pst">${o.status}</div>`:''}${o.metrics?metrics(o.metrics):''}</div>`;}
+const H320={status:pill('s','garage','No pátio · OS 1042 aberta'),metrics:[['Pior atraso','1.850 km','d'],['Peças','Em estoque','s'],['Na OS','+3 h 20','']]};
 function visitBody(){
-  return `<div class="where"><span class="wi">${ic('garage','s16')}</span><div><b>No pátio desde ontem às 14h</b><span>OS 1042 aberta, corretiva</span></div></div>
-  <div class="ps"><h4>Nesta visita</h4>${ITEMS_C320.map(item).join('')}</div>
-  <div class="ps"><h4>Peças do kit</h4><p>4 lonas, 8 molas, 38 l de óleo e 3 filtros</p><span class="ok">${ic('check-circle','s16')}<b>Tudo em estoque</b></span></div>
-  <div class="ps"><h4>Última vez</h4><p>Lona do eixo 3 trocada em 12/05, na OS 0871</p></div>`;}
-const visitFoot=(phone)=>`<div class="pf"><div class="bb">${btn('Adiar',{variant:'outline'})}${btn('Incluir as 3 na OS 1042',{icon:'plus',action:1})}</div><span class="hint">A OS fica cerca de 3 h 20 mais longa</span></div>`;
+  return `<div class="sec">${secHead('Nesta visita',count(3))}${items(ITEMS_C320)}</div>
+  ${parts(1,'4 lonas, 8 molas, 38 l de óleo e 3 filtros')}
+  ${foot('Última troca da lona: 12/05, na OS 0871')}`;}
+const visitFoot=()=>`<div class="pf"><div class="bb">${btn('Adiar',{variant:'outline'})}${btn('Incluir as 3 na OS 1042',{icon:'plus',action:1})}</div></div>`;
 
 const WD=['seg','ter','qua','qui','sex','sáb'];
 const DAYS=[['23','',2],['24','',2],['25','',2],['26','cheia',1],['27','cheia',1],['28','6 h',0,1],['30','18 h'],['01','22 h'],['02','28 h'],['03','3 h',1],['04','32 h'],['05','8 h']];
+const HDLY={title:'Agendar visita',sub:'DLY1J07 · revisão B',back:1,status:pill('n','road-horizon','Rodando · 640 km por dia'),metrics:[['Atraso','4.300 km','d'],['Peças','Falta 1','w'],['Leva','4 h','']]};
 function scheduleBody(){
-  return `<div class="where"><span class="wi">${ic('road-horizon','s16')}</span><div><b>Rodando, 640 km por dia</b><span>Fora do pátio desde 21/11</span></div></div>
-  <div class="ps cal"><h4>Quando trazer</h4><p class="cap">Horas livres por dia na oficina. A visita leva 4&nbsp;h.</p>
+  return `<div class="sec cal">${secHead('Quando trazer',`<span class="hh">horas livres por dia</span>`)}
   <div class="wk">${WD.map(d=>`<span class="wd">${d}</span>`).join('')}${DAYS.map(([n,l,off,pick])=>`<div class="day ${off===2?'off past':off?'off':''} ${pick?'pick':''}"><b>${n}</b><span>${l||'&nbsp;'}</span></div>`).join('')}</div><p class="first">${ic('calendar-check','s16')}<span><b>Primeira vaga: sáb 28/11</b>, 6&nbsp;h livres</span></p></div>
-  <div class="ps"><h4>Itens da visita</h4>${item(['Revisão B','Inclui a revisão A','vencida há 4.300 km','d'])}<span class="lack">${ic('package','s16')}Falta 1 filtro de ar; o pedido sai junto</span></div>
+  <div class="sec">${secHead('Nesta visita',count(1))}${items([['Revisão B','Cavalo · inclui a A','vencida há 4.300 km','d']])}</div>
+  ${parts(0,'O resto do kit está em estoque',['Falta 1 filtro de ar','O filtro é pedido ao agendar'])}
   <label class="chk"><i>${ic('check','s14')}</i>Avisar a JSL por e-mail</label>`;}
 const scheduleFoot=()=>`<div class="pf"><div class="bb">${btn('Voltar',{variant:'outline'})}${btn('Agendar para sáb 28/11',{icon:'calendar-check',action:1})}</div></div>`;
 
@@ -66,9 +75,8 @@ function skList(phone){
 }
 
 const C044={full:'Conjunto C-044',sub:'QRT2E55 com 2 carretas',parts:V.c044.parts};
-function nextPanel(){return `<aside class="pnl">${pHead(C044)}<div class="pb"><div class="where"><span class="wi">${ic('road-horizon','s16')}</span><div><b>Rodando, 610 km por dia</b><span>Fora do pátio desde 18/11</span></div></div>
-  <div class="ps"><h4>Nesta visita</h4>${item(['Revisão B','Cavalo QRT2E55','qui 10/12',''])}${item(['Lubrificação geral','1ª carreta RTD8F12','sáb 12/12',''])}</div>
-  <div class="ps"><h4>Peças do kit</h4><p>38 l de óleo, 4 filtros e graxa</p><span class="ok">${ic('check-circle','s16')}<b>Tudo em estoque</b></span></div></div>
+function nextPanel(){return `<aside class="pnl">${pHead(C044,{status:pill('n','road-horizon','Rodando · 610 km por dia'),metrics:[['Vence','qui 10/12',''],['Peças','Em estoque','s'],['Leva','3 h','']]})}<div class="pb"><div class="sec">${secHead('Nesta visita',count(2))}${items([['Revisão B','Cavalo','qui 10/12',''],['Lubrificação geral','1ª carreta','sáb 12/12','']])}</div>
+  ${parts(1,'38 l de óleo, 4 filtros e graxa')}</div>
   <div class="pf"><div class="bb">${btn('Adiar',{variant:'outline'})}${btn('Agendar visita',{icon:'calendar-check',action:1})}</div></div></aside>`;}
 
 /* ---------- notebook ---------- */
@@ -78,8 +86,8 @@ function web(s,dev){
   if(s==='empty') return `<div class="ag ${small?'s':''}"><div class="col"><div class="allgood"><span class="halo">${ic('calendar-check','s24')}</span><div><b>Frota em dia esta semana</b><p>Nenhuma preventiva vencida. A próxima é a revisão B do C-044, na qui 10/12, e dá para agendar com folga.</p></div></div>${group(GROUPS[2],'c044')}${group(GROUPS[3],null)}</div>${nextPanel()}</div>`;
   const sel=s==='schedule'?'dly':'c320';
   const panel=s==='schedule'
-    ?`<aside class="pnl">${pHead(V.dly,{title:'Agendar visita',sub:'DLY1J07, revisão B',back:1})}<div class="pb">${scheduleBody()}</div>${scheduleFoot()}</aside>`
-    :`<aside class="pnl">${pHead(V.c320)}<div class="pb">${visitBody()}</div>${visitFoot()}</aside>`;
+    ?`<aside class="pnl">${pHead(V.dly,HDLY)}<div class="pb">${scheduleBody()}</div>${scheduleFoot()}</aside>`
+    :`<aside class="pnl">${pHead(V.c320,H320)}<div class="pb">${visitBody()}</div>${visitFoot()}</aside>`;
   return `<div class="ag ${small?'s':''}"><div class="col">${head({})}${GROUPS.map(g=>group(g,sel)).join('')}</div>${panel}</div>`;
 }
 
@@ -93,8 +101,8 @@ function phone(s){
   const list=`<div class="ph-wrap">${head({phone:1})}${search()}${GROUPS.map(g=>mgroup(g,sel)).join('')}</div>`;
   if(s==='list') return list;
   const sheet=s==='schedule'
-    ?`<div class="sheet-ov"><div class="sheet">${pHead(V.dly,{phone:1,title:'Agendar visita',sub:'DLY1J07, revisão B',back:1})}<div class="sb">${scheduleBody()}</div>${scheduleFoot()}</div></div>`
-    :`<div class="sheet-ov"><div class="sheet">${pHead(V.c320,{phone:1})}<div class="sb">${visitBody()}</div>${visitFoot(1)}</div></div>`;
+    ?`<div class="sheet-ov"><div class="sheet">${pHead(V.dly,{...HDLY,phone:1})}<div class="sb">${scheduleBody()}</div>${scheduleFoot()}</div></div>`
+    :`<div class="sheet-ov"><div class="sheet">${pHead(V.c320,{...H320,phone:1})}<div class="sb">${visitBody()}</div>${visitFoot(1)}</div></div>`;
   return list+sheet;
 }
 

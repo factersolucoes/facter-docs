@@ -297,3 +297,60 @@
 .ph-wrap .stats{width:100%;padding-top:12px;border-top:1px solid hsl(var(--border)/.7)}
 .ph-wrap .st{flex:none;padding:0 16px 0 0;background:none;box-shadow:none}
 .ph-wrap .st+.st{padding-left:16px}
+
+/* =====================================================================
+   Visit panel: answer first (status pill + 3 metrics), the visit items lead,
+   parts in one line, last time as a footnote. Three type levels.
+   ===================================================================== */
+.phd{padding-bottom:0}
+.pst{padding:14px 24px 0}
+.spill{display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 12px 0 10px;border-radius:999px;font:600 13.5px Inter;white-space:nowrap}
+.spill.s{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+.spill.n{background:hsl(var(--secondary));color:hsl(var(--secondary-foreground))}
+.mstrip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:18px 24px 0;padding:14px 0 18px;border-top:1px solid hsl(var(--border)/.7)}
+.mstrip>div{display:flex;flex-direction:column;gap:3px;padding:0 14px;min-width:0}
+.mstrip>div:first-child{padding-left:0}
+.mstrip>div+div{border-left:1px solid hsl(var(--border))}
+.mstrip span{font-size:12.5px;color:hsl(var(--muted-foreground))}
+.mstrip b{font:600 17px/1.25 Sora;letter-spacing:-.01em;font-variant-numeric:tabular-nums;white-space:nowrap;color:hsl(var(--foreground))}
+.mstrip b.d{color:hsl(var(--danger-ink))}.mstrip b.s{color:hsl(var(--success-ink))}.mstrip b.w{color:hsl(var(--warning-ink))}
+.pb{gap:24px;padding:22px 24px 24px}
+.sec{display:flex;flex-direction:column;gap:10px}
+.sh{display:flex;align-items:center;gap:8px;min-height:28px}
+.sh h3{font:600 15px Inter;letter-spacing:-.005em;color:hsl(var(--foreground))}
+.sh .cnt{padding:0 8px;border-radius:999px;background:hsl(var(--muted));font:600 12.5px/20px Inter;font-variant-numeric:tabular-nums;color:hsl(var(--muted-foreground))}
+.sh .hh{font-size:13px;color:hsl(var(--muted-foreground))}
+.sh .kchip{margin-left:auto}
+.ilist{display:flex;flex-direction:column;padding:4px;border-radius:14px;background:hsl(var(--muted)/.55)}
+.ii{display:flex;align-items:center;gap:12px;padding:12px 12px;border-radius:10px}
+.ii+.ii{border-top:1px solid hsl(var(--border)/.8);border-radius:0 0 10px 10px}
+.ii.lead{background:hsl(var(--card));box-shadow:var(--e1);border-radius:10px}
+.ii.lead+.ii{border-top:0}
+.ii .n{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:5px}
+.ii .n b{font:600 14.5px Inter}
+.ii.lead .n b{font-size:15px}
+.pos{padding:0 8px;border-radius:999px;background:hsl(var(--secondary));box-shadow:inset 0 0 0 1px hsl(var(--border));font:500 12.5px/21px Inter;color:hsl(var(--secondary-foreground)/.8);white-space:nowrap}
+.ii.lead .pos{background:hsl(var(--muted)/.6)}
+.tp{flex:none;padding:0 10px;border-radius:999px;font:600 13px/26px Inter;font-variant-numeric:tabular-nums;white-space:nowrap;background:hsl(var(--secondary));color:hsl(var(--secondary-foreground))}
+.tp.d{background:hsl(var(--danger-soft));color:hsl(var(--danger-ink))}
+.tp.w{background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+.kchip{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 11px 0 9px;border-radius:999px;font:600 13px Inter;white-space:nowrap}
+.kchip.s{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+.kchip.w{background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+.sec .sub{font-size:14px;line-height:1.5;color:hsl(var(--muted-foreground));text-wrap:pretty}
+.foot{display:flex;align-items:center;gap:7px;padding-top:2px;font-size:13px;color:hsl(var(--muted-foreground))}
+.foot .ic{opacity:.8}
+.cal .wk{margin-top:2px}
+.sheet .pst{padding:12px 20px 0}
+.sheet .mstrip{margin:16px 20px 0}
+.sheet .sb{gap:24px}
+.dark .ilist{background:hsl(var(--muted)/.5)}
+.dark .ii.lead{background:hsl(var(--card))}
+.mstrip{display:flex}
+.mstrip>div{flex:1 1 auto;padding:0 16px}
+.mstrip>div:last-child{padding-right:0}
+.tp:not(.d):not(.w){background:hsl(var(--card));box-shadow:inset 0 0 0 1px hsl(var(--border))}
+.phd .xb{color:hsl(var(--muted-foreground))}
+.phd .xb:hover{background:hsl(var(--accent));color:hsl(var(--accent-foreground))}
+.sheet .phd,.sheet .pf{flex:none}
+.sheet .sb{min-height:0;flex:1 1 auto}
