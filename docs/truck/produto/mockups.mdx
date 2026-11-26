@@ -382,6 +382,12 @@ Estudo (11/10/2026). A mesma tela do pátio (dia cheio, 8 boxes) em **quatro arr
 
 [Ver o mockup](/telas/truck/checklist-servico-lugar)
 
+### Carreta: modelos e planta — 3 modelos
+
+**Modelo A aprovado em 26/11/2026** (B e C descartados). No cadastro ficam só os dois modelos de eixo mais comuns de cada tipo e, na carreta, ao lado, os dois de fueiro; qualquer outro caso vai para a planta, onde se monta eixo a eixo e se definem pares, tipo e malhal. Depois de cadastrado, o veículo ganha **Ver planta** nos ⋯ da lista (também para quem só consulta). Na implementação: os atalhos de fueiro são **4 e 3 pares acoplados** (peça única se escolhe na planta); a carreta pode ter **de 2 a 4 pares** (migration 0062); o malhal ocupa a largura da carreta e o **traseiro fica atrás dos eixos**.
+
+[Ver o mockup](/telas/truck/carreta-modelos-planta)
+
 ## Componente de datas
 
 Aprovado em 28/09/2026, e implementado no DS (`DateRangePicker`, intervalo com presets), já em uso no filtro de período das Movimentações. O componente de datas do DS em cenários, opções e níveis: data única, intervalo, data e hora, atalhos ("hoje", "últimos 7 dias"), estados de erro e vazio, e o comportamento no celular. Base para os filtros de período dos relatórios e para os campos de data das OS e movimentações.
