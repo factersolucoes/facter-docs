@@ -178,14 +178,14 @@
   --hair:hsl(var(--primary)/.09);
   --e1:0 0 0 1px hsl(var(--primary)/.07),0 1px 2px hsl(var(--primary)/.06),0 6px 20px -10px hsl(var(--primary)/.16);
   --e2:0 0 0 1px hsl(var(--primary)/.22),0 2px 4px hsl(var(--primary)/.08),0 10px 24px -12px hsl(var(--primary)/.32);
-  --e3:0 0 0 1px hsl(var(--primary)/.08),0 2px 6px hsl(var(--primary)/.06),0 24px 56px -20px hsl(var(--primary)/.30),0 48px 80px -48px hsl(var(--primary)/.22);
+  --e3:0 0 0 1px hsl(240 10% 4%/.06),0 2px 6px hsl(240 10% 4%/.04),0 20px 44px -24px hsl(240 10% 4%/.18);
   --dots:hsl(var(--primary)/.07);
   --pat:hsl(var(--primary)/.14);
 }
 .dark{
   --e1:inset 0 1px 0 hsl(var(--foreground)/.05),0 0 0 1px hsl(var(--border));
-  --e2:inset 0 1px 0 hsl(var(--foreground)/.06),0 0 0 1px hsl(var(--primary)/.45),0 0 24px -6px hsl(var(--primary)/.35);
-  --e3:inset 0 1px 0 hsl(var(--foreground)/.06),0 0 0 1px hsl(var(--border)),0 0 40px -12px hsl(var(--primary)/.28);
+  --e2:inset 0 1px 0 hsl(var(--foreground)/.06),0 0 0 1px hsl(var(--primary)/.45);
+  --e3:inset 0 1px 0 hsl(var(--foreground)/.06),0 0 0 1px hsl(var(--border));
   --dots:hsl(var(--foreground)/.05);
   --pat:hsl(var(--primary)/.30);
 }
@@ -251,9 +251,9 @@
 .ps .ok{display:inline-flex;margin-top:10px;padding:4px 10px 4px 8px;border-radius:999px;background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
 .ps .lack{border-radius:999px;padding:5px 12px 5px 10px}
 .pf{position:sticky;bottom:0;background:hsl(var(--card)/.82);backdrop-filter:blur(12px) saturate(1.4);-webkit-backdrop-filter:blur(12px) saturate(1.4);border-top:1px solid var(--hair)}
-.pf .fx-btn.action{box-shadow:0 1px 0 hsl(var(--primary-foreground)/.18) inset,0 8px 20px -8px hsl(var(--primary)/.7)}
+.pf .fx-btn.action{box-shadow:none}
 .day{border-radius:12px}
-.day.pick{box-shadow:0 0 0 2px hsl(var(--ring)),0 8px 18px -8px hsl(var(--primary)/.45)}
+.day.pick{box-shadow:0 0 0 2px hsl(var(--ring))}
 .allgood{box-shadow:var(--e1);position:relative;overflow:hidden;isolation:isolate}
 .allgood::before{content:"";position:absolute;inset:0;z-index:-1;background-image:radial-gradient(var(--pat) 1px,transparent 1.3px);background-size:14px 14px;-webkit-mask-image:radial-gradient(70% 140% at 100% 50%,#000,transparent 70%);mask-image:radial-gradient(70% 140% at 100% 50%,#000,transparent 70%)}
 
