@@ -1910,3 +1910,44 @@
 /* week bar keeps red only on the overdue part */
 .wbar i.d{background:hsl(var(--danger))!important}
 .wlab .d b{color:hsl(var(--danger-ink))}
+/* list rows: each row its own barely-there surface, 4px apart; right columns centered and aligned */
+.llist{gap:4px!important;padding:8px!important}
+.fx-aprow.lrow{background:hsl(var(--foreground)/.025);border-radius:12px;align-items:center}
+.fx-aprow.lrow:hover{background:hsl(var(--accent))}
+.fx-aprow.lrow .apst,.fx-aprow.lrow .apss{align-self:center;justify-content:center}
+.fx-aprow.lrow .apss .fx-btn{min-width:124px;justify-content:center}
+.lsub{background:none!important;padding:12px 10px 4px}
+.fx-mcards .lcard{background:hsl(var(--card))}
+/* phone list cards: tighter */
+.fx-wocard.lcard{border-radius:16px}
+.fx-wocard.lcard .l1{padding:12px 14px 0;gap:8px}
+.fx-wocard.lcard .l3{padding:4px 14px 0;font-size:14.5px}
+.fx-wocard.lcard .l4{padding:4px 14px 10px}
+.fx-wocard.lcard .ft{min-height:40px;padding:8px 14px}
+.fx-wocard.lcard .lact{height:32px;display:inline-flex;align-items:center;padding:0 12px;border-radius:999px;background:hsl(var(--secondary));color:hsl(var(--foreground))}
+.pml .mcards{gap:8px;padding-top:8px}
+.pml .msh{padding-bottom:0}
+/* jump tabs sit on the canvas, no dark band */
+.pm .stick,.pml .stick,.fx-mtabs.jump{background:hsl(var(--background))!important;-webkit-mask-image:none!important;mask-image:none!important}
+.fx-device.phone .pm .stick,.fx-device.phone .pml .stick,.fx-device.phone .fx-mtabs.jump,.fx-device.phone .msh{background:var(--canvas2)!important}
+.lcard .l1 .nm{flex:none;overflow:visible}
+.lcard .l1 .lwhen{min-width:0;overflow:hidden;text-overflow:ellipsis}
+.lcard .ft .cx{min-width:0;overflow:hidden;text-overflow:ellipsis}
+.lcard .ft .lact{flex:none}
+.fx-mcards{container-type:inline-size;container-name:mcards}
+@container mcards (max-width:310px){.dax{display:none}}
+/* create actions */
+.pacts{display:flex;align-items:center;gap:8px;margin-left:8px;flex:none}
+.newb{position:relative}
+.newb .fx-btn{gap:6px}
+.crmenu{position:absolute;right:0;top:calc(100% + 6px);z-index:30;width:300px;padding:6px;border-radius:14px;background:hsl(var(--popover,var(--card)));box-shadow:0 0 0 1px hsl(var(--border)),0 16px 36px -14px hsl(var(--foreground)/.35)}
+.cropt{display:flex;align-items:center;gap:12px;padding:10px;border-radius:10px;cursor:pointer}
+.cropt:hover{background:hsl(var(--accent))}
+.crx{display:grid;place-items:center;width:34px;height:34px;flex:none;border-radius:10px;background:hsl(var(--primary)/.1);color:hsl(var(--primary))}
+.crt{display:flex;flex-direction:column;min-width:0}.crt b{font:500 14px Inter}.crt small{font-size:12.5px;color:hsl(var(--muted-foreground))}
+.pfab{position:absolute;right:16px;bottom:96px;z-index:8;display:grid;place-items:center;width:56px;height:56px;border-radius:18px;background:hsl(var(--primary));color:hsl(var(--primary-foreground));box-shadow:0 10px 24px -8px hsl(var(--primary)/.6)}
+.fx-device.phone .fx-screen>.pfab{position:absolute}
+.crsh{display:flex;flex-direction:column;gap:4px;padding:8px 12px 28px}
+.crsh>b{font:600 17px Inter;padding:4px 10px 8px}
+.crsh .cropt{min-height:56px}
+.hero.slim{overflow:visible;position:relative;z-index:5}

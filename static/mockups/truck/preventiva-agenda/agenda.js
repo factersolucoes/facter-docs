@@ -570,7 +570,7 @@ function kanban(s,sel){
 function phoneKanban(s){const on=s==='kb2'?'sched':'todo';
   const tabs=`<div class="fx-mtabs jump stg">${STAGES.map(st=>`<span class="${st.k===on?'on':''}">${st.title}<b>${st.k==='todo'?15:st.ids.length}</b></span>`).join('')}</div>`;
   const cols=STAGES.map(st=>`<div class="kpc">${v2col(st.title,st.k==='todo'?15:st.ids.length,st.ids.slice(0,4).map(id=>v2card(id,null)).join(''),{tone:st.k})}</div>`).join('');
-  return `<div class="ph-wrap pm pkban">${`<div class="phead"><div class="phr"><span class="pbase">Base Curitiba${ic('caret-down','s14')}</span><span class="pdate">qui 26/11</span></div></div>`}<div class="stick srow">${tabs}${viewSeg('Quadro')}</div><div class="ksnap ${on==='sched'?'at2':''}">${cols}</div><div class="safe"></div></div>`;}
+  return `<div class="ph-wrap pm pkban">${`<div class="phead"><div class="phr"><span class="pbase">Base Curitiba${ic('caret-down','s14')}</span><span class="pdate">qui 26/11</span></div></div>`}<div class="stick srow">${tabs}${viewSeg('Quadro')}</div><div class="ksnap ${on==='sched'?'at2':''}">${cols}</div><div class="safe"></div></div>${fab()}`;}
 
 /* ---------- Calendário: month and week, ported from the v1 design ---------- */
 const FREE={'2026-11-26':0,'2026-11-27':0,'2026-11-28':6,'2026-11-29':-1,'2026-11-30':18,'2026-12-01':22,'2026-12-02':28,'2026-12-03':3,'2026-12-04':32,'2026-12-05':8};
@@ -626,7 +626,13 @@ function calPhone(s){
   return `<div class="ph-wrap pm">${head}${groups}<div class="safe"></div></div>`;}
 
 function sheetFor(s){return isVisit(s)?visitDrawer(s,1):s==='schedule'||s==='dropok'?`<div class="sheet-ov"><div class="sheet">${pHead(V.dly,{...HDLY,phone:1})}<div class="sb">${scheduleBody()}</div>${scheduleFoot()}</div></div>`:'';}
-function web(s,dev){if(dev==='tabl'||dev==='tabp'){KCOMPACT=true;let out;
+/* create planning: "Planos" soft + "Novo" primary with a menu; FAB and sheet on phone */
+const CREATE=[['list-checks','Plano de preventiva','Regras de quando fazer cada preventiva'],['calendar-plus','Preventiva avulsa','Uma vez, para um veículo ou conjunto'],['gauge','Registrar km','A leitura do painel de um veículo']];
+const createOpts=()=>CREATE.map(([i,t,d])=>`<div class="cropt"><span class="crx">${ic(i,'s16')}</span><span class="crt"><b>${t}</b><small>${d}</small></span></div>`).join('');
+const pageActs=open=>`<span class="pacts">${btn('Planos',{variant:'outline',icon:'list-checks'})}<span class="newb">${btn('<span>Novo</span>',{icon:'plus'}).replace('</button>',`${ic('caret-down','s14')}</button>`)}${open?`<div class="crmenu" role="menu">${createOpts()}</div>`:''}</span></span>`;
+const fab=()=>`<span class="pfab" role="button" aria-label="Novo">${ic('plus','s24')}</span>`;
+const createSheet=()=>`<div class="sheet-ov"><div class="sheet"><div class="grab"></div><div class="crsh"><b>Novo</b>${createOpts()}</div></div></div>`;
+function web(s,dev){if(s==='create'&&dev!=='phone'){}if(dev==='tabl'||dev==='tabp'){KCOMPACT=true;let out;
     if(dev==='tabl'){out=web(s,'webs').replace('class="bd ','class="bd tlv ');}
     else{const base=isVisit(s)||s==='schedule'||s==='dropok'?'board':s;out=web(base,'webs').replace('class="bd ','class="bd tpv ')+sheetFor(s);}
     KCOMPACT=false;return out;}if(s==='drag'||s==='dropno')return web('kbdrag:'+s,dev);if(s.startsWith('kbdrag:')){const st=s.slice(7);return `<div class="bd kbv ${dev==='webs'?'s':''}">${slim().replace(nokm(),segView('Por veículo')+nokm())}${kanban(st,null)}</div>`;}if(s==='dropok')s='schedule';if(s==='pk044')return withPk044(web('board',dev),0);if(STRESS[s])return stressWeb(s,dev);KITOPEN=s==='kitopen';
@@ -643,7 +649,7 @@ function web(s,dev){if(dev==='tabl'||dev==='tabp'){KCOMPACT=true;let out;
   const dr=s==='schedule'?drawer(`${pHead(V.dly,HDLY)}<div class="pb">${scheduleBody()}</div>${scheduleFoot()}`)
     :isVisit(s)?visitDrawer(s,0):'';
   const top=s==='error'?errNote():'';
-  const hero=s==='sap'?slim().replace(nokm(),sapChip()):slim().replace(nokm(),segView('Por veículo')+nokm());
+  const hero=(s==='sap'?slim().replace(nokm(),sapChip()):slim().replace(nokm(),segView('Por veículo')+nokm())).replace(/<\/div>$/,pageActs(s==='create')+'</div>');
   const md=s==='multisched'?multiDrawer(0):'';
   return `<div class="bd kbv ${small?'s':''}">${hero}${top}${kanban(s,sel)}${dr}${md}${s==='multi'?selBar():''}</div>`;
 }
@@ -673,10 +679,10 @@ function mobileList(s,o={}){
   const jump=o.list?`<div class="fx-mtabs jump">${[['over','Vencidas',N().over,'d'],['week','Esta semana',N().week,'w'],['next','Próximas',9,'']].map(([k,t,n,c])=>`<span class="${k===on?'on':''}">${t}<b class="${c}">${n}</b></span>`).join('')}</div>`
     :`<div class="fx-mtabs jump" role="tablist">${[['over','Vencidas',N().over,'d'],['week','Esta semana',N().week,'w'],['next','Próximas',9,'']].map(([k,l,n,t])=>`<span class="${k===on?'on':''}" role="tab">${l}<b class="${t}">${n}</b></span>`).join('')}</div>`;
   const secs=g.slice(0,3).map((gr,i)=>`<section class="msec" data-sec="${['over','week','next'][i]}"><h3 class="msh"><span class="gt ${gr.tone}">${ic(gr.icon,'s14')}</span>${gr.title}<span class="gc ${gr.tone}">${gr.count.split(' ')[0]}</span></h3><div class="mcards">${gr.ids.map((id,j)=>o.list?(s==='swipe'&&id==='dly'?`<div class="swp"><div class="swa"><span class="sw-d">${ic('clock-countdown','s16')}Adiar</span><span class="sw-p">${ic('calendar-check','s16')}Marcar dia</span></div>${lcard(id,sel).replace('fx-wocard lcard','fx-wocard lcard sw')}</div>`:lcard(id,sel).replace('fx-wocard lcard','fx-wocard lcard'+(s==='press'&&id==='c320'?' pressed':''))):mcard(id,{sel,press:s==='press'?'c320':null,swipe:s==='swipe'&&id==='dly'})).join('')}${gr.more?`<div class="more">${gr.more}${ic('caret-down','s14')}</div>`:''}</div></section>`).join('');
-  return `<div class="ph-wrap pm ${o.list?'pml':''}">${ctx.replace('<div class="phr">',ptr+'<div class="phr">')}${hero}${s==='error'?errNoteM():''}<div class="stick srow">${jump}${viewSeg(o.list?'Lista':'Quadro')}</div>${secs}${nokm()}<div class="safe"></div></div>`;
+  return `<div class="ph-wrap pm ${o.list?'pml':''}">${ctx.replace('<div class="phr">',ptr+'<div class="phr">')}${hero}${s==='error'?errNoteM():''}<div class="stick srow">${jump}${viewSeg(o.list?'Lista':'Quadro')}</div>${secs}${nokm()}<div class="safe"></div></div>${fab()}`;
 }
 const PHONE_ONLY={ptr:1,mid:1,press:1,swipe:1};
-function phone(s){if(s==='pk044')return phone('list')+pk044Drawer(1);if(STRESS[s])return stressPhone(s,0);KITOPEN=s==='kitopen';DONE=s==='done';PICK=null;
+function phone(s){if(s==='create')return phone('list')+createSheet();if(s==='pk044')return phone('list')+pk044Drawer(1);if(STRESS[s])return stressPhone(s,0);KITOPEN=s==='kitopen';DONE=s==='done';PICK=null;
   if(s==='first'||s==='noperm') return `<div class="ph-wrap">${emptyBlock(s,1)}</div>`;
   if(/^nores/.test(s)) return `<div class="ph-wrap">${searchOn()}${searchBlock(s,1)}</div>`;
   if(s==='loading') return `<div class="ph-wrap pm pkban"><div class="phead"><div class="phr"><span class="pbase">Base Curitiba${ic('caret-down','s14')}</span><span class="pdate">qui 26/11</span></div></div><div class="ksnap"><div class="kpc">${v2col('A agendar','',[1,2,3].map(()=>`<div class="v2card">${F.sk('40%',12)}${F.sk('80%',16)}${F.sk('60%',20,99)}</div>`).join(''),{tone:'todo'})}</div></div></div>`;
@@ -723,13 +729,14 @@ function lrow(id,sel){const v=V[id],m=LM[id];const pk=PICK&&MULTI.includes(id);c
     ${ic('caret-right','s16 car')}</div>`;}
 const lsub=g=>`<div class="lsub"><span class="gt ${g.tone}">${ic(g.icon,'s14')}</span><b>${g.title}</b><span class="n">${g.count}</span></div>`;
 const LTABS=[['Todas',17],['Vencidas',3],['Esta semana',3],['Próximas',9],['Sem km',2]];
+let LCREATE=false;
 function listTop(o={}){
-  const head=vtop('Lista')+F.pageHeader('Agenda','O que trazer para a oficina, e quando.',`${F.fchip('Base Curitiba',{menu:1})}${btn('Ver planos',{variant:'outline',icon:'list-checks'})}`);
+  const head=vtop('Lista')+F.pageHeader('Agenda','O que trazer para a oficina, e quando.',`${F.fchip('Base Curitiba',{menu:1})}${pageActs(LCREATE)}`);
   const kpi=`<div class="fx-kpi4">${[['Vencidas',o.zero?0:5,'d'],['Vencem esta semana',4,'w'],['Próximas semanas',14,''],['Sem km',2,'']].map(([l,v,t])=>`<div><p>${l}</p><b class="k${v?t:''}">${v}</b></div>`).join('')}</div>`;
   const tools=`<div class="ltools">${F.search('Buscar placa, frota ou conjunto',{width:340})}${F.fchip('Todas as transportadoras',{menu:1})}${F.fchip('Todos os planos',{menu:1})}<span class="vsp"></span>${viewSeg('Lista')}</div>`;
   return head+`<div class="lstack"><div class="lstack s">${F.dtabs([['Todas',17-(DONE?0:0)],['Vencidas',N().over],['Esta semana',N().week],['Próximas',9],['Sem km',2]],o.tab||'Todas')}${tools}`;
 }
-function listWeb(s,dev){if(dev==='tabp'){const base=isVisit(s)||s==='schedule'?'list':s;return listWeb(base).replace('class="lv"','class="lv tpv"')+sheetFor(s);}if(s==='pk044')return withPk044(listWeb('list'),0);if(STRESS[s])return stressList(s);KITOPEN=s==='kitopen';DONE=s==='done';PICK=s==='multi'||s==='multisched';
+function listWeb(s,dev){LCREATE=s==='create';if(dev==='tabp'){const base=isVisit(s)||s==='schedule'?'list':s;return listWeb(base).replace('class="lv"','class="lv tpv"')+sheetFor(s);}if(s==='pk044')return withPk044(listWeb('list'),0);if(STRESS[s])return stressList(s);KITOPEN=s==='kitopen';DONE=s==='done';PICK=s==='multi'||s==='multisched';
   if(s==='first'||s==='noperm') return `<div class="lv">${vtop('Lista')}${F.pageHeader('Agenda','O que trazer para a oficina, e quando.','')}${emptyBlock(s)}</div>`;
   DONE=s==='done';const sel=s==='schedule'?'dly':isVisit(s)?'c320':null;
   let body;
@@ -744,10 +751,10 @@ function listWeb(s,dev){if(dev==='tabp'){const base=isVisit(s)||s==='schedule'?'
   return `<div class="lv">${top}${s==='error'?errNote():''}${body}</div></div></div>${dr}${s==='multisched'?multiDrawer(0):''}${s==='multi'?selBar():''}</div>`;
 }
 function lcard(id,sel,o={}){const v=V[id],m=LM[id];
-  return `<button type="button" data-id="${id}" class="fx-wocard lcard ${sel===id?'on':''}"><span class="l1"><b class="nm">${v.name}</b>${mark(v.parts)}<span style="flex:1"></span><span class="lwhen ${v.t}">${v.when}</span></span>
+  return `<button type="button" data-id="${id}" class="fx-wocard lcard ${sel===id?'on':''}"><span class="l1"><b class="nm">${v.name}</b>${mark(v.parts)}<span style="flex:1"></span><span class="lwhen ${v.t}">${v.when.replace(/^venceu há (.+)$/,'$1<span class="dax"> de atraso</span>')}</span></span>
     <span class="l3">${v.svc}${v.tag?' <span class="tag">adiada · falta peça</span>':''}</span><span class="l4"><span class="trunc2">${m.pos}${/^\+\d/.test(v.more)?' · '+v.more:''}</span></span>
     <span class="ft">${(c=>`<span class="cx ${c[0]}">${ic(c[1],'s14')}${c[2]}</span><span style="flex:1"></span>${c[3]?`<span class="lact">${c[3]}</span>`:''}`)(CTX[id]||['n','road-horizon',m.where,m.act])}</span></button>`;}
-function listPhone(s){if(s==='pk044')return listPhone('list')+pk044Drawer(1);if(STRESS[s])return stressPhone(s,1);KITOPEN=s==='kitopen';DONE=s==='done';PICK=null;
+function listPhone(s){if(s==='create')return listPhone('list')+createSheet();if(s==='pk044')return listPhone('list')+pk044Drawer(1);if(STRESS[s])return stressPhone(s,1);KITOPEN=s==='kitopen';DONE=s==='done';PICK=null;
   if(s==='first'||s==='noperm') return `<div class="fx-mlist"><div class="fx-mcards">${emptyBlock(s,1)}</div></div>`;
   const tabsM=on=>`<div class="fx-mtabs">${[['Vencidas',N().over,'d'],['Esta semana',N().week,'w'],['Próximas',9,''],['Sem km',2,'']].map(([t,n,c])=>`<span class="${t===on?'on':''}">${t}<b class="${c}">${n}</b></span>`).join('')}</div>`;
   const search=`<div class="fx-msearch"><span class="fx-searchf" style="flex:1;height:44px;font-size:14px">${ic('magnifying-glass','s16')}<span class="trunc2">Buscar placa, frota ou conjunto</span></span><span class="fx-btn outline icon" style="height:44px;width:44px">${ic('sliders-horizontal','s20')}</span></div>`;
@@ -788,7 +795,7 @@ function texture(){document.querySelectorAll('.fx-device.phone .fx-screen').forE
   if(has&&!t){t=document.createElement('div');t.className='ptex';t.setAttribute('aria-hidden','true');sc.prepend(t);}
   if(!has&&t)t.remove();
   if(has&&t){const z=parseFloat(getComputedStyle(sc.closest('.fx-device')).zoom)||1;const ph=sc.querySelector('.phead');const nb=sc.querySelector('.fx-navbar');const ref=ph&&ph.offsetHeight>20?ph:nb;if(ref)t.style.height=Math.round((ref.getBoundingClientRect().bottom-sc.getBoundingClientRect().top)/z)+'px';}});}
-function lift(){texture();document.querySelectorAll('.fx-device.phone,.fx-device.tablet-p').forEach(d=>{const ov=d.querySelector('.fx-body .sheet-ov');if(ov) d.querySelector('.fx-screen').appendChild(ov);});}
+function lift(){texture();document.querySelectorAll('.fx-device.phone .fx-screen').forEach(sc=>{const f=sc.querySelector('.fx-body .pfab');sc.querySelectorAll(':scope>.pfab').forEach(x=>{if(f)x.remove();});if(f)sc.appendChild(f);});document.querySelectorAll('.fx-device.phone,.fx-device.tablet-p').forEach(d=>{const ov=d.querySelector('.fx-body .sheet-ov');if(ov) d.querySelector('.fx-screen').appendChild(ov);});}
 function fit(){
   document.querySelectorAll('.devices .fx-device').forEach(d=>{d.style.zoom='';const box=d.closest('.devices');if(!box)return;const avail=box.clientWidth,w=d.offsetWidth;if(w>avail&&avail>0)d.style.zoom=(avail/w).toFixed(4);});
 }

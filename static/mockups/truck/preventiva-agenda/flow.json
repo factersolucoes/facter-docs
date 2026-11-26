@@ -45,6 +45,14 @@
   ],
   "frames": [
     {
+      "id": "c-menu",
+      "lane": "main",
+      "label": "Criar · menu Novo",
+      "frame": "notebook-1",
+      "state": "create",
+      "hint": "Planos e o menu Novo: plano de preventiva, preventiva avulsa, registrar km"
+    },
+    {
       "id": "v-board",
       "lane": "views",
       "label": "Quadro",
@@ -792,6 +800,14 @@
       "label": "Celular · lista",
       "frame": "lista-celular-1",
       "theme": "dark"
+    },
+    {
+      "id": "c-sheet",
+      "lane": "phone",
+      "label": "Criar · botão + e folha",
+      "frame": "celular-2",
+      "state": "create",
+      "hint": "O botão + abre a folha com as três opções"
     }
   ],
   "arrows": [
