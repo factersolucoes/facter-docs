@@ -88,11 +88,11 @@ const VIS=[
   {g:'nokm',id:'SRT2C55',sub:'Carreta florestal · sem engate desde 05/11',comp:['nokm'],base:'Base Curitiba',carrier:'Transportadora Demo',what:'3 preventivas por km paradas',more:'as por data seguem',chips:['nokm'],when:['sem km','','último em 05/11'],where:['question','Nenhum engate registrado','há 21 dias'],act:'Registrar engate'},
   {g:'nokm',id:'FHK8J21',sub:'Cavalo 4x2 · frota 702',comp:['nokm'],base:'Base Ponta Grossa',carrier:'Transportadora Demo',what:'Revisão A e B paradas',more:'',chips:['nokm'],when:['sem km','','última leitura há 34 dias'],where:['question','Sem leitura','telemetria sem sinal desde 23/10'],act:'Registrar km'},
 ];
-const GRP={over:['Vencidas','3 visitas · 5 preventivas'],week:['Próximos 7 dias','3 visitas · 4 preventivas'],later:['Próximas 4 semanas','9 visitas · 14 preventivas · mostrando 3'],nokm:['Sem km','2 veículos: as preventivas por km esperam uma leitura']};
+const GRP={over:['Vencidas','3 visitas · 5 preventivas'],week:['Próximos 7 dias','3 visitas · 4 preventivas'],later:['Próximos 30 dias','9 visitas · 14 preventivas · mostrando 3'],nokm:['Sem km','2 veículos: as preventivas por km esperam uma leitura']};
 
 function counters(){
   const c=(tone,icon,v,l,h)=>`<div class="cnt">${tile(tone,icon)}<div style="min-width:0"><div class="v num">${v}</div><div class="l">${l}</div><div class="h trunc" title="${h}">${h}</div></div></div>`;
-  return `<div class="cnts">${c('danger','warning-octagon',5,'Vencidas','em 3 visitas')}${c('warning','hourglass-medium',4,'Próximos 7 dias','em 3 visitas')}${c('primary','calendar-blank',14,'Próximas 4 semanas','em 9 visitas')}${c('muted','gauge',2,'Sem km','veículos sem leitura')}</div>`;
+  return `<div class="cnts">${c('danger','warning-octagon',5,'Vencidas','em 3 visitas')}${c('warning','hourglass-medium',4,'Próximos 7 dias','em 3 visitas')}${c('primary','calendar-blank',14,'Próximos 30 dias','em 9 visitas')}${c('muted','gauge',2,'Sem km','veículos sem leitura')}</div>`;
 }
 function agTools(o={}){
   return `<div class="toolbar"><span class="fx-searchf ${o.q?'val':''}" style="flex:0 1 300px">${ic('magnifying-glass','s16')}<span class="trunc">${o.q||'Buscar placa, frota ou conjunto'}</span></span>
@@ -171,7 +171,7 @@ function agendaPhone(s){
   if(s==='error') return F.empty({icon:'cloud-x',title:'Não conseguimos carregar a agenda',hint:'Tente de novo em alguns segundos',action:btn('Tentar de novo',{variant:'outline'})});
   const tab=s==='nores'?'Vencidas':'Vencidas';
   const top=`<div class="fx-msticky"><div class="fx-msearch"><span class="fx-searchf ${s==='nores'?'val':''}" style="flex:1;height:44px">${ic('magnifying-glass','s16')}<span class="trunc">${s==='nores'?'RTX9':'Buscar placa ou conjunto'}</span></span><span class="fx-btn outline icon" style="height:44px;width:44px" title="Filtros" aria-label="Filtros">${ic('sliders-horizontal','s20')}</span></div>
-    <div class="fx-mtabs">${[['Vencidas',3],['7 dias',3],['4 semanas',9],['Sem km',2]].map(([t,n])=>`<span class="${t===tab?'on':''}">${t}<b>${n}</b></span>`).join('')}</div></div>`;
+    <div class="fx-mtabs">${[['Vencidas',3],['7 dias',3],['30 dias',9],['Sem km',2]].map(([t,n])=>`<span class="${t===tab?'on':''}">${t}<b>${n}</b></span>`).join('')}</div></div>`;
   if(s==='nores') return `<div class="fx-mlist">${top}<div style="padding:24px 0">${F.empty({icon:'magnifying-glass',title:'Nenhuma preventiva para "RTX9"',hint:'Confira a placa ou limpe a busca',action:btn('Limpar busca',{variant:'link'})})}</div></div>`;
   const cards=VIS.filter(v=>v.g==='over').map(v=>{
     const act=v.act==='Incluir na OS'?btn('Incluir na OS 1042',{size:'sm',icon:'plus'}):v.act==='Reagendar'?btn('Reagendar',{variant:'outline',size:'sm'}):btn('Agendar',{size:'sm',icon:'calendar-plus'});
