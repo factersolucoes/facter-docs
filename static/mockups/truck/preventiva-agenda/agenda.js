@@ -62,7 +62,7 @@ const TILE_IC={'Atraso':'clock-countdown','Peças':'package','Duração':'timer'
 function tiles(o){const out=[];
   if(o.status){const m=o.status.match(/class="spill (\w)"[\s\S]*<\/span>([^<]+)<\/span>\s*$/);if(m)out.push(['Onde está',m[2].trim().replace(/ desde [^·]+/,' ').replace(/\s+·/,' ·').replace(' aberta','').replace('roda ','').replace(' km por dia',' km/dia'),m[1]==='s'?'s':'',o.status.includes('road-horizon')?'road-horizon':'garage']);}
   (o.metrics||[]).forEach(([l,v,t])=>out.push([l,v,t||(l==='Duração'?'p':''),TILE_IC[l]||'info']));
-  return `<div class="tiles">${out.map(([l,v,t,i])=>`<div class="tile"><span class="tic">${ic(i,'s16')}</span><span class="tl"><small>${l}</small><b class="${t}">${v}</b></span></div>`).join('')}</div>`;}
+  return `<div class="tiles">${out.map(([l,v,t,i])=>`<div class="tile"><span class="tic">${ic(i,'s16')}</span><span class="tlab"><small>${l}</small><b class="${t}">${String(v).replace(/OS (\d)/,'OS&nbsp;$1')}</b></span></div>`).join('')}</div>`;}
 function pHead(v,o={}){return `<div class="phd">${o.phone?'<div class="grab"></div>':''}<div class="ph">${o.back?`<span class="xb back" role="button" aria-label="Voltar">${ic('arrow-left','s16')}</span>`:''}<div class="t"><h2>${o.title||v.full}</h2><p>${mark(v.parts)}${o.sub||v.sub}</p></div>${o.back?'':`<span class="xb" role="button" aria-label="Fechar">${ic('x','s16')}</span>`}</div>${o.src?`<p class="src">${ic('arrows-left-right','s14')}${o.src}</p>`:''}${o.status||o.metrics?tiles(o):''}</div>`;}
 /* drawer modes: all = everything checked; none = nothing checked; one = one left for later;
    allDefer = "Adiar todas"; done = after including */
