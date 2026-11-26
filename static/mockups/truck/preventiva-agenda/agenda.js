@@ -56,9 +56,14 @@ const count=n=>`<span class="cnt">${n}</span>`;
 const pill=(tone,icon,text)=>`<span class="spill ${tone}">${ic(icon,'s16')}${text}</span>`;
 const metrics=m=>`<div class="mstrip">${m.map(([l,v,t])=>`<div><span>${l}</span><b class="${t||''}">${v}</b></div>`).join('')}</div>`;
 const parts=(ok,list,note)=>`<div class="sec">${secHead('Peças necessárias',ok?`<span class="kchip s">${ic('check-circle','s16')}Todas em estoque</span>`:`<span class="kchip w">${ic('package','s16')}${note[0]}</span>`)}<div class="kgrid">${list.map(([q,n,has])=>`<span class="kp ${has?'':'miss'}"><b>${q}</b><span>${n}</span>${has?`<i class="okk">${ic('check','s12')}</i>`:'<i class="miss">falta</i>'}</span>`).join('')}</div>${ok?'':`<p class="sub">${note[1]}</p>`}</div>`;
-const history=(title,rows)=>`<div class="sec hist">${secHead(title)}<ol class="tl">${rows.map(([d,sv,os])=>`<li><span class="d">${d}</span><span class="s">${sv}</span><span class="o">${os}</span></li>`).join('')}</ol></div>`;
+const history=(title,rows)=>`<div class="sec hist">${secHead(title,'<span class="lk vt">Ver todas</span>')}<ol class="tl">${rows.map(([d,sv,os])=>`<li><span class="d">${d}</span><span class="s">${sv}</span><span class="o">${os}</span></li>`).join('')}</ol></div>`;
 const foot=t=>`<p class="foot">${ic('clock-counter-clockwise','s14')}<span>${t}</span></p>`;
-function pHead(v,o={}){return `<div class="phd">${o.phone?'<div class="grab"></div>':''}<div class="ph">${o.back?`<span class="xb back" role="button" aria-label="Voltar">${ic('arrow-left','s16')}</span>`:''}<div class="t"><h2>${o.title||v.full}</h2><p>${mark(v.parts)}${o.sub||v.sub}</p></div>${o.back?'':`<span class="xb" role="button" aria-label="Fechar">${ic('x','s16')}</span>`}</div>${o.status?`<div class="pst">${o.status}</div>`:''}${o.src?`<p class="src">${ic('arrows-left-right','s14')}${o.src}</p>`:''}${o.metrics?metrics(o.metrics):''}</div>`;}
+const TILE_IC={'Atraso':'clock-countdown','Peças':'package','Duração':'timer','Na OS':'wrench','Adiadas':'clock','Adiada':'clock','Vence':'calendar-blank','Leva':'timer','Veículos':'truck','Lonas':'disc','Molas':'columns'};
+function tiles(o){const out=[];
+  if(o.status){const m=o.status.match(/class="spill (\w)"[\s\S]*<\/span>([^<]+)<\/span>\s*$/);if(m)out.push(['Onde está',m[2].trim().replace(/ desde [^·]+/,' ').replace(/\s+·/,' ·').replace(' aberta','').replace('roda ','').replace(' km por dia',' km/dia'),m[1]==='s'?'s':'',o.status.includes('road-horizon')?'road-horizon':'garage']);}
+  (o.metrics||[]).forEach(([l,v,t])=>out.push([l,v,t||(l==='Duração'?'p':''),TILE_IC[l]||'info']));
+  return `<div class="tiles">${out.map(([l,v,t,i])=>`<div class="tile"><span class="tic">${ic(i,'s16')}</span><span class="tl"><small>${l}</small><b class="${t}">${v}</b></span></div>`).join('')}</div>`;}
+function pHead(v,o={}){return `<div class="phd">${o.phone?'<div class="grab"></div>':''}<div class="ph">${o.back?`<span class="xb back" role="button" aria-label="Voltar">${ic('arrow-left','s16')}</span>`:''}<div class="t"><h2>${o.title||v.full}</h2><p>${mark(v.parts)}${o.sub||v.sub}</p></div>${o.back?'':`<span class="xb" role="button" aria-label="Fechar">${ic('x','s16')}</span>`}</div>${o.src?`<p class="src">${ic('arrows-left-right','s14')}${o.src}</p>`:''}${o.status||o.metrics?tiles(o):''}</div>`;}
 /* drawer modes: all = everything checked; none = nothing checked; one = one left for later;
    allDefer = "Adiar todas"; done = after including */
 const VMODE={kitopen:'all',sap:'sap',visit:'all',pick:'none',defer1:'one',deferall:'allDefer',done:'done',left:'left',closed:'closed'};
@@ -209,9 +214,9 @@ function partsLine(p){const on=G.on[p.id];const parts=p.svcs.flatMap((sv,i)=>on[
   ${open?`<div class="pnest">${parts.map(([q,n,rule,t])=>`<div class="pn"><span class="q">${q}</span><span class="nm"><span>${n}</span>${rule?`<span class="m">${rule}</span>`:''}</span><span class="tg ${t||'s'}">${t==='w'?'falta 1, chega quinta':ic('check','s12')+'tem'}</span></div>`).join('')}</div>`:''}`;}
 function pkgCard(p){const st=pkState(p), open=!!G.open[p.id], off=st==='off';
   const meta=[`${p.svcs.length} ${p.svcs.length>1?"serviços":"serviço"}`,'leva '+fmtDur(p.svcs.reduce((a,sv)=>a+sv.min,0))].join(' · ');
-  const head=`<div class="pkh ${off?'off':''}"><span data-ixa="pc:${p.id}" role="checkbox" aria-checked="${st==='on'?'true':st==='tri'?'mixed':'false'}" tabindex="0" class="cbw">${cb3(st)}</span>
-    <div class="pkt" data-ixa="po:${p.id}"><b>${p.name}${p.reg?' <span class="tag reg">Obrigatório</span>':''}</b><small class="trg">${trig(p.trigger)}</small>${p.incl?`<small>Inclui a ${p.incl}</small>`:''}<small>${meta}${p.reg?` · certificado vence em ${p.reg}`:''}</small>${off?dpill(p.id):''}</div>
-    <span class="sit ${off?'n':p.t||'n'}">${p.due}</span><span class="chv" data-ixa="po:${p.id}">${ic('caret-down','s16 chev'+(open?' up':''))}</span></div>`;
+  const head=`<div class="pkh ${off?'off':''}"><span data-ixa="pc:${p.id}" role="checkbox" aria-checked="${st==='on'?'true':st==='tri'?'mixed':'false'}" tabindex="0" class="cbw">${cb3(st)}</span><span class="pkic">${ic(p.reg?'seal-check':p.trigger&&p.trigger.hours?'gauge':'wrench','s16')}</span>
+    <div class="pkt" data-ixa="po:${p.id}"><b>${p.name}${p.reg?' <span class="tag reg">Obrigatório</span>':''}</b><span class="sit ${off?'n':p.t||'n'} pks">${p.due}</span><small class="trg">${trig(p.trigger)}</small>${p.incl?`<small>Inclui a ${p.incl}</small>`:''}<small>${meta}${p.reg?` · certificado vence em ${p.reg}`:''}</small>${off?dpill(p.id):''}</div>
+    <span class="chv" data-ixa="po:${p.id}">${ic('caret-down','s16 chev'+(open?' up':''))}</span></div>`;
   const ed=G.edit===p.id&&off?editor(p.id):'';
   const body=open&&!off?`<div class="pkb">${p.svcs.map((sv,i)=>{const on=!!G.on[p.id][i];const k=p.id+'.'+i;
       return `<div class="svr ${on?'':'off'}" data-ixa="sc:${p.id}:${i}" role="checkbox" aria-checked="${on}" tabindex="0">${cbx(on)}<span class="sn">${sv.n}${sv.inh?`<span class="inh"> · da ${sv.inh}</span>`:''}</span><span class="sm">${fmtDur(sv.min)}</span>${on?'':`<span class="sdf">${dpill(k)}</span>`}</div>${G.edit===k&&!on?editor(k):''}`;}).join('')}${partsLine(p)}</div>`:'';
@@ -237,7 +242,7 @@ function ixFoot(){
   const n=pkgsOn(), full=PKGS.every(p=>pkState(p)!=='tri');
   const fp=PKGS.filter(p=>pkState(p)==='on').length, ps=PKGS.filter(p=>pkState(p)==='tri').reduce((x,p)=>x+pkOn(p),0);
   const pv=x=>`${x} ${x>1?'preventivas':'preventiva'}`, sv=x=>`${x} ${x>1?'serviços':'serviço'}`;
-  const label=ps?`Incluir ${fp?pv(fp)+' e ':''}${sv(ps)}`:`Incluir ${pv(fp)}<span class="osx"> na OS 1042</span>`;
+  const label=ps?`Incluir ${fp?pv(fp)+' e ':''}${sv(ps)}`:`<span>Incluir ${pv(fp)}<span class="osx"> na OS 1042</span></span>`;
   return `<div class="pf"><div class="bb"><span data-ixa="A">${btn('Adiar todas',{variant:'outline'})}</span>${n?`<span data-ixa="ok">${btn(label,{icon:'plus',action:1})}</span>`:btn('Escolha o que fazer agora',{disabled:1})}</div></div>`;}
 function ixDrawer(phone){
   if(G.closed) return phone?'<div class="sheet-ov" data-ix="1" hidden></div>':'<div class="ixw" data-ix="0" hidden></div>';
@@ -510,13 +515,13 @@ function mobileList(s,o={}){
   const g=gs(), on=s==='mid'?'week':'over';
   const sel=o.sel, total=N().over+N().week+9;
   const bar=`<div class="wbar">${[['d',N().over],['w',N().week],['n',9]].map(([t,n])=>`<i class="${t}" style="flex:${n}"></i>`).join('')}</div><div class="wlab"><span class="d"><b>${N().over}</b> vencidos</span><span class="w"><b>${N().week}</b> nesta semana</span><span><b>9</b> depois</span></div>`;
-  const hero=o.list?'':`<div class="hero slim mh"><span class="big">${N().big}</span><div class="tx"><h2>preventivas vencidas</h2><p>em <b>${N().veh} veículos</b>, <b>${N().yard}</b> já no pátio</p></div>${bar}</div>`;
-  const ctx='';
+  const hero=o.list?'':`<div class="hero slim mh ov"><span class="big">${N().big}</span><div class="tx"><h2>preventivas vencidas</h2><p>em <b>${N().veh} veículos</b>, <b>${N().yard}</b> já no pátio</p></div>${bar}</div>`;
+  const ctx=`<div class="phead ${o.list?'lst':''}"><div class="phr"><span class="pbase">Base Curitiba${ic('caret-down','s14')}</span><span class="pdate">qui 26/11</span></div><span class="psearch">${ic('magnifying-glass','s16')}<span>Buscar placa, frota ou conjunto</span></span></div>`;
   const ptr=s==='ptr'?`<div class="ptr">${ic('arrows-clockwise','s16')}<span>Atualizando a agenda</span></div>`:'';
   const jump=o.list?`<div class="fx-mtabs jump">${[['over','Vencidas',N().over,'d'],['week','Esta semana',N().week,'w'],['next','Próximas',9,'']].map(([k,t,n,c])=>`<span class="${k===on?'on':''}">${t}<b class="${c}">${n}</b></span>`).join('')}</div>`
     :`<div class="fx-mtabs jump" role="tablist">${[['over','Vencidas',N().over,'d'],['week','Esta semana',N().week,'w'],['next','Próximas',9,'']].map(([k,l,n,t])=>`<span class="${k===on?'on':''}" role="tab">${l}<b class="${t}">${n}</b></span>`).join('')}</div>`;
   const secs=g.slice(0,3).map((gr,i)=>`<section class="msec" data-sec="${['over','week','next'][i]}"><h3 class="msh"><span class="gt ${gr.tone}">${ic(gr.icon,'s14')}</span>${gr.title}<span class="gc ${gr.tone}">${gr.count.split(' ')[0]}</span></h3><div class="mcards">${gr.ids.map((id,j)=>o.list?(s==='swipe'&&id==='dly'?`<div class="swp"><div class="swa"><span class="sw-d">${ic('clock-countdown','s16')}Adiar</span><span class="sw-p">${ic('calendar-check','s16')}Marcar dia</span></div>${lcard(id,sel).replace('fx-wocard lcard','fx-wocard lcard sw')}</div>`:lcard(id,sel).replace('fx-wocard lcard','fx-wocard lcard'+(s==='press'&&id==='c320'?' pressed':''))):mcard(id,{sel,press:s==='press'?'c320':null,swipe:s==='swipe'&&id==='dly'})).join('')}${gr.more?`<div class="more">${gr.more}${ic('caret-down','s14')}</div>`:''}</div></section>`).join('');
-  return `<div class="ph-wrap pm ${o.list?'pml':''}">${ptr}${s==='error'?errNote():''}${ctx}${hero}<div class="stick">${o.list?`<span class="fx-searchf msf">${ic('magnifying-glass','s16')}<span>Buscar placa, frota ou conjunto</span></span>`:''}${jump}</div>${secs}${nokm()}<div class="safe"></div></div>`;
+  return `<div class="ph-wrap pm ${o.list?'pml':''}">${ptr}${s==='error'?errNote():''}${ctx}${hero}<div class="stick">${jump}</div>${secs}${nokm()}<div class="safe"></div></div>`;
 }
 const PHONE_ONLY={ptr:1,mid:1,press:1,swipe:1};
 function phone(s){if(s==='pk044')return phone('list')+pk044Drawer(1);if(STRESS[s])return stressPhone(s,0);KITOPEN=s==='kitopen';DONE=s==='done';PICK=null;
