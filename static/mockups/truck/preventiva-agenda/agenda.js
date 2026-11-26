@@ -205,7 +205,7 @@ function menuHtml(k,kind){const d=defOf(k);
     return `<div class="mopt ${on?'on':''}" role="${RPH?'radio':'menuitemradio'}" aria-checked="${on}" data-ixa="r:${k}:${o}">${RPH?`<i class="rd ${on?'on':''}"></i>`:''}${ic(RICON[o],'s16')}<span>${o}</span>${!RPH&&on?ic('check','s16 ck'):''}</div>`;}).join('')}`;}
 const dpill=k=>{const d=defOf(k);const open=G.menu&&G.menu.startsWith(k+'|');const kind=open?G.menu.split('|')[1]:'';
   return `<span class="dpr"><span class="tag dtag">Adiada</span><span class="spl ${open&&kind==='r'?'on':''}" data-ixa="m:${k}:r" role="button" aria-haspopup="menu" tabindex="0">${ic(RICON[d.reason],'s14')}${d.reason}${ic('caret-down','s12')}</span><span class="spl ${open&&kind!=='r'?'on':''}" data-ixa="m:${k}:w" role="button" aria-haspopup="menu" tabindex="0">${ic('calendar-blank','s14')}${d.when}${ic('caret-down','s12')}</span>${open&&!RPH?`<span class="pop" role="menu">${menuHtml(k,kind)}</span>`:''}</span>`;};
-const phoneMenu=()=>{if(!G.menu||!RPH)return '';const [k,kind]=G.menu.split('|');return `<div class="msheet-ov" data-ixa="m:-:-"><div class="msheet" role="dialog"><i class="grab"></i>${menuHtml(k,kind)}</div></div>`;};
+const phoneMenu=()=>{if(!G.menu||!RPH)return '';const [k,kind]=G.menu.split('|');return `<div class="msheet-ov" data-ixa="m:-:-"><div class="msheet" role="dialog"><i class="grab"></i>${kind==='vi'?insideHtml(PKGS.find(p=>p.id===k)||PKG044.find(p=>p.id===k)):menuHtml(k,kind)}</div></div>`;};
 function editor(k){const d=defOf(k);const pills=(list,cur,key)=>`<div class="pills">${list.map(r=>`<span class="pl ${r===cur?'on':''}" role="radio" aria-checked="${r===cur}" data-ixa="${key}:${k}:${r}">${r==='Escolher dia'?ic('calendar-blank','s14'):''}${r}</span>`).join('')}</div>`;
   return `<div class="ded"><div class="q"><span>Motivo</span>${pills(REASONS,d.reason,'r')}</div><div class="q"><span>Lembrar de novo</span>${pills(WHENS2,d.when,'w')}</div><div class="dr"><span data-ixa="e:-">${btn('Pronto',{variant:'outline',size:'sm'})}</span></div></div>`;}
 function partsLine(p){const on=G.on[p.id];const parts=p.svcs.flatMap((sv,i)=>on[i]?sv.parts:[]);if(!parts.length)return '';
@@ -221,6 +221,18 @@ function pkgCard(p){const st=pkState(p), open=!!G.open[p.id], off=st==='off';
   const body=open&&!off?`<div class="pkb">${p.svcs.map((sv,i)=>{const on=!!G.on[p.id][i];const k=p.id+'.'+i;
       return `<div class="svr ${on?'':'off'}" data-ixa="sc:${p.id}:${i}" role="checkbox" aria-checked="${on}" tabindex="0">${cbx(on)}<span class="sn">${sv.n}${sv.inh?`<span class="inh"> · da ${sv.inh}</span>`:''}</span><span class="sm">${fmtDur(sv.min)}</span>${on?'':`<span class="sdf">${dpill(k)}</span>`}</div>${G.edit===k&&!on?editor(k):''}`;}).join('')}${partsLine(p)}</div>`:'';
   return `<div class="pkg ${off?'off':''} ${open?'open':''}">${head}${ed}${body}</div>`;}
+const shortTrig=p=>trig(p.trigger).replace(', o que vier primeiro','');
+function insideHtml(p){const parts=p.svcs.flatMap(sv=>sv.parts);const miss=parts.find(x=>x[3]==='w');
+  return `<div class="mtitle">${p.name}</div><p class="vimeta">${trig(p.trigger)}</p>${p.incl?`<p class="vimeta">Inclui a ${p.incl}</p>`:''}
+  <div class="vil">${p.svcs.map(sv=>`<div class="vis"><span>${sv.n}${sv.inh?`<small> · da ${sv.inh}</small>`:''}</span><small>${fmtDur(sv.min)}</small></div>`).join('')}</div>
+  ${parts.length?`<p class="vip"><b>Peças:</b> ${parts.map(([q,n])=>`${q} ${n}`).join(', ')}${miss?`<span class="vmiss">${ic('warning','s14')}falta 1 ${miss[1].replace(/^jogos/,'jogo')}, chega quinta</span>`:''}</p>`:''}
+  <p class="vihint">Pular um serviço ou mexer nas peças é feito na OS.</p>`;}
+function pkgRow(p){const st=pkState(p), off=st==='off', menu=G.menu===p.id+'|vi';
+  const meta=`${shortTrig(p)} <span class="nw">· leva ${fmtDur(p.svcs.reduce((a,sv)=>a+sv.min,0)).replace(/ /g,'&nbsp;')}</span>`;
+  return `<div class="prow ${off?'off':''}"><span data-ixa="pc:${p.id}" role="checkbox" aria-checked="${!off}" tabindex="0" class="cbw">${cb3(off?'off':'on')}</span>
+    <div class="prt2"><b>${p.name}${p.reg?' <span class="tag reg">Obrigatório</span>':''}</b><small>${meta}</small>${menu&&!RPH?`<div class="pop vipop" role="dialog">${insideHtml(p)}</div>`:''}</div>
+    <span class="prr"><span class="sit ${off?'n':p.t||'n'}">${p.due}</span><span class="lk vin" data-ixa="m:${p.id}:vi" role="button" tabindex="0">Ver o que tem dentro</span></span>${off?`<div class="prdef">${dpill(p.id)}</div>`:''}</div>`;}
+const pkgGroups=list=>[...new Set(list.map(p=>p.veh))].map(v=>`<div class="vgrp"><p class="vh">${v}</p><div class="prows">${list.filter(p=>p.veh===v).map(pkgRow).join('')}</div></div>`).join('');
 function ixBody(){
   const hist=history('Últimas manutenções deste conjunto',[['27/10','Preventiva 30 dias, 2ª carreta','OS 0998'],['02/09','Preventiva 20 mil, cavalo','OS 0954'],['12/05','Preventiva 60 mil, 2ª carreta','OS 0871']]);
   if(G.done){const inc=PKGS.filter(p=>pkOn(p)>0), dfr=PKGS.filter(p=>pkOn(p)===0);
@@ -232,24 +244,23 @@ function ixBody(){
     ${inc.length?`<div class="sec">${prevHead('Na OS 1042',`${inc.length} ${inc.length>1?'preventivas':'preventiva'}`)}<div class="plist">${inc.map(p=>r(p)).join('')}</div></div>`:''}
     ${dfr.length?`<div class="sec">${prevHead('Adiadas',`${dfr.length} · conta como atraso`)}<div class="plist">${dfr.map(p=>r(p,1)).join('')}</div></div>`:''}`;}
   const n=pkgsOn(), anyOff=PKGS.some(p=>pkState(p)!=='on');
-  const sub=G.all?'As 3 preventivas ficam para depois':n===0?'Nenhuma marcada':`${n===3?'3 preventivas':`${n} de 3 preventivas`} · ${svcsOn()} serviços`;
-  const parts=PKGS.flatMap(p=>p.svcs.flatMap((sv,i)=>G.on[p.id][i]?sv.parts:[]));
-  const tot=parts.length?`<p class="ptot">${ic('package','s14')}<span>Peças no total: <b>${parts.length} itens</b>${lackOn()?', <b class="w">1 em falta</b> (jogo de rebites, chega quinta)':', todas em estoque'}</span></p>`:'';
-  return `<div class="sec">${prevHead('Preventivas para fazer agora',sub)}${[...new Set(PKGS.map(p=>p.veh))].map(v=>`<div class="vgrp"><p class="vh">${v}</p><div class="pkgs">${PKGS.filter(p=>p.veh===v).map(pkgCard).join('')}</div></div>`).join('')}${anyOff?`<p class="late">${ic('clock-countdown','s14')}Conta como atraso</p>`:''}${tot}</div>${hist}`;}
+  const sub=G.all?'As 3 ficam para depois':n===0?'Nenhuma marcada':n===3?'3 preventivas':`${n} de 3 marcadas`;
+  const miss=lackOn()?`<p class="missl">${ic('warning','s14')}Falta 1 jogo de rebites, chega quinta</p>`:'';
+  return `<div class="sec plain"><div class="sh"><h3>Preventivas para fazer agora</h3><span class="shs">${sub}</span></div>${pkgGroups(PKGS)}${anyOff?`<p class="late">${ic('clock-countdown','s14')}Conta como atraso</p>`:''}${miss}</div>`;}
 function ixFoot(){
   if(G.done) return `<div class="pf"><div class="bb"><span data-ixa="c">${btn('Fechar',{variant:'outline'})}</span>${pkgsOn()?btn('Abrir a OS 1042',{icon:'arrow-square-out',action:1}):'<span></span>'}</div></div>`;
   if(G.all) return `<div class="pf"><div class="bb"><span data-ixa="B">${btn('Voltar',{variant:'outline'})}</span><span data-ixa="ok">${btn('Adiar as 3',{icon:'clock-countdown',action:1})}</span></div></div>`;
   const n=pkgsOn(), full=PKGS.every(p=>pkState(p)!=='tri');
   const fp=PKGS.filter(p=>pkState(p)==='on').length, ps=PKGS.filter(p=>pkState(p)==='tri').reduce((x,p)=>x+pkOn(p),0);
   const pv=x=>`${x} ${x>1?'preventivas':'preventiva'}`, sv=x=>`${x} ${x>1?'serviços':'serviço'}`;
-  const label=ps?`Incluir ${fp?pv(fp)+' e ':''}${sv(ps)}`:`<span>Incluir ${pv(fp)}<span class="osx"> na OS 1042</span></span>`;
+  const label=`<span>Incluir ${pv(n)}<span class="osx"> na OS 1042</span></span>`;
   return `<div class="pf"><div class="bb"><span data-ixa="A">${btn('Adiar todas',{variant:'outline'})}</span>${n?`<span data-ixa="ok">${btn(label,{icon:'plus',action:1})}</span>`:btn('Escolha o que fazer agora',{disabled:1})}</div></div>`;}
 function ixDrawer(phone){
   if(G.closed) return phone?'<div class="sheet-ov" data-ix="1" hidden></div>':'<div class="ixw" data-ix="0" hidden></div>';
   const miss=lackOn()&&!G.done;
   const metricsX=G.done?[['Na OS',`${pkgsOn()} ${pkgsOn()===1?'preventiva':'preventivas'}`,''],['Adiadas',String(3-pkgsOn()),3-pkgsOn()?'w':''],['Duração',fmtDur(totMin()),'']]:[['Atraso','1.850 km','d'],['Peças',miss?'Falta 1':'Em estoque',miss?'w':'s'],['Duração',fmtDur(totMin()),'']];
   const head=pHead(V.c320,{status:pill('s','garage','No pátio desde ontem · OS 1042 aberta'),metrics:metricsX,phone});
-  RPH=!!phone;const inner=`${head}<div class="${phone?'sb':'pb'}">${ixBody()}</div>${ixFoot()}${phone?phoneMenu():''}`;
+  RPH=!!phone;const inner=`${head.replace(/<\/div>\s*$/,'<span class="lk lastm">Últimas manutenções'+ic('caret-right','s14')+'</span></div>')}<div class="${phone?'sb':'pb'}">${ixBody()}</div>${ixFoot()}${phone?phoneMenu():''}`;
   return phone?`<div class="sheet-ov" data-ix="1"><div class="sheet">${inner}</div></div>`:`<div class="ixw" data-ix="0">${drawer(inner)}</div>`;}
 function ixRender(){
   document.querySelectorAll('[data-ix]').forEach(el=>{const sc=el.querySelector('.pb,.sb');const top=sc?sc.scrollTop:0;const ph=el.dataset.ix==='1';
@@ -297,7 +308,7 @@ const PKG044=[
 function pk044Drawer(phone){
   PKG044.forEach(p=>{if(!G.on[p.id])G.on[p.id]=p.svcs.map(()=>1);});G.open.r60=1;RPH=!!phone;
   const head=pHead(C044,{status:pill('n','road-horizon','Na estrada · roda 610 km por dia'),metrics:[['Vence','em 14 dias',''],['Peças','Em estoque','s'],['Duração','6 h 20','']],phone});
-  const body=`<div class="sec">${prevHead('Preventivas para marcar','4 preventivas · 8 serviços')}${[...new Set(PKG044.map(p=>p.veh))].map(v=>`<div class="vgrp"><p class="vh">${v}</p><div class="pkgs">${PKG044.filter(p=>p.veh===v).map(pkgCard).join('')}</div></div>`).join('')}</div>`.replace(/data-ixa=/g,'data-x=');
+  const body=`<div class="sec plain"><div class="sh"><h3>Preventivas para marcar</h3><span class="shs">4 preventivas</span></div>${pkgGroups(PKG044)}</div>`.replace(/data-ixa=/g,'data-x=');
   const foot=`<div class="pf"><div class="bb">${btn('Adiar todas',{variant:'outline'})}${btn('Marcar dia na oficina',{icon:'calendar-check',action:1})}</div></div>`;
   return phone?`<div class="sheet-ov"><div class="sheet">${head}<div class="sb">${body}</div>${foot}</div></div>`:drawer(`${head}<div class="pb">${body}</div>${foot}`);}
 const markOn=(html,id)=>html.replace(new RegExp(`(class="(?:cd|fx-aprow lrow)[^"]*)(" data-id="${id}")`),'$1 on$2');
