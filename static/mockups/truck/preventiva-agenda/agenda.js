@@ -260,7 +260,7 @@ function ixFoot(){
   const n=pkgsOn(), full=PKGS.every(p=>pkState(p)!=='tri');
   const fp=PKGS.filter(p=>pkState(p)==='on').length, ps=PKGS.filter(p=>pkState(p)==='tri').reduce((x,p)=>x+pkOn(p),0);
   const pv=x=>`${x} ${x>1?'preventivas':'preventiva'}`, sv=x=>`${x} ${x>1?'serviços':'serviço'}`;
-  const label=`<span>Incluir ${pv(n)}<span class="osx"> na OS 1042</span></span>`;
+  const label=`<span>Incluir ${n}<span class="pvx"> ${n>1?'preventivas':'preventiva'}</span><span class="osx"> na OS 1042</span></span>`;
   return `<div class="pf"><div class="bb"><span data-ixa="A">${btn('<span>Adiar<span class="lgx"> todas</span></span>',{variant:'outline'})}</span>${n?`<span data-ixa="ok">${btn(label,{icon:'plus',action:1})}</span>`:btn('Escolha o que fazer agora',{disabled:1})}</div></div>`;}
 function ixDrawer(phone){
   if(G.closed) return phone?'<div class="sheet-ov" data-ix="1" hidden></div>':'<div class="ixw" data-ix="0" hidden></div>';

@@ -1832,3 +1832,10 @@
 @container sheet (max-width:380px){.lgx,.osx{display:none}.pf .bb .fx-btn{padding:0 14px}}
 .wcard .wsub{font-size:12.5px!important;color:hsl(var(--muted-foreground))}
 @container sheet (max-width:440px){.osx{display:none}}
+/* footer labels by the footer's own width (frames sit inside a wide page) */
+.pf{container-type:inline-size;container-name:pf}
+.osx,.lgx,.pvx{display:inline}
+@container pf (max-width:470px){.osx{display:none}}
+@container pf (max-width:330px){.lgx{display:none}}
+@container pf (max-width:250px){.pvx{display:none}}
+.pf .bb .fx-btn{overflow:visible;text-overflow:clip}
