@@ -1030,3 +1030,11 @@
 .pop{max-width:calc(100% - 40px)}
 @container sheet (max-width:340px){.osx{display:none}}
 @container sheet (max-width:340px){.pf .bb .fx-btn{white-space:normal;height:auto;min-height:44px;padding:8px 14px;line-height:1.25}}
+/* when menu: DateQuickPick, MonthCalendar for another date, km apart */
+.pop{width:320px}
+.mqp{padding:4px 6px}
+.mcalw{margin:6px 6px 0;padding:10px;border-radius:10px;box-shadow:inset 0 0 0 1px hsl(var(--border))}
+.kmopt{display:flex;align-items:center;gap:8px;padding:10px 8px 6px;font-size:12.5px;color:hsl(var(--muted-foreground))}
+.cal .fx-mc{margin-top:4px}
+.msheet{max-height:86%;overflow:auto}
+.pop{width:340px}

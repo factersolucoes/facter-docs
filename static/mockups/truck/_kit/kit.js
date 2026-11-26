@@ -282,5 +282,26 @@ A.mobile={
   },
   woCard,
 };
+/* @facter/ds-core DateQuickPick + MonthCalendar (components/DateQuickPick/DateQuickPick.tsx).
+   monthCal({year,month,value,today,min,max,marked:{day,label},dayInfo:{day:{text,off}},act:day=>attrs,nav:step=>attrs}) — dayInfo is a proposed DS extension */
+const pad2=n=>String(n).padStart(2,'0');
+const isoOf=(y,m,d)=>`${y}-${pad2(m)}-${pad2(d)}`;
+A.monthCal=(o)=>{
+  const y=o.year,m=o.month,first=new Date(Date.UTC(y,m-1,1)),lead=first.getUTCDay(),dim=new Date(Date.UTC(y,m,0)).getUTCDate();
+  const name=new Intl.DateTimeFormat('pt-BR',{month:'long',year:'numeric',timeZone:'UTC'}).format(first);
+  const wd=Array.from({length:7},(_,i)=>new Intl.DateTimeFormat('pt-BR',{weekday:'narrow',timeZone:'UTC'}).format(new Date(Date.UTC(2023,0,1+i))));
+  const step=(dir,lab)=>`<button type="button" class="fx-mc-step" aria-label="${lab}" ${o.nav?o.nav(dir):''}>${ic(dir<0?'caret-left':'caret-right','s16')}</button>`;
+  const days=Array.from({length:dim},(_,i)=>{const day=isoOf(y,m,i+1);const info=o.dayInfo&&o.dayInfo[day];
+    const off=(o.min&&day<o.min)||(o.max&&day>o.max)||(info&&info.off);const sel=day===o.value;
+    const cls=['fx-mc-day',sel?'is-sel':'',day===o.today&&!sel?'today':'',o.marked&&o.marked.day===day&&!sel?'marked':'',info?'info':''].join(' ');
+    return `<button type="button" class="${cls}" ${off?'disabled':''} aria-pressed="${sel}" ${!off&&o.act?o.act(day):''}><b>${i+1}</b>${info?`<small>${info.text}</small>`:''}</button>`;}).join('');
+  return `<div class="fx-mc"><div class="fx-mc-h">${step(-1,'Mês anterior')}<span class="fx-mc-t">${name}</span>${step(1,'Próximo mês')}</div>
+    <div class="fx-mc-g" role="grid" aria-label="${name}">${wd.map(w=>`<span class="fx-mc-w">${w}</span>`).join('')}${'<span></span>'.repeat(lead)}${days}</div>
+    <div class="fx-mc-l">${o.marked?`<span><i class="mk"></i>${o.marked.label}</span>`:''}<span><i class="td"></i>hoje</span>${o.legend||''}</div></div>`;
+};
+/* quickPick({presets:[{label,day,sub}],value,other:{label,sub,on},act:p=>attrs,otherAct}) */
+A.quickPick=(o)=>{const n=o.presets.length+1;
+  return `<div class="fx-qp" style="grid-template-columns:repeat(${n},minmax(0,1fr))">${o.presets.map(p=>`<button type="button" class="fx-qp-b ${p.on?'on':''}" aria-pressed="${!!p.on}" ${o.act?o.act(p):''}><b>${p.label}</b><span>${p.sub}</span></button>`).join('')}<button type="button" class="fx-qp-b ${o.other.on?'on':''}" aria-pressed="${!!o.other.on}" ${o.otherAct||''}><b>${ic('calendar-blank','s14')}${o.other.label}</b><span>${o.other.sub}</span></button></div>`;
+};
 window.FX=A;
 })();

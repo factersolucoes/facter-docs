@@ -185,11 +185,19 @@ const cb3=st=>`<i class="cbx ${st==='on'?'on':st==='tri'?'tri':''}">${st==='on'?
 let RPH=false; /* rendering the phone sheet */
 const RICON={'Falta peça':'package','Sem tempo agora':'clock','Conjunto vai sair':'road-horizon','Sem mecânico':'users-three','Outro':'dots-three'};
 const CAL=[['sex','27/11'],['sáb','28/11'],['seg','30/11'],['ter','01/12'],['qua','02/12'],['qui','03/12'],['sex','04/12'],['sáb','05/12']];
+const STOP='2026-12-11';
+const ddmm=day=>`${day.slice(8,10)}/${day.slice(5,7)}`;
 function menuHtml(k,kind){const d=defOf(k);
-  if(kind==='cal') return `<div class="mtitle">Escolha o dia</div><div class="mcal">${CAL.map(([w,dt])=>`<span class="mday ${d.when==='Em '+dt?'on':''}" data-ixa="w:${k}:Em ${dt}"><small>${w}</small><b>${dt.slice(0,2)}</b></span>`).join('')}</div>`;
-  const list=kind==='r'?REASONS:WHENS2, cur=kind==='r'?d.reason:d.when;
-  return `<div class="mtitle">${kind==='r'?'Por que fica para depois':'Quando lembrar de novo'}</div>${list.map(o=>{const on=o===cur||(o==='Escolher dia'&&/^Em \d\d\//.test(cur));
-    return `<div class="mopt ${on?'on':''}" role="${RPH?'radio':'menuitemradio'}" aria-checked="${on}" data-ixa="${o==='Escolher dia'?`m:${k}:cal`:`${kind}:${k}:${o}`}">${RPH?`<i class="rd ${on?'on':''}"></i>`:''}${ic(kind==='r'?RICON[o]:o==='Escolher dia'?'calendar-blank':'clock','s16')}<span>${o}</span>${!RPH&&on?ic('check','s16 ck'):''}</div>`;}).join('')}`;}
+  if(kind==='w'||kind==='cal'){const isDate=/^Em \d\d\/\d\d/.test(d.when);
+    const qp=F.quickPick({presets:[{label:'Na próxima parada',sub:'sex 11/12',on:d.when==='Na próxima parada'},{label:'Em 7 dias',sub:'qui 03/12',on:d.when==='Em 7 dias'}],
+      other:{label:'Outra data',sub:isDate?d.when.slice(3):'Escolher',on:isDate},act:p=>`data-ixa="w:${k}:${p.label}"`,otherAct:`data-ixa="m:${k}:cal"`});
+    const cm=G.cm||0, mo=11+cm, yr=2026+Math.floor((mo-1)/12), mm=((mo-1)%12)+1;
+    const val=isDate?`2026-${d.when.slice(6,8)}-${d.when.slice(3,5)}`:null;
+    const cal=kind==='cal'?`<div class="mcalw">${F.monthCal({year:yr,month:mm,value:val,today:'2026-11-26',min:'2026-11-27',marked:{day:STOP,label:'próxima parada agendada'},act:day=>`data-ixa="w:${k}:Em ${ddmm(day)}"`,nav:dir=>`data-ixa="cm:${k}:${dir}"`})}</div>`:'';
+    const km=`<div class="kmopt"><span>Ou pela distância</span><span class="spl ${d.when==='Em 1.000 km'?'on':''}" data-ixa="w:${k}:Em 1.000 km" role="button" tabindex="0">${ic('road-horizon','s14')}Em 1.000 km</span></div>`;
+    return `<div class="mtitle">Quando lembrar de novo</div><div class="mqp">${qp}</div>${cal}${km}`;}
+  return `<div class="mtitle">Por que fica para depois</div>${REASONS.map(o=>{const on=o===d.reason;
+    return `<div class="mopt ${on?'on':''}" role="${RPH?'radio':'menuitemradio'}" aria-checked="${on}" data-ixa="r:${k}:${o}">${RPH?`<i class="rd ${on?'on':''}"></i>`:''}${ic(RICON[o],'s16')}<span>${o}</span>${!RPH&&on?ic('check','s16 ck'):''}</div>`;}).join('')}`;}
 const dpill=k=>{const d=defOf(k);const open=G.menu&&G.menu.startsWith(k+'|');const kind=open?G.menu.split('|')[1]:'';
   return `<span class="dpr"><span class="tag dtag">Adiada</span><span class="spl ${open&&kind==='r'?'on':''}" data-ixa="m:${k}:r" role="button" aria-haspopup="menu" tabindex="0">${ic(RICON[d.reason],'s14')}${d.reason}${ic('caret-down','s12')}</span><span class="spl ${open&&kind!=='r'?'on':''}" data-ixa="m:${k}:w" role="button" aria-haspopup="menu" tabindex="0">${ic('calendar-blank','s14')}${d.when}${ic('caret-down','s12')}</span>${open&&!RPH?`<span class="pop" role="menu">${menuHtml(k,kind)}</span>`:''}</span>`;};
 const phoneMenu=()=>{if(!G.menu||!RPH)return '';const [k,kind]=G.menu.split('|');return `<div class="msheet-ov" data-ixa="m:-:-"><div class="msheet" role="dialog"><i class="grab"></i>${menuHtml(k,kind)}</div></div>`;};
@@ -255,7 +263,8 @@ function ixAct(a){
   else if(k==='e'){G.edit=id==='-'||G.edit===id?null:id;}
   else if(k==='r'){G.def[id]={...defOf(id),reason:v};G.menu=null;}
   else if(k==='w'){G.def[id]={...defOf(id),when:v};G.menu=null;}
-  else if(k==='m'){const key=id+'|'+v;G.menu=id==='-'?null:(G.menu===key?null:key);}
+  else if(k==='cm'){G.cm=(G.cm||0)+(+v);}
+  else if(k==='m'){const key=id+'|'+v;if(v!=='cal')G.cm=0;G.menu=id==='-'?null:(G.menu===key?null:key);}
   else if(k==='A'){G.prevSel=clone(G.on);PKGS.forEach(p=>G.on[p.id]=p.svcs.map(()=>0));G.all=1;G.edit=null;}
   else if(k==='B'){G.on=G.prevSel||allOn();G.all=0;}
   else if(k==='ok'){G.done=1;G.all=0;G.edit=null;G.undo=10;startUndo();}
@@ -294,9 +303,11 @@ const visitDrawer=(s,phone)=>{if(IXS[s]){setG(s);return ixDrawer(phone);}const m
 const WD=['seg','ter','qua','qui','sex','sáb'];
 const DAYS=[['23','',2],['24','',2],['25','',2],['26','cheia',1],['27','cheia',1],['28','6 h',0,1],['30','18 h'],['01','22 h'],['02','28 h'],['03','3 h',1],['04','32 h'],['05','8 h']];
 const HDLY={title:'Marcar dia na oficina',sub:'Cavalo DLY1J07, Revisão 60 mil',back:1,status:pill('n','road-horizon','Na estrada · roda 640 km por dia'),metrics:[['Atraso','4.300 km','d'],['Peças','Falta 1','w'],['Duração','4 h','']]};
+const SHOP_HOURS={'2026-11-26':{text:'cheio',off:1},'2026-11-27':{text:'cheio',off:1},'2026-11-28':{text:'6 h'},'2026-11-29':{text:'fechado',off:1},'2026-11-30':{text:'18 h'}};
+const shopCal=(value,extra)=>F.monthCal({year:2026,month:11,value,today:'2026-11-26',min:'2026-11-26',dayInfo:{...SHOP_HOURS,...extra},legend:'<span>embaixo do dia: horas livres na oficina</span>'});
 function scheduleBody(){
   return `<div class="sec cal">${secHead('Escolha o dia',`<span class="hh">horas livres na oficina</span>`)}
-  <div class="wk">${WD.map(d=>`<span class="wd">${d}</span>`).join('')}${DAYS.map(([n,l,off,pick])=>`<div class="day ${off===2?'off past':off?'off':''} ${pick?'pick':''}"><b>${n}</b><span>${l||'&nbsp;'}</span></div>`).join('')}</div><p class="first">${ic('calendar-check','s16')}<span><b>Primeiro dia com espaço: sáb 28/11</b>, com 6&nbsp;h livres</span></p></div>
+  ${shopCal('2026-11-28',{'2026-11-28':{text:'6 h'},'2026-12-03':{text:'3 h',off:1}})}<p class="first">${ic('calendar-check','s16')}<span><b>Primeiro dia com espaço: sáb 28/11</b>, com 6&nbsp;h livres</span></p></div>
   <div class="sec">${prevHead('Preventivas para fazer','1 preventiva',OVERCHIP)}${items([['Revisão 60 mil','No cavalo, inclui a Preventiva 20 mil','Venceu há 4.300 km','d','Fazer a cada 30 mil km. Última em 03/06.']])}</div>
   ${kitsDly()}
   <label class="chk"><i>${ic('check','s14')}</i>Avisar a transportadora JSL por e-mail</label>`;}
@@ -362,7 +373,7 @@ const HMULTI={title:'Marcar dia na oficina',sub:'3 veículos juntos',back:1,stat
 const DAYS_M=[['23','',2],['24','',2],['25','',2],['26','cheia',1],['27','cheia',1],['28','6 h',1],['30','18 h',0,1],['01','22 h'],['02','28 h'],['03','3 h',1],['04','32 h'],['05','8 h',1]];
 function multiBody(){
   return `<div class="sec cal">${secHead('Escolha o dia',`<span class="hh">horas livres na oficina</span>`)}
-  <div class="wk">${WD.map(d=>`<span class="wd">${d}</span>`).join('')}${DAYS_M.map(([n,l,off,pick])=>`<div class="day ${off===2?'off past':off?'off':''} ${pick?'pick':''}"><b>${n}</b><span>${l||'&nbsp;'}</span></div>`).join('')}</div><p class="first">${ic('calendar-check','s16')}<span><b>Primeiro dia com espaço para as 9 h: seg 30/11</b></span></p></div>
+  ${shopCal('2026-11-30',{'2026-11-28':{text:'6 h',off:1},'2026-11-30':{text:'18 h'}})}<p class="first">${ic('calendar-check','s16')}<span><b>Primeiro dia com espaço para as 9 h: seg 30/11</b></span></p></div>
   <div class="sec">${secHead('Veículos',count(3))}<div class="ilist">${[['DLY1J07','Revisão 60 mil','4 h'],['C-118','Preventiva 20 mil e mais 1','3 h'],['QRT1A09','Preventiva 20 mil','2 h']].map(([n,w,h])=>`<div class="ii dn"><span class="ib"><span class="it1"><b>${n}</b><span class="tp sm">${h}</span></span><span class="iw">${w}</span></span></div>`).join('')}</div></div>
   <label class="chk"><i>${ic('check','s14')}</i>Avisar as transportadoras por e-mail</label>`;}
 const multiFoot=()=>`<div class="pf"><div class="bb">${btn('Voltar',{variant:'outline'})}${btn('Agendar os 3 para seg 30/11',{icon:'calendar-check',action:1})}</div></div>`;
