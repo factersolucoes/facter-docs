@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solicitações de peças · 3 modelos · mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --foreground:240 10% 4%;--card:0 0% 100%;--background:230 20% 97.5%;
+  --primary:233 66% 52%;--primary-ink:233 70% 40%;--primary-soft:233 85% 96.5%;
+  --muted:240 5% 95%;--muted-foreground:240 4% 44%;--border:240 6% 90%;--border-strong:240 6% 83%;
+  --canvas:228 16% 90%;
+  --success:150 55% 42%;--success-soft:150 52% 94%;--success-ink:152 64% 26%;
+  --warning:36 92% 50%;--warning-soft:40 96% 92%;--warning-ink:26 85% 32%;
+  --danger:0 82% 60%;--danger-soft:0 88% 96.5%;--danger-ink:0 70% 44%;
+}
+*{box-sizing:border-box}
+body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));font:14.5px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,p{margin:0}
+button{font:inherit;color:inherit}
+.ic{display:inline-block;width:18px;height:18px;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;flex:none}
+.s12{width:12px;height:12px}.s14{width:14px;height:14px}.s16{width:16px;height:16px}.s20{width:20px;height:20px}
+.i-search{--i:url(https://api.iconify.design/ph/magnifying-glass.svg)}
+.i-box{--i:url(https://api.iconify.design/ph/package.svg)}
+.i-wrench{--i:url(https://api.iconify.design/ph/wrench.svg)}
+.i-check{--i:url(https://api.iconify.design/ph/check-bold.svg)}
+.i-x{--i:url(https://api.iconify.design/ph/x-bold.svg)}
+.i-xl{--i:url(https://api.iconify.design/ph/x.svg)}
+.i-truck{--i:url(https://api.iconify.design/ph/hand-arrow-down.svg)}
+.i-caret{--i:url(https://api.iconify.design/ph/caret-down.svg)}
+.i-right{--i:url(https://api.iconify.design/ph/caret-right.svg)}
+.i-clock{--i:url(https://api.iconify.design/ph/clock.svg)}
+.i-info{--i:url(https://api.iconify.design/ph/info.svg)}
+.i-shelf{--i:url(https://api.iconify.design/ph/stack.svg)}
+.i-minus{--i:url(https://api.iconify.design/ph/minus-bold.svg)}
+.i-plus{--i:url(https://api.iconify.design/ph/plus-bold.svg)}
+.i-list{--i:url(https://api.iconify.design/ph/list-bullets.svg)}
+.i-group{--i:url(https://api.iconify.design/ph/stack-simple.svg)}
+.i-user{--i:url(https://api.iconify.design/ph/user.svg)}
+.i-return{--i:url(https://api.iconify.design/ph/arrow-u-down-left.svg)}
+.pill.returned{background:hsl(var(--muted));color:hsl(var(--foreground))}
+.used{display:flex;gap:10px;align-items:center;font-size:12.5px;color:hsl(var(--muted-foreground))}
+.used b{color:hsl(var(--foreground));font:700 12.5px Sora}
+
+.doc{max-width:1280px;margin:0 auto;padding:40px 22px 90px}
+.doc h1{font:800 29px/1.15 Sora;letter-spacing:-.02em}
+.lead{color:hsl(var(--muted-foreground));max-width:940px;margin-top:10px}
+.rule{margin-top:18px;display:flex;gap:12px;align-items:flex-start;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;padding:14px 16px;max-width:940px}
+.rule .ic{color:hsl(var(--primary));margin-top:2px}
+.tabs{display:flex;gap:8px;margin-top:28px;flex-wrap:wrap}
+.tab{border:1px solid hsl(var(--border-strong));background:hsl(var(--card));border-radius:999px;padding:8px 16px;font-weight:600;cursor:pointer;display:flex;gap:8px;align-items:center}
+.tab small{font-weight:500;color:hsl(var(--muted-foreground))}
+.tab[aria-pressed=true]{background:hsl(var(--foreground));color:hsl(var(--card));border-color:hsl(var(--foreground))}
+.tab[aria-pressed=true] small{color:hsl(0 0% 100%/.7)}
+.model{display:none;margin-top:18px}
+.model.on{display:block}
+.mhead{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:18px;align-items:start}
+.mhead h2{font:800 22px/1.2 Sora;letter-spacing:-.015em}
+.mhead p{color:hsl(var(--muted-foreground));margin-top:6px}
+.pc{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;padding:12px 14px;font-size:13.5px}
+.pc h4{font:700 11px Inter;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));margin:4px 0}
+.pc ul{margin:0;padding-left:18px}
+.controls{display:flex;justify-content:space-between;gap:12px;margin-top:18px;flex-wrap:wrap;align-items:center}
+.steps{display:flex;gap:6px;flex-wrap:wrap}
+.step{border:1px solid hsl(var(--border-strong));background:hsl(var(--card));border-radius:10px;padding:6px 12px;font-size:13px;font-weight:600;cursor:pointer;color:hsl(var(--muted-foreground))}
+.step b{color:hsl(var(--foreground));margin-right:4px}
+.step[aria-pressed=true]{border-color:hsl(var(--primary));background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.step[aria-pressed=true] b{color:hsl(var(--primary-ink))}
+.seg{display:inline-flex;background:hsl(var(--card));border:1px solid hsl(var(--border-strong));border-radius:10px;padding:3px}
+.seg button{border:0;background:none;border-radius:7px;padding:5px 12px;font-size:13px;font-weight:600;cursor:pointer;color:hsl(var(--muted-foreground))}
+.seg button[aria-pressed=true]{background:hsl(var(--muted));color:hsl(var(--foreground))}
+.note{margin-top:10px;font-size:13px;color:hsl(var(--muted-foreground))}
+.note b{color:hsl(var(--foreground))}
+.stage{margin-top:12px;background:radial-gradient(hsl(220 8% 85%) 1px,transparent 1.4px) 0 0/22px 22px,hsl(220 10% 91.5%);border:1px solid hsl(var(--border));border-radius:18px;padding:26px 18px;display:flex;justify-content:center;overflow:auto}
+
+.frame{width:1200px;max-width:100%;height:720px;background:hsl(var(--background));border-radius:16px;box-shadow:0 40px 90px -32px hsl(232 48% 15%/.5);overflow:hidden;display:flex;flex-direction:column;container-type:inline-size;position:relative;flex:none}
+.frame.tabl{width:1024px;height:740px;border-radius:26px;border:10px solid hsl(235 20% 14%)}
+.frame.phone{width:390px;height:820px;border-radius:30px;border:8px solid hsl(235 20% 14%)}
+.bar{height:58px;flex:none;display:flex;align-items:center;gap:12px;padding:0 18px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
+.bar .eb{font:700 10px Sora;text-transform:uppercase;letter-spacing:.07em;color:hsl(var(--primary-ink))}
+.bar .tt{font:800 17px/1.15 Sora}
+.bar .org{margin-left:auto;font-size:13px;font-weight:600;color:hsl(var(--muted-foreground))}
+.screen{display:none;flex:1;min-height:0;padding:12px;position:relative}
+.screen.on{display:flex;flex-direction:column}
+.shell{flex:1;min-height:0;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;display:flex;flex-direction:column;overflow:hidden}
+
+/* toolbar and counters */
+.tools{display:flex;gap:8px;align-items:center;padding:12px 14px;border-bottom:1px solid hsl(var(--border));flex-wrap:wrap}
+.search{display:flex;align-items:center;gap:8px;height:38px;border:1px solid hsl(var(--border-strong));border-radius:10px;padding:0 11px;color:hsl(var(--muted-foreground));font-size:14px;flex:1;max-width:300px;min-width:160px}
+.counts{display:flex;gap:6px;flex-wrap:wrap}
+.count{display:inline-flex;align-items:center;gap:7px;border:1px solid hsl(var(--border-strong));border-radius:999px;padding:5px 12px;font-size:13px;font-weight:600;color:hsl(var(--muted-foreground));white-space:nowrap}
+.count b{font:800 12.5px Sora;color:hsl(var(--foreground))}
+.count.on{background:hsl(var(--foreground));border-color:hsl(var(--foreground));color:hsl(var(--card))}
+.count.on b{color:hsl(var(--card))}
+.count.w b{color:hsl(var(--warning-ink))}
+.grow{flex:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;font-weight:600;font-size:14px;border:1px solid transparent;white-space:nowrap}
+.btn.pr{background:hsl(var(--primary));color:#fff}
+.btn.ol{background:hsl(var(--card));border-color:hsl(var(--border-strong))}
+.btn.dg{background:hsl(var(--card));border-color:hsl(var(--danger)/.4);color:hsl(var(--danger-ink))}
+.btn.ok{background:hsl(var(--success));color:#fff}
+.btn.sm{height:32px;padding:0 11px;font-size:13px;border-radius:9px}
+.btn.full{width:100%}
+.scroll{flex:1;min-height:0;overflow:auto}
+
+.pill{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:1px 9px;font-size:11.5px;font-weight:600;white-space:nowrap}
+.pill.pending{background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+.pill.approved{background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.pill.partial{background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.pill.delivered{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+.pill.rejected{background:hsl(var(--danger-soft));color:hsl(var(--danger-ink))}
+.pill.m{background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.toast-r{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);background:hsl(var(--foreground));color:hsl(var(--card));border-radius:12px;padding:10px 14px;font-size:13.5px;display:flex;gap:8px;align-items:center;white-space:nowrap;z-index:7}
+.toast-r .ic{color:hsl(var(--success))}
+.ni{display:inline-flex;align-items:center;height:19px;border-radius:6px;background:hsl(var(--muted));padding:0 6px;font:700 11px Sora;white-space:nowrap}
+.osn{font:700 13.5px Sora;color:hsl(var(--primary))}
+.sub{font-size:12.5px;color:hsl(var(--muted-foreground))}
+.age{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;color:hsl(var(--muted-foreground));white-space:nowrap}
+.age.late{color:hsl(var(--warning-ink));font-weight:600}
+.cb{width:18px;height:18px;border-radius:5px;border:1.5px solid hsl(var(--border-strong));flex:none;display:grid;place-items:center}
+.cb.on{background:hsl(var(--primary));border-color:hsl(var(--primary));color:#fff}
+
+/* A: grouped by OS */
+.osgroup{border-bottom:1px solid hsl(var(--border))}
+.oshead{display:flex;align-items:center;gap:10px;padding:10px 16px;background:hsl(var(--muted)/.45)}
+.oshead .ic.s16{color:hsl(var(--muted-foreground))}
+.svc{display:flex;align-items:center;gap:8px;padding:8px 16px 4px 44px;font-size:12.5px;color:hsl(var(--muted-foreground))}
+.svc b{color:hsl(var(--foreground));font-weight:600}
+.irow{display:grid;grid-template-columns:18px minmax(0,1fr) 110px 120px 140px auto;gap:12px;align-items:center;padding:9px 16px 9px 44px;border-top:1px solid hsl(var(--border)/.6)}
+.irow .nm{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.irow .qty{font:700 13.5px Sora;text-align:right}
+.irow .qty small{font:500 12px Inter;color:hsl(var(--muted-foreground))}
+.irow .acts{display:flex;gap:6px;justify-content:flex-end}
+.ibtn{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;border:1px solid hsl(var(--border-strong));background:hsl(var(--card));color:hsl(var(--muted-foreground))}
+.ibtn.ok{color:hsl(var(--success-ink))}
+.ibtn.no{color:hsl(var(--danger-ink))}
+.bulk{flex:none;display:flex;align-items:center;gap:10px;border-top:1px solid hsl(var(--border));background:hsl(var(--primary-soft)/.6);padding:10px 16px;font-size:13.5px}
+.bulk b{font:800 14px Sora}
+
+/* side sheet */
+.scrim{position:absolute;inset:0;background:hsl(235 30% 12%/.28);z-index:5}
+.sheet{position:absolute;top:0;right:0;bottom:0;width:470px;max-width:100%;background:hsl(var(--card));z-index:6;display:flex;flex-direction:column;box-shadow:-20px 0 50px -20px hsl(232 48% 15%/.4)}
+.sh{padding:16px 18px 12px;border-bottom:1px solid hsl(var(--border))}
+.sh .top{display:flex;align-items:center;gap:10px}
+.sh h3{font:800 18px Sora}
+.sh .x{margin-left:auto;width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:8px;padding:4px 9px;font-size:12.5px;font-weight:600;background:hsl(var(--muted))}
+.chip.p{background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.sb{flex:1;overflow:auto;padding:14px 18px;display:flex;flex-direction:column;gap:10px}
+.sect{font:700 11px Inter;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground))}
+.item{border:1px solid hsl(var(--border));border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.item .r1{display:flex;align-items:center;gap:8px}
+.item .r1 b{font-weight:600;font-size:14px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item .r2{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12.5px;color:hsl(var(--muted-foreground))}
+.item .r2 .shelf{display:inline-flex;gap:4px;align-items:center;color:hsl(var(--foreground));font-weight:600}
+.stepper{display:inline-flex;align-items:center;border:1px solid hsl(var(--border-strong));border-radius:9px;overflow:hidden;margin-left:auto}
+.stepper i{width:30px;height:30px;display:grid;place-items:center;color:hsl(var(--muted-foreground))}
+.stepper b{min-width:34px;text-align:center;font:700 14px Sora}
+.reason{border:1px solid hsl(var(--border-strong));border-radius:10px;padding:9px 12px;min-height:70px;font-size:13.5px;color:hsl(var(--muted-foreground))}
+.reasons{display:flex;gap:6px;flex-wrap:wrap}
+.reasons span{border:1px solid hsl(var(--border-strong));border-radius:999px;padding:5px 11px;font-size:12.5px;font-weight:600}
+.reasons span.on{border-color:hsl(var(--danger)/.5);background:hsl(var(--danger-soft));color:hsl(var(--danger-ink))}
+.sf{border-top:1px solid hsl(var(--border));padding:12px 18px;display:flex;gap:8px;align-items:center}
+.sf .meta{font-size:12.5px;color:hsl(var(--muted-foreground));margin-right:auto}
+.notice{display:flex;gap:8px;align-items:flex-start;border-radius:10px;padding:9px 11px;font-size:13px;background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+
+/* B: board by status */
+.board{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:12px;overflow:auto;background:hsl(var(--background))}
+.col{display:flex;flex-direction:column;gap:8px;min-width:0}
+.colh{display:flex;align-items:center;gap:8px;font:700 13px Sora;padding:2px 4px}
+.colh .n{border-radius:999px;padding:0 8px;font:700 11.5px Sora;background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.colh small{margin-left:auto;font:500 12px Inter;color:hsl(var(--muted-foreground))}
+.card{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;padding:11px 12px;display:flex;flex-direction:column;gap:7px;box-shadow:0 1px 2px hsl(233 30% 20%/.05)}
+.card.sel{border-color:hsl(var(--primary));box-shadow:0 0 0 3px hsl(var(--primary)/.12)}
+.card .t{display:flex;align-items:center;gap:8px}
+.card .lines{display:flex;flex-direction:column;gap:3px;font-size:13px}
+.card .lines span{display:flex;justify-content:space-between;gap:8px}
+.card .lines span em{font-style:normal;font:700 12.5px Sora;white-space:nowrap}
+.card .f{display:flex;align-items:center;gap:8px;border-top:1px solid hsl(var(--border));padding-top:7px}
+
+/* C: list + request */
+.split{flex:1;min-height:0;display:grid;grid-template-columns:400px minmax(0,1fr)}
+.listc{border-right:1px solid hsl(var(--border));display:flex;flex-direction:column;min-height:0}
+.rowc{display:flex;gap:11px;padding:11px 14px;border-bottom:1px solid hsl(var(--border));position:relative}
+.rowc.sel{background:hsl(var(--primary-soft)/.65)}
+.rowc.sel::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:3px;border-radius:0 3px 3px 0;background:hsl(var(--primary))}
+.rowc .m{flex:1;min-width:0}
+.rowc .t1{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.rowc .t2{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.rowc .t3{display:flex;gap:8px;align-items:center;margin-top:5px}
+.detail{min-height:0;overflow:auto;background:hsl(var(--background));display:flex;flex-direction:column}
+.dh{padding:16px 20px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
+.dh h3{font:800 19px Sora;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.db{padding:14px 20px;display:flex;flex-direction:column;gap:10px;flex:1}
+.df{padding:12px 20px;background:hsl(var(--card));border-top:1px solid hsl(var(--border));display:flex;gap:8px;align-items:center}
+.df .meta{font-size:12.5px;color:hsl(var(--muted-foreground));margin-right:auto}
+.mback{display:none}
+
+@container (max-width:1040px){
+  .irow{grid-template-columns:18px minmax(0,1fr) 90px 110px auto}
+  .irow .who{display:none}
+  .split{grid-template-columns:340px minmax(0,1fr)}
+}
+@container (max-width:600px){
+  .bar .org{display:none}
+  .screen{padding:6px}
+  .search{max-width:none;flex-basis:100%}
+  .irow{grid-template-columns:18px minmax(0,1fr) auto;padding-left:16px}
+  .irow .st,.irow .who{display:none}
+  .svc{padding-left:16px}
+  .irow .acts .ibtn{width:40px;height:40px}
+  .board{grid-template-columns:1fr}
+  .split{grid-template-columns:1fr}
+  .screen:not(.picked) .detail{display:none}
+  .screen.picked .listc{display:none}
+  .mback{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:hsl(var(--muted-foreground));margin-bottom:8px}
+  .sheet{width:100%}
+}
+.recommend{margin-top:30px;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;padding:18px 20px;max-width:940px}
+.recommend h3{font:800 18px Sora}
+.recommend p{color:hsl(var(--foreground)/.85);font-size:14px;margin-top:6px}
+.recommend table{border-collapse:collapse;margin-top:12px;font-size:13.5px;width:100%}
+.recommend th,.recommend td{text-align:left;border-bottom:1px solid hsl(var(--border));padding:7px 8px;vertical-align:top}
+.recommend th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground))}
+@media (max-width:820px){.mhead{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="doc">
+  <h1>Solicitações de peças · 3 modelos</h1>
+  <p class="lead">A tela onde o almoxarife e o gestor tratam o que os mecânicos e o checklist pediram: <b>aprovar</b> (com a quantidade que sai), <b>recusar</b> (com motivo), <b>separar e entregar</b>. Base: a tela do v1 (contagem por situação, agrupado por OS ou lista, painel com aprovar, recusar, entregar e devolver, ações em massa), ajustada ao v2, onde cada solicitação é um <b>pedido com itens</b> feito para um <b>serviço da OS</b>.</p>
+  <div class="rule"><span class="ic i-info s20"></span><p>Segue o mockup aprovado <b>Solicitar peça</b> (27/09): quem pede não vê saldo; quem atende vê saldo e prateleira. A entrega congela o preço de cada peça no custo da OS. Cada peça aparece com o <b>NI</b>. Situações do v2: Pendente, Aprovada, Aprovada em parte, Recusada, Entregue e Cancelada.</p></div>
+
+  <div class="tabs" id="tabs">
+    <button class="tab" data-model="a" aria-pressed="true">A · Agrupado por OS <small>como no v1</small></button>
+    <button class="tab" data-model="b" aria-pressed="false">B · Quadro por situação <small>pendente → aprovada → entregue</small></button>
+    <button class="tab" data-model="c" aria-pressed="false">C · Lista e pedido <small>vê o pedido inteiro ao lado</small></button>
+  </div>
+
+  <section class="model on" data-model="a">
+    <div class="mhead">
+      <div><h2>A · Agrupado por OS</h2><p>O v1 arrumado. Contagem por situação no alto (toque filtra), lista agrupada por <b>OS</b> e, dentro dela, por <b>serviço</b>, uma linha por peça. Na linha, aprovar ✓ e recusar ✕ num toque; marcando várias, a faixa embaixo aprova, recusa ou entrega em massa. Tocar na linha abre o painel do pedido. Peça <b>entregue</b> ganha <b>Devolver</b>: o que sobrou ou veio errado volta para a prateleira, com motivo, e sai do custo da OS.</p></div>
+      <div class="pc"><h4>A favor</h4><ul><li>Quem usou o v1 reconhece na hora.</li><li>Vê tudo de uma OS junto, com o serviço e o lugar.</li><li>Ações em massa para o fim do dia.</li></ul><h4>Contra</h4><ul><li>Com muitas OS, a lista fica longa.</li><li>Separar e entregar ficam no mesmo lugar que aprovar.</li></ul></div>
+    </div>
+    <div class="controls"><div class="steps"><button class="step" data-s="1" aria-pressed="true"><b>1</b>Lista</button><button class="step" data-s="2" aria-pressed="false"><b>2</b>Aprovar o pedido</button><button class="step" data-s="3" aria-pressed="false"><b>3</b>Recusar</button><button class="step" data-s="4" aria-pressed="false"><b>4</b>Várias marcadas</button><button class="step" data-s="5" aria-pressed="false"><b>5</b>Devolver</button><button class="step" data-s="6" aria-pressed="false"><b>6</b>Depois da devolução</button></div><div class="seg"><button data-dev="nb" aria-pressed="true">Notebook</button><button data-dev="tabl" aria-pressed="false">Tablet</button><button data-dev="phone" aria-pressed="false">Celular</button></div></div>
+    <div class="stage"><div class="frame" data-model-frame="a"></div></div>
+  </section>
+
+  <section class="model" data-model="b">
+    <div class="mhead">
+      <div><h2>B · Quadro por situação</h2><p>Três colunas que seguem o caminho da peça: <b>Para aprovar</b>, <b>Para separar</b> (aprovadas) e <b>Entregues hoje</b>. Cada cartão é um pedido (OS, serviço, peças). O almoxarife trabalha da esquerda para a direita; recusadas e canceladas ficam no filtro.</p></div>
+      <div class="pc"><h4>A favor</h4><ul><li>O que falta fazer salta aos olhos.</li><li>Bom no tablet do almoxarifado, deitado.</li></ul><h4>Contra</h4><ul><li>Não junta por OS: duas peças da mesma OS em colunas diferentes.</li><li>Sem histórico longo (o quadro é do dia).</li></ul></div>
+    </div>
+    <div class="controls"><div class="steps"><button class="step" data-s="1" aria-pressed="true"><b>1</b>Quadro</button><button class="step" data-s="2" aria-pressed="false"><b>2</b>Aprovar o pedido</button><button class="step" data-s="3" aria-pressed="false"><b>3</b>Separar e entregar</button></div><div class="seg"><button data-dev="nb" aria-pressed="true">Notebook</button><button data-dev="tabl" aria-pressed="false">Tablet</button><button data-dev="phone" aria-pressed="false">Celular</button></div></div>
+    <div class="stage"><div class="frame" data-model-frame="b"></div></div>
+  </section>
+
+  <section class="model" data-model="c">
+    <div class="mhead">
+      <div><h2>C · Lista e pedido</h2><p>Lista de pedidos à esquerda (mais antigo pendente primeiro); o pedido aberto à direita, inteiro: OS, serviço e lugar, quem pediu, e cada peça com NI, quantidade, saldo e prateleira. Aprovar, recusar e entregar ficam no pé do pedido. No celular, um lado por vez.</p></div>
+      <div class="pc"><h4>A favor</h4><ul><li>Decide olhando o pedido inteiro, sem abrir nada.</li><li>Igual à fila de separação já aprovada.</li></ul><h4>Contra</h4><ul><li>Sem ação em massa.</li><li>Um pedido por vez.</li></ul></div>
+    </div>
+    <div class="controls"><div class="steps"><button class="step" data-s="1" aria-pressed="true"><b>1</b>Pendente aberto</button><button class="step" data-s="2" aria-pressed="false"><b>2</b>Aprovado: separar</button><button class="step" data-s="3" aria-pressed="false"><b>3</b>Celular: pedido</button></div><div class="seg"><button data-dev="nb" aria-pressed="true">Notebook</button><button data-dev="tabl" aria-pressed="false">Tablet</button><button data-dev="phone" aria-pressed="false">Celular</button></div></div>
+    <div class="stage"><div class="frame" data-model-frame="c"></div></div>
+  </section>
+
+  <div class="recommend">
+    <h3>Comparação</h3>
+    <table>
+      <tr><th></th><th>A · Por OS</th><th>B · Quadro</th><th>C · Lista e pedido</th></tr>
+      <tr><td>Parecido com o v1</td><td>Muito</td><td>Pouco</td><td>Médio</td></tr>
+      <tr><td>Aprovar uma peça</td><td>1 toque na linha</td><td>Abrir o cartão</td><td>1 toque no pedido</td></tr>
+      <tr><td>Aprovar várias de uma vez</td><td>Sim (marcar)</td><td>Não</td><td>Não</td></tr>
+      <tr><td>Ver o que falta fazer hoje</td><td>Pelo filtro</td><td>De cara</td><td>Pela ordem da lista</td></tr>
+      <tr><td>Separar na prateleira</td><td>No painel</td><td>Coluna própria</td><td>No pedido</td></tr>
+    </table>
+    <p><b>Recomendação: A, com o painel do C.</b> Mantém o que o pessoal já usa no v1 (por OS, com ação em massa) e, ao tocar no pedido, abre o pedido inteiro com saldo e prateleira, como a fila de separação aprovada. O quadro (B) pode virar a visão do almoxarife depois, se a fila crescer.</p>
+  </div>
+</div>
+
+<script>
+const ic = (name, size) => `<span class="ic i-${name}${size ? ' ' + size : ''}"></span>`;
+const STATUS = { pending: 'Pendente', approved: 'Aprovada', partial: 'Aprovada em parte', delivered: 'Entregue', rejected: 'Recusada' };
+const pill = (status) => `<span class="pill ${status}">${STATUS[status]}</span>`;
+
+const REQUESTS = [
+  { id: 'P-0319', os: 'OS-000003', osStatus: 'Em manutenção', set: 'Conjunto 22500', plate: 'PTJ0559 (1º reboque)', service: 'Soldar ciclista', place: 'Esquerdo', who: 'Rafael Souza', age: 'há 6 min', status: 'pending',
+    items: [{ name: 'Eletrodo E7018 3,25 mm', ni: 'SP-00134', qty: 2, unit: 'kg', stock: 40, shelf: 'B-07' }, { name: 'Chapa de aço 1/4"', ni: 'SP-00210', qty: 1, unit: 'un', stock: 6, shelf: 'C-02' }] },
+  { id: 'P-0318', os: 'OS-000003', osStatus: 'Em manutenção', set: 'Conjunto 22500', plate: 'PTJ0559 (1º reboque)', service: 'Substituir lona de freio', place: '1º eixo · LD', who: 'Rafael Souza', age: 'há 14 min', status: 'pending',
+    items: [{ name: 'Lona de freio 7"', ni: 'SP-00045', qty: 4, unit: 'un', stock: 2, shelf: 'A-12' }, { name: 'Rebite de lona', ni: 'SP-00046', qty: 16, unit: 'un', stock: 200, shelf: 'A-14' }] },
+  { id: 'P-0315', os: 'OS-000002', osStatus: 'Na fila', set: 'Conjunto 22200', plate: 'QPA2D10 (1º reboque)', service: 'Substituir pino rei', place: '', who: 'Diego Ramos', age: 'há 1 h', status: 'approved',
+    items: [{ name: 'Pino rei 2"', ni: 'SP-00301', qty: 1, unit: 'un', stock: 3, shelf: 'D-01' }] },
+  { id: 'P-0312', os: 'OS-000001', osStatus: 'Em manutenção', set: 'Conjunto 22500', plate: 'PTJ0458 (2º reboque)', service: 'Substituir cinta de carga', place: '', who: 'Leandro Batista', age: 'há 2 h', status: 'delivered',
+    items: [{ name: 'Cinta de carga 10 t', ni: 'SP-00512', qty: 2, unit: 'un', stock: 14, shelf: 'E-04' }, { name: 'Catraca de cinta', ni: 'SP-00513', qty: 4, unit: 'un', stock: 9, shelf: 'E-05' }] },
+];
+const pending = REQUESTS.filter((r) => r.status === 'pending');
+
+const header = (title) => `<div class="bar"><div><p class="eb">Estoque</p><p class="tt">${title}</p></div><span class="org">Depósito Mucuri · Transportadora Demo</span></div>`;
+const counters = (active) => `<div class="counts">${[['all', 'Todas', 9], ['pending', 'Para aprovar', 4, 'w'], ['approved', 'Para separar', 2], ['delivered', 'Entregues hoje', 6], ['rejected', 'Recusadas', 1], ['returned', 'Devolvidas hoje', 1]].map(([k, l, n, t]) => `<span class="count${active === k ? ' on' : ''}${t ? ' ' + t : ''}">${l}<b>${n}</b></span>`).join('')}</div>`;
+const tools = (active, extra = '') => `<div class="tools"><span class="search">${ic('search', 's16')}Peça, NI, OS ou placa</span>${counters(active)}<span class="grow"></span>${extra}</div>`;
+
+/* --- the request sheet, shared by A and B --- */
+function requestSheet(r, mode) {
+  const items = r.items.map((it) => {
+    const short = it.stock < it.qty;
+    const control = mode === 'approve' ? `<span class="stepper"><i>${ic('minus', 's12')}</i><b>${short ? it.stock : it.qty}</b><i>${ic('plus', 's12')}</i></span>` : `<b style="font:700 14px Sora;margin-left:auto">${it.qty} ${it.unit}</b>`;
+    return `<div class="item"><div class="r1"><b>${it.name}</b>${control}</div><div class="r2"><span class="ni">NI ${it.ni}</span><span>Pediu ${it.qty} ${it.unit}</span><span class="shelf">${ic('shelf', 's12')}${it.shelf}</span><span style="${short ? 'color:hsl(var(--danger-ink));font-weight:600' : ''}">saldo ${it.stock}${short ? ' · falta ' + (it.qty - it.stock) : ''}</span></div></div>`;
+  }).join('');
+  const head = `<div class="sh"><div class="top">${ic('box', 's20')}<h3>Pedido ${r.id}</h3>${pill(r.status)}<span class="x">${ic('xl', 's16')}</span></div>
+    <div class="chips"><span class="chip p">${r.os} · ${r.osStatus}</span><span class="chip">${r.set} · ${r.plate}</span><span class="chip">${ic('wrench', 's12')}${r.service}${r.place ? ' · ' + r.place : ''}</span><span class="chip">${ic('user', 's12')}${r.who} · ${r.age}</span></div></div>`;
+  if (mode === 'reject') {
+    return `<div class="scrim"></div><aside class="sheet">${head}<div class="sb"><p class="sect">Por que recusar?</p><div class="reasons"><span class="on">Peça errada para o serviço</span><span>Sem estoque e sem previsão</span><span>Serviço não começa hoje</span><span>Outro</span></div><div class="reason">Pediu lona 7"; a carreta usa 8". Confira o eixo e peça de novo.</div><p class="sub">O mecânico vê o motivo no serviço da OS.</p></div><div class="sf"><span class="meta">Recusa o pedido inteiro</span><span class="btn ol">Voltar</span><span class="btn dg">${ic('x', 's14')}Recusar pedido</span></div></aside>`;
+  }
+  const partial = r.items.some((it) => it.stock < it.qty);
+  return `<div class="scrim"></div><aside class="sheet">${head}<div class="sb"><p class="sect">Peças · quanto sai</p>${items}${partial ? `<div class="notice">${ic('info', 's16')}<span>Lona com saldo 2 de 4: aprova 2 agora e o pedido fica <b>Aprovado em parte</b>. O resto entra quando chegar.</span></div>` : ''}</div>
+    <div class="sf"><span class="meta">${r.items.length} peças · sai do Depósito Mucuri</span><span class="btn dg">${ic('x', 's14')}Recusar</span><span class="btn pr">${ic('check', 's14')}Aprovar</span></div></aside>`;
+}
+
+/* --- A --- */
+/* how much of an item already went back: after step 6, two of the four ratchets */
+let RETURNED = {};
+const returnedOf = (r, it) => RETURNED[r.id + it.ni] || 0;
+function listA(selectable, checked) {
+  const byOs = {};
+  REQUESTS.forEach((r) => { (byOs[r.os] = byOs[r.os] || []).push(r); });
+  return Object.entries(byOs).map(([os, reqs]) => {
+    const first = reqs[0];
+    const counts = reqs.reduce((acc, r) => ({ ...acc, [r.status]: (acc[r.status] || 0) + 1 }), {});
+    const summary = Object.entries(counts).map(([s, n]) => `<span class="pill ${s}">${n} ${STATUS[s].toLowerCase()}${n > 1 ? 's' : ''}</span>`).join('');
+    const body = reqs.map((r) => `<div class="svc">${ic('wrench', 's14')}<b>${r.service}</b>${r.place ? ' · ' + r.place : ''} · ${r.plate}</div>` + r.items.map((it) => {
+      const on = checked && r.status === 'pending';
+      const back = returnedOf(r, it);
+      const acts = r.status === 'pending' ? `<span class="ibtn ok">${ic('check', 's14')}</span><span class="ibtn no">${ic('x', 's14')}</span>` : r.status === 'approved' ? `<span class="btn ol sm">${ic('truck', 's14')}Entregar</span>` : r.status === 'delivered' && back < it.qty ? `<span class="btn ol sm">${ic('return', 's14')}Devolver</span>` : '';
+      const usedLine = r.status === 'delivered' && back > 0 ? `<p class="used"><span>Usou <b>${it.qty - back} ${it.unit}</b></span><span class="pill returned">${ic('return', 's12')}Devolveu ${back} ${it.unit} · Sobrou</span></p>` : '';
+      return `<div class="irow"><span class="cb${on ? ' on' : ''}">${on ? ic('check', 's12') : ''}</span><div style="min-width:0"><p class="nm">${it.name}</p><p class="sub"><span class="ni">NI ${it.ni}</span> · ${r.who} · ${r.age}</p>${usedLine}</div><span class="qty">${it.qty} <small>${it.unit}</small></span><span class="st">${pill(r.status)}</span><span class="who sub">${r.id}</span><span class="acts">${acts}</span></div>`;
+    }).join('')).join('');
+    return `<div class="osgroup"><div class="oshead">${ic('caret', 's16')}<span class="osn">${os}</span><span class="pill m">${first.osStatus}</span><span class="sub">${first.set}</span><span class="grow"></span>${summary}</div>${body}</div>`;
+  }).join('');
+}
+const viewToggle = `<span class="seg" style="border-radius:10px"><button aria-pressed="true">${ic('group', 's14')} Por OS</button><button aria-pressed="false">${ic('list', 's14')} Lista</button></span>`;
+function screenA(step) {
+  const shell = (body, extraBottom = '') => `<div class="shell">${tools(step === 4 ? 'pending' : 'all', viewToggle)}<div class="scroll">${body}</div>${extraBottom}</div>`;
+  if (step === 1) return shell(listA());
+  if (step === 2) return shell(listA()) + requestSheet(REQUESTS[1], 'approve');
+  if (step === 3) return shell(listA()) + requestSheet(REQUESTS[1], 'reject');
+  if (step === 5) return shell(listA()) + returnSheet(REQUESTS[3]);
+  if (step === 6) {
+    RETURNED = { 'P-0312SP-00513': 2 };
+    const html = shell(listA()) + `<div class="toast-r">${ic('check', 's16')}2 catracas voltaram para a prateleira E-05 · saíram do custo da OS-000001</div>`;
+    RETURNED = {};
+    return html;
+  }
+  return shell(listA(true, true), `<div class="bulk"><span class="cb on">${ic('check', 's12')}</span><b>4 peças</b> de 2 pedidos marcadas<span class="grow"></span><span class="btn ol sm">Desmarcar</span><span class="btn dg sm">${ic('x', 's12')}Recusar</span><span class="btn pr sm">${ic('check', 's12')}Aprovar 4</span></div>`);
+}
+
+/* the return sheet: per delivered item, how much goes back and why */
+function returnSheet(r) {
+  const items = r.items.map((it, index) => {
+    const qty = index === 1 ? 2 : 0;
+    return `<div class="item"><div class="r1"><b>${it.name}</b><span class="stepper"><i>${ic('minus', 's12')}</i><b>${qty}</b><i>${ic('plus', 's12')}</i></span></div><div class="r2"><span class="ni">NI ${it.ni}</span><span>Entregou ${it.qty} ${it.unit}</span><span class="shelf">${ic('shelf', 's12')}volta para ${it.shelf}</span></div></div>`;
+  }).join('');
+  return `<div class="scrim"></div><aside class="sheet"><div class="sh"><div class="top">${ic('return', 's20')}<h3>Devolver · pedido ${r.id}</h3>${pill(r.status)}<span class="x">${ic('xl', 's16')}</span></div>
+    <div class="chips"><span class="chip p">${r.os} · ${r.osStatus}</span><span class="chip">${ic('wrench', 's12')}${r.service}</span><span class="chip">${ic('user', 's12')}quem trouxe: ${r.who}</span></div></div>
+    <div class="sb"><p class="sect">Quanto volta</p>${items}
+      <p class="sect">Por quê?</p><div class="reasons"><span class="on">Sobrou</span><span>Diagnóstico mudou</span><span>Peça errada</span><span>Mudou o plano</span><span>Outro</span></div>
+      <div class="reason">Trocou 2 catracas, não 4.</div>
+      <div class="notice">${ic('info', 's16')}<span>Volta como peça <b>sem uso</b>: soma no saldo da prateleira e o preço sai do custo da ${r.os}. Peça usada ou com defeito não volta por aqui: é descarte ou garantia.</span></div></div>
+    <div class="sf"><span class="meta">2 un de 1 peça</span><span class="btn ol">Cancelar</span><span class="btn pr">${ic('return', 's14')}Devolver 2 un</span></div></aside>`;
+}
+
+/* --- B --- */
+const cardB = (r, sel) => `<div class="card${sel ? ' sel' : ''}"><div class="t"><span class="osn">${r.os}</span>${pill(r.status)}<span class="grow"></span><span class="age${r.age.includes('h') && r.status === 'pending' ? ' late' : ''}">${ic('clock', 's12')}${r.age}</span></div><p class="sub">${ic('wrench', 's12')} ${r.service}${r.place ? ' · ' + r.place : ''} · ${r.plate}</p><div class="lines">${r.items.map((it) => `<span>${it.name}<em>${it.qty} ${it.unit}</em></span>`).join('')}</div><div class="f"><span class="sub">${r.who}</span><span class="grow"></span>${r.status === 'pending' ? `<span class="btn pr sm">Aprovar</span>` : r.status === 'approved' ? `<span class="btn ol sm">${ic('truck', 's12')}Separar</span>` : `<span class="pill delivered">${ic('check', 's12')}Entregue</span>`}</div></div>`;
+function screenB(step) {
+  const col = (title, n, hint, list) => `<div class="col"><div class="colh">${title}<span class="n">${n}</span><small>${hint}</small></div>${list}</div>`;
+  const board = `<div class="shell">${tools('all')}<div class="board">${col('Para aprovar', 2, 'mais antigo em cima', pending.map((r, i) => cardB(r, step === 2 && i === 1)).join(''))}${col('Para separar', 1, 'aprovadas', cardB(REQUESTS[2], step === 3))}${col('Entregues hoje', 1, 'o preço já está na OS', cardB(REQUESTS[3]))}</div></div>`;
+  if (step === 1) return board;
+  if (step === 2) return board + requestSheet(REQUESTS[1], 'approve');
+  const r = REQUESTS[2];
+  return board + `<div class="scrim"></div><aside class="sheet"><div class="sh"><div class="top">${ic('box', 's20')}<h3>Separar ${r.id}</h3>${pill(r.status)}<span class="x">${ic('xl', 's16')}</span></div><div class="chips"><span class="chip p">${r.os}</span><span class="chip">${ic('wrench', 's12')}${r.service}</span><span class="chip">${ic('user', 's12')}${r.who}</span></div></div>
+    <div class="sb"><p class="sect">Pegar na prateleira</p>${r.items.map((it) => `<div class="item"><div class="r1"><span class="cb on">${ic('check', 's12')}</span><b>${it.name}</b><b style="font:700 14px Sora;flex:none">${it.qty} ${it.unit}</b></div><div class="r2"><span class="ni">NI ${it.ni}</span><span class="shelf">${ic('shelf', 's12')}${it.shelf}</span><span>saldo ${it.stock} → ${it.stock - it.qty}</span></div></div>`).join('')}<div class="notice">${ic('info', 's16')}<span>Ao entregar, o preço de cada peça congela e entra no custo da ${r.os}.</span></div></div>
+    <div class="sf"><span class="meta">1 de 1 separada</span><span class="btn ol">Falta peça</span><span class="btn ok">${ic('truck', 's14')}Entregar</span></div></aside>`;
+}
+
+/* --- C --- */
+function rowC(r, sel) {
+  return `<div class="rowc${sel ? ' sel' : ''}">${ic('box', 's20')}<div class="m"><div class="t1"><span class="osn">${r.os}</span><span class="age${r.status === 'pending' && r.age.includes('h') ? ' late' : ''}">${ic('clock', 's12')}${r.age}</span></div><p class="t2"><b>${r.service}</b>${r.place ? ' · ' + r.place : ''} · ${r.plate}</p><div class="t3">${pill(r.status)}<span class="sub">${r.items.length} ${r.items.length > 1 ? 'peças' : 'peça'} · ${r.who}</span></div></div></div>`;
+}
+function detailC(r, deliver) {
+  const items = r.items.map((it) => {
+    const short = !deliver && it.stock < it.qty;
+    return `<div class="item" style="background:hsl(var(--card))"><div class="r1">${deliver ? `<span class="cb">${''}</span>` : ''}<b>${it.name}</b>${deliver ? `<b style="font:700 14px Sora;flex:none">${it.qty} ${it.unit}</b>` : `<span class="stepper"><i>${ic('minus', 's12')}</i><b>${short ? it.stock : it.qty}</b><i>${ic('plus', 's12')}</i></span>`}</div><div class="r2"><span class="ni">NI ${it.ni}</span><span>Pediu ${it.qty} ${it.unit}</span><span class="shelf">${ic('shelf', 's12')}${it.shelf}</span><span style="${short ? 'color:hsl(var(--danger-ink));font-weight:600' : ''}">saldo ${it.stock}${short ? ' · falta ' + (it.qty - it.stock) : ''}</span></div></div>`;
+  }).join('');
+  const footer = deliver
+    ? `<div class="df"><span class="meta">Marque o que pegou na prateleira</span><span class="btn ol">Falta peça</span><span class="btn ok">${ic('truck', 's14')}Entregar</span></div>`
+    : `<div class="df"><span class="meta">${r.items.length} peças · Depósito Mucuri</span><span class="btn dg">${ic('x', 's14')}Recusar</span><span class="btn pr">${ic('check', 's14')}Aprovar</span></div>`;
+  return `<div class="detail"><div class="dh"><span class="mback">← Pedidos</span><h3>Pedido ${r.id} ${pill(r.status)}</h3><div class="chips"><span class="chip p">${r.os} · ${r.osStatus}</span><span class="chip">${r.set} · ${r.plate}</span><span class="chip">${ic('wrench', 's12')}${r.service}${r.place ? ' · ' + r.place : ''}</span><span class="chip">${ic('user', 's12')}${r.who} · ${r.age}</span></div></div><div class="db"><p class="sect">${deliver ? 'Pegar na prateleira' : 'Peças · quanto sai'}</p>${items}${!deliver && r.items.some((it) => it.stock < it.qty) ? `<div class="notice">${ic('info', 's16')}<span>Lona com saldo 2 de 4: aprova 2 agora e o pedido fica <b>Aprovado em parte</b>.</span></div>` : ''}${deliver ? `<div class="notice">${ic('info', 's16')}<span>Ao entregar, o preço congela e entra no custo da ${r.os}.</span></div>` : ''}</div>${footer}</div>`;
+}
+function screenC(step) {
+  const sel = step === 2 ? 2 : 1;
+  const list = `<div class="listc"><div class="tools" style="border-bottom:1px solid hsl(var(--border))"><span class="search" style="max-width:none">${ic('search', 's16')}Peça, NI, OS ou placa</span>${counters(step === 2 ? 'approved' : 'pending')}</div><div class="scroll">${REQUESTS.map((r, i) => rowC(r, i === sel)).join('')}</div></div>`;
+  return `<div class="shell"><div class="split">${list}${detailC(REQUESTS[sel], step === 2)}</div></div>`;
+}
+
+const SCREENS = { a: [screenA, 6, 'Solicitações de peças'], b: [screenB, 3, 'Solicitações de peças'], c: [screenC, 3, 'Solicitações de peças'] };
+document.querySelectorAll('[data-model-frame]').forEach((frame) => {
+  const [render, count, title] = SCREENS[frame.dataset.modelFrame];
+  let html = header(title);
+  for (let step = 1; step <= count; step++) {
+    const picked = frame.dataset.modelFrame === 'c' && step === 3 ? ' picked' : '';
+    html += `<div class="screen${step === 1 ? ' on' : ''}${picked}" data-s="${step}">${render(step)}</div>`;
+  }
+  frame.innerHTML = html;
+});
+
+const tabs = document.querySelectorAll('#tabs .tab');
+tabs.forEach((tab) => tab.addEventListener('click', () => {
+  tabs.forEach((other) => other.setAttribute('aria-pressed', String(other === tab)));
+  document.querySelectorAll('.model').forEach((model) => model.classList.toggle('on', model.dataset.model === tab.dataset.model));
+}));
+document.querySelectorAll('.model').forEach((model) => {
+  const steps = model.querySelectorAll('.step');
+  steps.forEach((step) => step.addEventListener('click', () => {
+    steps.forEach((other) => other.setAttribute('aria-pressed', String(other === step)));
+    model.querySelectorAll('.screen').forEach((screen) => screen.classList.toggle('on', screen.dataset.s === step.dataset.s));
+  }));
+  const devices = model.querySelectorAll('[data-dev]');
+  devices.forEach((device) => device.addEventListener('click', () => {
+    devices.forEach((other) => other.setAttribute('aria-pressed', String(other === device)));
+    const frame = model.querySelector('.frame'); frame.classList.remove('phone', 'tabl'); if (device.dataset.dev !== 'nb') frame.classList.add(device.dataset.dev);
+  }));
+});
+</script>
+</body>
+</html>
