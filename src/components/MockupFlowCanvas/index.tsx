@@ -23,7 +23,11 @@ const LIVE_MIN_SCALE = 0.42;
 const MAX_LIVE_FRAMES = 6;
 const LANE_GUTTER = 200;
 const FIT_PADDING = 56;
-const LABEL_MIN_SCREEN_WIDTH = 64;
+const LABEL_MIN_SCREEN_WIDTH = 30;
+const LABEL_EXTRA_WIDTH = 220;
+const CHIP_MAX_SCALE = 0.15;
+const NOTE_READABLE_MIN_SCALE = 0.1;
+const START_SCALE = 0.28;
 const ARROW_LABEL_MIN_SCALE = 0.1;
 
 type WorldStyle = CSSProperties & {'--inverse': number};
@@ -133,8 +137,12 @@ function CanvasFrame({
       className={styles.frame}
       style={{left: placed.x, top: placed.y, width: placed.width, height: placed.height}}
     >
-      {placed.width * scale >= LABEL_MIN_SCREEN_WIDTH && (
-        <span className={styles.frameLabel} title={frame.hint ?? frame.label}>
+      {(placed.width + LABEL_EXTRA_WIDTH) * scale >= LABEL_MIN_SCREEN_WIDTH && (
+        <span
+          className={clsx(styles.frameLabel, scale < CHIP_MAX_SCALE && styles.frameLabelChip)}
+          style={{maxWidth: placed.width + LABEL_EXTRA_WIDTH}}
+          title={frame.hint ?? frame.label}
+        >
           {frame.label}
         </span>
       )}
@@ -301,6 +309,7 @@ export default function MockupFlowCanvas({flow, status}: MockupFlowCanvasProps) 
   const [measured, setMeasured] = useState<Record<string, Size>>({});
   const [focusId, setFocusId] = useState<string | null>(null);
   const [ready, setReady] = useState(false);
+  const [fitted, setFitted] = useState(false);
   const stageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -352,6 +361,7 @@ export default function MockupFlowCanvas({flow, status}: MockupFlowCanvasProps) 
     (animated: boolean) => {
       if (!layout || size.width === 0) return;
       const target = fitWithGutter(layout.bounds, size);
+      setFitted(true);
       if (animated) animateTo(target);
       else setView(target);
     },
@@ -360,11 +370,16 @@ export default function MockupFlowCanvas({flow, status}: MockupFlowCanvasProps) 
 
   useEffect(() => {
     if (ready || !layout || size.width === 0) return;
-    fitAll(false);
+    const first = layout.lanes[0];
+    setView({
+      scale: START_SCALE,
+      x: LANE_GUTTER + 24 - layout.bounds.x * START_SCALE,
+      y: 64 - (first ? first.y : layout.bounds.y) * START_SCALE,
+    });
     const initial = readFocus();
     if (initial && layout.frames.some((f) => f.frame.id === initial)) setFocusId(initial);
     setReady(true);
-  }, [fitAll, layout, ready, size.width]);
+  }, [layout, ready, setView, size.width]);
 
   const step = useCallback(
     (delta: number) => {
@@ -512,7 +527,7 @@ export default function MockupFlowCanvas({flow, status}: MockupFlowCanvasProps) 
               {layout.notes.map((note) => (
                 <div
                   key={`note-${note.note.attach}`}
-                  className={styles.note}
+                  className={clsx(styles.note, view.scale >= NOTE_READABLE_MIN_SCALE && styles.noteReadable)}
                   style={{left: note.x, top: note.y, width: note.width}}
                 >
                   {note.note.text}
@@ -550,6 +565,8 @@ export default function MockupFlowCanvas({flow, status}: MockupFlowCanvasProps) 
               {manifest.banner}
             </div>
           )}
+
+          {ready && !fitted && <p className={styles.fitHint}>Ajustar à tela (Shift+1) para ver tudo</p>}
 
           <div className={styles.zoomBar} data-canvas-ui>
             <button

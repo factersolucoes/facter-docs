@@ -45,14 +45,6 @@
   ],
   "frames": [
     {
-      "id": "c-menu",
-      "lane": "main",
-      "label": "Criar · menu Novo",
-      "frame": "notebook-1",
-      "state": "create",
-      "hint": "Planos e o menu Novo: plano de preventiva, preventiva avulsa, registrar km"
-    },
-    {
       "id": "v-board",
       "lane": "views",
       "label": "Quadro",
@@ -131,6 +123,14 @@
       "frame": "calendario-2",
       "state": "month",
       "hint": "A partir desta semana, 5 semanas"
+    },
+    {
+      "id": "c-menu",
+      "lane": "main",
+      "label": "0 · Criar · menu Novo",
+      "frame": "notebook-1",
+      "state": "create",
+      "hint": "Planos e o menu Novo: plano de preventiva, preventiva avulsa, registrar km"
     },
     {
       "id": "board",
@@ -811,6 +811,10 @@
     }
   ],
   "arrows": [
+    {
+      "from": "c-menu",
+      "to": "board"
+    },
     {
       "from": "board",
       "to": "visit"
