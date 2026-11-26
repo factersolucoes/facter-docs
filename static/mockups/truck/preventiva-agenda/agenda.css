@@ -912,3 +912,25 @@
 .ded .dr{display:flex;justify-content:flex-end}
 .late{display:flex;align-items:center;gap:6px;font-size:12.5px;color:hsl(var(--warning-ink))}
 .undo{cursor:pointer}
+/* deferred row: checkbox and pill on line 1, the deferral on one line with inline Mudar */
+.pk.pv.ix{grid-template-columns:16px minmax(0,1fr) auto;align-items:start;padding-top:10px;padding-bottom:10px}
+.pk.pv.ix>span:last-child:empty{display:none}
+.pk.pv.ix .cbx{grid-column:1;grid-row:1;margin-top:2px}
+.pk.pv.ix .pt{grid-column:2;grid-row:1}
+.pk.pv.ix .sit{grid-column:3;grid-row:1;align-self:start}
+.dfl{display:block;margin-top:4px;font-size:12.5px;line-height:1.5;color:hsl(var(--muted-foreground))}
+.dfl b{font-weight:600;color:hsl(var(--warning-ink))}
+.dfl .tk,.dfl .mud{white-space:nowrap}
+.dfl .mud{margin-left:4px;color:hsl(var(--info-ink))}
+@container sheet (max-width:340px){
+  .pk.pv.ix{grid-template-columns:16px minmax(0,1fr)}
+  .pk.pv.ix .sit{grid-column:2;grid-row:2;justify-self:start}
+}
+.pk.pv.ix .dfl{grid-column:2/-1;grid-row:2;margin-top:-2px}
+@container sheet (max-width:340px){
+  .pk.pv.ix .dfl{grid-row:3}
+  .pk:not(.pv){grid-template-columns:minmax(0,1fr) 16px}
+  .pk:not(.pv) .pt{grid-column:1;grid-row:1}
+  .pk:not(.pv) .sit{grid-column:1;grid-row:2}
+  .pk:not(.pv) .chev{grid-column:2;grid-row:1}
+}

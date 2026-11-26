@@ -152,8 +152,8 @@ const fmtDur=m=>`${Math.floor(m/60)} h${m%60?' '+m%60:''}`;
 const dur=()=>fmtDur(G.on.reduce((a,o,i)=>a+(o?MINS[i]:0),0));
 const nOn=()=>G.on.filter(Boolean).length;
 function ixRow(i){const [n,where,v,t,rule]=ITEMS_C320[i];const on=!!G.on[i];
-  const line=on?'':`<span class="dfl"><b>Fica para depois</b> · ${G.reason[i].toLowerCase()} · ${G.when[i].toLowerCase()}<span class="lk mud" data-ixa="e:${i}" role="button" tabindex="0">Mudar</span></span>`;
-  const row=`<div class="pk pv ix ${on?'':'off'}" tabindex="0" role="checkbox" aria-checked="${on}" data-ixa="t:${i}">${cbx(on)}<span class="pt"><b title="${esc(n)}">${n}</b><small>${whereShort(where)} · ${ruleShort(rule).replace(/^a cada /,'')}</small>${line}</span><span class="sit ${t||'n'}">${v}</span><span></span></div>`;
+  const line=on?'':`<span class="dfl"><b>Fica para depois</b><span class="tk"> · ${G.reason[i].toLowerCase()}</span><span class="tk"> · ${G.when[i].toLowerCase()}</span> <span class="lk mud" data-ixa="e:${i}" role="button" tabindex="0">Mudar</span></span>`;
+  const row=`<div class="pk pv ix ${on?'':'off'}" tabindex="0" role="checkbox" aria-checked="${on}" data-ixa="t:${i}">${cbx(on)}<span class="pt"><b title="${esc(n)}">${n}</b><small>${whereShort(where)} · ${ruleShort(rule).replace(/^a cada /,'')}</small></span><span class="sit ${t||'n'}">${v}</span>${line}</div>`;
   const pills=(list,cur,k)=>`<div class="pills">${list.map(r=>`<span class="pl ${r===cur?'on':''}" role="radio" aria-checked="${r===cur}" data-ixa="${k}:${i}:${r}">${r==='Escolher dia'?ic('calendar-blank','s14'):''}${r}</span>`).join('')}</div>`;
   const ed=!on&&G.edit===i?`<div class="ded"><div class="q"><span>Motivo</span>${pills(REASONS,G.reason[i],'r')}</div><div class="q"><span>Lembrar de novo</span>${pills(WHENS,G.when[i],'w')}</div><div class="dr"><span data-ixa="e:-1">${btn('Pronto',{variant:'outline',size:'sm'})}</span></div></div>`:'';
   return row+ed;}
