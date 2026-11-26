@@ -893,3 +893,22 @@
 .defer .dh .ic{margin-top:2px}
 .defer .dh>div{display:flex;flex-direction:column;gap:2px;min-width:0}
 .defer .dh b{text-wrap:balance}
+
+/* interactive drawer: unchecked rows say what happens, a small editor opens under the row */
+.ixw{display:contents}
+.pk.pv.ix{cursor:pointer}
+.pk.pv.ix:focus-visible{outline:none;box-shadow:inset 0 0 0 2px hsl(var(--ring))}
+.pk.pv.off .pt b{color:hsl(var(--muted-foreground))}
+.dfl{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin-top:4px;font-size:12.5px;color:hsl(var(--muted-foreground))}
+.dfl b{font-weight:600;color:hsl(var(--warning-ink))}
+.dfl .mud{margin-left:6px;font-size:12.5px}
+.ded{display:flex;flex-direction:column;gap:12px;padding:12px 12px 12px 38px;border-top:1px solid hsl(var(--border)/.7);background:hsl(var(--muted)/.35)}
+.ded .q{display:flex;flex-direction:column;gap:6px}
+.ded .q>span{font:600 12.5px Inter;color:hsl(var(--muted-foreground))}
+.pills{display:flex;flex-wrap:wrap;gap:6px}
+.pl{display:inline-flex;align-items:center;gap:5px;height:30px;padding:0 11px;border-radius:999px;background:hsl(var(--card));box-shadow:inset 0 0 0 1px hsl(var(--border));font:500 13px Inter;color:hsl(var(--foreground)/.85);cursor:pointer;white-space:nowrap}
+.pl:hover{background:hsl(var(--accent))}
+.pl.on{background:hsl(var(--primary-soft));box-shadow:inset 0 0 0 1px hsl(var(--primary)/.45);color:hsl(var(--info-ink));font-weight:600}
+.ded .dr{display:flex;justify-content:flex-end}
+.late{display:flex;align-items:center;gap:6px;font-size:12.5px;color:hsl(var(--warning-ink))}
+.undo{cursor:pointer}
