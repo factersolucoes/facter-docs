@@ -1694,3 +1694,13 @@
 .kpc .v2act,.bd.tpv .v2act{background:none}
 .kpc .v2act:active,.bd.tpv .v2act:active{background:hsl(var(--primary)/.08)}
 .kpc .v2act,.bd.tpv .v2act{margin:0;padding:4px 0}
+/* texture on the phone's blue top: fine dots and the composition strokes, fading from the top-right */
+.fx-device.phone .fx-screen{position:relative}
+.ptex{position:absolute;top:0;right:0;width:78%;height:230px;z-index:2;pointer-events:none;overflow:hidden;
+  background-image:radial-gradient(hsl(var(--primary-foreground)/.11) 1px,transparent 1.4px);background-size:12px 12px;
+  -webkit-mask-image:radial-gradient(120% 100% at 100% 0%,#000 0%,transparent 70%);mask-image:radial-gradient(120% 100% at 100% 0%,#000 0%,transparent 70%)}
+.ptex .motif{position:absolute;top:44px;right:-18px;bottom:auto;transform:rotate(-10deg);gap:9px;opacity:1;-webkit-mask-image:none;mask-image:none}
+.ptex .motif i{background:hsl(var(--primary-foreground)/.12)}
+.ptex .motif i.o{background:hsl(var(--primary-foreground)/.06)}
+.dark .ptex{background-image:radial-gradient(hsl(var(--primary-foreground)/.07) 1px,transparent 1.4px)}
+.dark .ptex .motif i{background:hsl(var(--primary-foreground)/.08)}
