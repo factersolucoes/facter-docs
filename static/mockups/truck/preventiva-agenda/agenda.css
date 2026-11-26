@@ -738,3 +738,15 @@
 .psum.d{background:hsl(var(--danger-soft));color:hsl(var(--danger-ink))}
 .pr .lede{margin:10px 0 12px}
 .pn .tg{white-space:nowrap}
+/* preventives use the same row language as parts: one bordered list, two-line rows */
+.pk.pv{grid-template-columns:20px minmax(0,1fr) auto;cursor:pointer}
+.pk.pv.nock{grid-template-columns:minmax(0,1fr) auto;cursor:default}
+.pk.pv .tp{white-space:nowrap}
+.pk.pv.off .pt b,.pk.pv.off .pt small{color:hsl(var(--muted-foreground))}
+.pk.pv.off .tp{opacity:.7}
+.pvh{margin-bottom:12px}
+.pk .pt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.pk .pt small{font-size:13px;color:hsl(var(--muted-foreground));overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pk.pv .pt small{white-space:normal;overflow:visible;text-wrap:pretty}
+.pk.pv{align-items:start;padding-top:10px;padding-bottom:10px}
+.pk.pv .cbx,.pk.pv .tp{margin-top:2px}

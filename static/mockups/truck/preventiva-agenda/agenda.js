@@ -49,8 +49,8 @@ const ITEMS_C320=[
   ['Lubrificação geral','Na 2ª carreta','Vence hoje','w','Fazer a cada 30 dias. Última em 27/10.'],
   ['Troca de óleo e filtros','No cavalo','Vence em 1.200 km','','Trocar a cada 20 mil km. Última troca em 02/09.'],
 ];
-const item=([n,where,v,t,rule],i)=>`<div class="ii ${i===0?'lead':''}"><div class="it1"><b>${n}</b><span class="tp sm ${t}">${v}</span></div><span class="iw">${where}</span>${rule?`<span class="ir">${rule}</span>`:''}</div>`;
-const items=list=>`<div class="ilist">${list.map(item).join('')}</div>`;
+const item=([n,where,v,t,rule],i)=>pvRow(null,n,where,v,t,rule);
+const items=list=>`<div class="plist">${list.map(item).join('')}</div>`;
 const secHead=(title,right='')=>`<div class="sh"><h3>${title}</h3>${right}</div>`;
 const count=n=>`<span class="cnt">${n}</span>`;
 const pill=(tone,icon,text)=>`<span class="spill ${tone}">${ic(icon,'s16')}${text}</span>`;
@@ -100,7 +100,12 @@ const kits044=()=>partsBox({items:5,ok:5,kits:[{name:'Kit revisão B',loc:'Caval
 const h320=m=>({status:STATUS320[m]||pill('s','garage','No pátio desde ontem · OS 1042 aberta'),metrics:m==='done'?[['Na OS','2 preventivas',''],['Adiada','1','w'],['Duração','2 h 10','']]:[['Atraso','1.850 km','d'],['Peças','Falta 1','w'],['Duração',DUR[m]||'3 h 20','']]});
 const H320=h320('all');
 const cbx=on=>`<i class="cbx ${on?'on':''}">${on?ic('check','s14'):''}</i>`;
-const ckItem=on=>([n,where,v,t,rule],i)=>`<label class="ii ck ${i===0&&on(i)?'lead':''} ${on(i)?'':'off'}">${cbx(on(i))}<span class="ib"><span class="it1"><b>${n}</b><span class="tp sm ${t}">${v}</span></span><span class="iw">${where}</span>${rule?`<span class="ir">${rule}</span>`:''}</span></label>`;
+const whereShort=w=>{const x=w.replace(/^(Na|No) /,'');return x.charAt(0).toUpperCase()+x.slice(1);};
+const ruleShort=r=>r?r.split('.')[0].replace(/^(Trocar|Fazer) /,''):'';
+const pvRow=(on,n,where,v,t,rule)=>`<label class="pk pv ${on===null?'nock':''} ${on===false?'off':''}">${on===null?'':cbx(on)}<span class="pt"><b>${n}</b><small>${whereShort(where)}</small>${rule?`<small class="rl">${ruleShort(rule).replace(/^a /,'A ')}</small>`:''}</span><span class="tp sm ${t}">${v}</span></label>`;
+const prevHead=(title,sub,chip)=>`<div class="prh pvh"><span class="gt">${ic('calendar-check','s16')}</span><div class="prt"><h3>${title}</h3><p>${sub}</p></div>${chip||''}</div>`;
+const OVERCHIP="";
+const ckItem=on=>([n,where,v,t,rule],i)=>pvRow(on(i),n,where,v,t,rule);
 const chips=(list,on)=>`<div class="chips">${list.map(c=>F.fchip(c,{on:c===on,icon:c==='Escolher dia'?'calendar-blank':''})).join('')}</div>`;
 const REASONS=['Falta peça','Sem tempo nesta parada','Conjunto precisa sair','Sem mecânico','Outro'];
 const WHENS=['Na próxima vinda à oficina','Em 7 dias','Em 1.000 km','Escolher dia'];
@@ -116,12 +121,12 @@ function visitBodyM(m){
   <p class="dnote">${ic('info','s16')}<span>Mudou de ideia depois? Na OS, cada preventiva tem <b>Tirar da OS</b> no menu do serviço. Ela volta para a agenda como não feita, sem contar como adiada.</span></p>
   <div class="sec">${secHead('Adiada',count(1))}<div class="ilist"><div class="ii dn"><span class="ib"><span class="it1"><b>Troca de óleo e filtros</b><span class="tag">adiada · falta peça</span></span><span class="iw">No cavalo</span><span class="ir">Volta na próxima vinda à oficina.</span></span></div></div></div>`;
   if(m==='allDefer') return `<div class="sec">${secHead('Adiar as 3 preventivas')}<div class="ilist">${ITEMS_C320.map(([n,w,v,t])=>`<div class="ii dn"><span class="ib"><span class="it1"><b>${n}</b><span class="tp sm ${t}">${v}</span></span><span class="iw">${w}</span></span></div>`).join('')}</div></div>${deferAsk('')}`;
-  if(m==='left') return `<div class="sec">${secHead('Preventivas para marcar',count(3))}<div class="ilist">${ITEMS_C320.map(ckItem(()=>true)).join('')}</div></div>${tail}`;
+  if(m==='left') return `<div class="sec">${prevHead('Preventivas para marcar','3 preventivas',OVERCHIP)}<div class="plist">${ITEMS_C320.map(ckItem(()=>true)).join('')}</div></div>${tail}`;
   if(m==='closed') return `<div class="notice-w">${ic('warning','s16')}<span><b>A OS 1042 foi concluída por Carlos às 14h52.</b> Sua escolha continua aqui: abra uma OS nova ou marque um dia.</span></div>
-  <div class="sec">${secHead('Preventivas para fazer agora',count('2 de 3'))}<div class="ilist">${ITEMS_C320.map(ckItem(i=>i<2)).join('')}</div><p class="dl2"><b>1 fica para depois:</b> Troca de óleo e filtros · falta peça · na próxima vinda</p></div>${tail}`;
+  <div class="sec">${prevHead('Preventivas para fazer agora','2 de 3 marcadas',OVERCHIP)}<div class="plist">${ITEMS_C320.map(ckItem(i=>i<2)).join('')}</div><p class="dl2"><b>1 fica para depois:</b> Troca de óleo e filtros · falta peça · na próxima vinda</p></div>${tail}`;
   const on=i=>m==='all'||m==='sap'?true:m==='none'?false:i<2;
   const lede=m!=='all'&&m!=='sap'?'Marque o que dá para fazer enquanto o conjunto está parado.':'Venceram ou vencem logo. Dá para fazer todas enquanto o conjunto está parado.';
-  return `<div class="sec">${secHead('Preventivas para fazer agora',count(m==='one'?'2 de 3':m==='none'?'0 de 3':3))}<div class="ilist">${ITEMS_C320.map(ckItem(on)).join('')}</div>
+  return `<div class="sec">${prevHead('Preventivas para fazer agora',m==='one'?'2 de 3 marcadas':m==='none'?'Nenhuma marcada':'3 preventivas',OVERCHIP)}<div class="plist">${ITEMS_C320.map(ckItem(on)).join('')}</div>
   ${m==='one'?deferAsk('<p class="dl"><b>1 fica para depois:</b> Troca de óleo e filtros</p>'):''}</div>${tail}`;
 }
 function visitFootM(m){
@@ -142,7 +147,7 @@ const HDLY={title:'Marcar dia na oficina',sub:'Cavalo DLY1J07, revisão B',back:
 function scheduleBody(){
   return `<div class="sec cal">${secHead('Escolha o dia',`<span class="hh">horas livres na oficina</span>`)}
   <div class="wk">${WD.map(d=>`<span class="wd">${d}</span>`).join('')}${DAYS.map(([n,l,off,pick])=>`<div class="day ${off===2?'off past':off?'off':''} ${pick?'pick':''}"><b>${n}</b><span>${l||'&nbsp;'}</span></div>`).join('')}</div><p class="first">${ic('calendar-check','s16')}<span><b>Primeiro dia com espaço: sáb 28/11</b>, com 6&nbsp;h livres</span></p></div>
-  <div class="sec">${secHead('Preventivas para fazer',count(1))}${items([['Revisão B','No cavalo, junto com a revisão A','Venceu há 4.300 km','d','Fazer a cada 30 mil km. Última em 03/06.']])}</div>
+  <div class="sec">${prevHead('Preventivas para fazer','1 preventiva',OVERCHIP)}${items([['Revisão B','No cavalo, junto com a revisão A','Venceu há 4.300 km','d','Fazer a cada 30 mil km. Última em 03/06.']])}</div>
   ${kitsDly()}
   <label class="chk"><i>${ic('check','s14')}</i>Avisar a transportadora JSL por e-mail</label>`;}
 const scheduleFoot=()=>`<div class="pf"><div class="bb">${btn('Voltar',{variant:'outline'})}${btn('Agendar para sáb 28/11',{icon:'calendar-check',action:1})}</div></div>`;
@@ -154,7 +159,7 @@ function skList(phone){
 }
 
 const C044={full:'Conjunto C-044',sub:'Cavalo QRT2E55 e 2 carretas',parts:V.c044.parts};
-function nextPanel(){return `<aside class="pnl">${pHead(C044,{status:pill('n','road-horizon','Na estrada · roda 610 km por dia'),metrics:[['Vence','qui 10/12',''],['Peças','Em estoque','s'],['Duração','3 h','']]})}<div class="pb"><div class="sec">${secHead('Preventivas para fazer',count(2))}${items([['Revisão B','No cavalo','Vence qui 10/12','','Fazer a cada 30 mil km. Última em 14/06.'],['Lubrificação geral','Na 1ª carreta','Vence sáb 12/12','','Fazer a cada 30 dias. Última em 12/11.']])}</div>
+function nextPanel(){return `<aside class="pnl">${pHead(C044,{status:pill('n','road-horizon','Na estrada · roda 610 km por dia'),metrics:[['Vence','qui 10/12',''],['Peças','Em estoque','s'],['Duração','3 h','']]})}<div class="pb"><div class="sec">${prevHead('Preventivas para fazer','2 preventivas','')}${items([['Revisão B','No cavalo','Vence qui 10/12','','Fazer a cada 30 mil km. Última em 14/06.'],['Lubrificação geral','Na 1ª carreta','Vence sáb 12/12','','Fazer a cada 30 dias. Última em 12/11.']])}</div>
   ${kits044()}</div>
   <div class="pf"><div class="bb">${btn('Adiar',{variant:'outline'})}${btn('Marcar dia na oficina',{icon:'calendar-check',action:1})}</div></div></aside>`;}
 
