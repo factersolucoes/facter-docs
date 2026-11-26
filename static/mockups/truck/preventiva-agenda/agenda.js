@@ -167,12 +167,12 @@ const PKGS=[
     {n:'Drenar reservatórios de ar',min:15,parts:[]}]},
 ];
 const defReason=(p,i)=>p.id==='b'&&(i===undefined||i===1)?'Falta peça':'Sem tempo agora';
-const G={menu:null,on:{},open:{},parts:{},def:{},edit:null,all:0,prevSel:null,done:0,undo:0,closed:0};
+const G={inside:null,menu:null,on:{},open:{},parts:{},def:{},edit:null,all:0,prevSel:null,done:0,undo:0,closed:0};
 const allOn=()=>Object.fromEntries(PKGS.map(p=>[p.id,p.svcs.map(()=>1)]));
 function setG(s){const m=IXS[s];const on=allOn();
   if(m==='none'||m==='allDefer') PKGS.forEach(p=>on[p.id]=p.svcs.map(()=>0));
   if(m==='one'||m==='done') on.a=on.a.map(()=>0);
-  Object.assign(G,{menu:null,on,open:{b:1},parts:s==='kitopen'?{b:1}:{},def:{},edit:null,all:m==='allDefer'?1:0,prevSel:m==='allDefer'?allOn():null,done:m==='done'?1:0,undo:m==='done'?10:0,closed:0});
+  Object.assign(G,{inside:null,menu:null,on,open:{b:1},parts:s==='kitopen'?{b:1}:{},def:{},edit:null,all:m==='allDefer'?1:0,prevSel:m==='allDefer'?allOn():null,done:m==='done'?1:0,undo:m==='done'?10:0,closed:0});
   if(G.done)startUndo();}
 const fmtDur=m=>m?`${Math.floor(m/60)} h${m%60?' '+m%60:''}`.replace(/^0 h /,'')+(m<60?' min':''):'0 h';
 const pkOn=p=>G.on[p.id].filter(Boolean).length;
@@ -226,7 +226,7 @@ const SVC_IC=n=>/freio|lona/i.test(n)?'disc':/rolamento|cubo/i.test(n)?'circle-n
 function insideHtml(p){const parts=p.svcs.flatMap(sv=>sv.parts);const miss=parts.filter(x=>x[3]==='w').length;const tot=p.svcs.reduce((a,sv)=>a+sv.min,0);
   const tile=(icn,l,v,sub,cls)=>`<div class="tile"><span class="tic">${ic(icn,'s16')}</span><span class="tlab"><small>${l}</small><b class="${cls||''}">${v}</b>${sub?`<small class="tsub">${sub}</small>`:''}</span></div>`;
   const svcs=p.svcs.map(sv=>{const [nm,pos]=sv.n.split(/, (.+)/);return `<div class="vis2"><span class="vic">${ic(SVC_IC(sv.n),'s14')}</span><span class="vn">${nm}${pos?` <span class="vtag">${pos}</span>`:''}${sv.inh?` <span class="vtag">da ${sv.inh}</span>`:''}</span><span class="vd">${fmtDur(sv.min)}</span></div>`;}).join('');
-  const prt=parts.map(([q,n,rule,t])=>`<div class="vip2"><b class="q">${q}</b><span class="pn2">${n}${rule?` <small>${rule}</small>`:''}</span><span class="vst ${t==='w'?'w':'s'}">${ic(t==='w'?'warning':'check-circle','s12')}${t==='w'?'falta 1 · chega quinta':'em estoque'}</span></div>`).join('');
+  const prt=parts.map(([q,n,rule,t])=>`<div class="vip2"><b class="q">${q}</b><span class="pn2"><span>${n}</span>${rule?`<small>${rule}</small>`:''}</span><span class="vst ${t==='w'?'w':'s'}">${ic(t==='w'?'warning':'check-circle','s12')}${t==='w'?'falta 1 · chega quinta':'em estoque'}</span></div>`).join('');
   return `<div class="vihead"><b>${p.name}</b><span>${p.veh}</span><small>${shortTrig(p)}</small></div>
   <div class="tiles vtiles">${tile('wrench','Serviços',String(p.svcs.length),'leva '+fmtDur(tot))}${parts.length?tile('package','Peças',String(parts.length),miss?`${ic('warning','s12')}falta ${miss}`:'todas em estoque'):''}</div>
   <div class="visec"><div class="vish">Serviços<span class="cnt">${p.svcs.length}</span></div><div class="vilist">${svcs}</div></div>
@@ -267,7 +267,8 @@ function ixDrawer(phone){
   const miss=lackOn()&&!G.done;
   const metricsX=G.done?[['Na OS',`${pkgsOn()} ${pkgsOn()===1?'preventiva':'preventivas'}`,''],['Adiadas',String(3-pkgsOn()),3-pkgsOn()?'w':''],['Duração',fmtDur(totMin()),'']]:[['Atraso','1.850 km','d'],['Peças',miss?'Falta 1':'Em estoque',miss?'w':'s'],['Duração',fmtDur(totMin()),'']];
   const head=pHead(V.c320,{status:pill('s','garage','No pátio desde ontem · OS 1042 aberta'),metrics:metricsX,phone});
-  RPH=!!phone;const inner=`${head.replace(/<\/div>\s*$/,'<span class="lk lastm">Últimas manutenções'+ic('caret-right','s14')+'</span></div>')}<div class="${phone?'sb':'pb'}">${ixBody()}</div>${ixFoot()}${phone?phoneMenu():''}`;
+  RPH=!!phone;if(G.inside){const pk=PKGS.find(x=>x.id===G.inside)||PKG044.find(x=>x.id===G.inside);const ih=`<div class="phd">${phone?'<div class="grab"></div>':''}<div class="ph"><span class="xb back" data-ixa="bk" role="button" tabindex="0" aria-label="Voltar">${ic('arrow-left','s16')}</span><div class="t"><h2 class="bkt">Conjunto C-320</h2></div></div></div>`;const body=`${ih}<div class="${phone?'sb':'pb'} insb">${insideHtml(pk)}</div>`;return phone?`<div class="sheet-ov" data-ix="1"><div class="sheet">${body}</div></div>`:`<div class="ixw" data-ix="0">${drawer(body)}</div>`;}
+  const inner=`${head.replace(/<\/div>\s*$/,'<span class="lk lastm">Últimas manutenções'+ic('caret-right','s14')+'</span></div>')}<div class="${phone?'sb':'pb'}">${ixBody()}</div>${ixFoot()}${phone?phoneMenu():''}`;
   return phone?`<div class="sheet-ov" data-ix="1"><div class="sheet">${inner}</div></div>`:`<div class="ixw" data-ix="0">${drawer(inner)}</div>`;}
 function ixRender(){
   document.querySelectorAll('[data-ix]').forEach(el=>{const sc=el.querySelector('.pb,.sb');const top=sc?sc.scrollTop:0;const ph=el.dataset.ix==='1';
@@ -287,6 +288,8 @@ function ixAct(a){
   else if(k==='r'){G.def[id]={...defOf(id),reason:v};G.menu=null;}
   else if(k==='w'){G.def[id]={...defOf(id),when:v};G.menu=null;}
   else if(k==='cm'){G.cm=(G.cm||0)+(+v);}
+  else if(k==='m'&&v==='vi'){G.inside=id;G.menu=null;}
+  else if(k==='bk'){G.inside=null;}
   else if(k==='m'){const key=id+'|'+v;if(v!=='cal')G.cm=0;G.menu=id==='-'?null:(G.menu===key?null:key);}
   else if(k==='A'){G.prevSel=clone(G.on);PKGS.forEach(p=>G.on[p.id]=p.svcs.map(()=>0));G.all=1;G.edit=null;}
   else if(k==='B'){G.on=G.prevSel||allOn();G.all=0;}
@@ -298,7 +301,7 @@ document.addEventListener('click',e=>{const c=e.target.closest('.fx-kb-card[data
   const t=e.target.closest('[data-ixa]');if(t&&t.closest('[data-ix]')){e.preventDefault();if(t.classList.contains('msheet-ov')&&e.target.closest('.msheet'))return;ixAct(t.dataset.ixa);return;}
   if(G.menu&&!e.target.closest('.pop,.msheet')){G.menu=null;ixRender();}
   const card=e.target.closest('[data-id="c320"]');if(card&&G.closed){G.closed=0;ixRender();}});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&G.menu){G.menu=null;ixRender();return;}if(e.key==='Escape'&&!G.closed&&document.querySelector('[data-ix]:not([hidden])')){G.closed=1;ixRender();return;}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&G.inside){G.inside=null;ixRender();return;}if(e.key==='Escape'&&G.menu){G.menu=null;ixRender();return;}if(e.key==='Escape'&&!G.closed&&document.querySelector('[data-ix]:not([hidden])')){G.closed=1;ixRender();return;}
   const t=document.activeElement&&document.activeElement.closest&&document.activeElement.closest('[data-ixa]');
   if(t&&t.closest('[data-ix]')&&(e.key===' '||e.key==='Enter')){e.preventDefault();const a=t.dataset.ixa;ixAct(a);const again=document.querySelector(`[data-ix] [data-ixa="${a}"]`);if(again)again.focus();}});
 
