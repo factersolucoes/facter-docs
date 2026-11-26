@@ -86,7 +86,6 @@ function partsBox(o){
   const comp=`${nk} ${nk>1?'kits':'kit'}${nl?` e ${nl} ${nl>1?'avulsas':'avulsa'}`:''}`;
   const sum=o.miss?`<span class="psum ${o.mt||'w'}">${ic(o.mt==='d'?'x-circle':'clock','s14')}${o.miss} ${o.mt==='d'?'sem estoque':'em falta'}</span>`:`<span class="psum s">${ic('check-circle','s14')}Tudo em estoque</span>`;
   return `<div class="sec pr"><div class="prh"><span class="gt">${ic('package','s16')}</span><div class="prt"><h3>Peças e insumos</h3><p>${o.items} itens, em ${comp}</p></div>${sum}</div>
-  <p class="lede">Ninguém precisa montar o pedido peça por peça.</p>
   <div class="plist">${o.kits.map((k,i)=>kitRow(k,KITOPEN&&i===0)).join('')}${(o.loose||[]).map(looseRow).join('')}</div>${o.off?`<p class="kitoff">${o.off}</p>`:''}</div>`;}
 const K_LONA={name:'Kit lona de freio',loc:'2ª carreta · eixo 3',locd:'2ª carreta, eixo 3',t:'w',parts:[['4','Lona de freio','2 por lado','s'],['8','Mola de retorno','4 por lado','s'],['2','Jogo de rebites','1 por lado','w']]};
 const K_OLEO={name:'Kit troca de óleo',loc:'Cavalo',locd:'cavalo',t:'s',parts:[['38 l','Óleo 15W40','','s'],['1','Filtro de óleo','','s'],['1','Filtro de ar','','s'],['1','Filtro de diesel','','s']]};
@@ -108,21 +107,21 @@ const WHENS=['Na próxima vinda à oficina','Em 7 dias','Em 1.000 km','Escolher 
 const deferAsk=(lead)=>`<div class="defer">${lead}
   <div class="q"><span>Por quê?</span>${chips(REASONS,'Falta peça')}</div>
   <div class="q"><span>Quando lembrar de novo?</span>${chips(WHENS,'Na próxima vinda à oficina')}</div>
-  <p class="dnote">${ic('info','s16')}<span>Fica na agenda como adiada e conta como atraso na conformidade, com o motivo.</span></p></div>`;
+  <p class="dnote">${ic('info','s16')}<span>Conta como atraso.</span></p></div>`;
 function visitBodyM(m){
   const tail=`${kits320(m)}
   ${history('Últimas manutenções deste conjunto',[['27/10','Lubrificação geral','OS 0998'],['02/09','Troca de óleo e filtros','OS 0954'],['12/05','Lona de freio na 2ª carreta, eixo 3','OS 0871']])}`;
   if(m==='done') return `<div class="done"><span class="halo sm">${ic('check-circle','s24')}</span><div class="dtx"><b>2 preventivas na OS 1042</b><p>1 adiada para a próxima vinda (falta peça)</p></div><span class="undo">Desfazer <i>10 s</i></span></div>
   <div class="sec">${secHead('Na OS 1042',count(2))}<div class="ilist">${ITEMS_C320.slice(0,2).map(([n,w])=>`<div class="ii dn"><span class="okk">${ic('check','s12')}</span><span class="ib"><b>${n}</b><span class="iw">${w}</span></span></div>`).join('')}</div></div>
   <p class="dnote">${ic('info','s16')}<span>Mudou de ideia depois? Na OS, cada preventiva tem <b>Tirar da OS</b> no menu do serviço. Ela volta para a agenda como não feita, sem contar como adiada.</span></p>
-  <div class="sec">${secHead('Adiada',count(1))}<div class="ilist"><div class="ii dn"><span class="ib"><span class="it1"><b>Troca de óleo e filtros</b><span class="tag">adiada · falta peça</span></span><span class="iw">No cavalo</span><span class="ir">Volta a aparecer na próxima vinda do conjunto à oficina.</span></span></div></div></div>`;
+  <div class="sec">${secHead('Adiada',count(1))}<div class="ilist"><div class="ii dn"><span class="ib"><span class="it1"><b>Troca de óleo e filtros</b><span class="tag">adiada · falta peça</span></span><span class="iw">No cavalo</span><span class="ir">Volta na próxima vinda à oficina.</span></span></div></div></div>`;
   if(m==='allDefer') return `<div class="sec">${secHead('Adiar as 3 preventivas')}<div class="ilist">${ITEMS_C320.map(([n,w,v,t])=>`<div class="ii dn"><span class="ib"><span class="it1"><b>${n}</b><span class="tp sm ${t}">${v}</span></span><span class="iw">${w}</span></span></div>`).join('')}</div></div>${deferAsk('')}`;
-  if(m==='left') return `<div class="sec">${secHead('Preventivas para marcar',count(3))}<p class="lede">O conjunto saiu antes de entrarem na OS. As preventivas continuam na agenda.</p><div class="ilist">${ITEMS_C320.map(ckItem(()=>true)).join('')}</div></div>${tail}`;
+  if(m==='left') return `<div class="sec">${secHead('Preventivas para marcar',count(3))}<div class="ilist">${ITEMS_C320.map(ckItem(()=>true)).join('')}</div></div>${tail}`;
   if(m==='closed') return `<div class="notice-w">${ic('warning','s16')}<span><b>A OS 1042 foi concluída por Carlos às 14h52.</b> Sua escolha continua aqui: abra uma OS nova ou marque um dia.</span></div>
   <div class="sec">${secHead('Preventivas para fazer agora',count('2 de 3'))}<div class="ilist">${ITEMS_C320.map(ckItem(i=>i<2)).join('')}</div><p class="dl2"><b>1 fica para depois:</b> Troca de óleo e filtros · falta peça · na próxima vinda</p></div>${tail}`;
   const on=i=>m==='all'||m==='sap'?true:m==='none'?false:i<2;
   const lede=m!=='all'&&m!=='sap'?'Marque o que dá para fazer enquanto o conjunto está parado.':'Venceram ou vencem logo. Dá para fazer todas enquanto o conjunto está parado.';
-  return `<div class="sec">${secHead('Preventivas para fazer agora',count(m==='one'?'2 de 3':m==='none'?'0 de 3':3))}<p class="lede">${lede}</p><div class="ilist">${ITEMS_C320.map(ckItem(on)).join('')}</div>
+  return `<div class="sec">${secHead('Preventivas para fazer agora',count(m==='one'?'2 de 3':m==='none'?'0 de 3':3))}<div class="ilist">${ITEMS_C320.map(ckItem(on)).join('')}</div>
   ${m==='one'?deferAsk('<p class="dl"><b>1 fica para depois:</b> Troca de óleo e filtros</p>'):''}</div>${tail}`;
 }
 function visitFootM(m){
