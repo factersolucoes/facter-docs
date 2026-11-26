@@ -756,7 +756,7 @@ function patchNav(){
   });
 }
 function texture(){document.querySelectorAll('.fx-device.phone .fx-screen').forEach(sc=>{const has=!!sc.querySelector('.pm');let t=sc.querySelector(':scope>.ptex');
-  if(has&&!t){t=document.createElement('div');t.className='ptex';t.setAttribute('aria-hidden','true');t.innerHTML=motif();sc.prepend(t);}
+  if(has&&!t){t=document.createElement('div');t.className='ptex';t.setAttribute('aria-hidden','true');sc.prepend(t);}
   if(!has&&t)t.remove();
   if(has&&t){const z=parseFloat(getComputedStyle(sc.closest('.fx-device')).zoom)||1;const ph=sc.querySelector('.phead');const nb=sc.querySelector('.fx-navbar');const ref=ph&&ph.offsetHeight>20?ph:nb;if(ref)t.style.height=Math.round((ref.getBoundingClientRect().bottom-sc.getBoundingClientRect().top)/z)+'px';}});}
 function lift(){texture();document.querySelectorAll('.fx-device.phone,.fx-device.tablet-p').forEach(d=>{const ov=d.querySelector('.fx-body .sheet-ov');if(ov) d.querySelector('.fx-screen').appendChild(ov);});}

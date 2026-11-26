@@ -1704,3 +1704,7 @@
 .ptex .motif i.o{background:hsl(var(--primary-foreground)/.06)}
 .dark .ptex{background-image:radial-gradient(hsl(var(--primary-foreground)/.07) 1px,transparent 1.4px)}
 .dark .ptex .motif i{background:hsl(var(--primary-foreground)/.08)}
+/* graph-paper grid on the phone's blue top (proposed DS GridPattern variant="lines") */
+.ptex{background-image:linear-gradient(to right,hsl(var(--primary-foreground)/.11) 1px,transparent 1px),linear-gradient(to bottom,hsl(var(--primary-foreground)/.11) 1px,transparent 1px);background-size:22px 22px;background-position:-1px -1px;
+  -webkit-mask-image:radial-gradient(110% 100% at 100% 0%,#000 0%,transparent 72%);mask-image:radial-gradient(110% 100% at 100% 0%,#000 0%,transparent 72%)}
+.dark .ptex{background-image:linear-gradient(to right,hsl(var(--primary-foreground)/.06) 1px,transparent 1px),linear-gradient(to bottom,hsl(var(--primary-foreground)/.06) 1px,transparent 1px)}
