@@ -62,8 +62,10 @@ Onde ninguém resolve. O Truck já grava o engate (`couplings.start_meter/end_me
 
 - **Modelo versionado**, aplicado por tipo de veículo, modelo ou lista de veículos, com exceção por veículo. Mudar o modelo cria versão nova; o histórico de quem seguiu a antiga fica.
 - **Item do plano = tipo de serviço + posição + gatilhos.** A posição usa a escala já aprovada em [posição no serviço](./posicao-no-servico.md): "lona de freio, eixo 3 da 2ª carreta, a cada 60 mil km ou 6 meses". O kit de peças vem do tipo de serviço.
-- **Gatilhos:** km, horas e dias, o que vier primeiro. Só esses três.
-- **Níveis:** a preventiva C inclui a B e a A (como TMT e a estratégia do SAP). Quando a C é feita, a A e a B reiniciam juntas.
+- **O plano é feito de pacotes.** Cada pacote junta vários serviços e as peças deles, e vale para um veículo (cavalo ou cada carreta). No conjunto, os pacotes aparecem agrupados por veículo, para ver o que cabe numa parada.
+- **Gatilhos:** km, dias, horas de motor e data no calendário ("todo ano em março"), sozinhos ou "o que vier primeiro". Pacote obrigatório (cronotacógrafo, CIPP) leva o selo "Obrigatório" e a validade do certificado.
+- **Pacotes aninhados:** um pacote pode incluir outro ("Revisão 60 mil inclui a Preventiva 20 mil", como PM-A/B/C nos EUA e a hierarquia de pacotes do SAP). Quando o maior é feito, os incluídos reiniciam juntos.
+- **Nome e regra na tela:** o nome do pacote é o da empresa ("Preventiva 20 mil", "PM-B", "Lubrificação carreta 15 dias") e nunca carrega o sentido sozinho. Embaixo dele aparece sempre a regra gerada dos dados, em português simples ("a cada 20 mil km ou 3 meses, o que vier primeiro", "a cada 250 horas de motor", "todo ano em março"), e o vencimento pelo gatilho que vence primeiro ("Vence em 1.200 km"). Nenhuma letra ou código interno na tela.
 - **Janela por item:** antecipação permitida e tolerância de atraso, em quantidade (km, dias), não em percentual.
 
 ### 4. Vencimento que roda sozinho e não duplica
