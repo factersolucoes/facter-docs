@@ -18,8 +18,8 @@
     <p class="why">De cima para baixo: <b>a frase do resumo</b>, os grupos por quando e as linhas. Cada grupo é uma superfície própria com espaço entre elas; só o grupo leva cor, no ícone. Vermelho só no número vencido, âmbar só na data desta semana, azul só na ação principal, na seleção e nos links.</p>
     <div class="states" data-for="ag"><button data-s="visit" aria-pressed="true">Visita no pátio escolhida</button><button data-s="schedule" aria-pressed="false">Agendar visita</button><button data-s="empty" aria-pressed="false">Nada vencendo</button><button data-s="loading" aria-pressed="false">Carregando</button></div>
     <div class="themebar"><button data-t="light" aria-pressed="true">Tema claro</button><button data-t="dark" aria-pressed="false">Tema escuro</button></div>
-    <div class="devices"><div class="dv full"><div class="devlabel">Notebook · 1440</div><fx-app device="web" section="plan" console eyebrow="Preventiva" title="Agenda" width="1440" height="1180"><div data-render="ag" data-device="web"></div></fx-app></div></div>
-    <div class="devices"><div class="dv full"><div class="devlabel">Notebook · 1180</div><fx-app device="web" section="plan" console eyebrow="Preventiva" title="Agenda" width="1180" height="1180"><div data-render="ag" data-device="webs"></div></fx-app></div></div>
+    <div class="devices"><div class="dv full"><div class="devlabel">Notebook · 1440</div><fx-app device="web" section="plan" console eyebrow="Preventiva" title="Agenda" controls="&lt;span class=&quot;sel&quot;&gt;Base Curitiba&lt;/span&gt;" width="1440" height="1180"><div data-render="ag" data-device="web"></div></fx-app></div></div>
+    <div class="devices"><div class="dv full"><div class="devlabel">Notebook · 1180</div><fx-app device="web" section="plan" console eyebrow="Preventiva" title="Agenda" controls="&lt;span class=&quot;sel&quot;&gt;Base Curitiba&lt;/span&gt;" width="1180" height="1180"><div data-render="ag" data-device="webs"></div></fx-app></div></div>
   </section>
 
   <section class="sc" id="celular"><h2><span class="tag">2</span>Celular</h2>
@@ -49,6 +49,7 @@
         <tr><td>Menor texto</td><td>11 px, em caixa alta</td><td>12,5 px; secundário em 13,5 px</td></tr>
         <tr><td>Altura da linha</td><td>48 px</td><td>64 px</td></tr>
         <tr><td>Entre grupos</td><td>1 linha de 1 px</td><td>28 px e uma superfície por grupo</td></tr>
+        <tr><td>Profundidade</td><td>tudo no mesmo plano</td><td>4 camadas: fundo, grupo, linha escolhida, painel</td></tr>
         <tr><td>Desenho do conjunto</td><td>caminhão com rodas e sinais</td><td>um traço por veículo</td></tr>
       </tbody></table></div>
       <div class="box" style="grid-column:1/-1"><h3>De onde vem cada cor</h3><table class="cmp"><thead><tr><th>Onde</th><th>Token do tema Truck</th></tr></thead><tbody>
@@ -56,6 +57,7 @@
         <tr><td><span class="tok" style="background:hsl(var(--card))"></span>Grupos e painel</td><td><code>--card</code> com contorno <code>--border</code> e sombra <code>--shadow-card</code></td></tr>
         <tr><td><span class="tok" style="background:hsl(var(--primary-soft))"></span>Resumo, linha escolhida, topo do painel, dia escolhido</td><td><code>--primary-soft</code>, texto em <code>--info-ink</code>, contorno da linha em <code>--primary</code> a 28%</td></tr>
         <tr><td><span class="tok" style="background:hsl(var(--primary))"></span>Ação principal, links, seta da linha escolhida, foco, item do menu, traço do veículo</td><td><code>--primary</code> e <code>--ring</code></td></tr>
+        <tr><td><span class="tok" style="background:hsl(var(--primary)/.3)"></span>Sombras das 4 camadas, pontos do fundo e do resumo, traços de textura</td><td><code>--primary</code> de 6% a 30%; no escuro viram contorno <code>--border</code> e brilho de <code>--primary</code></td></tr>
         <tr><td><span class="tok" style="background:hsl(var(--accent))"></span>Linha sob o mouse, filtro e botão escolhidos</td><td><code>--accent</code></td></tr>
         <tr><td><span class="tok" style="background:hsl(var(--secondary))"></span>Onde está o veículo, dias do calendário</td><td><code>--secondary</code></td></tr>
         <tr><td><span class="tok" style="background:hsl(var(--muted))"></span>Carregando, ícone dos grupos sem urgência</td><td><code>--muted</code>, texto secundário em <code>--muted-foreground</code></td></tr>

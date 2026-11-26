@@ -31,7 +31,8 @@ const GROUPS=[
 ];
 
 /* ---------- pieces ---------- */
-const head=o=>`<div class="hl"><div class="tx"><h2><span class="d">5 preventivas vencidas</span> em 3 visitas</h2><p><span class="w">4 vencem esta semana</span></p></div>${o.phone?'':`<div class="tools"><span class="sel">${ic('garage','s16')}Base Curitiba${ic('caret-down','s14')}</span></div>`}</div>`;
+const motif=()=>`<span class="motif" aria-hidden="true">${[[1,1,0,1],[1,0,1],[1,1,1,0],[1,0],[1,1,0]].map(r=>`<span>${r.map((x,i)=>`<i class="${i===0?'cav':''} ${x?'':'o'}"></i>`).join('')}</span>`).join('')}</span>`;
+const head=o=>`<div class="hl hero">${motif()}<div class="big">5</div><div class="tx"><h2>preventivas vencidas</h2><p>em 3 visitas, 2 com o veículo no pátio</p></div><div class="stats"><span class="st w"><b>4</b>esta semana</span><span class="st"><b>9</b>próximas</span></div></div>`;
 const search=()=>`<span class="sf" role="search">${ic('magnifying-glass','s16')}<span>Buscar placa ou conjunto</span></span>`;
 function row(id,sel){const v=V[id];
   return `<div class="vr ${sel===id?'on':''}" role="button" tabindex="0"><div class="who"><b>${v.name}</b>${mark(v.parts)}</div><div class="what"><b>${v.svc}</b>${v.more?`<span>${v.more}</span>`:''}</div><div class="when ${v.t}">${v.when}</div>${ic('caret-right','s16 car')}</div>`;}
@@ -39,10 +40,10 @@ function group(g,sel){
   return `<section class="grp"><header><span class="gt ${g.tone}">${ic(g.icon,'s16')}</span><h3>${g.title}</h3><span class="gc">${g.count}</span></header><div class="rows">${g.ids.map(id=>row(id,sel)).join('')}</div>${g.more?`<div class="more">${g.more}${ic('caret-down','s14')}</div>`:''}</section>`;}
 
 const ITEMS_C320=[['Lona de freio, eixo 3','2ª carreta RTE1J77','vencida há 1.850 km','d'],['Lubrificação geral','2ª carreta RTE1J77','vence hoje','w'],['Troca de óleo e filtros','Cavalo QRT4B22','em 1.200 km','']];
-const item=([n,s,v,t])=>`<div class="it"><div class="n"><b>${n}</b><span>${s}</span></div><span class="v ${t}">${v}</span></div>`;
+const item=([n,s,v,t])=>`<div class="it"><i class="dot ${t}"></i><div class="n"><b>${n}</b><span>${s}</span></div><span class="v ${t}">${v}</span></div>`;
 function pHead(v,o={}){return `<div class="phd">${o.phone?'<div class="grab"></div>':''}<div class="ph">${o.back?`<span class="xb back" role="button" aria-label="Voltar">${ic('arrow-left','s16')}</span>`:''}<div class="t"><h2>${o.title||v.full}</h2><p>${o.title?'':mark(v.parts)}${o.sub||v.sub}</p></div>${o.back?'':`<span class="xb" role="button" aria-label="Fechar">${ic('x','s16')}</span>`}</div></div>`;}
 function visitBody(){
-  return `<div class="where"><span class="gt">${ic('garage','s16')}</span><div><b>No pátio desde ontem às 14h</b><span>OS 1042 aberta, corretiva</span></div></div>
+  return `<div class="where"><span class="wi">${ic('garage','s16')}</span><div><b>No pátio desde ontem às 14h</b><span>OS 1042 aberta, corretiva</span></div></div>
   <div class="ps"><h4>Nesta visita</h4>${ITEMS_C320.map(item).join('')}</div>
   <div class="ps"><h4>Peças do kit</h4><p>4 lonas, 8 molas, 38 l de óleo e 3 filtros</p><span class="ok">${ic('check-circle','s16')}<b>Tudo em estoque</b></span></div>
   <div class="ps"><h4>Última vez</h4><p>Lona do eixo 3 trocada em 12/05, na OS 0871</p></div>`;}
@@ -51,7 +52,7 @@ const visitFoot=(phone)=>`<div class="pf"><div class="bb">${btn('Adiar',{variant
 const WD=['seg','ter','qua','qui','sex','sáb'];
 const DAYS=[['23','',2],['24','',2],['25','',2],['26','cheia',1],['27','cheia',1],['28','6 h',0,1],['30','18 h'],['01','22 h'],['02','28 h'],['03','3 h',1],['04','32 h'],['05','8 h']];
 function scheduleBody(){
-  return `<div class="where"><span class="gt">${ic('road-horizon','s16')}</span><div><b>Rodando, 640 km por dia</b><span>Fora do pátio desde 21/11</span></div></div>
+  return `<div class="where"><span class="wi">${ic('road-horizon','s16')}</span><div><b>Rodando, 640 km por dia</b><span>Fora do pátio desde 21/11</span></div></div>
   <div class="ps cal"><h4>Quando trazer</h4><p class="cap">Horas livres por dia na oficina. A visita leva 4&nbsp;h.</p>
   <div class="wk">${WD.map(d=>`<span class="wd">${d}</span>`).join('')}${DAYS.map(([n,l,off,pick])=>`<div class="day ${off===2?'off past':off?'off':''} ${pick?'pick':''}"><b>${n}</b><span>${l||'&nbsp;'}</span></div>`).join('')}</div><p class="first">${ic('calendar-check','s16')}<span><b>Primeira vaga: sáb 28/11</b>, 6&nbsp;h livres</span></p></div>
   <div class="ps"><h4>Itens da visita</h4>${item(['Revisão B','Inclui a revisão A','vencida há 4.300 km','d'])}<span class="lack">${ic('package','s16')}Falta 1 filtro de ar; o pedido sai junto</span></div>
@@ -65,7 +66,7 @@ function skList(phone){
 }
 
 const C044={full:'Conjunto C-044',sub:'QRT2E55 com 2 carretas',parts:V.c044.parts};
-function nextPanel(){return `<aside class="pnl">${pHead(C044)}<div class="pb"><div class="where"><span class="gt">${ic('road-horizon','s16')}</span><div><b>Rodando, 610 km por dia</b><span>Fora do pátio desde 18/11</span></div></div>
+function nextPanel(){return `<aside class="pnl">${pHead(C044)}<div class="pb"><div class="where"><span class="wi">${ic('road-horizon','s16')}</span><div><b>Rodando, 610 km por dia</b><span>Fora do pátio desde 18/11</span></div></div>
   <div class="ps"><h4>Nesta visita</h4>${item(['Revisão B','Cavalo QRT2E55','qui 10/12',''])}${item(['Lubrificação geral','1ª carreta RTD8F12','sáb 12/12',''])}</div>
   <div class="ps"><h4>Peças do kit</h4><p>38 l de óleo, 4 filtros e graxa</p><span class="ok">${ic('check-circle','s16')}<b>Tudo em estoque</b></span></div></div>
   <div class="pf"><div class="bb">${btn('Adiar',{variant:'outline'})}${btn('Agendar visita',{icon:'calendar-check',action:1})}</div></div></aside>`;}
@@ -89,7 +90,7 @@ function phone(s){
   if(s==='loading') return `<div class="ph-wrap">${skList(1)}</div>`;
   if(s==='empty') return `<div class="ph-wrap"><div class="allgood" style="flex-direction:column;text-align:center;padding:28px 20px"><span class="halo">${ic('calendar-check','s24')}</span><div><b>Frota em dia esta semana</b><p>Nenhuma preventiva vencida. A próxima é a revisão B do C-044, na qui 10/12.</p></div></div>${mgroup(GROUPS[2],null)}</div>`;
   const sel=s==='list'?null:s==='schedule'?'dly':'c320';
-  const list=`<div class="ph-wrap">${head({phone:1}).replace('</div></div>',`</div>${search()}</div>`)}${GROUPS.map(g=>mgroup(g,sel)).join('')}</div>`;
+  const list=`<div class="ph-wrap">${head({phone:1})}${search()}${GROUPS.map(g=>mgroup(g,sel)).join('')}</div>`;
   if(s==='list') return list;
   const sheet=s==='schedule'
     ?`<div class="sheet-ov"><div class="sheet">${pHead(V.dly,{phone:1,title:'Agendar visita',sub:'DLY1J07, revisão B',back:1})}<div class="sb">${scheduleBody()}</div>${scheduleFoot()}</div></div>`

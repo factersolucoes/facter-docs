@@ -169,3 +169,115 @@
 .ag.s .hl h2{font-size:24px}
 .xb.back{margin:-4px 0 0 -8px}
 .day.past{box-shadow:none;background:none}
+
+/* =====================================================================
+   Polish layer: depth in four steps (canvas, group, selected row, panel),
+   shadows tinted with the primary hue, faint patterns. Tokens only.
+   ===================================================================== */
+:root,.dark{
+  --hair:hsl(var(--primary)/.09);
+  --e1:0 0 0 1px hsl(var(--primary)/.07),0 1px 2px hsl(var(--primary)/.06),0 6px 20px -10px hsl(var(--primary)/.16);
+  --e2:0 0 0 1px hsl(var(--primary)/.22),0 2px 4px hsl(var(--primary)/.08),0 10px 24px -12px hsl(var(--primary)/.32);
+  --e3:0 0 0 1px hsl(var(--primary)/.08),0 2px 6px hsl(var(--primary)/.06),0 24px 56px -20px hsl(var(--primary)/.30),0 48px 80px -48px hsl(var(--primary)/.22);
+  --dots:hsl(var(--primary)/.07);
+  --pat:hsl(var(--primary)/.14);
+}
+.dark{
+  --e1:inset 0 1px 0 hsl(var(--foreground)/.05),0 0 0 1px hsl(var(--border));
+  --e2:inset 0 1px 0 hsl(var(--foreground)/.06),0 0 0 1px hsl(var(--primary)/.45),0 0 24px -6px hsl(var(--primary)/.35);
+  --e3:inset 0 1px 0 hsl(var(--foreground)/.06),0 0 0 1px hsl(var(--border)),0 0 40px -12px hsl(var(--primary)/.28);
+  --dots:hsl(var(--foreground)/.05);
+  --pat:hsl(var(--primary)/.30);
+}
+/* canvas: barely-there dot grid behind the cards */
+.fx-body.calm{background-color:hsl(var(--background));background-image:radial-gradient(var(--dots) 1px,transparent 1.2px);background-size:22px 22px}
+.ag{gap:28px;padding:16px 16px 48px}
+.col{gap:24px}
+
+/* hero summary: display numeral, the sentence, two stat chips, the composition motif as texture */
+.hero{position:relative;overflow:hidden;isolation:isolate;align-items:center;gap:20px;padding:26px 28px;border-radius:20px;background-color:hsl(var(--primary-soft));box-shadow:var(--e1)}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background-image:radial-gradient(var(--pat) 1.1px,transparent 1.4px);background-size:14px 14px;-webkit-mask-image:radial-gradient(120% 140% at 100% 0%,#000 0%,transparent 62%);mask-image:radial-gradient(120% 140% at 100% 0%,#000 0%,transparent 62%)}
+.hero .big{font:700 64px/0.9 Sora;letter-spacing:-.04em;font-variant-numeric:tabular-nums;color:hsl(var(--danger-ink));padding-right:4px}
+.hero .tx h2{font:600 22px/1.2 Sora;letter-spacing:-.01em;white-space:normal;color:hsl(var(--foreground))}
+.hero .tx p{margin-top:6px;font-size:14.5px;color:hsl(var(--info-ink))}
+.stats{display:flex;gap:10px;flex:none;position:relative}
+.st{display:flex;flex-direction:column;gap:2px;min-width:104px;padding:10px 14px;border-radius:14px;background:hsl(var(--card)/.85);box-shadow:var(--e1);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);font-size:13px;color:hsl(var(--muted-foreground))}
+.st b{font:700 22px/1.1 Sora;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:hsl(var(--foreground))}
+.st.w b{color:hsl(var(--warning-ink))}
+.motif{position:absolute;right:-12px;bottom:-10px;z-index:-1;display:flex;flex-direction:column;gap:10px;opacity:.55;transform:rotate(-8deg)}
+.motif>span{display:flex;gap:4px;justify-content:flex-end}
+.motif i{display:block;width:30px;height:5px;border-radius:99px;background:hsl(var(--primary)/.22)}
+.motif i.cav{width:18px;margin-right:4px}
+.motif i.o{background:hsl(var(--primary)/.1)}
+.ag.s .hero .big{font-size:56px}
+.ag.s .hero .tx h2{font-size:20px}
+.ag.s .st{min-width:92px}
+
+/* base selector in the top bar */
+.fx-ctl .sel{height:34px;padding:0 30px 0 12px;border-radius:999px;font-size:13.5px;box-shadow:0 0 0 1px hsl(var(--border));position:relative}
+.fx-ctl .sel::after{content:"";position:absolute;right:11px;top:50%;width:14px;height:14px;margin-top:-7px;background:hsl(var(--muted-foreground));-webkit-mask:url(../_kit/icons/caret-down.svg) center/contain no-repeat;mask:url(../_kit/icons/caret-down.svg) center/contain no-repeat}
+
+/* groups: second elevation step, header with tone tile, count pill and hairline */
+.grp{border-radius:16px;padding:8px;box-shadow:var(--e1)}
+.grp>header{padding:12px 12px 14px;margin:0 4px 6px;border-bottom:1px solid var(--hair)}
+.gt{width:34px;height:34px;border-radius:11px}
+.gt .ic{width:18px;height:18px}
+.grp h3{font:600 16px Sora;letter-spacing:-.01em}
+.grp .gc{padding:0 9px;border-radius:999px;background:hsl(var(--muted));font:600 12.5px/22px Inter;font-variant-numeric:tabular-nums;color:hsl(var(--muted-foreground))}
+.vr{border-radius:12px;transition:background-color .15s,box-shadow .15s,transform .15s}
+.vr .who b,.vr .what b{font-weight:600;letter-spacing:-.005em}
+.vr .car{opacity:0;transition:opacity .15s}
+.vr:hover .car,.vr.on .car{opacity:1}
+.vr:focus-visible{outline:none;box-shadow:0 0 0 2px hsl(var(--ring))}
+/* third step: the selected row lifts */
+.vr.on{background:hsl(var(--primary-soft));box-shadow:var(--e2);transform:translateY(-1px)}
+
+/* fourth step: the panel floats */
+.pnl{top:16px;border-radius:20px;box-shadow:var(--e3)}
+.phd{position:relative;overflow:hidden;isolation:isolate;border-bottom:1px solid var(--hair)}
+.phd::before{content:"";position:absolute;inset:0;z-index:-1;background-image:radial-gradient(var(--pat) 1px,transparent 1.3px);background-size:12px 12px;-webkit-mask-image:radial-gradient(90% 120% at 100% 0%,#000,transparent 70%);mask-image:radial-gradient(90% 120% at 100% 0%,#000,transparent 70%)}
+.pnl h2,.sheet h2{letter-spacing:-.01em}
+.pb{gap:26px}
+.ps h4{font:600 12.5px Inter;letter-spacing:.01em;margin-bottom:8px}
+.where{gap:12px;padding:14px 16px;border-radius:14px;background:hsl(var(--secondary))}
+.where .wi{display:grid;place-items:center;color:hsl(var(--secondary-foreground))}
+.where .wi .ic{width:20px;height:20px}
+.it{align-items:center;gap:12px;padding:10px 12px;margin:0 -12px;border-radius:12px}
+.it:hover{background:hsl(var(--accent))}
+.it .dot{width:8px;height:8px;border-radius:99px;flex:none;background:hsl(var(--primary)/.35)}
+.it .dot.d{background:hsl(var(--danger))}.it .dot.w{background:hsl(var(--warning))}
+.ps .ok{display:inline-flex;margin-top:10px;padding:4px 10px 4px 8px;border-radius:999px;background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+.ps .lack{border-radius:999px;padding:5px 12px 5px 10px}
+.pf{position:sticky;bottom:0;background:hsl(var(--card)/.82);backdrop-filter:blur(12px) saturate(1.4);-webkit-backdrop-filter:blur(12px) saturate(1.4);border-top:1px solid var(--hair)}
+.pf .fx-btn.action{box-shadow:0 1px 0 hsl(var(--primary-foreground)/.18) inset,0 8px 20px -8px hsl(var(--primary)/.7)}
+.day{border-radius:12px}
+.day.pick{box-shadow:0 0 0 2px hsl(var(--ring)),0 8px 18px -8px hsl(var(--primary)/.45)}
+.allgood{box-shadow:var(--e1);position:relative;overflow:hidden;isolation:isolate}
+.allgood::before{content:"";position:absolute;inset:0;z-index:-1;background-image:radial-gradient(var(--pat) 1px,transparent 1.3px);background-size:14px 14px;-webkit-mask-image:radial-gradient(70% 140% at 100% 50%,#000,transparent 70%);mask-image:radial-gradient(70% 140% at 100% 50%,#000,transparent 70%)}
+
+/* phone: same steps; the sheet floats over a blurred list */
+.ph-wrap{gap:18px}
+.ph-wrap .hero{flex-wrap:wrap;gap:12px 14px;padding:20px}
+.ph-wrap .hero .big{font-size:52px}
+.ph-wrap .hero .tx{flex:1;min-width:0}
+.ph-wrap .hero .tx h2{font-size:19px}
+.ph-wrap .stats{width:100%}
+.ph-wrap .st{flex:1;min-width:0;flex-direction:row;align-items:baseline;gap:6px;padding:8px 12px}
+.ph-wrap .st b{font-size:18px}
+.ph-wrap .grp{box-shadow:var(--e1)}
+.mr{border-radius:12px}
+.mr.on{box-shadow:var(--e2)}
+.mr .l1 b{letter-spacing:-.005em}
+.sheet-ov{background:hsl(var(--foreground)/.28);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+.sheet{box-shadow:var(--e3)}
+.sheet .grab{position:relative;z-index:1}
+.dark .sheet-ov{background:hsl(var(--background)/.6)}
+.dark .hero .big{color:hsl(var(--danger-ink))}
+
+.motif{right:-24px;bottom:auto;top:50%;transform:translateY(-50%) rotate(-10deg);gap:9px;opacity:1;-webkit-mask-image:linear-gradient(to left,#000 30%,transparent 95%);mask-image:linear-gradient(to left,#000 30%,transparent 95%)}
+.motif i{background:hsl(var(--primary)/.16)}.motif i.o{background:hsl(var(--primary)/.07)}
+.dark .motif i{background:hsl(var(--primary)/.28)}.dark .motif i.o{background:hsl(var(--primary)/.12)}
+.ph-wrap .hero{flex-direction:row;align-items:center}
+.ph-wrap .hero .tx p{font-size:13.5px}
+.sheet-ov{top:34px}
+.hero .tx p{text-wrap:balance}
