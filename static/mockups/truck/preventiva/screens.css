@@ -403,3 +403,18 @@ h1,h2,h3,h4,b{text-wrap:balance}
 @container fx (max-width:600px){.firstrun{padding:14px}.firstrun .top{flex-direction:column;align-items:flex-start}}
 .fx-mtabs>span{padding:0 7px}.fx-mtabs{gap:2px}
 .pvb .more{flex-wrap:nowrap}.pvb .more>span:not(.ic){flex:1;min-width:0}.pvb .more b{flex:none}
+
+.kmd .v mark{background:hsl(var(--warning)/.28);color:inherit;border-radius:4px;padding:0 1px}
+.kmd .e mark{background:hsl(var(--foreground)/.1);color:inherit;border-radius:3px}
+.kmd.sel .v{outline:2px solid hsl(var(--primary)/.35);outline-offset:4px;border-radius:6px}
+.keys span.pr{background:hsl(var(--muted));transform:translateY(1px);box-shadow:none}
+.keys span.bs{background:none;box-shadow:none;color:hsl(var(--foreground))}
+.keys.tb{margin:0;border-radius:14px;background:hsl(var(--muted)/.7)}
+.keys.tb span{height:76px;font-size:26px}
+.kmt{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:16px;align-items:start}
+.wkx{display:grid;grid-template-columns:34px 1fr;gap:4px;padding:10px 16px 0 6px}
+.wkx .ya{display:flex;flex-direction:column;justify-content:space-between;height:54px;font-size:11px;color:hsl(var(--muted-foreground));text-align:right}
+.wkx .wk{padding:0;height:54px}
+.wk i.none{position:relative;background:none;border-bottom:1.5px dashed hsl(var(--muted-foreground)/.5);border-radius:0;min-height:0;height:54px}
+.wk i.none span{position:absolute;bottom:6px;left:50%;transform:translateX(-50%) rotate(-90deg);transform-origin:center;font-size:10.5px;color:hsl(var(--muted-foreground));white-space:nowrap}
+.wkl{font-size:11.5px}

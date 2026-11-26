@@ -275,7 +275,7 @@ fx-app{display:block}
 .fx-menu .lbl{padding:10px 12px 4px;font:600 11.5px Inter;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
 .fx-menu .it{position:relative;display:flex;align-items:center;gap:12px;border-radius:8px;padding:10px 36px 10px 12px;font-size:14px}
 .fx-menu .it.hl{background:hsl(var(--muted))}.fx-menu .it.on{background:hsl(var(--primary-soft));color:hsl(var(--primary));font-weight:600}
-.fx-menu .it.on::after{content:"";position:absolute;right:12px;width:16px;height:16px;background:currentColor;-webkit-mask:url(https://api.iconify.design/ph/check.svg) center/contain no-repeat;mask:url(https://api.iconify.design/ph/check.svg) center/contain no-repeat}
+.fx-menu .it.on::after{content:"";position:absolute;right:12px;width:16px;height:16px;background:currentColor;-webkit-mask:url(icons/check.svg) center/contain no-repeat;mask:url(icons/check.svg) center/contain no-repeat}
 /* Tabs (DS Tabs) and DataTable.Tabs */
 .fx-tabs{display:inline-flex;height:48px;align-items:center;gap:24px;border-bottom:1px solid hsl(var(--border))}
 .fx-tabs>span{display:inline-flex;align-items:center;height:100%;padding:12px 4px;font:500 14px Inter;color:hsl(var(--muted-foreground));border-bottom:2px solid transparent;margin-bottom:-1px}

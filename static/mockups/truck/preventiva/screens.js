@@ -10,7 +10,7 @@ const R={};
 const DS={
   over:['danger','Vencida','warning-octagon'],
   now:['warning','Vence agora','hourglass-medium'],
-  soon:['primary','Vence logo','calendar-blank'],
+  soon:['muted','Vence logo','calendar-blank'],
   ok:['success','Em dia','check-circle'],
   nokm:['muted','Sem km','gauge'],
   chk:['warning','Km a conferir','question'],
@@ -37,7 +37,7 @@ function patchNav(){
         const el=document.createElement('div');
         el.setAttribute('data-pv','');
         const sub=app.getAttribute('data-sub')||'Agenda';
-        el.innerHTML=`<div class="fx-ni ${on?'on':''}" title="Preventiva">${on?'<i class="fx-bar"></i>':''}<span class="fx-nib">${ic('calendar-check','s16',on)}</span>${exp?`<span class="fx-nil">Preventiva</span>${ic('caret-right','s12 fx-car')}`:''}</div>${exp&&on?`<div class="fx-sub">${[['Agenda','calendar-dots'],['Planos','list-checks'],['Conformidade','chart-bar']].map(([l,i])=>`<div class="fx-ni nested ${l===sub?'on':''}" title="${l}"><span class="fx-nib">${ic(i,'s16',l===sub)}</span><span class="fx-nil">${l}</span></div>`).join('')}</div>`:''}`;
+        el.innerHTML=`<div class="fx-ni ${on?'on':''}" title="Preventiva">${on?'<i class="fx-bar"></i>':''}<span class="fx-nib">${ic('calendar-check','s16',on)}</span>${exp?`<span class="fx-nil">Preventiva</span>${ic('caret-right','s12 fx-car')}`:''}</div>${exp&&on?`<div class="fx-sub">${[['Agenda','calendar-dots'],['Planos','list-checks']].map(([l,i])=>`<div class="fx-ni nested ${l===sub?'on':''}" title="${l}"><span class="fx-nib">${ic(i,'s16',l===sub)}</span><span class="fx-nil">${l}</span></div>`).join('')}</div>`:''}`;
         os.after(...el.childNodes);
       }
     }
@@ -240,7 +240,7 @@ function arrivePhone(s){
   const km=s==='check'?`<div class="fld"><label>Km do cavalo <span class="req">*</span></label><div class="inp big warn">215.318<span class="u">km</span></div><span class="hint w">63 mil km a mais que ontem. Fica a conferir</span></div>`:`<div class="fld"><label>Km do cavalo <span class="req">*</span></label><div class="inp big">${only?'160.400':'152.318'}<span class="u">km</span></div><span class="hint">Telemetria de 08:12</span></div>`;
   const n=s==='none'?'':only?' com 2 serviços':s==='check'||s==='sap'?' com 4 preventivas':' com 5 preventivas';
   return `<div class="fcol" style="padding-bottom:90px"><div class="card setc">${tile('primary',only?'truck':'link-simple')}<span class="tx"><b class="t" style="font-size:16px">${only?'DLY1J07':'Conjunto C-320'} ${only?'':comp(['now','ok','over','ok'])}</b><span class="muted" style="font-size:12px">${only?'Cavalo · frota 812':'QRT4B22 + 3 carretas'}</span></span></div>${km}${block}${only?'':`<div class="fld"><label>Problema <span class="req">*</span></label><div class="inp ta" style="min-height:60px">Freio puxando para a direita</div></div>`}</div>
-    <div style="position:absolute;left:0;right:0;bottom:84px;padding:10px 16px;background:hsl(var(--card));border-top:1px solid hsl(var(--border))"><div class="bigbtn">${ic('check','s20')}Abrir OS${n}</div></div>`;
+    <div style="position:absolute;z-index:6;left:0;right:0;bottom:84px;padding:10px 16px;background:hsl(var(--card));border-top:1px solid hsl(var(--border))"><div class="bigbtn">${ic('check','s20')}Abrir OS${n}</div></div>`;
 }
 R.chegada=(s,dev)=>{
   if(s==='loading') return `<div class="fcol"><div class="arr"><div class="fcol">${F.sk('100%',72,14)}${F.sk('100%',76)}${F.sk('100%',96)}</div><div class="fcol">${F.sk('100%',300,16)}</div></div></div>`;
@@ -299,7 +299,7 @@ R.planos=(s,dev)=>{
   if(s==='loading') return `<div class="plans">${[1,2,3].map(()=>`<div class="card plc">${F.sk('70%',22)}${F.sk('90%',14)}${F.sk('80%',14)}${F.sk('100%',8)}</div>`).join('')}</div>`;
   if(s==='noperm') return `<div class="fcol">${F.notice('info','eye','Seu papel permite ver os planos. Para criar ou mudar, peça a quem administra a empresa')}<div class="plans">${PLANS.map(p=>planCard(p)).join('')}</div></div>`;
   if(s==='first'||s==='empty') return `<div class="firstrun"><div class="top">${tile('primary','sparkle','xl')}<div><b>3 planos sugeridos para a sua frota</b><p>Montados pelo tipo de veículo e pelos eixos cadastrados, e ajustados pelo que a oficina já fez. Revise, mude o que quiser e a agenda começa hoje</p></div></div>
-    <div class="sugg">${SUGG.map(p=>`<div class="sgc"><div class="h">${tile('primary',p.ic,'lg')}<span><b>${p.n}</b><span>${p.veh}</span></span></div><ul>${p.items.map(i=>`<li>${ic('arrows-clockwise','s14')}<span>${i}</span></li>`).join('')}</ul>${p.hist?`<div class="hist">${ic('chart-line-up','s16')}<span>${p.hist}</span></div>`:''}<div class="row" style="margin-top:auto">${btn('Revisar e usar',{size:'sm'})}</div></div>`).join('')}</div>
+    <div class="sugg">${SUGG.map((p,i)=>`<div class="sgc"><div class="h">${tile('primary',p.ic,'lg')}<span><b>${p.n}</b><span>${p.veh}</span></span></div><ul>${p.items.map(i=>`<li>${ic('arrows-clockwise','s14')}<span>${i}</span></li>`).join('')}</ul>${p.hist?`<div class="hist">${ic('chart-line-up','s16')}<span>${p.hist}</span></div>`:''}<div class="row" style="margin-top:auto">${btn('Revisar e usar',{size:'sm',variant:i===0?'default':'outline'})}</div></div>`).join('')}</div>
     <div class="row" style="justify-content:center;margin-top:16px;gap:6px">${btn('Começar um plano do zero',{variant:'ghost',size:'sm',icon:'plus'})}</div></div>`;
   if(s==='sap') return `<div class="fcol">${F.notice('info','arrows-left-right','Os planos desta empresa vêm do SAP. Mudanças são feitas lá e chegam aqui em até 15 min')}<div class="plans">${planCard({...PLANS[1],n:'Cavalo Suzano',v:'-'},{sap:'30012'})}${planCard({...PLANS[0],n:'Carreta florestal Suzano'},{sap:'30019'})}</div></div>`;
   const banner=`<div class="card" style="padding:12px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">${tile('warning','sparkle')}<span style="flex:1 1 260px;font-size:13.5px"><b style="font-weight:600">12 veículos sem plano</b><br><span class="muted">8 julietas e 4 cavalos 4x2. Temos uma sugestão para cada tipo</span></span>${btn('Ver sugestões',{variant:'outline',size:'sm'})}</div>`;
@@ -396,7 +396,7 @@ function readings(o={}){
     const v=isChk&&o.resolved?`<s>${r[1]}</s>`:r[1];
     return `<div class="rd ${isChk&&!o.resolved?'chk':''} ${r[4]==='mi'?'mi':''}">${tile(isChk&&!o.resolved?'warning':'muted',r[0])}<span class="tx" style="min-width:0"><b style="font-weight:600">${r[2]}</b><span class="trunc" title="${r[3]}">${r[3]}</span>${isChk?(o.resolved?`<span style="color:hsl(var(--success-ink))">${ic('check','s12')} digitado errado, corrigido para 150.700 por Rafael</span>`:`<span style="color:hsl(var(--warning-ink));font-weight:600">63 mil km em 1 dia. Não conta até alguém conferir</span>`):''}</span><span class="v">${v}</span>${isChk&&!o.resolved?`<span class="acts">${btn('Confirmar assim',{variant:'ghost',size:'sm'})}${btn('Corrigir',{variant:'outline',size:'sm'})}</span>`:''}</div>`;}).join('');
   return `<div class="card"><div class="hd">${ic('gauge','s16 muted')}<b>Leituras de km</b>${o.resolved?'':chip('warning','1 a conferir','question')}<span class="sp"></span><span class="fx-btn ghost icon-sm" title="Registrar leitura" aria-label="Registrar leitura">${ic('plus','s16')}</span></div>
-    <div class="wk">${[38,44,41,0,47,45,43,46].map((h,i)=>`<i style="height:${h?h:3}px;${h?'':'background:hsl(var(--muted-foreground)/.25)'}" title="Semana ${i+1}: ${h?(h*100).toLocaleString('pt-BR')+' km':'parado na oficina'}"></i>`).join('')}</div><div class="wkl"><span>8 semanas atrás</span><span>esta semana</span></div>
+    <div class="wkx"><div class="ya"><span>5 mil</span><span>0</span></div><div class="wk">${[38,44,41,0,47,45,43,46].map((h,i)=>h?`<i style="height:${h}px" title="Semana ${i+1}: ${(h*100).toLocaleString('pt-BR')} km"></i>`:`<i class="none" title="Semana ${i+1}: sem leitura"><span>sem leitura</span></i>`).join('')}</div></div><div class="wkl"><span>8 semanas atrás</span><span>km por semana</span><span>esta semana</span></div>
     ${rows}</div>`;
 }
 function couplings(){
@@ -435,7 +435,7 @@ R.veiculo=(s,dev)=>{
 /* =====================================================================
    5 LEITURA DE KM (portaria e pátio, celular)
    ===================================================================== */
-const KEYS=`<div class="keys">${['1','2','3','4','5','6','7','8','9','','0','⌫'].map(k=>`<span class="${k===''||k==='⌫'?'fn':''}">${k==='⌫'?ic('backspace','s24'):k}</span>`).join('')}</div>`;
+const KEYS=`<div class="keys">${['1','2','3','4','5','6','7','8','9','','0','⌫'].map(k=>`<span class="${k===''?'fn':''} ${k==='0'?'pr':''} ${k==='⌫'?'bs':''}" ${k==='⌫'?'title="Apagar" aria-label="Apagar"':''}>${k==='⌫'?ic('backspace-bold','s24'):k}</span>`).join('')}</div>`;
 R.leitura=(s,dev)=>{
   const tab=dev!=='phone';
   if(s==='pick') return `<div class="kmw"><span class="fx-searchf" style="height:48px;font-size:15px">${ic('magnifying-glass','s20')}<span>Placa, frota ou conjunto</span><span style="flex:1"></span>${ic('scan','s20')}</span>
@@ -453,14 +453,16 @@ R.leitura=(s,dev)=>{
     <div style="margin-top:auto"><div class="bigbtn">${ic('plus','s20')}Próximo veículo</div></div></div>`;
   if(s==='offline') return `<div class="kmw">${F.notice('warning','wifi-slash','Sem sinal. As leituras ficam no aparelho e enviam sozinhas quando o sinal voltar')}<div class="card"><div class="hd"><b>Guardadas no aparelho</b><span class="sub">2</span></div>${[['QRT1A09','149.620 km · 10:42'],['DLY1J07','160.400 km · 10:31']].map(r=>`<div class="pend">${ic('cloud-arrow-up','s20 muted')}<span class="tx"><b>${r[0]}</b><span>${r[1]}</span></span>${chip('muted','Enviando ao voltar')}</div>`).join('')}</div>
     <div style="margin-top:auto"><div class="bigbtn">${ic('plus','s20')}Próximo veículo</div></div></div>`;
-  const val=s==='jump'?'213.620':s==='lower'?'14.620':'149.620';
-  const disp=`<div class="kmd ${s==='jump'||s==='lower'?'warn':''}"><span class="eyebrow">Km no painel</span><span class="v">${val}<small>km</small></span><span class="e">${s==='jump'||s==='lower'?'Esperado perto de 149.600':'Esperado perto de 149.600 · ok'}</span></div>`;
+  const val=s==='jump'?'2<mark>13</mark>.620':s==='lower'?'<mark>14</mark>.620':'149.620';
+  const exp=s==='jump'?'1<mark>49</mark>.600':s==='lower'?'<mark>149</mark>.600':'149.600';
+  const disp=`<div class="kmd ${s==='jump'||s==='lower'?'warn sel':''}"><span class="eyebrow">Km no painel</span><span class="v">${val}<small>km</small></span><span class="e">Esperado perto de <b class="tn">${exp}</b>${s==='jump'||s==='lower'?'':' · ok'}</span></div>`;
   let mid='';
-  if(s==='jump') mid=`<div class="chkbox"><b>${ic('warning','s16')} 65 mil km a mais em 2 dias</b><p>Confira o painel. Se registrar assim, a preventiva só usa este km depois que alguém da manutenção conferir</p><div class="bt">${btn('Corrigir',{variant:'outline'})}${btn('Registrar assim',{variant:'secondary'})}</div></div>`;
-  if(s==='lower') mid=`<div class="chkbox"><b>${ic('warning','s16')} Menor que o último (148.220 km)</b><p>O painel foi trocado? Se foi, o km antigo fica guardado e o novo começa daqui</p><div class="bt">${btn('Corrigir',{variant:'outline'})}${btn('Painel trocado',{variant:'secondary'})}</div></div>`;
+  if(s==='jump') mid=`<div class="chkbox"><b>${ic('warning','s16')} 64 mil km a mais em 2 dias</b><p>Os dígitos marcados diferem do esperado. Confira o painel. Se registrar assim, a preventiva só usa este km depois que alguém da manutenção conferir</p><div class="bt">${btn('Registrar assim',{variant:'outline'})}${btn('Corrigir',{icon:'pencil-simple'})}</div></div>`;
+  if(s==='lower') mid=`<div class="chkbox"><b>${ic('warning','s16')} Menor que o último (148.220 km)</b><p>O painel foi trocado? Se foi, o km antigo fica guardado e o novo começa daqui</p><div class="bt">${btn('Painel trocado',{variant:'outline'})}${btn('Corrigir',{icon:'pencil-simple'})}</div></div>`;
   const cta=s==='jump'||s==='lower'?'':`<div class="bigbtn">${ic('check','s20')}Registrar 149.620 km</div>`;
   const today=`<div class="mhead"><b>Hoje nesta portaria</b><span>14 leituras · 1 a conferir</span></div><div class="card recent">${[['QRT4B22','152.318 km · 08:12 · OS 1042','success','gauge'],['DLY1J07','160.400 km · 07:40','success','gauge'],['QRT2E88','213.900 km · 07:05 · a conferir','warning','question']].map(r=>`<div class="rv">${tile(r[2],r[3])}<span class="tx"><b>${r[0]}</b><span>${r[1]}</span></span></div>`).join('')}</div>`;
-  return `<div class="kmw">${veh}${disp}${mid}${cta}${tab?today:KEYS}</div>`;
+  if(tab) return `<div class="kmt"><div class="kmw">${veh}${disp}${mid}${cta}${KEYS.replace('class="keys"','class="keys tb"')}</div><div class="kmw">${today.replace('Hoje nesta portaria','Na fila do portão').replace('14 leituras · 1 a conferir','3 esperando')}${`<div class="mhead"><b>Chegando hoje</b><span>pela agenda</span></div><div class="card recent">${[['C-118','QRT7C10 + 2 carretas · agendado'],['DLY1J07','frota 812 · agendado']].map(r=>`<div class="rv">${tile('muted','calendar-check')}<span class="tx"><b>${r[0]}</b><span>${r[1]}</span></span></div>`).join('')}</div><div class="mhead"><b>Registradas hoje</b><span>14 · 1 a conferir</span></div><div class="card recent">${[['QRT4B22','152.318 km · 08:12'],['DLY1J07','160.400 km · 07:40'],['QRT9D14','98.115 km · 07:02'],['QRT6H33','131.880 km · 06:41']].map(r=>`<div class="rv"><span class="tx"><b>${r[0]}</b><span>${r[1]}</span></span></div>`).join('')}</div>`}</div></div>`;
+  return `<div class="kmw">${veh}${disp}${mid}${cta}${KEYS}</div>`;
 };
 
 /* =====================================================================
@@ -507,12 +509,13 @@ R.sap=s=>{
     ['clipboard-text','Ordens de manutenção','viram OS quando o conjunto chega no pátio','muted','6','abertas'],
     ['hourglass-medium','Esperando chegar','ordem 4000131 · Conjunto C-207','warning','1','']]);
   const eq=`<div class="card"><div class="hd"><b>Equipamentos ligados</b><span class="sub">${link?'93 de 96':'96 de 96'}</span><span class="sp"></span>${btn('Ver todos',{variant:'ghost',size:'sm'})}</div>${link?[['QRT0Z11','Cavalo novo, cadastrado em 20/11'],['RTF0A01','Carreta nova'],['RTF0A02','Carreta nova']].map(r=>`<div class="exc">${F.plate(r[0])}<span class="tx">${r[1]}<span>sem equipamento do SAP</span></span>${btn('Ligar',{variant:'outline',size:'sm'})}</div>`).join(''):`<div style="padding:12px 16px;font-size:13px" class="muted">Cada veículo do Truck aponta para um equipamento e um ponto de medição do SAP</div>`}</div>`;
-  const mode=`<div class="card" style="padding:14px 16px;display:flex;gap:14px;align-items:center;flex-wrap:wrap">${tile('info','arrows-left-right','lg')}<span style="flex:1 1 300px"><b style="font:700 15px Sora">O SAP planeja, o Truck faz o pátio</b><br><span class="muted" style="font-size:13px">Planos e ordens nascem no SAP. O Truck manda o km e fecha a ordem com o que aconteceu de verdade</span></span>${btn('Mudar o modo',{variant:'ghost',size:'sm'})}</div>`;
-  return `<div class="fcol">${mode}${status}<div class="sapg">${out}${inn}</div>${eq}</div>`;
+  const mode=`<div class="card" style="padding:14px 16px;display:flex;gap:14px;align-items:center;flex-wrap:wrap">${tile('info','arrows-left-right','lg')}<span style="flex:1 1 300px"><b style="font:700 15px Sora">O SAP planeja, o Truck faz o pátio</b><br><span class="muted" style="font-size:13px">Planos e ordens nascem no SAP. O Truck manda o km e fecha a ordem com o que aconteceu de verdade</span></span>${btn('Mudar o modo',{variant:'outline',size:'sm',icon:'lock-simple'})}</div>`;
+  const dlg=s==='mode'?F.dialog({title:'Mudar para o Truck planejar?',desc:'Hoje o SAP planeja. A mudança vale para a empresa toda',body:`<div class="diff">${[['x-circle','Os 4 planos do SAP param de chegar e ficam guardados como estavam'],['list-checks','O Truck passa a planejar: os planos sugeridos aparecem para revisar'],['clipboard-text','As 6 ordens já abertas no SAP seguem até fechar'],['gauge','As leituras de km continuam indo para o SAP']].map(x=>`<div>${ic(x[0],'s16 muted')}<span>${x[1]}</span></div>`).join('')}</div><div class="row" style="gap:10px;font-size:13.5px"><span class="cb"></span>Combinei a mudança com a TI do cliente</div>`,consequence:'Só quem administra a empresa pode desfazer, e fica no registro de alterações',action:'Mudar o modo',disabled:1}):'';
+  return `<div class="fcol">${mode}${status}<div class="sapg">${out}${inn}</div>${eq}</div>${dlg}`;
 };
 
 /* nav preview body */
-R.nav=()=>`<div class="navnote"><div class="card" style="padding:16px;display:flex;flex-direction:column;gap:10px"><b style="font:700 15px Sora">Preventiva, um item do menu</b><span style="font-size:13.5px">Logo depois de Ordens de serviço: <b>Agenda</b> (o que vence), <b>Planos</b> (as regras) e <b>Conformidade</b> (como foi). No celular fica em Mais; o porteiro registra o km pelo Pátio, e o chefe vê as preventivas na própria OS.</span></div></div>`;
+R.nav=()=>`<div class="navnote"><div class="card" style="padding:16px;display:flex;flex-direction:column;gap:10px"><b style="font:700 15px Sora">Preventiva, um item do menu</b><span style="font-size:13.5px">Logo depois de Ordens de serviço: <b>Agenda</b> (o que vence) e <b>Planos</b> (as regras). A conformidade fica no Analytics, pilar Prevenção. No celular fica em Mais; o porteiro registra o km pelo Pátio, e o chefe vê as preventivas na própria OS.</span></div></div>`;
 
 document.addEventListener('DOMContentLoaded',()=>{
   patchNav(); F.bind(R); fit();
