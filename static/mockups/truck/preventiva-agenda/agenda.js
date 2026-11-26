@@ -85,7 +85,7 @@ const sit=t=>`<span class="sit ${t}">${SIT[t]}</span>`;
 function kitRow(k,open){
   const extra='';
   return `<div class="pk ${open?'open':''}" role="button" aria-expanded="${open}"><span class="kic">${ic('stack','s14')}</span><span class="pt"><b title="${esc(k.name)}">${k.name}</b><small>${k.parts.length} peças · ${k.locd||k.loc}${extra}</small></span>${sit(k.t)}${ic('caret-down','s16 chev')}</div>
-  ${open?`<div class="pnest">${k.parts.map(([q,n,rule,t])=>`<div class="pn"><span class="q">${q}</span><span class="nm"><span>${n}</span>${rule?`<span class="m">${rule}</span>`:''}</span><span class="tg ${t}">${t==='s'?ic('check','s12'):''}${TAG[t]}</span></div>`).join('')}</div>`:''}`;}
+  ${open?`<div class="pnest prlist">${partRows(k.parts)}</div>`:''}`;}
 const looseRow=([n,l,q,t])=>`<div class="pk lo"><span class="kic">${ic('drop','s14')}</span><span class="pt"><b>${n}</b><small>${q} · ${l}</small></span>${sit(t)}<span class="chev"></span></div>`;
 function partsBox(o){
   const nl=(o.loose||[]).length, nk=o.kits.length;
@@ -195,17 +195,16 @@ const STOP='2026-12-11';
 const ddmm=day=>`${day.slice(8,10)}/${day.slice(5,7)}`;
 function menuHtml(k,kind){const d=defOf(k);
   if(kind==='w'||kind==='cal'){const isDate=/^Em \d\d\/\d\d/.test(d.when);
-    const qp=F.quickPick({presets:[{label:'Na próxima parada',sub:'sex 11/12',on:d.when==='Na próxima parada'},{label:'Em 7 dias',sub:'qui 03/12',on:d.when==='Em 7 dias'}],
-      other:{label:'Outra data',sub:isDate?d.when.slice(3):'Escolher',on:isDate},act:p=>`data-ixa="w:${k}:${p.label}"`,otherAct:`data-ixa="m:${k}:cal"`});
-    const cm=G.cm||0, mo=11+cm, yr=2026+Math.floor((mo-1)/12), mm=((mo-1)%12)+1;
+    const tileW=(on,icn,l,v,act)=>`<button type="button" class="wtile ${on?'on':''}" aria-pressed="${on}" ${act}><b>${ic(icn,'s14')}${l}</b><span>${v}</span></button>`;
+    const tl=`<div class="wtiles">${tileW(d.when==='Na próxima parada','calendar-check','Na próxima parada','sex 11/12',`data-ixa="w:${k}:Na próxima parada"`)}${tileW(d.when==='Em 7 dias','clock','Em 7 dias','qui 03/12',`data-ixa="w:${k}:Em 7 dias"`)}${tileW(isDate,'calendar-blank','Outra data',isDate?d.when.slice(3):'escolher no calendário',`data-ixa="m:${k}:cal"`)}${tileW(d.when==='Em 1.000 km','road-horizon','Em 1.000 km','pelo km rodado',`data-ixa="w:${k}:Em 1.000 km"`)}</div>`;
+    const cm=G.cm||0, mo=12+cm, yr=2026+Math.floor((mo-1)/12), mm=((mo-1)%12)+1;
     const val=isDate?`2026-${d.when.slice(6,8)}-${d.when.slice(3,5)}`:null;
     const cal=kind==='cal'?`<div class="mcalw">${F.monthCal({year:yr,month:mm,value:val,today:'2026-11-26',min:'2026-11-27',marked:{day:STOP,label:'próxima parada agendada'},act:day=>`data-ixa="w:${k}:Em ${ddmm(day)}"`,nav:dir=>`data-ixa="cm:${k}:${dir}"`})}</div>`:'';
-    const km=`<div class="kmopt"><span>Ou pela distância</span><span class="spl ${d.when==='Em 1.000 km'?'on':''}" data-ixa="w:${k}:Em 1.000 km" role="button" tabindex="0">${ic('road-horizon','s14')}Em 1.000 km</span></div>`;
-    return `<div class="mtitle">Quando lembrar de novo</div><div class="mqp">${qp}</div>${cal}${km}`;}
+    return `<div class="mtitle">Quando lembrar de novo</div>${tl}${cal}`;}
   return `<div class="mtitle">Por que fica para depois</div>${REASONS.map(o=>{const on=o===d.reason;
     return `<div class="mopt ${on?'on':''}" role="${RPH?'radio':'menuitemradio'}" aria-checked="${on}" data-ixa="r:${k}:${o}">${RPH?`<i class="rd ${on?'on':''}"></i>`:''}${ic(RICON[o],'s16')}<span>${o}</span>${!RPH&&on?ic('check','s16 ck'):''}</div>`;}).join('')}`;}
 const dpill=k=>{const d=defOf(k);const open=G.menu&&G.menu.startsWith(k+'|');const kind=open?G.menu.split('|')[1]:'';
-  return `<span class="dpr"><span class="tag dtag">Adiada</span><span class="spl ${open&&kind==='r'?'on':''}" data-ixa="m:${k}:r" role="button" aria-haspopup="menu" tabindex="0">${ic(RICON[d.reason],'s14')}${d.reason}${ic('caret-down','s12')}</span><span class="spl ${open&&kind!=='r'?'on':''}" data-ixa="m:${k}:w" role="button" aria-haspopup="menu" tabindex="0">${ic('calendar-blank','s14')}${d.when}${ic('caret-down','s12')}</span>${open&&!RPH?`<span class="pop" role="menu">${menuHtml(k,kind)}</span>`:''}</span>`;};
+  return `<span class="dpr"><span class="spl warn ${open&&kind==='r'?'on':''}" data-ixa="m:${k}:r" role="button" aria-haspopup="menu" tabindex="0">${ic(RICON[d.reason],'s14')}Adiada · ${d.reason.toLowerCase()}${ic('caret-down','s12')}</span><span class="spl ${open&&kind!=='r'?'on':''}" data-ixa="m:${k}:w" role="button" aria-haspopup="menu" tabindex="0">${ic('calendar-blank','s14')}${d.when}${ic('caret-down','s12')}</span>${open&&!RPH?`<span class="pop" role="menu">${menuHtml(k,kind)}</span>`:''}</span>`;};
 const phoneMenu=()=>{if(!G.menu||!RPH)return '';const [k,kind]=G.menu.split('|');return `<div class="msheet-ov" data-ixa="m:-:-"><div class="msheet" role="dialog"><i class="grab"></i>${kind==='vi'?insideHtml(PKGS.find(p=>p.id===k)||PKG044.find(p=>p.id===k)):menuHtml(k,kind)}</div></div>`;};
 function editor(k){const d=defOf(k);const pills=(list,cur,key)=>`<div class="pills">${list.map(r=>`<span class="pl ${r===cur?'on':''}" role="radio" aria-checked="${r===cur}" data-ixa="${key}:${k}:${r}">${r==='Escolher dia'?ic('calendar-blank','s14'):''}${r}</span>`).join('')}</div>`;
   return `<div class="ded"><div class="q"><span>Motivo</span>${pills(REASONS,d.reason,'r')}</div><div class="q"><span>Lembrar de novo</span>${pills(WHENS2,d.when,'w')}</div><div class="dr"><span data-ixa="e:-">${btn('Pronto',{variant:'outline',size:'sm'})}</span></div></div>`;}
@@ -223,15 +222,20 @@ function pkgCard(p){const st=pkState(p), open=!!G.open[p.id], off=st==='off';
       return `<div class="svr ${on?'':'off'}" data-ixa="sc:${p.id}:${i}" role="checkbox" aria-checked="${on}" tabindex="0">${cbx(on)}<span class="sn">${sv.n}${sv.inh?`<span class="inh"> · da ${sv.inh}</span>`:''}</span><span class="sm">${fmtDur(sv.min)}</span>${on?'':`<span class="sdf">${dpill(k)}</span>`}</div>${G.edit===k&&!on?editor(k):''}`;}).join('')}${partsLine(p)}</div>`:'';
   return `<div class="pkg ${off?'off':''} ${open?'open':''}">${head}${ed}${body}</div>`;}
 const shortTrig=p=>trig(p.trigger).replace(', o que vier primeiro','');
+const PART_IC=n=>/lona/i.test(n)?'disc':/retentor|rolamento/i.test(n)?'circle-notch':/graxa/i.test(n)?'drop-half':/óleo/i.test(n)?'drop':/filtro/i.test(n)?'wind':/bucha|barrote/i.test(n)?'columns':/mola/i.test(n)?'arrows-clockwise':'package';
+const capName=n=>{const x=n.replace(/^de /,'');return x.charAt(0).toUpperCase()+x.slice(1);};
+const qtyU=q=>/[a-z]/i.test(q)?q.replace(/ /g,'&nbsp;'):`${q}&nbsp;un`;
+function partRows(parts){const sorted=[...parts].sort((a,b)=>(b[3]==='w')-(a[3]==='w'));
+  return sorted.map(([q,n,rule,t])=>`<div class="prw"><span class="prx">${ic(PART_IC(n),'s16')}</span><span class="prn"><b>${capName(n)}</b>${rule?`<small>${rule}</small>`:''}</span><span class="prq"><b>${qtyU(q)}</b>${t==='w'?`<small class="w">${ic('warning','s12')}falta 1 · chega quinta</small>`:'<small>em estoque</small>'}</span></div>`).join('');}
 const SVC_IC=n=>/freio|lona/i.test(n)?'disc':/rolamento|cubo/i.test(n)?'circle-notch':/graxa|lubri|quinta roda/i.test(n)?'drop-half':/óleo|drenar|água/i.test(n)?'drop':/filtro/i.test(n)?'wind':/bucha|fueiro|barrote/i.test(n)?'columns':'wrench';
 function insideHtml(p){const parts=p.svcs.flatMap(sv=>sv.parts);const miss=parts.filter(x=>x[3]==='w').length;const tot=p.svcs.reduce((a,sv)=>a+sv.min,0);
   const tile=(icn,l,v,sub,cls)=>`<div class="tile"><span class="tic">${ic(icn,'s16')}</span><span class="tlab"><small>${l}</small><b class="${cls||''}">${v}</b>${sub?`<small class="tsub">${sub}</small>`:''}</span></div>`;
   const svcs=p.svcs.map(sv=>{const [nm,pos]=sv.n.split(/, (.+)/);return `<div class="vis2"><span class="vic">${ic(SVC_IC(sv.n),'s14')}</span><span class="vn">${nm}${pos?` <span class="vtag">${pos}</span>`:''}${sv.inh?` <span class="vtag">da ${sv.inh}</span>`:''}</span><span class="vd">${fmtDur(sv.min)}</span></div>`;}).join('');
-  const prt=parts.map(([q,n,rule,t])=>`<div class="vip2"><b class="q">${q}</b><span class="pn2"><span>${n}</span>${rule?`<small>${rule}</small>`:''}</span><span class="vst ${t==='w'?'w':'s'}">${ic(t==='w'?'warning':'check-circle','s12')}${t==='w'?'falta 1 · chega quinta':'em estoque'}</span></div>`).join('');
+  const prt=partRows(parts);
   return `<div class="vihead"><b>${p.name}</b><span>${p.veh}</span><small>${shortTrig(p)}</small></div>
   <div class="tiles vtiles">${tile('wrench','Serviços',String(p.svcs.length),'leva '+fmtDur(tot))}${parts.length?tile('package','Peças',String(parts.length),miss?`${ic('warning','s12')}falta ${miss}`:'todas em estoque'):''}</div>
   <div class="visec"><div class="vish">Serviços<span class="cnt">${p.svcs.length}</span></div><div class="vilist">${svcs}</div></div>
-  ${parts.length?`<div class="visec"><div class="vish">Peças<span class="cnt">${parts.length}</span></div><div class="vilist">${prt}</div></div>`:''}
+  ${parts.length?`<div class="visec"><div class="vish">Peças<span class="cnt">${parts.length}</span>${miss?`<span class="vmiss2">${miss} em falta</span>`:''}</div><div class="vilist">${prt}</div></div>`:''}
   ${PKGS.includes(p)?`<span class="lk viact">Abrir a OS 1042 ›</span>`:''}`;}
 const contentsLabel=p=>{const ns=p.svcs.length,np=p.svcs.reduce((a,sv)=>a+sv.parts.length,0);return `${ns} ${ns===1?'serviço':'serviços'}${np?`<span class="pcx"> e ${np} ${np===1?'peça':'peças'}</span>`:''}`;};
 function pkgRow(p){const st=pkState(p), off=st==='off', menu=G.menu===p.id+'|vi';
@@ -272,7 +276,7 @@ function ixDrawer(phone){
   return phone?`<div class="sheet-ov" data-ix="1"><div class="sheet">${inner}</div></div>`:`<div class="ixw" data-ix="0">${drawer(inner)}</div>`;}
 function ixRender(){
   document.querySelectorAll('[data-ix]').forEach(el=>{const sc=el.querySelector('.pb,.sb');const top=sc?sc.scrollTop:0;const ph=el.dataset.ix==='1';
-    const t=document.createElement('div');t.innerHTML=ixDrawer(ph);const nw=t.firstElementChild;el.replaceWith(nw);const sc2=nw.querySelector('.pb,.sb');if(sc2)sc2.scrollTop=top;});
+    const t=document.createElement('div');t.innerHTML=ixDrawer(ph);const nw=t.firstElementChild;el.replaceWith(nw);const sc2=nw.querySelector('.pb,.sb');if(sc2)sc2.scrollTop=top;const pop=nw.querySelector('.pop');if(pop)pop.scrollIntoView({block:'nearest'});});
   document.querySelectorAll('[data-id="c320"]').forEach(c=>c.classList.toggle('on',!G.closed));
 }
 let undoTimer=null;

@@ -1839,3 +1839,29 @@
 @container pf (max-width:330px){.lgx{display:none}}
 @container pf (max-width:250px){.pvx{display:none}}
 .pf .bb .fx-btn{overflow:visible;text-overflow:clip}
+/* part rows: icon square, capitalized name with its rule, quantity with unit and a tiny status */
+.prw{display:flex;align-items:center;gap:12px;min-height:56px;padding:8px 12px;border-radius:12px;background:hsl(var(--card))}
+.prx{display:grid;place-items:center;width:36px;height:36px;flex:none;border-radius:10px;background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.prn{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.prn b{font:500 14px Inter;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prn small{font-size:12.5px;color:hsl(var(--muted-foreground))}
+.prq{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:1px;text-align:right}
+.prq b{font:600 14px Inter;font-variant-numeric:tabular-nums;white-space:nowrap}
+.prq small{font-size:11.5px;color:hsl(var(--muted-foreground)/.8);white-space:nowrap}
+.prq small.w{display:inline-flex;align-items:center;gap:3px;color:hsl(var(--warning-ink));font-weight:500}
+.prq small.w .ic{color:hsl(var(--warning))}
+.vmiss2{margin-left:auto;font:500 13px Inter;color:hsl(var(--warning-ink))}
+.prlist{display:flex;flex-direction:column;gap:6px;padding:8px;background:hsl(var(--muted)/.4)}
+.vilist:has(.prw){gap:6px}
+.spl.warn,.spl.warn.on{background:hsl(var(--warning-soft))!important;color:hsl(var(--warning-ink))!important;font-weight:600}
+.spl.warn .ic{color:hsl(var(--warning-ink))}
+/* when picker: four tiles in the same style */
+.wtiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;padding:4px 6px}
+.wtile{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-width:0;padding:10px 12px;border:0;border-radius:14px;background:hsl(var(--secondary));text-align:left;font:inherit;color:hsl(var(--foreground));cursor:pointer}
+.wtile b{display:flex;align-items:center;gap:6px;font:600 14px Inter;white-space:nowrap}
+.wtile b .ic{color:hsl(var(--muted-foreground))}
+.wtile span{font-size:12.5px;color:hsl(var(--muted-foreground));font-variant-numeric:tabular-nums}
+.wtile:hover{background:hsl(var(--accent))}
+.wtile.on{background:hsl(var(--primary)/.11)}
+.wtile.on b,.wtile.on b .ic,.wtile.on span{color:hsl(var(--primary-ink))}
+.dark .wtile.on b,.dark .wtile.on b .ic,.dark .wtile.on span{color:hsl(var(--info-ink))}

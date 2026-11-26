@@ -1,6 +1,46 @@
 {
-  "generatedAt": "2026-11-26T20:20:03.620Z",
+  "generatedAt": "2026-11-26T20:24:22.150Z",
   "frames": {
+    "v-board": {
+      "width": 1440,
+      "height": 900
+    },
+    "v-list": {
+      "width": 1440,
+      "height": 900
+    },
+    "v-list-visit": {
+      "width": 1440,
+      "height": 900
+    },
+    "v-month": {
+      "width": 1440,
+      "height": 900
+    },
+    "v-full": {
+      "width": 1440,
+      "height": 900
+    },
+    "v-week": {
+      "width": 1440,
+      "height": 900
+    },
+    "v-cal-visit": {
+      "width": 1440,
+      "height": 900
+    },
+    "v-byservice": {
+      "width": 1440,
+      "height": 900
+    },
+    "v-1180": {
+      "width": 1180,
+      "height": 800
+    },
+    "v-1180-cal": {
+      "width": 1180,
+      "height": 800
+    },
     "board": {
       "width": 1440,
       "height": 900
@@ -21,15 +61,39 @@
       "width": 1440,
       "height": 900
     },
-    "schedule": {
+    "g-contents": {
       "width": 1440,
       "height": 900
     },
-    "multi": {
+    "g-uncheck": {
       "width": 1440,
       "height": 900
     },
-    "multisched": {
+    "g-reason": {
+      "width": 1440,
+      "height": 900
+    },
+    "g-remind": {
+      "width": 1440,
+      "height": 900
+    },
+    "g-remind-cal": {
+      "width": 1440,
+      "height": 900
+    },
+    "g-deferall": {
+      "width": 1440,
+      "height": 900
+    },
+    "g-done": {
+      "width": 1440,
+      "height": 900
+    },
+    "g-pk044": {
+      "width": 1440,
+      "height": 900
+    },
+    "g-sap": {
       "width": 1440,
       "height": 900
     },
@@ -42,6 +106,26 @@
       "height": 900
     },
     "dropno": {
+      "width": 1440,
+      "height": 900
+    },
+    "schedule": {
+      "width": 1440,
+      "height": 900
+    },
+    "multi": {
+      "width": 1440,
+      "height": 900
+    },
+    "multisched": {
+      "width": 1440,
+      "height": 900
+    },
+    "cdrag": {
+      "width": 1440,
+      "height": 900
+    },
+    "cno": {
       "width": 1440,
       "height": 900
     },
@@ -93,27 +177,11 @@
       "width": 1440,
       "height": 900
     },
-    "list": {
+    "c-loading": {
       "width": 1440,
       "height": 900
     },
-    "month": {
-      "width": 1440,
-      "height": 900
-    },
-    "week": {
-      "width": 1440,
-      "height": 900
-    },
-    "pk044": {
-      "width": 1440,
-      "height": 900
-    },
-    "byservice": {
-      "width": 1440,
-      "height": 900
-    },
-    "sap": {
+    "c-empty": {
       "width": 1440,
       "height": 900
     },
@@ -137,7 +205,15 @@
       "width": 744,
       "height": 868
     },
-    "p-list": {
+    "p-sVol": {
+      "width": 414,
+      "height": 868
+    },
+    "p-board": {
+      "width": 414,
+      "height": 868
+    },
+    "p-press": {
       "width": 414,
       "height": 868
     },
@@ -157,7 +233,11 @@
       "width": 414,
       "height": 868
     },
-    "p-swipe": {
+    "p-contents": {
+      "width": 414,
+      "height": 868
+    },
+    "p-defer1": {
       "width": 414,
       "height": 868
     },
@@ -165,7 +245,55 @@
       "width": 414,
       "height": 868
     },
-    "p-dark": {
+    "p-ptr": {
+      "width": 414,
+      "height": 868
+    },
+    "p-mid": {
+      "width": 414,
+      "height": 868
+    },
+    "p-swipe": {
+      "width": 414,
+      "height": 868
+    },
+    "p-etapas": {
+      "width": 414,
+      "height": 868
+    },
+    "p-kb2": {
+      "width": 414,
+      "height": 868
+    },
+    "p-error": {
+      "width": 414,
+      "height": 868
+    },
+    "p-320": {
+      "width": 344,
+      "height": 868
+    },
+    "pl-list": {
+      "width": 414,
+      "height": 868
+    },
+    "pl-visit": {
+      "width": 414,
+      "height": 868
+    },
+    "pl-swipe": {
+      "width": 414,
+      "height": 868
+    },
+    "pl-320": {
+      "width": 344,
+      "height": 868
+    },
+    "pc-agenda": {
+      "width": 414,
+      "height": 868
+    },
+    "pc-visit": {
       "width": 414,
       "height": 868
     },
@@ -177,6 +305,14 @@
       "width": 1208,
       "height": 848
     },
+    "t-list": {
+      "width": 1208,
+      "height": 848
+    },
+    "t-cal": {
+      "width": 1208,
+      "height": 848
+    },
     "tp-board": {
       "width": 848,
       "height": 1208
@@ -184,6 +320,46 @@
     "tp-visit": {
       "width": 848,
       "height": 1208
+    },
+    "tp-list": {
+      "width": 848,
+      "height": 1208
+    },
+    "tp-cal": {
+      "width": 848,
+      "height": 1208
+    },
+    "d-board": {
+      "width": 1440,
+      "height": 900
+    },
+    "d-visit": {
+      "width": 1440,
+      "height": 900
+    },
+    "d-list": {
+      "width": 1440,
+      "height": 900
+    },
+    "d-month": {
+      "width": 1440,
+      "height": 900
+    },
+    "d-schedule": {
+      "width": 1440,
+      "height": 900
+    },
+    "d-tp": {
+      "width": 848,
+      "height": 1208
+    },
+    "d-phone": {
+      "width": 414,
+      "height": 868
+    },
+    "d-phone-list": {
+      "width": 414,
+      "height": 868
     }
   }
 }

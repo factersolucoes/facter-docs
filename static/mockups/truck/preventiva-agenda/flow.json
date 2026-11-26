@@ -3,8 +3,16 @@
   "mockup": "index.html",
   "lanes": [
     {
+      "id": "views",
+      "title": "Visões"
+    },
+    {
       "id": "main",
       "title": "Caminho principal"
+    },
+    {
+      "id": "drawer",
+      "title": "Gaveta"
     },
     {
       "id": "fallback",
@@ -19,10 +27,6 @@
       "title": "Estados da tela"
     },
     {
-      "id": "views",
-      "title": "Outras visões"
-    },
-    {
       "id": "stress",
       "title": "Estresse"
     },
@@ -33,9 +37,93 @@
     {
       "id": "tablet",
       "title": "Tablet"
+    },
+    {
+      "id": "dark",
+      "title": "Escuro"
     }
   ],
   "frames": [
+    {
+      "id": "v-board",
+      "lane": "views",
+      "label": "Quadro",
+      "frame": "notebook-1",
+      "state": "board",
+      "hint": "A semana inteira: vencidas, esta semana e próximas lado a lado"
+    },
+    {
+      "id": "v-list",
+      "lane": "views",
+      "label": "Lista, como a listagem de OS",
+      "frame": "lista-1",
+      "state": "list",
+      "hint": "Tudo numa lista, como a listagem de OS"
+    },
+    {
+      "id": "v-list-visit",
+      "lane": "views",
+      "label": "Lista · abrir o conjunto",
+      "frame": "lista-1",
+      "state": "visit",
+      "hint": "Conjunto no pátio aberto: o que fazer agora e a ação"
+    },
+    {
+      "id": "v-month",
+      "lane": "views",
+      "label": "Calendário · próximas 5 semanas",
+      "frame": "calendario-1",
+      "state": "month",
+      "hint": "A partir desta semana, 5 semanas"
+    },
+    {
+      "id": "v-full",
+      "lane": "views",
+      "label": "Calendário · mês completo",
+      "frame": "calendario-1",
+      "state": "full",
+      "hint": "O mês inteiro"
+    },
+    {
+      "id": "v-week",
+      "lane": "views",
+      "label": "Calendário · semana",
+      "frame": "calendario-1",
+      "state": "week",
+      "hint": "A semana com horários"
+    },
+    {
+      "id": "v-cal-visit",
+      "lane": "views",
+      "label": "Calendário · abrir um conjunto",
+      "frame": "calendario-1",
+      "state": "visit",
+      "hint": "Clicou num chip: abre a gaveta"
+    },
+    {
+      "id": "v-byservice",
+      "lane": "views",
+      "label": "Por serviço",
+      "frame": "notebook-1",
+      "state": "byservice",
+      "hint": "A mesma semana agrupada por serviço, para comprar peças"
+    },
+    {
+      "id": "v-1180",
+      "lane": "views",
+      "label": "Notebook 1180 · quadro",
+      "frame": "notebook-2",
+      "state": "board",
+      "hint": "A semana inteira: vencidas, esta semana e próximas lado a lado"
+    },
+    {
+      "id": "v-1180-cal",
+      "lane": "views",
+      "label": "Notebook 1180 · calendário",
+      "frame": "calendario-2",
+      "state": "month",
+      "hint": "A partir desta semana, 5 semanas"
+    },
     {
       "id": "board",
       "lane": "main",
@@ -77,28 +165,101 @@
       "hint": "Depois de incluir: o que entrou, o que ficou e desfazer"
     },
     {
-      "id": "schedule",
-      "lane": "schedule",
-      "label": "1 · Veículo na estrada",
+      "id": "g-contents",
+      "lane": "drawer",
+      "label": "4 serviços e 5 peças",
       "frame": "notebook-1",
-      "state": "schedule",
-      "hint": "Veículo na estrada: escolher o dia com espaço na oficina"
+      "state": "visit",
+      "clicks": [
+        "[data-ixa=\"m:b:vi\"]"
+      ],
+      "hint": "O conteúdo do pacote substitui a gaveta; a seta volta"
     },
     {
-      "id": "multi",
-      "lane": "schedule",
-      "label": "2 · Marcar para vários",
+      "id": "g-uncheck",
+      "lane": "drawer",
+      "label": "Desmarcar um pacote",
       "frame": "notebook-1",
-      "state": "multi",
-      "hint": "Vários marcados na agenda com a barra de baixo"
+      "state": "visit",
+      "clicks": [
+        "[data-ixa=\"pc:b\"]"
+      ],
+      "hint": "O pacote desmarcado ganha as pílulas de adiar"
     },
     {
-      "id": "multisched",
-      "lane": "schedule",
-      "label": "3 · Escolher o dia para vários",
+      "id": "g-reason",
+      "lane": "drawer",
+      "label": "Adiar · motivo",
       "frame": "notebook-1",
-      "state": "multisched",
-      "hint": "Um calendário para os 3, com o tempo somado"
+      "state": "visit",
+      "clicks": [
+        "[data-ixa=\"pc:b\"]",
+        "[data-ixa=\"m:b:r\"]"
+      ],
+      "hint": "Motivo do adiar numa pílula"
+    },
+    {
+      "id": "g-remind",
+      "lane": "drawer",
+      "label": "Lembrar de novo",
+      "frame": "notebook-1",
+      "state": "visit",
+      "clicks": [
+        "[data-ixa=\"pc:b\"]",
+        "[data-ixa=\"m:b:w\"]"
+      ],
+      "hint": "Quando lembrar: próxima parada, 7 dias, 1.000 km ou outra data"
+    },
+    {
+      "id": "g-remind-cal",
+      "lane": "drawer",
+      "label": "Lembrar de novo · outra data",
+      "frame": "notebook-1",
+      "state": "visit",
+      "clicks": [
+        "[data-ixa=\"pc:b\"]",
+        "[data-ixa=\"m:b:w\"]",
+        "[data-ixa=\"m:b:cal\"]"
+      ],
+      "hint": "Calendário do DS para escolher o dia"
+    },
+    {
+      "id": "g-deferall",
+      "lane": "drawer",
+      "label": "Adiar todas",
+      "frame": "notebook-1",
+      "state": "visit",
+      "clicks": [
+        "[data-ixa=\"A\"]"
+      ],
+      "hint": "Todas ficam para depois com o mesmo motivo"
+    },
+    {
+      "id": "g-done",
+      "lane": "drawer",
+      "label": "Feito · Desfazer em 10 s",
+      "frame": "notebook-1",
+      "state": "visit",
+      "clicks": [
+        "[data-ixa=\"ok\"]"
+      ],
+      "hint": "Depois de incluir: o que entrou e o Desfazer"
+    },
+    {
+      "id": "g-pk044",
+      "lane": "drawer",
+      "label": "Pacotes variados",
+      "frame": "notebook-1",
+      "state": "pk044",
+      "hint": "Um pacote que inclui outro, um obrigatório, um anual e um por horas de motor"
+    },
+    {
+      "id": "g-sap",
+      "lane": "drawer",
+      "label": "Modo SAP",
+      "frame": "notebook-1",
+      "state": "sap",
+      "hint": "Planos do SAP: o que fica no SAP e o que fica aqui"
     },
     {
       "id": "drag",
@@ -123,6 +284,46 @@
       "frame": "notebook-1",
       "state": "dropno",
       "hint": "Soltou em Na oficina com o conjunto na estrada"
+    },
+    {
+      "id": "schedule",
+      "lane": "schedule",
+      "label": "Marcar dia na oficina",
+      "frame": "notebook-1",
+      "state": "schedule",
+      "hint": "Veículo na estrada: escolher o dia com espaço na oficina"
+    },
+    {
+      "id": "multi",
+      "lane": "schedule",
+      "label": "Marcar para vários",
+      "frame": "notebook-1",
+      "state": "multi",
+      "hint": "Vários marcados na agenda com a barra de baixo"
+    },
+    {
+      "id": "multisched",
+      "lane": "schedule",
+      "label": "Escolher o dia para vários",
+      "frame": "notebook-1",
+      "state": "multisched",
+      "hint": "Um calendário para os 3, com o tempo somado"
+    },
+    {
+      "id": "cdrag",
+      "lane": "schedule",
+      "label": "Calendário · remarcando",
+      "frame": "calendario-1",
+      "state": "cdrag",
+      "hint": "Arrastando para seg 30/11"
+    },
+    {
+      "id": "cno",
+      "lane": "schedule",
+      "label": "Calendário · dia cheio",
+      "frame": "calendario-1",
+      "state": "cno",
+      "hint": "Soltou num dia cheio"
     },
     {
       "id": "defer1",
@@ -221,52 +422,20 @@
       "hint": "Não atualizou: mostra o que tinha e tenta de novo"
     },
     {
-      "id": "list",
-      "lane": "views",
-      "label": "Lista, como a listagem de OS",
-      "frame": "lista-1",
-      "state": "list",
-      "hint": "Tudo numa lista, como a listagem de OS"
-    },
-    {
-      "id": "month",
-      "lane": "views",
-      "label": "Calendário · próximas 5 semanas",
+      "id": "c-loading",
+      "lane": "states",
+      "label": "Calendário · carregando",
       "frame": "calendario-1",
-      "state": "month",
-      "hint": "A partir desta semana, 5 semanas"
+      "state": "loading",
+      "hint": "Carregando"
     },
     {
-      "id": "week",
-      "lane": "views",
-      "label": "Calendário · semana",
+      "id": "c-empty",
+      "lane": "states",
+      "label": "Calendário · nada no mês",
       "frame": "calendario-1",
-      "state": "week",
-      "hint": "A semana com horários"
-    },
-    {
-      "id": "pk044",
-      "lane": "views",
-      "label": "Pacotes variados",
-      "frame": "notebook-1",
-      "state": "pk044",
-      "hint": "Um pacote que inclui outro, um obrigatório, um anual e um por horas de motor"
-    },
-    {
-      "id": "byservice",
-      "lane": "views",
-      "label": "Por serviço",
-      "frame": "notebook-1",
-      "state": "byservice",
-      "hint": "A mesma semana agrupada por serviço, para comprar peças"
-    },
-    {
-      "id": "sap",
-      "lane": "views",
-      "label": "Modo SAP",
-      "frame": "notebook-1",
-      "state": "sap",
-      "hint": "Planos do SAP: o que fica no SAP e o que fica aqui"
+      "state": "empty",
+      "hint": "Nada no mês"
     },
     {
       "id": "sVol",
@@ -295,7 +464,7 @@
     {
       "id": "s320",
       "lane": "stress",
-      "label": "Celular de 320 px · 11 preventivas",
+      "label": "Celular 320 · 11 preventivas",
       "frame": "estresse-1",
       "hint": "O menor celular com o conjunto mais carregado"
     },
@@ -307,16 +476,32 @@
       "hint": "Notebook 1440 com zoom de 200%: a tela vira 720 px"
     },
     {
-      "id": "p-list",
+      "id": "p-sVol",
+      "lane": "stress",
+      "label": "Celular · frota grande",
+      "frame": "celular-2",
+      "state": "sVol",
+      "hint": "Frota grande: 38 vencidas, colunas com página"
+    },
+    {
+      "id": "p-board",
       "lane": "phone",
-      "label": "1 · Lista",
+      "label": "Quadro",
       "frame": "celular-1",
-      "hint": "Abas fixas no topo, uma lista por vez"
+      "hint": "Etapas em abas, uma lista por vez"
+    },
+    {
+      "id": "p-press",
+      "lane": "phone",
+      "label": "Toque no cartão",
+      "frame": "celular-2",
+      "state": "press",
+      "hint": "O cartão responde ao toque"
     },
     {
       "id": "p-visit",
       "lane": "phone",
-      "label": "2 · Abrir o conjunto",
+      "label": "Abrir o conjunto",
       "frame": "celular-2",
       "state": "visit",
       "hint": "Conjunto no pátio aberto: o que fazer agora e a ação"
@@ -324,7 +509,7 @@
     {
       "id": "p-kitopen",
       "lane": "phone",
-      "label": "3 · Ver as peças",
+      "label": "Ver as peças",
       "frame": "celular-2",
       "state": "kitopen",
       "hint": "Um kit aberto mostra cada peça e a conta por lado"
@@ -332,7 +517,7 @@
     {
       "id": "p-pick",
       "lane": "phone",
-      "label": "4 · Escolher o que fazer",
+      "label": "Escolher o que fazer",
       "frame": "celular-2",
       "state": "pick",
       "hint": "Nada marcado: o botão principal espera a escolha"
@@ -340,10 +525,53 @@
     {
       "id": "p-done",
       "lane": "phone",
-      "label": "5 · Feito",
+      "label": "Feito",
       "frame": "celular-2",
       "state": "done",
       "hint": "Depois de incluir: o que entrou, o que ficou e desfazer"
+    },
+    {
+      "id": "p-contents",
+      "lane": "phone",
+      "label": "4 serviços e 5 peças",
+      "frame": "celular-2",
+      "state": "visit",
+      "clicks": [
+        "[data-ixa=\"m:b:vi\"]"
+      ],
+      "hint": "O conteúdo do pacote na folha"
+    },
+    {
+      "id": "p-defer1",
+      "lane": "phone",
+      "label": "Adiar uma",
+      "frame": "celular-2",
+      "state": "defer1",
+      "hint": "Uma fica para depois, com motivo e quando lembrar"
+    },
+    {
+      "id": "p-schedule",
+      "lane": "phone",
+      "label": "Marcar dia",
+      "frame": "celular-2",
+      "state": "schedule",
+      "hint": "Veículo na estrada: escolher o dia com espaço na oficina"
+    },
+    {
+      "id": "p-ptr",
+      "lane": "phone",
+      "label": "Puxar para atualizar",
+      "frame": "celular-2",
+      "state": "ptr",
+      "hint": "Puxar a lista para baixo atualiza a agenda"
+    },
+    {
+      "id": "p-mid",
+      "lane": "phone",
+      "label": "Rolando a lista",
+      "frame": "celular-2",
+      "state": "mid",
+      "hint": "Rolando: o cabeçalho da seção fica preso e a aba acompanha"
     },
     {
       "id": "p-swipe",
@@ -354,26 +582,87 @@
       "hint": "Deslizar o cartão mostra Adiar e Marcar dia"
     },
     {
-      "id": "p-schedule",
+      "id": "p-etapas",
       "lane": "phone",
-      "label": "Veículo na estrada",
+      "label": "Etapas",
       "frame": "celular-2",
-      "state": "schedule",
-      "hint": "Veículo na estrada: escolher o dia com espaço na oficina"
+      "state": "list",
+      "hint": "Etapas em abas e colunas que deslizam de lado"
     },
     {
-      "id": "p-dark",
+      "id": "p-kb2",
       "lane": "phone",
-      "label": "Abrir o conjunto · tema escuro",
+      "label": "Deslizou para Agendada",
       "frame": "celular-2",
+      "state": "kb2",
+      "hint": "Deslizou para Agendada"
+    },
+    {
+      "id": "p-error",
+      "lane": "phone",
+      "label": "Erro",
+      "frame": "celular-2",
+      "state": "error",
+      "hint": "Não atualizou: mostra o que tinha e tenta de novo"
+    },
+    {
+      "id": "p-320",
+      "lane": "phone",
+      "label": "Celular 320 · abrir o conjunto",
+      "frame": "celular-3",
       "state": "visit",
-      "hint": "Conjunto no pátio aberto: o que fazer agora e a ação",
-      "theme": "dark"
+      "hint": "Conjunto no pátio aberto: o que fazer agora e a ação"
+    },
+    {
+      "id": "pl-list",
+      "lane": "phone",
+      "label": "Lista",
+      "frame": "lista-celular-1",
+      "hint": "O cartão de OS do celular"
+    },
+    {
+      "id": "pl-visit",
+      "lane": "phone",
+      "label": "Lista · abrir o conjunto",
+      "frame": "lista-celular-2",
+      "state": "visit",
+      "hint": "Conjunto no pátio aberto: o que fazer agora e a ação"
+    },
+    {
+      "id": "pl-swipe",
+      "lane": "phone",
+      "label": "Lista · deslizar",
+      "frame": "lista-celular-2",
+      "state": "swipe",
+      "hint": "Deslizar o cartão mostra Adiar e Marcar dia"
+    },
+    {
+      "id": "pl-320",
+      "lane": "phone",
+      "label": "Lista 320",
+      "frame": "lista-celular-3",
+      "state": "visit",
+      "hint": "Conjunto no pátio aberto: o que fazer agora e a ação"
+    },
+    {
+      "id": "pc-agenda",
+      "lane": "phone",
+      "label": "Calendário · agenda por dia",
+      "frame": "calendario-celular-1",
+      "hint": "A faixa da semana e a agenda por dia"
+    },
+    {
+      "id": "pc-visit",
+      "lane": "phone",
+      "label": "Calendário · abrir um conjunto",
+      "frame": "calendario-celular-2",
+      "state": "visit",
+      "hint": "Tocou num conjunto"
     },
     {
       "id": "t-board",
       "lane": "tablet",
-      "label": "Tablet deitado · quadro",
+      "label": "Deitado · quadro",
       "frame": "notebook-3",
       "state": "board",
       "hint": "A semana inteira: vencidas, esta semana e próximas lado a lado"
@@ -381,15 +670,31 @@
     {
       "id": "t-visit",
       "lane": "tablet",
-      "label": "Tablet deitado · abrir o conjunto",
+      "label": "Deitado · abrir o conjunto",
       "frame": "notebook-3",
       "state": "visit",
       "hint": "Conjunto no pátio aberto: o que fazer agora e a ação"
     },
     {
+      "id": "t-list",
+      "lane": "tablet",
+      "label": "Deitado · lista",
+      "frame": "lista-2",
+      "state": "list",
+      "hint": "Tudo numa lista, como a listagem de OS"
+    },
+    {
+      "id": "t-cal",
+      "lane": "tablet",
+      "label": "Deitado · calendário",
+      "frame": "calendario-3",
+      "state": "month",
+      "hint": "A partir desta semana, 5 semanas"
+    },
+    {
       "id": "tp-board",
       "lane": "tablet",
-      "label": "Tablet em pé · quadro",
+      "label": "Em pé · quadro",
       "frame": "notebook-4",
       "state": "board",
       "hint": "A semana inteira: vencidas, esta semana e próximas lado a lado"
@@ -397,10 +702,96 @@
     {
       "id": "tp-visit",
       "lane": "tablet",
-      "label": "Tablet em pé · abrir o conjunto",
+      "label": "Em pé · abrir o conjunto",
       "frame": "notebook-4",
       "state": "visit",
       "hint": "Conjunto no pátio aberto: o que fazer agora e a ação"
+    },
+    {
+      "id": "tp-list",
+      "lane": "tablet",
+      "label": "Em pé · lista",
+      "frame": "lista-3",
+      "state": "visit",
+      "hint": "Conjunto no pátio aberto: o que fazer agora e a ação"
+    },
+    {
+      "id": "tp-cal",
+      "lane": "tablet",
+      "label": "Em pé · calendário",
+      "frame": "calendario-4",
+      "state": "month",
+      "hint": "A partir desta semana, 5 semanas"
+    },
+    {
+      "id": "d-board",
+      "lane": "dark",
+      "label": "Quadro",
+      "frame": "notebook-1",
+      "state": "board",
+      "hint": "A semana inteira: vencidas, esta semana e próximas lado a lado",
+      "theme": "dark"
+    },
+    {
+      "id": "d-visit",
+      "lane": "dark",
+      "label": "Abrir o conjunto",
+      "frame": "notebook-1",
+      "state": "visit",
+      "hint": "Conjunto no pátio aberto: o que fazer agora e a ação",
+      "theme": "dark"
+    },
+    {
+      "id": "d-list",
+      "lane": "dark",
+      "label": "Lista",
+      "frame": "lista-1",
+      "state": "list",
+      "hint": "Tudo numa lista, como a listagem de OS",
+      "theme": "dark"
+    },
+    {
+      "id": "d-month",
+      "lane": "dark",
+      "label": "Calendário",
+      "frame": "calendario-1",
+      "state": "month",
+      "hint": "A partir desta semana, 5 semanas",
+      "theme": "dark"
+    },
+    {
+      "id": "d-schedule",
+      "lane": "dark",
+      "label": "Marcar dia",
+      "frame": "notebook-1",
+      "state": "schedule",
+      "hint": "Veículo na estrada: escolher o dia com espaço na oficina",
+      "theme": "dark"
+    },
+    {
+      "id": "d-tp",
+      "lane": "dark",
+      "label": "Tablet em pé",
+      "frame": "notebook-4",
+      "state": "board",
+      "hint": "A semana inteira: vencidas, esta semana e próximas lado a lado",
+      "theme": "dark"
+    },
+    {
+      "id": "d-phone",
+      "lane": "dark",
+      "label": "Celular · abrir o conjunto",
+      "frame": "celular-2",
+      "state": "visit",
+      "hint": "Conjunto no pátio aberto: o que fazer agora e a ação",
+      "theme": "dark"
+    },
+    {
+      "id": "d-phone-list",
+      "lane": "dark",
+      "label": "Celular · lista",
+      "frame": "lista-celular-1",
+      "theme": "dark"
     }
   ],
   "arrows": [
@@ -421,32 +812,40 @@
       "to": "done"
     },
     {
-      "from": "board",
-      "to": "schedule",
-      "label": "Na estrada"
+      "from": "v-list",
+      "to": "v-list-visit"
     },
     {
-      "from": "schedule",
-      "to": "multi"
+      "from": "v-month",
+      "to": "v-full"
     },
     {
-      "from": "multi",
-      "to": "multisched"
+      "from": "v-full",
+      "to": "v-week"
     },
     {
-      "from": "multisched",
-      "to": "drag",
-      "label": "Ou arrastar"
+      "from": "v-week",
+      "to": "v-cal-visit"
     },
     {
-      "from": "drag",
-      "to": "dropok",
-      "label": "Soltou"
+      "from": "visit",
+      "to": "g-contents",
+      "label": "4 serviços e 5 peças"
     },
     {
-      "from": "drag",
-      "to": "dropno",
-      "label": "Recusado"
+      "from": "g-uncheck",
+      "to": "g-reason",
+      "label": "Motivo"
+    },
+    {
+      "from": "g-reason",
+      "to": "g-remind",
+      "label": "Quando"
+    },
+    {
+      "from": "g-remind",
+      "to": "g-remind-cal",
+      "label": "Outra data"
     },
     {
       "from": "visit",
@@ -469,19 +868,49 @@
       "label": "OS fechou"
     },
     {
-      "from": "pick",
-      "to": "sConc",
-      "label": "Outra pessoa"
-    },
-    {
       "from": "done",
       "to": "sOff",
       "label": "Sem sinal"
     },
     {
-      "from": "p-list",
-      "to": "p-visit",
-      "label": "Toque"
+      "from": "board",
+      "to": "drag",
+      "label": "Arrastar"
+    },
+    {
+      "from": "drag",
+      "to": "dropok",
+      "label": "Agendada"
+    },
+    {
+      "from": "drag",
+      "to": "dropno",
+      "label": "Na estrada"
+    },
+    {
+      "from": "dropok",
+      "to": "schedule",
+      "label": "Marcar dia"
+    },
+    {
+      "from": "schedule",
+      "to": "multi"
+    },
+    {
+      "from": "multi",
+      "to": "multisched"
+    },
+    {
+      "from": "cdrag",
+      "to": "cno"
+    },
+    {
+      "from": "p-board",
+      "to": "p-press"
+    },
+    {
+      "from": "p-press",
+      "to": "p-visit"
     },
     {
       "from": "p-visit",
@@ -496,6 +925,14 @@
       "to": "p-done"
     },
     {
+      "from": "pl-list",
+      "to": "pl-visit"
+    },
+    {
+      "from": "pc-agenda",
+      "to": "pc-visit"
+    },
+    {
       "from": "t-board",
       "to": "t-visit"
     },
@@ -507,35 +944,43 @@
   "notes": [
     {
       "attach": "board",
-      "text": "A semana inteira numa tela, sem rolar. Vermelho só no vencido, âmbar só nesta semana."
+      "text": "A semana inteira numa tela. Vermelho só no vencido, âmbar só nesta semana."
     },
     {
       "attach": "visit",
       "text": "A gaveta guarda só a decisão de quem planeja: o que fazer e quando."
     },
     {
+      "attach": "g-contents",
+      "text": "O conteúdo do pacote troca a gaveta; a seta volta."
+    },
+    {
+      "attach": "g-uncheck",
+      "text": "Desmarcou, ganha motivo e quando lembrar. Conta como atraso."
+    },
+    {
       "attach": "done",
-      "text": "Desfazer em até 10 s. Tirar da OS fica no menu do serviço, na OS."
+      "text": "Desfazer em até 10 s. Tirar da OS fica na OS."
+    },
+    {
+      "attach": "dropno",
+      "text": "Veículo na estrada não entra na oficina pelo arraste."
     },
     {
       "attach": "schedule",
-      "text": "A carga da oficina só aparece na hora de agendar."
-    },
-    {
-      "attach": "defer1",
-      "text": "Adiar pede motivo e quando lembrar. Conta como atraso."
+      "text": "A carga da oficina só aparece na hora de marcar o dia."
     },
     {
       "attach": "loading",
       "text": "Toda tela entrega todos os estados de uma vez."
     },
     {
-      "attach": "p-list",
-      "text": "Abas fixas no topo. A contagem das vencidas fica sempre à vista."
+      "attach": "p-board",
+      "text": "No celular, abas fixas e a folha de baixo."
     },
     {
       "attach": "sVol",
-      "text": "Cada coluna mostra 8 e \"Ver todas\"; a contagem fica no cabeçalho."
+      "text": "Cada coluna mostra 8 e \"Ver todas\"."
     }
   ]
 }
