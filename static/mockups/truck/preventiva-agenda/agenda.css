@@ -1741,3 +1741,13 @@
 .vgrp{gap:12px}
 .vgrp .vh{padding-left:0}
 .sec.plain .vgrp+.vgrp{margin-top:16px}
+@container prows (max-width:420px){
+  .prow .prr{justify-self:stretch;width:100%;justify-content:space-between}
+  .prow .prr .sit{margin:0;justify-self:start}
+  .prow .prr .vin2{margin-left:auto}
+}
+@container prows (max-width:420px){
+  .prow .prr .sit{display:inline-flex;align-items:center;gap:5px;height:24px;padding:2px 8px;border-radius:7px;background:hsl(var(--foreground)/.05)!important;color:hsl(var(--foreground));font:500 12.5px Inter}
+  .prow.off .prr .sit{display:none}
+}
+@container prows (max-width:420px){.prow .prr{flex-wrap:wrap;row-gap:6px;min-width:0}}
