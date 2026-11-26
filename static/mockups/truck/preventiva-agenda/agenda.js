@@ -174,7 +174,7 @@ function listTop(o={}){
   const head=F.pageHeader('Agenda','O que trazer para a oficina, e quando.',`${F.fchip('Base Curitiba',{menu:1})}${btn('Ver planos',{variant:'outline',icon:'list-checks'})}`);
   const kpi=`<div class="fx-kpi4">${[['Vencidas',o.zero?0:5,'d'],['Vencem esta semana',4,'w'],['Próximas semanas',14,''],['Sem km',2,'']].map(([l,v,t])=>`<div><p>${l}</p><b class="k${v?t:''}">${v}</b></div>`).join('')}</div>`;
   const tools=`<div class="ltools">${F.search('Buscar placa, frota ou conjunto',{width:340})}${F.fchip('Todas as transportadoras',{menu:1})}${F.fchip('Todos os planos',{menu:1})}</div>`;
-  return head+`<div class="lstack">${kpi}<div class="lstack s">${F.dtabs(LTABS,o.tab||'Todas')}${tools}`;
+  return head+`<div class="lstack"><div class="lstack s">${F.dtabs(LTABS,o.tab||'Todas')}${tools}`;
 }
 function listWeb(s){
   const sel=s==='schedule'?'dly':s==='visit'?'c320':null;
