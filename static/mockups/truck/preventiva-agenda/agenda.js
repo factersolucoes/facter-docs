@@ -32,7 +32,7 @@ const GROUPS=[
 
 /* ---------- pieces ---------- */
 const motif=()=>`<span class="motif" aria-hidden="true">${[[1,1,0,1],[1,0,1],[1,1,1,0],[1,0],[1,1,0]].map(r=>`<span>${r.map((x,i)=>`<i class="${i===0?'cav':''} ${x?'':'o'}"></i>`).join('')}</span>`).join('')}</span>`;
-const head=o=>`<div class="hl hero">${motif()}<div class="big">5</div><div class="tx"><h2>preventivas vencidas</h2><p>em 3 visitas, 2 com o veículo no pátio</p></div><div class="stats"><span class="st w"><b>4</b>esta semana</span><span class="st"><b>9</b>próximas</span></div></div>`;
+const head=o=>`<div class="hl hero">${motif()}<div class="big">5</div><div class="tx"><h2>preventivas vencidas</h2><p>em <b>3 visitas</b>, <b>2</b> com o veículo no pátio</p></div><div class="stats"><span class="st w"><b>4</b>esta semana</span><span class="st"><b>9</b>próximas</span></div></div>`;
 const search=()=>`<span class="sf" role="search">${ic('magnifying-glass','s16')}<span>Buscar placa ou conjunto</span></span>`;
 function row(id,sel){const v=V[id];
   return `<div class="vr ${sel===id?'on':''}" role="button" tabindex="0"><div class="who"><b>${v.name}</b>${mark(v.parts)}</div><div class="what"><b>${v.svc}</b>${v.more?`<span>${v.more}</span>`:''}</div><div class="when ${v.t}">${v.when}</div>${ic('caret-right','s16 car')}</div>`;}
