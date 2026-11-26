@@ -1,6 +1,10 @@
 {
-  "generatedAt": "2026-11-26T20:34:28.466Z",
+  "generatedAt": "2026-11-26T20:38:27.914Z",
   "frames": {
+    "c-menu": {
+      "width": 1440,
+      "height": 900
+    },
     "v-board": {
       "width": 1440,
       "height": 900
@@ -358,6 +362,10 @@
       "height": 868
     },
     "d-phone-list": {
+      "width": 414,
+      "height": 868
+    },
+    "c-sheet": {
       "width": 414,
       "height": 868
     }
