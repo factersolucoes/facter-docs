@@ -102,7 +102,7 @@ const H320=h320('all');
 const cbx=on=>`<i class="cbx ${on?'on':''}">${on?ic('check','s14'):''}</i>`;
 const whereShort=w=>{const x=w.replace(/^(Na|No) /,'');return x.charAt(0).toUpperCase()+x.slice(1);};
 const ruleShort=r=>r?r.split('.')[0].replace(/^(Trocar|Fazer) /,''):'';
-const pvRow=(on,n,where,v,t,rule)=>`<label class="pk pv ${on===null?'nock':''} ${on===false?'off':''}">${on===null?'':cbx(on)}<span class="pt"><b>${n}</b><small>${whereShort(where)}</small>${rule?`<small class="rl">${ruleShort(rule).replace(/^a /,'A ')}</small>`:''}</span><span class="tp sm ${t}">${v}</span></label>`;
+const pvRow=(on,n,where,v,t,rule)=>`<label class="pk pv ${on===null?'nock':''} ${on===false?'off':''}">${on===null?`<span class="kic">${ic('calendar-check','s14')}</span>`:cbx(on)}<span class="pt"><b title="${n}">${n}</b><small title="${rule?ruleShort(rule).replace(/^a /,'A '):''}">${whereShort(where)}${rule?` · ${ruleShort(rule).replace(/^a cada /,'')}`:''}</small></span><span class="sit ${t||'n'}">${v}</span><span></span></label>`;
 const prevHead=(title,sub,chip)=>`<div class="prh pvh"><span class="gt">${ic('calendar-check','s16')}</span><div class="prt"><h3>${title}</h3><p>${sub}</p></div>${chip||''}</div>`;
 const OVERCHIP="";
 const ckItem=on=>([n,where,v,t,rule],i)=>pvRow(on(i),n,where,v,t,rule);
