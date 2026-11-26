@@ -11,30 +11,30 @@ function mark(parts){
 
 /* ---------- data: Base Curitiba, hoje qui 26/11/2026 ---------- */
 const V={
-  c320:{name:'C-320',full:'Conjunto C-320',sub:'QRT4B22 com 3 carretas',parts:[['QRT4B22','cav',''],['RTF6K38','car',''],['RTE1J77','car','d'],['SRK9H46','car','']],svc:'Lona de freio, eixo 3',more:'+2 nesta visita',when:'vencida há 1.850 km',t:'d'},
-  dly:{name:'DLY1J07',full:'Cavalo DLY1J07',sub:'Frota 812, transportadora JSL',parts:[['DLY1J07','cav','d']],svc:'Revisão B',more:'Inclui a revisão A',when:'vencida há 4.300 km',t:'d'},
-  c207:{name:'C-207',full:'Conjunto C-207',sub:'QRT9D14 com 2 carretas',parts:[['QRT9D14','cav',''],['RTC3B19','car','d'],['RTC3B20','car','']],svc:'Fueiros e barrotes',more:'+1 nesta visita',when:'vencida há 3 dias',t:'d'},
-  c118:{name:'C-118',parts:[['QRT7C10','cav','w'],['RTB2A41','car',''],['RTB2A42','car','']],svc:'Revisão A',more:'+1 nesta visita',when:'sáb 28/11',t:'w'},
+  c320:{name:'C-320',full:'Conjunto C-320',sub:'Cavalo QRT4B22 e 3 carretas',parts:[['QRT4B22','cav',''],['RTF6K38','car',''],['RTE1J77','car','d'],['SRK9H46','car','']],svc:'Lona de freio, eixo 3',more:'+2 preventivas',when:'venceu há 1.850 km',t:'d'},
+  dly:{name:'DLY1J07',full:'Cavalo DLY1J07',sub:'Frota 812, transportadora JSL',parts:[['DLY1J07','cav','d']],svc:'Revisão B',more:'Inclui a revisão A',when:'venceu há 4.300 km',t:'d'},
+  c207:{name:'C-207',full:'Conjunto C-207',sub:'Cavalo QRT9D14 e 2 carretas',parts:[['QRT9D14','cav',''],['RTC3B19','car','d'],['RTC3B20','car','']],svc:'Fueiros e barrotes',more:'+1 preventiva',when:'venceu há 3 dias',t:'d'},
+  c118:{name:'C-118',parts:[['QRT7C10','cav','w'],['RTB2A41','car',''],['RTB2A42','car','']],svc:'Revisão A',more:'+1 preventiva',when:'sáb 28/11',t:'w'},
   q1a:{name:'QRT1A09',parts:[['QRT1A09','cav','w']],svc:'Revisão A',more:'',when:'dom 29/11',t:'w'},
   rta:{name:'RTA4A44',parts:[['RTA4A44','car','w']],svc:'Fueiros e barrotes',more:'',when:'dom 29/11',t:'w'},
   c072:{name:'C-072',parts:[['QRT5F80','cav',''],['RTG1H22','car','']],svc:'Troca de óleo e filtros',more:'',when:'seg 07/12',t:''},
   q9b:{name:'QRT9B71',parts:[['QRT9B71','cav','']],svc:'Revisão A',more:'',when:'qua 09/12',t:''},
-  c044:{name:'C-044',parts:[['QRT2E55','cav',''],['RTD8F12','car',''],['RTD8F13','car','']],svc:'Revisão B',more:'+1 nesta visita',when:'qui 10/12',t:''},
+  c044:{name:'C-044',parts:[['QRT2E55','cav',''],['RTD8F12','car',''],['RTD8F13','car','']],svc:'Revisão B',more:'+1 preventiva',when:'qui 10/12',t:''},
   q6h:{name:'QRT6H33',parts:[['QRT6H33','cav','']],svc:'Lona de freio, eixos 2 e 3',more:'',when:'ter 15/12',t:''},
   rtf:{name:'RTF2D10',parts:[['RTF2D10','car','']],svc:'Lubrificação geral',more:'',when:'sex 18/12',t:''},
   srt:{name:'SRT2C55',parts:[['SRT2C55','car','']],svc:'Sem leitura de km',more:'3 preventivas esperando',when:'desde 12/10',t:'m'},
   rtc:{name:'RTC9K21',parts:[['RTC9K21','car','']],svc:'Km a conferir',more:'Salto de 9.800 km em um dia',when:'desde ontem',t:'m'},
 };
 const GROUPS=[
-  {k:'over',title:'Vencidas',count:'3 visitas',tone:'d',icon:'warning-octagon',ids:['c320','dly','c207']},
-  {k:'week',title:'Esta semana',count:'3 visitas',tone:'w',icon:'hourglass-medium',ids:['c118','q1a','rta']},
-  {k:'next',title:'Próximas semanas',count:'9 visitas',tone:'',icon:'calendar-blank',ids:['c072','q9b','c044','q6h','rtf'],more:'Ver as 9 até 24/12'},
+  {k:'over',title:'Vencidas',count:'3 veículos',tone:'d',icon:'warning-octagon',ids:['c320','dly','c207']},
+  {k:'week',title:'Esta semana',count:'3 veículos',tone:'w',icon:'hourglass-medium',ids:['c118','q1a','rta']},
+  {k:'next',title:'Próximas semanas',count:'9 veículos',tone:'',icon:'calendar-blank',ids:['c072','q9b','c044','q6h','rtf'],more:'Ver as 9 até 24/12'},
   {k:'nokm',title:'Sem km',count:'2 veículos',tone:'',icon:'gauge',ids:['srt','rtc']},
 ];
 
 /* ---------- pieces ---------- */
 const motif=()=>`<span class="motif" aria-hidden="true">${[[1,1,0,1],[1,0,1],[1,1,1,0],[1,0],[1,1,0]].map(r=>`<span>${r.map((x,i)=>`<i class="${i===0?'cav':''} ${x?'':'o'}"></i>`).join('')}</span>`).join('')}</span>`;
-const head=o=>`<div class="hl hero">${motif()}<div class="big">5</div><div class="tx"><h2>preventivas vencidas</h2><p>em <b>3 visitas</b>, <b>2</b> com o veículo no pátio</p></div><div class="stats"><span class="st w"><b>4</b>esta semana</span><span class="st"><b>9</b>próximas</span></div></div>`;
+const head=o=>`<div class="hl hero">${motif()}<div class="big">5</div><div class="tx"><h2>preventivas vencidas</h2><p>em <b>3 veículos</b>, <b>2</b> já no pátio</p></div><div class="stats"><span class="st w"><b>4</b>esta semana</span><span class="st"><b>9</b>próximas</span></div></div>`;
 const search=()=>`<span class="sf" role="search">${ic('magnifying-glass','s16')}<span>Buscar placa ou conjunto</span></span>`;
 function row(id,sel){const v=V[id];
   return `<div class="vr ${sel===id?'on':''}" role="button" tabindex="0"><div class="who"><b>${v.name}</b>${mark(v.parts)}</div><div class="what"><b>${v.svc}</b>${v.more?`<span>${v.more}</span>`:''}</div><div class="when ${v.t}">${v.when}</div>${ic('caret-right','s16 car')}</div>`;}
@@ -44,9 +44,9 @@ function group(g,sel){
 /* visit item: [service, where, state, tone, rule and last time]. No bars or axle drawings:
    in the comprehension test nobody could explain them without a legend */
 const ITEMS_C320=[
-  ['Lona de freio','2ª carreta, eixo 3','vencida há 1.850 km','d','Troca a cada 60 mil km. Última em 12/05, com&nbsp;94.720&nbsp;km.'],
-  ['Lubrificação geral','2ª carreta','vence hoje','w','A cada 30 dias. Última em 27/10.'],
-  ['Troca de óleo e filtros','Cavalo','em 1.200 km','','A cada 20 mil km. Última em 02/09.'],
+  ['Lona de freio','Na 2ª carreta, eixo 3','Venceu há 1.850 km','d','Trocar a cada 60 mil km. Última troca em 12/05.'],
+  ['Lubrificação geral','Na 2ª carreta','Vence hoje','w','Fazer a cada 30 dias. Última em 27/10.'],
+  ['Troca de óleo e filtros','No cavalo','Vence em 1.200 km','','Trocar a cada 20 mil km. Última troca em 02/09.'],
 ];
 const item=([n,where,v,t,rule],i)=>`<div class="ii ${i===0?'lead':''}"><div class="it1"><b>${n}</b><span class="tp sm ${t}">${v}</span></div><span class="iw">${where}</span>${rule?`<span class="ir">${rule}</span>`:''}</div>`;
 const items=list=>`<div class="ilist">${list.map(item).join('')}</div>`;
@@ -54,26 +54,26 @@ const secHead=(title,right='')=>`<div class="sh"><h3>${title}</h3>${right}</div>
 const count=n=>`<span class="cnt">${n}</span>`;
 const pill=(tone,icon,text)=>`<span class="spill ${tone}">${ic(icon,'s16')}${text}</span>`;
 const metrics=m=>`<div class="mstrip">${m.map(([l,v,t])=>`<div><span>${l}</span><b class="${t||''}">${v}</b></div>`).join('')}</div>`;
-const parts=(ok,list,note)=>`<div class="sec">${secHead('Peças do kit',ok?`<span class="kchip s">${ic('check-circle','s16')}Tudo em estoque</span>`:`<span class="kchip w">${ic('package','s16')}${note[0]}</span>`)}<div class="kgrid">${list.map(([q,n,has])=>`<span class="kp ${has?'':'miss'}"><b>${q}</b><span>${n}</span>${has?`<i class="okk">${ic('check','s12')}</i>`:'<i class="miss">falta</i>'}</span>`).join('')}</div>${ok?'':`<p class="sub">${note[1]}</p>`}</div>`;
+const parts=(ok,list,note)=>`<div class="sec">${secHead('Peças necessárias',ok?`<span class="kchip s">${ic('check-circle','s16')}Todas em estoque</span>`:`<span class="kchip w">${ic('package','s16')}${note[0]}</span>`)}<div class="kgrid">${list.map(([q,n,has])=>`<span class="kp ${has?'':'miss'}"><b>${q}</b><span>${n}</span>${has?`<i class="okk">${ic('check','s12')}</i>`:'<i class="miss">falta</i>'}</span>`).join('')}</div>${ok?'':`<p class="sub">${note[1]}</p>`}</div>`;
 const history=(title,rows)=>`<div class="sec hist">${secHead(title)}<ol class="tl">${rows.map(([d,sv,os])=>`<li><span class="d">${d}</span><span class="s">${sv}</span><span class="o">${os}</span></li>`).join('')}</ol></div>`;
 const foot=t=>`<p class="foot">${ic('clock-counter-clockwise','s14')}<span>${t}</span></p>`;
 function pHead(v,o={}){return `<div class="phd">${o.phone?'<div class="grab"></div>':''}<div class="ph">${o.back?`<span class="xb back" role="button" aria-label="Voltar">${ic('arrow-left','s16')}</span>`:''}<div class="t"><h2>${o.title||v.full}</h2><p>${mark(v.parts)}${o.sub||v.sub}</p></div>${o.back?'':`<span class="xb" role="button" aria-label="Fechar">${ic('x','s16')}</span>`}</div>${o.status?`<div class="pst">${o.status}</div>`:''}${o.metrics?metrics(o.metrics):''}</div>`;}
-const H320={status:pill('s','garage','No pátio · OS 1042 aberta'),metrics:[['Pior atraso','1.850 km','d'],['Peças','Em estoque','s'],['Na OS','+3 h 20','']]};
+const H320={status:pill('s','garage','No pátio desde ontem · OS 1042 aberta'),metrics:[['Atraso','1.850 km','d'],['Peças','Em estoque','s'],['Duração','3 h 20','']]};
 function visitBody(){
-  return `<div class="sec">${secHead('Nesta visita',count(3))}${items(ITEMS_C320)}</div>
+  return `<div class="sec">${secHead('Preventivas para fazer agora',count(3))+`<p class="lede">Venceram ou vencem logo. Dá para fazer todas enquanto o conjunto está parado.</p>`}${items(ITEMS_C320)}</div>
   ${parts(1,[['4×','lona de freio',1],['8×','mola de retorno',1],['38 l','óleo 15W40',1],['3×','filtro',1]])}
-  ${history('Últimas visitas deste conjunto',[['27/10','Lubrificação geral','OS 0998'],['02/09','Troca de óleo e filtros','OS 0954'],['12/05','Lona de freio, 2ª carreta, eixo 3','OS 0871']])}`;}
+  ${history('Últimas manutenções deste conjunto',[['27/10','Lubrificação geral','OS 0998'],['02/09','Troca de óleo e filtros','OS 0954'],['12/05','Lona de freio na 2ª carreta, eixo 3','OS 0871']])}`;}
 const visitFoot=()=>`<div class="pf"><div class="bb">${btn('Adiar',{variant:'outline'})}${btn('Incluir as 3 na OS 1042',{icon:'plus',action:1})}</div></div>`;
 
 const WD=['seg','ter','qua','qui','sex','sáb'];
 const DAYS=[['23','',2],['24','',2],['25','',2],['26','cheia',1],['27','cheia',1],['28','6 h',0,1],['30','18 h'],['01','22 h'],['02','28 h'],['03','3 h',1],['04','32 h'],['05','8 h']];
-const HDLY={title:'Agendar visita',sub:'DLY1J07 · revisão B',back:1,status:pill('n','road-horizon','Rodando · 640 km por dia'),metrics:[['Atraso','4.300 km','d'],['Peças','Falta 1','w'],['Leva','4 h','']]};
+const HDLY={title:'Marcar dia na oficina',sub:'Cavalo DLY1J07, revisão B',back:1,status:pill('n','road-horizon','Na estrada · roda 640 km por dia'),metrics:[['Atraso','4.300 km','d'],['Peças','Falta 1','w'],['Duração','4 h','']]};
 function scheduleBody(){
-  return `<div class="sec cal">${secHead('Quando trazer',`<span class="hh">horas livres por dia</span>`)}
-  <div class="wk">${WD.map(d=>`<span class="wd">${d}</span>`).join('')}${DAYS.map(([n,l,off,pick])=>`<div class="day ${off===2?'off past':off?'off':''} ${pick?'pick':''}"><b>${n}</b><span>${l||'&nbsp;'}</span></div>`).join('')}</div><p class="first">${ic('calendar-check','s16')}<span><b>Primeira vaga: sáb 28/11</b>, 6&nbsp;h livres</span></p></div>
-  <div class="sec">${secHead('Nesta visita',count(1))}${items([['Revisão B','Cavalo, inclui a revisão A','vencida há 4.300 km','d','A cada 30 mil km. Última em 03/06, com&nbsp;182.400&nbsp;km.']])}</div>
-  ${parts(0,[['30 l','óleo 15W40',1],['1×','filtro de óleo',1],['1×','filtro de ar',0],['1×','filtro de diesel',1]],['Falta 1 filtro de ar','O filtro é pedido ao agendar.'])}
-  <label class="chk"><i>${ic('check','s14')}</i>Avisar a JSL por e-mail</label>`;}
+  return `<div class="sec cal">${secHead('Escolha o dia',`<span class="hh">horas livres na oficina</span>`)}
+  <div class="wk">${WD.map(d=>`<span class="wd">${d}</span>`).join('')}${DAYS.map(([n,l,off,pick])=>`<div class="day ${off===2?'off past':off?'off':''} ${pick?'pick':''}"><b>${n}</b><span>${l||'&nbsp;'}</span></div>`).join('')}</div><p class="first">${ic('calendar-check','s16')}<span><b>Primeiro dia com espaço: sáb 28/11</b>, com 6&nbsp;h livres</span></p></div>
+  <div class="sec">${secHead('Preventivas para fazer',count(1))}${items([['Revisão B','No cavalo, junto com a revisão A','Venceu há 4.300 km','d','Fazer a cada 30 mil km. Última em 03/06.']])}</div>
+  ${parts(0,[['30 l','óleo 15W40',1],['1×','filtro de óleo',1],['1×','filtro de ar',0],['1×','filtro de diesel',1]],['Falta 1 filtro de ar','O pedido do filtro sai junto com o agendamento.'])}
+  <label class="chk"><i>${ic('check','s14')}</i>Avisar a transportadora JSL por e-mail</label>`;}
 const scheduleFoot=()=>`<div class="pf"><div class="bb">${btn('Voltar',{variant:'outline'})}${btn('Agendar para sáb 28/11',{icon:'calendar-check',action:1})}</div></div>`;
 
 function skList(phone){
@@ -82,10 +82,10 @@ function skList(phone){
   return `<div class="hl"><div class="tx" style="display:flex;flex-direction:column;gap:10px"><span class="sk" style="width:${phone?'90%':'420px'};height:24px"></span><span class="sk" style="width:${phone?'60%':'260px'};height:15px"></span></div></div>${g(3)}${g(3)}`;
 }
 
-const C044={full:'Conjunto C-044',sub:'QRT2E55 com 2 carretas',parts:V.c044.parts};
-function nextPanel(){return `<aside class="pnl">${pHead(C044,{status:pill('n','road-horizon','Rodando · 610 km por dia'),metrics:[['Vence','qui 10/12',''],['Peças','Em estoque','s'],['Leva','3 h','']]})}<div class="pb"><div class="sec">${secHead('Nesta visita',count(2))}${items([['Revisão B','Cavalo','qui 10/12','','A cada 30 mil km. Última em 14/06.'],['Lubrificação geral','1ª carreta','sáb 12/12','','A cada 30 dias. Última em 12/11.']])}</div>
+const C044={full:'Conjunto C-044',sub:'Cavalo QRT2E55 e 2 carretas',parts:V.c044.parts};
+function nextPanel(){return `<aside class="pnl">${pHead(C044,{status:pill('n','road-horizon','Na estrada · roda 610 km por dia'),metrics:[['Vence','qui 10/12',''],['Peças','Em estoque','s'],['Duração','3 h','']]})}<div class="pb"><div class="sec">${secHead('Preventivas para fazer',count(2))}${items([['Revisão B','No cavalo','Vence qui 10/12','','Fazer a cada 30 mil km. Última em 14/06.'],['Lubrificação geral','Na 1ª carreta','Vence sáb 12/12','','Fazer a cada 30 dias. Última em 12/11.']])}</div>
   ${parts(1,[['38 l','óleo 15W40',1],['4×','filtro',1],['1 kg','graxa',1]])}</div>
-  <div class="pf"><div class="bb">${btn('Adiar',{variant:'outline'})}${btn('Agendar visita',{icon:'calendar-check',action:1})}</div></div></aside>`;}
+  <div class="pf"><div class="bb">${btn('Adiar',{variant:'outline'})}${btn('Marcar dia na oficina',{icon:'calendar-check',action:1})}</div></div></aside>`;}
 
 /* ---------- board: the three columns side by side, the whole week at once ---------- */
 const pillMore=v=>/^\+\d/.test(v.more)?`<span class="pill">${v.more.split(' ')[0]}</span>`:'';
@@ -96,7 +96,7 @@ function column(g,sel,empty){
 const nokm=()=>`<span class="nokm">${ic('gauge','s16')}<b>2 veículos sem km</b><span>ver</span>${ic('caret-right','s14')}</span>`;
 const slim=(o={})=>o.empty
   ?`<div class="hero slim"><span class="halo sm">${ic('calendar-check','s20')}</span><div class="tx"><h2>Frota em dia esta semana</h2><p>Nenhuma preventiva vencida. A próxima é a revisão B do C-044, na qui 10/12.</p></div>${nokm()}</div>`
-  :`<div class="hero slim"><span class="big">5</span><div class="tx"><h2>preventivas vencidas</h2><p>em <b>3 visitas</b>, <b>2</b> com o veículo no pátio</p></div>${nokm()}</div>`;
+  :`<div class="hero slim"><span class="big">5</span><div class="tx"><h2>preventivas vencidas</h2><p>em <b>3 veículos</b>, <b>2</b> já no pátio</p></div>${nokm()}</div>`;
 function drawer(inner){return `<div class="scrim"></div><aside class="pnl drawer">${inner}</aside>`;}
 function skBoard(){
   const c=()=>`<div class="cd sk-cd"><span class="sk" style="width:55%;height:15px"></span><span class="sk" style="width:80%;height:12px;margin-top:10px"></span></div>`;
@@ -107,7 +107,7 @@ function web(s,dev){
   const small=dev==='webs';
   if(s==='loading') return skBoard();
   const [over,week,next]=GROUPS;
-  if(s==='empty') return `<div class="bd ${small?'s':''}">${slim({empty:1})}<div class="cols">${column(over,null,'Nada vencido')}${column(week,null,'Nada vence esta semana')}${column({...next,count:'9 visitas'},null)}</div></div>`;
+  if(s==='empty') return `<div class="bd ${small?'s':''}">${slim({empty:1})}<div class="cols">${column(over,null,'Nada vencido')}${column(week,null,'Nada vence esta semana')}${column({...next,count:'9 veículos'},null)}</div></div>`;
   const sel=s==='schedule'?'dly':s==='visit'?'c320':null;
   const dr=s==='schedule'?drawer(`${pHead(V.dly,HDLY)}<div class="pb">${scheduleBody()}</div>${scheduleFoot()}`)
     :s==='visit'?drawer(`${pHead(V.c320,H320)}<div class="pb">${visitBody()}</div>${visitFoot()}`):'';
@@ -120,7 +120,7 @@ function phone(s){
   if(s==='loading') return `<div class="ph-wrap"><div class="hero slim"><span class="sk" style="width:40px;height:40px;border-radius:12px"></span><span class="sk" style="width:200px;height:18px"></span></div><span class="sk" style="width:100%;height:44px;border-radius:12px"></span>${[1,2,3,4].map(()=>`<div class="cd sk-cd"><span class="sk" style="width:55%;height:15px"></span><span class="sk" style="width:80%;height:12px;margin-top:10px"></span></div>`).join('')}</div>`;
   if(s==='empty') return `<div class="ph-wrap"><div class="hero slim"><span class="halo sm">${ic('calendar-check','s20')}</span><div class="tx"><h2>Frota em dia esta semana</h2><p>A próxima é a revisão B do C-044, na qui 10/12.</p></div></div><div class="stick">${tabs('next').replace('<b class="d">3</b>','<b>0</b>').replace('<b class="w">3</b>','<b>0</b>')}</div><div class="cards">${GROUPS[2].ids.map(id=>card(id,null)).join('')}<div class="more">${GROUPS[2].more}${ic('caret-down','s14')}</div></div></div>`;
   const sel=s==='list'?null:s==='schedule'?'dly':'c320';
-  const list=`<div class="ph-wrap"><div class="hero slim"><span class="big">5</span><div class="tx"><h2>preventivas vencidas</h2><p>em <b>3 visitas</b>, <b>2</b> no pátio</p></div></div><div class="stick">${tabs('over')}</div><div class="cards">${GROUPS[0].ids.map(id=>card(id,sel)).join('')}</div>${nokm()}</div>`;
+  const list=`<div class="ph-wrap"><div class="hero slim"><span class="big">5</span><div class="tx"><h2>preventivas vencidas</h2><p>em <b>3 veículos</b>, <b>2</b> já no pátio</p></div></div><div class="stick">${tabs('over')}</div><div class="cards">${GROUPS[0].ids.map(id=>card(id,sel)).join('')}</div>${nokm()}</div>`;
   if(s==='list') return list;
   const sheet=s==='schedule'
     ?`<div class="sheet-ov"><div class="sheet">${pHead(V.dly,{...HDLY,phone:1})}<div class="sb">${scheduleBody()}</div>${scheduleFoot()}</div></div>`
@@ -152,7 +152,7 @@ function lrow(id,sel){const v=V[id],m=LM[id];const more=/^\+\d/.test(v.more)?`${
   return `<div class="fx-aprow lrow ${sel===id?'on':''}" role="button" tabindex="0">
     <div class="m"><div class="l1"><b class="nm">${v.name}</b>${mark(v.parts)}<span class="trunc2">${v.svc}</span></div>
       <div class="l2"><span class="nw">${m.pos}</span>${more}${dotSep}<span class="trunc2">${m.where}</span></div></div>
-    <div class="apst"><b class="${v.t||'n'}">${v.when.replace('vencida há ','')}</b><span>${m.sub}</span></div>
+    <div class="apst"><b class="${v.t||'n'}">${v.when.replace('venceu há ','')}</b><span>${m.sub}</span></div>
     <div class="apss">${btn(m.act,{variant:'secondary',size:'sm'})}</div>
     ${ic('caret-right','s16 car')}</div>`;}
 const lsub=g=>`<div class="lsub"><span class="gt ${g.tone}">${ic(g.icon,'s14')}</span><b>${g.title}</b><span class="n">${g.count}</span></div>`;

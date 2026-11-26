@@ -524,3 +524,5 @@
 .ii .it1{margin-bottom:2px}
 .ii .iw{font-size:13.5px;color:hsl(var(--foreground)/.72)}
 .ii .ir{font-size:13px;line-height:1.45;color:hsl(var(--muted-foreground));text-wrap:pretty}
+.lede{margin:-4px 0 12px;font-size:13.5px;line-height:1.45;color:hsl(var(--muted-foreground));text-wrap:pretty}
+.ii .ir,.ii .iw{text-wrap:pretty}
