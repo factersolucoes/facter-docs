@@ -984,3 +984,49 @@
 .vgrp+.vgrp{margin-top:14px}
 .vh{font:600 13px Inter;color:hsl(var(--muted-foreground))}
 .tag.reg{margin-left:6px;vertical-align:2px}
+
+/* one checkbox size in the drawer: 16 px box, 12 px check; services 14 px */
+.pnl .cbx,.sheet .cbx{width:16px;height:16px;border-radius:4px;box-shadow:inset 0 0 0 1.5px hsl(var(--input));background:hsl(var(--card))}
+.pnl .cbx.on,.pnl .cbx.tri,.sheet .cbx.on,.sheet .cbx.tri{background:hsl(var(--primary));box-shadow:none;color:hsl(var(--primary-foreground))}
+.pnl .cbx .ic,.sheet .cbx .ic{width:12px;height:12px}
+.pnl .svr .cbx,.sheet .svr .cbx{width:14px;height:14px;margin-top:3px}
+.pnl .svr .cbx .ic,.sheet .svr .cbx .ic{width:10px;height:10px}
+.cbx .dash{width:8px;height:2px}
+.pkh .cbw{padding-top:3px}
+
+/* deferral: a tag and two select pills, changed in place */
+.dpr{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:6px}
+.svr .sdf .dpr{margin-top:2px}
+.dtag{background:hsl(var(--warning-soft));color:hsl(var(--warning-ink));font-weight:600;height:24px}
+.spl{display:inline-flex;align-items:center;gap:5px;height:28px;padding:0 8px 0 9px;border-radius:999px;background:hsl(var(--secondary));color:hsl(var(--secondary-foreground));font:500 13px Inter;white-space:nowrap;cursor:pointer}
+.spl:hover,.spl.on{background:hsl(var(--accent));box-shadow:inset 0 0 0 1px hsl(var(--border))}
+.spl .ic{color:hsl(var(--muted-foreground))}
+.pop{position:absolute;left:52px;top:34px;z-index:20;min-width:240px;padding:6px;border-radius:12px;background:hsl(var(--popover,var(--card)));box-shadow:0 0 0 1px hsl(var(--border)),0 12px 32px -12px hsl(var(--foreground)/.35)}
+.mtitle{padding:6px 10px 4px;font:600 12px Inter;color:hsl(var(--muted-foreground))}
+.mopt{display:flex;align-items:center;gap:10px;min-height:36px;padding:0 10px;border-radius:8px;font-size:14px;cursor:pointer}
+.mopt:hover{background:hsl(var(--accent))}
+.mopt .ic{color:hsl(var(--muted-foreground))}
+.mopt .ck{margin-left:auto;color:hsl(var(--primary))}
+.mopt.on{font-weight:600}
+.mcal{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:4px 6px 6px}
+.mday{display:flex;flex-direction:column;align-items:center;padding:6px 0;border-radius:10px;background:hsl(var(--secondary));cursor:pointer}
+.mday small{font-size:11.5px;color:hsl(var(--muted-foreground))}.mday b{font:600 14px Inter}
+.mday.on{background:hsl(var(--primary-soft));box-shadow:0 0 0 2px hsl(var(--ring))}
+.msheet-ov{position:absolute;inset:0;z-index:30;display:flex;flex-direction:column;justify-content:flex-end;background:hsl(var(--foreground)/.3)}
+.msheet{padding:6px 12px 28px;border-radius:20px 20px 0 0;background:hsl(var(--card));box-shadow:var(--shadow-card)}
+.msheet .grab{display:block;width:40px;height:5px;margin:4px auto 8px;border-radius:99px;background:hsl(var(--muted-foreground)/.3)}
+.msheet .mopt{min-height:48px;font-size:15px}
+.rd{width:18px;height:18px;border-radius:99px;box-shadow:inset 0 0 0 1.5px hsl(var(--input));flex:none}
+.rd.on{box-shadow:inset 0 0 0 5px hsl(var(--primary))}
+.sheet{position:relative}
+/* footer: the primary keeps its full label; when it does not fit next to the secondary it takes its own row */
+.pf .bb{display:flex;flex-wrap:wrap;gap:10px}
+.pf .bb>*{flex:0 0 auto}
+.pf .bb>*:last-child{flex:1 1 auto}
+.pf .bb>span>.fx-btn{width:100%}
+.pf .bb .fx-btn{white-space:nowrap}
+.pkgs{overflow:visible}
+.pkgs>.pkg:first-child{border-radius:12px 12px 0 0}.pkgs>.pkg:last-child{border-radius:0 0 12px 12px}
+.pop{max-width:calc(100% - 40px)}
+@container sheet (max-width:340px){.osx{display:none}}
+@container sheet (max-width:340px){.pf .bb .fx-btn{white-space:normal;height:auto;min-height:44px;padding:8px 14px;line-height:1.25}}

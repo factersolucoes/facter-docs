@@ -162,12 +162,12 @@ const PKGS=[
     {n:'Drenar reservatórios de ar',min:15,parts:[]}]},
 ];
 const defReason=(p,i)=>p.id==='b'&&(i===undefined||i===1)?'Falta peça':'Sem tempo agora';
-const G={on:{},open:{},parts:{},def:{},edit:null,all:0,prevSel:null,done:0,undo:0,closed:0};
+const G={menu:null,on:{},open:{},parts:{},def:{},edit:null,all:0,prevSel:null,done:0,undo:0,closed:0};
 const allOn=()=>Object.fromEntries(PKGS.map(p=>[p.id,p.svcs.map(()=>1)]));
 function setG(s){const m=IXS[s];const on=allOn();
   if(m==='none'||m==='allDefer') PKGS.forEach(p=>on[p.id]=p.svcs.map(()=>0));
   if(m==='one'||m==='done') on.a=on.a.map(()=>0);
-  Object.assign(G,{on,open:{b:1},parts:s==='kitopen'?{b:1}:{},def:{},edit:null,all:m==='allDefer'?1:0,prevSel:m==='allDefer'?allOn():null,done:m==='done'?1:0,undo:m==='done'?10:0,closed:0});
+  Object.assign(G,{menu:null,on,open:{b:1},parts:s==='kitopen'?{b:1}:{},def:{},edit:null,all:m==='allDefer'?1:0,prevSel:m==='allDefer'?allOn():null,done:m==='done'?1:0,undo:m==='done'?10:0,closed:0});
   if(G.done)startUndo();}
 const fmtDur=m=>m?`${Math.floor(m/60)} h${m%60?' '+m%60:''}`.replace(/^0 h /,'')+(m<60?' min':''):'0 h';
 const pkOn=p=>G.on[p.id].filter(Boolean).length;
@@ -176,13 +176,23 @@ const totMin=()=>PKGS.reduce((a,p)=>a+p.svcs.reduce((b,sv,i)=>b+(G.on[p.id][i]?s
 const svcsOn=()=>PKGS.reduce((a,p)=>a+pkOn(p),0);
 const pkgsOn=()=>PKGS.filter(p=>pkOn(p)>0).length;
 const lackOn=()=>G.on.b&&G.on.b[1];
-const defOf=k=>G.def[k]||{reason:k.length===1?defReason(PKGS.find(p=>p.id===k)):defReason(PKGS.find(p=>p.id===k[0]),+k.split('.')[1]),when:'Quando o conjunto vier de novo'};
-const WHENS2=['Quando o conjunto vier de novo','Em 7 dias','Em 1.000 km','Escolher dia'];
+const defOf=k=>G.def[k]||{reason:k.length===1?defReason(PKGS.find(p=>p.id===k)):defReason(PKGS.find(p=>p.id===k[0]),+k.split('.')[1]),when:'Na próxima parada'};
+const WHENS2=['Na próxima parada','Em 7 dias','Em 1.000 km','Escolher dia'];
 const WHY={'Falta peça':'por falta de peça','Sem tempo agora':'por falta de tempo','Conjunto vai sair':'porque o conjunto vai sair','Sem mecânico':'por falta de mecânico','Outro':'por outro motivo'};
-const BACK={'Quando o conjunto vier de novo':'Volta quando o conjunto vier de novo.','Em 7 dias':'Volta em 7 dias.','Em 1.000 km':'Volta em 1.000 km.','Escolher dia':'Volta no dia escolhido.'};
-const defSentence=k=>{const d=defOf(k);return `Adiada ${WHY[d.reason]}. ${BACK[d.when]}`;};
+const BACK={'Na próxima parada':'Volta na próxima parada.','Em 7 dias':'Volta em 7 dias.','Em 1.000 km':'Volta em 1.000 km.','Escolher dia':'Volta no dia escolhido.'};
+const defSentence=k=>{const d=defOf(k);return `Adiada ${WHY[d.reason]}. ${BACK[d.when]||`Volta ${d.when.toLowerCase()}.`}`;};
 const cb3=st=>`<i class="cbx ${st==='on'?'on':st==='tri'?'tri':''}">${st==='on'?ic('check','s14'):st==='tri'?'<b class="dash"></b>':''}</i>`;
-const dpill=k=>{const t=defSentence(k);const i=t.lastIndexOf(' ');return `<span class="dsen">${t.slice(0,i)} <span class="glue">${t.slice(i+1)}&nbsp;<span class="lk mud" data-ixa="e:${k}" role="button" tabindex="0">Mudar</span></span></span>`;};
+let RPH=false; /* rendering the phone sheet */
+const RICON={'Falta peça':'package','Sem tempo agora':'clock','Conjunto vai sair':'road-horizon','Sem mecânico':'users-three','Outro':'dots-three'};
+const CAL=[['sex','27/11'],['sáb','28/11'],['seg','30/11'],['ter','01/12'],['qua','02/12'],['qui','03/12'],['sex','04/12'],['sáb','05/12']];
+function menuHtml(k,kind){const d=defOf(k);
+  if(kind==='cal') return `<div class="mtitle">Escolha o dia</div><div class="mcal">${CAL.map(([w,dt])=>`<span class="mday ${d.when==='Em '+dt?'on':''}" data-ixa="w:${k}:Em ${dt}"><small>${w}</small><b>${dt.slice(0,2)}</b></span>`).join('')}</div>`;
+  const list=kind==='r'?REASONS:WHENS2, cur=kind==='r'?d.reason:d.when;
+  return `<div class="mtitle">${kind==='r'?'Por que fica para depois':'Quando lembrar de novo'}</div>${list.map(o=>{const on=o===cur||(o==='Escolher dia'&&/^Em \d\d\//.test(cur));
+    return `<div class="mopt ${on?'on':''}" role="${RPH?'radio':'menuitemradio'}" aria-checked="${on}" data-ixa="${o==='Escolher dia'?`m:${k}:cal`:`${kind}:${k}:${o}`}">${RPH?`<i class="rd ${on?'on':''}"></i>`:''}${ic(kind==='r'?RICON[o]:o==='Escolher dia'?'calendar-blank':'clock','s16')}<span>${o}</span>${!RPH&&on?ic('check','s16 ck'):''}</div>`;}).join('')}`;}
+const dpill=k=>{const d=defOf(k);const open=G.menu&&G.menu.startsWith(k+'|');const kind=open?G.menu.split('|')[1]:'';
+  return `<span class="dpr"><span class="tag dtag">Adiada</span><span class="spl ${open&&kind==='r'?'on':''}" data-ixa="m:${k}:r" role="button" aria-haspopup="menu" tabindex="0">${ic(RICON[d.reason],'s14')}${d.reason}${ic('caret-down','s12')}</span><span class="spl ${open&&kind!=='r'?'on':''}" data-ixa="m:${k}:w" role="button" aria-haspopup="menu" tabindex="0">${ic('calendar-blank','s14')}${d.when}${ic('caret-down','s12')}</span>${open&&!RPH?`<span class="pop" role="menu">${menuHtml(k,kind)}</span>`:''}</span>`;};
+const phoneMenu=()=>{if(!G.menu||!RPH)return '';const [k,kind]=G.menu.split('|');return `<div class="msheet-ov" data-ixa="m:-:-"><div class="msheet" role="dialog"><i class="grab"></i>${menuHtml(k,kind)}</div></div>`;};
 function editor(k){const d=defOf(k);const pills=(list,cur,key)=>`<div class="pills">${list.map(r=>`<span class="pl ${r===cur?'on':''}" role="radio" aria-checked="${r===cur}" data-ixa="${key}:${k}:${r}">${r==='Escolher dia'?ic('calendar-blank','s14'):''}${r}</span>`).join('')}</div>`;
   return `<div class="ded"><div class="q"><span>Motivo</span>${pills(REASONS,d.reason,'r')}</div><div class="q"><span>Lembrar de novo</span>${pills(WHENS2,d.when,'w')}</div><div class="dr"><span data-ixa="e:-">${btn('Pronto',{variant:'outline',size:'sm'})}</span></div></div>`;}
 function partsLine(p){const on=G.on[p.id];const parts=p.svcs.flatMap((sv,i)=>on[i]?sv.parts:[]);if(!parts.length)return '';
@@ -190,7 +200,7 @@ function partsLine(p){const on=G.on[p.id];const parts=p.svcs.flatMap((sv,i)=>on[
   return `<div class="pline" data-ixa="pp:${p.id}" role="button" tabindex="0" title="${esc(parts.map(([q,n])=>`${q} ${n}`).join(', '))}"><span class="pl1"><b>Peças:</b> ${miss?'<span class="w">falta 1 jogo de rebites, chega quinta</span>':'todas em estoque'}</span><span class="pmore">${open?'esconder':'ver as '+parts.length}</span>${ic('caret-down','s14 chev'+(open?' up':''))}</div>
   ${open?`<div class="pnest">${parts.map(([q,n,rule,t])=>`<div class="pn"><span class="q">${q}</span><span class="nm"><span>${n}</span>${rule?`<span class="m">${rule}</span>`:''}</span><span class="tg ${t||'s'}">${t==='w'?'falta 1, chega quinta':ic('check','s12')+'tem'}</span></div>`).join('')}</div>`:''}`;}
 function pkgCard(p){const st=pkState(p), open=!!G.open[p.id], off=st==='off';
-  const meta=[`${p.svcs.length} serviços`,'leva '+fmtDur(p.svcs.reduce((a,sv)=>a+sv.min,0))].join(' · ');
+  const meta=[`${p.svcs.length} ${p.svcs.length>1?"serviços":"serviço"}`,'leva '+fmtDur(p.svcs.reduce((a,sv)=>a+sv.min,0))].join(' · ');
   const head=`<div class="pkh ${off?'off':''}"><span data-ixa="pc:${p.id}" role="checkbox" aria-checked="${st==='on'?'true':st==='tri'?'mixed':'false'}" tabindex="0" class="cbw">${cb3(st)}</span>
     <div class="pkt" data-ixa="po:${p.id}"><b>${p.name}${p.reg?' <span class="tag reg">Obrigatório</span>':''}</b><small class="trg">${trig(p.trigger)}</small>${p.incl?`<small>Inclui a ${p.incl}</small>`:''}<small>${meta}${p.reg?` · certificado vence em ${p.reg}`:''}</small>${off?dpill(p.id):''}</div>
     <span class="sit ${off?'n':p.t||'n'}">${p.due}</span><span class="chv" data-ixa="po:${p.id}">${ic('caret-down','s16 chev'+(open?' up':''))}</span></div>`;
@@ -217,14 +227,16 @@ function ixFoot(){
   if(G.done) return `<div class="pf"><div class="bb"><span data-ixa="c">${btn('Fechar',{variant:'outline'})}</span>${pkgsOn()?btn('Abrir a OS 1042',{icon:'arrow-square-out',action:1}):'<span></span>'}</div></div>`;
   if(G.all) return `<div class="pf"><div class="bb"><span data-ixa="B">${btn('Voltar',{variant:'outline'})}</span><span data-ixa="ok">${btn('Adiar as 3',{icon:'clock-countdown',action:1})}</span></div></div>`;
   const n=pkgsOn(), full=PKGS.every(p=>pkState(p)!=='tri');
-  const label=full?(n>1?`Incluir as ${n} na OS 1042`:'Incluir 1 na OS 1042'):`Incluir ${svcsOn()} serviços`;
+  const fp=PKGS.filter(p=>pkState(p)==='on').length, ps=PKGS.filter(p=>pkState(p)==='tri').reduce((x,p)=>x+pkOn(p),0);
+  const pv=x=>`${x} ${x>1?'preventivas':'preventiva'}`, sv=x=>`${x} ${x>1?'serviços':'serviço'}`;
+  const label=ps?`Incluir ${fp?pv(fp)+' e ':''}${sv(ps)}`:`Incluir ${pv(fp)}<span class="osx"> na OS 1042</span>`;
   return `<div class="pf"><div class="bb"><span data-ixa="A">${btn('Adiar todas',{variant:'outline'})}</span>${n?`<span data-ixa="ok">${btn(label,{icon:'plus',action:1})}</span>`:btn('Escolha o que fazer agora',{disabled:1})}</div></div>`;}
 function ixDrawer(phone){
   if(G.closed) return phone?'<div class="sheet-ov" data-ix="1" hidden></div>':'<div class="ixw" data-ix="0" hidden></div>';
   const miss=lackOn()&&!G.done;
   const metricsX=G.done?[['Na OS',`${pkgsOn()} ${pkgsOn()===1?'preventiva':'preventivas'}`,''],['Adiadas',String(3-pkgsOn()),3-pkgsOn()?'w':''],['Duração',fmtDur(totMin()),'']]:[['Atraso','1.850 km','d'],['Peças',miss?'Falta 1':'Em estoque',miss?'w':'s'],['Duração',fmtDur(totMin()),'']];
   const head=pHead(V.c320,{status:pill('s','garage','No pátio desde ontem · OS 1042 aberta'),metrics:metricsX,phone});
-  const inner=`${head}<div class="${phone?'sb':'pb'}">${ixBody()}</div>${ixFoot()}`;
+  RPH=!!phone;const inner=`${head}<div class="${phone?'sb':'pb'}">${ixBody()}</div>${ixFoot()}${phone?phoneMenu():''}`;
   return phone?`<div class="sheet-ov" data-ix="1"><div class="sheet">${inner}</div></div>`:`<div class="ixw" data-ix="0">${drawer(inner)}</div>`;}
 function ixRender(){
   document.querySelectorAll('[data-ix]').forEach(el=>{const sc=el.querySelector('.pb,.sb');const top=sc?sc.scrollTop:0;const ph=el.dataset.ix==='1';
@@ -241,20 +253,41 @@ function ixAct(a){
   else if(k==='sc'){G.on[id][+v]=G.on[id][+v]?0:1;G.all=0;}
   else if(k==='pp'){G.parts[id]=!G.parts[id];}
   else if(k==='e'){G.edit=id==='-'||G.edit===id?null:id;}
-  else if(k==='r'){G.def[id]={...defOf(id),reason:v};}
-  else if(k==='w'){G.def[id]={...defOf(id),when:v};}
+  else if(k==='r'){G.def[id]={...defOf(id),reason:v};G.menu=null;}
+  else if(k==='w'){G.def[id]={...defOf(id),when:v};G.menu=null;}
+  else if(k==='m'){const key=id+'|'+v;G.menu=id==='-'?null:(G.menu===key?null:key);}
   else if(k==='A'){G.prevSel=clone(G.on);PKGS.forEach(p=>G.on[p.id]=p.svcs.map(()=>0));G.all=1;G.edit=null;}
   else if(k==='B'){G.on=G.prevSel||allOn();G.all=0;}
   else if(k==='ok'){G.done=1;G.all=0;G.edit=null;G.undo=10;startUndo();}
   else if(k==='u'){G.done=0;G.undo=0;clearInterval(undoTimer);}
   else if(k==='c'){G.closed=1;}
   ixRender();}
-document.addEventListener('click',e=>{const t=e.target.closest('[data-ixa]');if(t&&t.closest('[data-ix]')){e.preventDefault();ixAct(t.dataset.ixa);return;}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-ixa]');if(t&&t.closest('[data-ix]')){e.preventDefault();if(t.classList.contains('msheet-ov')&&e.target.closest('.msheet'))return;ixAct(t.dataset.ixa);return;}
+  if(G.menu&&!e.target.closest('.pop,.msheet')){G.menu=null;ixRender();}
   const card=e.target.closest('[data-id="c320"]');if(card&&G.closed){G.closed=0;ixRender();}});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!G.closed&&document.querySelector('[data-ix]:not([hidden])')){G.closed=1;ixRender();return;}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&G.menu){G.menu=null;ixRender();return;}if(e.key==='Escape'&&!G.closed&&document.querySelector('[data-ix]:not([hidden])')){G.closed=1;ixRender();return;}
   const t=document.activeElement&&document.activeElement.closest&&document.activeElement.closest('[data-ixa]');
   if(t&&t.closest('[data-ix]')&&(e.key===' '||e.key==='Enter')){e.preventDefault();const a=t.dataset.ixa;ixAct(a);const again=document.querySelector(`[data-ix] [data-ixa="${a}"]`);if(again)again.focus();}});
 
+/* C-044: a package that includes another, a mandatory one, an annual one and one by engine hours */
+const PKG044=[
+  {id:'r60',veh:'Cavalo QRT2E55',where:'cavalo',name:'Revisão 60 mil',incl:'Preventiva 20 mil',trigger:{km:60000},due:'Vence em 14 dias',t:'',svcs:[
+    {n:'Óleo e filtros do motor',min:40,inh:'Preventiva 20 mil',parts:[['38 l','de óleo 15W40'],['1','filtro de óleo']]},
+    {n:'Filtro separador de água',min:15,inh:'Preventiva 20 mil',parts:[['1','filtro separador']]},
+    {n:'Embreagem e freio motor',min:60,parts:[]},
+    {n:'Alinhamento e cambagem',min:45,parts:[]}]},
+  {id:'cr',veh:'Cavalo QRT2E55',where:'cavalo',name:'Verificação do cronotacógrafo',reg:'12/03',trigger:{text:'a cada 2 anos (Inmetro)'},due:'Vence em 3 meses',t:'',svcs:[{n:'Ensaio no posto credenciado',min:60,parts:[]}]},
+  {id:'mk',veh:'Cavalo QRT2E55',where:'cavalo',name:'Munck 250 h',trigger:{hours:250},due:'Vence em 40 horas',t:'',svcs:[{n:'Lubrificação da lança',min:30,parts:[['0,5 kg','de graxa']]},{n:'Inspeção dos cabos',min:20,parts:[]}]},
+  {id:'an',veh:'1ª carreta RTD8F12',where:'1ª carreta',name:'Revisão anual do conjunto',trigger:{text:'todo ano em março'},due:'Vence em 3 meses',t:'',svcs:[{n:'Inspeção estrutural',min:60,parts:[]},{n:'Laudo de freios',min:30,parts:[]}]},
+];
+function pk044Drawer(phone){
+  PKG044.forEach(p=>{if(!G.on[p.id])G.on[p.id]=p.svcs.map(()=>1);});G.open.r60=1;RPH=!!phone;
+  const head=pHead(C044,{status:pill('n','road-horizon','Na estrada · roda 610 km por dia'),metrics:[['Vence','em 14 dias',''],['Peças','Em estoque','s'],['Duração','6 h 20','']],phone});
+  const body=`<div class="sec">${prevHead('Preventivas para marcar','4 preventivas · 8 serviços')}${[...new Set(PKG044.map(p=>p.veh))].map(v=>`<div class="vgrp"><p class="vh">${v}</p><div class="pkgs">${PKG044.filter(p=>p.veh===v).map(pkgCard).join('')}</div></div>`).join('')}</div>`.replace(/data-ixa=/g,'data-x=');
+  const foot=`<div class="pf"><div class="bb">${btn('Adiar todas',{variant:'outline'})}${btn('Marcar dia na oficina',{icon:'calendar-check',action:1})}</div></div>`;
+  return phone?`<div class="sheet-ov"><div class="sheet">${head}<div class="sb">${body}</div>${foot}</div></div>`:drawer(`${head}<div class="pb">${body}</div>${foot}`);}
+const markOn=(html,id)=>html.replace(new RegExp(`(class="(?:cd|fx-aprow lrow)[^"]*)(" data-id="${id}")`),'$1 on$2');
+const withPk044=(html,phone)=>markOn(html,'c044').replace(/<\/div>\s*$/,pk044Drawer(phone)+'</div>');
 const visitDrawer=(s,phone)=>{if(IXS[s]){setG(s);return ixDrawer(phone);}const m=VMODE[s];const head=pHead(V.c320,{...h320(m),phone,...(m==='sap'?{src:'Plano do SAP · ordem 4000131'}:{}),...(m==='allDefer'?{title:'Adiar todas',back:1,sub:'Conjunto C-320'}:{})});
   return phone?`<div class="sheet-ov"><div class="sheet">${head}<div class="sb">${visitBodyM(m)}</div>${visitFootM(m)}</div></div>`:drawer(`${head}<div class="pb">${visitBodyM(m)}</div>${visitFootM(m)}`);};
 
@@ -429,7 +462,7 @@ function stressPhone(s,list){
   return top+(s==='sVol'?'':stressDrawer(s,1));
 }
 
-function web(s,dev){if(STRESS[s])return stressWeb(s,dev);KITOPEN=s==='kitopen';
+function web(s,dev){if(s==='pk044')return withPk044(web('board',dev),0);if(STRESS[s])return stressWeb(s,dev);KITOPEN=s==='kitopen';
   const small=dev==='webs';
   if(s==='loading') return skBoard();
   PICK=s==='multi'||s==='multisched';
@@ -475,7 +508,7 @@ function mobileList(s,o={}){
   return `<div class="ph-wrap pm ${o.list?'pml':''}">${ptr}${s==='error'?errNote():''}${ctx}${hero}<div class="stick">${o.list?`<span class="fx-searchf msf">${ic('magnifying-glass','s16')}<span>Buscar placa, frota ou conjunto</span></span>`:''}${jump}</div>${secs}${nokm()}<div class="safe"></div></div>`;
 }
 const PHONE_ONLY={ptr:1,mid:1,press:1,swipe:1};
-function phone(s){if(STRESS[s])return stressPhone(s,0);KITOPEN=s==='kitopen';DONE=s==='done';PICK=null;
+function phone(s){if(s==='pk044')return phone('list')+pk044Drawer(1);if(STRESS[s])return stressPhone(s,0);KITOPEN=s==='kitopen';DONE=s==='done';PICK=null;
   if(s==='first'||s==='noperm') return `<div class="ph-wrap">${emptyBlock(s,1)}</div>`;
   if(s==='nores') return `<div class="ph-wrap">${searchOn()}${emptyBlock('nores',1)}</div>`;
   if(s==='loading') return `<div class="ph-wrap"><div class="hero slim"><span class="sk" style="width:40px;height:40px;border-radius:12px"></span><span class="sk" style="width:200px;height:18px"></span></div><span class="sk" style="width:100%;height:44px;border-radius:12px"></span>${[1,2,3,4].map(()=>`<div class="cd sk-cd"><span class="sk" style="width:55%;height:15px"></span><span class="sk" style="width:80%;height:12px;margin-top:10px"></span></div>`).join('')}</div>`;
@@ -525,7 +558,7 @@ function listTop(o={}){
   const tools=`<div class="ltools">${F.search('Buscar placa, frota ou conjunto',{width:340})}${F.fchip('Todas as transportadoras',{menu:1})}${F.fchip('Todos os planos',{menu:1})}</div>`;
   return head+`<div class="lstack"><div class="lstack s">${F.dtabs([['Todas',17-(DONE?0:0)],['Vencidas',N().over],['Esta semana',N().week],['Próximas',9],['Sem km',2]],o.tab||'Todas')}${tools}`;
 }
-function listWeb(s){if(STRESS[s])return stressList(s);KITOPEN=s==='kitopen';DONE=s==='done';PICK=s==='multi'||s==='multisched';
+function listWeb(s){if(s==='pk044')return withPk044(listWeb('list'),0);if(STRESS[s])return stressList(s);KITOPEN=s==='kitopen';DONE=s==='done';PICK=s==='multi'||s==='multisched';
   if(s==='first'||s==='noperm') return `<div class="lv">${F.pageHeader('Agenda','O que trazer para a oficina, e quando.','')}${emptyBlock(s)}</div>`;
   DONE=s==='done';const sel=s==='schedule'?'dly':isVisit(s)?'c320':null;
   let body;
@@ -543,7 +576,7 @@ function lcard(id,sel,o={}){const v=V[id],m=LM[id];
   return `<button type="button" data-id="${id}" class="fx-wocard lcard ${sel===id?'on':''}"><span class="l1"><b class="nm">${v.name}</b>${mark(v.parts)}<span style="flex:1"></span><span class="lwhen ${v.t}">${v.when}</span></span>
     <span class="l3">${v.svc}${v.tag?' <span class="tag">adiada · falta peça</span>':''}</span><span class="l4"><span class="trunc2">${m.pos}${/^\+\d/.test(v.more)?' · '+v.more:''}</span></span>
     <span class="ft">${(c=>`<span class="cx ${c[0]}">${ic(c[1],'s14')}${c[2]}</span><span style="flex:1"></span>${c[3]?`<span class="lact">${c[3]}</span>`:''}`)(CTX[id]||['n','road-horizon',m.where,m.act])}</span></button>`;}
-function listPhone(s){if(STRESS[s])return stressPhone(s,1);KITOPEN=s==='kitopen';DONE=s==='done';PICK=null;
+function listPhone(s){if(s==='pk044')return listPhone('list')+pk044Drawer(1);if(STRESS[s])return stressPhone(s,1);KITOPEN=s==='kitopen';DONE=s==='done';PICK=null;
   if(s==='first'||s==='noperm') return `<div class="fx-mlist"><div class="fx-mcards">${emptyBlock(s,1)}</div></div>`;
   const tabsM=on=>`<div class="fx-mtabs">${[['Vencidas',N().over,'d'],['Esta semana',N().week,'w'],['Próximas',9,''],['Sem km',2,'']].map(([t,n,c])=>`<span class="${t===on?'on':''}">${t}<b class="${c}">${n}</b></span>`).join('')}</div>`;
   const search=`<div class="fx-msearch"><span class="fx-searchf" style="flex:1;height:44px;font-size:14px">${ic('magnifying-glass','s16')}<span class="trunc2">Buscar placa, frota ou conjunto</span></span><span class="fx-btn outline icon" style="height:44px;width:44px">${ic('sliders-horizontal','s20')}</span></div>`;
