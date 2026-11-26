@@ -225,7 +225,7 @@ fx-app{display:block}
 .fx-empty.canvas{height:100%;min-height:240px;background:hsl(var(--background)) radial-gradient(hsl(var(--border)) 1px,transparent 1.4px);background-size:24px 24px}
 .fx-halo{display:grid;place-items:center;padding:20px;margin-bottom:20px;border-radius:99px;background:hsl(var(--primary-soft));color:hsl(var(--primary));box-shadow:0 0 0 10px hsl(var(--primary-soft)/.45)}.fx-halo .ic{width:40px;height:40px}
 .fx-empty.sm .fx-halo{padding:12px;margin-bottom:16px;box-shadow:0 0 0 6px hsl(var(--primary-soft)/.45)}.fx-empty.sm .fx-halo .ic{width:32px;height:32px}
-.fx-empty b{font:600 16px Inter;color:hsl(var(--foreground))}.fx-empty p{margin:4px 0 24px;font-size:14px;color:hsl(var(--muted-foreground));max-width:420px;text-wrap:pretty}
+.fx-empty b{font:600 18px Inter;color:hsl(var(--foreground))}.fx-empty p{margin:4px 0 24px;font-size:14px;color:hsl(var(--muted-foreground));max-width:420px;text-wrap:pretty}
 /* NoticeBar: inline = rounded-lg border px-4 py-2.5, flex gap-3 text-sm, tone /10 bg, tone text, tone/30 border */
 .fx-notice{display:flex;align-items:center;gap:12px;font-size:14px;border-radius:8px;border:1px solid;padding:10px 16px}
 .fx-notice>span:not(.ic){flex:1;text-wrap:pretty}.fx-notice>.ic{width:16px;height:16px}

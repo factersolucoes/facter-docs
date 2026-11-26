@@ -375,13 +375,27 @@ function skBoard(){
    Restored states: no search result, first time, no permission, error,
    SAP mode, by service, several selected to schedule together
    ===================================================================== */
+Object.assign(V,{
+  rx1:{name:'RTX4A10',parts:[['RTX4A10','car','d']],svc:'Preventiva carreta 40 mil',more:'',when:'venceu há 900 km',t:'d'},
+  rx2:{name:'RTX4B22',parts:[['QRT2M10','cav',''],['RTX4B22','car','w']],svc:'Lubrificação carreta 15 dias',more:'',when:'sex 27/11',t:'w'},
+  rx3:{name:'RTX4C05',parts:[['RTX4C05','car','']],svc:'Preventiva carreta 40 mil',more:'',when:'qui 10/12',t:''},
+  rx4:{name:'RTX4D18',parts:[['RTX4D18','car','']],svc:'Revisão anual do conjunto',more:'',when:'ter 15/12',t:''}});
+const KWHERE_EXTRA=Object.assign({},{rx1:['garage','No pátio'],rx2:['road-horizon','Na estrada'],rx3:['road-horizon','Na estrada'],rx4:['garage','Parada na base']});
+function searchBlock(s,phone){
+  const clear=`<span class="lk">Limpar busca</span>`;
+  if(s==='nores0') return `<div class="eb ${phone?'ph':''}">${F.empty({canvas:1,icon:'magnifying-glass',title:'Nenhum veículo com “RTX4”',hint:'Confira a placa.',action:`<div class="ea">${clear}</div>`})}</div>`;
+  const card=id=>v2card(id,null);
+  if(s==='nores2'){const grp=(base,ids)=>`<div class="sgrp"><p class="vh">${base}</p>${ids.map(card).join('')}</div>`;
+    return `<div class="eb ${phone?'ph':''}"><div class="fx-empty canvas srch"><div class="sres"><b class="st">“RTX4” está em outras bases</b><p>Nenhum veículo com “RTX4” na Base Curitiba.</p>${grp('Base Ponta Grossa',['rx1','rx2'])}${grp('Base Três Lagoas',['rx3'])}<p class="smore">e mais 1 em outra base</p><div class="sacts">${btn('Ver todas as bases',{icon:'arrows-left-right'})}${clear}</div></div></div></div>`;}
+  return `<div class="eb ${phone?'ph':''}"><div class="fx-empty canvas srch"><div class="sres"><b class="st">RTX4A10 está na Base Ponta Grossa</b><p>Nenhum veículo com “RTX4” na Base Curitiba.</p>${card('rx1')}<div class="sacts">${btn('Ver na Base Ponta Grossa',{icon:'arrows-left-right'})}${clear}</div></div></div></div>`;}
 const EMPTY={
-  first:{icon:'calendar-plus',title:'A agenda começa com um plano',text:'Um plano diz o que fazer em cada tipo de veículo e de quanto em quanto tempo. Com ele, a agenda mostra o que vence e quando trazer cada veículo para a oficina.',action:()=>btn('Começar pelos planos sugeridos',{icon:'sparkle',action:1}),link:'Criar um plano do zero'},
-  noperm:{icon:'lock-simple',title:'Você ainda não vê a agenda',text:'A agenda fica com quem planeja a manutenção. Peça acesso a Marina Souza, gestora da Base Curitiba.',action:()=>btn('Pedir acesso a Marina',{variant:'outline'})},
+  first:{icon:'calendar-plus',title:'A agenda começa com um plano',text:'Com um plano, a agenda mostra o que vence e quando trazer cada veículo.',action:()=>btn('Começar pelos planos sugeridos',{icon:'sparkle',action:1}),link:'Criar um plano do zero'},
+  noperm:{icon:'lock-simple',title:'Você ainda não vê a agenda',text:'A agenda fica com quem planeja a manutenção. Peça acesso a Marina Souza, gestora da Base Curitiba.',action:()=>btn('Pedir acesso à Marina',{icon:'envelope'})},
   nores:{icon:'magnifying-glass',title:'Nenhum veículo com “RTX4” na agenda',text:'Confira a placa ou procure em outra base.',link:'Limpar busca',hint:'<b>RTX4A10</b> está na Base Ponta Grossa · <span class="lk">ver</span>'},
 };
-const emptyBlock=(k,phone)=>{const e=EMPTY[k];return `<div class="bempty ${phone?'ph':''}"><span class="halo md">${ic(e.icon,'s24')}</span><b>${e.title}</b><p>${e.text}</p>${e.hint?`<p class="ehint">${ic('map-pin','s16')}<span>${e.hint}</span></p>`:''}<div class="ea">${e.action?e.action():''}${e.link?`<span class="lk">${e.link}</span>`:''}</div></div>`;};
-const errNote=()=>`<div class="notice-w err">${ic('wifi-slash','s16')}<span><b>Não deu para atualizar a agenda.</b> A internet caiu às 9h12. A tela mostra o que estava aqui às 9h10.</span>${btn('Tentar de novo',{variant:'outline',size:'sm',icon:'arrow-clockwise'})}</div>`;
+const emptyBlock=(k,phone)=>{const e=EMPTY[k];return `<div class="eb ${phone?'ph':''}">${F.empty({canvas:1,icon:e.icon,title:e.title,hint:e.text,action:`${e.hint?`<p class="ehint">${ic('map-pin','s16')}<span>${e.hint}</span></p>`:''}<div class="ea">${e.action?e.action():''}${e.link?`<span class="lk">${e.link}</span>`:''}</div>`})}</div>`;};
+const errNoteM=()=>`<div class="notice-w err ph" role="alert">${ic('wifi-slash','s16')}<span class="etx"><b>Não deu para atualizar</b><small>Mostrando o de 9h10</small></span><span class="lk etry">${ic('arrow-clockwise','s14')}Tentar de novo</span></div>`;
+const errNote=()=>`<div class="notice-w err" role="alert">${ic('wifi-slash','s16')}<span class="etx"><b>Não deu para atualizar a agenda.</b> Mostrando o que estava aqui às 9h10.</span>${btn('Tentar de novo',{size:'sm',icon:'arrow-clockwise'})}</div>`;
 const sapChip=()=>`<span class="nokm sapc">${ic('arrows-left-right','s16')}<b>Planos do SAP</b><span class="m">atualizado há 12 min</span></span>`;
 const searchOn=()=>`<span class="sf on" role="search">${ic('magnifying-glass','s16')}<b>RTX4</b><span class="x">${ic('x','s14')}</span></span>`;
 /* by service: the same week grouped by what has to be done, to buy parts */
@@ -530,7 +544,7 @@ function kcard(id,sel,o={}){const v0=V[id];const v1=SCHED[id]?{...v0,when:SCHED[
 const KDUR={dly:'leva 4 h',q1a:'leva 1 h 10',rta:'leva 50 min',c072:'leva 50 min',q9b:'leva 1 h 10',c044:'leva 2 h 40',q6h:'leva 1 h',c118:'leva 1 h 30',rtf:'leva 50 min',c320:'leva 5 h 10',c207:'leva 2 h',d1:'levou 1 h 20',d2:'levou 40 min'};
 const kindOf=v=>v.parts.length>1?'Conjunto':v.parts[0][1]==='cav'?'Cavalo':'Carreta';
 function v2card(id,sel,o={}){const v0=V[id];const v1=SCHED[id]?{...v0,when:SCHED[id],t:'c'}:v0;const due=v1.when.replace(/^venceu há (.+)$/,'$1 de atraso');
-  const w=KWHERE[id]||['road-horizon','Na estrada'];const done=id==='d1'||id==='d2';
+  const w=KWHERE[id]||KWHERE_EXTRA[id]||['road-horizon','Na estrada'];const done=id==='d1'||id==='d2';
   const act=done?['arrow-square-out','Ver a OS']:SCHED[id]?['calendar-check','Remarcar']:w[1]==='No pátio'?['plus','Incluir na OS']:['calendar-check','Marcar dia'];
   const kind=kindOf(v0);
   return `<div class="v2card ${sel===id?'on':''} ${o.overlay?'ov':''} ${done?'fin':''}" data-id="${id}" role="button" tabindex="0"><div class="v2top"><div class="v2tl"><span class="v2key">${v0.name}${mark(v0.parts)}</span><h3>${v0.svc}</h3></div><span class="v2pri tone-${v1.t||'n'}">${due}</span></div>
@@ -621,7 +635,7 @@ function web(s,dev){if(dev==='tabl'||dev==='tabp'){KCOMPACT=true;let out;
   if(s==='empty') return `<div class="bd kbv">${vtop('Quadro')}<div class="hero slim"><span class="halo sm">${ic('calendar-check','s20')}</span><div class="tx"><h2>Frota em dia esta semana</h2><p>A próxima é a Revisão 60 mil do C-044, na qui 10/12.</p></div></div><div class="kfil"><span class="vsp"></span>${viewSeg('Quadro')}</div><div class="v2board">${v2col('A agendar',2,v2card('c044',null)+v2card('q6h',null),{tone:'todo'})}${v2col('Agendada',0,'',{empty:'Nada agendado',tone:'sched'})}${v2col('Na oficina',0,'',{empty:'Nenhum conjunto na oficina',tone:'shop'})}${v2col('Feita (7 dias)',2,v2card('d1',null)+v2card('d2',null),{tone:'done'})}</div></div>`;
   PICK=s==='multi'||s==='multisched';
   if(s==='first'||s==='noperm') return `<div class="bd ${small?'s':''}">${emptyBlock(s)}</div>`;
-  if(s==='nores') return `<div class="bd ${small?'s':''}"><div class="hero slim"><div class="tx"><h2>Busca na Base Curitiba</h2></div>${searchOn()}</div>${emptyBlock('nores')}</div>`;
+  if(/^nores/.test(s)) return `<div class="bd ${small?'s':''}"><div class="hero slim"><div class="tx"><h2>Busca na Base Curitiba</h2></div>${searchOn()}</div>${searchBlock(s)}</div>`;
   if(s==='byservice'){const [o,w,n]=GROUPS_ALL;return `<div class="bd ${small?'s':''}"><div class="hero slim"><span class="big">5</span><div class="tx"><h2>preventivas vencidas</h2><p>em <b>4 serviços</b></p></div>${segView('Por serviço')}</div><div class="cols">${svcColumn(o,'over')}${svcColumn(w,'week')}${svcColumn(n,'next')}</div>${svcDrawer()}</div>`;}
   DONE=s==='done';const [over,week,next]=gs();
   if(s==='empty') return `<div class="bd ${small?'s':''}">${slim({empty:1})}<div class="cols">${column(over,null,'Nada vencido')}${column(week,null,'Nada vence esta semana')}${column({...next,count:'9 veículos'},null)}</div></div>`;
@@ -659,12 +673,12 @@ function mobileList(s,o={}){
   const jump=o.list?`<div class="fx-mtabs jump">${[['over','Vencidas',N().over,'d'],['week','Esta semana',N().week,'w'],['next','Próximas',9,'']].map(([k,t,n,c])=>`<span class="${k===on?'on':''}">${t}<b class="${c}">${n}</b></span>`).join('')}</div>`
     :`<div class="fx-mtabs jump" role="tablist">${[['over','Vencidas',N().over,'d'],['week','Esta semana',N().week,'w'],['next','Próximas',9,'']].map(([k,l,n,t])=>`<span class="${k===on?'on':''}" role="tab">${l}<b class="${t}">${n}</b></span>`).join('')}</div>`;
   const secs=g.slice(0,3).map((gr,i)=>`<section class="msec" data-sec="${['over','week','next'][i]}"><h3 class="msh"><span class="gt ${gr.tone}">${ic(gr.icon,'s14')}</span>${gr.title}<span class="gc ${gr.tone}">${gr.count.split(' ')[0]}</span></h3><div class="mcards">${gr.ids.map((id,j)=>o.list?(s==='swipe'&&id==='dly'?`<div class="swp"><div class="swa"><span class="sw-d">${ic('clock-countdown','s16')}Adiar</span><span class="sw-p">${ic('calendar-check','s16')}Marcar dia</span></div>${lcard(id,sel).replace('fx-wocard lcard','fx-wocard lcard sw')}</div>`:lcard(id,sel).replace('fx-wocard lcard','fx-wocard lcard'+(s==='press'&&id==='c320'?' pressed':''))):mcard(id,{sel,press:s==='press'?'c320':null,swipe:s==='swipe'&&id==='dly'})).join('')}${gr.more?`<div class="more">${gr.more}${ic('caret-down','s14')}</div>`:''}</div></section>`).join('');
-  return `<div class="ph-wrap pm ${o.list?'pml':''}">${ctx.replace('<div class="phr">',ptr+'<div class="phr">')}${s==='error'?errNote():''}${hero}<div class="stick srow">${jump}${viewSeg(o.list?'Lista':'Quadro')}</div>${secs}${nokm()}<div class="safe"></div></div>`;
+  return `<div class="ph-wrap pm ${o.list?'pml':''}">${ctx.replace('<div class="phr">',ptr+'<div class="phr">')}${hero}${s==='error'?errNoteM():''}<div class="stick srow">${jump}${viewSeg(o.list?'Lista':'Quadro')}</div>${secs}${nokm()}<div class="safe"></div></div>`;
 }
 const PHONE_ONLY={ptr:1,mid:1,press:1,swipe:1};
 function phone(s){if(s==='pk044')return phone('list')+pk044Drawer(1);if(STRESS[s])return stressPhone(s,0);KITOPEN=s==='kitopen';DONE=s==='done';PICK=null;
   if(s==='first'||s==='noperm') return `<div class="ph-wrap">${emptyBlock(s,1)}</div>`;
-  if(s==='nores') return `<div class="ph-wrap">${searchOn()}${emptyBlock('nores',1)}</div>`;
+  if(/^nores/.test(s)) return `<div class="ph-wrap">${searchOn()}${searchBlock(s,1)}</div>`;
   if(s==='loading') return `<div class="ph-wrap pm pkban"><div class="phead"><div class="phr"><span class="pbase">Base Curitiba${ic('caret-down','s14')}</span><span class="pdate">qui 26/11</span></div></div><div class="ksnap"><div class="kpc">${v2col('A agendar','',[1,2,3].map(()=>`<div class="v2card">${F.sk('40%',12)}${F.sk('80%',16)}${F.sk('60%',20,99)}</div>`).join(''),{tone:'todo'})}</div></div></div>`;
   if(s==='__old_loading') return `<div class="ph-wrap"><div class="hero slim"><span class="sk" style="width:40px;height:40px;border-radius:12px"></span><span class="sk" style="width:200px;height:18px"></span></div><span class="sk" style="width:100%;height:44px;border-radius:12px"></span>${[1,2,3,4].map(()=>`<div class="cd sk-cd"><span class="sk" style="width:55%;height:15px"></span><span class="sk" style="width:80%;height:12px;margin-top:10px"></span></div>`).join('')}</div>`;
   if(s==='empty') return phoneKanban('list').replace(/<div class="ksnap[\s\S]*<div class="safe">/,`<div class="bempty ph" style="margin-top:12px"><span class="halo md">${ic('calendar-check','s24')}</span><b>Frota em dia esta semana</b><p>A próxima é a Revisão 60 mil do C-044, na qui 10/12.</p></div><div class="safe">`);
@@ -720,13 +734,13 @@ function listWeb(s,dev){if(dev==='tabp'){const base=isVisit(s)||s==='schedule'?'
   DONE=s==='done';const sel=s==='schedule'?'dly':isVisit(s)?'c320':null;
   let body;
   if(s==='loading') body=`<div style="display:flex;flex-direction:column;gap:8px">${[1,2,3,4,5].map(()=>F.sk('100%',64)).join('')}</div>`;
-  else if(s==='nores') body=emptyBlock('nores');
+  else if(/^nores/.test(s)) body=searchBlock(s);
   else if(s==='empty') body=`<div class="lempty">${F.empty({icon:'calendar-check',title:'Nada vencido',hint:'Uma preventiva aparece aqui quando passa do prazo. A próxima vence sáb 28/11, na Inspeção semanal do C-118.',action:btn('Ver esta semana',{variant:'outline'})})}</div>`;
   else body=`<div class="fx-wolist llist">${gs().map(g=>lsub(g)+g.ids.map(id=>lrow(id,sel)).join('')).join('')}</div>${btn('Carregar mais',{variant:'outline'}).replace('fx-btn','fx-btn lmore')}`;
   const dr=s==='schedule'?drawer(`${pHead(V.dly,HDLY)}<div class="pb">${scheduleBody()}</div>${scheduleFoot()}`)
     :isVisit(s)?visitDrawer(s,0):'';
   const lt=listTop({tab:s==='empty'?'Vencidas':'Todas',zero:s==='empty'});
-  const top=(s==='nores'?lt.replace(F.search('Buscar placa, frota ou conjunto',{width:340}),searchOn()):s==='sap'?lt.replace('<div class="ltools">','<div class="ltools">'+sapChip()):lt);
+  const top=(/^nores/.test(s)?lt.replace(F.search('Buscar placa, frota ou conjunto',{width:340}),searchOn()):s==='sap'?lt.replace('<div class="ltools">','<div class="ltools">'+sapChip()):lt);
   return `<div class="lv">${top}${s==='error'?errNote():''}${body}</div></div></div>${dr}${s==='multisched'?multiDrawer(0):''}${s==='multi'?selBar():''}</div>`;
 }
 function lcard(id,sel,o={}){const v=V[id],m=LM[id];
@@ -740,13 +754,14 @@ function listPhone(s){if(s==='pk044')return listPhone('list')+pk044Drawer(1);if(
   let body;
   if(s==='loading') body=[1,2,3].map(()=>`<div class="fx-wocard sk">${F.sk('40%',16)}${F.sk('60%',22)}${F.sk('100%',36)}${F.sk('100%',28)}</div>`).join('');
   else if(s==='empty') body=F.empty({icon:'calendar-check',title:'Nada vencido',hint:'A próxima vence sáb 28/11, na Inspeção semanal do C-118.'});
-  else if(s==='first'||s==='noperm'||s==='nores') body=emptyBlock(s,1);
-  if(s==='error') body=errNote()+gs()[0].ids.map(id=>lcard(id,null)).join('');
+  else if(s==='first'||s==='noperm') body=emptyBlock(s,1);
+  else if(/^nores/.test(s)) body=searchBlock(s,1);
+  if(s==='error') body=errNoteM()+gs()[0].ids.map(id=>lcard(id,null)).join('');
   DONE=s==='done';const sel=s==='schedule'?'dly':isVisit(s)?'c320':null;
   if(!body||PHONE_ONLY[s]){const list=mobileList(s,{list:1,sel:PHONE_ONLY[s]?null:sel});
     if(!isVisit(s)&&s!=='schedule') return list;
     return list+(s==='schedule'?`<div class="sheet-ov"><div class="sheet">${pHead(V.dly,{...HDLY,phone:1})}<div class="sb">${scheduleBody()}</div>${scheduleFoot()}</div></div>`:visitDrawer(s,1));}
-  const list=`<div class="fx-mlist"><div class="fx-msticky">${s==='nores'?`<div class="fx-msearch">${searchOn()}</div>`:search}${tabsM('Vencidas').replace(s==='empty'?'<b class="d">3</b>':'@@','<b>0</b>')}</div><div class="fx-mcards">${body}</div><div style="height:72px"></div></div>`;
+  const list=`<div class="fx-mlist"><div class="fx-msticky">${/^nores/.test(s)?`<div class="fx-msearch">${searchOn()}</div>`:search}${tabsM('Vencidas').replace(s==='empty'?'<b class="d">3</b>':'@@','<b>0</b>')}</div><div class="fx-mcards">${body}</div><div style="height:72px"></div></div>`;
   if(!isVisit(s)&&s!=='schedule') return list;
   return list+(s==='schedule'
     ?`<div class="sheet-ov"><div class="sheet">${pHead(V.dly,{...HDLY,phone:1})}<div class="sb">${scheduleBody()}</div>${scheduleFoot()}</div></div>`
