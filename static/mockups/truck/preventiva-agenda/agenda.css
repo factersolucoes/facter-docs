@@ -876,3 +876,20 @@
 .fx-device.phone .fx-cons{flex:1;min-width:0}
 .fx-device.phone .fx-cons .fx-vdiv{display:none}
 .fx-device.phone .fx-ctl{margin-left:auto;margin-right:10px}
+/* defer: one quiet surface, a header with the consequence, options as an even grid of radios */
+.defer{gap:14px;padding:14px;border-radius:14px;background:hsl(var(--muted)/.55);box-shadow:none}
+.defer .dh{display:flex;align-items:center;gap:8px;font-size:14px}
+.defer .dh .ic{color:hsl(var(--warning-ink));flex:none}
+.defer .dh b{flex:1;min-width:0;font-weight:600}
+.defer .dh span{flex:none;font-size:12.5px;font-weight:600;color:hsl(var(--warning-ink))}
+.defer .q>span{font:600 12.5px Inter;color:hsl(var(--muted-foreground))}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.op{display:flex;align-items:center;gap:8px;min-height:40px;padding:0 12px;border-radius:10px;background:hsl(var(--card));box-shadow:inset 0 0 0 1px hsl(var(--border));font-size:13.5px;color:hsl(var(--foreground));white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+.op i{flex:none;width:14px;height:14px;border-radius:99px;box-shadow:inset 0 0 0 1.5px hsl(var(--input))}
+.op.on{box-shadow:inset 0 0 0 1.5px hsl(var(--primary));color:hsl(var(--primary-ink));font-weight:600}
+.op.on i{box-shadow:inset 0 0 0 4px hsl(var(--primary))}
+.op .ic{flex:none;color:hsl(var(--muted-foreground))}
+.defer .dh{align-items:flex-start}
+.defer .dh .ic{margin-top:2px}
+.defer .dh>div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.defer .dh b{text-wrap:balance}

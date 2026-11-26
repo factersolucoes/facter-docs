@@ -93,7 +93,7 @@ const GRAXA=['Graxa','2ª carreta','1 kg','s'];
 function kits320(m){
   if(m==='none') return `<div class="sec">${secHead('Peças e insumos')}<p class="lede">Marque uma preventiva para ver as peças dela.</p></div>`;
   const dropOil=m==='one'||m==='closed';
-  return partsBox(dropOil?{items:4,ok:3,miss:1,kits:[K_LONA],loose:[GRAXA],off:'Kit troca de óleo fica para depois, junto com a preventiva adiada.'}:{items:8,ok:7,miss:1,kits:[K_LONA,K_OLEO],loose:[GRAXA]});
+  return partsBox(dropOil?{items:4,ok:3,miss:1,kits:[K_LONA],loose:[GRAXA],off:'Kit troca de óleo fica para depois.'}:{items:8,ok:7,miss:1,kits:[K_LONA,K_OLEO],loose:[GRAXA]});
 }
 const kitsDly=()=>partsBox({items:4,ok:3,miss:1,mt:'d',kits:[{name:'Kit revisão B',loc:'Cavalo',locd:'cavalo',t:'d',parts:[['30 l','Óleo 15W40','','s'],['1','Filtro de óleo','','s'],['1','Filtro de ar','','d'],['1','Filtro de diesel','','s']]}]})+'<p class="ptotal">O pedido de compra do filtro de ar sai junto com o agendamento.</p>';
 const kits044=()=>partsBox({items:5,ok:5,kits:[{name:'Kit revisão B',loc:'Cavalo',locd:'cavalo',t:'s',parts:[['30 l','Óleo 15W40','','s'],['1','Filtro de óleo','','s'],['1','Filtro de ar','','s'],['1','Filtro de diesel','','s']]}],loose:[['Graxa','1ª carreta','1 kg','s']]});
@@ -107,12 +107,12 @@ const prevHead=(title,sub,chip)=>`<div class="prh pvh"><span class="gt">${ic('ca
 const OVERCHIP="";
 const ckItem=on=>([n,where,v,t,rule],i)=>pvRow(on(i),n,where,v,t,rule);
 const chips=(list,on)=>`<div class="chips">${list.map(c=>F.fchip(c,{on:c===on,icon:c==='Escolher dia'?'calendar-blank':''})).join('')}</div>`;
-const REASONS=['Falta peça','Sem tempo nesta parada','Conjunto precisa sair','Sem mecânico','Outro'];
-const WHENS=['Na próxima vinda à oficina','Em 7 dias','Em 1.000 km','Escolher dia'];
-const deferAsk=(lead)=>`<div class="defer">${lead}
-  <div class="q"><span>Por quê?</span>${chips(REASONS,'Falta peça')}</div>
-  <div class="q"><span>Quando lembrar de novo?</span>${chips(WHENS,'Na próxima vinda à oficina')}</div>
-  <p class="dnote">${ic('info','s16')}<span>Conta como atraso.</span></p></div>`;
+const REASONS=['Falta peça','Sem tempo agora','Conjunto vai sair','Sem mecânico','Outro'];
+const WHENS=['Na próxima vinda','Em 7 dias','Em 1.000 km','Escolher dia'];
+const opts=(list,on)=>`<div class="opts" role="radiogroup">${list.map(c=>`<span class="op ${c===on?'on':''}" role="radio" aria-checked="${c===on}"><i></i>${c==='Escolher dia'?ic('calendar-blank','s14'):''}${c}</span>`).join('')}</div>`;
+const deferAsk=(what)=>`<div class="defer"><div class="dh">${ic('clock-countdown','s16')}<div><b>${what||'As 3 ficam para depois'}</b><span>Conta como atraso</span></div></div>
+  <div class="q"><span>Motivo</span>${opts(REASONS,'Falta peça')}</div>
+  <div class="q"><span>Lembrar de novo</span>${opts(WHENS,'Na próxima vinda')}</div></div>`;
 function visitBodyM(m){
   const tail=`${kits320(m)}
   ${history('Últimas manutenções deste conjunto',[['27/10','Lubrificação geral','OS 0998'],['02/09','Troca de óleo e filtros','OS 0954'],['12/05','Lona de freio na 2ª carreta, eixo 3','OS 0871']])}`;
@@ -127,7 +127,7 @@ function visitBodyM(m){
   const on=i=>m==='all'||m==='sap'?true:m==='none'?false:i<2;
   const lede=m!=='all'&&m!=='sap'?'Marque o que dá para fazer enquanto o conjunto está parado.':'Venceram ou vencem logo. Dá para fazer todas enquanto o conjunto está parado.';
   return `<div class="sec">${prevHead('Preventivas para fazer agora',m==='one'?'2 de 3 marcadas':m==='none'?'Nenhuma marcada':'3 preventivas',OVERCHIP)}<div class="plist">${ITEMS_C320.map(ckItem(on)).join('')}</div>
-  ${m==='one'?deferAsk('<p class="dl"><b>1 fica para depois:</b> Troca de óleo e filtros</p>'):''}</div>${tail}`;
+  ${m==='one'?deferAsk('Troca de óleo e filtros fica para depois'):''}</div>${tail}`;
 }
 function visitFootM(m){
   if(m==='sap') return `<div class="pf"><p class="sapn">${ic('arrows-left-right','s14')}<span>Adiar e marcar dia ficam no SAP · <span class="lk">ver ordem 4000131</span></span></p>${btn('Incluir as 3 na OS 1042',{icon:'plus',action:1})}</div>`;
