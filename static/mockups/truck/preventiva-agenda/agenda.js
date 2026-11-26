@@ -499,33 +499,37 @@ Object.assign(V,{
   d1:{name:'C-512',parts:[['QRT6M30','cav',''],['RTN2B11','car','']],svc:'Preventiva 20 mil',more:'',when:'feita ter 24/11',t:'s'},
   d2:{name:'QRT3K18',parts:[['QRT3K18','cav','']],svc:'Lubrificação carreta 15 dias',more:'',when:'feita seg 23/11',t:'s'},
 });
+let KCOMPACT=false;
 const STAGES=[
   {k:'todo',title:'A agendar',ids:['dly','q1a','rta','c072','q9b','c044','q6h']},
   {k:'sched',title:'Agendada',ids:['c118','rtf']},
   {k:'shop',title:'Na oficina',ids:['c320','c207']},
   {k:'done',title:'Feita (7 dias)',ids:['d1','d2']}];
 const SCHED={c118:'sex 27/11',rtf:'seg 14/12'};
-function kcard(id,sel,o={}){const v0=V[id];const v=SCHED[id]?{...v0,when:SCHED[id],t:'c'}:v0;
-  const inner=`<div class="l1"><b title="${esc(v.name)}">${v.name}</b>${mark(v.parts)}</div><div class="l2"><span>${v.svc}</span>${pillMore(v)}${/cronotac/.test(v.svc)?'<span class="tag">Obrigatório</span>':''}</div><div class="l3k"><span class="when ${v.t}">${v.when}</span>${o.ghost?'<span class="kghost">solte para marcar o dia</span>':''}</div>`;
-  return F.kbCard(inner,{state:[o.dragging?'dragging':'',id==='d1'||id==='d2'?'disabled':'',sel===id?'on':'',o.ghost?'ghostc':''].join(' '),attrs:`data-id="${id}"`});}
+const KWHERE={dly:['road-horizon','Na estrada'],q1a:['road-horizon','Na estrada'],rta:['garage','Parada na base'],c072:['road-horizon','Na estrada'],q9b:['road-horizon','Na estrada'],c044:['road-horizon','Na estrada'],q6h:['road-horizon','Na estrada'],
+  c118:['clock','às 8h'],rtf:['clock','às 7h'],c320:['garage','No pátio'],c207:['garage','No pátio'],d1:['wrench','OS 1031'],d2:['wrench','OS 1027']};
+const KDUE_IC={d:'warning',w:'clock',c:'calendar-check',s:'check','':'calendar-blank'};
+function kcard(id,sel,o={}){const v0=V[id];const v1=SCHED[id]?{...v0,when:SCHED[id],t:'c'}:v0;const v={...v1,when:v1.when.replace(/^venceu há (.+)$/,'$1 de atraso')};const w=KWHERE[id]||['road-horizon','Na estrada'];
+  const inner=`<div class="kg"><div class="ka"><b title="${esc(v.name)}">${v.name}</b>${mark(v.parts)}</div><span class="kd ${v.t}">${ic(KDUE_IC[v.t]||'calendar-blank','s14')}${v.when}</span><div class="kpk" title="${esc(v.svc)}">${v.svc}</div><span class="kw">${ic(w[0],'s14')}${w[1]}</span></div>`;
+  return F.kbCard(inner,{state:['cmp',id==='d1'||id==='d2'?'disabled':'',sel===id?'on':'',o.dragging?'dragging':'',o.ghost?'ghostc':''].join(' '),attrs:`data-id="${id}"`});}
 function kanban(s,sel){
   const drag=s==='drag', no=s==='dropno', toSched=s==='schedule'||s==='dropok';
   const cols=STAGES.map(st=>{
     let ids=st.ids.slice();
     if(toSched&&st.k==='todo')ids=ids.filter(i=>i!=='dly');
-    let body=ids.map(id=>kcard(id,sel,{dragging:(drag||no)&&id==='dly'})).join('');
+    let body=ids.map(id=>kcard(id,sel,{dragging:(drag||no)&&id==='dly',compact:KCOMPACT})).join('');
     if(toSched&&st.k==='sched')body=kcard('dly',sel,{ghost:1})+body;
     if(drag&&st.k==='sched')body=`<div class="kslot">${ic('calendar-plus','s16')}Soltar aqui para marcar o dia</div>`+body;
     const state=drag?(st.k==='sched'?'hover':st.k==='done'||st.k==='shop'?'no':''):no&&st.k==='shop'?'nodrop':'';
     const top=no&&st.k==='shop'?`<div class="krefuse">${ic('road-horizon','s16')}<span><b>DLY1J07 está na estrada.</b> Marque um dia na oficina.</span></div>`:'';
     const n=ids.length+(toSched&&st.k==='sched'?1:0);
     return F.kbCol({title:st.title,count:st.k==='todo'?(toSched?14:15):n,body,state,top,footer:st.k==='todo'?`<div class="more pg">Ver as 15 até 24/12${ic('caret-down','s14')}</div>`:st.k==='done'?'<p class="kdone">Feita vem da OS concluída</p>':''});});
-  const chips=`<div class="kfil">${F.fchip('Todas',{on:1})}${F.fchip('Vencidas',{count:3})}${F.fchip('Esta semana',{count:3})}${F.fchip('Próximas',{count:9})}<span class="ksort">${ic('sort-ascending','s14')}Mais urgente primeiro</span></div>`;
+  const chips=`<div class="kfil">${F.fchip('Todas',{on:1})}${F.fchip('Vencidas',{count:3})}${F.fchip('Esta semana',{count:3})}${F.fchip('Próximas',{count:9})}<i class="kdiv"></i><span class="ksort" role="button" aria-haspopup="menu">${ic('sort-ascending','s14')}Mais urgente primeiro${ic('caret-down','s12')}</span></div>`;
   return chips+`<div class="fx-kb kb">${cols.join('')}</div>`;}
 /* phone kanban: stage tabs and horizontal snap columns */
 function phoneKanban(s){const on=s==='kb2'?'sched':'todo';
   const tabs=`<div class="fx-mtabs jump stg">${STAGES.map(st=>`<span class="${st.k===on?'on':''}">${st.title}<b>${st.k==='todo'?15:st.ids.length}</b></span>`).join('')}</div>`;
-  const cols=STAGES.map(st=>`<div class="kpc"><div class="mcards">${st.ids.slice(0,4).map(id=>kcard(id,null)).join('')}</div></div>`).join('');
+  const cols=STAGES.map(st=>`<div class="kpc"><div class="mcards">${st.ids.slice(0,5).map(id=>kcard(id,null,{compact:1})).join('')}</div></div>`).join('');
   return `<div class="ph-wrap pm pkban">${`<div class="phead"><div class="phr"><span class="pbase">Base Curitiba${ic('caret-down','s14')}</span><span class="pdate">qui 26/11</span></div>${viewSeg('Quadro').replace('vseg vw','vseg vw ph')}</div>`}<div class="stick">${tabs}</div><div class="ksnap ${on==='sched'?'at2':''}">${cols}</div><div class="safe"></div></div>`;}
 
 /* ---------- Calendário: month and week, ported from the v1 design ---------- */
@@ -564,7 +568,7 @@ function weekView(s){const days=['2026-11-22','2026-11-23','2026-11-24','2026-11
   return `<div class="wkv">${head}${allday}<div class="wks">${grid}</div></div>`;}
 function calHead(mode){return `<div class="calh"><div class="today"><small>nov</small><b>26</b></div><div class="cht"><h2>${mode==='week'?'22 a 28 de novembro de 2026':mode==='full'?'Novembro de 2026':'22 de novembro a 26 de dezembro'}</h2><p>${mode==='week'?'7 preventivas na semana':mode==='full'?'11 preventivas no mês':'15 preventivas nas próximas 5 semanas'}</p></div><span class="cnav">${ic('caret-left','s16')}</span><span class="cnav">${ic('caret-right','s16')}</span><span class="tbtn">Hoje</span><span style="flex:1"></span>${F.fchip('Todas as transportadoras',{menu:1})}<div class="vseg">${[['Próximas 5 semanas','month'],['Mês completo','full'],['Semana','week']].map(([l,m])=>`<span class="${m===mode?'on':''}">${l}</span>`).join('')}</div></div>
   <div class="clegend"><span><i class="ev sched"></i>agendada</span><span><i class="ev pred"></i>prevista pelo km por dia</span><span><i class="ldk"></i>ocupação da oficina</span></div>`;}
-function calWeb(s,dev){
+function calWeb(s,dev){if(dev==='tabp'){return calWeb(s==='visit'?'week':s==='month'?'week':s,'webs').replace('class="bd calv"','class="bd calv tpv"')+(s==='visit'?visitDrawer('visit',1):'');}
   if(s==='loading') return `<div class="bd calv">${vtop('Calendário')}<div class="calbox">${F.sk('40%',28)}<div style="height:14px"></div>${F.sk('100%',560,16)}</div></div>`;
   if(s==='empty') return `<div class="bd calv">${vtop('Calendário')}<div class="calbox">${calHead('month')}${emptyBlock('first').replace('A agenda começa com um plano','Nada marcado nem previsto neste mês').replace(/<p>Um plano[^<]*<\/p>/,'<p>As preventivas aparecem aqui quando um plano prevê a próxima pelo km por dia ou quando alguém marca um dia.</p>')}</div></div>`;
   const mode=s==='week'?'week':s==='full'?'full':'month';
@@ -581,7 +585,11 @@ function calPhone(s){
   const groups=days.map(d=>`<section class="agd"><h3 class="msh"><span>${lab[d]}</span><span class="agl">${loadBar(d)}</span></h3><div class="mcards">${EV.filter(e=>e.d===d).map(e=>`<div class="agc ${e.k}" data-id="${e.id}"><i class="dot ${e.t}"></i><div><b>${e.txt.split(' · ')[0]}</b><span>${e.txt.split(' · ')[1]}</span></div><small>${e.k==='pred'?'prevista':e.h?e.h[0]+'h às '+e.h[1]+'h':''}</small></div>`).join('')}</div></section>`).join('');
   return `<div class="ph-wrap pm">${head}${groups}<div class="safe"></div></div>`;}
 
-function web(s,dev){if(s==='drag'||s==='dropno')return web('kbdrag:'+s,dev);if(s.startsWith('kbdrag:')){const st=s.slice(7);return `<div class="bd kbv ${dev==='webs'?'s':''}">${vtop('Quadro')}${slim().replace(nokm(),'')}${kanban(st,null)}</div>`;}if(s==='dropok')s='schedule';if(s==='pk044')return withPk044(web('board',dev),0);if(STRESS[s])return stressWeb(s,dev);KITOPEN=s==='kitopen';
+function sheetFor(s){return isVisit(s)?visitDrawer(s,1):s==='schedule'||s==='dropok'?`<div class="sheet-ov"><div class="sheet">${pHead(V.dly,{...HDLY,phone:1})}<div class="sb">${scheduleBody()}</div>${scheduleFoot()}</div></div>`:'';}
+function web(s,dev){if(dev==='tabl'||dev==='tabp'){KCOMPACT=true;let out;
+    if(dev==='tabl'){out=web(s,'webs').replace('class="bd ','class="bd tlv ');}
+    else{const base=isVisit(s)||s==='schedule'||s==='dropok'?'board':s;out=web(base,'webs').replace('class="bd ','class="bd tpv ')+sheetFor(s);}
+    KCOMPACT=false;return out;}if(s==='drag'||s==='dropno')return web('kbdrag:'+s,dev);if(s.startsWith('kbdrag:')){const st=s.slice(7);return `<div class="bd kbv ${dev==='webs'?'s':''}">${vtop('Quadro')}${slim().replace(nokm(),'')}${kanban(st,null)}</div>`;}if(s==='dropok')s='schedule';if(s==='pk044')return withPk044(web('board',dev),0);if(STRESS[s])return stressWeb(s,dev);KITOPEN=s==='kitopen';
   const small=dev==='webs';
   if(s==='loading') return `<div class="bd kbv">${vtop('Quadro')}<div class="hero slim">${F.sk(48,40,12)}<div class="tx" style="display:flex;flex-direction:column;gap:8px">${F.sk(260,18)}${F.sk(180,12)}</div></div><div class="fx-kb kb">${STAGES.map(st=>F.kbCol({title:st.title,count:'',body:[1,2,3].map(()=>F.kbCard(F.sk('60%',15)+'<div style="height:8px"></div>'+F.sk('85%',12)+'<div style="height:10px"></div>'+F.sk(110,22,99))).join('')})).join('')}</div></div>`;
   if(s==='empty') return `<div class="bd kbv">${vtop('Quadro')}<div class="hero slim"><span class="halo sm">${ic('calendar-check','s20')}</span><div class="tx"><h2>Frota em dia esta semana</h2><p>A próxima é a Revisão 60 mil do C-044, na qui 10/12.</p></div></div><div class="fx-kb kb">${F.kbCol({title:'A agendar',count:2,body:kcard('c044',null)+kcard('q6h',null)})}${F.kbCol({title:'Agendada',count:0,empty:'Nada agendado'})}${F.kbCol({title:'Na oficina',count:0,empty:'Nenhum conjunto na oficina'})}${F.kbCol({title:'Feita (7 dias)',count:2,body:kcard('d1',null)+kcard('d2',null)})}</div></div>`;
@@ -681,7 +689,7 @@ function listTop(o={}){
   const tools=`<div class="ltools">${F.search('Buscar placa, frota ou conjunto',{width:340})}${F.fchip('Todas as transportadoras',{menu:1})}${F.fchip('Todos os planos',{menu:1})}</div>`;
   return head+`<div class="lstack"><div class="lstack s">${F.dtabs([['Todas',17-(DONE?0:0)],['Vencidas',N().over],['Esta semana',N().week],['Próximas',9],['Sem km',2]],o.tab||'Todas')}${tools}`;
 }
-function listWeb(s){if(s==='pk044')return withPk044(listWeb('list'),0);if(STRESS[s])return stressList(s);KITOPEN=s==='kitopen';DONE=s==='done';PICK=s==='multi'||s==='multisched';
+function listWeb(s,dev){if(dev==='tabp'){const base=isVisit(s)||s==='schedule'?'list':s;return listWeb(base).replace('class="lv"','class="lv tpv"')+sheetFor(s);}if(s==='pk044')return withPk044(listWeb('list'),0);if(STRESS[s])return stressList(s);KITOPEN=s==='kitopen';DONE=s==='done';PICK=s==='multi'||s==='multisched';
   if(s==='first'||s==='noperm') return `<div class="lv">${vtop('Lista')}${F.pageHeader('Agenda','O que trazer para a oficina, e quando.','')}${emptyBlock(s)}</div>`;
   DONE=s==='done';const sel=s==='schedule'?'dly':isVisit(s)?'c320':null;
   let body;
@@ -731,9 +739,11 @@ function patchNav(){
     const mn=app.querySelectorAll('.fx-mnav .fx-mi');const more=mn[mn.length-1];
     if(more&&!more.classList.contains('on')){more.classList.add('on');more.insertAdjacentHTML('beforeend','<i></i>');}
     app.querySelector('.fx-body')?.classList.add('calm');
+    const dv=app.getAttribute('device');const ctl=app.querySelector('.fx-ctl');const right=app.querySelector('.fx-right');
+    if(ctl&&right&&dv!=='web'&&!right.contains(ctl)){right.insertBefore(ctl,right.querySelector('.fx-me'));ctl.classList.add('ctxpill');}
   });
 }
-function lift(){document.querySelectorAll('.fx-device.phone').forEach(d=>{const ov=d.querySelector('.fx-body .sheet-ov');if(ov) d.querySelector('.fx-screen').appendChild(ov);});}
+function lift(){document.querySelectorAll('.fx-device.phone,.fx-device.tablet-p').forEach(d=>{const ov=d.querySelector('.fx-body .sheet-ov');if(ov) d.querySelector('.fx-screen').appendChild(ov);});}
 function fit(){
   document.querySelectorAll('.devices .fx-device').forEach(d=>{d.style.zoom='';const box=d.closest('.devices');if(!box)return;const avail=box.clientWidth,w=d.offsetWidth;if(w>avail&&avail>0)d.style.zoom=(avail/w).toFixed(4);});
 }
@@ -754,7 +764,7 @@ Object.assign(LM,{
   nob:{pos:'Cavalo, sem base definida',where:'Sem base definida',sub:'em 14 dias',act:'Definir base'},
 });
 function midScroll(k,s){document.querySelectorAll(`[data-render="${k}"]`).forEach(el=>{const body=el.closest('.fx-body');if(!body)return;const st=el.querySelector('.stick');const h=st?st.offsetHeight+parseFloat(getComputedStyle(st).top||0):48;el.querySelectorAll('.msh').forEach(x=>x.style.top=h+'px');body.scrollTop=0;const t=el.querySelector('[data-sec="week"]');if(s==='mid'&&t){const z=parseFloat(getComputedStyle(body.closest('.fx-device')).zoom)||1;body.scrollTop=(t.getBoundingClientRect().top-body.getBoundingClientRect().top)/z-h-12;}});}
-const R={cw:(s,dev)=>calWeb(s,dev),cpl:()=>calPhone('month'),cps:(s)=>{clean('cps');setTimeout(lift);return calPhone(s);},a320:()=>phone('sBig'),a720:()=>phone('sLong'),ag:(s,dev)=>web(s,dev),phl:()=>phone('list'),phs:(s)=>{clean('phs');setTimeout(()=>{lift();midScroll('phs',s);});return phone(s);},lg:(s)=>listWeb(s),lpl:()=>listPhone('list'),lps:(s)=>{clean('lps');setTimeout(()=>{lift();midScroll('lps',s);});return listPhone(s);}};
+const R={cw:(s,dev)=>{clean('cw');setTimeout(lift);return calWeb(s,dev);},cpl:()=>calPhone('month'),cps:(s)=>{clean('cps');setTimeout(lift);return calPhone(s);},a320:()=>phone('sBig'),a720:()=>phone('sLong'),ag:(s,dev)=>{clean('ag');setTimeout(lift);return web(s,dev);},phl:()=>phone('list'),phs:(s)=>{clean('phs');setTimeout(()=>{lift();midScroll('phs',s);});return phone(s);},lg:(s,dev)=>{clean('lg');setTimeout(lift);return listWeb(s,dev);},lpl:()=>listPhone('list'),lps:(s)=>{clean('lps');setTimeout(()=>{lift();midScroll('lps',s);});return listPhone(s);}};
 function boot(){patchNav();F.bind(R);lift();views();themes();
   document.querySelectorAll('.states button').forEach(b=>b.addEventListener('click',()=>setTimeout(lift)));
   let t;window.addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(fit,120);});}

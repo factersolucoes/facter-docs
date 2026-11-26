@@ -1447,3 +1447,56 @@
 .lv>.vtop{margin-bottom:16px}
 .mcell.oth .mevs{opacity:.6}
 .mrefuse{order:-1}
+
+/* context selector as a pill next to the avatar (phone and tablet pattern) */
+.fx-ctl.ctxpill{margin:0 10px 0 0}
+.pbpill{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px 0 14px;border-radius:999px;background:hsl(var(--secondary));color:hsl(var(--foreground));font:600 13.5px Inter;white-space:nowrap}
+.pbpill::after{content:"";width:12px;height:12px;background:currentColor;-webkit-mask:url(../_kit/icons/caret-down.svg) center/contain no-repeat;mask:url(../_kit/icons/caret-down.svg) center/contain no-repeat}
+.fx-device.phone:has(.pm) .pbpill{background:hsl(var(--primary-foreground)/.15);color:hsl(var(--primary-foreground))}
+.fx-device.phone .fx-ctl .msel{display:none}
+/* phone top: title row, then the view switch; less empty blue */
+.phead .phr{display:none}
+.phead{gap:10px;padding-top:4px;padding-bottom:30px}
+.pkban .phead{padding-bottom:14px}
+.hero.ov{margin-top:-20px}
+/* compact kanban card: name, strokes and due on one row; package below */
+.fx-kb-card.cmp{padding:12px 14px;border-radius:16px}
+.fx-kb-card.cmp .k1{display:flex;align-items:center;gap:8px;min-width:0}
+.fx-kb-card.cmp .k1 b{font:600 15px Inter;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.fx-kb-card.cmp .k1 .cm{flex:none}
+.fx-kb-card.cmp .k1 .when{margin-left:auto;flex:none}
+.fx-kb-card.cmp .k2{margin-top:4px;font-size:13.5px;color:hsl(var(--muted-foreground));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpc .mcards{gap:8px}
+/* tablets: touch sizes; portrait shows two kanban columns and slides sideways */
+.fx-device.tablet-l .fx-btn,.fx-device.tablet-p .fx-btn{height:44px}
+.fx-device.tablet-l .fx-fchip,.fx-device.tablet-p .fx-fchip{height:40px}
+.fx-device.tablet-l .vseg span,.fx-device.tablet-p .vseg span{height:36px}
+.fx-device.tablet-l .nokm,.fx-device.tablet-p .nokm{height:40px}
+.bd.tlv .fx-kb-col{min-width:0}
+.bd.tpv .fx-kb.kb{overflow-x:auto;scroll-snap-type:x mandatory}
+.bd.tpv .fx-kb.kb .fx-kb-col{flex:0 0 calc(50% - 6px);scroll-snap-align:start}
+.bd.tpv .vtop{flex-wrap:wrap}
+.fx-device.tablet-p .sheet{max-height:70%}
+.fx-device.tablet-p .sheet-ov{top:0}
+.lv.tpv .fx-aprow.lrow{grid-template-columns:minmax(0,1fr) 130px 18px}
+.lv.tpv .fx-aprow.lrow .apss{display:none}
+/* kanban card: a 2x2 grid; due as tone text, package strong, where the vehicle is */
+.fx-kb-card.cmp{padding:12px 14px;border-radius:14px}
+.kg{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:4px 12px}
+.kg .ka{display:flex;align-items:center;gap:8px;min-width:0}
+.kg .ka b{font:600 15px Inter;color:hsl(var(--foreground));white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.kg .ka .cm{flex:none}
+.kg .kd{display:inline-flex;align-items:center;justify-content:flex-end;gap:5px;font:500 13px Inter;font-variant-numeric:tabular-nums;white-space:nowrap;color:hsl(var(--muted-foreground))}
+.kg .kd.d{color:hsl(var(--danger-ink))}.kg .kd.w{color:hsl(var(--warning-ink))}.kg .kd.c{color:hsl(var(--foreground))}
+.kg .kd .ic,.kg .kw .ic{width:14px;height:14px;flex:none}
+.kg .kpk{font:500 14px Inter;color:hsl(var(--foreground));white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.kg .kw{display:inline-flex;align-items:center;justify-content:flex-end;gap:5px;font-size:12.5px;color:hsl(var(--muted-foreground));white-space:nowrap}
+.fx-kb-card.cmp.disabled .kpk{color:hsl(var(--muted-foreground))}
+/* sort pill right after the filters; chips: only the selected one differs */
+.kfil .kdiv{width:1px;height:18px;margin:0 4px;background:hsl(var(--foreground)/.12)}
+.ksort{margin-left:0;height:32px;padding:0 10px 0 12px;border-radius:999px;background:hsl(var(--secondary));color:hsl(var(--foreground));font:500 13.5px Inter;gap:6px;cursor:pointer}
+.ksort .ic{color:hsl(var(--muted-foreground))}
+.kfil .fx-fchip:not(.on),.kfil .fx-fchip:not(.on):hover{background:hsl(var(--secondary));color:hsl(var(--foreground))}
+.kfil .fx-fchip:not(.on) b{color:hsl(var(--muted-foreground))}
+.bd.tlv .fx-kb.kb{overflow-x:auto;scroll-snap-type:x mandatory}
+.bd.tlv .fx-kb.kb .fx-kb-col{flex:0 0 calc(33.333% - 8px);scroll-snap-align:start}
