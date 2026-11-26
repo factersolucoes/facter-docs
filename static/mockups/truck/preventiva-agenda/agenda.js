@@ -59,10 +59,11 @@ const parts=(ok,list,note)=>`<div class="sec">${secHead('Peças necessárias',ok
 const history=(title,rows)=>`<div class="sec hist">${secHead(title,'<span class="lk vt">Ver todas</span>')}<ol class="tl">${rows.map(([d,sv,os])=>`<li><span class="d">${d}</span><span class="s">${sv}</span><span class="o">${os}</span></li>`).join('')}</ol></div>`;
 const foot=t=>`<p class="foot">${ic('clock-counter-clockwise','s14')}<span>${t}</span></p>`;
 const TILE_IC={'Atraso':'clock-countdown','Peças':'package','Duração':'timer','Na OS':'wrench','Adiadas':'clock','Adiada':'clock','Vence':'calendar-blank','Leva':'timer','Veículos':'truck','Lonas':'disc','Molas':'columns'};
-function tiles(o){const out=[];
-  if(o.status){const m=o.status.match(/class="spill (\w)"[\s\S]*<\/span>([^<]+)<\/span>\s*$/);if(m)out.push(['Onde está',m[2].trim().replace(/ desde [^·]+/,' ').replace(/\s+·/,' ·').replace(' aberta','').replace('roda ','').replace(' km por dia',' km/dia'),m[1]==='s'?'s':'',o.status.includes('road-horizon')?'road-horizon':'garage']);}
-  (o.metrics||[]).forEach(([l,v,t])=>out.push([l,v,t||(l==='Duração'?'p':''),TILE_IC[l]||'info']));
-  return `<div class="tiles">${out.map(([l,v,t,i])=>`<div class="tile"><span class="tic">${ic(i,'s16')}</span><span class="tlab"><small>${l}</small><b class="${t}">${String(v).replace(/OS (\d)/,'OS&nbsp;$1').replace(/ · /g,'&nbsp;· ').replace(/(\d) (km|h|min)/g,'$1&nbsp;$2')}</b></span></div>`).join('')}</div>`;}
+function tiles(o){let where='';
+  if(o.status){const m=o.status.match(/class="spill (\w)"[\s\S]*<\/span>([^<]+)<\/span>\s*$/);if(m){const txt=m[2].trim().replace(/ aberta$/,'');const road=o.status.includes('road-horizon');
+    where=`<div class="wcard"><span class="wci">${ic(road?'road-horizon':'garage','s16')}</span><span class="tlab"><small>Onde está</small><b>${txt.replace(/OS (\d)/,'OS&nbsp;$1')}</b></span>${/OS \d/.test(txt)?'<span class="lk wca">Abrir OS ›</span>':''}</div>`;}}
+  const out=(o.metrics||[]).map(([l,v,t])=>[l,v,t||(l==='Duração'?'p':''),TILE_IC[l]||'info']);
+  return `<div class="tiles2">${where}<div class="tiles3">${out.map(([l,v,t,i])=>`<div class="tile"><span class="tic">${ic(i,'s16')}</span><span class="tlab"><small>${l}</small><b class="${t}">${String(v).replace(/(\d) (km|h|min)/g,'$1&nbsp;$2')}</b></span></div>`).join('')}</div></div>`;}
 function pHead(v,o={}){return `<div class="phd">${o.phone?'<div class="grab"></div>':''}<div class="ph">${o.back?`<span class="xb back" role="button" aria-label="Voltar">${ic('arrow-left','s16')}</span>`:''}<div class="t"><h2>${o.title||v.full}</h2><p>${mark(v.parts)}${o.sub||v.sub}</p></div>${o.back?'':`<span class="xb" role="button" aria-label="Fechar">${ic('x','s16')}</span>`}</div>${o.src?`<p class="src">${ic('arrows-left-right','s14')}${o.src}</p>`:''}${o.status||o.metrics?tiles(o):''}</div>`;}
 /* drawer modes: all = everything checked; none = nothing checked; one = one left for later;
    allDefer = "Adiar todas"; done = after including */
@@ -246,7 +247,7 @@ function ixBody(){
     const top=inc.length?`${inc.length} ${inc.length>1?'preventivas':'preventiva'} na OS&nbsp;1042`:`${dfr.length} ${dfr.length>1?'preventivas ficaram':'preventiva ficou'} para depois`;
     const sub=[inc.length?'leva '+fmtDur(totMin()):'',dfr.length?`${dfr.length} ${dfr.length>1?'ficaram':'ficou'} para depois · ${defOf(dfr[0].id).reason.toLowerCase()}`:'nada ficou para depois'].filter(Boolean).join(' · ');
     const row=(p,def)=>`<div class="dnr"><span class="dni ${def?'w':''}">${ic(def?'clock':'check','s12')}</span><span class="dnt"><b>${p.name}</b><small>${p.where==='cavalo'?'Cavalo':p.where} · ${p.svcs.length} serviços</small></span>${def?`<span class="vtag">${defOf(p.id).reason.toLowerCase()}</span>`:''}</div>`;
-    return `<div class="dnok"><span class="dnc">${ic('check','s20')}</span><div class="dnx"><b>${top}</b><small>${sub}</small></div>${G.undo>0?`<span class="undo" data-ixa="u" role="button" tabindex="0">Desfazer <i class="cd10">${G.undo} s</i></span>`:''}</div>
+    return `<div class="dnok"><span class="dnc">${ic('check','s20')}</span><div class="dnx"><b>${top}</b><small>${sub}</small>${G.undo>0?`<span class="undo" data-ixa="u" role="button" tabindex="0">Desfazer · <i class="cd10">${G.undo} s</i></span>`:''}</div></div>
     ${inc.length?`<div class="dnl"><p class="vh">Na OS</p>${inc.map(p=>row(p)).join('')}</div>`:''}
     ${dfr.length?`<div class="dnl"><p class="vh">Para depois</p>${dfr.map(p=>row(p,1)).join('')}</div>`:''}`;}
   const n=pkgsOn(), anyOff=PKGS.some(p=>pkState(p)!=='on');

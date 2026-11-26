@@ -1807,3 +1807,20 @@
 .dnt{flex:1;min-width:0;display:flex;flex-direction:column}
 .dnt b{font:500 14.5px Inter;color:hsl(var(--foreground))}
 .dnt small{font-size:12.5px;color:hsl(var(--muted-foreground))}
+.dnx .undo{align-self:flex-start;margin-top:6px;font-size:13.5px}
+.dnok{align-items:flex-start}
+/* drawer top: where-card full width, then three metric tiles */
+.tiles2{display:flex;flex-direction:column;gap:8px;padding:14px 18px}
+.sheet .tiles2{padding:12px 16px}
+.wcard{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:hsl(var(--muted)/.6)}
+.wci{display:grid;place-items:center;width:34px;height:34px;flex:none;border-radius:99px;background:hsl(var(--card));color:hsl(var(--primary))}
+.wcard .tlab{flex:1}
+.wcard .tlab b{color:hsl(var(--foreground))!important;font-weight:600}
+.wca{flex:none;font-size:13px;font-weight:500}
+.tiles3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.tiles3 .tile{padding:10px 12px;gap:10px}
+.tiles3 .tic{width:30px;height:30px}
+.tiles3 .tic .ic{width:16px;height:16px}
+.tiles3 .tlab b{white-space:nowrap}
+@container sheet (max-width:360px){.tiles3{grid-template-columns:repeat(2,minmax(0,1fr))}.tiles3 .tile:last-child{grid-column:1/-1}.tiles3 .tic{display:none}}
+@container sheet (max-width:400px){.tiles3 .tic{display:none}}
