@@ -1177,3 +1177,20 @@
 .tile{align-items:flex-start}
 .tic{margin-top:1px}
 .dark .tl b.p,.dark .pvh .prt p,.dark .tic,.dark .pkic,.dark .prh .gt{color:hsl(var(--info-ink))}
+/* drawer: packages are white islands straight on the grey body; no outlines anywhere */
+.pkg{box-shadow:none}
+.pb>.sec:has(.pkgs),.sheet .sb>.sec:has(.pkgs){background:none;box-shadow:none;padding:4px 2px}
+.pb>.sec:has(.pkgs) .pkg,.sheet .sb>.sec:has(.pkgs) .pkg{box-shadow:0 1px 2px hsl(var(--foreground)/.03),0 8px 22px -14px hsl(var(--foreground)/.12)}
+.pnl .phd,.sheet .phd,.pf,.sheet .pf{border:0!important}
+.pnl .pf,.sheet .pf{box-shadow:0 -10px 24px -18px hsl(var(--foreground)/.18)}
+.sh,.prh{border:0}
+/* phone agenda: one continuous primary top (status bar, app header, base and search) */
+.fx-device.phone:has(.pm) .fx-status,.fx-device.phone:has(.pm) .fx-navbar{background:hsl(var(--primary));color:hsl(var(--primary-foreground));border-bottom:0;box-shadow:none}
+.fx-device.phone:has(.pm) .fx-eb{color:hsl(var(--primary-foreground)/.75)}
+.fx-device.phone:has(.pm) .fx-tt,.fx-device.phone:has(.pm) .fx-brand,.fx-device.phone:has(.pm) .fx-lock svg{color:hsl(var(--primary-foreground))}
+.fx-device.phone:has(.pm) .fx-ldiv{background:hsl(var(--primary-foreground)/.35)}
+.fx-device.phone:has(.pm) .fx-me{background:hsl(var(--primary-foreground));color:hsl(var(--primary));box-shadow:none}
+.fx-device.phone:has(.pm) .fx-status .ic{background:hsl(var(--primary-foreground))}
+.phead{padding-top:6px}
+.phead .ptr{margin:0;height:28px;color:hsl(var(--primary-foreground)/.85)}
+.phead .ptr{border:0}
