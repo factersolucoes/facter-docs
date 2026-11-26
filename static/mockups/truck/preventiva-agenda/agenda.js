@@ -61,7 +61,7 @@ const foot=t=>`<p class="foot">${ic('clock-counter-clockwise','s14')}<span>${t}<
 const TILE_IC={'Atraso':'clock-countdown','Peças':'package','Duração':'timer','Na OS':'wrench','Adiadas':'clock','Adiada':'clock','Vence':'calendar-blank','Leva':'timer','Veículos':'truck','Lonas':'disc','Molas':'columns'};
 function tiles(o){let where='';
   if(o.status){const m=o.status.match(/class="spill (\w)"[\s\S]*<\/span>([^<]+)<\/span>\s*$/);if(m){const txt=m[2].trim().replace(/ aberta$/,'');const road=o.status.includes('road-horizon');
-    where=`<div class="wcard"><span class="wci">${ic(road?'road-horizon':'garage','s16')}</span><span class="tlab"><small>Onde está</small><b>${txt.replace(/OS (\d)/,'OS&nbsp;$1')}</b></span>${/OS \d/.test(txt)?'<span class="lk wca">Abrir OS ›</span>':''}</div>`;}}
+    where=`<div class="wcard"><span class="wci">${ic(road?'road-horizon':'garage','s16')}</span>${(()=>{const mm=txt.match(/^(.*?) desde (.*?) · (OS \d+)$/);const main=mm?`${mm[1]} · ${mm[3]}`:txt;const sub=mm?`desde ${mm[2]}${mm[2]==='ontem'?' às 14h':''}`:'';return `<span class="tlab"><small>Onde está</small><b>${main.replace(/OS (\d)/,'OS&nbsp;$1')}</b>${sub?`<small class="wsub">${sub}</small>`:''}</span>`;})()}${/OS \d/.test(txt)?'<span class="lk wca">Abrir OS ›</span>':''}</div>`;}}
   const out=(o.metrics||[]).map(([l,v,t])=>[l,v,t||(l==='Duração'?'p':''),TILE_IC[l]||'info']);
   return `<div class="tiles2">${where}<div class="tiles3">${out.map(([l,v,t,i])=>`<div class="tile"><span class="tic">${ic(i,'s16')}</span><span class="tlab"><small>${l}</small><b class="${t}">${String(v).replace(/(\d) (km|h|min)/g,'$1&nbsp;$2')}</b></span></div>`).join('')}</div></div>`;}
 function pHead(v,o={}){return `<div class="phd">${o.phone?'<div class="grab"></div>':''}<div class="ph">${o.back?`<span class="xb back" role="button" aria-label="Voltar">${ic('arrow-left','s16')}</span>`:''}<div class="t"><h2>${o.title||v.full}</h2><p>${mark(v.parts)}${o.sub||v.sub}</p></div>${o.back?'':`<span class="xb" role="button" aria-label="Fechar">${ic('x','s16')}</span>`}</div>${o.src?`<p class="src">${ic('arrows-left-right','s14')}${o.src}</p>`:''}${o.status||o.metrics?tiles(o):''}</div>`;}
@@ -137,12 +137,12 @@ function visitBodyM(m){
 }
 function visitFootM(m){
   if(m==='sap') return `<div class="pf"><p class="sapn">${ic('arrows-left-right','s14')}<span>Adiar e marcar dia ficam no SAP · <span class="lk">ver ordem 4000131</span></span></p>${btn('Incluir as 3 na OS 1042',{icon:'plus',action:1})}</div>`;
-  if(m==='left') return `<div class="pf"><div class="bb">${btn('Adiar todas',{variant:'outline'})}${btn('Marcar dia na oficina',{icon:'calendar-check',action:1})}</div></div>`;
+  if(m==='left') return `<div class="pf"><div class="bb">${btn('<span>Adiar<span class="lgx"> todas</span></span>',{variant:'outline'})}${btn('Marcar dia na oficina',{icon:'calendar-check',action:1})}</div></div>`;
   if(m==='closed') return `<div class="pf"><div class="bb">${btn('Marcar dia na oficina',{variant:'outline'})}${btn('Abrir OS nova com as 2',{icon:'plus',action:1})}</div></div>`;
   if(m==='done') return `<div class="pf"><div class="bb">${btn('Fechar',{variant:'outline'})}${btn('Abrir a OS 1042',{icon:'arrow-square-out',action:1})}</div></div>`;
   if(m==='allDefer') return `<div class="pf"><div class="bb">${btn('Voltar',{variant:'outline'})}${btn('Adiar as 3',{icon:'clock-countdown',action:1})}</div></div>`;
   const n=m==='one'?2:3;
-  return `<div class="pf"><div class="bb">${btn('Adiar todas',{variant:'outline'})}${m==='none'?btn('Escolha o que fazer agora',{disabled:1}):btn(`Incluir as ${n} na OS 1042`,{icon:'plus',action:1})}</div></div>`;
+  return `<div class="pf"><div class="bb">${btn('<span>Adiar<span class="lgx"> todas</span></span>',{variant:'outline'})}${m==='none'?btn('Escolha o que fazer agora',{disabled:1}):btn(`Incluir as ${n} na OS 1042`,{icon:'plus',action:1})}</div></div>`;
 }
 /* =====================================================================
    Interactive drawer for C-320: one shared state, every C-320 drawer on the
@@ -261,7 +261,7 @@ function ixFoot(){
   const fp=PKGS.filter(p=>pkState(p)==='on').length, ps=PKGS.filter(p=>pkState(p)==='tri').reduce((x,p)=>x+pkOn(p),0);
   const pv=x=>`${x} ${x>1?'preventivas':'preventiva'}`, sv=x=>`${x} ${x>1?'serviços':'serviço'}`;
   const label=`<span>Incluir ${pv(n)}<span class="osx"> na OS 1042</span></span>`;
-  return `<div class="pf"><div class="bb"><span data-ixa="A">${btn('Adiar todas',{variant:'outline'})}</span>${n?`<span data-ixa="ok">${btn(label,{icon:'plus',action:1})}</span>`:btn('Escolha o que fazer agora',{disabled:1})}</div></div>`;}
+  return `<div class="pf"><div class="bb"><span data-ixa="A">${btn('<span>Adiar<span class="lgx"> todas</span></span>',{variant:'outline'})}</span>${n?`<span data-ixa="ok">${btn(label,{icon:'plus',action:1})}</span>`:btn('Escolha o que fazer agora',{disabled:1})}</div></div>`;}
 function ixDrawer(phone){
   if(G.closed) return phone?'<div class="sheet-ov" data-ix="1" hidden></div>':'<div class="ixw" data-ix="0" hidden></div>';
   const miss=lackOn()&&!G.done;
@@ -320,7 +320,7 @@ function pk044Drawer(phone){
   PKG044.forEach(p=>{if(!G.on[p.id])G.on[p.id]=p.svcs.map(()=>1);});G.open.r60=1;RPH=!!phone;
   const head=pHead(C044,{status:pill('n','road-horizon','Na estrada · roda 610 km por dia'),metrics:[['Vence','em 14 dias',''],['Peças','Em estoque','s'],['Duração','6 h 20','']],phone});
   const body=`<div class="sec plain"><div class="sh"><h3>Preventivas para marcar</h3><span class="shs">4 preventivas</span></div>${pkgGroups(PKG044)}</div>`.replace(/data-ixa=/g,'data-x=');
-  const foot=`<div class="pf"><div class="bb">${btn('Adiar todas',{variant:'outline'})}${btn('Marcar dia na oficina',{icon:'calendar-check',action:1})}</div></div>`;
+  const foot=`<div class="pf"><div class="bb">${btn('<span>Adiar<span class="lgx"> todas</span></span>',{variant:'outline'})}${btn('Marcar dia na oficina',{icon:'calendar-check',action:1})}</div></div>`;
   return phone?`<div class="sheet-ov"><div class="sheet">${head}<div class="sb">${body}</div>${foot}</div></div>`:drawer(`${head}<div class="pb">${body}</div>${foot}`);}
 const markOn=(html,id)=>html.replace(new RegExp(`(class="(?:cd|fx-aprow lrow)[^"]*)(" data-id="${id}")`),'$1 on$2');
 const withPk044=(html,phone)=>markOn(html,'c044').replace(/<\/div>\s*$/,pk044Drawer(phone)+'</div>');
@@ -338,7 +338,7 @@ function scheduleBody(){
   <div class="sec">${prevHead('Preventivas para fazer','1 preventiva',OVERCHIP)}${items([['Revisão 60 mil','No cavalo, inclui a Preventiva 20 mil','Venceu há 4.300 km','d','Fazer a cada 30 mil km. Última em 03/06.']])}</div>
   ${kitsDly()}
   <label class="chk"><i>${ic('check','s14')}</i>Avisar a transportadora JSL por e-mail</label>`;}
-const scheduleFoot=()=>`<div class="pf"><div class="bb">${btn('Voltar',{variant:'outline'})}${btn('Agendar para sáb 28/11',{icon:'calendar-check',action:1})}</div></div>`;
+const scheduleFoot=()=>`<div class="pf"><div class="bb">${btn('Voltar',{variant:'outline'})}${btn('<span>Agendar<span class="lgx"> para</span> sáb 28/11</span>',{icon:'calendar-check',action:1})}</div></div>`;
 
 function skList(phone){
   const r=()=>`<div style="display:flex;align-items:center;gap:20px;min-height:64px;padding:10px 12px">${'<span class="sk" style="width:140px;height:16px"></span>'}<span style="flex:1;display:flex;flex-direction:column;gap:6px"><span class="sk" style="width:60%;height:15px"></span><span class="sk" style="width:30%;height:12px"></span></span>${phone?'':'<span class="sk" style="width:120px;height:15px"></span>'}</div>`;
@@ -443,14 +443,14 @@ function stressDrawer(s,phone){
     head=pHead(V.rt9,{status:pill('n','road-horizon','Na estrada · Transportadora Rodoviária Irmãos Albuquerque de Mato Grosso do Sul'),metrics:[['Atraso','128.400 km','d'],['Peças','Sem estoque','d'],['Duração','6 h','']],phone});
     body=`<div class="sec">${prevHead('Preventivas para fazer agora','3 preventivas')}${pvList([['Revisão completa do sistema de freio pneumático com troca de válvulas','No cavalo','Venceu há 128.400 km','d','Nunca feita'],['Inspeção do dolly e do pino-rei','No dolly sem placa','Venceu há 1 ano e 2 meses','d','A cada 12 meses'],['Troca do óleo do diferencial','No cavalo','Vence em 1 ano','','A cada 2 anos']])}</div>
     ${partsBox({items:6,ok:0,miss:5,mt:'d',kits:[kk('Kit válvulas do freio pneumático com reparo completo','cavalo · nenhuma base tem','d',[['4','Válvula relé','','d'],['1','Válvula moduladora','','d']])],loose:[['Graxa para pino-rei','dolly','1 kg','n']]})}`;
-    foot=`<div class="pf"><div class="bb">${btn('Adiar todas',{variant:'outline'})}${btn('Marcar dia na oficina',{icon:'calendar-check',action:1})}</div></div>`;
+    foot=`<div class="pf"><div class="bb">${btn('<span>Adiar<span class="lgx"> todas</span></span>',{variant:'outline'})}${btn('Marcar dia na oficina',{icon:'calendar-check',action:1})}</div></div>`;
   } else if(s==='sBig'){
     const C712={full:'Conjunto C-712',sub:'Cavalo QRT6K40 e 3 carretas',parts:[['QRT6K40','cav','d'],['RTS1A01','car','d'],['RTS1A02','car','d'],['RTS1A03','car','d']]};
     head=pHead(C712,{status:pill('s','garage','No pátio desde hoje às 7h · OS 1101 aberta'),metrics:[['Atraso','42.300 km','d'],['Peças','Falta 3','w'],['Duração','14 h · 2 dias','w']],phone});
     body=`<div class="notice-w">${ic('warning','s16')}<span><b>Não cabe nesta parada.</b> São 14 h de oficina e o conjunto sai amanhã às 8h. Marque o que dá para fazer agora.</span></div>
     <div class="sec">${prevHead('Preventivas para fazer agora','11 preventivas')}<div class="plist">${BIG.slice(0,5).map(([n,w,v,t,r])=>pvRow(true,n,w,v,t,r)).join('')}${moreRow('Mostrar mais 6')}</div></div>
     ${partsBox({items:37,ok:34,miss:3,kits:BIGKITS.slice(0,4),loose:[]}).replace('</div></div>',`${moreRow('Mostrar mais 3 kits e 5 avulsas')}</div></div>`).replace('em 4 kits','em 7 kits e 5 avulsas')}`;
-    foot=`<div class="pf"><div class="bb">${btn('Adiar todas',{variant:'outline'})}${btn('Incluir as 11 na OS 1101',{icon:'plus',action:1})}</div></div>`;
+    foot=`<div class="pf"><div class="bb">${btn('<span>Adiar<span class="lgx"> todas</span></span>',{variant:'outline'})}${btn('Incluir as 11 na OS 1101',{icon:'plus',action:1})}</div></div>`;
   } else if(s==='sConc'){
     head=pHead(V.c320,{...h320('one'),phone});
     body=`<div class="notice-w">${ic('users-three','s16')}<span><b>Mariana incluiu 2 destas preventivas na OS 1042 há 1 minuto.</b> Sobrou 1 para você decidir.</span></div>

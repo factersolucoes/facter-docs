@@ -1824,3 +1824,11 @@
 .tiles3 .tlab b{white-space:nowrap}
 @container sheet (max-width:360px){.tiles3{grid-template-columns:repeat(2,minmax(0,1fr))}.tiles3 .tile:last-child{grid-column:1/-1}.tiles3 .tic{display:none}}
 @container sheet (max-width:400px){.tiles3 .tic{display:none}}
+/* footers: always one row; labels shorten on narrow sheets */
+.pf .bb{display:flex!important;flex-wrap:nowrap!important;gap:10px}
+.pf .bb>*{flex:0 0 auto}
+.pf .bb>*:last-child{flex:1 1 auto;min-width:0}
+.pf .bb .fx-btn{white-space:nowrap!important;height:46px!important;min-height:0}
+@container sheet (max-width:380px){.lgx,.osx{display:none}.pf .bb .fx-btn{padding:0 14px}}
+.wcard .wsub{font-size:12.5px!important;color:hsl(var(--muted-foreground))}
+@container sheet (max-width:440px){.osx{display:none}}
