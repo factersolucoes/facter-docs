@@ -62,7 +62,7 @@ const TILE_IC={'Atraso':'clock-countdown','Peças':'package','Duração':'timer'
 function tiles(o){const out=[];
   if(o.status){const m=o.status.match(/class="spill (\w)"[\s\S]*<\/span>([^<]+)<\/span>\s*$/);if(m)out.push(['Onde está',m[2].trim().replace(/ desde [^·]+/,' ').replace(/\s+·/,' ·').replace(' aberta','').replace('roda ','').replace(' km por dia',' km/dia'),m[1]==='s'?'s':'',o.status.includes('road-horizon')?'road-horizon':'garage']);}
   (o.metrics||[]).forEach(([l,v,t])=>out.push([l,v,t||(l==='Duração'?'p':''),TILE_IC[l]||'info']));
-  return `<div class="tiles">${out.map(([l,v,t,i])=>`<div class="tile"><span class="tic">${ic(i,'s16')}</span><span class="tlab"><small>${l}</small><b class="${t}">${String(v).replace(/OS (\d)/,'OS&nbsp;$1')}</b></span></div>`).join('')}</div>`;}
+  return `<div class="tiles">${out.map(([l,v,t,i])=>`<div class="tile"><span class="tic">${ic(i,'s16')}</span><span class="tlab"><small>${l}</small><b class="${t}">${String(v).replace(/OS (\d)/,'OS&nbsp;$1').replace(/ · /g,'&nbsp;· ').replace(/(\d) (km|h|min)/g,'$1&nbsp;$2')}</b></span></div>`).join('')}</div>`;}
 function pHead(v,o={}){return `<div class="phd">${o.phone?'<div class="grab"></div>':''}<div class="ph">${o.back?`<span class="xb back" role="button" aria-label="Voltar">${ic('arrow-left','s16')}</span>`:''}<div class="t"><h2>${o.title||v.full}</h2><p>${mark(v.parts)}${o.sub||v.sub}</p></div>${o.back?'':`<span class="xb" role="button" aria-label="Fechar">${ic('x','s16')}</span>`}</div>${o.src?`<p class="src">${ic('arrows-left-right','s14')}${o.src}</p>`:''}${o.status||o.metrics?tiles(o):''}</div>`;}
 /* drawer modes: all = everything checked; none = nothing checked; one = one left for later;
    allDefer = "Adiar todas"; done = after including */
@@ -228,10 +228,10 @@ function insideHtml(p){const parts=p.svcs.flatMap(sv=>sv.parts);const miss=parts
   ${parts.length?`<p class="vip"><b>Peças:</b> ${parts.map(([q,n])=>`${q} ${n}`).join(', ')}${miss?`<span class="vmiss">${ic('warning','s14')}falta 1 ${miss[1].replace(/^jogos/,'jogo')}, chega quinta</span>`:''}</p>`:''}
   <p class="vihint">Pular um serviço ou mexer nas peças é feito na OS.</p>`;}
 function pkgRow(p){const st=pkState(p), off=st==='off', menu=G.menu===p.id+'|vi';
-  const meta=`${shortTrig(p)} <span class="nw">· leva ${fmtDur(p.svcs.reduce((a,sv)=>a+sv.min,0)).replace(/ /g,'&nbsp;')}</span>`;
+  const meta=`<span class="nw">leva ${fmtDur(p.svcs.reduce((a,sv)=>a+sv.min,0)).replace(/ /g,'&nbsp;')}&nbsp;·</span> ${shortTrig(p)} <span class="lk vin" data-ixa="m:${p.id}:vi" role="button" tabindex="0">Ver o que tem dentro</span>`;
   return `<div class="prow ${off?'off':''}"><span data-ixa="pc:${p.id}" role="checkbox" aria-checked="${!off}" tabindex="0" class="cbw">${cb3(off?'off':'on')}</span>
     <div class="prt2"><b>${p.name}${p.reg?' <span class="tag reg">Obrigatório</span>':''}</b><small>${meta}</small>${menu&&!RPH?`<div class="pop vipop" role="dialog">${insideHtml(p)}</div>`:''}</div>
-    <span class="prr"><span class="sit ${off?'n':p.t||'n'}">${p.due}</span><span class="lk vin" data-ixa="m:${p.id}:vi" role="button" tabindex="0">Ver o que tem dentro</span></span>${off?`<div class="prdef">${dpill(p.id)}</div>`:''}</div>`;}
+    <span class="prr"><span class="sit ${off?'n':p.t||'n'}">${p.due}</span></span>${off?`<div class="prdef">${dpill(p.id)}</div>`:''}</div>`;}
 const pkgGroups=list=>[...new Set(list.map(p=>p.veh))].map(v=>`<div class="vgrp"><p class="vh">${v}</p><div class="prows">${list.filter(p=>p.veh===v).map(pkgRow).join('')}</div></div>`).join('');
 function ixBody(){
   const hist=history('Últimas manutenções deste conjunto',[['27/10','Preventiva 30 dias, 2ª carreta','OS 0998'],['02/09','Preventiva 20 mil, cavalo','OS 0954'],['12/05','Preventiva 60 mil, 2ª carreta','OS 0871']]);

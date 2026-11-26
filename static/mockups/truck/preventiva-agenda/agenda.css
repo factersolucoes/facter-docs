@@ -1293,3 +1293,7 @@
 .prt2 .nw{white-space:nowrap}
 .vipop{top:100%;left:28px;margin-top:4px}
 @container sheet (max-width:340px){.prr{grid-column:2;align-items:flex-start;flex-direction:row;flex-wrap:wrap}}
+.prt2>small .vin{margin-left:6px;white-space:nowrap;font-size:12.5px;font-weight:500;color:hsl(var(--primary-ink))}
+.dark .prt2>small .vin{color:hsl(var(--info-ink))}
+@container sheet (max-width:340px){.tic{display:none}.tile{padding:12px}.tlab b{white-space:nowrap}}
+@container sheet (max-width:340px){.tlab b{white-space:normal}}
