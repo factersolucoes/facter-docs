@@ -6,6 +6,7 @@ import {useCallback, useEffect, useMemo, useRef, useState, type CSSProperties} f
 import type {Rect} from '../MockupCanvas/layout';
 import {fitRect, useCanvasView, type View} from '../MockupCanvas/useCanvasView';
 import {
+  frameQuery,
   isFlowManifest,
   layoutFlow,
   readSizes,
@@ -47,10 +48,7 @@ function isFrameMessage(value: unknown): value is FrameMessage {
 }
 
 function frameUrl(page: string, frame: FlowFrame): string {
-  const params = new URLSearchParams({frame: frame.frame});
-  if (frame.state) params.set('state', frame.state);
-  if (frame.theme) params.set('theme', frame.theme);
-  return `${page}?${params.toString()}`;
+  return `${page}?${frameQuery(frame)}`;
 }
 
 function intersects(a: Rect, b: Rect): boolean {
@@ -544,6 +542,12 @@ export default function MockupFlowCanvas({flow, status}: MockupFlowCanvasProps) 
                   </span>
                 );
               })}
+            </div>
+          )}
+
+          {manifest?.banner && (
+            <div className={styles.banner} data-canvas-ui>
+              {manifest.banner}
             </div>
           )}
 

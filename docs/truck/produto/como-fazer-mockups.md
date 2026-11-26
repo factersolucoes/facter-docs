@@ -77,8 +77,9 @@ Um mockup com muitos estados também abre como **canvas**, no estilo do Figma: c
 | Campo | O que é |
 | --- | --- |
 | `title` | Nome do mockup |
+| `banner` | Aviso fixo no topo do canvas, por exemplo "Versão anterior" |
 | `lanes` | Faixas, de cima para baixo: `{ "id", "title" }` |
-| `frames` | Quadros, na ordem da faixa: `{ "id", "lane", "label", "frame", "state", "theme", "hint" }`. `label` é o nome curto acima do quadro ("2 · Abrir o conjunto"); `hint` aparece no quadro aberto. `x` e `y` só quando precisar fugir da posição automática |
+| `frames` | Quadros, na ordem da faixa: `{ "id", "lane", "label", "frame", "state", "theme", "hint" }`. `label` é o nome curto acima do quadro ("2 · Abrir o conjunto"); `hint` aparece no quadro aberto. `clicks` é uma lista de seletores clicados no quadro depois do estado (menu aberto, conteúdo do pacote), o mesmo que `&click=` no endereço. `x` e `y` só quando precisar fugir da posição automática |
 | `arrows` | Setas: `{ "from", "to", "label" }`. Na mesma faixa, liga de lado; para outra faixa, desce. Um quadro que sai de outra faixa começa embaixo do quadro de onde veio |
 | `notes` | Notas amarelas: `{ "attach", "text" }`, no máximo duas linhas, embaixo do quadro |
 

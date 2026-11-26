@@ -312,6 +312,7 @@ window.FX=A;
 
 /* ---------- frame mode, for the flow canvas ----------
    index.html?frame=<id>&state=<s>&theme=dark shows one device frame alone, in one state, at its natural size.
+   Each click=<css selector> is then clicked inside the frame, in order (interactive sub-states such as an open menu).
    Frame id: the fx-app "frame" attribute, else <section id>-<n> (n counts the fx-apps of that section from 1).
    The state is applied by clicking the page's own state button (.states[data-for=<data-render key>] button[data-s]),
    so a frame shows exactly what the document shows. FX.frames() lists every frame and its states. */
@@ -347,7 +348,11 @@ function apply(){frameIds();const app=[...document.querySelectorAll('fx-app')].f
   const st=q.get('state'),bar=barOf(app);
   if(st&&bar){const b=[...bar.querySelectorAll('button[data-s]')].find(x=>x.dataset.s===st);if(b)b.click();}
   const dark=q.get('theme')==='dark';app.querySelectorAll('.fx-device').forEach(d=>d.classList.toggle('dark',dark));
-  setTimeout(()=>requestAnimationFrame(()=>requestAnimationFrame(()=>report(app))),180);}
+  const clicks=q.getAll('click');
+  const next=i=>{if(i>=clicks.length){setTimeout(()=>requestAnimationFrame(()=>requestAnimationFrame(()=>report(app))),180);return;}
+    let el=null;try{el=app.querySelector(clicks[i])||document.querySelector(clicks[i]);}catch(e){}
+    if(el)el.click();setTimeout(()=>next(i+1),220);};
+  setTimeout(()=>next(0),clicks.length?220:0);}
 const start=()=>setTimeout(apply,60);
 if(document.readyState==='complete') start(); else window.addEventListener('load',start);
 })();

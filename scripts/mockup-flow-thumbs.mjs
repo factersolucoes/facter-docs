@@ -27,6 +27,7 @@ for (const frame of flow.frames) {
   const params = new URLSearchParams({frame: frame.frame});
   if (frame.state) params.set('state', frame.state);
   if (frame.theme) params.set('theme', frame.theme);
+  for (const selector of frame.clicks ?? []) params.append('click', selector);
   await page.goto(`${base}/mockups/${mockup}/${flow.mockup ?? 'index.html'}?${params}`);
   await page.waitForSelector('html.fx-frame-ready', {timeout: 15000});
   await page.waitForTimeout(250);

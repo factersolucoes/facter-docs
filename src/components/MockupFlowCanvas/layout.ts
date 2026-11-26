@@ -13,6 +13,7 @@ export interface FlowFrame {
   state?: string;
   theme?: 'light' | 'dark';
   hint?: string;
+  clicks?: string[];
   x?: number;
   y?: number;
 }
@@ -30,11 +31,20 @@ export interface FlowNote {
 
 export interface FlowManifest {
   title: string;
+  banner?: string;
   mockup?: string;
   lanes: FlowLane[];
   frames: FlowFrame[];
   arrows: FlowArrow[];
   notes: FlowNote[];
+}
+
+export function frameQuery(frame: FlowFrame): string {
+  const params = new URLSearchParams({frame: frame.frame});
+  if (frame.state) params.set('state', frame.state);
+  if (frame.theme) params.set('theme', frame.theme);
+  for (const selector of frame.clicks ?? []) params.append('click', selector);
+  return params.toString();
 }
 
 export interface Size {
@@ -92,6 +102,7 @@ export function isFlowManifest(value: unknown): value is FlowManifest {
   return (
     isRecord(value) &&
     isString(value.title) &&
+    (value.banner === undefined || isString(value.banner)) &&
     Array.isArray(value.lanes) &&
     value.lanes.every((lane) => isRecord(lane) && isString(lane.id) && isString(lane.title)) &&
     Array.isArray(value.frames) &&

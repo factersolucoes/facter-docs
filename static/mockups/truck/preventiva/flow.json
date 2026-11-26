@@ -1,0 +1,879 @@
+{
+  "title": "Preventiva · planejamento (versão anterior)",
+  "banner": "Versão anterior; a agenda foi refeita em preventiva-agenda",
+  "mockup": "index.html",
+  "lanes": [
+    {
+      "id": "menu",
+      "title": "0 · Onde mora no app"
+    },
+    {
+      "id": "agenda",
+      "title": "1 · Agenda da frota"
+    },
+    {
+      "id": "chegada",
+      "title": "2 · Chegada do conjunto"
+    },
+    {
+      "id": "naos",
+      "title": "2a · Dentro da OS"
+    },
+    {
+      "id": "planos",
+      "title": "3 · Planos"
+    },
+    {
+      "id": "editor",
+      "title": "3a · Editor do plano"
+    },
+    {
+      "id": "veiculo",
+      "title": "4 · Plano no veículo"
+    },
+    {
+      "id": "leitura",
+      "title": "5 · Leitura de km"
+    },
+    {
+      "id": "conf",
+      "title": "6 · Analytics · Prevenção"
+    },
+    {
+      "id": "sap",
+      "title": "7 · SAP"
+    }
+  ],
+  "frames": [
+    {
+      "id": "menu-1",
+      "lane": "menu",
+      "label": "Notebook · menu aberto",
+      "frame": "menu-1"
+    },
+    {
+      "id": "agenda-1.ok",
+      "lane": "agenda",
+      "label": "Notebook A · Lista",
+      "frame": "agenda-1",
+      "state": "ok"
+    },
+    {
+      "id": "agenda-1.hover",
+      "lane": "agenda",
+      "label": "Notebook A · Linha em foco",
+      "frame": "agenda-1",
+      "state": "hover"
+    },
+    {
+      "id": "agenda-1.loading",
+      "lane": "agenda",
+      "label": "Notebook A · Carregando",
+      "frame": "agenda-1",
+      "state": "loading"
+    },
+    {
+      "id": "agenda-1.first",
+      "lane": "agenda",
+      "label": "Notebook A · Primeira vez",
+      "frame": "agenda-1",
+      "state": "first"
+    },
+    {
+      "id": "agenda-2.ok",
+      "lane": "agenda",
+      "label": "Celular A · Lista",
+      "frame": "agenda-2",
+      "state": "ok"
+    },
+    {
+      "id": "agenda-2.swipe",
+      "lane": "agenda",
+      "label": "Celular A · deslizar",
+      "frame": "agenda-2",
+      "state": "swipe"
+    },
+    {
+      "id": "agenda-2.sheet",
+      "lane": "agenda",
+      "label": "Celular A · agendar",
+      "frame": "agenda-2",
+      "state": "sheet"
+    },
+    {
+      "id": "agenda-2.loading",
+      "lane": "agenda",
+      "label": "Celular A · Carregando",
+      "frame": "agenda-2",
+      "state": "loading"
+    },
+    {
+      "id": "agenda-2.first",
+      "lane": "agenda",
+      "label": "Celular A · Primeira vez",
+      "frame": "agenda-2",
+      "state": "first"
+    },
+    {
+      "id": "agendab-1.ok",
+      "lane": "agenda",
+      "label": "Notebook B · Conjunto selecionado",
+      "frame": "agendab-1",
+      "state": "ok"
+    },
+    {
+      "id": "agendab-1.sel2",
+      "lane": "agenda",
+      "label": "Notebook B · Cavalo selecionado",
+      "frame": "agendab-1",
+      "state": "sel2"
+    },
+    {
+      "id": "agendab-1.closed",
+      "lane": "agenda",
+      "label": "Notebook B · Sem seleção",
+      "frame": "agendab-1",
+      "state": "closed"
+    },
+    {
+      "id": "agendab-1.loading",
+      "lane": "agenda",
+      "label": "Notebook B · Carregando",
+      "frame": "agendab-1",
+      "state": "loading"
+    },
+    {
+      "id": "agendab-2.ok",
+      "lane": "agenda",
+      "label": "Celular B · Conjunto selecionado",
+      "frame": "agendab-2",
+      "state": "ok"
+    },
+    {
+      "id": "agendab-2.sel2",
+      "lane": "agenda",
+      "label": "Celular B · Cavalo selecionado",
+      "frame": "agendab-2",
+      "state": "sel2"
+    },
+    {
+      "id": "agendab-2.closed",
+      "lane": "agenda",
+      "label": "Celular B · Sem seleção",
+      "frame": "agendab-2",
+      "state": "closed"
+    },
+    {
+      "id": "agendab-2.detail",
+      "lane": "agenda",
+      "label": "Celular B · detalhe",
+      "frame": "agendab-2",
+      "state": "detail"
+    },
+    {
+      "id": "agendab-2.loading",
+      "lane": "agenda",
+      "label": "Celular B · Carregando",
+      "frame": "agendab-2",
+      "state": "loading"
+    },
+    {
+      "id": "chegada-1.ok",
+      "lane": "chegada",
+      "label": "Tablet deitado A · Tudo incluído",
+      "frame": "chegada-1",
+      "state": "ok"
+    },
+    {
+      "id": "chegada-1.off",
+      "lane": "chegada",
+      "label": "Tablet deitado A · Tirou uma",
+      "frame": "chegada-1",
+      "state": "off"
+    },
+    {
+      "id": "chegada-1.check",
+      "lane": "chegada",
+      "label": "Tablet deitado A · Km a conferir",
+      "frame": "chegada-1",
+      "state": "check"
+    },
+    {
+      "id": "chegada-2.ok",
+      "lane": "chegada",
+      "label": "Celular A · Tudo incluído",
+      "frame": "chegada-2",
+      "state": "ok"
+    },
+    {
+      "id": "chegada-2.off",
+      "lane": "chegada",
+      "label": "Celular A · Tirou uma",
+      "frame": "chegada-2",
+      "state": "off"
+    },
+    {
+      "id": "chegada-2.check",
+      "lane": "chegada",
+      "label": "Celular A · Km a conferir",
+      "frame": "chegada-2",
+      "state": "check"
+    },
+    {
+      "id": "chegadab-1.ok",
+      "lane": "chegada",
+      "label": "Tablet deitado B · Tudo incluído",
+      "frame": "chegadab-1",
+      "state": "ok"
+    },
+    {
+      "id": "chegadab-1.off",
+      "lane": "chegada",
+      "label": "Tablet deitado B · Tirou uma",
+      "frame": "chegadab-1",
+      "state": "off"
+    },
+    {
+      "id": "chegadab-1.check",
+      "lane": "chegada",
+      "label": "Tablet deitado B · Km a conferir",
+      "frame": "chegadab-1",
+      "state": "check"
+    },
+    {
+      "id": "chegadab-2.ok",
+      "lane": "chegada",
+      "label": "Celular B · Tudo incluído",
+      "frame": "chegadab-2",
+      "state": "ok"
+    },
+    {
+      "id": "chegadab-2.off",
+      "lane": "chegada",
+      "label": "Celular B · Tirou uma",
+      "frame": "chegadab-2",
+      "state": "off"
+    },
+    {
+      "id": "chegadab-2.check",
+      "lane": "chegada",
+      "label": "Celular B · Km a conferir",
+      "frame": "chegadab-2",
+      "state": "check"
+    },
+    {
+      "id": "naos-1.attn",
+      "lane": "naos",
+      "label": "Notebook · Em Precisa de atenção",
+      "frame": "naos-1",
+      "state": "attn"
+    },
+    {
+      "id": "naos-1.added",
+      "lane": "naos",
+      "label": "Notebook · Incluídas na OS",
+      "frame": "naos-1",
+      "state": "added"
+    },
+    {
+      "id": "naos-2.attn",
+      "lane": "naos",
+      "label": "Celular · Em Precisa de atenção",
+      "frame": "naos-2",
+      "state": "attn"
+    },
+    {
+      "id": "naos-2.added",
+      "lane": "naos",
+      "label": "Celular · Incluídas na OS",
+      "frame": "naos-2",
+      "state": "added"
+    },
+    {
+      "id": "naos-3",
+      "lane": "naos",
+      "label": "Celular · mecânico",
+      "frame": "naos-3"
+    },
+    {
+      "id": "planos-1.first",
+      "lane": "planos",
+      "label": "Notebook · Primeira vez · sugestões",
+      "frame": "planos-1",
+      "state": "first"
+    },
+    {
+      "id": "planos-1.list",
+      "lane": "planos",
+      "label": "Notebook · Lista",
+      "frame": "planos-1",
+      "state": "list"
+    },
+    {
+      "id": "planos-1.noperm",
+      "lane": "planos",
+      "label": "Notebook · Só ver",
+      "frame": "planos-1",
+      "state": "noperm"
+    },
+    {
+      "id": "planos-1.sap",
+      "lane": "planos",
+      "label": "Notebook · Modo SAP",
+      "frame": "planos-1",
+      "state": "sap"
+    },
+    {
+      "id": "planos-1.loading",
+      "lane": "planos",
+      "label": "Notebook · Carregando",
+      "frame": "planos-1",
+      "state": "loading"
+    },
+    {
+      "id": "planos-2.first",
+      "lane": "planos",
+      "label": "Celular · Primeira vez · sugestões",
+      "frame": "planos-2",
+      "state": "first"
+    },
+    {
+      "id": "planos-2.list",
+      "lane": "planos",
+      "label": "Celular · Lista",
+      "frame": "planos-2",
+      "state": "list"
+    },
+    {
+      "id": "planos-2.noperm",
+      "lane": "planos",
+      "label": "Celular · Só ver",
+      "frame": "planos-2",
+      "state": "noperm"
+    },
+    {
+      "id": "planos-2.sap",
+      "lane": "planos",
+      "label": "Celular · Modo SAP",
+      "frame": "planos-2",
+      "state": "sap"
+    },
+    {
+      "id": "planos-2.loading",
+      "lane": "planos",
+      "label": "Celular · Carregando",
+      "frame": "planos-2",
+      "state": "loading"
+    },
+    {
+      "id": "editor-1.ok",
+      "lane": "editor",
+      "label": "Notebook A · Linha em foco",
+      "frame": "editor-1",
+      "state": "ok"
+    },
+    {
+      "id": "editor-1.edit",
+      "lane": "editor",
+      "label": "Notebook A · Editando",
+      "frame": "editor-1",
+      "state": "edit"
+    },
+    {
+      "id": "editor-1.loading",
+      "lane": "editor",
+      "label": "Notebook A · Carregando",
+      "frame": "editor-1",
+      "state": "loading"
+    },
+    {
+      "id": "editor-2.ok",
+      "lane": "editor",
+      "label": "Celular A · Linha em foco",
+      "frame": "editor-2",
+      "state": "ok"
+    },
+    {
+      "id": "editor-2.edit",
+      "lane": "editor",
+      "label": "Celular A · Editando",
+      "frame": "editor-2",
+      "state": "edit"
+    },
+    {
+      "id": "editor-2.loading",
+      "lane": "editor",
+      "label": "Celular A · Carregando",
+      "frame": "editor-2",
+      "state": "loading"
+    },
+    {
+      "id": "editorb-1.ok",
+      "lane": "editor",
+      "label": "Notebook B · Serviço selecionado",
+      "frame": "editorb-1",
+      "state": "ok"
+    },
+    {
+      "id": "editorb-1.edit",
+      "lane": "editor",
+      "label": "Notebook B · Editando",
+      "frame": "editorb-1",
+      "state": "edit"
+    },
+    {
+      "id": "editorb-1.loading",
+      "lane": "editor",
+      "label": "Notebook B · Carregando",
+      "frame": "editorb-1",
+      "state": "loading"
+    },
+    {
+      "id": "editorb-2.ok",
+      "lane": "editor",
+      "label": "Celular B · Serviço selecionado",
+      "frame": "editorb-2",
+      "state": "ok"
+    },
+    {
+      "id": "editorb-2.edit",
+      "lane": "editor",
+      "label": "Celular B · Editando",
+      "frame": "editorb-2",
+      "state": "edit"
+    },
+    {
+      "id": "editorb-2.loading",
+      "lane": "editor",
+      "label": "Celular B · Carregando",
+      "frame": "editorb-2",
+      "state": "loading"
+    },
+    {
+      "id": "veiculo-1.cav",
+      "lane": "veiculo",
+      "label": "Notebook · Cavalo",
+      "frame": "veiculo-1",
+      "state": "cav"
+    },
+    {
+      "id": "veiculo-1.hist",
+      "lane": "veiculo",
+      "label": "Notebook · Histórico aberto",
+      "frame": "veiculo-1",
+      "state": "hist"
+    },
+    {
+      "id": "veiculo-1.resolved",
+      "lane": "veiculo",
+      "label": "Notebook · Leitura conferida",
+      "frame": "veiculo-1",
+      "state": "resolved"
+    },
+    {
+      "id": "veiculo-1.car",
+      "lane": "veiculo",
+      "label": "Notebook · Carreta · km pelo engate",
+      "frame": "veiculo-1",
+      "state": "car"
+    },
+    {
+      "id": "veiculo-1.exc",
+      "lane": "veiculo",
+      "label": "Notebook · Com exceção",
+      "frame": "veiculo-1",
+      "state": "exc"
+    },
+    {
+      "id": "veiculo-1.nokm",
+      "lane": "veiculo",
+      "label": "Notebook · Sem km",
+      "frame": "veiculo-1",
+      "state": "nokm"
+    },
+    {
+      "id": "veiculo-1.none",
+      "lane": "veiculo",
+      "label": "Notebook · Sem plano",
+      "frame": "veiculo-1",
+      "state": "none"
+    },
+    {
+      "id": "veiculo-1.loading",
+      "lane": "veiculo",
+      "label": "Notebook · Carregando",
+      "frame": "veiculo-1",
+      "state": "loading"
+    },
+    {
+      "id": "veiculo-2.cav",
+      "lane": "veiculo",
+      "label": "Tablet em pé · Cavalo",
+      "frame": "veiculo-2",
+      "state": "cav"
+    },
+    {
+      "id": "veiculo-2.hist",
+      "lane": "veiculo",
+      "label": "Tablet em pé · Histórico aberto",
+      "frame": "veiculo-2",
+      "state": "hist"
+    },
+    {
+      "id": "veiculo-2.resolved",
+      "lane": "veiculo",
+      "label": "Tablet em pé · Leitura conferida",
+      "frame": "veiculo-2",
+      "state": "resolved"
+    },
+    {
+      "id": "veiculo-2.car",
+      "lane": "veiculo",
+      "label": "Tablet em pé · Carreta · km pelo engate",
+      "frame": "veiculo-2",
+      "state": "car"
+    },
+    {
+      "id": "veiculo-2.exc",
+      "lane": "veiculo",
+      "label": "Tablet em pé · Com exceção",
+      "frame": "veiculo-2",
+      "state": "exc"
+    },
+    {
+      "id": "veiculo-2.nokm",
+      "lane": "veiculo",
+      "label": "Tablet em pé · Sem km",
+      "frame": "veiculo-2",
+      "state": "nokm"
+    },
+    {
+      "id": "veiculo-2.none",
+      "lane": "veiculo",
+      "label": "Tablet em pé · Sem plano",
+      "frame": "veiculo-2",
+      "state": "none"
+    },
+    {
+      "id": "veiculo-2.loading",
+      "lane": "veiculo",
+      "label": "Tablet em pé · Carregando",
+      "frame": "veiculo-2",
+      "state": "loading"
+    },
+    {
+      "id": "veiculo-3.cav",
+      "lane": "veiculo",
+      "label": "Celular · Cavalo",
+      "frame": "veiculo-3",
+      "state": "cav"
+    },
+    {
+      "id": "veiculo-3.hist",
+      "lane": "veiculo",
+      "label": "Celular · Histórico aberto",
+      "frame": "veiculo-3",
+      "state": "hist"
+    },
+    {
+      "id": "veiculo-3.resolved",
+      "lane": "veiculo",
+      "label": "Celular · Leitura conferida",
+      "frame": "veiculo-3",
+      "state": "resolved"
+    },
+    {
+      "id": "veiculo-3.car",
+      "lane": "veiculo",
+      "label": "Celular · Carreta · km pelo engate",
+      "frame": "veiculo-3",
+      "state": "car"
+    },
+    {
+      "id": "veiculo-3.exc",
+      "lane": "veiculo",
+      "label": "Celular · Com exceção",
+      "frame": "veiculo-3",
+      "state": "exc"
+    },
+    {
+      "id": "veiculo-3.nokm",
+      "lane": "veiculo",
+      "label": "Celular · Sem km",
+      "frame": "veiculo-3",
+      "state": "nokm"
+    },
+    {
+      "id": "veiculo-3.none",
+      "lane": "veiculo",
+      "label": "Celular · Sem plano",
+      "frame": "veiculo-3",
+      "state": "none"
+    },
+    {
+      "id": "veiculo-3.loading",
+      "lane": "veiculo",
+      "label": "Celular · Carregando",
+      "frame": "veiculo-3",
+      "state": "loading"
+    },
+    {
+      "id": "leitura-1.pick",
+      "lane": "leitura",
+      "label": "Celular · Escolher veículo",
+      "frame": "leitura-1",
+      "state": "pick"
+    },
+    {
+      "id": "leitura-1.type",
+      "lane": "leitura",
+      "label": "Celular · Digitando",
+      "frame": "leitura-1",
+      "state": "type"
+    },
+    {
+      "id": "leitura-1.jump",
+      "lane": "leitura",
+      "label": "Celular · Salto impossível",
+      "frame": "leitura-1",
+      "state": "jump"
+    },
+    {
+      "id": "leitura-1.lower",
+      "lane": "leitura",
+      "label": "Celular · Menor que o último",
+      "frame": "leitura-1",
+      "state": "lower"
+    },
+    {
+      "id": "leitura-1.trailer",
+      "lane": "leitura",
+      "label": "Celular · Carreta",
+      "frame": "leitura-1",
+      "state": "trailer"
+    },
+    {
+      "id": "leitura-1.offline",
+      "lane": "leitura",
+      "label": "Celular · Sem sinal",
+      "frame": "leitura-1",
+      "state": "offline"
+    },
+    {
+      "id": "leitura-1.done",
+      "lane": "leitura",
+      "label": "Celular · Registrado",
+      "frame": "leitura-1",
+      "state": "done"
+    },
+    {
+      "id": "leitura-2.pick",
+      "lane": "leitura",
+      "label": "Tablet em pé · Escolher veículo",
+      "frame": "leitura-2",
+      "state": "pick"
+    },
+    {
+      "id": "leitura-2.type",
+      "lane": "leitura",
+      "label": "Tablet em pé · Digitando",
+      "frame": "leitura-2",
+      "state": "type"
+    },
+    {
+      "id": "leitura-2.jump",
+      "lane": "leitura",
+      "label": "Tablet em pé · Salto impossível",
+      "frame": "leitura-2",
+      "state": "jump"
+    },
+    {
+      "id": "leitura-2.lower",
+      "lane": "leitura",
+      "label": "Tablet em pé · Menor que o último",
+      "frame": "leitura-2",
+      "state": "lower"
+    },
+    {
+      "id": "leitura-2.trailer",
+      "lane": "leitura",
+      "label": "Tablet em pé · Carreta",
+      "frame": "leitura-2",
+      "state": "trailer"
+    },
+    {
+      "id": "leitura-2.offline",
+      "lane": "leitura",
+      "label": "Tablet em pé · Sem sinal",
+      "frame": "leitura-2",
+      "state": "offline"
+    },
+    {
+      "id": "leitura-2.done",
+      "lane": "leitura",
+      "label": "Tablet em pé · Registrado",
+      "frame": "leitura-2",
+      "state": "done"
+    },
+    {
+      "id": "conf-1.ok",
+      "lane": "conf",
+      "label": "Notebook · Por base",
+      "frame": "conf-1",
+      "state": "ok"
+    },
+    {
+      "id": "conf-1.carrier",
+      "lane": "conf",
+      "label": "Notebook · Por transportadora",
+      "frame": "conf-1",
+      "state": "carrier"
+    },
+    {
+      "id": "conf-1.empty",
+      "lane": "conf",
+      "label": "Notebook · Ainda sem dados",
+      "frame": "conf-1",
+      "state": "empty"
+    },
+    {
+      "id": "conf-1.loading",
+      "lane": "conf",
+      "label": "Notebook · Carregando",
+      "frame": "conf-1",
+      "state": "loading"
+    },
+    {
+      "id": "conf-1.noperm",
+      "lane": "conf",
+      "label": "Notebook · Sem permissão",
+      "frame": "conf-1",
+      "state": "noperm"
+    },
+    {
+      "id": "conf-2.ok",
+      "lane": "conf",
+      "label": "Celular · Por base",
+      "frame": "conf-2",
+      "state": "ok"
+    },
+    {
+      "id": "conf-2.carrier",
+      "lane": "conf",
+      "label": "Celular · Por transportadora",
+      "frame": "conf-2",
+      "state": "carrier"
+    },
+    {
+      "id": "conf-2.empty",
+      "lane": "conf",
+      "label": "Celular · Ainda sem dados",
+      "frame": "conf-2",
+      "state": "empty"
+    },
+    {
+      "id": "conf-2.loading",
+      "lane": "conf",
+      "label": "Celular · Carregando",
+      "frame": "conf-2",
+      "state": "loading"
+    },
+    {
+      "id": "conf-2.noperm",
+      "lane": "conf",
+      "label": "Celular · Sem permissão",
+      "frame": "conf-2",
+      "state": "noperm"
+    },
+    {
+      "id": "sap-1.ok",
+      "lane": "sap",
+      "label": "Notebook · Tudo sincronizado",
+      "frame": "sap-1",
+      "state": "ok"
+    },
+    {
+      "id": "sap-1.link",
+      "lane": "sap",
+      "label": "Notebook · Veículo sem ligação",
+      "frame": "sap-1",
+      "state": "link"
+    },
+    {
+      "id": "sap-1.down",
+      "lane": "sap",
+      "label": "Notebook · SAP fora do ar",
+      "frame": "sap-1",
+      "state": "down"
+    },
+    {
+      "id": "sap-1.mode",
+      "lane": "sap",
+      "label": "Notebook · Mudar o modo",
+      "frame": "sap-1",
+      "state": "mode"
+    }
+  ],
+  "arrows": [
+    {
+      "from": "agenda-1.ok",
+      "to": "chegada-1.ok",
+      "label": "Conjunto chegou"
+    },
+    {
+      "from": "chegada-1.ok",
+      "to": "naos-1.attn",
+      "label": "Dentro da OS"
+    },
+    {
+      "from": "planos-1.list",
+      "to": "editor-1.ok",
+      "label": "Abrir o plano"
+    },
+    {
+      "from": "editor-1.ok",
+      "to": "veiculo-1.cav",
+      "label": "No veículo"
+    },
+    {
+      "from": "leitura-1.type",
+      "to": "leitura-1.jump",
+      "label": "Salto"
+    },
+    {
+      "from": "leitura-1.pick",
+      "to": "leitura-1.type"
+    },
+    {
+      "from": "agenda-1.ok",
+      "to": "agenda-1.hover"
+    },
+    {
+      "from": "chegada-1.ok",
+      "to": "chegada-1.off",
+      "label": "Tirou uma"
+    }
+  ],
+  "notes": [
+    {
+      "attach": "agenda-1.ok",
+      "text": "Versão anterior. A agenda foi refeita em preventiva-agenda."
+    },
+    {
+      "attach": "chegada-1.ok",
+      "text": "O conjunto desenhado em cima, uma coluna por veículo."
+    },
+    {
+      "attach": "planos-1.first",
+      "text": "Na primeira vez, planos sugeridos pela frota cadastrada."
+    },
+    {
+      "attach": "leitura-1.pick",
+      "text": "No portão, com fila: o número entra grande."
+    },
+    {
+      "attach": "sap-1.ok",
+      "text": "Quem planeja no SAP vê o plano só para leitura."
+    }
+  ]
+}

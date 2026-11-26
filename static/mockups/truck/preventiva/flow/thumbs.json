@@ -1,0 +1,445 @@
+{
+  "generatedAt": "2026-11-26T20:27:17.205Z",
+  "frames": {
+    "menu-1": {
+      "width": 1360,
+      "height": 460
+    },
+    "agenda-1.ok": {
+      "width": 1360,
+      "height": 1060
+    },
+    "agenda-1.hover": {
+      "width": 1360,
+      "height": 1060
+    },
+    "agenda-1.loading": {
+      "width": 1360,
+      "height": 1060
+    },
+    "agenda-1.first": {
+      "width": 1360,
+      "height": 1060
+    },
+    "agenda-2.ok": {
+      "width": 414,
+      "height": 868
+    },
+    "agenda-2.swipe": {
+      "width": 414,
+      "height": 868
+    },
+    "agenda-2.sheet": {
+      "width": 414,
+      "height": 868
+    },
+    "agenda-2.loading": {
+      "width": 414,
+      "height": 868
+    },
+    "agenda-2.first": {
+      "width": 414,
+      "height": 868
+    },
+    "agendab-1.ok": {
+      "width": 1360,
+      "height": 900
+    },
+    "agendab-1.sel2": {
+      "width": 1360,
+      "height": 900
+    },
+    "agendab-1.closed": {
+      "width": 1360,
+      "height": 900
+    },
+    "agendab-1.loading": {
+      "width": 1360,
+      "height": 900
+    },
+    "agendab-2.ok": {
+      "width": 414,
+      "height": 868
+    },
+    "agendab-2.sel2": {
+      "width": 414,
+      "height": 868
+    },
+    "agendab-2.closed": {
+      "width": 414,
+      "height": 868
+    },
+    "agendab-2.detail": {
+      "width": 414,
+      "height": 868
+    },
+    "agendab-2.loading": {
+      "width": 414,
+      "height": 868
+    },
+    "chegada-1.ok": {
+      "width": 1208,
+      "height": 848
+    },
+    "chegada-1.off": {
+      "width": 1208,
+      "height": 848
+    },
+    "chegada-1.check": {
+      "width": 1208,
+      "height": 848
+    },
+    "chegada-2.ok": {
+      "width": 414,
+      "height": 868
+    },
+    "chegada-2.off": {
+      "width": 414,
+      "height": 868
+    },
+    "chegada-2.check": {
+      "width": 414,
+      "height": 868
+    },
+    "chegadab-1.ok": {
+      "width": 1208,
+      "height": 848
+    },
+    "chegadab-1.off": {
+      "width": 1208,
+      "height": 848
+    },
+    "chegadab-1.check": {
+      "width": 1208,
+      "height": 848
+    },
+    "chegadab-2.ok": {
+      "width": 414,
+      "height": 868
+    },
+    "chegadab-2.off": {
+      "width": 414,
+      "height": 868
+    },
+    "chegadab-2.check": {
+      "width": 414,
+      "height": 868
+    },
+    "naos-1.attn": {
+      "width": 1360,
+      "height": 660
+    },
+    "naos-1.added": {
+      "width": 1360,
+      "height": 660
+    },
+    "naos-2.attn": {
+      "width": 414,
+      "height": 868
+    },
+    "naos-2.added": {
+      "width": 414,
+      "height": 868
+    },
+    "naos-3": {
+      "width": 414,
+      "height": 868
+    },
+    "planos-1.first": {
+      "width": 1360,
+      "height": 760
+    },
+    "planos-1.list": {
+      "width": 1360,
+      "height": 760
+    },
+    "planos-1.noperm": {
+      "width": 1360,
+      "height": 760
+    },
+    "planos-1.sap": {
+      "width": 1360,
+      "height": 760
+    },
+    "planos-1.loading": {
+      "width": 1360,
+      "height": 760
+    },
+    "planos-2.first": {
+      "width": 414,
+      "height": 868
+    },
+    "planos-2.list": {
+      "width": 414,
+      "height": 868
+    },
+    "planos-2.noperm": {
+      "width": 414,
+      "height": 868
+    },
+    "planos-2.sap": {
+      "width": 414,
+      "height": 868
+    },
+    "planos-2.loading": {
+      "width": 414,
+      "height": 868
+    },
+    "editor-1.ok": {
+      "width": 1360,
+      "height": 1000
+    },
+    "editor-1.edit": {
+      "width": 1360,
+      "height": 1000
+    },
+    "editor-1.loading": {
+      "width": 1360,
+      "height": 1000
+    },
+    "editor-2.ok": {
+      "width": 414,
+      "height": 868
+    },
+    "editor-2.edit": {
+      "width": 414,
+      "height": 868
+    },
+    "editor-2.loading": {
+      "width": 414,
+      "height": 868
+    },
+    "editorb-1.ok": {
+      "width": 1360,
+      "height": 860
+    },
+    "editorb-1.edit": {
+      "width": 1360,
+      "height": 860
+    },
+    "editorb-1.loading": {
+      "width": 1360,
+      "height": 860
+    },
+    "editorb-2.ok": {
+      "width": 414,
+      "height": 868
+    },
+    "editorb-2.edit": {
+      "width": 414,
+      "height": 868
+    },
+    "editorb-2.loading": {
+      "width": 414,
+      "height": 868
+    },
+    "veiculo-1.cav": {
+      "width": 1360,
+      "height": 860
+    },
+    "veiculo-1.hist": {
+      "width": 1360,
+      "height": 860
+    },
+    "veiculo-1.resolved": {
+      "width": 1360,
+      "height": 860
+    },
+    "veiculo-1.car": {
+      "width": 1360,
+      "height": 860
+    },
+    "veiculo-1.exc": {
+      "width": 1360,
+      "height": 860
+    },
+    "veiculo-1.nokm": {
+      "width": 1360,
+      "height": 860
+    },
+    "veiculo-1.none": {
+      "width": 1360,
+      "height": 860
+    },
+    "veiculo-1.loading": {
+      "width": 1360,
+      "height": 860
+    },
+    "veiculo-2.cav": {
+      "width": 848,
+      "height": 1208
+    },
+    "veiculo-2.hist": {
+      "width": 848,
+      "height": 1208
+    },
+    "veiculo-2.resolved": {
+      "width": 848,
+      "height": 1208
+    },
+    "veiculo-2.car": {
+      "width": 848,
+      "height": 1208
+    },
+    "veiculo-2.exc": {
+      "width": 848,
+      "height": 1208
+    },
+    "veiculo-2.nokm": {
+      "width": 848,
+      "height": 1208
+    },
+    "veiculo-2.none": {
+      "width": 848,
+      "height": 1208
+    },
+    "veiculo-2.loading": {
+      "width": 848,
+      "height": 1208
+    },
+    "veiculo-3.cav": {
+      "width": 414,
+      "height": 868
+    },
+    "veiculo-3.hist": {
+      "width": 414,
+      "height": 868
+    },
+    "veiculo-3.resolved": {
+      "width": 414,
+      "height": 868
+    },
+    "veiculo-3.car": {
+      "width": 414,
+      "height": 868
+    },
+    "veiculo-3.exc": {
+      "width": 414,
+      "height": 868
+    },
+    "veiculo-3.nokm": {
+      "width": 414,
+      "height": 868
+    },
+    "veiculo-3.none": {
+      "width": 414,
+      "height": 868
+    },
+    "veiculo-3.loading": {
+      "width": 414,
+      "height": 868
+    },
+    "leitura-1.pick": {
+      "width": 414,
+      "height": 868
+    },
+    "leitura-1.type": {
+      "width": 414,
+      "height": 868
+    },
+    "leitura-1.jump": {
+      "width": 414,
+      "height": 868
+    },
+    "leitura-1.lower": {
+      "width": 414,
+      "height": 868
+    },
+    "leitura-1.trailer": {
+      "width": 414,
+      "height": 868
+    },
+    "leitura-1.offline": {
+      "width": 414,
+      "height": 868
+    },
+    "leitura-1.done": {
+      "width": 414,
+      "height": 868
+    },
+    "leitura-2.pick": {
+      "width": 848,
+      "height": 1208
+    },
+    "leitura-2.type": {
+      "width": 848,
+      "height": 1208
+    },
+    "leitura-2.jump": {
+      "width": 848,
+      "height": 1208
+    },
+    "leitura-2.lower": {
+      "width": 848,
+      "height": 1208
+    },
+    "leitura-2.trailer": {
+      "width": 848,
+      "height": 1208
+    },
+    "leitura-2.offline": {
+      "width": 848,
+      "height": 1208
+    },
+    "leitura-2.done": {
+      "width": 848,
+      "height": 1208
+    },
+    "conf-1.ok": {
+      "width": 1360,
+      "height": 900
+    },
+    "conf-1.carrier": {
+      "width": 1360,
+      "height": 900
+    },
+    "conf-1.empty": {
+      "width": 1360,
+      "height": 900
+    },
+    "conf-1.loading": {
+      "width": 1360,
+      "height": 900
+    },
+    "conf-1.noperm": {
+      "width": 1360,
+      "height": 900
+    },
+    "conf-2.ok": {
+      "width": 414,
+      "height": 868
+    },
+    "conf-2.carrier": {
+      "width": 414,
+      "height": 868
+    },
+    "conf-2.empty": {
+      "width": 414,
+      "height": 868
+    },
+    "conf-2.loading": {
+      "width": 414,
+      "height": 868
+    },
+    "conf-2.noperm": {
+      "width": 414,
+      "height": 868
+    },
+    "sap-1.ok": {
+      "width": 1360,
+      "height": 720
+    },
+    "sap-1.link": {
+      "width": 1360,
+      "height": 720
+    },
+    "sap-1.down": {
+      "width": 1360,
+      "height": 720
+    },
+    "sap-1.mode": {
+      "width": 1360,
+      "height": 720
+    }
+  }
+}
