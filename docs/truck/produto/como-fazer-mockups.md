@@ -66,6 +66,31 @@ O que a dona do produto já recusou ("amador", "minimalista", "seco", "tudo muit
 - **Mostra a interação inteira** — o que a setinha abre, o estado do dropdown aberto, o passo de confirmação. Nada pela metade.
 - Texto do mockup segue o [`COPY.md`](https://github.com/tamicaires/facter-truck/blob/main/COPY.md) como qualquer tela.
 
+## Canvas do fluxo
+
+Um mockup com muitos estados também abre como **canvas**, no estilo do Figma: cada estado vira um quadro, os quadros ficam em faixas (caminho principal, e se não der, estados da tela...), setas mostram para onde cada passo leva e notas amarelas guardam o porquê. Exemplo: [Agenda da preventiva no canvas](/telas/truck/preventiva-agenda/canvas). Arrastar move, ctrl e scroll (ou pinça) dá zoom, "Ajustar à tela" mostra tudo. Um clique abre o quadro grande e interativo; as setas do teclado passam para o anterior e o próximo, Esc volta.
+
+**Um quadro sozinho, por endereço.** O kit abre qualquer quadro do mockup sem o resto da página: `index.html?frame=<quadro>&state=<estado>&theme=dark`. O quadro é o atributo `frame` do `<fx-app>` ou, sem ele, `<id da seção>-<n>` (o n-ésimo `fx-app` da seção, contando de 1: `notebook-1` é o primeiro da seção `id="notebook"`). O estado é o `data-s` de um botão da barra de estados daquele quadro; o kit clica nele, então o quadro mostra o mesmo que o documento. No console da página, `FX.frames()` lista os quadros e os estados de cada um.
+
+**O `flow.json`**, na pasta do mockup, descreve o canvas:
+
+| Campo | O que é |
+| --- | --- |
+| `title` | Nome do mockup |
+| `lanes` | Faixas, de cima para baixo: `{ "id", "title" }` |
+| `frames` | Quadros, na ordem da faixa: `{ "id", "lane", "label", "frame", "state", "theme", "hint" }`. `label` é o nome curto acima do quadro ("2 · Abrir o conjunto"); `hint` aparece no quadro aberto. `x` e `y` só quando precisar fugir da posição automática |
+| `arrows` | Setas: `{ "from", "to", "label" }`. Na mesma faixa, liga de lado; para outra faixa, desce. Um quadro que sai de outra faixa começa embaixo do quadro de onde veio |
+| `notes` | Notas amarelas: `{ "attach", "text" }`, no máximo duas linhas, embaixo do quadro |
+
+**Para pôr um mockup no canvas:**
+
+1. Escreve o `flow.json` ao lado do `index.html`.
+2. Com o servidor rodando, gera as miniaturas: `NODE_PATH=<node_modules com playwright> node scripts/mockup-flow-thumbs.mjs truck/<slug>`. Elas vão para `flow/` (uma imagem por quadro e o `thumbs.json` com o tamanho). Mudou o mockup, gera de novo.
+3. Cria `src/pages/telas/truck/<slug>/canvas.tsx` com `<MockupFlowCanvas flow="/mockups/truck/<slug>/flow.json" status="..." />` dentro do `Layout`. A página do documento ganha sozinha a troca **Canvas | Documento**.
+4. Na galeria, ao lado do "Ver o mockup": `· [Ver no canvas](/telas/truck/<slug>/canvas)`.
+
+De longe, o canvas mostra as miniaturas; de perto (zoom a partir de uns 40%), os quadros na tela viram a página ao vivo, até seis por vez. O quadro aberto é sempre ao vivo.
+
 ## Status e aprovação
 
 Cada mockup carrega um status, na página (`MockupScreen status=`) e no parágrafo da galeria:

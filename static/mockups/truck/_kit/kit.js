@@ -309,3 +309,45 @@ A.kbCol=o=>`<section class="fx-kb-col ${o.state?'kb-'+o.state:''}" data-kanban-c
 A.kbCard=(inner,o={})=>`<div class="fx-kb-card ${o.state||''}" draggable="${o.state==='disabled'?'false':'true'}" ${o.attrs||''}>${inner}</div>`;
 window.FX=A;
 })();
+
+/* ---------- frame mode, for the flow canvas ----------
+   index.html?frame=<id>&state=<s>&theme=dark shows one device frame alone, in one state, at its natural size.
+   Frame id: the fx-app "frame" attribute, else <section id>-<n> (n counts the fx-apps of that section from 1).
+   The state is applied by clicking the page's own state button (.states[data-for=<data-render key>] button[data-s]),
+   so a frame shows exactly what the document shows. FX.frames() lists every frame and its states. */
+(function(){
+const ids=new WeakMap();
+function frameIds(){const count={};document.querySelectorAll('fx-app').forEach(app=>{const sec=app.closest('section[id]');const base=sec?sec.id:'frame';count[base]=(count[base]||0)+1;ids.set(app,app.getAttribute('frame')||`${base}-${count[base]}`);app.dataset.frameId=ids.get(app);});}
+const keyOf=app=>{const r=app.querySelector('[data-render]');return r?r.dataset.render:null;};
+const barOf=app=>{const k=keyOf(app);return k?document.querySelector(`.states[data-for="${k}"]`):null;};
+function frames(){frameIds();return [...document.querySelectorAll('fx-app')].map(app=>{const bar=barOf(app);const dv=app.closest('.dv');const label=dv&&dv.querySelector('.devlabel');
+  return {id:ids.get(app),label:label?label.textContent.trim():'',device:app.getAttribute('device')||'web',render:keyOf(app),states:bar?[...bar.querySelectorAll('button[data-s]')].map(b=>({id:b.dataset.s,label:b.textContent.trim(),hint:b.title||'',group:(b.closest('.sgr')?.querySelector('.sgl')?.textContent||'').trim()})):[]};});}
+if(window.FX) window.FX.frames=frames;
+
+const q=new URLSearchParams(location.search), wanted=q.get('frame');
+if(!wanted) return;
+const root=document.documentElement;root.classList.add('fx-frame-mode');
+const css=document.createElement('style');
+css.textContent=`html.fx-frame-mode,html.fx-frame-mode body{background:transparent!important;margin:0!important;padding:0!important;min-width:0!important;overflow:hidden}
+html.fx-frame-mode:not(.fx-frame-ready) body{visibility:hidden}
+.fx-fm-off{display:none!important}
+.fx-fm-path{margin:0!important;padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important;max-width:none!important;min-width:0!important;width:max-content!important;display:block!important;gap:0!important;zoom:1!important}
+.fx-fm-target .fx-device{zoom:1!important}`;
+document.head.appendChild(css);
+function isolate(app){let el=app;app.classList.add('fx-fm-target');
+  while(el.parentElement){const p=el.parentElement;[...p.children].forEach(c=>{if(c!==el&&!/^(SCRIPT|STYLE|LINK)$/.test(c.tagName))c.classList.add('fx-fm-off');});
+    if(p===document.body)break;p.classList.add('fx-fm-path');p.removeAttribute('hidden');el=p;}}
+function report(app,error){root.classList.add('fx-frame-ready');const d=app&&app.querySelector('.fx-device');const r=d?d.getBoundingClientRect():{width:0,height:0};
+  const msg={type:'fx-frame',frame:wanted,state:q.get('state'),width:Math.ceil(r.width),height:Math.ceil(r.height),error:error||null};
+  root.dataset.frameWidth=msg.width;root.dataset.frameHeight=msg.height;
+  if(window.parent!==window) window.parent.postMessage(msg,'*');}
+function apply(){frameIds();const app=[...document.querySelectorAll('fx-app')].find(a=>ids.get(a)===wanted);
+  if(!app){root.classList.add('fx-frame-ready');report(null,'FRAME_NOT_FOUND');return;}
+  isolate(app);
+  const st=q.get('state'),bar=barOf(app);
+  if(st&&bar){const b=[...bar.querySelectorAll('button[data-s]')].find(x=>x.dataset.s===st);if(b)b.click();}
+  const dark=q.get('theme')==='dark';app.querySelectorAll('.fx-device').forEach(d=>d.classList.toggle('dark',dark));
+  setTimeout(()=>requestAnimationFrame(()=>requestAnimationFrame(()=>report(app))),180);}
+const start=()=>setTimeout(apply,60);
+if(document.readyState==='complete') start(); else window.addEventListener('load',start);
+})();

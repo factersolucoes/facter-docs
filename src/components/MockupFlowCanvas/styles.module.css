@@ -1,0 +1,430 @@
+.root {
+  --fc-panel: hsl(0 0% 100%);
+  --fc-border: hsl(240 5.9% 90%);
+  --fc-text: hsl(240 10% 3.9%);
+  --fc-muted: hsl(240 3.8% 46%);
+  --fc-hover: hsl(240 4.8% 95.9%);
+  --fc-canvas: hsl(240 6% 96.5%);
+  --fc-dot: hsl(240 5% 84%);
+  --fc-lane: hsl(240 6% 92% / 0.55);
+  --fc-frame: hsl(0 0% 100%);
+  --fc-arrow: hsl(233 70% 58%);
+  --fc-note: hsl(48 100% 82%);
+  --fc-note-text: hsl(40 40% 18%);
+  --fc-focus: hsl(240 6% 94%);
+  --fc-accent: var(--ifm-color-primary);
+
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  height: calc(100vh - var(--ifm-navbar-height));
+  height: calc(100dvh - var(--ifm-navbar-height));
+  color: var(--fc-text);
+  font-size: 13px;
+  line-height: 1.45;
+  overflow: hidden;
+}
+
+:global([data-theme='dark']) .root {
+  --fc-panel: hsl(24 9.8% 10%);
+  --fc-border: hsl(12 6.5% 17%);
+  --fc-text: hsl(60 9.1% 97.8%);
+  --fc-muted: hsl(24 5.4% 63.9%);
+  --fc-hover: hsl(12 6.5% 15%);
+  --fc-canvas: hsl(20 10% 6.5%);
+  --fc-dot: hsl(20 6% 18%);
+  --fc-lane: hsl(24 9.8% 12% / 0.6);
+  --fc-frame: hsl(24 9.8% 12%);
+  --fc-arrow: hsl(233 80% 72%);
+  --fc-focus: hsl(20 10% 5%);
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  background: var(--fc-panel);
+  font-size: 14px;
+}
+
+.crumbSep,
+.status,
+.topHint {
+  color: var(--fc-muted);
+}
+
+.topTitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.topSpacer {
+  flex: 1;
+}
+
+.toggle {
+  display: inline-flex;
+  padding: 2px;
+  border-radius: 8px;
+  background: var(--ifm-color-emphasis-100);
+}
+
+.toggleItem {
+  padding: 3px 12px;
+  border-radius: 6px;
+  color: var(--fc-muted);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.toggleItem:hover {
+  color: var(--fc-text);
+  text-decoration: none;
+}
+
+.toggleItemOn,
+.toggleItemOn:hover {
+  background: var(--fc-panel);
+  color: var(--fc-text);
+  box-shadow: 0 1px 2px hsl(0 0% 0% / 0.08);
+}
+
+.main {
+  position: relative;
+  min-height: 0;
+}
+
+.stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background-color: var(--fc-canvas);
+  background-image: radial-gradient(circle, var(--fc-dot) 1px, transparent 1.2px);
+  touch-action: none;
+  user-select: none;
+  overscroll-behavior: contain;
+}
+
+.stagePanning {
+  cursor: grabbing;
+}
+
+.world {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+.lane {
+  position: absolute;
+  border-radius: calc(16px * var(--inverse));
+  background: var(--fc-lane);
+}
+
+.frame {
+  position: absolute;
+  cursor: pointer;
+}
+
+.frameBody {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  filter: drop-shadow(0 10px 24px hsl(233 30% 20% / 0.16));
+}
+
+.frame:hover .frameBody {
+  filter: drop-shadow(0 10px 24px hsl(233 30% 20% / 0.16)) drop-shadow(0 0 calc(3px * var(--inverse)) var(--fc-accent));
+}
+
+.frameLabel {
+  position: absolute;
+  left: 0;
+  bottom: 100%;
+  max-width: 100%;
+  margin-bottom: calc(6px * var(--inverse));
+  font-size: calc(12px * var(--inverse));
+  font-weight: 500;
+  color: var(--fc-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.frame:hover .frameLabel {
+  color: var(--fc-accent);
+}
+
+.thumb {
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.placeholder {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: 40px;
+  border-radius: 12px;
+  background: var(--fc-frame);
+  font-size: 48px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--fc-muted);
+}
+
+.liveWrap {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.liveWrapReady {
+  opacity: 1;
+}
+
+.live {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+.liveInteractive {
+  pointer-events: auto;
+}
+
+.arrows {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.arrow,
+.arrowHalo {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.arrow {
+  stroke: var(--fc-arrow);
+  stroke-width: 1.75px;
+}
+
+.arrowHalo {
+  stroke: var(--fc-canvas);
+  stroke-width: 5px;
+  opacity: 0.85;
+}
+
+.arrowHead {
+  fill: var(--fc-arrow);
+}
+
+.arrowLabel {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  padding: calc(2px * var(--inverse)) calc(8px * var(--inverse));
+  border-radius: calc(999px * var(--inverse));
+  background: var(--fc-panel);
+  box-shadow: 0 0 0 calc(1px * var(--inverse)) hsl(233 70% 58% / 0.35);
+  color: var(--fc-arrow);
+  font-size: calc(11px * var(--inverse));
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.note {
+  position: absolute;
+  padding: 28px 34px;
+  border-radius: 8px;
+  background: var(--fc-note);
+  color: var(--fc-note-text);
+  box-shadow: 0 10px 24px -14px hsl(40 50% 20% / 0.5);
+  font-size: 40px;
+  line-height: 1.3;
+  pointer-events: none;
+}
+
+.laneTitles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.laneTitle {
+  position: absolute;
+  max-width: 180px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: var(--fc-panel);
+  box-shadow: 0 1px 3px hsl(0 0% 0% / 0.08);
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.message {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  color: var(--fc-muted);
+}
+
+.zoomBar {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 10px;
+  background: var(--fc-panel);
+  box-shadow: 0 2px 10px hsl(0 0% 0% / 0.1);
+}
+
+.zoomBar button,
+.barButton {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  min-width: 30px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 7px;
+  background: none;
+  color: var(--fc-text);
+  font: inherit;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.zoomBar button:hover,
+.barButton:hover {
+  background: var(--fc-hover);
+  color: var(--fc-text);
+  text-decoration: none;
+}
+
+.zoomValue {
+  min-width: 56px !important;
+  font-variant-numeric: tabular-nums;
+}
+
+.zoomFit {
+  margin-left: 2px;
+}
+
+/* Focus mode */
+
+.focus {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  background: var(--fc-focus);
+}
+
+.focusBar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 8px 12px;
+  background: var(--fc-panel);
+  box-shadow: 0 1px 0 var(--fc-border);
+}
+
+.focusTitle {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.focusTitle strong {
+  font-size: 14px;
+}
+
+.focusLane,
+.focusHint {
+  color: var(--fc-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.focusActions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.barButtonOn {
+  background: var(--fc-hover);
+}
+
+.counter {
+  padding: 0 6px;
+  color: var(--fc-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.focusArea {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: 24px;
+}
+
+.focusAreaScroll {
+  place-items: start center;
+  overflow: auto;
+}
+
+.focusSlot {
+  position: relative;
+}
+
+.focusFrame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+  filter: drop-shadow(0 16px 32px hsl(233 30% 20% / 0.18));
+}
+
+@media (max-width: 900px) {
+  .topHint,
+  .status,
+  .focusHint,
+  .focusLane {
+    display: none;
+  }
+}

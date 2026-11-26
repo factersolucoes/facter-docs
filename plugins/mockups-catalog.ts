@@ -117,7 +117,7 @@ function parseGallery(source: string, galleryDoc: string): Map<string, GalleryEn
     const description = body
       .split(/\n\s*\n/)
       .map((p) => p.trim())
-      .filter((p) => p && !p.startsWith('<img') && !/^\[Ver o mockup[^\]]*\]\([^)]*\)$/.test(p))
+      .filter((p) => p && !p.startsWith('<img') && !/^\[Ver [^\]]*\]\([^)]*\)( · \[Ver [^\]]*\]\([^)]*\))*$/.test(p))
       .join('\n\n')
       .replace(/\]\(([^)\s]+)\)/g, (_, href: string) => `](${resolveDocLink(href, galleryDoc)})`);
     for (const route of routes) {
