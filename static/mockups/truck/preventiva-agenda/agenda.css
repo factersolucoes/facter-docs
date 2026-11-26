@@ -865,3 +865,10 @@
 .lcard .lact{color:hsl(var(--info-ink))}
 
 .pml .stick{top:-16px}
+/* phone: the base sits next to the title as a primary-tinted chip; jump tabs are the primary underline tabs */
+.fx-device.phone .fx-vdiv{height:20px}
+.msel{display:inline-flex;align-items:center;gap:4px;height:28px;padding:0 10px;border-radius:999px;background:hsl(var(--primary)/.15);color:hsl(var(--primary-ink));font:600 13px Inter;white-space:nowrap}
+.msel::after{content:"";width:6px;height:6px;margin-left:2px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-2px) rotate(45deg)}
+.fx-device.phone .fx-ctl{gap:10px}
+.fx-device.phone .fx-cons{gap:10px;align-items:center}
+.pm .jump.fx-mtabs{margin:0 -16px;background:hsl(var(--background));border-bottom:1px solid hsl(var(--border))}
