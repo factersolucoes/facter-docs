@@ -141,7 +141,7 @@ Pneus entram no lançamento (decidido em 26/09/2026). Os invariantes do ciclo de
 | CHK-1 | Publicar uma mudança no modelo cria versão nova; a execução aponta a versão usada, e os itens de uma versão nunca mudam | Modelo + banco (gatilho, FK da resposta com a versão) | ✅ 3.2.1 e 3.2.2 |
 | CHK-2 | Item que exige foto não fecha sem foto vinculada ao resultado | Domínio | ⬜ 3.2.5 (depende dos anexos, 2.8); até lá o item mostra a marca de foto, mas não bloqueia |
 | CHK-3 | Checklist só conclui com todos os itens respondidos, em cada veículo a que o item se aplica | Domínio, com a linha travada na conclusão | ✅ 3.2.2 (inclui a observação no não conforme sem serviço; teste de concorrência com resposta apagada no mesmo instante) |
-| CHK-4 | Um resultado não conforme gera no máximo um serviço, mesmo com dois toques ou dois tablets ao mesmo tempo | Banco + domínio | ⬜ 3.2.3 |
+| CHK-4 | Uma falha recebe cada tipo de serviço uma vez por lugar no veículo (eixo, lado, roda, sentido, posição): "Soldar ciclista" do lado esquerdo e do direito são dois serviços; o mesmo lado duas vezes, não. Tipo que não pede lugar entra uma vez. Retirado, pode entrar de novo | Banco (índice único parcial com `nulls not distinct` em `checklist_result_services`) + domínio | ✅ 3.2.3 |
 | CHK-5 | Checklist concluído ou cancelado não muda; correção é um checklist novo | Domínio + banco (gatilho em checklists e checklist_results, também para o dono) | ✅ 3.2.2 |
 | CHK-6 | Resultado só para veículo que estava no alvo (veículo ou conjunto) quando o checklist começou | Domínio + banco (alvo congelado em checklist_vehicles, FK da resposta) | ✅ 3.2.2 |
 | CHK-7 | Só se executa versão publicada de modelo ativo | Domínio | ✅ 3.2.2 |

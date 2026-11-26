@@ -346,6 +346,36 @@ Estudo (11/10/2026). A mesma tela do pátio (dia cheio, 8 boxes) em **quatro arr
 
 [Ver o mockup](/telas/truck/patio-arranjos)
 
+### Começar checklist — 3 modelos
+
+**Modelo A aprovado em 24/11/2026** (B e C ficam como alternativas descartadas). A tela de começar checklist deixa claro **se precisa de OS** e o que fazer quando o veículo ou conjunto não tem uma. Três modelos: **A · Primeiro o motivo** (manutenção ou pátio e saída, cada um com a sua lista), **B · A busca mostra a OS** (cada resultado diz se tem OS; sem OS, pergunta entre abrir a OS e só inspecionar) e **C · Sempre pela OS** (todo checklist entra numa OS; muda a regra de checklist sem OS e pede ADR). Cada modelo passa pelos estados, do início à OS aberta, no notebook e no celular. Na implementação, **Abrir OS** usa o diálogo da [Recepção](/telas/truck/abrir-os-multistep) já com o conjunto escolhido, e o "Em andamento" saiu dos modelos.
+
+[Ver o mockup](/telas/truck/checklist-iniciar)
+
+### Inspeções em lista — 3 modelos
+
+**Modelo B aprovado em 24/11/2026** (A e C ficam como alternativas descartadas). A tela de Inspeções sai dos cards e vira lista, para caber mais inspeções e comparar de cima para baixo. Três modelos: **A · Tabela** (colunas de modelo, progresso, não conformes, OS e tempo parado), **B · Linhas de toque** (anel de progresso, nome do conjunto e o que falta, feita para o tablet) e **C · Lista e resumo** (o lado direito mostra veículos, falhas e OS antes de abrir). Cada um passa por Em andamento, Concluídos e filtrado, no notebook, no tablet deitado e em pé e no celular. O conjunto aparece pelo nome, com as placas no tooltip. Na implementação, a lista ficou numa página só, sem as abas: as concluídas vêm no fim, no grupo Concluídos, com "Concluído" no fim da linha, e nunca somem.
+
+[Ver o mockup](/telas/truck/inspecoes-lista)
+
+### Barra do checklist — 3 modelos
+
+**Modelo B aprovado em 25/11/2026** (A e C ficam como alternativas descartadas). Na tela de responder o checklist, a contagem (sem resposta, não conformes), **Próxima seção** e **Revisar e concluir** saem da barra preta que flutua por cima dos itens. Três modelos: **A · No topo** (contagem e Revisar na barra do topo), **B · No trilho de seções** (o total e Revisar no pé do trilho da esquerda) e **C · Rodapé encaixado** (uma faixa clara no pé do painel, fora da área dos itens). Nos três, Próxima seção fica no fim da lista de itens ou no rodapé, e nada cobre a tabela. Cada um no notebook, no tablet deitado e em pé e no celular.
+
+[Ver o mockup](/telas/truck/checklist-barra)
+
+### Ações do serviço no checklist — 3 modelos
+
+**Modelo A aprovado em 25/11/2026, com o "+ Serviço" tracejado do B no lugar do + redondo** (C descartado). Na falha do checklist, "Adicionar serviço" vira ícone e cada serviço ganha **pedir peça**, que abre o mesmo pedido de peças da OS já com o serviço escolhido. Três modelos: **A · Ícones na linha** (caixa para pedir peça e X em cada serviço, + no pé da lista), **B · Menu do serviço** (⋮ com Pedir peça e Tirar da OS, + tracejado no fim) e **C · Mais no cabeçalho** (+ ao lado da placa, botão "Peça" e lixeira em cada serviço). Cada um passa por falha com serviços, pedindo peça e peça pedida.
+
+[Ver o mockup](/telas/truck/checklist-servico-acoes)
+
+### Lugar do serviço — 3 modelos
+
+**Em avaliação.** O passo "Onde vai ser feito?" depois de escolher o serviço na falha, para só lado, eixo e lado, e roda. Três modelos: **A · Cartões e confirmar** (o que está no código: filas de cartões, "Já na OS" tracejado, botão Adicionar à OS), **B · Desenho do reboque** (o reboque visto de cima; toca no lado, no lado do eixo ou na roda) e **C · Toque e pronto** (cada lugar já é um botão +, sem confirmar, com Desfazer no aviso). O lugar que o serviço já tem na OS aparece e não pode ser escolhido (CHK-4). No celular, o seletor abre de baixo para cima. O seletor foi mudado no código antes deste mockup; o modelo aprovado passa a valer para os dois.
+
+[Ver o mockup](/telas/truck/checklist-servico-lugar)
+
 ## Componente de datas
 
 Aprovado em 28/09/2026, e implementado no DS (`DateRangePicker`, intervalo com presets), já em uso no filtro de período das Movimentações. O componente de datas do DS em cenários, opções e níveis: data única, intervalo, data e hora, atalhos ("hoje", "últimos 7 dias"), estados de erro e vazio, e o comportamento no celular. Base para os filtros de período dos relatórios e para os campos de data das OS e movimentações.

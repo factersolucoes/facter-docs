@@ -237,4 +237,6 @@ A foto de um item vai em `attachments.checklist_result_id` ([manutenção](./man
 ## Decidido em 26/09/2026
 
 - **Checklist sem OS** é permitido (inspeção de pátio, saída de viagem); a OS nasce só se houver não conformidade.
+- **Serviço uma vez por lugar (25/11/2026, CHK-4):** o vínculo da falha com o serviço da OS (`checklist_result_services`) guarda também o lugar com que o serviço entrou (`axle_no`, `side`, `wheel`, `direction`, `structural_position`, copiados do serviço). O índice único ativo inclui o lugar, com `nulls not distinct`: o mesmo tipo entra de novo em outro lugar, nunca duas vezes no mesmo (migration 0060).
+- **Começar checklist (24/11/2026):** a tela pergunta primeiro o motivo. Em **manutenção**, o veículo achado pela busca entra na OS aberta do conjunto dele (`start-options` devolve `openWorkOrder`, lido em `open_work_order_locks`); sem OS aberta, a tela oferece abrir a OS ou inspecionar sem ela. Em **pátio ou saída de viagem**, o checklist é sem OS.
 - **Foto obrigatória** é definida pelo modelo; itens de segurança exigem foto por padrão.

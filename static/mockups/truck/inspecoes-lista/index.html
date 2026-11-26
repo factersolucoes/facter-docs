@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inspeções em lista · 3 modelos · mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --foreground:240 10% 4%;--card:0 0% 100%;--background:230 20% 97.5%;
+  --primary:233 66% 52%;--primary-ink:233 70% 40%;--primary-soft:233 85% 96.5%;
+  --muted:240 5% 95%;--muted-foreground:240 4% 44%;--border:240 6% 90%;--border-strong:240 6% 83%;
+  --canvas:228 16% 90%;
+  --success:150 55% 42%;--success-soft:150 52% 94%;--success-ink:152 64% 26%;
+  --warning:36 92% 50%;--warning-soft:40 96% 92%;--warning-ink:26 85% 32%;
+  --danger:0 82% 60%;--danger-soft:0 88% 96.5%;--danger-ink:0 70% 44%;
+}
+*{box-sizing:border-box}
+body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));font:14.5px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,p{margin:0}
+button{font:inherit;color:inherit}
+.ic{display:inline-block;width:18px;height:18px;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;flex:none}
+.s14{width:14px;height:14px}.s16{width:16px;height:16px}.s20{width:20px;height:20px}
+.i-search{--i:url(https://api.iconify.design/ph/magnifying-glass.svg)}
+.i-clock{--i:url(https://api.iconify.design/ph/clock.svg)}
+.i-plus{--i:url(https://api.iconify.design/ph/plus.svg)}
+.i-info{--i:url(https://api.iconify.design/ph/info.svg)}
+.i-right{--i:url(https://api.iconify.design/ph/caret-right.svg)}
+.i-left{--i:url(https://api.iconify.design/ph/arrow-left.svg)}
+.i-link{--i:url(https://api.iconify.design/ph/link-simple.svg)}
+.i-truck{--i:url(https://api.iconify.design/ph/truck.svg)}
+.i-check{--i:url(https://api.iconify.design/ph/check-bold.svg)}
+.i-warn{--i:url(https://api.iconify.design/ph/warning-circle.svg)}
+.i-x{--i:url(https://api.iconify.design/ph/x.svg)}
+
+/* document */
+.doc{max-width:1240px;margin:0 auto;padding:40px 22px 90px}
+.doc h1{font:800 29px/1.15 Sora;letter-spacing:-.02em}
+.lead{color:hsl(var(--muted-foreground));max-width:900px;margin-top:10px}
+.rule{margin-top:18px;display:flex;gap:12px;align-items:flex-start;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;padding:14px 16px;max-width:900px}
+.rule .ic{color:hsl(var(--primary));margin-top:2px}
+.tabs{display:flex;gap:8px;margin-top:28px;flex-wrap:wrap}
+.tab{border:1px solid hsl(var(--border-strong));background:hsl(var(--card));border-radius:999px;padding:8px 16px;font-weight:600;cursor:pointer;display:flex;gap:8px;align-items:center}
+.tab small{font-weight:500;color:hsl(var(--muted-foreground))}
+.tab[aria-pressed=true]{background:hsl(var(--foreground));color:hsl(var(--card));border-color:hsl(var(--foreground))}
+.tab[aria-pressed=true] small{color:hsl(0 0% 100%/.7)}
+.model{display:none;margin-top:18px}
+.model.on{display:block}
+.mhead{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:18px;align-items:start}
+.mhead h2{font:800 22px/1.2 Sora;letter-spacing:-.015em}
+.mhead p{color:hsl(var(--muted-foreground));margin-top:6px}
+.pc{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;padding:12px 14px;font-size:13.5px}
+.pc h4{font:700 11px Inter;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));margin:4px 0}
+.pc ul{margin:0;padding-left:18px}
+.controls{display:flex;justify-content:space-between;gap:12px;margin-top:18px;flex-wrap:wrap;align-items:center}
+.steps{display:flex;gap:6px;flex-wrap:wrap}
+.step{border:1px solid hsl(var(--border-strong));background:hsl(var(--card));border-radius:10px;padding:6px 12px;font-size:13px;font-weight:600;cursor:pointer;color:hsl(var(--muted-foreground))}
+.step b{color:hsl(var(--foreground));margin-right:4px}
+.step[aria-pressed=true]{border-color:hsl(var(--primary));background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.step[aria-pressed=true] b{color:hsl(var(--primary-ink))}
+.seg{display:inline-flex;background:hsl(var(--card));border:1px solid hsl(var(--border-strong));border-radius:10px;padding:3px}
+.seg button{border:0;background:none;border-radius:7px;padding:5px 12px;font-size:13px;font-weight:600;cursor:pointer;color:hsl(var(--muted-foreground))}
+.seg button[aria-pressed=true]{background:hsl(var(--muted));color:hsl(var(--foreground))}
+.note{margin-top:10px;font-size:13px;color:hsl(var(--muted-foreground))}
+.note b{color:hsl(var(--foreground))}
+.stage{margin-top:12px;background:radial-gradient(hsl(220 8% 85%) 1px,transparent 1.4px) 0 0/22px 22px,hsl(220 10% 91.5%);border:1px solid hsl(var(--border));border-radius:18px;padding:26px 18px;display:flex;justify-content:center;overflow:auto}
+
+/* app frame */
+.frame{width:1160px;max-width:100%;height:660px;background:hsl(var(--background));border-radius:16px;box-shadow:0 40px 90px -32px hsl(232 48% 15%/.5);overflow:hidden;display:flex;flex-direction:column;container-type:inline-size;position:relative;flex:none}
+.frame.tabl{width:1024px;height:700px;border-radius:26px;border:10px solid hsl(235 20% 14%)}
+.frame.tabp{width:768px;height:1000px;border-radius:30px;border:10px solid hsl(235 20% 14%)}
+.frame.phone{width:390px;height:780px;border-radius:30px;border:8px solid hsl(235 20% 14%)}
+.bar{height:58px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
+.bar .eb{font:700 10.5px Inter;text-transform:uppercase;letter-spacing:.07em;color:hsl(var(--muted-foreground))}
+.bar .tt{font:800 18px/1.15 Sora;letter-spacing:-.015em}
+.bar .org{font-size:13px;font-weight:600;color:hsl(var(--muted-foreground))}
+.body{flex:1;min-height:0;padding:14px}
+.shell{height:100%;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;display:flex;flex-direction:column;overflow:hidden}
+.screen{display:none;height:100%}
+.screen.on{display:block}
+
+/* toolbar */
+.tools{display:flex;gap:8px;align-items:center;padding:12px 14px;border-bottom:1px solid hsl(var(--border));flex-wrap:wrap}
+.segt{display:inline-flex;background:hsl(var(--muted));border-radius:10px;padding:3px;flex:none}
+.segt span{padding:5px 12px;border-radius:7px;font-size:13px;font-weight:600;color:hsl(var(--muted-foreground))}
+.segt[hidden]{display:none}
+.segt span.on{background:hsl(var(--card));color:hsl(var(--foreground));box-shadow:0 1px 2px hsl(233 30% 20%/.08)}
+.search{display:flex;align-items:center;gap:8px;height:38px;border:1px solid hsl(var(--border-strong));border-radius:10px;padding:0 11px;min-width:200px;flex:1;max-width:280px}
+.search .ic{color:hsl(var(--muted-foreground))}
+.search span{color:hsl(var(--muted-foreground));font-size:14px;white-space:nowrap}
+.search.typed span{color:hsl(var(--foreground))}
+.fchip{border:1px solid hsl(var(--border-strong));border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600;color:hsl(var(--muted-foreground));white-space:nowrap}
+.fchip.on{border-color:hsl(var(--primary));background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.grow{flex:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;font-weight:600;font-size:14px;border:1px solid transparent;white-space:nowrap;cursor:pointer}
+.btn.pr{background:hsl(var(--primary));color:#fff}
+.btn.ol{background:hsl(var(--card));border-color:hsl(var(--border-strong))}
+.btn.sm{height:32px;padding:0 12px;font-size:13px;border-radius:9px}
+.btn.lg{height:46px;font-size:15px}
+.scroll{flex:1;min-height:0;overflow:auto}
+.grp{display:flex;align-items:center;gap:8px;padding:9px 16px;font-size:12.5px;font-weight:700;color:hsl(var(--muted-foreground));background:hsl(var(--muted)/.55);border-bottom:1px solid hsl(var(--border));position:sticky;top:0;z-index:1}
+.grp .ic{width:15px;height:15px}
+.grp.w{color:hsl(var(--warning-ink));background:hsl(var(--warning-soft)/.6)}
+.cnt{min-width:22px;text-align:center;border-radius:999px;padding:0 7px;font-size:11.5px;background:hsl(var(--card));border:1px solid hsl(var(--border))}
+
+/* shared bits */
+.name{font:700 14.5px Sora;letter-spacing:-.005em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sub{font-size:12.5px;color:hsl(var(--muted-foreground));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kind{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:none;background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.pill{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:1px 8px;font-size:11.5px;font-weight:600;white-space:nowrap}
+.pill.p{background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.pill.m{background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.pill.s{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+.pill.d{background:hsl(var(--danger-soft));color:hsl(var(--danger-ink))}
+.osn{font:700 13px Sora;color:hsl(var(--primary));white-space:nowrap}
+.noos{font-size:13px;color:hsl(var(--muted-foreground));white-space:nowrap}
+.idle{display:inline-flex;align-items:center;gap:4px;font-size:13px;color:hsl(var(--muted-foreground));white-space:nowrap}
+.idle.late{color:hsl(var(--warning-ink));font-weight:600}
+.nc{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:hsl(var(--danger-ink));white-space:nowrap}
+.nc b{display:grid;place-items:center;min-width:22px;height:22px;border-radius:999px;background:hsl(var(--danger-soft));font:700 11.5px Sora;padding:0 6px}
+.nc0{font-size:13px;color:hsl(var(--muted-foreground))}
+.track{height:6px;border-radius:99px;background:hsl(var(--muted));overflow:hidden;display:flex;flex:1;min-width:50px}
+.track i{display:block;height:100%}
+.track .ok{background:hsl(var(--primary))}
+.track .bad{background:hsl(var(--danger))}
+.pct{font:700 12.5px Sora;font-variant-numeric:tabular-nums;width:38px;text-align:right}
+.ring{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;flex:none}
+.ring span{width:36px;height:36px;border-radius:50%;background:hsl(var(--card));display:grid;place-items:center;font:800 11px Sora;font-variant-numeric:tabular-nums}
+.ready{font-size:13px;font-weight:600;color:hsl(var(--success-ink))}
+.res{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600}
+.res .dot{width:22px;height:22px;border-radius:7px;display:grid;place-items:center}
+.res.ok .dot{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+.res.bad .dot{background:hsl(var(--danger-soft));color:hsl(var(--danger-ink))}
+
+/* ===== A · table ===== */
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{position:sticky;top:0;background:hsl(var(--card));z-index:2;text-align:left;font:700 11px Inter;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));padding:9px 12px;border-bottom:1px solid hsl(var(--border));white-space:nowrap}
+.tbl td{padding:10px 12px;border-bottom:1px solid hsl(var(--border));vertical-align:middle}
+.tbl tr.r:hover td{background:hsl(var(--muted)/.45)}
+.tbl tr.g td{padding:0;border-bottom:0}
+.tbl tr.g .grp{position:static}
+.tbl .who{display:flex;gap:10px;align-items:center;min-width:0}
+.tbl .who>div{min-width:0}
+.tbl .prog{display:flex;align-items:center;gap:8px;min-width:150px}
+.tbl .left{font-size:12px;color:hsl(var(--muted-foreground));margin-top:2px}
+.tbl .osc{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+.tbl .act{text-align:right;width:1%}
+.tbl .cw{max-width:240px}
+.tbl .tplc{max-width:220px}
+.tbl .tplc .sub{color:hsl(var(--foreground)/.85);font-size:13px}
+.inline-tpl{display:none}
+@container (max-width:1040px){
+  .tbl .col-tpl{display:none}
+  .inline-tpl{display:block}
+  .tbl .prog{min-width:120px}
+}
+
+/* ===== B · two-line rows ===== */
+.rows{list-style:none;margin:0;padding:0}
+.rowb{display:grid;grid-template-columns:44px minmax(0,1fr) 150px 92px auto;gap:14px;align-items:center;padding:12px 16px;border-bottom:1px solid hsl(var(--border));cursor:pointer}
+.rowb:hover{background:hsl(var(--muted)/.45)}
+.rowb .l1{display:flex;gap:8px;align-items:baseline;min-width:0}
+.rowb .l1 .sub{flex:none}
+.rowb .l2{font-size:13px;color:hsl(var(--foreground)/.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+.rowb .l3{display:flex;gap:12px;align-items:center;margin-top:4px;flex-wrap:wrap}
+.rowb .l3 .left{font-size:13px;color:hsl(var(--muted-foreground))}
+.rowb .l3 .left b{color:hsl(var(--foreground))}
+.rowb .osc{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+.rowb .chev{color:hsl(var(--muted-foreground));display:none}
+.rowb.done{grid-template-columns:44px minmax(0,1fr) 150px 140px 104px}
+@container (max-width:1040px){
+  .rowb{grid-template-columns:44px minmax(0,1fr) 130px 80px auto;gap:12px}
+}
+@container (max-width:800px){
+  .rowb{grid-template-columns:44px minmax(0,1fr) auto;grid-template-areas:"ring main act" "ring meta act"}
+  .rowb .ringc{grid-area:ring;align-self:start}
+  .rowb .main{grid-area:main}
+  .rowb .osc{grid-area:meta;flex-direction:row;align-items:center;gap:8px}
+  .rowb .idlec{display:none}
+  .rowb .actc{grid-area:act}
+  .rowb.done{grid-template-columns:44px minmax(0,1fr) auto;grid-template-areas:"ring main act" "ring meta act"}
+  .rowb.done .whenc{display:none}
+}
+
+/* ===== C · list + summary ===== */
+.splitc{display:grid;grid-template-columns:420px minmax(0,1fr);flex:1;min-height:0}
+.listc{border-right:1px solid hsl(var(--border));display:flex;flex-direction:column;min-height:0}
+.rowc{display:flex;gap:11px;align-items:flex-start;padding:11px 14px;border-bottom:1px solid hsl(var(--border));cursor:pointer;position:relative}
+.rowc:hover{background:hsl(var(--muted)/.45)}
+.rowc.sel{background:hsl(var(--primary-soft)/.7)}
+.rowc.sel::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:3px;border-radius:0 3px 3px 0;background:hsl(var(--primary))}
+.rowc .mainc{flex:1;min-width:0}
+.rowc .t1{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.rowc .t3{display:flex;gap:10px;align-items:center;margin-top:6px}
+.rowc .t3 .track{max-width:120px}
+.sum{min-height:0;overflow:auto;background:hsl(var(--background))}
+.sumw{padding:22px;max-width:640px}
+.back{display:none;align-items:center;gap:6px;font-size:13px;font-weight:600;color:hsl(var(--muted-foreground));margin-bottom:12px}
+.box{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;padding:16px 18px}
+.sumh{display:flex;gap:16px;align-items:center}
+.sumh .ring{width:72px;height:72px}
+.sumh .ring span{width:60px;height:60px;font-size:16px}
+.sumh h3{font:800 20px/1.2 Sora}
+.chips{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.veh{border:1px solid hsl(var(--border));border-radius:9px;padding:4px 9px;font:700 12.5px Sora;background:hsl(var(--card))}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.stat{border:1px solid hsl(var(--border));border-radius:12px;padding:9px 12px;background:hsl(var(--card))}
+.stat b{display:block;font:800 19px Sora;font-variant-numeric:tabular-nums}
+.stat span{font-size:12px;color:hsl(var(--muted-foreground))}
+.stat.d b{color:hsl(var(--danger-ink))}
+.sect{font:700 11px Inter;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));margin:18px 2px 8px}
+.fail{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid hsl(var(--border));font-size:13.5px}
+.fail:last-child{border-bottom:0}
+.fail .ic{color:hsl(var(--danger-ink));margin-top:2px}
+.fail small{display:block;font-size:12px;color:hsl(var(--muted-foreground))}
+.osbox{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px}
+.sumf{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:16px;flex-wrap:wrap}
+@container (max-width:1040px){ .splitc{grid-template-columns:360px minmax(0,1fr)} }
+@container (max-width:800px){
+  .splitc{grid-template-columns:1fr}
+  .screen:not(.picked) .sum{display:none}
+  .screen.picked .listc{display:none}
+  .back{display:inline-flex}
+}
+
+/* phone */
+@container (max-width:600px){
+  .bar .org{display:none}
+  .body{padding:8px}
+  .tools{padding:10px}
+  .search{max-width:none;min-width:0;flex-basis:100%;order:3}
+  .tools .fchip{order:4}
+  .tools .grow{display:none}
+  .tools .hidep{display:none}
+  .tools .newb{margin-left:auto}
+  .tbl thead{display:none}
+  .tbl,.tbl tbody,.tbl tr.r,.tbl tr.r td{display:block;width:100%}
+  .tbl tr.r{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 10px;padding:12px 14px;border-bottom:1px solid hsl(var(--border))}
+  .tbl tr.r td{padding:0;border:0}
+  .tbl tr.r td.cw{grid-column:1/-1;max-width:none}
+  .tbl tr.r td.col-tpl{display:none}
+  .tbl tr.r td.c-prog{grid-column:1/-1}
+  .tbl tr.r td.c-nc{grid-column:1/-1}
+  .tbl tr.r td.c-os{grid-column:1}
+  .tbl tr.r td.c-idle{grid-column:2;text-align:right;align-self:center}
+  .tbl tr.r td.act{display:none}
+  .tbl tr.r td.c-when{grid-column:2;text-align:right}
+  .tbl tr.g{display:block}
+  .rowb{padding:12px}
+  .rowb .actc .btn{display:none}
+  .rowb .chev{display:block}
+  .stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .sumw{padding:12px}
+}
+.recommend{margin-top:30px;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;padding:18px 20px;max-width:900px}
+.recommend h3{font:800 18px Sora}
+.recommend p{color:hsl(var(--foreground)/.85);font-size:14px;margin-top:6px}
+.recommend table{border-collapse:collapse;margin-top:12px;font-size:13.5px;width:100%}
+.recommend th,.recommend td{text-align:left;border-bottom:1px solid hsl(var(--border));padding:7px 8px;vertical-align:top}
+.recommend th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground))}
+@media (max-width:820px){.mhead{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="doc">
+  <h1>Inspeções em lista · 3 modelos</h1>
+  <p class="lead">Hoje as inspeções aparecem em cards, três por linha, e muita coisa se repete em cada card. Em lista, cabe mais inspeção na tela e dá para comparar de cima para baixo: o que está parado, o que tem falha, o que já tem OS. Os três modelos mostram a mesma informação de jeitos diferentes. Escolha o modelo e passe pelos estados; os botões <b>Tablet</b> e <b>Celular</b> mostram o mesmo estado nesses aparelhos.</p>
+  <div class="rule"><span class="ic i-info s20"></span><p><b>O que não muda:</b> abas Em andamento e Concluídos, busca por placa, conjunto ou OS, filtros Com não conforme e Sem OS, grupo "Parados há mais de 1 dia" no topo. Conjunto aparece pelo nome; as placas ficam no tooltip ou no resumo.</p></div>
+
+  <div class="tabs" id="tabs">
+    <button class="tab" data-model="a" aria-pressed="true">A · Tabela <small>mais densa</small></button>
+    <button class="tab" data-model="b" aria-pressed="false">B · Linhas de toque <small>tablet primeiro</small></button>
+    <button class="tab" data-model="c" aria-pressed="false">C · Lista e resumo <small>vê antes de abrir</small></button>
+  </div>
+
+  <!-- ===================== MODEL A ===================== -->
+  <section class="model on" data-model="a">
+    <div class="mhead">
+      <div>
+        <h2>A · Tabela</h2>
+        <p>Uma linha por inspeção, com colunas: conjunto ou veículo, modelo, progresso, não conformes, OS e tempo parado. No notebook cabe uma frota inteira na tela; no tablet a coluna do modelo vai para baixo do nome; no celular cada linha vira um bloco de três linhas.</p>
+      </div>
+      <div class="pc"><h4>A favor</h4><ul><li>Mais inspeções por tela; comparar é ler a coluna.</li><li>É o padrão das outras listas de gestão.</li></ul><h4>Contra</h4><ul><li>Linha baixa para o dedo no tablet.</li><li>No celular a tabela precisa virar outra coisa.</li></ul></div>
+    </div>
+    <div class="controls">
+      <div class="steps">
+        <button class="step" data-s="a1" aria-pressed="true"><b>1</b>Em andamento</button>
+        <button class="step" data-s="a2" aria-pressed="false"><b>2</b>Concluídos</button>
+        <button class="step" data-s="a3" aria-pressed="false"><b>3</b>Filtrado</button>
+      </div>
+      <div class="seg"><button data-dev="nb" aria-pressed="true">Notebook</button><button data-dev="tabl" aria-pressed="false">Tablet deitado</button><button data-dev="tabp" aria-pressed="false">Tablet em pé</button><button data-dev="phone" aria-pressed="false">Celular</button></div>
+    </div>
+    <p class="note" data-note="a1"><b>Em andamento:</b> a linha inteira abre a inspeção; o botão <b>Continuar</b> fica à direita. Parado há mais de 1 dia fica no grupo de cima, com o tempo em laranja.</p>
+    <p class="note" data-note="a2" hidden><b>Concluídos:</b> sem progresso; mostra o resultado (tudo conforme ou quantos não conformes), a OS e quando terminou.</p>
+    <p class="note" data-note="a3" hidden><b>Filtrado:</b> "Com não conforme" ligado e busca por 225. Os grupos continuam, com a contagem do filtro.</p>
+    <div class="stage"><div class="frame"><div class="bar"><div><p class="eb">Checklists</p><p class="tt">Inspeções</p></div><span class="org">Transportadora Demo</span></div><div class="body">
+      <div class="screen on" data-s="a1" data-view="a-open"></div>
+      <div class="screen" data-s="a2" data-view="a-done"></div>
+      <div class="screen" data-s="a3" data-view="a-filter"></div>
+    </div></div></div>
+  </section>
+
+  <!-- ===================== MODEL B ===================== -->
+  <section class="model" data-model="b">
+    <div class="mhead">
+      <div>
+        <h2>B · Linhas de toque</h2>
+        <p>Lista sem cabeçalho de colunas, com linhas mais altas: o anel de progresso à esquerda, o nome em destaque e, embaixo, o modelo e o que falta. OS, tempo parado e <b>Continuar</b> ficam à direita. No tablet em pé e no celular, a OS desce para a segunda linha e o botão vira uma seta.</p>
+      </div>
+      <div class="pc"><h4>A favor</h4><ul><li>Feita para o dedo: linha de 72 px, alvo grande.</li><li>A mesma leitura em todos os aparelhos.</li></ul><h4>Contra</h4><ul><li>Cabem menos linhas que na tabela.</li><li>Sem colunas, comparar números é mais lento.</li></ul></div>
+    </div>
+    <div class="controls">
+      <div class="steps">
+        <button class="step" data-s="b1" aria-pressed="true"><b>1</b>Em andamento</button>
+        <button class="step" data-s="b2" aria-pressed="false"><b>2</b>Fim da lista</button>
+        <button class="step" data-s="b3" aria-pressed="false"><b>3</b>Filtrado</button>
+      </div>
+      <div class="seg"><button data-dev="nb" aria-pressed="true">Notebook</button><button data-dev="tabl" aria-pressed="false">Tablet deitado</button><button data-dev="tabp" aria-pressed="false">Tablet em pé</button><button data-dev="phone" aria-pressed="false">Celular</button></div>
+    </div>
+    <p class="note" data-note="b1"><b>Em andamento:</b> o anel é o mesmo dos cards de hoje (azul respondido, vermelho não conforme). "Pronto para concluir" aparece em verde quando não falta nada.</p>
+    <p class="note" data-note="b2" hidden><b>Fim da lista:</b> uma página só, sem abas. Depois das abertas vem o grupo Concluídos, do mais recente ao mais antigo; a inspeção concluída nunca some da lista. No lugar do anel, um ícone de resultado (verde tudo conforme, vermelho com falha) e, no fim da linha, <b>Concluído</b>.</p>
+    <p class="note" data-note="b3" hidden><b>Filtrado:</b> "Com não conforme" ligado e busca por 225.</p>
+    <div class="stage"><div class="frame"><div class="bar"><div><p class="eb">Checklists</p><p class="tt">Inspeções</p></div><span class="org">Transportadora Demo</span></div><div class="body">
+      <div class="screen on" data-s="b1" data-view="b-open"></div>
+      <div class="screen" data-s="b2" data-view="b-done"></div>
+      <div class="screen" data-s="b3" data-view="b-filter"></div>
+    </div></div></div>
+  </section>
+
+  <!-- ===================== MODEL C ===================== -->
+  <section class="model" data-model="c">
+    <div class="mhead">
+      <div>
+        <h2>C · Lista e resumo</h2>
+        <p>Lista compacta à esquerda; ao tocar numa inspeção, o lado direito mostra o resumo: veículos, quanto falta, as falhas encontradas e a OS. <b>Continuar</b> fica no resumo. No tablet em pé e no celular é um lado por vez, como na tela de começar checklist.</p>
+      </div>
+      <div class="pc"><h4>A favor</h4><ul><li>Vê as falhas e a OS sem abrir a inspeção.</li><li>Bom para o encarregado acompanhar do notebook.</li></ul><h4>Contra</h4><ul><li>Um toque a mais para continuar a inspeção.</li><li>Precisa de uma consulta nova: as falhas de cada inspeção.</li></ul></div>
+    </div>
+    <div class="controls">
+      <div class="steps">
+        <button class="step" data-s="c1" aria-pressed="true"><b>1</b>Em andamento</button>
+        <button class="step" data-s="c2" aria-pressed="false"><b>2</b>Resumo aberto</button>
+        <button class="step" data-s="c3" aria-pressed="false"><b>3</b>Concluídos</button>
+      </div>
+      <div class="seg"><button data-dev="nb" aria-pressed="true">Notebook</button><button data-dev="tabl" aria-pressed="false">Tablet deitado</button><button data-dev="tabp" aria-pressed="false">Tablet em pé</button><button data-dev="phone" aria-pressed="false">Celular</button></div>
+    </div>
+    <p class="note" data-note="c1"><b>Em andamento:</b> no notebook a primeira inspeção já vem selecionada. No tablet em pé e no celular aparece só a lista.</p>
+    <p class="note" data-note="c2" hidden><b>Resumo aberto:</b> no tablet em pé e no celular, tocar na linha abre o resumo em tela cheia, com <b>Voltar</b>.</p>
+    <p class="note" data-note="c3" hidden><b>Concluídos:</b> o resumo mostra o resultado e as falhas que viraram serviço na OS.</p>
+    <div class="stage"><div class="frame"><div class="bar"><div><p class="eb">Checklists</p><p class="tt">Inspeções</p></div><span class="org">Transportadora Demo</span></div><div class="body">
+      <div class="screen on" data-s="c1" data-view="c-open"></div>
+      <div class="screen picked" data-s="c2" data-view="c-pick"></div>
+      <div class="screen" data-s="c3" data-view="c-done"></div>
+    </div></div></div>
+  </section>
+
+  <div class="recommend">
+    <h3>Comparação</h3>
+    <table>
+      <tr><th></th><th>A · Tabela</th><th>B · Linhas de toque</th><th>C · Lista e resumo</th></tr>
+      <tr><td>Inspeções por tela (notebook)</td><td>~11</td><td>~7</td><td>~8, com resumo</td></tr>
+      <tr><td>Tablet (uso principal)</td><td>Bom deitado, apertado em pé</td><td>Melhor</td><td>Bom deitado, um lado por vez em pé</td></tr>
+      <tr><td>Toques para continuar</td><td>1</td><td>1</td><td>2 (1 no notebook, com a seleção)</td></tr>
+      <tr><td>Mudança no código</td><td>Só a web</td><td>Só a web</td><td>Web e API (falhas no resumo)</td></tr>
+    </table>
+    <p><b>Recomendação: B.</b> A tela é mais usada no tablet; a linha de toque funciona igual deitado, em pé e no celular, e continua mais densa que os cards. Se o encarregado pedir para ver as falhas sem abrir, o resumo do C pode entrar depois, por cima do B.</p>
+  </div>
+</div>
+
+<script>
+const OPEN = [
+  { name: 'Conjunto 22500', kind: 'set', n: 3, plates: 'CRT7W18 · RTP1S27 · RTK3N71', tpl: 'Plano de Manutenção 60 dias', no: 'CHK-000001', total: 117, left: 112, fail: 3, os: { n: 'OS-000001', st: 'Em manutenção', t: 'p' }, idle: '1 dia', late: true },
+  { name: 'Conjunto 22600', kind: 'set', n: 3, plates: 'ABN1C45 · ABN1C44 · ABN1C33', tpl: 'Plano de Manutenção 60 dias', no: 'CHK-000003', total: 117, left: 116, fail: 1, os: null, idle: '6 h' },
+  { name: 'Conjunto 22500', kind: 'set', n: 3, plates: 'CRT7W18 · RTP1S27 · RTK3N71', tpl: 'Plano de Manutenção 60 dias', no: 'CHK-000004', total: 117, left: 43, fail: 2, os: null, idle: '6 h' },
+  { name: 'Conjunto 22200', kind: 'set', n: 3, plates: 'QPA2D10 · QPA2D11 · QPA2D12', tpl: 'Plano de Manutenção 60 dias', no: 'CHK-000005', total: 117, left: 113, fail: 4, os: { n: 'OS-000002', st: 'Na fila', t: 'm' }, idle: '5 min' },
+  { name: 'RTB7F31', kind: 'vehicle', n: 1, plates: 'Cavalo · Frota 812', tpl: 'Saída de viagem', no: 'CHK-000006', total: 18, left: 0, fail: 0, os: null, idle: '12 min' },
+];
+const DONE = [
+  { name: 'Conjunto 22300', kind: 'set', n: 3, plates: 'KLM4E20 · KLM4E21 · KLM4E22', tpl: 'Saída de viagem', no: 'CHK-000009', fail: 0, os: null, when: 'Hoje, 14:20' },
+  { name: 'RTB7F31', kind: 'vehicle', n: 1, plates: 'Cavalo · Frota 812', tpl: 'Inspeção de entrada', no: 'CHK-000008', fail: 2, os: { n: 'OS-000003', st: 'Em manutenção', t: 'p' }, when: 'Ontem, 17:05' },
+  { name: 'Conjunto 22100', kind: 'set', n: 3, plates: 'HTR8B01 · HTR8B02 · HTR8B03', tpl: 'Plano de Manutenção 60 dias', no: 'CHK-000002', fail: 5, os: { n: 'OS-000004', st: 'Finalizada', t: 's' }, when: '20/11, 10:42' },
+];
+const FAILS = [
+  ['Lona de freio gasta', 'CRT7W18 · Eixo 2, lado esquerdo'],
+  ['Lanterna traseira quebrada', 'RTP1S27'],
+  ['Pneu com corte lateral', 'RTK3N71 · Eixo 1, lado direito, externo'],
+];
+
+const pct = (c) => Math.round(((c.total - c.left) / c.total) * 100);
+const okEnd = (c) => (((c.total - c.left - c.fail) / c.total) * 100).toFixed(1);
+const badEnd = (c) => (((c.total - c.left) / c.total) * 100).toFixed(1);
+const ring = (c) => `<span class="ring" style="background:conic-gradient(hsl(var(--primary)) 0 ${okEnd(c)}%,hsl(var(--danger)) ${okEnd(c)}% ${badEnd(c)}%,hsl(var(--muted)) 0)"><span>${pct(c)}%</span></span>`;
+const track = (c) => `<span class="track"><i class="ok" style="width:${okEnd(c)}%"></i><i class="bad" style="width:${(badEnd(c) - okEnd(c)).toFixed(1)}%"></i></span>`;
+const kindIcon = (c) => `<span class="kind"><span class="ic ${c.kind === 'set' ? 'i-link' : 'i-truck'} s16"></span></span>`;
+const os = (c) => (c.os ? `<span class="osn">${c.os.n}</span><span class="pill ${c.os.t}">${c.os.st}</span>` : '<span class="noos">Sem OS</span>');
+const idle = (c) => `<span class="idle${c.late ? ' late' : ''}"><span class="ic i-clock s14"></span>${c.idle}</span>`;
+const nc = (c) => (c.fail ? `<span class="nc"><b>${c.fail}</b>${c.fail === 1 ? 'não conforme' : 'não conformes'}</span>` : '<span class="nc0">Nenhum não conforme</span>');
+const left = (c) => (c.left ? `<span class="left"><b>${c.left}</b> sem resposta</span>` : '<span class="ready">Pronto para concluir</span>');
+const count = (c) => (c.n > 1 ? `${c.n} veículos` : 'Veículo');
+const result = (c) => (c.fail ? `<span class="res bad"><span class="dot"><span class="ic i-warn s14"></span></span>${c.fail} ${c.fail === 1 ? 'não conforme' : 'não conformes'}</span>` : '<span class="res ok"><span class="dot"><span class="ic i-check s14"></span></span>Tudo conforme</span>');
+
+function tools(done, filtered, single) {
+  return `<div class="tools">
+    <span class="segt"${single ? ' hidden' : ''}><span class="${done ? '' : 'on'}">Em andamento</span><span class="${done ? 'on' : ''}">Concluídos</span></span>
+    <span class="search${filtered ? ' typed' : ''}"><span class="ic i-search s16"></span><span>${filtered ? '225' : 'Placa, conjunto ou OS'}</span></span>
+    <span class="fchip${filtered ? ' on' : ''}">Com não conforme</span><span class="fchip">Sem OS</span>
+    <span class="grow"></span>
+    <button class="btn ol hidep">Modelos</button><button class="btn pr newb"><span class="ic i-plus s16"></span>Começar checklist</button>
+  </div>`;
+}
+const groups = (list) => [
+  { label: 'Parados há mais de 1 dia', w: true, items: list.filter((c) => c.late) },
+  { label: 'Em dia', w: false, items: list.filter((c) => !c.late) },
+].filter((g) => g.items.length);
+const grp = (g) => `<div class="grp${g.w ? ' w' : ''}">${g.w ? '<span class="ic i-clock"></span>' : ''}${g.label}<span class="cnt">${g.items.length}</span></div>`;
+
+/* A */
+function aOpen(list) {
+  const rows = groups(list).map((g) => `<tr class="g"><td colspan="7">${grp(g)}</td></tr>` + g.items.map((c) => `<tr class="r">
+    <td class="cw"><div class="who">${kindIcon(c)}<div><p class="name" title="${c.plates}">${c.name}</p><p class="sub">${count(c)} · ${c.no}</p><p class="sub inline-tpl">${c.tpl}</p></div></div></td>
+    <td class="tplc col-tpl"><p class="sub">${c.tpl}</p></td>
+    <td class="c-prog"><div class="prog">${track(c)}<span class="pct">${pct(c)}%</span></div><p class="left">${c.left ? c.left + ' sem resposta' : '<span class="ready">Pronto para concluir</span>'}</p></td>
+    <td class="c-nc">${c.fail ? nc(c) : '<span class="nc0">—</span>'}</td>
+    <td class="c-os"><div class="osc">${os(c)}</div></td>
+    <td class="c-idle">${idle(c)}</td>
+    <td class="act"><button class="btn pr sm">Continuar</button></td></tr>`).join('')).join('');
+  return `<thead><tr><th>Conjunto ou veículo</th><th class="col-tpl">Modelo</th><th>Progresso</th><th>Não conformes</th><th>OS</th><th>Parado há</th><th></th></tr></thead><tbody>${rows}</tbody>`;
+}
+function aDone(list) {
+  const rows = list.map((c) => `<tr class="r">
+    <td class="cw"><div class="who">${kindIcon(c)}<div><p class="name" title="${c.plates}">${c.name}</p><p class="sub">${count(c)} · ${c.no}</p><p class="sub inline-tpl">${c.tpl}</p></div></div></td>
+    <td class="tplc col-tpl"><p class="sub">${c.tpl}</p></td>
+    <td class="c-nc">${result(c)}</td>
+    <td class="c-os"><div class="osc">${os(c)}</div></td>
+    <td class="c-when"><span class="idle">${c.when}</span></td></tr>`).join('');
+  return `<thead><tr><th>Conjunto ou veículo</th><th class="col-tpl">Modelo</th><th>Resultado</th><th>OS</th><th>Concluído</th></tr></thead><tbody>${rows}</tbody>`;
+}
+
+/* B */
+function bRow(c) {
+  return `<li class="rowb">
+    <span class="ringc">${ring(c)}</span>
+    <div class="main"><div class="l1"><span class="name" title="${c.plates}">${c.name}</span><span class="sub">${count(c)}</span></div>
+      <p class="l2">${c.tpl} · ${c.no}</p>
+      <div class="l3">${left(c)}${c.fail ? nc(c) : ''}</div></div>
+    <div class="osc">${os(c)}</div>
+    <div class="idlec">${idle(c)}</div>
+    <div class="actc"><button class="btn pr sm">Continuar</button><span class="ic i-right chev s20"></span></div>
+  </li>`;
+}
+function bDoneRow(c) {
+  return `<li class="rowb done">
+    <span class="ringc"><span class="ring" style="background:none"><span class="res ${c.fail ? 'bad' : 'ok'}" style="width:auto;height:auto;background:none"><span class="dot" style="width:40px;height:40px;border-radius:12px"><span class="ic ${c.fail ? 'i-warn' : 'i-check'} s20"></span></span></span></span></span>
+    <div class="main"><div class="l1"><span class="name" title="${c.plates}">${c.name}</span><span class="sub">${count(c)}</span></div>
+      <p class="l2">${c.tpl} · ${c.no}</p>
+      <div class="l3">${c.fail ? nc(c) : '<span class="ready">Tudo conforme</span>'}</div></div>
+    <div class="osc">${os(c)}</div>
+    <div class="whenc"><span class="idle">${c.when}</span></div>
+    <div class="actc"><span class="pill s" style="height:28px;padding:0 10px"><span class="ic i-check s14"></span>Concluído</span></div>
+  </li>`;
+}
+
+/* C */
+function cRow(c, sel) {
+  return `<div class="rowc${sel ? ' sel' : ''}">${kindIcon(c)}<div class="mainc">
+    <div class="t1"><span class="name" title="${c.plates}">${c.name}</span>${c.idle ? idle(c) : `<span class="idle">${c.when}</span>`}</div>
+    <p class="sub">${c.tpl} · ${c.no}</p>
+    <div class="t3">${c.total ? `${track(c)}<span class="pct" style="width:auto">${pct(c)}%</span>` : result(c)}${c.total && c.fail ? `<span class="nc"><b>${c.fail}</b></span>` : ''}${c.os ? `<span class="osn" style="font-size:12px">${c.os.n}</span>` : ''}</div>
+  </div></div>`;
+}
+function cSummary(c, done) {
+  const plates = c.plates.split(' · ');
+  const stats = done
+    ? `<div class="stats"><div class="stat"><b>${c.n === 1 ? 18 : 117}</b><span>itens</span></div><div class="stat d"><b>${c.fail}</b><span>não conformes</span></div><div class="stat"><b>${c.fail}</b><span>serviços na OS</span></div></div>`
+    : `<div class="stats"><div class="stat"><b>${c.total - c.left - c.fail}</b><span>conformes</span></div><div class="stat d"><b>${c.fail}</b><span>não conformes</span></div><div class="stat"><b>${c.left}</b><span>sem resposta</span></div></div>`;
+  return `<div class="sumw">
+    <span class="back"><span class="ic i-left s14"></span>Voltar</span>
+    <div class="box"><div class="sumh">${done ? `<span class="res ${c.fail ? 'bad' : 'ok'}"><span class="dot" style="width:60px;height:60px;border-radius:16px"><span class="ic ${c.fail ? 'i-warn' : 'i-check'} s20"></span></span></span>` : ring(c)}
+      <div style="min-width:0"><h3>${c.name}</h3><p class="sub">${c.tpl} · ${c.no}</p></div></div>
+      <div class="chips">${plates.map((p) => `<span class="veh">${p}</span>`).join('')}</div>
+      ${stats}
+      <div class="osbox"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">${os(c)}</div>${done ? `<span class="idle">${c.when}</span>` : idle(c)}</div>
+    </div>
+    <p class="sect">Falhas encontradas</p>
+    <div class="box" style="padding:4px 16px">${c.fail === 0 ? '<p class="fail">Nenhuma falha até agora</p>' : ''}${FAILS.slice(0, Math.min(3, c.fail)).map(([t, w]) => `<div class="fail"><span class="ic i-warn s16"></span><div>${t}<small>${w}</small></div></div>`).join('')}</div>
+    <div class="sumf"><span class="sub">${done ? 'Concluído' : `${c.total - c.left} de ${c.total} respondidos`}</span><button class="btn pr lg">${done ? 'Ver inspeção' : 'Continuar inspeção'}</button></div>
+  </div>`;
+}
+function cView(list, sel, done) {
+  const body = done
+    ? list.map((c, i) => cRow(c, i === sel)).join('')
+    : groups(list).map((g) => grp(g) + g.items.map((c) => cRow(c, c === list[sel])).join('')).join('');
+  return `<div class="shell">${tools(done, false)}<div class="splitc"><div class="listc"><div class="scroll">${body}</div></div><div class="sum">${cSummary(list[sel], done)}</div></div></div>`;
+}
+
+const filtered = OPEN.filter((c) => c.fail && c.name.includes('225'));
+const VIEWS = {
+  'a-open': `<div class="shell">${tools(false, false)}<div class="scroll"><table class="tbl">${aOpen(OPEN)}</table></div></div>`,
+  'a-done': `<div class="shell">${tools(true, false)}<div class="scroll"><table class="tbl">${aDone(DONE)}</table></div></div>`,
+  'a-filter': `<div class="shell">${tools(false, true)}<div class="scroll"><table class="tbl">${aOpen(filtered)}</table></div></div>`,
+  'b-open': `<div class="shell">${tools(false, false, true)}<div class="scroll">${groups(OPEN).map((g) => grp(g) + `<ul class="rows">${g.items.map(bRow).join('')}</ul>`).join('')}${grp({ label: 'Concluídos', items: DONE })}<ul class="rows">${DONE.map(bDoneRow).join('')}</ul></div></div>`,
+  'b-done': `<div class="shell">${tools(false, false, true)}<div class="scroll">${grp({ label: 'Concluídos', items: DONE })}<ul class="rows">${DONE.map(bDoneRow).join('')}</ul></div></div>`,
+  'b-filter': `<div class="shell">${tools(false, true, true)}<div class="scroll">${groups(filtered).map((g) => grp(g) + `<ul class="rows">${g.items.map(bRow).join('')}</ul>`).join('')}</div></div>`,
+  'c-open': cView(OPEN, 0, false),
+  'c-pick': cView(OPEN, 0, false),
+  'c-done': cView(DONE, 1, true),
+};
+document.querySelectorAll('[data-view]').forEach((el) => { el.innerHTML = VIEWS[el.dataset.view]; });
+
+const tabs = document.querySelectorAll('#tabs .tab');
+tabs.forEach((tab) => tab.addEventListener('click', () => {
+  tabs.forEach((other) => other.setAttribute('aria-pressed', String(other === tab)));
+  document.querySelectorAll('.model').forEach((model) => model.classList.toggle('on', model.dataset.model === tab.dataset.model));
+}));
+document.querySelectorAll('.model').forEach((model) => {
+  const steps = model.querySelectorAll('.step');
+  steps.forEach((step) => step.addEventListener('click', () => {
+    steps.forEach((other) => other.setAttribute('aria-pressed', String(other === step)));
+    model.querySelectorAll('.screen').forEach((screen) => screen.classList.toggle('on', screen.dataset.s === step.dataset.s));
+    model.querySelectorAll('[data-note]').forEach((note) => { note.hidden = note.dataset.note !== step.dataset.s; });
+  }));
+  if (model.dataset.model === 'c') {
+    model.querySelectorAll('.screen[data-s="c1"] .rowc').forEach((row) => { row.addEventListener('click', () => model.querySelector('.step[data-s="c2"]').click()); });
+    model.querySelectorAll('.back').forEach((back) => { back.style.cursor = 'pointer'; back.addEventListener('click', () => model.querySelector('.step[data-s="c1"]').click()); });
+  }
+  const devices = model.querySelectorAll('[data-dev]');
+  devices.forEach((device) => device.addEventListener('click', () => {
+    devices.forEach((other) => other.setAttribute('aria-pressed', String(other === device)));
+    const frame = model.querySelector('.frame'); frame.classList.remove('phone', 'tabl', 'tabp'); if (device.dataset.dev !== 'nb') frame.classList.add(device.dataset.dev);
+  }));
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ações do serviço no checklist · 3 modelos · mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --foreground:240 10% 4%;--card:0 0% 100%;--background:230 20% 97.5%;
+  --primary:233 66% 52%;--primary-ink:233 70% 40%;--primary-soft:233 85% 96.5%;
+  --muted:240 5% 95%;--muted-foreground:240 4% 44%;--border:240 6% 90%;--border-strong:240 6% 83%;
+  --canvas:228 16% 90%;
+  --success:150 55% 42%;--success-soft:150 52% 94%;--success-ink:152 64% 26%;
+  --warning:36 92% 50%;--warning-soft:40 96% 92%;--warning-ink:26 85% 32%;
+  --danger:0 82% 60%;--danger-soft:0 88% 96.5%;--danger-ink:0 70% 44%;
+}
+*{box-sizing:border-box}
+body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));font:14.5px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,p{margin:0}
+button{font:inherit;color:inherit}
+.ic{display:inline-block;width:18px;height:18px;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;flex:none}
+.s14{width:14px;height:14px}.s16{width:16px;height:16px}.s20{width:20px;height:20px}
+.i-wrench{--i:url(https://api.iconify.design/ph/wrench.svg)}
+.i-plus{--i:url(https://api.iconify.design/ph/plus-bold.svg)}
+.i-x{--i:url(https://api.iconify.design/ph/x.svg)}
+.i-xb{--i:url(https://api.iconify.design/ph/x-bold.svg)}
+.i-box{--i:url(https://api.iconify.design/ph/package.svg)}
+.i-dots{--i:url(https://api.iconify.design/ph/dots-three-vertical-bold.svg)}
+.i-check{--i:url(https://api.iconify.design/ph/check-bold.svg)}
+.i-minus{--i:url(https://api.iconify.design/ph/minus-bold.svg)}
+.i-search{--i:url(https://api.iconify.design/ph/magnifying-glass.svg)}
+.i-info{--i:url(https://api.iconify.design/ph/info.svg)}
+.i-clock{--i:url(https://api.iconify.design/ph/clock.svg)}
+.i-trash{--i:url(https://api.iconify.design/ph/trash.svg)}
+.i-up{--i:url(https://api.iconify.design/ph/caret-up.svg)}
+
+.doc{max-width:1240px;margin:0 auto;padding:40px 22px 90px}
+.doc h1{font:800 29px/1.15 Sora;letter-spacing:-.02em}
+.lead{color:hsl(var(--muted-foreground));max-width:900px;margin-top:10px}
+.rule{margin-top:18px;display:flex;gap:12px;align-items:flex-start;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;padding:14px 16px;max-width:900px}
+.rule .ic{color:hsl(var(--primary));margin-top:2px}
+.tabs{display:flex;gap:8px;margin-top:28px;flex-wrap:wrap}
+.tab{border:1px solid hsl(var(--border-strong));background:hsl(var(--card));border-radius:999px;padding:8px 16px;font-weight:600;cursor:pointer;display:flex;gap:8px;align-items:center}
+.tab small{font-weight:500;color:hsl(var(--muted-foreground))}
+.tab[aria-pressed=true]{background:hsl(var(--foreground));color:hsl(var(--card));border-color:hsl(var(--foreground))}
+.tab[aria-pressed=true] small{color:hsl(0 0% 100%/.7)}
+.model{display:none;margin-top:18px}
+.model.on{display:block}
+.mhead{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:18px;align-items:start}
+.mhead h2{font:800 22px/1.2 Sora;letter-spacing:-.015em}
+.mhead p{color:hsl(var(--muted-foreground));margin-top:6px}
+.pc{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;padding:12px 14px;font-size:13.5px}
+.pc h4{font:700 11px Inter;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));margin:4px 0}
+.pc ul{margin:0;padding-left:18px}
+.controls{display:flex;justify-content:space-between;gap:12px;margin-top:18px;flex-wrap:wrap;align-items:center}
+.steps{display:flex;gap:6px;flex-wrap:wrap}
+.step{border:1px solid hsl(var(--border-strong));background:hsl(var(--card));border-radius:10px;padding:6px 12px;font-size:13px;font-weight:600;cursor:pointer;color:hsl(var(--muted-foreground))}
+.step b{color:hsl(var(--foreground));margin-right:4px}
+.step[aria-pressed=true]{border-color:hsl(var(--primary));background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.step[aria-pressed=true] b{color:hsl(var(--primary-ink))}
+.seg{display:inline-flex;background:hsl(var(--card));border:1px solid hsl(var(--border-strong));border-radius:10px;padding:3px}
+.seg button{border:0;background:none;border-radius:7px;padding:5px 12px;font-size:13px;font-weight:600;cursor:pointer;color:hsl(var(--muted-foreground))}
+.seg button[aria-pressed=true]{background:hsl(var(--muted));color:hsl(var(--foreground))}
+.note{margin-top:10px;font-size:13px;color:hsl(var(--muted-foreground))}
+.note b{color:hsl(var(--foreground))}
+.stage{margin-top:12px;background:radial-gradient(hsl(220 8% 85%) 1px,transparent 1.4px) 0 0/22px 22px,hsl(220 10% 91.5%);border:1px solid hsl(var(--border));border-radius:18px;padding:26px 18px;display:flex;justify-content:center;overflow:auto}
+
+.frame{width:1000px;max-width:100%;height:560px;background:hsl(var(--background));border-radius:16px;box-shadow:0 40px 90px -32px hsl(232 48% 15%/.5);overflow:hidden;container-type:inline-size;position:relative;flex:none}
+.frame.tabp{width:768px;height:640px;border-radius:30px;border:10px solid hsl(235 20% 14%)}
+.frame.phone{width:390px;height:720px;border-radius:30px;border:8px solid hsl(235 20% 14%)}
+.screen{display:none;height:100%;overflow:auto;padding:18px}
+.screen.on{display:block}
+
+/* the item row of the grid, open on a failure */
+.table{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;overflow:hidden}
+.row{display:grid;grid-template-columns:minmax(0,1fr) repeat(3,132px);align-items:center;min-height:58px;border-bottom:1px solid hsl(var(--border))}
+.item{display:flex;gap:10px;align-items:center;padding:10px 16px;font-size:14.5px}
+.num{width:24px;height:24px;border-radius:7px;display:grid;place-items:center;font:700 12px Sora;background:hsl(var(--danger-soft));color:hsl(var(--danger-ink));flex:none}
+.num.m{background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.ans{display:flex;justify-content:center}
+.ans span{display:inline-flex;background:hsl(var(--muted));border-radius:12px;padding:3px;gap:2px}
+.ans i{width:34px;height:32px;border-radius:9px;display:grid;place-items:center;color:hsl(var(--muted-foreground))}
+.ans i.bad{background:hsl(var(--danger-soft));color:hsl(var(--danger-ink));box-shadow:inset 0 0 0 1.5px hsl(var(--danger)/.45)}
+.ans i.ok{background:hsl(var(--primary-soft));color:hsl(var(--primary));box-shadow:inset 0 0 0 1.5px hsl(var(--primary)/.5)}
+.fail{background:hsl(var(--background));border-bottom:1px solid hsl(var(--border));padding:12px 16px 14px 50px;position:relative}
+.fhead{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.pill{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:1px 8px;font-size:11.5px;font-weight:600;white-space:nowrap}
+.pill.d{background:hsl(var(--danger-soft));color:hsl(var(--danger-ink))}
+.pill.w{background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+.pill.s{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+.pill.m{background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.plate{font:700 13.5px Sora}
+.grow{flex:1}
+.list{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden;box-shadow:0 6px 16px -8px hsl(233 40% 25%/.22)}
+.svc{display:flex;align-items:center;gap:12px;padding:9px 10px 9px 14px;border-bottom:1px solid hsl(var(--border))}
+.svc:last-child{border-bottom:0}
+.svc .w{color:hsl(var(--muted-foreground))}
+.svc .t{flex:1;min-width:0}
+.svc .t b{display:block;font-size:14.5px;font-weight:600}
+.svc .t small{display:flex;gap:8px;align-items:center;font-size:12.5px;color:hsl(var(--muted-foreground));flex-wrap:wrap}
+.iconbtn{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;color:hsl(var(--muted-foreground));border:1px solid transparent;cursor:pointer;flex:none;position:relative;background:none}
+.iconbtn:hover{background:hsl(var(--muted));color:hsl(var(--foreground))}
+.iconbtn.box{color:hsl(var(--primary));background:hsl(var(--primary-soft))}
+.iconbtn.ring{border-color:hsl(var(--border-strong));background:hsl(var(--card))}
+.iconbtn.add{width:38px;height:38px;border-radius:999px;background:hsl(var(--primary));color:#fff}
+.iconbtn .badge{position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;border-radius:999px;background:hsl(var(--primary));color:#fff;font:700 10.5px Sora;display:grid;place-items:center;padding:0 4px;border:2px solid hsl(var(--card))}
+.tip{position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:hsl(var(--foreground));color:hsl(var(--card));font-size:12px;font-weight:600;border-radius:7px;padding:4px 8px;white-space:nowrap;z-index:3}
+.addrow{display:flex;align-items:center;gap:8px;padding:6px 10px;border-top:1px solid hsl(var(--border))}
+.addtile{display:flex;align-items:center;justify-content:center;gap:6px;border:1.5px dashed hsl(var(--border-strong));border-radius:12px;height:40px;color:hsl(var(--primary));margin-top:8px;font-weight:600;font-size:13px}
+.menu{position:absolute;right:16px;width:220px;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:12px;box-shadow:0 18px 40px -12px hsl(232 48% 15%/.35);padding:5px;z-index:4}
+.menu p{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-size:14px}
+.menu p:hover,.menu p.h{background:hsl(var(--muted))}
+.menu p.d{color:hsl(var(--danger-ink))}
+
+/* parts sheet */
+.scrim{position:absolute;inset:0;background:hsl(235 30% 12%/.3);z-index:5}
+.sheet{position:absolute;top:0;right:0;bottom:0;width:420px;max-width:100%;background:hsl(var(--card));z-index:6;display:flex;flex-direction:column;box-shadow:-20px 0 50px -20px hsl(232 48% 15%/.4)}
+.sheet .sh{padding:16px 18px 12px;border-bottom:1px solid hsl(var(--border))}
+.sheet .sh h3{font:800 18px Sora}
+.sheet .sh p{font-size:13px;color:hsl(var(--muted-foreground));margin-top:2px}
+.svcchip{display:inline-flex;align-items:center;gap:6px;margin-top:10px;background:hsl(var(--primary-soft));color:hsl(var(--primary-ink));border-radius:9px;padding:5px 10px;font-size:13px;font-weight:600}
+.sheet .sb{flex:1;overflow:auto;padding:14px 18px;display:flex;flex-direction:column;gap:10px}
+.search{display:flex;align-items:center;gap:8px;height:42px;border:1px solid hsl(var(--border-strong));border-radius:11px;padding:0 12px;color:hsl(var(--muted-foreground))}
+.part{display:flex;align-items:center;gap:10px;border:1px solid hsl(var(--border));border-radius:12px;padding:10px 12px}
+.part .t{flex:1;min-width:0}
+.part .t b{display:block;font-size:14px}
+.part .t small{font-size:12px;color:hsl(var(--muted-foreground))}
+.qty{display:inline-flex;align-items:center;border:1px solid hsl(var(--border-strong));border-radius:10px;overflow:hidden}
+.qty i{width:32px;height:32px;display:grid;place-items:center;color:hsl(var(--muted-foreground))}
+.qty b{min-width:28px;text-align:center;font:700 14px Sora}
+.sheet .sf{padding:12px 18px;border-top:1px solid hsl(var(--border));display:flex;gap:8px;justify-content:flex-end}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:42px;padding:0 16px;border-radius:11px;font-weight:600;font-size:14px;border:1px solid transparent;white-space:nowrap;cursor:pointer}
+.btn.pr{background:hsl(var(--primary));color:#fff}
+.btn.ol{background:hsl(var(--card));border-color:hsl(var(--border-strong))}
+.toast{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);background:hsl(var(--foreground));color:hsl(var(--card));border-radius:12px;padding:10px 14px;font-size:13.5px;display:flex;gap:8px;align-items:center;white-space:nowrap;z-index:7}
+.toast .ic{color:hsl(var(--success))}
+
+@container (max-width:780px){
+  .row{grid-template-columns:minmax(0,1fr) repeat(3,104px)}
+  .ans i{width:28px}
+  .fail{padding-left:16px}
+}
+@container (max-width:500px){
+  .row{grid-template-columns:1fr;padding:10px 12px;gap:6px}
+  .row .ans{justify-content:flex-start}
+  .row .ans::before{content:attr(data-plate);font:700 12px Sora;width:72px;align-self:center}
+  .row .ans.x{display:none}
+  .item{padding:0}
+  .screen{padding:10px}
+  .fail{padding:10px 12px}
+  .sheet{width:100%}
+}
+.recommend{margin-top:30px;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;padding:18px 20px;max-width:900px}
+.recommend h3{font:800 18px Sora}
+.recommend p{color:hsl(var(--foreground)/.85);font-size:14px;margin-top:6px}
+.recommend table{border-collapse:collapse;margin-top:12px;font-size:13.5px;width:100%}
+.recommend th,.recommend td{text-align:left;border-bottom:1px solid hsl(var(--border));padding:7px 8px;vertical-align:top}
+.recommend th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground))}
+@media (max-width:820px){.mhead{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="doc">
+  <h1>Ações do serviço no checklist · 3 modelos</h1>
+  <p class="lead">Na falha, "Adicionar serviço" ocupa uma linha inteira só com texto, e agora cada serviço também precisa de <b>pedir peça</b>. Os três modelos trocam o texto por ícones com tooltip e põem o pedido de peça em cada serviço. Passe pelos estados: <b>falha com serviços</b>, <b>pedindo peça</b> e <b>peça pedida</b>.</p>
+  <div class="rule"><span class="ic i-info s20"></span><p><b>Pedir peça</b> abre o mesmo pedido de peças da OS (o painel lateral da tela da OS), já com o serviço escolhido; o pedido vai para o almoxarifado como hoje. Depois de pedida, a linha do serviço mostra quantas peças e em que pé estão. Quem não tem permissão de pedir peça (<code>part_request.create</code>) não vê o ícone.</p></div>
+
+  <div class="tabs" id="tabs">
+    <button class="tab" data-model="a" aria-pressed="true">A · Ícones na linha <small>tudo à vista</small></button>
+    <button class="tab" data-model="b" aria-pressed="false">B · Menu do serviço <small>linha mais limpa</small></button>
+    <button class="tab" data-model="c" aria-pressed="false">C · Mais no cabeçalho <small>adicionar ao lado da placa</small></button>
+  </div>
+
+  <section class="model on" data-model="a">
+    <div class="mhead">
+      <div><h2>A · Ícones na linha</h2><p>Cada serviço termina com dois ícones: <b>caixa</b> (pedir peça, em azul) e <b>X</b> (tirar da OS). Embaixo da lista, só um <b>+</b> redondo com tooltip "Adicionar serviço". Depois de pedir, a caixa ganha o número de peças.</p></div>
+      <div class="pc"><h4>A favor</h4><ul><li>Um toque para cada ação, sem menu.</li><li>O número na caixa mostra que já tem peça pedida.</li></ul><h4>Contra</h4><ul><li>Dois alvos lado a lado: tirar da OS fica perto de pedir peça.</li></ul></div>
+    </div>
+    <div class="controls"><div class="steps"><button class="step" data-s="1" aria-pressed="true"><b>1</b>Falha com serviços</button><button class="step" data-s="2" aria-pressed="false"><b>2</b>Pedindo peça</button><button class="step" data-s="3" aria-pressed="false"><b>3</b>Peça pedida</button></div><div class="seg"><button data-dev="nb" aria-pressed="true">Notebook</button><button data-dev="tabp" aria-pressed="false">Tablet em pé</button><button data-dev="phone" aria-pressed="false">Celular</button></div></div>
+    <div class="stage"><div class="frame" data-model-frame="a"></div></div>
+  </section>
+
+  <section class="model" data-model="b">
+    <div class="mhead">
+      <div><h2>B · Menu do serviço</h2><p>A linha mostra só o serviço, o lugar e, quando houver, as peças. Um ícone <b>⋮</b> abre o menu com <b>Pedir peça</b> e <b>Tirar da OS</b>. Para adicionar, um bloco tracejado com <b>+</b> no fim da lista.</p></div>
+      <div class="pc"><h4>A favor</h4><ul><li>Linha limpa: lê-se o serviço sem botões em volta.</li><li>Tirar da OS fica longe do toque comum.</li></ul><h4>Contra</h4><ul><li>Pedir peça leva dois toques.</li></ul></div>
+    </div>
+    <div class="controls"><div class="steps"><button class="step" data-s="1" aria-pressed="true"><b>1</b>Falha com serviços</button><button class="step" data-s="2" aria-pressed="false"><b>2</b>Pedindo peça</button><button class="step" data-s="3" aria-pressed="false"><b>3</b>Peça pedida</button></div><div class="seg"><button data-dev="nb" aria-pressed="true">Notebook</button><button data-dev="tabp" aria-pressed="false">Tablet em pé</button><button data-dev="phone" aria-pressed="false">Celular</button></div></div>
+    <div class="stage"><div class="frame" data-model-frame="b"></div></div>
+  </section>
+
+  <section class="model" data-model="c">
+    <div class="mhead">
+      <div><h2>C · Mais no cabeçalho</h2><p>O <b>+</b> sobe para o cabeçalho da falha, ao lado de "Não conforme PTJ0559", e a lista não tem rodapé. Cada serviço tem o ícone de <b>caixa</b> com o texto curto "Peça" e, separado, a <b>lixeira</b> para tirar da OS.</p></div>
+      <div class="pc"><h4>A favor</h4><ul><li>A caixa com "Peça" é mais fácil de entender no primeiro uso.</li><li>A falha fica mais baixa: sem linha de adicionar.</li></ul><h4>Contra</h4><ul><li>O + longe da lista pode passar despercebido na primeira vez.</li></ul></div>
+    </div>
+    <div class="controls"><div class="steps"><button class="step" data-s="1" aria-pressed="true"><b>1</b>Falha com serviços</button><button class="step" data-s="2" aria-pressed="false"><b>2</b>Pedindo peça</button><button class="step" data-s="3" aria-pressed="false"><b>3</b>Peça pedida</button></div><div class="seg"><button data-dev="nb" aria-pressed="true">Notebook</button><button data-dev="tabp" aria-pressed="false">Tablet em pé</button><button data-dev="phone" aria-pressed="false">Celular</button></div></div>
+    <div class="stage"><div class="frame" data-model-frame="c"></div></div>
+  </section>
+
+  <div class="recommend">
+    <h3>Comparação</h3>
+    <table>
+      <tr><th></th><th>A · Ícones na linha</th><th>B · Menu</th><th>C · Mais no cabeçalho</th></tr>
+      <tr><td>Toques para pedir peça</td><td>1</td><td>2</td><td>1</td></tr>
+      <tr><td>Risco de tirar da OS sem querer</td><td>Médio</td><td>Baixo</td><td>Baixo (lixeira separada)</td></tr>
+      <tr><td>Altura da falha</td><td>Média</td><td>Média</td><td>Menor</td></tr>
+      <tr><td>Entende sem tooltip</td><td>Médio</td><td>Bom</td><td>Bom ("Peça")</td></tr>
+    </table>
+    <p><b>Recomendação: A.</b> No pátio, pedir peça é a ação do dia a dia; um toque na caixa resolve, e o número na caixa já diz que a peça foi pedida. O X fica cinza e sem fundo para não competir com a caixa.</p>
+  </div>
+</div>
+
+<script>
+const ic = (name, size) => `<span class="ic i-${name}${size ? ' ' + size : ''}"></span>`;
+const PLATES = ['PTJ0559', 'PTJ0458', 'PTJ0455'];
+const answers = (first) => PLATES.map((p, j) => `<div class="ans${j ? ' x' : ''}" data-plate="${p}"><span><i class="${j === 0 && first === 'ok' ? 'ok' : ''}">${ic('check', 's14')}</i><i class="${j === 0 && first === 'bad' ? 'bad' : ''}">${ic('xb', 's14')}</i><i>${ic('minus', 's14')}</i></span></div>`).join('');
+const item = (n, label, first) => `<div class="row"><div class="item"><span class="num ${first === 'bad' ? '' : 'm'}">${n}</span>${label}</div>${answers(first)}</div>`;
+
+const SERVICES = [{ name: 'Soldar ciclista', place: 'Esquerdo' }, { name: 'Soldar ciclista', place: 'Direito' }];
+const partsLine = '<span class="pill w">' + ic('clock', 's14') + '2 peças · aguardando almoxarifado</span>';
+
+function serviceA(s, i, step) {
+  const asked = step === 3 && i === 0;
+  return `<div class="svc"><span class="w">${ic('wrench', 's16')}</span><div class="t"><b>${s.name}</b><small>${s.place}${asked ? partsLine : ''}</small></div>
+    <button class="iconbtn box">${ic('box', 's20')}${asked ? '<span class="badge">2</span>' : ''}${step === 1 && i === 0 ? '<span class="tip">Pedir peça</span>' : ''}</button>
+    <button class="iconbtn">${ic('x', 's16')}</button></div>`;
+}
+function serviceB(s, i, step) {
+  const asked = step === 3 && i === 0;
+  return `<div class="svc"><span class="w">${ic('wrench', 's16')}</span><div class="t"><b>${s.name}</b><small>${s.place}${asked ? partsLine : ''}</small></div>
+    <button class="iconbtn ring">${ic('dots', 's16')}</button></div>`;
+}
+function serviceC(s, i, step) {
+  const asked = step === 3 && i === 0;
+  return `<div class="svc"><span class="w">${ic('wrench', 's16')}</span><div class="t"><b>${s.name}</b><small>${s.place}${asked ? partsLine : ''}</small></div>
+    <button class="btn ol" style="height:36px;padding:0 11px;font-size:13px;color:hsl(var(--primary-ink))">${ic('box', 's16')}${asked ? 'Peças · 2' : 'Peça'}</button>
+    <span style="width:1px;height:24px;background:hsl(var(--border))"></span>
+    <button class="iconbtn">${ic('trash', 's16')}</button></div>`;
+}
+
+function failure(model, step) {
+  const service = { a: serviceA, b: serviceB, c: serviceC }[model];
+  const head = `<div class="fhead"><span class="pill d">Não conforme</span><span class="plate">PTJ0559</span><span class="grow"></span>${model === 'c' ? `<button class="iconbtn add" style="position:relative">${ic('plus', 's16')}${step === 1 ? '<span class="tip">Adicionar serviço</span>' : ''}</button>` : ''}</div>`;
+  let list = `<div class="list">${SERVICES.map((s, i) => service(s, i, step)).join('')}`;
+  if (model === 'a') list += `<div class="addrow"><button class="iconbtn add" style="position:relative">${ic('plus', 's16')}${step === 3 ? '<span class="tip">Adicionar serviço</span>' : ''}</button></div>`;
+  list += '</div>';
+  if (model === 'b') list += `<div class="addtile">${ic('plus', 's16')}Serviço</div>`;
+  const menu = model === 'b' && step === 2 ? `<div class="menu" style="top:96px"><p class="h">${ic('box', 's16')}Pedir peça</p><p class="d">${ic('trash', 's16')}Tirar da OS</p></div>` : '';
+  return `<div class="fail">${head}${list}${menu}</div>`;
+}
+function sheet() {
+  return `<div class="scrim"></div><aside class="sheet"><div class="sh"><h3>Pedir peças</h3><p>OS-000003 · PTJ0559 · Base Curitiba</p><span class="svcchip">${ic('wrench', 's14')}Soldar ciclista · Esquerdo</span></div>
+    <div class="sb"><div class="search">${ic('search', 's16')}Buscar peça por nome ou código</div>
+      <div class="part"><div class="t"><b>Eletrodo E7018 3,25 mm</b><small>Em estoque · 40 kg</small></div><span class="qty"><i>${ic('minus', 's14')}</i><b>2</b><i>${ic('plus', 's14')}</i></span></div>
+      <div class="part"><div class="t"><b>Chapa de aço 1/4"</b><small>Em estoque · 6 un</small></div><span class="qty"><i>${ic('minus', 's14')}</i><b>1</b><i>${ic('plus', 's14')}</i></span></div>
+    </div><div class="sf"><button class="btn ol">Cancelar</button><button class="btn pr">Pedir 2 peças</button></div></aside>`;
+}
+function screen(model, step) {
+  const body = `<div class="table">${item(1, 'Verificar fixação e estado dos paralamas', 'bad')}${failure(model, step)}${item(2, 'Verificar condições do assoalho', 'ok')}${item(3, 'Verificar condições e fixação dos barrotes', '')}</div>`;
+  const overlay = step === 2 && model !== 'b' ? sheet() : step === 2 && model === 'b' ? '' : '';
+  const toast = step === 3 ? `<div class="toast">${ic('check', 's16')}2 peças pedidas para Soldar ciclista</div>` : '';
+  return `<div class="screen${step === 1 ? ' on' : ''}" data-s="${step}">${body}${overlay}${toast}</div>`;
+}
+document.querySelectorAll('[data-model-frame]').forEach((frame) => {
+  const model = frame.dataset.modelFrame;
+  frame.innerHTML = [1, 2, 3].map((step) => screen(model, step)).join('');
+});
+
+const tabs = document.querySelectorAll('#tabs .tab');
+tabs.forEach((tab) => tab.addEventListener('click', () => {
+  tabs.forEach((other) => other.setAttribute('aria-pressed', String(other === tab)));
+  document.querySelectorAll('.model').forEach((model) => model.classList.toggle('on', model.dataset.model === tab.dataset.model));
+}));
+document.querySelectorAll('.model').forEach((model) => {
+  const steps = model.querySelectorAll('.step');
+  steps.forEach((step) => step.addEventListener('click', () => {
+    steps.forEach((other) => other.setAttribute('aria-pressed', String(other === step)));
+    model.querySelectorAll('.screen').forEach((s) => s.classList.toggle('on', s.dataset.s === step.dataset.s));
+  }));
+  const devices = model.querySelectorAll('[data-dev]');
+  devices.forEach((device) => device.addEventListener('click', () => {
+    devices.forEach((other) => other.setAttribute('aria-pressed', String(other === device)));
+    const frame = model.querySelector('.frame'); frame.classList.remove('phone', 'tabp'); if (device.dataset.dev !== 'nb') frame.classList.add(device.dataset.dev);
+  }));
+});
+</script>
+</body>
+</html>

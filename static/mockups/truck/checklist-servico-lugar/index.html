@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lugar do serviço · 3 modelos · mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --foreground:240 10% 4%;--card:0 0% 100%;--background:230 20% 97.5%;
+  --primary:233 66% 52%;--primary-ink:233 70% 40%;--primary-soft:233 85% 96.5%;
+  --muted:240 5% 95%;--muted-foreground:240 4% 44%;--border:240 6% 90%;--border-strong:240 6% 83%;
+  --canvas:228 16% 90%;
+  --success:150 55% 42%;--success-soft:150 52% 94%;--success-ink:152 64% 26%;
+  --warning:36 92% 50%;--warning-soft:40 96% 92%;--warning-ink:26 85% 32%;
+  --danger:0 82% 60%;--danger-soft:0 88% 96.5%;--danger-ink:0 70% 44%;
+}
+*{box-sizing:border-box}
+body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));font:14.5px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,p{margin:0}
+button{font:inherit;color:inherit}
+.ic{display:inline-block;width:18px;height:18px;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;flex:none}
+.s12{width:12px;height:12px}.s14{width:14px;height:14px}.s16{width:16px;height:16px}.s20{width:20px;height:20px}
+.i-left{--i:url(https://api.iconify.design/ph/arrow-left.svg)}
+.i-plus{--i:url(https://api.iconify.design/ph/plus-bold.svg)}
+.i-check{--i:url(https://api.iconify.design/ph/check-bold.svg)}
+.i-info{--i:url(https://api.iconify.design/ph/info.svg)}
+.i-undo{--i:url(https://api.iconify.design/ph/arrow-counter-clockwise.svg)}
+.i-wrench{--i:url(https://api.iconify.design/ph/wrench.svg)}
+.i-cab{--i:url(https://api.iconify.design/ph/caret-up-bold.svg)}
+
+.doc{max-width:1240px;margin:0 auto;padding:40px 22px 90px}
+.doc h1{font:800 29px/1.15 Sora;letter-spacing:-.02em}
+.lead{color:hsl(var(--muted-foreground));max-width:900px;margin-top:10px}
+.rule{margin-top:18px;display:flex;gap:12px;align-items:flex-start;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;padding:14px 16px;max-width:900px}
+.rule .ic{color:hsl(var(--primary));margin-top:2px}
+.tabs{display:flex;gap:8px;margin-top:28px;flex-wrap:wrap}
+.tab{border:1px solid hsl(var(--border-strong));background:hsl(var(--card));border-radius:999px;padding:8px 16px;font-weight:600;cursor:pointer;display:flex;gap:8px;align-items:center}
+.tab small{font-weight:500;color:hsl(var(--muted-foreground))}
+.tab[aria-pressed=true]{background:hsl(var(--foreground));color:hsl(var(--card));border-color:hsl(var(--foreground))}
+.tab[aria-pressed=true] small{color:hsl(0 0% 100%/.7)}
+.model{display:none;margin-top:18px}
+.model.on{display:block}
+.mhead{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:18px;align-items:start}
+.mhead h2{font:800 22px/1.2 Sora;letter-spacing:-.015em}
+.mhead p{color:hsl(var(--muted-foreground));margin-top:6px}
+.pc{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;padding:12px 14px;font-size:13.5px}
+.pc h4{font:700 11px Inter;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));margin:4px 0}
+.pc ul{margin:0;padding-left:18px}
+.controls{display:flex;justify-content:space-between;gap:12px;margin-top:18px;flex-wrap:wrap;align-items:center}
+.steps{display:flex;gap:6px;flex-wrap:wrap}
+.step{border:1px solid hsl(var(--border-strong));background:hsl(var(--card));border-radius:10px;padding:6px 12px;font-size:13px;font-weight:600;cursor:pointer;color:hsl(var(--muted-foreground))}
+.step b{color:hsl(var(--foreground));margin-right:4px}
+.step[aria-pressed=true]{border-color:hsl(var(--primary));background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.step[aria-pressed=true] b{color:hsl(var(--primary-ink))}
+.seg{display:inline-flex;background:hsl(var(--card));border:1px solid hsl(var(--border-strong));border-radius:10px;padding:3px}
+.seg button{border:0;background:none;border-radius:7px;padding:5px 12px;font-size:13px;font-weight:600;cursor:pointer;color:hsl(var(--muted-foreground))}
+.seg button[aria-pressed=true]{background:hsl(var(--muted));color:hsl(var(--foreground))}
+.note{margin-top:10px;font-size:13px;color:hsl(var(--muted-foreground))}
+.note b{color:hsl(var(--foreground))}
+.stage{margin-top:12px;background:radial-gradient(hsl(220 8% 85%) 1px,transparent 1.4px) 0 0/22px 22px,hsl(220 10% 91.5%);border:1px solid hsl(var(--border));border-radius:18px;padding:26px 18px;display:flex;justify-content:center;overflow:auto}
+
+/* frame: the failure under a grid row, with the picker open over it */
+.frame{width:900px;max-width:100%;height:600px;background:hsl(var(--background));border-radius:16px;box-shadow:0 40px 90px -32px hsl(232 48% 15%/.5);overflow:hidden;container-type:inline-size;position:relative;flex:none}
+.frame.tabp{width:768px;height:760px;border-radius:30px;border:10px solid hsl(235 20% 14%)}
+.frame.phone{width:390px;height:780px;border-radius:30px;border:8px solid hsl(235 20% 14%)}
+.screen{display:none;height:100%;padding:20px;position:relative}
+.screen.on{display:block}
+.fail{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;padding:14px 16px}
+.fhead{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.pill{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:1px 8px;font-size:11.5px;font-weight:600;white-space:nowrap}
+.pill.d{background:hsl(var(--danger-soft));color:hsl(var(--danger-ink))}
+.plate{font:700 13.5px Sora}
+.place{font-size:12.5px;color:hsl(var(--muted-foreground))}
+.svc{display:flex;align-items:center;gap:10px;border:1px solid hsl(var(--border));border-radius:12px;padding:9px 12px;font-size:14px}
+.svc small{display:block;font-size:12.5px;color:hsl(var(--muted-foreground))}
+.addtile{display:flex;align-items:center;justify-content:center;gap:6px;border:1.5px dashed hsl(var(--primary)/.45);background:hsl(var(--primary-soft)/.5);border-radius:12px;height:40px;color:hsl(var(--primary));margin-top:8px;font-weight:600;font-size:13.5px}
+
+.pop{position:absolute;left:36px;top:150px;width:380px;max-width:calc(100% - 40px);background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;box-shadow:0 24px 60px -18px hsl(232 48% 15%/.45);overflow:hidden;z-index:4}
+.ph{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid hsl(var(--border))}
+.ph .bk{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:hsl(var(--muted-foreground))}
+.ph b{display:block;font:700 15px Sora}
+.ph small{font-size:12px;color:hsl(var(--muted-foreground))}
+.ph .pl{margin-left:auto;border-radius:7px;background:hsl(var(--muted));padding:3px 8px;font:700 11.5px Sora;white-space:nowrap}
+.pb{padding:14px;display:flex;flex-direction:column;gap:14px}
+.lbl{font:700 11px Inter;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));margin-bottom:7px}
+.opts{display:grid;gap:8px}
+.opt{position:relative;min-height:48px;border:1px solid hsl(var(--border));border-radius:12px;background:hsl(var(--card));display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:600;font-size:14px;padding:4px}
+.opt.sel{border-color:hsl(var(--primary));background:hsl(var(--primary-soft));color:hsl(var(--primary));box-shadow:0 0 0 3px hsl(var(--primary)/.12)}
+.opt.sel::after{content:"";position:absolute;right:7px;top:7px;width:12px;height:12px;background:currentColor;-webkit-mask:url(https://api.iconify.design/ph/check-bold.svg) center/contain no-repeat;mask:url(https://api.iconify.design/ph/check-bold.svg) center/contain no-repeat}
+.opt.taken{border-style:dashed;background:hsl(var(--muted)/.5);color:hsl(var(--muted-foreground))}
+.opt.taken small{font-size:10.5px;font-weight:600}
+.pf{padding:10px 12px;border-top:1px solid hsl(var(--border))}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:44px;padding:0 16px;border-radius:12px;font-weight:600;font-size:14.5px;border:1px solid transparent;white-space:nowrap;width:100%}
+.btn.pr{background:hsl(var(--primary));color:#fff}
+.btn.pr.off{opacity:.5}
+
+/* B: the trailer seen from above */
+.truckwrap{display:flex;flex-direction:column;align-items:center;gap:6px}
+.front{font-size:11px;font-weight:700;color:hsl(var(--muted-foreground));text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:4px}
+.trailer{position:relative;width:200px;border:2px solid hsl(var(--border-strong));border-radius:14px;background:hsl(var(--muted)/.4);padding:14px 0}
+.trailer .half{position:absolute;top:0;bottom:0;width:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:hsl(var(--muted-foreground))}
+.trailer .half.l{left:0;border-right:1px dashed hsl(var(--border-strong));border-radius:12px 0 0 12px}
+.trailer .half.r{right:0;border-radius:0 12px 12px 0}
+.trailer .half.sel{background:hsl(var(--primary-soft));color:hsl(var(--primary));box-shadow:inset 0 0 0 2px hsl(var(--primary))}
+.trailer .half.taken{background:repeating-linear-gradient(135deg,hsl(var(--muted)) 0 6px,hsl(var(--card)) 6px 12px);color:hsl(var(--muted-foreground))}
+.trailer .half small{display:block;font-size:10.5px;font-weight:600}
+.axle{position:relative;height:46px;margin:6px 0;display:flex;align-items:center;justify-content:space-between}
+.axle::before{content:"";position:absolute;left:30px;right:30px;top:50%;height:3px;background:hsl(var(--border-strong))}
+.axle .an{position:absolute;left:50%;transform:translateX(-50%);background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:999px;padding:0 7px;font:700 11px Sora;color:hsl(var(--muted-foreground));z-index:1}
+.wheels{display:flex;gap:3px;position:relative;z-index:1}
+.wheels.l{margin-left:-14px}.wheels.r{margin-right:-14px}
+.tire{width:18px;height:42px;border-radius:6px;background:hsl(235 12% 30%);border:2px solid transparent}
+.tire.sel{background:hsl(var(--primary));box-shadow:0 0 0 3px hsl(var(--primary)/.25)}
+.tire.taken{background:repeating-linear-gradient(135deg,hsl(var(--muted-foreground)/.5) 0 4px,hsl(var(--muted)) 4px 8px);border:1px dashed hsl(var(--muted-foreground))}
+.sidebtn{position:relative;z-index:1;width:28px;height:42px;border-radius:9px;border:1px solid hsl(var(--border-strong));background:hsl(var(--card));display:grid;place-items:center;font:700 11px Sora;color:hsl(var(--muted-foreground))}
+.sidebtn.sel{border-color:hsl(var(--primary));background:hsl(var(--primary));color:#fff}
+.picked{font-size:13px;text-align:center;color:hsl(var(--muted-foreground))}
+.picked b{color:hsl(var(--foreground))}
+.legend{display:flex;gap:12px;justify-content:center;font-size:11.5px;color:hsl(var(--muted-foreground))}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+/* C: tap and it is in */
+.go{display:flex;align-items:center;gap:10px;min-height:52px;border:1px solid hsl(var(--border));border-radius:12px;padding:6px 8px 6px 14px;font-weight:600;font-size:14.5px;background:hsl(var(--card))}
+.go .grow{flex:1}
+.go .plus{width:36px;height:36px;border-radius:10px;background:hsl(var(--primary));color:#fff;display:grid;place-items:center}
+.go.taken{border-style:dashed;background:hsl(var(--muted)/.5);color:hsl(var(--muted-foreground))}
+.go.taken .tag{font-size:12px;font-weight:600;border-radius:999px;background:hsl(var(--muted));padding:2px 9px}
+.chiprow{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid hsl(var(--border-strong));border-radius:999px;padding:6px 14px;font-weight:600;font-size:13.5px;background:hsl(var(--card))}
+.chip.sel{border-color:hsl(var(--primary));background:hsl(var(--primary));color:#fff}
+.toast{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);background:hsl(var(--foreground));color:hsl(var(--card));border-radius:12px;padding:9px 10px 9px 14px;font-size:13.5px;display:flex;gap:12px;align-items:center;white-space:nowrap;z-index:6}
+.toast .ic{color:hsl(var(--success))}
+.toast u{text-decoration:none;color:hsl(var(--primary-soft));font-weight:700;display:inline-flex;gap:5px;align-items:center}
+
+/* phone: the picker becomes a bottom sheet */
+@container (max-width:500px){
+  .screen{padding:10px}
+  .pop{left:0;right:0;top:auto;bottom:0;width:auto;max-width:none;border-radius:20px 20px 0 0}
+  .scrim{position:absolute;inset:0;background:hsl(235 30% 12%/.3);z-index:3}
+}
+.scrim{display:none}
+@container (max-width:500px){.scrim{display:block}}
+.recommend{margin-top:30px;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;padding:18px 20px;max-width:900px}
+.recommend h3{font:800 18px Sora}
+.recommend p{color:hsl(var(--foreground)/.85);font-size:14px;margin-top:6px}
+.recommend table{border-collapse:collapse;margin-top:12px;font-size:13.5px;width:100%}
+.recommend th,.recommend td{text-align:left;border-bottom:1px solid hsl(var(--border));padding:7px 8px;vertical-align:top}
+.recommend th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground))}
+@media (max-width:820px){.mhead{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="doc">
+  <h1>Lugar do serviço · 3 modelos</h1>
+  <p class="lead">Depois de escolher o serviço na falha, a pessoa diz onde ele vai ser feito: o lado, o eixo e o lado, ou a roda. Os três modelos mostram esse passo para três tipos de serviço. Um lugar que o serviço já tem na OS aparece, mas não pode ser escolhido de novo. No celular, o seletor abre de baixo para cima.</p>
+  <div class="rule"><span class="ic i-info s20"></span><p>Os três seguem a regra <b>CHK-4</b>: o mesmo serviço entra uma vez por lugar. Os eixos oferecidos são os do cadastro do reboque (2 neste exemplo).</p></div>
+
+  <div class="tabs" id="tabs">
+    <button class="tab" data-model="a" aria-pressed="true">A · Cartões e confirmar <small>o que está no código</small></button>
+    <button class="tab" data-model="b" aria-pressed="false">B · Desenho do reboque <small>toca no lugar</small></button>
+    <button class="tab" data-model="c" aria-pressed="false">C · Toque e pronto <small>sem confirmar</small></button>
+  </div>
+
+  <section class="model on" data-model="a">
+    <div class="mhead">
+      <div><h2>A · Cartões e confirmar</h2><p>É o seletor que está no código hoje. Cabeçalho com o serviço, "Onde vai ser feito?" e a placa. Cada parte do lugar é uma fila de cartões grandes; o escolhido fica azul com check. O lugar que já está na OS fica tracejado com "Já na OS". O botão <b>Adicionar à OS</b> liga quando o lugar está completo.</p></div>
+      <div class="pc"><h4>A favor</h4><ul><li>Sempre o mesmo jeito, para qualquer tipo de lugar.</li><li>Dá para conferir antes de confirmar.</li></ul><h4>Contra</h4><ul><li>Na roda, a pessoa precisa traduzir "Esq. externa" para a roda que está vendo.</li><li>Um toque a mais no confirmar.</li></ul></div>
+    </div>
+    <div class="controls"><div class="steps"><button class="step" data-s="side" aria-pressed="true"><b>1</b>Só lado</button><button class="step" data-s="axle" aria-pressed="false"><b>2</b>Eixo e lado</button><button class="step" data-s="wheel" aria-pressed="false"><b>3</b>Roda</button></div><div class="seg"><button data-dev="nb" aria-pressed="true">Notebook</button><button data-dev="tabp" aria-pressed="false">Tablet em pé</button><button data-dev="phone" aria-pressed="false">Celular</button></div></div>
+    <div class="stage"><div class="frame" data-model-frame="a"></div></div>
+  </section>
+
+  <section class="model" data-model="b">
+    <div class="mhead">
+      <div><h2>B · Desenho do reboque</h2><p>O reboque visto de cima, com a frente para cima. A pessoa toca no lado, no lado do eixo ou na roda, como está vendo no pátio. Abaixo do desenho, o lugar escolhido em texto ("Eixo 2 · Direito") e o botão <b>Adicionar à OS</b>.</p></div>
+      <div class="pc"><h4>A favor</h4><ul><li>Roda e lado sem tradução: toca onde está o problema.</li><li>Os lugares já na OS aparecem no desenho.</li></ul><h4>Contra</h4><ul><li>Desenho por tipo de reboque; posição estrutural e sentido pedem outro desenho.</li><li>No celular, roda pequena para o dedo.</li></ul></div>
+    </div>
+    <div class="controls"><div class="steps"><button class="step" data-s="side" aria-pressed="true"><b>1</b>Só lado</button><button class="step" data-s="axle" aria-pressed="false"><b>2</b>Eixo e lado</button><button class="step" data-s="wheel" aria-pressed="false"><b>3</b>Roda</button></div><div class="seg"><button data-dev="nb" aria-pressed="true">Notebook</button><button data-dev="tabp" aria-pressed="false">Tablet em pé</button><button data-dev="phone" aria-pressed="false">Celular</button></div></div>
+    <div class="stage"><div class="frame" data-model-frame="b"></div></div>
+  </section>
+
+  <section class="model" data-model="c">
+    <div class="mhead">
+      <div><h2>C · Toque e pronto</h2><p>Sem botão de confirmar. Quando o lugar tem uma parte só (o lado), cada opção já é um botão <b>+</b>: tocou, entrou na OS, com <b>Desfazer</b> no aviso. Com duas partes, a primeira é uma fila de chips (o eixo) e a segunda já adiciona.</p></div>
+      <div class="pc"><h4>A favor</h4><ul><li>Menos toques: lado direito = um toque.</li><li>Errou? Desfazer no aviso.</li></ul><h4>Contra</h4><ul><li>Sem conferência antes de entrar na OS.</li><li>Na roda, a lista de quatro rodas por eixo fica comprida.</li></ul></div>
+    </div>
+    <div class="controls"><div class="steps"><button class="step" data-s="side" aria-pressed="true"><b>1</b>Só lado</button><button class="step" data-s="axle" aria-pressed="false"><b>2</b>Eixo e lado</button><button class="step" data-s="wheel" aria-pressed="false"><b>3</b>Roda</button></div><div class="seg"><button data-dev="nb" aria-pressed="true">Notebook</button><button data-dev="tabp" aria-pressed="false">Tablet em pé</button><button data-dev="phone" aria-pressed="false">Celular</button></div></div>
+    <div class="stage"><div class="frame" data-model-frame="c"></div></div>
+  </section>
+
+  <div class="recommend">
+    <h3>Comparação</h3>
+    <table>
+      <tr><th></th><th>A · Cartões</th><th>B · Desenho</th><th>C · Toque e pronto</th></tr>
+      <tr><td>Toques (lado)</td><td>2</td><td>2</td><td>1</td></tr>
+      <tr><td>Toques (roda)</td><td>3</td><td>2</td><td>2</td></tr>
+      <tr><td>Erro de roda (esq. × dir., interna × externa)</td><td>Possível</td><td>Raro</td><td>Possível</td></tr>
+      <tr><td>Serve para todo tipo de lugar</td><td>Sim</td><td>Lado, eixo e roda</td><td>Sim</td></tr>
+      <tr><td>Mudança no código</td><td>Nenhuma</td><td>Grande (desenho)</td><td>Média</td></tr>
+    </table>
+    <p><b>Recomendação: B para eixo e roda, A para o resto.</b> No pátio a pessoa está olhando para o reboque; tocar na roda do desenho evita trocar esquerda por direita e interna por externa, que é o erro que mais custa (pneu errado). Para lado, sentido e posição estrutural, os cartões do A já resolvem.</p>
+  </div>
+</div>
+
+<script>
+const ic = (name, size) => `<span class="ic i-${name}${size ? ' ' + size : ''}"></span>`;
+const CASES = {
+  side: { name: 'Soldar ciclista', taken: ['Esquerdo'], existing: [['Soldar ciclista', 'Esquerdo']] },
+  axle: { name: 'Troca de lona de freio', taken: [], existing: [] },
+  wheel: { name: 'Troca de pneu', taken: ['1-Esq. externa'], existing: [['Troca de pneu', 'Eixo 1 · Esq. externa']] },
+};
+const failure = (c) => `<div class="fail"><div class="fhead"><span class="pill d">Não conforme</span><span class="plate">PTJ0559</span><span class="place">1º reboque</span></div>
+  ${c.existing.map(([n, w]) => `<div class="svc">${ic('wrench', 's16')}<div><b>${n}</b><small>${w}</small></div></div>`).join('')}
+  <div class="addtile">${ic('plus', 's14')}Serviço</div></div>`;
+const head = (c) => `<div class="ph"><span class="bk">${ic('left', 's16')}</span><div><b>${c.name}</b><small>Onde vai ser feito?</small></div><span class="pl">PTJ0559</span></div>`;
+const options = (label, values, cols, state) => `<div><p class="lbl">${label}</p><div class="opts" style="grid-template-columns:repeat(${cols},1fr)">${values.map((v) => { const s = state(v); return `<span class="opt ${s}">${v}${s === 'taken' ? '<small>Já na OS</small>' : ''}</span>`; }).join('')}</div></div>`;
+
+function popA(kind) {
+  const c = CASES[kind];
+  let body = '';
+  if (kind === 'side') body = options('Lado', ['Esquerdo', 'Direito'], 2, (v) => (v === 'Esquerdo' ? 'taken' : 'sel'));
+  if (kind === 'axle') body = options('Eixo', ['Eixo 1', 'Eixo 2'], 2, (v) => (v === 'Eixo 2' ? 'sel' : '')) + options('Lado', ['Esquerdo', 'Direito'], 2, (v) => (v === 'Direito' ? 'sel' : ''));
+  if (kind === 'wheel') body = options('Eixo', ['Eixo 1', 'Eixo 2'], 2, (v) => (v === 'Eixo 1' ? 'sel' : '')) + options('Roda', ['Esq. externa', 'Esq. interna', 'Dir. interna', 'Dir. externa'], 4, (v) => (v === 'Esq. externa' ? 'taken' : v === 'Dir. externa' ? 'sel' : ''));
+  return `<div class="scrim"></div><div class="pop">${head(c)}<div class="pb">${body}</div><div class="pf"><span class="btn pr">${ic('plus', 's16')}Adicionar à OS-000003</span></div></div>`;
+}
+
+function axleRow(n, wheelState, sideState) {
+  const wheels = (side) => `<span class="wheels ${side}">${(side === 'l' ? ['Esq. externa', 'Esq. interna'] : ['Dir. interna', 'Dir. externa']).map((w) => `<span class="tire ${wheelState ? wheelState(n, w) : ''}"></span>`).join('')}</span>`;
+  const sides = (side) => `<span class="sidebtn ${sideState ? sideState(n, side) : ''}">${side === 'l' ? 'E' : 'D'}</span>`;
+  return `<div class="axle">${sideState ? sides('l') : wheels('l')}<span class="an">Eixo ${n}</span>${sideState ? sides('r') : wheels('r')}</div>`;
+}
+function popB(kind) {
+  const c = CASES[kind];
+  let drawing = '';
+  let picked = '';
+  if (kind === 'side') {
+    drawing = `<div class="trailer" style="height:170px"><span class="half l taken">Esq.<small>Já na OS</small></span><span class="half r sel">Dir.</span></div>`;
+    picked = 'Lado <b>direito</b>';
+  }
+  if (kind === 'axle') {
+    drawing = `<div class="trailer">${axleRow(1, null, () => '')}${axleRow(2, null, (n, s) => (s === 'r' ? 'sel' : ''))}</div>`;
+    picked = '<b>Eixo 2 · Direito</b>';
+  }
+  if (kind === 'wheel') {
+    drawing = `<div class="trailer">${axleRow(1, (n, w) => (w === 'Esq. externa' ? 'taken' : w === 'Dir. externa' ? 'sel' : ''))}${axleRow(2, () => '')}</div>`;
+    picked = '<b>Eixo 1 · Dir. externa</b>';
+  }
+  const legend = `<p class="legend"><span><i style="background:hsl(var(--primary))"></i>Escolhido</span><span><i style="background:repeating-linear-gradient(135deg,hsl(var(--muted-foreground)/.5) 0 3px,hsl(var(--muted)) 3px 6px)"></i>Já na OS</span></p>`;
+  return `<div class="scrim"></div><div class="pop">${head(c)}<div class="pb"><div class="truckwrap"><span class="front">${ic('cab', 's12')}Frente</span>${drawing}</div><p class="picked">${picked}</p>${legend}</div><div class="pf"><span class="btn pr">${ic('plus', 's16')}Adicionar à OS-000003</span></div></div>`;
+}
+
+function popC(kind) {
+  const c = CASES[kind];
+  const go = (label, taken) => (taken ? `<div class="go taken"><span class="grow">${label}</span><span class="tag">Já na OS</span></div>` : `<div class="go"><span class="grow">${label}</span><span class="plus">${ic('plus', 's16')}</span></div>`);
+  let body = '';
+  if (kind === 'side') body = `<div><p class="lbl">Toque no lado para adicionar</p><div class="opts">${go('Esquerdo', true)}${go('Direito', false)}</div></div>`;
+  if (kind === 'axle') body = `<div><p class="lbl">Eixo</p><div class="chiprow"><span class="chip">Eixo 1</span><span class="chip sel">Eixo 2</span></div></div><div><p class="lbl">Toque no lado para adicionar</p><div class="opts">${go('Eixo 2 · Esquerdo', false)}${go('Eixo 2 · Direito', false)}</div></div>`;
+  if (kind === 'wheel') body = `<div><p class="lbl">Eixo</p><div class="chiprow"><span class="chip sel">Eixo 1</span><span class="chip">Eixo 2</span></div></div><div><p class="lbl">Toque na roda para adicionar</p><div class="opts">${go('Esq. externa', true)}${go('Esq. interna', false)}${go('Dir. interna', false)}${go('Dir. externa', false)}</div></div>`;
+  const toast = kind === 'side' ? `<div class="toast">${ic('check', 's16')}Soldar ciclista · Direito entrou na OS-000003<u>${ic('undo', 's14')}Desfazer</u></div>` : '';
+  return `<div class="scrim"></div><div class="pop">${head(c)}<div class="pb">${body}</div></div>${toast}`;
+}
+
+const POPS = { a: popA, b: popB, c: popC };
+document.querySelectorAll('[data-model-frame]').forEach((frame) => {
+  const model = frame.dataset.modelFrame;
+  frame.innerHTML = ['side', 'axle', 'wheel'].map((kind, i) => `<div class="screen${i === 0 ? ' on' : ''}" data-s="${kind}">${failure(CASES[kind])}${POPS[model](kind)}</div>`).join('');
+});
+
+const tabs = document.querySelectorAll('#tabs .tab');
+tabs.forEach((tab) => tab.addEventListener('click', () => {
+  tabs.forEach((other) => other.setAttribute('aria-pressed', String(other === tab)));
+  document.querySelectorAll('.model').forEach((model) => model.classList.toggle('on', model.dataset.model === tab.dataset.model));
+}));
+document.querySelectorAll('.model').forEach((model) => {
+  const steps = model.querySelectorAll('.step');
+  steps.forEach((step) => step.addEventListener('click', () => {
+    steps.forEach((other) => other.setAttribute('aria-pressed', String(other === step)));
+    model.querySelectorAll('.screen').forEach((s) => s.classList.toggle('on', s.dataset.s === step.dataset.s));
+  }));
+  const devices = model.querySelectorAll('[data-dev]');
+  devices.forEach((device) => device.addEventListener('click', () => {
+    devices.forEach((other) => other.setAttribute('aria-pressed', String(other === device)));
+    const frame = model.querySelector('.frame'); frame.classList.remove('phone', 'tabp'); if (device.dataset.dev !== 'nb') frame.classList.add(device.dataset.dev);
+  }));
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Barra do checklist · 3 modelos · mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --foreground:240 10% 4%;--card:0 0% 100%;--background:230 20% 97.5%;
+  --primary:233 66% 52%;--primary-ink:233 70% 40%;--primary-soft:233 85% 96.5%;
+  --muted:240 5% 95%;--muted-foreground:240 4% 44%;--border:240 6% 90%;--border-strong:240 6% 83%;
+  --canvas:228 16% 90%;
+  --success:150 55% 42%;--success-soft:150 52% 94%;--success-ink:152 64% 26%;
+  --warning:36 92% 50%;--warning-soft:40 96% 92%;--warning-ink:26 85% 32%;
+  --danger:0 82% 60%;--danger-soft:0 88% 96.5%;--danger-ink:0 70% 44%;
+}
+*{box-sizing:border-box}
+body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));font:14.5px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,p{margin:0}
+button{font:inherit;color:inherit}
+.ic{display:inline-block;width:18px;height:18px;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;flex:none}
+.s14{width:14px;height:14px}.s16{width:16px;height:16px}.s20{width:20px;height:20px}
+.i-check{--i:url(https://api.iconify.design/ph/check-bold.svg)}
+.i-x{--i:url(https://api.iconify.design/ph/x-bold.svg)}
+.i-minus{--i:url(https://api.iconify.design/ph/minus-bold.svg)}
+.i-checks{--i:url(https://api.iconify.design/ph/checks-bold.svg)}
+.i-right{--i:url(https://api.iconify.design/ph/arrow-right-bold.svg)}
+.i-left{--i:url(https://api.iconify.design/ph/arrow-left.svg)}
+.i-cloud{--i:url(https://api.iconify.design/ph/cloud-check.svg)}
+.i-truck{--i:url(https://api.iconify.design/ph/truck-trailer.svg)}
+.i-info{--i:url(https://api.iconify.design/ph/info.svg)}
+.i-caret{--i:url(https://api.iconify.design/ph/caret-down.svg)}
+.i-list{--i:url(https://api.iconify.design/ph/list-bullets.svg)}
+
+/* document */
+.doc{max-width:1240px;margin:0 auto;padding:40px 22px 90px}
+.doc h1{font:800 29px/1.15 Sora;letter-spacing:-.02em}
+.lead{color:hsl(var(--muted-foreground));max-width:900px;margin-top:10px}
+.rule{margin-top:18px;display:flex;gap:12px;align-items:flex-start;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;padding:14px 16px;max-width:900px}
+.rule .ic{color:hsl(var(--primary));margin-top:2px}
+.tabs{display:flex;gap:8px;margin-top:28px;flex-wrap:wrap}
+.tab{border:1px solid hsl(var(--border-strong));background:hsl(var(--card));border-radius:999px;padding:8px 16px;font-weight:600;cursor:pointer;display:flex;gap:8px;align-items:center}
+.tab small{font-weight:500;color:hsl(var(--muted-foreground))}
+.tab[aria-pressed=true]{background:hsl(var(--foreground));color:hsl(var(--card));border-color:hsl(var(--foreground))}
+.tab[aria-pressed=true] small{color:hsl(0 0% 100%/.7)}
+.model{display:none;margin-top:18px}
+.model.on{display:block}
+.mhead{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:18px;align-items:start}
+.mhead h2{font:800 22px/1.2 Sora;letter-spacing:-.015em}
+.mhead p{color:hsl(var(--muted-foreground));margin-top:6px}
+.pc{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;padding:12px 14px;font-size:13.5px}
+.pc h4{font:700 11px Inter;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));margin:4px 0}
+.pc ul{margin:0;padding-left:18px}
+.controls{display:flex;justify-content:space-between;gap:12px;margin-top:18px;flex-wrap:wrap;align-items:center}
+.note{margin-top:10px;font-size:13px;color:hsl(var(--muted-foreground))}
+.note b{color:hsl(var(--foreground))}
+.seg{display:inline-flex;background:hsl(var(--card));border:1px solid hsl(var(--border-strong));border-radius:10px;padding:3px}
+.seg button{border:0;background:none;border-radius:7px;padding:5px 12px;font-size:13px;font-weight:600;cursor:pointer;color:hsl(var(--muted-foreground))}
+.seg button[aria-pressed=true]{background:hsl(var(--muted));color:hsl(var(--foreground))}
+.stage{margin-top:12px;background:radial-gradient(hsl(220 8% 85%) 1px,transparent 1.4px) 0 0/22px 22px,hsl(220 10% 91.5%);border:1px solid hsl(var(--border));border-radius:18px;padding:26px 18px;display:flex;justify-content:center;overflow:auto}
+
+/* frame */
+.frame{width:1180px;max-width:100%;height:680px;background:hsl(var(--background));border-radius:16px;box-shadow:0 40px 90px -32px hsl(232 48% 15%/.5);overflow:hidden;display:flex;flex-direction:column;container-type:inline-size;position:relative;flex:none}
+.frame.tabl{width:1024px;height:720px;border-radius:26px;border:10px solid hsl(235 20% 14%)}
+.frame.tabp{width:768px;height:1000px;border-radius:30px;border:10px solid hsl(235 20% 14%)}
+.frame.phone{width:390px;height:800px;border-radius:30px;border:8px solid hsl(235 20% 14%)}
+.bar{height:58px;flex:none;display:flex;align-items:center;gap:14px;padding:0 18px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
+.bar .back{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:hsl(var(--muted-foreground));flex:none}
+.bar .eb{font:700 10px Sora;text-transform:uppercase;letter-spacing:.07em;color:hsl(var(--primary-ink));white-space:nowrap}
+.bar .tt{font:800 17px/1.15 Sora;letter-spacing:-.015em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar .ttl{min-width:0}
+.bar .sep{width:1px;height:28px;background:hsl(var(--border));flex:none}
+.chip{display:inline-flex;align-items:center;gap:5px;border-radius:7px;padding:3px 8px;font:700 12px Sora;white-space:nowrap;background:hsl(var(--muted))}
+.chip.os{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+.chips{display:flex;gap:6px;align-items:center;min-width:0;overflow:hidden}
+.saved{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;color:hsl(var(--muted-foreground));white-space:nowrap}
+.saved .ic{color:hsl(var(--success))}
+.grow{flex:1}
+.org{font-size:13px;font-weight:600;color:hsl(var(--muted-foreground));white-space:nowrap}
+.body{flex:1;min-height:0;padding:12px;display:flex}
+.shell{flex:1;min-height:0;background:hsl(var(--background));border:1px solid hsl(var(--border));border-radius:16px;display:grid;grid-template-columns:230px minmax(0,1fr);overflow:hidden}
+.screen{display:none;flex:1;min-height:0}
+.screen.on{display:flex}
+
+/* rail */
+.rail{background:hsl(var(--card));border-right:1px solid hsl(var(--border));display:flex;flex-direction:column;min-height:0}
+.rail .rt{font:700 11px Inter;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));padding:16px 18px 8px}
+.rail ul{list-style:none;margin:0;padding:0 10px;flex:1;overflow:auto}
+.rail li{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:11px;font-size:14px}
+.rail li.on{background:hsl(var(--muted));font-weight:700}
+.rail li span.n{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rail li small{font-size:12px;color:hsl(var(--muted-foreground));font-variant-numeric:tabular-nums}
+.rail li small.bad{background:hsl(var(--danger-soft));color:hsl(var(--danger-ink));border-radius:999px;padding:0 7px;font-weight:700}
+.pr{width:20px;height:20px;border-radius:50%;flex:none;border:2.5px solid hsl(var(--border))}
+.pr.half{border-color:hsl(var(--primary)) hsl(var(--border)) hsl(var(--border)) hsl(var(--primary))}
+.pr.bit{border-top-color:hsl(var(--primary))}
+.rfoot{border-top:1px solid hsl(var(--border));padding:12px;display:flex;flex-direction:column;gap:10px}
+
+/* content */
+.main{display:flex;flex-direction:column;min-width:0;min-height:0}
+.scroll{flex:1;min-height:0;overflow:auto;padding:18px 22px 22px}
+.sh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.sh h3{font:800 20px Sora}
+.cnt{border-radius:999px;padding:1px 9px;font-size:12px;font-weight:600;background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;font-weight:600;font-size:14px;border:1px solid transparent;white-space:nowrap;cursor:pointer}
+.btn.pr{background:hsl(var(--primary));color:#fff}
+.btn.ol{background:hsl(var(--card));border-color:hsl(var(--border-strong))}
+.btn.gh{background:none;color:hsl(var(--primary-ink))}
+.btn.sm{height:32px;padding:0 11px;font-size:13px;border-radius:9px}
+.btn.full{width:100%}
+.btn.lg{height:46px;font-size:15px;border-radius:12px}
+.table{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;overflow:hidden}
+.thead,.row{display:grid;grid-template-columns:minmax(0,1fr) repeat(3,150px);align-items:center}
+.thead{background:hsl(var(--primary-soft)/.6);border-bottom:1px solid hsl(var(--border));padding:10px 0}
+.thead span{font-size:12.5px;color:hsl(var(--muted-foreground));padding:0 16px}
+.thead b{display:block;text-align:center;font:700 13px Sora}
+.thead small{display:block;text-align:center;font-size:11.5px;color:hsl(var(--muted-foreground))}
+.row{border-bottom:1px solid hsl(var(--border));min-height:62px}
+.row:last-child{border-bottom:0}
+.item{display:flex;gap:10px;align-items:center;padding:10px 16px;font-size:14.5px}
+.num{width:24px;height:24px;border-radius:7px;display:grid;place-items:center;font:700 12px Sora;background:hsl(var(--muted));color:hsl(var(--muted-foreground));flex:none}
+.num.bad{background:hsl(var(--danger-soft));color:hsl(var(--danger-ink))}
+.ans{display:flex;justify-content:center}
+.ans span{display:inline-flex;background:hsl(var(--muted));border-radius:12px;padding:3px;gap:2px}
+.ans i{width:38px;height:34px;border-radius:9px;display:grid;place-items:center;color:hsl(var(--muted-foreground))}
+.ans i.ok{background:hsl(var(--primary-soft));color:hsl(var(--primary));box-shadow:inset 0 0 0 1.5px hsl(var(--primary)/.5)}
+.ans i.bad{background:hsl(var(--danger-soft));color:hsl(var(--danger-ink));box-shadow:inset 0 0 0 1.5px hsl(var(--danger)/.45)}
+.nextsec{margin-top:14px;display:flex;align-items:center;gap:12px;background:hsl(var(--card));border:1px dashed hsl(var(--border-strong));border-radius:14px;padding:12px 14px}
+.nextsec p{flex:1;font-size:13.5px;color:hsl(var(--muted-foreground))}
+.nextsec p b{color:hsl(var(--foreground))}
+
+/* counters */
+.tally{display:inline-flex;align-items:center;gap:10px;font-size:13px;white-space:nowrap}
+.tally .n{font:800 13px Sora;font-variant-numeric:tabular-nums}
+.tally .left{display:inline-flex;align-items:center;gap:6px;color:hsl(var(--muted-foreground))}
+.tally .left .n{color:hsl(var(--foreground))}
+.tally .fail{display:inline-flex;align-items:center;gap:6px;color:hsl(var(--danger-ink));font-weight:600}
+.tally .fail .n{background:hsl(var(--danger-soft));border-radius:999px;min-width:22px;height:22px;display:grid;place-items:center;padding:0 6px;font-size:11.5px}
+.meter{height:6px;border-radius:99px;background:hsl(var(--muted));overflow:hidden;display:flex}
+.meter i{display:block;height:100%}
+.meter .a{background:hsl(var(--primary))}
+.meter .f{background:hsl(var(--danger))}
+
+/* A: top */
+.topprog{display:flex;align-items:center;gap:10px;border:1px solid hsl(var(--border));border-radius:11px;padding:4px 6px 4px 12px;background:hsl(var(--card))}
+.topprog .meter{width:90px}
+/* B: rail footer */
+.railcard{background:hsl(var(--background));border:1px solid hsl(var(--border));border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.railcard .l{display:flex;justify-content:space-between;font-size:12.5px;color:hsl(var(--muted-foreground))}
+.railcard .l b{color:hsl(var(--foreground));font:800 13px Sora}
+.railcard .l.f b{color:hsl(var(--danger-ink))}
+/* C: docked */
+.dock{flex:none;display:flex;align-items:center;gap:14px;border-top:1px solid hsl(var(--border));background:hsl(var(--card));padding:10px 18px}
+.dock .meter{width:140px}
+
+/* phone and portrait tablet */
+.mtop{display:none}
+.nextsec.mtop-only{display:none}
+@container (max-width:1040px){
+  .thead,.row{grid-template-columns:minmax(0,1fr) repeat(3,124px)}
+  .ans i{width:32px}
+  .shell{grid-template-columns:200px minmax(0,1fr)}
+  .chips .plate{display:none}
+}
+@container (max-width:800px){
+  .shell{grid-template-columns:1fr}
+  .rail{display:none}
+  .mtop{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid hsl(var(--border));background:hsl(var(--card))}
+  .mtop .sel{flex:1;display:flex;align-items:center;gap:8px;border:1px solid hsl(var(--border-strong));border-radius:10px;padding:7px 11px;font-weight:600;font-size:14px}
+  .mtop .sel span{flex:1}
+  .chips{display:none}
+  .org{display:none}
+  .bar .sep{display:none}
+  .scroll{padding:14px}
+  .topprog .meter{display:none}
+  .hidet{display:none !important}
+  .nextsec.mtop-only{display:flex}
+}
+@container (max-width:600px){
+  .thead,.row{grid-template-columns:1fr}
+  .thead{display:none}
+  .row{padding:10px 12px;gap:8px}
+  .row .ans{justify-content:flex-start}
+  .row .ans::before{content:attr(data-plate);font:700 12px Sora;width:72px;align-self:center}
+  .item{padding:0}
+  .bar{padding:0 10px;gap:8px}
+  .bar .tt{font-size:15px}
+  .hidep{display:none !important}
+  .dock{flex-wrap:wrap;gap:8px 12px;padding:10px 12px}
+  .dock .meter{display:none}
+  .dock .grow{display:none}
+  .dock .btn.pr{flex:1}
+}
+.recommend{margin-top:30px;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;padding:18px 20px;max-width:900px}
+.recommend h3{font:800 18px Sora}
+.recommend p{color:hsl(var(--foreground)/.85);font-size:14px;margin-top:6px}
+.recommend table{border-collapse:collapse;margin-top:12px;font-size:13.5px;width:100%}
+.recommend th,.recommend td{text-align:left;border-bottom:1px solid hsl(var(--border));padding:7px 8px;vertical-align:top}
+.recommend th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground))}
+@media (max-width:820px){.mhead{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="doc">
+  <h1>Barra do checklist · 3 modelos</h1>
+  <p class="lead">Hoje o que falta, as não conformes, <b>Próxima seção</b> e <b>Revisar e concluir</b> ficam numa barra preta que flutua por cima dos itens e cobre as últimas linhas. Os três modelos tiram a barra de cima do conteúdo: nada cobre a tabela. Use os botões <b>Tablet</b> e <b>Celular</b> para ver cada modelo nesses aparelhos.</p>
+  <div class="rule"><span class="ic i-info s20"></span><p>O que continua igual nos três: a contagem de <b>sem resposta</b> e de <b>não conformes</b> sempre à vista, <b>Revisar e concluir</b> a um toque, e <b>Próxima seção</b> no fim da seção, onde a pessoa termina de ler.</p></div>
+
+  <div class="tabs" id="tabs">
+    <button class="tab" data-model="a" aria-pressed="true">A · No topo <small>junto do título</small></button>
+    <button class="tab" data-model="b" aria-pressed="false">B · No trilho de seções <small>à esquerda</small></button>
+    <button class="tab" data-model="c" aria-pressed="false">C · Rodapé encaixado <small>fora dos itens</small></button>
+  </div>
+
+  <section class="model on" data-model="a">
+    <div class="mhead">
+      <div><h2>A · No topo</h2><p>A contagem e <b>Revisar e concluir</b> sobem para a barra do topo, no lugar de "Tudo salvo" (que vira um ícone de nuvem). <b>Próxima seção</b> aparece no fim da lista de itens. A área dos itens fica inteira para a leitura.</p></div>
+      <div class="pc"><h4>A favor</h4><ul><li>Nada embaixo: a tela inteira é dos itens.</li><li>A contagem fica junto do nome do checklist.</li></ul><h4>Contra</h4><ul><li>A barra do topo fica cheia no tablet; as placas saem dela.</li><li>Para concluir, a mão sobe até o topo.</li></ul></div>
+    </div>
+    <div class="controls"><span></span><div class="seg"><button data-dev="nb" aria-pressed="true">Notebook</button><button data-dev="tabl" aria-pressed="false">Tablet deitado</button><button data-dev="tabp" aria-pressed="false">Tablet em pé</button><button data-dev="phone" aria-pressed="false">Celular</button></div></div>
+    <p class="note"><b>Tablet em pé e celular:</b> a contagem fica no topo como um selo curto (114 e 3), e <b>Revisar e concluir</b> vira só o ícone, com o nome no tooltip.</p>
+    <div class="stage"><div class="frame" data-view="a"></div></div>
+  </section>
+
+  <section class="model" data-model="b">
+    <div class="mhead">
+      <div><h2>B · No trilho de seções</h2><p>O trilho da esquerda, que já mostra o progresso de cada seção, ganha no pé o total: barra de progresso, sem resposta, não conformes e <b>Revisar e concluir</b>. <b>Próxima seção</b> fica no fim da lista de itens.</p></div>
+      <div class="pc"><h4>A favor</h4><ul><li>Progresso e seções no mesmo lugar: quem olha o trilho entende tudo.</li><li>Topo e itens ficam limpos.</li></ul><h4>Contra</h4><ul><li>No tablet em pé e no celular o trilho some; lá a contagem vai para o seletor de seção.</li></ul></div>
+    </div>
+    <div class="controls"><span></span><div class="seg"><button data-dev="nb" aria-pressed="true">Notebook</button><button data-dev="tabl" aria-pressed="false">Tablet deitado</button><button data-dev="tabp" aria-pressed="false">Tablet em pé</button><button data-dev="phone" aria-pressed="false">Celular</button></div></div>
+    <p class="note"><b>Tablet em pé e celular:</b> sem trilho, o seletor de seção no alto mostra a contagem ao lado, e <b>Revisar e concluir</b> fica no fim da lista, depois da última seção.</p>
+    <div class="stage"><div class="frame" data-view="b"></div></div>
+  </section>
+
+  <section class="model" data-model="c">
+    <div class="mhead">
+      <div><h2>C · Rodapé encaixado</h2><p>A mesma barra de hoje, mas clara e encaixada no pé do painel, fora da área dos itens: a lista termina acima dela e nada fica coberto. Contagem e progresso à esquerda; <b>Próxima seção</b> e <b>Revisar e concluir</b> à direita, onde o polegar alcança.</p></div>
+      <div class="pc"><h4>A favor</h4><ul><li>As ações ficam embaixo, perto da mão, como hoje.</li><li>Funciona igual em todos os aparelhos.</li></ul><h4>Contra</h4><ul><li>Ocupa uma faixa fixa de ~56 px.</li><li>Continua sendo uma barra, só que sem cobrir.</li></ul></div>
+    </div>
+    <div class="controls"><span></span><div class="seg"><button data-dev="nb" aria-pressed="true">Notebook</button><button data-dev="tabl" aria-pressed="false">Tablet deitado</button><button data-dev="tabp" aria-pressed="false">Tablet em pé</button><button data-dev="phone" aria-pressed="false">Celular</button></div></div>
+    <p class="note"><b>Celular:</b> a faixa quebra em duas linhas: contagem em cima, botões embaixo.</p>
+    <div class="stage"><div class="frame" data-view="c"></div></div>
+  </section>
+
+  <div class="recommend">
+    <h3>Comparação</h3>
+    <table>
+      <tr><th></th><th>A · Topo</th><th>B · Trilho</th><th>C · Rodapé encaixado</th></tr>
+      <tr><td>Cobre os itens</td><td>Não</td><td>Não</td><td>Não</td></tr>
+      <tr><td>Espaço tirado da leitura</td><td>Nenhum</td><td>Nenhum (notebook e tablet deitado)</td><td>Faixa de ~56 px</td></tr>
+      <tr><td>Concluir com o polegar (tablet)</td><td>Longe</td><td>Médio</td><td>Perto</td></tr>
+      <tr><td>Igual em todos os aparelhos</td><td>Quase</td><td>Muda sem trilho</td><td>Sim</td></tr>
+    </table>
+    <p><b>Recomendação: B.</b> O trilho já é onde a pessoa acompanha o andamento; somar o total ali tira a barra sem gastar espaço da tabela, e o topo continua só com o nome e os veículos. No tablet em pé e no celular, o seletor de seção leva a contagem.</p>
+  </div>
+</div>
+
+<script>
+const SECTIONS = [
+  ['Elétrica', '2', 'bad', 'half'], ['Estrutura', '1/24', '', 'bit'], ['Inspeção de pneus', '0/3', '', ''], ['Sistema pneumático', '0/12', '', ''],
+  ['Sistema de freios', '0/18', '', ''], ['Sistema de ar', '0/3', '', ''], ['Sistema de freio a disco', '1', 'bad', 'bit'], ['Suspensão', '0/21', '', ''],
+];
+const ITEMS = [
+  ['Verificar fixação e estado dos paralamas', ['bad', '', '']],
+  ['Verificar condições do assoalho', ['ok', 'ok', '']],
+  ['Verificar condições e fixação dos barrotes', ['', '', '']],
+  ['Verificar condição geral dos fueiros', ['', '', '']],
+  ['Verificar travas dos fueiros', ['', '', '']],
+  ['Verificar para-choque traseiro', ['', '', '']],
+  ['Verificar suportes do estepe', ['', '', '']],
+  ['Verificar longarinas', ['', '', '']],
+];
+const PLATES = ['PTJ0559', 'PTJ0458', 'PTJ0455'];
+
+const ic = (name, size) => `<span class="ic i-${name}${size ? ' ' + size : ''}"></span>`;
+const meter = '<span class="meter"><i class="a" style="width:5%"></i><i class="f" style="width:2.5%"></i></span>';
+const tally = '<span class="tally"><span class="left"><span class="n">114</span> sem resposta</span><span class="fail"><span class="n">3</span> não conformes</span></span>';
+
+function bar(extra) {
+  return `<div class="bar"><span class="back">${ic('left')}</span>
+    <div class="ttl"><p class="eb">Checklist · CHK-000002 · versão 1</p><p class="tt">Plano de Manutenção 60 dias</p></div>
+    <span class="sep"></span>
+    <div class="chips"><span class="chip os">OS-000003</span>${PLATES.map((p) => `<span class="chip plate">${ic('truck', 's14')}${p}</span>`).join('')}</div>
+    <span class="grow"></span>${extra}<span class="org hidep">Transportadora Demo</span></div>`;
+}
+function rail(footer) {
+  return `<aside class="rail"><p class="rt">Seções</p><ul>${SECTIONS.map(([n, c, tone, pr], i) => `<li class="${i === 1 ? 'on' : ''}"><span class="pr ${pr}"></span><span class="n">${n}</span><small class="${tone}">${c}</small></li>`).join('')}</ul>${footer}</aside>`;
+}
+function grid(after) {
+  const rows = ITEMS.map(([label, ans], i) => `<div class="row"><div class="item"><span class="num ${ans.includes('bad') ? 'bad' : ''}">${i + 1}</span>${label}</div>${ans.map((a, j) => `<div class="ans" data-plate="${PLATES[j]}"><span><i class="${a === 'ok' ? 'ok' : ''}">${ic('check', 's16')}</i><i class="${a === 'bad' ? 'bad' : ''}">${ic('x', 's16')}</i><i>${ic('minus', 's16')}</i></span></div>`).join('')}</div>`).join('');
+  return `<div class="sh"><h3>Estrutura</h3><span class="cnt">1 de 24</span><span class="grow"></span><button class="btn ol sm hidep">${ic('checks', 's16')}Tudo conforme nesta seção</button></div>
+    <div class="table"><div class="thead"><span>Item</span>${PLATES.map((p) => `<div><b>${p}</b><small>Semirreboque · 1/8</small></div>`).join('')}</div>${rows}</div>${after}`;
+}
+const nextSection = '<div class="nextsec"><p>Fim de <b>Estrutura</b>. A próxima é <b>Inspeção de pneus</b>, com 3 itens.</p><button class="btn pr sm">Próxima seção' + ic('right', 's14') + '</button></div>';
+const mobileTop = (extra) => `<div class="mtop"><span class="sel">${ic('list', 's16')}<span>Estrutura · 1 de 24</span>${ic('caret', 's16')}</span>${extra}</div>`;
+
+const VIEWS = {
+  a: bar(`<span class="topprog">${meter}<span class="tally"><span class="left"><span class="n">114</span><span class="hidet">sem resposta</span></span><span class="fail"><span class="n">3</span><span class="hidet">não conformes</span></span></span><button class="btn pr sm">${ic('checks', 's14')}<span class="hidet">Revisar e concluir</span></button></span><span class="saved" title="Tudo salvo">${ic('cloud', 's16')}</span>`) +
+    `<div class="body"><div class="shell">${rail('')}<div class="main">${mobileTop('')}<div class="scroll">${grid(nextSection)}</div></div></div></div>`,
+  b: bar(`<span class="saved">${ic('cloud', 's16')}<span class="hidep">Tudo salvo</span></span>`) +
+    `<div class="body"><div class="shell">${rail(`<div class="rfoot"><div class="railcard">${meter}<p class="l"><span>Sem resposta</span><b>114 de 120</b></p><p class="l f"><span>Não conformes</span><b>3</b></p></div><button class="btn pr full">${ic('checks', 's16')}Revisar e concluir</button></div>`)}<div class="main">${mobileTop(tally.replace(' sem resposta', '').replace(' não conformes', ''))}<div class="scroll">${grid(nextSection + '<div class="nextsec mtop-only" style="border-style:solid"><p><b>114</b> sem resposta · <b style="color:hsl(var(--danger-ink))">3</b> não conformes</p><button class="btn pr sm">' + ic('checks', 's14') + 'Revisar e concluir</button></div>')}</div></div></div></div>`,
+  c: bar(`<span class="saved">${ic('cloud', 's16')}<span class="hidep">Tudo salvo</span></span>`) +
+    `<div class="body"><div class="shell">${rail('')}<div class="main">${mobileTop('')}<div class="scroll">${grid('')}</div><div class="dock">${meter}${tally}<span class="grow"></span><button class="btn ol sm">Próxima seção${ic('right', 's14')}</button><button class="btn pr sm">${ic('checks', 's14')}Revisar e concluir</button></div></div></div></div>`,
+};
+document.querySelectorAll('[data-view]').forEach((frame) => { frame.innerHTML = VIEWS[frame.dataset.view]; });
+
+const tabs = document.querySelectorAll('#tabs .tab');
+tabs.forEach((tab) => tab.addEventListener('click', () => {
+  tabs.forEach((other) => other.setAttribute('aria-pressed', String(other === tab)));
+  document.querySelectorAll('.model').forEach((model) => model.classList.toggle('on', model.dataset.model === tab.dataset.model));
+}));
+document.querySelectorAll('.model').forEach((model) => {
+  const devices = model.querySelectorAll('[data-dev]');
+  devices.forEach((device) => device.addEventListener('click', () => {
+    devices.forEach((other) => other.setAttribute('aria-pressed', String(other === device)));
+    const frame = model.querySelector('.frame'); frame.classList.remove('phone', 'tabl', 'tabp'); if (device.dataset.dev !== 'nb') frame.classList.add(device.dataset.dev);
+  }));
+});
+</script>
+</body>
+</html>

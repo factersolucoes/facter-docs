@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Começar checklist · 3 modelos · mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --foreground:240 10% 4%;--card:0 0% 100%;--background:230 20% 97.5%;
+  --primary:233 66% 52%;--primary-ink:233 70% 40%;--primary-soft:233 85% 96.5%;
+  --muted:240 5% 95%;--muted-foreground:240 4% 44%;--border:240 6% 90%;--border-strong:240 6% 83%;
+  --toolbar:240 6% 97%;--canvas:228 16% 90%;
+  --success:150 55% 42%;--success-soft:150 52% 94%;--success-ink:152 64% 26%;
+  --warning:36 92% 50%;--warning-soft:40 96% 92%;--warning-ink:26 85% 32%;
+  --danger:0 82% 60%;--danger-soft:0 88% 96.5%;--danger-ink:0 70% 44%;
+}
+*{box-sizing:border-box}
+body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));font:14.5px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,p{margin:0}
+button,input,textarea{font:inherit;color:inherit}
+.ic{display:inline-block;width:18px;height:18px;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;flex:none}
+.s14{width:14px;height:14px}.s16{width:16px;height:16px}.s20{width:20px;height:20px}.s24{width:24px;height:24px}.s28{width:28px;height:28px}
+.i-search{--i:url(https://api.iconify.design/ph/magnifying-glass.svg)}
+.i-gear{--i:url(https://api.iconify.design/ph/gear-six.svg)}
+.i-clock{--i:url(https://api.iconify.design/ph/clock.svg)}
+.i-link{--i:url(https://api.iconify.design/ph/link-simple.svg)}
+.i-wrench{--i:url(https://api.iconify.design/ph/wrench.svg)}
+.i-road{--i:url(https://api.iconify.design/ph/road-horizon.svg)}
+.i-hist{--i:url(https://api.iconify.design/ph/clock-counter-clockwise.svg)}
+.i-right{--i:url(https://api.iconify.design/ph/arrow-right.svg)}
+.i-left{--i:url(https://api.iconify.design/ph/arrow-left.svg)}
+.i-clip{--i:url(https://api.iconify.design/ph/clipboard-text.svg)}
+.i-plus{--i:url(https://api.iconify.design/ph/plus.svg)}
+.i-info{--i:url(https://api.iconify.design/ph/info.svg)}
+.i-warn{--i:url(https://api.iconify.design/ph/warning.svg)}
+.i-check{--i:url(https://api.iconify.design/ph/check-circle-fill.svg)}
+.i-x{--i:url(https://api.iconify.design/ph/x.svg)}
+.i-file{--i:url(https://api.iconify.design/ph/file-text.svg)}
+
+/* document */
+.doc{max-width:1240px;margin:0 auto;padding:40px 22px 90px}
+.doc h1{font:800 29px/1.15 Sora;letter-spacing:-.02em}
+.lead{color:hsl(var(--muted-foreground));max-width:900px;margin-top:10px}
+.rule{margin-top:18px;display:flex;gap:12px;align-items:flex-start;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;padding:14px 16px;max-width:900px}
+.rule .ic{color:hsl(var(--primary));margin-top:2px}
+.rule b{font-weight:700}
+.tabs{display:flex;gap:8px;margin-top:28px;flex-wrap:wrap}
+.tab{border:1px solid hsl(var(--border-strong));background:hsl(var(--card));border-radius:999px;padding:8px 16px;font-weight:600;cursor:pointer;display:flex;gap:8px;align-items:center}
+.tab small{font-weight:500;color:hsl(var(--muted-foreground))}
+.tab[aria-pressed=true]{background:hsl(var(--foreground));color:hsl(var(--card));border-color:hsl(var(--foreground))}
+.tab[aria-pressed=true] small{color:hsl(0 0% 100%/.7)}
+.model{display:none;margin-top:18px}
+.model.on{display:block}
+.mhead{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:18px;align-items:start}
+.mhead h2{font:800 22px/1.2 Sora;letter-spacing:-.015em}
+.mhead p{color:hsl(var(--muted-foreground));margin-top:6px}
+.pc{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;padding:12px 14px;font-size:13.5px}
+.pc h4{font:700 11px Inter;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));margin:4px 0 4px}
+.pc ul{margin:0;padding-left:18px}
+.pc li{margin:2px 0}
+.controls{display:flex;justify-content:space-between;gap:12px;margin-top:18px;flex-wrap:wrap;align-items:center}
+.steps{display:flex;gap:6px;flex-wrap:wrap}
+.step{border:1px solid hsl(var(--border-strong));background:hsl(var(--card));border-radius:10px;padding:6px 12px;font-size:13px;font-weight:600;cursor:pointer;color:hsl(var(--muted-foreground))}
+.step b{color:hsl(var(--foreground));margin-right:4px}
+.step[aria-pressed=true]{border-color:hsl(var(--primary));background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.step[aria-pressed=true] b{color:hsl(var(--primary-ink))}
+.seg{display:inline-flex;background:hsl(var(--card));border:1px solid hsl(var(--border-strong));border-radius:10px;padding:3px}
+.seg button{border:0;background:none;border-radius:7px;padding:5px 12px;font-size:13px;font-weight:600;cursor:pointer;color:hsl(var(--muted-foreground))}
+.seg button[aria-pressed=true]{background:hsl(var(--muted));color:hsl(var(--foreground))}
+.note{margin-top:10px;font-size:13px;color:hsl(var(--muted-foreground))}
+.note b{color:hsl(var(--foreground))}
+.stage{margin-top:12px;background:radial-gradient(hsl(220 8% 85%) 1px,transparent 1.4px) 0 0/22px 22px,hsl(220 10% 91.5%);border:1px solid hsl(var(--border));border-radius:18px;padding:26px 18px;display:flex;justify-content:center}
+
+/* app frame */
+.frame{width:1160px;max-width:100%;height:640px;background:hsl(var(--background));border-radius:16px;box-shadow:0 40px 90px -32px hsl(232 48% 15%/.5);overflow:hidden;display:flex;flex-direction:column;container-type:inline-size;position:relative}
+.frame.phone{width:390px;height:760px;border-radius:30px;border:8px solid hsl(235 20% 14%)}
+.bar{height:58px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
+.bar .eb{font:700 10.5px Inter;text-transform:uppercase;letter-spacing:.07em;color:hsl(var(--muted-foreground))}
+.bar .tt{font:800 18px/1.15 Sora;letter-spacing:-.015em}
+.bar .org{font-size:13px;font-weight:600;color:hsl(var(--muted-foreground))}
+.body{flex:1;min-height:0;padding:14px}
+.card{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px}
+.split{height:100%;display:grid;grid-template-columns:360px minmax(0,1fr);overflow:hidden}
+.pane-l{border-right:1px solid hsl(var(--border));display:flex;flex-direction:column;min-height:0}
+.pane-r{min-height:0;overflow:auto;background:hsl(var(--background));background-image:radial-gradient(hsl(230 12% 86%) 1px,transparent 1.3px);background-size:18px 18px}
+.pane-r.plain{background-image:none;background:hsl(var(--card))}
+.lhead{padding:14px;border-bottom:1px solid hsl(var(--border))}
+.lscroll{flex:1;min-height:0;overflow:auto;padding:0 8px 14px}
+/* tablet: landscape keeps both sides with a narrower list; portrait shows one side at a time, like the phone */
+.frame.tabl{width:1024px;height:700px;border-radius:26px;border:10px solid hsl(235 20% 14%)}
+.frame.tabp{width:768px;height:1000px;border-radius:30px;border:10px solid hsl(235 20% 14%)}
+.frame.tabl .row,.frame.tabp .row{padding:12px 10px}
+.frame.tabl .tpl,.frame.tabp .tpl{padding:15px 16px}
+.frame.tabl .btn,.frame.tabp .btn{height:46px}
+@container (max-width:1040px){
+  .split{grid-template-columns:320px minmax(0,1fr)}
+}
+@container (max-width:800px){
+  .split{grid-template-columns:1fr}
+  .split.target .pane-l{display:none}
+  .split:not(.target) .pane-r{display:none}
+}
+@container (max-width:600px){
+  .bar .org{display:none}
+  .body{padding:8px}
+  .choices{grid-template-columns:1fr !important}
+  .formgrid{grid-template-columns:1fr !important}
+  .hideph{display:none !important}
+}
+
+/* inputs */
+.search{display:flex;align-items:center;gap:9px;height:44px;border:1px solid hsl(var(--border-strong));border-radius:12px;padding:0 12px;background:hsl(var(--card))}
+.search .ic{color:hsl(var(--muted-foreground))}
+.search span{color:hsl(var(--muted-foreground));font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.search.typed span{color:hsl(var(--foreground))}
+.search .caret{width:1.5px;height:20px;background:hsl(var(--primary));margin-left:-7px}
+.hint{font-size:12px;color:hsl(var(--muted-foreground));margin-top:7px;padding:0 2px}
+.gt{display:flex;justify-content:space-between;align-items:center;padding:16px 8px 6px;font:700 11px Inter;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground))}
+.cnt{min-width:24px;text-align:center;border-radius:999px;padding:1px 8px;font-size:11.5px;background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.cnt.w{background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+.cnt.p{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+.row{display:flex;gap:11px;align-items:flex-start;padding:9px 10px;border-radius:12px;cursor:pointer}
+.row:hover{background:hsl(var(--muted)/.6)}
+.row.sel{background:hsl(var(--muted))}
+.tile{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;flex:none;background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.tile.p{background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+.tile.w{background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+.rmain{min-width:0;flex:1}
+.rtop{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.rtop b{font:700 15px Sora}
+.rtop .os{font:600 11.5px Sora;color:hsl(var(--muted-foreground))}
+.rsub{font-size:13px;color:hsl(var(--foreground)/.8);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rmeta{font-size:12px;color:hsl(var(--muted-foreground));margin-top:1px}
+.rmeta .late{color:hsl(var(--warning-ink));font-weight:600}
+.pill{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:600;white-space:nowrap}
+.pill.p{background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.pill.m{background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.pill.w{background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+.pill.d{background:hsl(var(--danger-soft));color:hsl(var(--danger-ink))}
+.pill.s{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+.rpills{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+.empty{margin:8px 4px;border:1px dashed hsl(var(--border-strong));border-radius:12px;padding:10px 12px;font-size:13px;color:hsl(var(--muted-foreground));display:flex;gap:9px}
+.empty .ic{margin-top:2px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;font-weight:600;font-size:14px;border:1px solid transparent;cursor:pointer;white-space:nowrap}
+.btn.pr{background:hsl(var(--primary));color:#fff}
+.btn.pr:disabled{opacity:.5;cursor:not-allowed}
+.btn.ol{background:hsl(var(--card));border-color:hsl(var(--border-strong))}
+.btn.gh{background:none;color:hsl(var(--primary-ink));padding:0 8px}
+.btn.sm{height:32px;padding:0 12px;font-size:13px;border-radius:9px}
+.btn.lg{height:46px;font-size:15px}
+.btn.full{width:100%}
+
+/* right side pieces */
+.center{min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 22px;gap:10px;text-align:center}
+.halo{width:72px;height:72px;border-radius:50%;background:hsl(var(--primary-soft));display:grid;place-items:center;color:hsl(var(--primary));box-shadow:0 0 0 12px hsl(var(--primary-soft)/.5)}
+.center h3{font:700 18px Sora;margin-top:12px}
+.center p.sub{color:hsl(var(--muted-foreground));font-size:14px;max-width:520px}
+.resume{width:100%;max-width:560px;margin-top:14px;text-align:left;overflow:hidden}
+.resume h4{display:flex;gap:7px;align-items:center;padding:10px 14px;border-bottom:1px solid hsl(var(--border));font:700 11px Inter;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground))}
+.rr{padding:10px 14px;border-bottom:1px solid hsl(var(--border))}
+.rr:last-child{border-bottom:0}
+.rr b{font:700 14px Sora}
+.rr .l2{font-size:12px;color:hsl(var(--muted-foreground));display:flex;gap:8px;align-items:center;margin-top:2px;flex-wrap:wrap}
+.bar8{width:64px;height:6px;border-radius:99px;background:hsl(var(--muted));overflow:hidden;display:inline-block}
+.bar8 i{display:block;height:100%;background:hsl(var(--primary));border-radius:99px}
+.wrap{padding:22px;max-width:720px;margin:0 auto}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:hsl(var(--muted-foreground));margin-bottom:12px}
+.target{padding:16px 18px}
+.target .eb{font:700 11px Inter;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--primary-ink));display:flex;gap:6px;align-items:center}
+.target .eb.m{color:hsl(var(--muted-foreground))}
+.target h3{font:800 21px/1.2 Sora;margin-top:4px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.target .chips{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.veh{border:1px solid hsl(var(--border));border-radius:10px;padding:6px 10px;font:700 13px Sora;background:hsl(var(--card))}
+.veh small{display:block;font:500 11px Inter;color:hsl(var(--muted-foreground))}
+.target p{font-size:14px;color:hsl(var(--foreground)/.85);margin-top:8px}
+.sect{font:700 11px Inter;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));margin:18px 2px 8px}
+.tpl{display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:14px;border:1px solid hsl(var(--border));background:hsl(var(--card));margin-bottom:8px;cursor:pointer}
+.tpl.sel{border-color:hsl(var(--primary));box-shadow:0 0 0 3px hsl(var(--primary-soft))}
+.tpl .radio{width:18px;height:18px;border-radius:50%;border:2px solid hsl(var(--border-strong));flex:none}
+.tpl.sel .radio{border:5px solid hsl(var(--primary))}
+.tpl b{font:700 14.5px Sora}
+.tpl .meta{font-size:12px;color:hsl(var(--muted-foreground))}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px;flex-wrap:wrap}
+.foot .meta{font-size:12.5px;color:hsl(var(--muted-foreground))}
+.notice{display:flex;gap:10px;align-items:flex-start;border-radius:12px;padding:10px 12px;font-size:13.5px;margin-top:12px}
+.notice .ic{margin-top:2px}
+.notice.w{background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+.notice.p{background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.notice.m{background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.choice{border:1px solid hsl(var(--border));background:hsl(var(--card));border-radius:16px;padding:16px;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:8px}
+.choice.sel{border-color:hsl(var(--primary));box-shadow:0 0 0 3px hsl(var(--primary-soft))}
+.choice h4{font:700 16px Sora;display:flex;gap:8px;align-items:center;justify-content:space-between}
+.choice p{font-size:13.5px;color:hsl(var(--muted-foreground))}
+.choice.big{padding:22px;min-height:190px}
+.choice.big .tile{width:46px;height:46px;border-radius:13px}
+.choice.big h4{font-size:18px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:13px;font-weight:600}
+.field label small{font-weight:500;color:hsl(var(--muted-foreground))}
+.inp{border:1px solid hsl(var(--border-strong));border-radius:10px;padding:9px 12px;background:hsl(var(--card));min-height:40px;font-size:14px}
+.inp.ta{min-height:74px;color:hsl(var(--foreground))}
+.inp.ph{color:hsl(var(--muted-foreground))}
+.chiprow{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid hsl(var(--border-strong));border-radius:999px;padding:6px 14px;font-size:13.5px;font-weight:600;background:hsl(var(--card));cursor:pointer}
+.chip.sel{border-color:hsl(var(--primary));background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.formgrid .wide{grid-column:1/-1}
+/* dialog */
+.scrim{position:absolute;inset:0;background:hsl(235 30% 12%/.35);display:grid;place-items:center;padding:16px;z-index:5}
+.dialog{width:520px;max-width:100%;background:hsl(var(--card));border-radius:18px;box-shadow:0 30px 70px -20px hsl(232 48% 15%/.55);overflow:hidden}
+.dialog .dh{display:flex;justify-content:space-between;align-items:flex-start;padding:18px 20px 6px}
+.dialog .dh h3{font:800 19px Sora}
+.dialog .dh p{font-size:13px;color:hsl(var(--muted-foreground));margin-top:3px}
+.dialog .x{width:32px;height:32px;border-radius:9px;background:hsl(var(--muted));display:grid;place-items:center;color:hsl(var(--muted-foreground))}
+.dialog .db{padding:12px 20px;display:flex;flex-direction:column;gap:14px}
+.dialog .df{padding:14px 20px;border-top:1px solid hsl(var(--border));display:flex;justify-content:flex-end;gap:8px}
+.toast{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);background:hsl(var(--foreground));color:hsl(var(--card));border-radius:12px;padding:10px 14px;font-size:13.5px;display:flex;gap:8px;align-items:center;white-space:nowrap;z-index:6}
+.toast .ic{color:hsl(var(--success))}
+.screen{display:none;height:100%}
+.screen.on{display:block}
+.recommend{margin-top:30px;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;padding:18px 20px;max-width:900px}
+.recommend h3{font:800 18px Sora}
+.recommend p,.recommend li{color:hsl(var(--foreground)/.85);font-size:14px}
+.recommend p{margin-top:6px}
+.recommend table{border-collapse:collapse;margin-top:12px;font-size:13.5px;width:100%}
+.recommend th,.recommend td{text-align:left;border-bottom:1px solid hsl(var(--border));padding:7px 8px;vertical-align:top}
+.recommend th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground))}
+@media (max-width:820px){.mhead{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="doc">
+  <h1>Começar checklist · 3 modelos</h1>
+  <p class="lead">A tela de hoje mistura duas coisas na mesma busca: a OS que está na oficina e a placa ou conjunto sem OS. Quem chega não sabe se precisa de OS, nem o que acontece quando o conjunto não tem uma. Os três modelos abaixo resolvem isso de jeitos diferentes. Escolha o modelo e passe pelos estados; os botões <b>Tablet</b> e <b>Celular</b> mostram o mesmo estado nesses aparelhos.</p>
+  <div class="rule"><span class="ic i-info s20"></span><p><b>Regra de hoje</b> (schema v2, checklists): checklist sem OS é permitido, para inspeção de pátio e saída de viagem; a OS nasce só quando aparece não conformidade. Mas lançar serviço numa falha exige OS. Os modelos <b>A</b> e <b>B</b> mantêm a regra e deixam o caminho claro. O modelo <b>C</b> torna a OS obrigatória e, se escolhido, muda a regra (ADR e documentação no mesmo ciclo).</p></div>
+
+  <div class="tabs" id="tabs">
+    <button class="tab" data-model="a" aria-pressed="true">A · Primeiro o motivo <small>mantém a regra</small></button>
+    <button class="tab" data-model="b" aria-pressed="false">B · A busca mostra a OS <small>mantém a regra</small></button>
+    <button class="tab" data-model="c" aria-pressed="false">C · Sempre pela OS <small>muda a regra</small></button>
+  </div>
+
+  <!-- ===================== MODEL A ===================== -->
+  <section class="model on" data-model="a">
+    <div class="mhead">
+      <div>
+        <h2>A · Primeiro o motivo</h2>
+        <p>A tela começa com uma pergunta só: <b>manutenção</b> ou <b>pátio e saída</b>. Cada caminho tem a sua lista e a sua busca. Na manutenção, o conjunto sem OS ganha o botão <b>Abrir OS</b> ali mesmo; no pátio, a OS não é pedida.</p>
+      </div>
+      <div class="pc"><h4>A favor</h4><ul><li>A dúvida "preciso de OS?" acaba no primeiro toque.</li><li>Cada lista fica curta e com um sentido só.</li></ul><h4>Contra</h4><ul><li>Um toque a mais antes de chegar na OS, o caminho mais comum.</li><li>A pessoa precisa saber o motivo antes de achar o veículo.</li></ul></div>
+    </div>
+    <div class="controls">
+      <div class="steps">
+        <button class="step" data-s="a1" aria-pressed="true"><b>1</b>Início</button>
+        <button class="step" data-s="a2" aria-pressed="false"><b>2</b>Manutenção</button>
+        <button class="step" data-s="a3" aria-pressed="false"><b>3</b>Conjunto sem OS</button>
+        <button class="step" data-s="a4" aria-pressed="false"><b>4</b>Abrir OS</button>
+        <button class="step" data-s="a5" aria-pressed="false"><b>5</b>Pátio e saída</button>
+      </div>
+      <div class="seg"><button data-dev="nb" aria-pressed="true">Notebook</button><button data-dev="tabl" aria-pressed="false">Tablet deitado</button><button data-dev="tabp" aria-pressed="false">Tablet em pé</button><button data-dev="phone" aria-pressed="false">Celular</button></div>
+    </div>
+    <p class="note" data-note="a1"><b>Início:</b> dois cartões grandes. O contador mostra quantas OS estão na oficina. Checklist pela metade: ao escolher o mesmo modelo, o botão vira <b>Continuar checklist</b>.</p>
+    <p class="note" data-note="a2" hidden><b>Manutenção:</b> só OS na lista. A busca procura OS, placa ou conjunto. Escolher a OS leva aos modelos, como hoje.</p>
+    <p class="note" data-note="a3" hidden><b>Conjunto sem OS:</b> o resultado diz "Sem OS aberta". O painel oferece <b>Abrir OS</b> ou <b>Inspecionar sem OS</b>; o segundo leva direto à escolha do modelo de inspeção (passo 5). Os botões do mockup funcionam.</p>
+    <p class="note" data-note="a4" hidden><b>Abrir OS:</b> na tela codada é o diálogo da Recepção (abrir-os-multistep), já com o conjunto escolhido, e não este diálogo curto. Abriu, já cai na escolha do modelo com a OS nova.</p>
+    <p class="note" data-note="a5" hidden><b>Pátio e saída:</b> a busca acha placa ou conjunto; nada de OS. O aviso explica o que acontece se aparecer falha.</p>
+    <div class="stage"><div class="frame">
+      <div class="bar"><div><p class="eb">Checklists</p><p class="tt">Começar checklist</p></div><span class="org">Transportadora Demo</span></div>
+      <div class="body">
+
+        <!-- a1 -->
+        <div class="screen on" data-s="a1"><div class="card" style="height:100%;overflow:auto">
+          <div class="center">
+            <h3 style="margin-top:0">Por que vai inspecionar?</h3>
+            <p class="sub">Isso decide se o checklist entra numa OS</p>
+            <div class="choices" style="width:100%;max-width:720px;margin-top:10px">
+              <div class="choice big" data-go="a2"><span class="tile p"><span class="ic i-wrench s24"></span></span><h4>Manutenção <span class="pill p">1 OS na oficina</span></h4><p>O veículo está na oficina. O checklist entra na OS e cada falha vira serviço nela.</p></div>
+              <div class="choice big" data-go="a5"><span class="tile"><span class="ic i-road s24"></span></span><h4>Pátio ou saída de viagem</h4><p>Conferência sem OS. A falha fica registrada e vira serviço quando a OS for aberta</p></div>
+            </div>
+          </div>
+        </div></div>
+
+        <!-- a2 -->
+        <div class="screen" data-s="a2"><div class="card split">
+          <div class="pane-l">
+            <div class="lhead"><div class="back"><span class="ic i-left s14"></span>Manutenção</div><div class="search"><span class="ic i-search"></span><span>OS, placa ou conjunto</span></div></div>
+            <div class="lscroll">
+              <div class="gt">Na fila da oficina <span class="cnt w">0</span></div>
+              <p style="font-size:13px;color:hsl(var(--muted-foreground));padding:0 8px">Nenhuma OS esperando agora</p>
+              <div class="gt">Em manutenção <span class="cnt p">1</span></div>
+              <div class="row sel"><span class="tile p"><span class="ic i-gear"></span></span><div class="rmain"><div class="rtop"><b>Conjunto 22500</b><span class="os">OS-000001</span></div><div class="rsub">Deixou para preventiva</div><div class="rmeta"><span class="late">há 5 dias</span> · Box 3</div></div></div>
+            </div>
+          </div>
+          <div class="pane-r">
+            <div class="wrap">
+              <div class="card target"><p class="eb"><span class="ic i-file s14"></span>Entra na OS-000001 · Em manutenção</p><h3>Conjunto 22500</h3><div class="chips"><span class="veh">CRT7W18<small>1ª carreta</small></span><span class="veh">RTP1S27<small>2ª carreta</small></span><span class="veh">RTK3N71<small>3ª carreta</small></span></div><p>Deixou para preventiva · há 5 dias · Box 3</p></div>
+              <p class="sect">Escolha o modelo</p>
+              <div class="tpl sel"><span class="radio"></span><div style="flex:1"><b>Plano de Manutenção 60 dias</b><div class="meta">117 itens · versão 1</div></div></div>
+              <div class="tpl"><span class="radio"></span><div style="flex:1"><b>Inspeção de entrada</b><div class="meta">24 itens · versão 2</div></div></div>
+              <div class="foot"><span class="meta">3 veículos na mesma inspeção</span><button class="btn pr">Continuar checklist</button></div>
+            </div>
+          </div>
+        </div></div>
+
+        <!-- a3 -->
+        <div class="screen" data-s="a3"><div class="card split">
+          <div class="pane-l">
+            <div class="lhead"><div class="back"><span class="ic i-left s14"></span>Manutenção</div><div class="search typed"><span class="ic i-search"></span><span>22600</span><i class="caret"></i></div></div>
+            <div class="lscroll">
+              <div class="gt">Resultado da busca</div>
+              <div class="row sel"><span class="tile"><span class="ic i-link"></span></span><div class="rmain"><div class="rtop"><b>Conjunto 22600</b></div><div class="rsub">ABN1C45 · ABN1C44 · ABN1C33</div><div class="rpills"><span class="pill m">Sem OS aberta</span></div></div></div>
+            </div>
+          </div>
+          <div class="pane-r">
+            <div class="center">
+              <span class="halo"><span class="ic i-file s28"></span></span>
+              <h3>Conjunto 22600 não tem OS aberta</h3>
+              <p class="sub">Para inspecionar em manutenção, abra a OS primeiro. As falhas viram serviço nela.</p>
+              <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;justify-content:center"><button class="btn pr lg" data-go="a4"><span class="ic i-plus s16"></span>Abrir OS</button><button class="btn ol lg" data-go="a5"><span class="ic i-road s16"></span>Inspecionar sem OS</button></div>
+              <p class="sub" style="font-size:13px;margin-top:6px">Sem OS serve para pátio e saída de viagem: você escolhe o modelo de inspeção em seguida</p>
+            </div>
+          </div>
+        </div></div>
+
+        <!-- a4 -->
+        <div class="screen" data-s="a4"><div class="card split">
+          <div class="pane-l">
+            <div class="lhead"><div class="back"><span class="ic i-left s14"></span>Manutenção</div><div class="search typed"><span class="ic i-search"></span><span>22600</span></div></div>
+            <div class="lscroll"><div class="gt">Resultado da busca</div><div class="row sel"><span class="tile"><span class="ic i-link"></span></span><div class="rmain"><div class="rtop"><b>Conjunto 22600</b></div><div class="rsub">ABN1C45 · ABN1C44 · ABN1C33</div><div class="rpills"><span class="pill m">Sem OS aberta</span></div></div></div></div>
+          </div>
+          <div class="pane-r"></div>
+          <div class="scrim"><div class="dialog">
+            <div class="dh"><div><h3>Abrir OS</h3><p>Conjunto 22600 · ABN1C45 · ABN1C44 · ABN1C33</p></div><span class="x"><span class="ic i-x s16"></span></span></div>
+            <div class="db">
+              <div class="field"><label>Tipo</label><div class="chiprow"><span class="chip sel">Preventiva</span><span class="chip">Corretiva</span><span class="chip">Inspeção</span></div></div>
+              <div class="field"><label>O que foi relatado <small>opcional</small></label><div class="inp ta ph">Ex.: revisão dos 60 dias</div></div>
+              <div class="field"><label>Box <small>opcional</small></label><div class="inp ph">Escolha o box</div></div>
+            </div>
+            <div class="df"><button class="btn ol">Cancelar</button><button class="btn pr">Abrir OS e começar</button></div>
+          </div></div>
+        </div></div>
+
+        <!-- a5 -->
+        <div class="screen" data-s="a5"><div class="card split target">
+          <div class="pane-l">
+            <div class="lhead"><div class="back"><span class="ic i-left s14"></span>Pátio ou saída</div><div class="search typed"><span class="ic i-search"></span><span>22600</span></div><p class="hint">O conjunto engatado entra inteiro</p></div>
+            <div class="lscroll"><div class="gt">Resultado da busca</div><div class="row sel"><span class="tile"><span class="ic i-link"></span></span><div class="rmain"><div class="rtop"><b>Conjunto 22600</b></div><div class="rsub">ABN1C45 · ABN1C44 · ABN1C33</div></div></div></div>
+          </div>
+          <div class="pane-r">
+            <div class="wrap">
+              <div class="card target"><p class="eb m"><span class="ic i-road s14"></span>Pátio ou saída · sem OS</p><h3>Conjunto 22600</h3><div class="chips"><span class="veh">ABN1C45<small>1ª carreta</small></span><span class="veh">ABN1C44<small>2ª carreta</small></span><span class="veh">ABN1C33<small>3ª carreta</small></span></div></div>
+              <div class="notice m"><span class="ic i-info s16"></span><span>Sem OS: a falha fica registrada no checklist e o serviço entra quando a OS for aberta</span></div>
+              <p class="sect">Escolha o modelo</p>
+              <div class="tpl sel"><span class="radio"></span><div style="flex:1"><b>Saída de viagem</b><div class="meta">18 itens · versão 1</div></div></div>
+              <div class="tpl"><span class="radio"></span><div style="flex:1"><b>Plano de Manutenção 60 dias</b><div class="meta">117 itens · versão 1</div></div></div>
+              <div class="foot"><span class="meta">3 veículos na mesma inspeção</span><button class="btn pr">Começar checklist</button></div>
+            </div>
+          </div>
+        </div></div>
+
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ===================== MODEL B ===================== -->
+  <section class="model" data-model="b">
+    <div class="mhead">
+      <div>
+        <h2>B · A busca mostra a OS</h2>
+        <p>Uma busca só, como hoje, mas <b>cada resultado diz se tem OS</b>. Com OS, o checklist entra nela. Sem OS, a tela pergunta uma vez: <b>abrir OS e inspecionar</b> ou <b>só inspecionar</b> (pátio ou saída). A lista da oficina continua embaixo da busca.</p>
+      </div>
+      <div class="pc"><h4>A favor</h4><ul><li>Caminho mais comum (OS na oficina) continua em 1 toque.</li><li>A pergunta sobre OS só aparece quando falta OS.</li><li>Menor mudança no que já está codado.</li></ul><h4>Contra</h4><ul><li>A tela inicial ainda junta oficina e pátio no mesmo lugar.</li></ul></div>
+    </div>
+    <div class="controls">
+      <div class="steps">
+        <button class="step" data-s="b1" aria-pressed="true"><b>1</b>Início</button>
+        <button class="step" data-s="b2" aria-pressed="false"><b>2</b>Busca com OS</button>
+        <button class="step" data-s="b3" aria-pressed="false"><b>3</b>Busca sem OS</button>
+        <button class="step" data-s="b4" aria-pressed="false"><b>4</b>Abrir OS</button>
+        <button class="step" data-s="b5" aria-pressed="false"><b>5</b>OS aberta</button>
+      </div>
+      <div class="seg"><button data-dev="nb" aria-pressed="true">Notebook</button><button data-dev="tabl" aria-pressed="false">Tablet deitado</button><button data-dev="tabp" aria-pressed="false">Tablet em pé</button><button data-dev="phone" aria-pressed="false">Celular</button></div>
+    </div>
+    <p class="note" data-note="b1"><b>Início:</b> a busca no topo e a oficina embaixo, com títulos que dizem o que é. O lado direito explica os dois caminhos em uma linha cada.</p>
+    <p class="note" data-note="b2" hidden><b>Busca com OS:</b> "22500" acha o conjunto e já mostra a OS-000001. Escolher leva aos modelos, dentro da OS.</p>
+    <p class="note" data-note="b3" hidden><b>Busca sem OS:</b> "22600" mostra "Sem OS aberta". O lado direito pergunta o que fazer, com <b>Abrir OS</b> como primeira opção.</p>
+    <p class="note" data-note="b4" hidden><b>Abrir OS:</b> o formulário curto aparece no próprio painel (sem diálogo). O botão já diz o que vem depois.</p>
+    <p class="note" data-note="b5" hidden><b>OS aberta:</b> aviso de sucesso e os modelos, já dentro da OS-000002.</p>
+    <div class="stage"><div class="frame">
+      <div class="bar"><div><p class="eb">Checklists</p><p class="tt">Começar checklist</p></div><span class="org">Transportadora Demo</span></div>
+      <div class="body">
+
+        <!-- b1 -->
+        <div class="screen on" data-s="b1"><div class="card split">
+          <div class="pane-l">
+            <div class="lhead"><div class="search"><span class="ic i-search"></span><span>Placa, frota ou nº do conjunto</span></div></div>
+            <div class="lscroll">
+              <div class="gt">Na oficina agora <span class="cnt p">1</span></div>
+              <div class="row"><span class="tile p"><span class="ic i-gear"></span></span><div class="rmain"><div class="rtop"><b>Conjunto 22500</b><span class="os">OS-000001</span></div><div class="rsub">Deixou para preventiva</div><div class="rmeta"><span class="late">há 5 dias</span> · Box 3 · Em manutenção</div></div></div>
+              <div class="empty"><span class="ic i-info s16"></span><span>Não está na lista? Busque a placa ou o conjunto aqui em cima.</span></div>
+            </div>
+          </div>
+          <div class="pane-r">
+            <div class="center">
+              <h3 style="margin-top:0">O que vai ser inspecionado?</h3>
+              <div class="choices" style="width:100%;max-width:600px;margin-top:6px">
+                <div class="choice"><h4><span style="display:flex;gap:8px;align-items:center"><span class="ic i-wrench s20" style="color:hsl(var(--primary))"></span>Com OS</span></h4><p>Escolha a OS ao lado. O checklist entra nela e as falhas viram serviço.</p></div>
+                <div class="choice"><h4><span style="display:flex;gap:8px;align-items:center"><span class="ic i-road s20" style="color:hsl(var(--muted-foreground))"></span>Sem OS</span></h4><p>Busque a placa ou o conjunto. Serve para pátio e saída de viagem.</p></div>
+              </div>
+              <div class="card resume">
+                <h4><span class="ic i-hist s14"></span>Continuar de onde parou</h4>
+                <div class="rr"><b>Plano de Manutenção 60 dias</b><div class="l2"><span>CHK-000001 · Conjunto 22500</span><span class="pill p">OS-000001</span></div><div class="l2"><span class="bar8"><i style="width:63%"></i></span><b style="font:600 12px Inter;color:hsl(var(--foreground))">74 de 117</b> respondidos <span class="pill d">2 não conformes</span></div></div>
+                <div class="rr"><b>Plano de Manutenção 60 dias</b><div class="l2"><span>CHK-000003 · Conjunto 22600</span><span class="pill m">Sem OS</span></div><div class="l2"><span class="bar8"><i style="width:2%"></i></span><b style="font:600 12px Inter;color:hsl(var(--foreground))">1 de 117</b> respondidos <span class="pill d">1 não conforme</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div></div>
+
+        <!-- b2 -->
+        <div class="screen" data-s="b2"><div class="card split target">
+          <div class="pane-l">
+            <div class="lhead"><div class="search typed"><span class="ic i-search"></span><span>22500</span><i class="caret"></i></div></div>
+            <div class="lscroll">
+              <div class="gt">Resultado da busca</div>
+              <div class="row sel"><span class="tile p"><span class="ic i-link"></span></span><div class="rmain"><div class="rtop"><b>Conjunto 22500</b></div><div class="rsub">CRT7W18 · RTP1S27 · RTK3N71</div><div class="rpills"><span class="pill p"><span class="ic i-file s14"></span>OS-000001 · Em manutenção</span></div></div></div>
+              <div class="row"><span class="tile"><span class="ic i-clip"></span></span><div class="rmain"><div class="rtop"><b>CRT7W18</b></div><div class="rsub">Semirreboque · C-326</div><div class="rpills"><span class="pill p">OS-000001</span></div></div></div>
+            </div>
+          </div>
+          <div class="pane-r">
+            <div class="wrap">
+              <div class="back"><span class="ic i-left s14"></span>Trocar veículo</div>
+              <div class="card target"><p class="eb"><span class="ic i-file s14"></span>Entra na OS-000001 · Em manutenção</p><h3>Conjunto 22500</h3><div class="chips"><span class="veh">CRT7W18<small>1ª carreta</small></span><span class="veh">RTP1S27<small>2ª carreta</small></span><span class="veh">RTK3N71<small>3ª carreta</small></span></div><p>Deixou para preventiva · há 5 dias · Box 3</p></div>
+              <p class="sect">Escolha o modelo</p>
+              <div class="tpl sel"><span class="radio"></span><div style="flex:1"><b>Plano de Manutenção 60 dias</b><div class="meta">117 itens · versão 1</div></div><span class="pill p">Em andamento</span></div>
+              <div class="tpl"><span class="radio"></span><div style="flex:1"><b>Inspeção de entrada</b><div class="meta">24 itens · versão 2</div></div></div>
+              <div class="foot"><span class="meta">3 veículos na mesma inspeção</span><button class="btn pr">Continuar checklist</button></div>
+            </div>
+          </div>
+        </div></div>
+
+        <!-- b3 -->
+        <div class="screen" data-s="b3"><div class="card split target">
+          <div class="pane-l">
+            <div class="lhead"><div class="search typed"><span class="ic i-search"></span><span>22600</span><i class="caret"></i></div></div>
+            <div class="lscroll">
+              <div class="gt">Resultado da busca</div>
+              <div class="row sel"><span class="tile"><span class="ic i-link"></span></span><div class="rmain"><div class="rtop"><b>Conjunto 22600</b></div><div class="rsub">ABN1C45 · ABN1C44 · ABN1C33</div><div class="rpills"><span class="pill m">Sem OS aberta</span></div></div></div>
+            </div>
+          </div>
+          <div class="pane-r">
+            <div class="wrap">
+              <div class="back"><span class="ic i-left s14"></span>Trocar veículo</div>
+              <div class="card target"><p class="eb m">Sem OS aberta</p><h3>Conjunto 22600</h3><div class="chips"><span class="veh">ABN1C45<small>1ª carreta</small></span><span class="veh">ABN1C44<small>2ª carreta</small></span><span class="veh">ABN1C33<small>3ª carreta</small></span></div></div>
+              <p class="sect">Como vai inspecionar?</p>
+              <div class="choices">
+                <div class="choice sel"><h4><span style="display:flex;gap:8px;align-items:center"><span class="ic i-wrench s20" style="color:hsl(var(--primary))"></span>Abrir OS e inspecionar</span></h4><p>Vai entrar na oficina. As falhas viram serviço na OS.</p></div>
+                <div class="choice"><h4><span style="display:flex;gap:8px;align-items:center"><span class="ic i-road s20" style="color:hsl(var(--muted-foreground))"></span>Só inspecionar</span></h4><p>Pátio ou saída de viagem. Se achar falha, abre a OS na revisão.</p></div>
+              </div>
+              <div class="foot"><span></span><button class="btn pr">Continuar</button></div>
+            </div>
+          </div>
+        </div></div>
+
+        <!-- b4 -->
+        <div class="screen" data-s="b4"><div class="card split target">
+          <div class="pane-l">
+            <div class="lhead"><div class="search typed"><span class="ic i-search"></span><span>22600</span></div></div>
+            <div class="lscroll"><div class="gt">Resultado da busca</div><div class="row sel"><span class="tile"><span class="ic i-link"></span></span><div class="rmain"><div class="rtop"><b>Conjunto 22600</b></div><div class="rsub">ABN1C45 · ABN1C44 · ABN1C33</div><div class="rpills"><span class="pill m">Sem OS aberta</span></div></div></div></div>
+          </div>
+          <div class="pane-r">
+            <div class="wrap">
+              <div class="back"><span class="ic i-left s14"></span>Voltar</div>
+              <div class="card target">
+                <p class="eb"><span class="ic i-plus s14"></span>Abrir OS</p><h3>Conjunto 22600</h3>
+                <div class="formgrid" style="margin-top:14px">
+                  <div class="field wide"><label>Tipo</label><div class="chiprow"><span class="chip sel">Preventiva</span><span class="chip">Corretiva</span><span class="chip">Inspeção</span></div></div>
+                  <div class="field wide"><label>O que foi relatado <small>opcional</small></label><div class="inp ta ph">Ex.: revisão dos 60 dias</div></div>
+                  <div class="field"><label>Box <small>opcional</small></label><div class="inp ph">Escolha o box</div></div>
+                </div>
+                <div class="foot"><button class="btn ol">Cancelar</button><button class="btn pr">Abrir OS e escolher o modelo</button></div>
+              </div>
+            </div>
+          </div>
+        </div></div>
+
+        <!-- b5 -->
+        <div class="screen" data-s="b5"><div class="card split target">
+          <div class="pane-l">
+            <div class="lhead"><div class="search typed"><span class="ic i-search"></span><span>22600</span></div></div>
+            <div class="lscroll"><div class="gt">Resultado da busca</div><div class="row sel"><span class="tile p"><span class="ic i-link"></span></span><div class="rmain"><div class="rtop"><b>Conjunto 22600</b></div><div class="rsub">ABN1C45 · ABN1C44 · ABN1C33</div><div class="rpills"><span class="pill p"><span class="ic i-file s14"></span>OS-000002 · Na fila</span></div></div></div></div>
+          </div>
+          <div class="pane-r">
+            <div class="wrap">
+              <div class="back"><span class="ic i-left s14"></span>Trocar veículo</div>
+              <div class="card target"><p class="eb"><span class="ic i-file s14"></span>Entra na OS-000002 · Na fila</p><h3>Conjunto 22600</h3><div class="chips"><span class="veh">ABN1C45<small>1ª carreta</small></span><span class="veh">ABN1C44<small>2ª carreta</small></span><span class="veh">ABN1C33<small>3ª carreta</small></span></div><p>Preventiva · agora</p></div>
+              <p class="sect">Escolha o modelo</p>
+              <div class="tpl sel"><span class="radio"></span><div style="flex:1"><b>Plano de Manutenção 60 dias</b><div class="meta">117 itens · versão 1</div></div></div>
+              <div class="tpl"><span class="radio"></span><div style="flex:1"><b>Inspeção de entrada</b><div class="meta">24 itens · versão 2</div></div></div>
+              <div class="foot"><span class="meta">3 veículos na mesma inspeção</span><button class="btn pr">Começar checklist</button></div>
+            </div>
+          </div>
+          <div class="toast"><span class="ic i-check s16"></span>OS-000002 aberta</div>
+        </div></div>
+
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ===================== MODEL C ===================== -->
+  <section class="model" data-model="c">
+    <div class="mhead">
+      <div>
+        <h2>C · Sempre pela OS</h2>
+        <p>Todo checklist entra numa OS. A tela lista as OS da oficina; a busca acha OS, placa ou conjunto, e o que não tem OS só oferece <b>Abrir OS</b>. Inspeção de pátio e saída vira um tipo de OS (<b>Inspeção</b>). <b>Muda a regra de hoje</b>: pede ADR e atualizar o schema de checklists.</p>
+      </div>
+      <div class="pc"><h4>A favor</h4><ul><li>Uma regra só, sem exceção: nada de "depende".</li><li>Todo checklist tem dono, custo e histórico na OS.</li></ul><h4>Contra</h4><ul><li>Conferência de saída de viagem ganha uma OS a mais, que vira fila sem necessidade.</li><li>Vai contra "registrar sem atrito" no pátio.</li></ul></div>
+    </div>
+    <div class="controls">
+      <div class="steps">
+        <button class="step" data-s="c1" aria-pressed="true"><b>1</b>Início</button>
+        <button class="step" data-s="c2" aria-pressed="false"><b>2</b>Busca sem OS</button>
+        <button class="step" data-s="c3" aria-pressed="false"><b>3</b>Abrir OS</button>
+        <button class="step" data-s="c4" aria-pressed="false"><b>4</b>Escolher o modelo</button>
+      </div>
+      <div class="seg"><button data-dev="nb" aria-pressed="true">Notebook</button><button data-dev="tabl" aria-pressed="false">Tablet deitado</button><button data-dev="tabp" aria-pressed="false">Tablet em pé</button><button data-dev="phone" aria-pressed="false">Celular</button></div>
+    </div>
+    <p class="note" data-note="c1"><b>Início:</b> só OS. O botão <b>Abrir OS</b> fica visível o tempo todo, no topo da lista.</p>
+    <p class="note" data-note="c2" hidden><b>Busca sem OS:</b> o conjunto aparece, mas a única ação é abrir a OS.</p>
+    <p class="note" data-note="c3" hidden><b>Abrir OS:</b> o mesmo diálogo do A, com o tipo <b>Inspeção</b> para pátio e saída.</p>
+    <p class="note" data-note="c4" hidden><b>Escolher o modelo:</b> com a OS aberta, os modelos e o botão de começar.</p>
+    <div class="stage"><div class="frame">
+      <div class="bar"><div><p class="eb">Checklists</p><p class="tt">Começar checklist</p></div><span class="org">Transportadora Demo</span></div>
+      <div class="body">
+
+        <!-- c1 -->
+        <div class="screen on" data-s="c1"><div class="card split">
+          <div class="pane-l">
+            <div class="lhead"><div class="search"><span class="ic i-search"></span><span>OS, placa ou conjunto</span></div><button class="btn ol full" style="margin-top:10px"><span class="ic i-plus s16"></span>Abrir OS</button></div>
+            <div class="lscroll">
+              <div class="gt">Na fila da oficina <span class="cnt w">0</span></div>
+              <p style="font-size:13px;color:hsl(var(--muted-foreground));padding:0 8px">Nenhuma OS esperando agora</p>
+              <div class="gt">Em manutenção <span class="cnt p">1</span></div>
+              <div class="row"><span class="tile p"><span class="ic i-gear"></span></span><div class="rmain"><div class="rtop"><b>Conjunto 22500</b><span class="os">OS-000001</span></div><div class="rsub">Deixou para preventiva</div><div class="rmeta"><span class="late">há 5 dias</span> · Box 3</div></div></div>
+            </div>
+          </div>
+          <div class="pane-r">
+            <div class="center">
+              <span class="halo"><span class="ic i-file s28"></span></span>
+              <h3>Escolha a OS</h3>
+              <p class="sub">Todo checklist entra numa OS. O veículo não tem? Abra a OS primeiro</p>
+              <div class="card resume">
+                <h4><span class="ic i-hist s14"></span>Continuar de onde parou</h4>
+                <div class="rr"><b>Plano de Manutenção 60 dias</b><div class="l2"><span>CHK-000001 · Conjunto 22500</span><span class="pill p">OS-000001</span></div><div class="l2"><span class="bar8"><i style="width:63%"></i></span><b style="font:600 12px Inter;color:hsl(var(--foreground))">74 de 117</b> respondidos <span class="pill d">2 não conformes</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div></div>
+
+        <!-- c2 -->
+        <div class="screen" data-s="c2"><div class="card split">
+          <div class="pane-l">
+            <div class="lhead"><div class="search typed"><span class="ic i-search"></span><span>22600</span><i class="caret"></i></div></div>
+            <div class="lscroll">
+              <div class="gt">Resultado da busca</div>
+              <div class="row"><span class="tile"><span class="ic i-link"></span></span><div class="rmain"><div class="rtop"><b>Conjunto 22600</b></div><div class="rsub">ABN1C45 · ABN1C44 · ABN1C33</div><div class="rpills" style="justify-content:space-between;align-items:center"><span class="pill m">Sem OS aberta</span><button class="btn sm pr"><span class="ic i-plus s14"></span>Abrir OS</button></div></div></div>
+            </div>
+          </div>
+          <div class="pane-r">
+            <div class="center">
+              <span class="halo"><span class="ic i-file s28"></span></span>
+              <h3>Escolha a OS</h3>
+              <p class="sub">Todo checklist entra numa OS. O veículo não tem? Abra a OS primeiro</p>
+            </div>
+          </div>
+        </div></div>
+
+        <!-- c3 -->
+        <div class="screen" data-s="c3"><div class="card split">
+          <div class="pane-l">
+            <div class="lhead"><div class="search typed"><span class="ic i-search"></span><span>22600</span></div></div>
+            <div class="lscroll"><div class="gt">Resultado da busca</div><div class="row sel"><span class="tile"><span class="ic i-link"></span></span><div class="rmain"><div class="rtop"><b>Conjunto 22600</b></div><div class="rsub">ABN1C45 · ABN1C44 · ABN1C33</div></div></div></div>
+          </div>
+          <div class="pane-r"></div>
+          <div class="scrim"><div class="dialog">
+            <div class="dh"><div><h3>Abrir OS</h3><p>Conjunto 22600 · ABN1C45 · ABN1C44 · ABN1C33</p></div><span class="x"><span class="ic i-x s16"></span></span></div>
+            <div class="db">
+              <div class="field"><label>Tipo</label><div class="chiprow"><span class="chip">Preventiva</span><span class="chip">Corretiva</span><span class="chip sel">Inspeção</span></div></div>
+              <div class="notice p" style="margin-top:0"><span class="ic i-info s16"></span><span>Inspeção de pátio ou saída: a OS fecha sozinha se nenhuma falha aparecer.</span></div>
+              <div class="field"><label>O que foi relatado <small>opcional</small></label><div class="inp ta ph">Ex.: saída para Três Lagoas</div></div>
+            </div>
+            <div class="df"><button class="btn ol">Cancelar</button><button class="btn pr">Abrir OS e começar</button></div>
+          </div></div>
+        </div></div>
+
+        <!-- c4 -->
+        <div class="screen" data-s="c4"><div class="card split target">
+          <div class="pane-l">
+            <div class="lhead"><div class="search"><span class="ic i-search"></span><span>OS, placa ou conjunto</span></div><button class="btn ol full" style="margin-top:10px"><span class="ic i-plus s16"></span>Abrir OS</button></div>
+            <div class="lscroll">
+              <div class="gt">Na fila da oficina <span class="cnt w">1</span></div>
+              <div class="row sel"><span class="tile w"><span class="ic i-clock"></span></span><div class="rmain"><div class="rtop"><b>Conjunto 22600</b><span class="os">OS-000002</span></div><div class="rsub">Inspeção</div><div class="rmeta">agora · Base Três Lagoas</div></div></div>
+              <div class="gt">Em manutenção <span class="cnt p">1</span></div>
+              <div class="row"><span class="tile p"><span class="ic i-gear"></span></span><div class="rmain"><div class="rtop"><b>Conjunto 22500</b><span class="os">OS-000001</span></div><div class="rsub">Deixou para preventiva</div><div class="rmeta"><span class="late">há 5 dias</span> · Box 3</div></div></div>
+            </div>
+          </div>
+          <div class="pane-r">
+            <div class="wrap">
+              <div class="back"><span class="ic i-left s14"></span>Trocar OS</div>
+              <div class="card target"><p class="eb"><span class="ic i-file s14"></span>OS-000002 · Na fila</p><h3>Conjunto 22600</h3><div class="chips"><span class="veh">ABN1C45<small>1ª carreta</small></span><span class="veh">ABN1C44<small>2ª carreta</small></span><span class="veh">ABN1C33<small>3ª carreta</small></span></div><p>Inspeção · agora</p></div>
+              <p class="sect">Escolha o modelo</p>
+              <div class="tpl sel"><span class="radio"></span><div style="flex:1"><b>Saída de viagem</b><div class="meta">18 itens · versão 1</div></div></div>
+              <div class="tpl"><span class="radio"></span><div style="flex:1"><b>Plano de Manutenção 60 dias</b><div class="meta">117 itens · versão 1</div></div></div>
+              <div class="foot"><span class="meta">3 veículos na mesma inspeção</span><button class="btn pr">Começar checklist</button></div>
+            </div>
+          </div>
+          <div class="toast"><span class="ic i-check s16"></span>OS-000002 aberta</div>
+        </div></div>
+
+      </div>
+    </div></div>
+  </section>
+
+  <div class="recommend">
+    <h3>Comparação</h3>
+    <table>
+      <tr><th></th><th>A · Motivo</th><th>B · Busca mostra a OS</th><th>C · Sempre OS</th></tr>
+      <tr><td>Toques até começar, OS na oficina</td><td>3</td><td>2</td><td>2</td></tr>
+      <tr><td>Toques até começar, pátio</td><td>3</td><td>4</td><td>5 (abre OS)</td></tr>
+      <tr><td>"Preciso de OS?" fica claro</td><td>Logo de cara</td><td>Quando falta OS</td><td>Sempre precisa</td></tr>
+      <tr><td>Regra de hoje</td><td>Mantém</td><td>Mantém</td><td>Muda (ADR)</td></tr>
+      <tr><td>Mudança no código</td><td>Média</td><td>Pequena</td><td>Grande (API e regra)</td></tr>
+    </table>
+    <p><b>Recomendação: B.</b> Mantém a OS em 1 toque, que é o caso do dia a dia, e só pergunta sobre a OS quando ela falta, com <b>Abrir OS</b> em destaque. Atende o pedido sem tirar a inspeção de pátio, que a regra de produto prevê.</p>
+  </div>
+</div>
+
+<script>
+const tabs = document.querySelectorAll('#tabs .tab');
+tabs.forEach((tab) => tab.addEventListener('click', () => {
+  tabs.forEach((other) => other.setAttribute('aria-pressed', String(other === tab)));
+  document.querySelectorAll('.model').forEach((model) => model.classList.toggle('on', model.dataset.model === tab.dataset.model));
+}));
+document.querySelectorAll('.model').forEach((model) => {
+  const steps = model.querySelectorAll('.step');
+  steps.forEach((step) => step.addEventListener('click', () => {
+    steps.forEach((other) => other.setAttribute('aria-pressed', String(other === step)));
+    model.querySelectorAll('.screen').forEach((screen) => screen.classList.toggle('on', screen.dataset.s === step.dataset.s));
+    model.querySelectorAll('[data-note]').forEach((note) => { note.hidden = note.dataset.note !== step.dataset.s; });
+  }));
+  model.querySelectorAll('[data-go]').forEach((target) => { target.style.cursor = 'pointer'; target.addEventListener('click', () => model.querySelector('.step[data-s="' + target.dataset.go + '"]').click()); });
+  const devices = model.querySelectorAll('[data-dev]');
+  devices.forEach((device) => device.addEventListener('click', () => {
+    devices.forEach((other) => other.setAttribute('aria-pressed', String(other === device)));
+    const frame = model.querySelector('.frame'); frame.classList.remove('phone', 'tabl', 'tabp'); if (device.dataset.dev !== 'nb') frame.classList.add(device.dataset.dev);
+  }));
+});
+</script>
+</body>
+</html>
