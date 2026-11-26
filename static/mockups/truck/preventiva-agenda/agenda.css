@@ -1640,3 +1640,45 @@
 .v2act{display:inline-flex;align-items:center;gap:4px;font:500 12px Inter;color:hsl(var(--muted-foreground))}
 .v2act:hover{color:hsl(var(--foreground))}
 .v2key{white-space:nowrap}
+
+/* =====================================================================
+   Board: KanbanV2 (ColumnShell + CardShell), no card border, flat header
+   ===================================================================== */
+.v2board{flex:1;min-height:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.v2col{position:relative;display:flex;flex-direction:column;min-height:0;padding:8px;border-radius:12px;border:0;background:hsl(var(--muted)/.5);box-shadow:none;transition:all .2s}
+.v2h{display:flex;align-items:center;gap:8px;margin-bottom:8px;padding:10px 12px;border-radius:8px;background:hsl(var(--card)/.7)}
+.v2h h3{font:500 12px Inter;text-transform:uppercase;letter-spacing:.04em;color:hsl(var(--muted-foreground))}
+.v2dot{width:8px;height:8px;border-radius:99px;flex:none;background:hsl(var(--muted-foreground)/.5)}
+.v2dot.st-todo{background:hsl(var(--primary))}
+.v2n{display:flex;align-items:center;justify-content:center;height:20px;min-width:20px;padding:0 6px;border-radius:99px;background:hsl(var(--background));font:500 11px Inter;color:hsl(var(--muted-foreground));font-variant-numeric:tabular-nums;box-shadow:inset 0 0 0 1px hsl(var(--border))}
+.v2b{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding:2px}
+.v2card{position:relative;display:flex;flex-direction:column;gap:12px;padding:12px;border-radius:10px;border:0;background:hsl(var(--card));box-shadow:0 1px 2px hsl(var(--foreground)/.06),0 6px 16px -10px hsl(var(--foreground)/.22);cursor:pointer;transition:box-shadow .15s}
+.v2card:hover{box-shadow:0 2px 6px hsl(var(--foreground)/.08),0 12px 24px -12px hsl(var(--foreground)/.3)}
+.v2card.on{box-shadow:0 0 0 3px hsl(var(--card)),0 0 0 6px hsl(var(--primary)/.25),0 12px 24px -12px hsl(var(--primary)/.35)}
+.v2card.fin{opacity:.75}
+.v2card.ov{position:absolute;left:18px;right:-10px;top:118px;z-index:6;transform:rotate(-1.5deg);box-shadow:0 16px 30px -8px hsl(var(--foreground)/.3),0 4px 8px hsl(var(--foreground)/.1);cursor:grabbing}
+.v2slot{flex:none;height:122px;border-radius:10px;background:hsl(var(--muted));box-shadow:inset 0 0 0 1.5px hsl(var(--muted-foreground)/.18)}
+.v2chip{border:0;background:hsl(var(--secondary));padding:3px 8px;font-weight:500;color:hsl(var(--foreground)/.8)}
+.v2pri{border:0;background:hsl(var(--secondary));padding:1px 8px;font-size:11px;line-height:18px;font-weight:500}
+.v2pri.tone-d{background:hsl(var(--danger-soft));color:hsl(var(--danger-ink))}
+.v2pri.tone-w{background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+.v2pri.tone-c{color:hsl(var(--foreground))}
+.v2foot{border-top:0;padding-top:2px}
+.v2act{padding:4px 8px;margin:-4px -8px -4px 0;border-radius:8px;color:hsl(var(--primary-ink));font-weight:500}
+.v2act:hover{background:hsl(var(--primary)/.08)}
+.dark .v2act{color:hsl(var(--info-ink))}
+.v2empty{display:flex;align-items:center;justify-content:center;min-height:100px;font-size:12px;color:hsl(var(--muted-foreground)/.6)}
+.v2f{padding:6px 2px 2px}.v2f .more.pg{margin:0;justify-content:center}
+.v2col.kb-hover{background:hsl(var(--primary)/.08);box-shadow:inset 0 0 0 2px hsl(var(--primary)/.35)}
+.v2col.kb-no{opacity:.45}
+.v2col.kb-nodrop{background:hsl(var(--muted)/.8)}
+.v2col .krefuse{margin:0 2px 8px}
+/* tablets and phone */
+.bd.tlv .v2board{display:flex;overflow-x:auto;scroll-snap-type:x mandatory}
+.bd.tlv .v2board>.v2col{flex:0 0 calc(33.333% - 8px);scroll-snap-align:start}
+.bd.tpv .v2board{display:flex;overflow-x:auto;scroll-snap-type:x mandatory}
+.bd.tpv .v2board>.v2col{flex:0 0 calc(50% - 6px);scroll-snap-align:start}
+.kpc{background:none;padding:0;border-radius:0}
+.kpc .v2col{height:auto}
+.bd.s .v2board{display:flex;overflow-x:auto;scroll-snap-type:x mandatory}
+.bd.s .v2board>.v2col{flex:0 0 calc(33.333% - 8px);scroll-snap-align:start}

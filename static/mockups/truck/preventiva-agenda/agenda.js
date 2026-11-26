@@ -512,24 +512,36 @@ const KDUE_IC={d:'warning',w:'clock',c:'calendar-check',s:'check','':'calendar-b
 function kcard(id,sel,o={}){const v0=V[id];const v1=SCHED[id]?{...v0,when:SCHED[id],t:'c'}:v0;const v={...v1,when:v1.when.replace(/^venceu há (.+)$/,'$1 de atraso')};const w=KWHERE[id]||['road-horizon','Na estrada'];
   const inner=`<div class="kg"><div class="ka"><b title="${esc(v.name)}">${v.name}</b>${mark(v.parts)}</div><span class="kd ${v.t}">${ic(KDUE_IC[v.t]||'calendar-blank','s14')}${v.when}</span><div class="kpk" title="${esc(v.svc)}">${v.svc}</div><span class="kw">${ic(w[0],'s14')}${w[1]}</span></div>`;
   return F.kbCard(inner,{state:['cmp',id==='d1'||id==='d2'?'disabled':'',sel===id?'on':'',o.dragging?'dragging':'',o.ghost?'ghostc':''].join(' '),attrs:`data-id="${id}"`});}
+/* the board: KanbanV2 of the DS (ColumnShell + CardShell from facter-tasks), proposed DS tweaks: no card border, flat header */
+const KDUR={dly:'leva 4 h',q1a:'leva 1 h 10',rta:'leva 50 min',c072:'leva 50 min',q9b:'leva 1 h 10',c044:'leva 2 h 40',q6h:'leva 1 h',c118:'leva 1 h 30',rtf:'leva 50 min',c320:'leva 5 h 10',c207:'leva 2 h',d1:'levou 1 h 20',d2:'levou 40 min'};
+const kindOf=v=>v.parts.length>1?'Conjunto':v.parts[0][1]==='cav'?'Cavalo':'Carreta';
+function v2card(id,sel,o={}){const v0=V[id];const v1=SCHED[id]?{...v0,when:SCHED[id],t:'c'}:v0;const due=v1.when.replace(/^venceu há (.+)$/,'$1 de atraso');
+  const w=KWHERE[id]||['road-horizon','Na estrada'];const done=id==='d1'||id==='d2';
+  const act=done?['arrow-square-out','Ver a OS']:SCHED[id]?['calendar-check','Remarcar']:w[1]==='No pátio'?['plus','Incluir na OS']:['calendar-check','Marcar dia'];
+  const kind=kindOf(v0);
+  return `<div class="v2card ${sel===id?'on':''} ${o.overlay?'ov':''} ${done?'fin':''}" data-id="${id}" role="button" tabindex="0"><div class="v2top"><div class="v2tl"><span class="v2key">${v0.name}${mark(v0.parts)}</span><h3>${v0.svc}</h3></div><span class="v2pri tone-${v1.t||'n'}">${due}</span></div>
+    <div class="v2chips"><span class="v2chip">${ic(w[0],'s12')}${w[1]}</span><span class="v2chip">${ic('timer','s12')}${KDUR[id]||'leva 1 h'}</span>${/^\+\d/.test(v0.more)?`<span class="v2chip">${ic('stack','s12')}${v0.more.replace('nesta visita','preventiva')}</span>`:''}${/cronotac/.test(v0.svc)?'<span class="v2chip">Obrigatório</span>':''}</div>
+    <div class="v2foot"><span class="v2kind">${ic(kind==='Cavalo'?'truck':'truck-trailer','s14')}${kind}</span><span class="v2act">${ic(act[0],'s12')}${act[1]}</span></div></div>`;}
+const v2col=(title,count,body,o={})=>`<section class="v2col ${o.state?'kb-'+o.state:''}"><div class="v2h"><span class="v2dot st-${o.tone||'x'}"></span><h3>${title}</h3><span class="v2n">${count}</span></div>${o.top||''}<div class="v2b">${body||`<div class="v2empty">${o.empty||'Nada aqui'}</div>`}</div>${o.footer?`<div class="v2f">${o.footer}</div>`:''}${o.after||''}</section>`;
 function kanban(s,sel){
   const drag=s==='drag', no=s==='dropno', toSched=s==='schedule'||s==='dropok';
   const cols=STAGES.map(st=>{
     let ids=st.ids.slice();
     if(toSched&&st.k==='todo')ids=ids.filter(i=>i!=='dly');
-    let body=ids.map(id=>kcard(id,sel,{dragging:(drag||no)&&id==='dly',compact:KCOMPACT})).join('');
-    if(toSched&&st.k==='sched')body=kcard('dly',sel,{ghost:1})+body;
+    let body=ids.map(id=>(drag||no)&&id==='dly'?'<div class="v2slot"></div>':v2card(id,sel)).join('');
+    if(toSched&&st.k==='sched')body=v2card('dly','dly')+body;
     if(drag&&st.k==='sched')body=`<div class="kslot">${ic('calendar-plus','s16')}Soltar aqui para marcar o dia</div>`+body;
     const state=drag?(st.k==='sched'?'hover':st.k==='done'||st.k==='shop'?'no':''):no&&st.k==='shop'?'nodrop':'';
     const top=no&&st.k==='shop'?`<div class="krefuse">${ic('road-horizon','s16')}<span><b>DLY1J07 está na estrada.</b> Marque um dia na oficina.</span></div>`:'';
     const n=ids.length+(toSched&&st.k==='sched'?1:0);
-    return F.kbCol({title:st.title,count:st.k==='todo'?(toSched?14:15):n,body,state,top,footer:st.k==='todo'?`<div class="more pg">Ver as 15 até 24/12${ic('caret-down','s14')}</div>`:st.k==='done'?'<p class="kdone">Feita vem da OS concluída</p>':''});});
+    const after=(drag&&st.k==='sched')||(no&&st.k==='shop')?v2card('dly',null,{overlay:1}):'';
+    return v2col(st.title,st.k==='todo'?(toSched?14:15):n,body,{state,top,after,tone:st.k,footer:st.k==='todo'?`<div class="more pg">Ver as 15 até 24/12${ic('caret-down','s14')}</div>`:st.k==='done'?'<p class="kdone">Feita vem da OS concluída</p>':''});});
   const chips=`<div class="kfil">${F.fchip('Todas',{on:1})}${F.fchip('Vencidas',{count:3})}${F.fchip('Esta semana',{count:3})}${F.fchip('Próximas',{count:9})}<i class="kdiv"></i><span class="ksort" role="button" aria-haspopup="menu">${ic('sort-ascending','s14')}Mais urgente primeiro${ic('caret-down','s12')}</span><span class="vsp"></span>${viewSeg('Quadro')}</div>`;
-  return chips+`<div class="fx-kb kb">${cols.join('')}</div>`;}
+  return chips+`<div class="v2board">${cols.join('')}</div>`;}
 /* phone kanban: stage tabs and horizontal snap columns */
 function phoneKanban(s){const on=s==='kb2'?'sched':'todo';
   const tabs=`<div class="fx-mtabs jump stg">${STAGES.map(st=>`<span class="${st.k===on?'on':''}">${st.title}<b>${st.k==='todo'?15:st.ids.length}</b></span>`).join('')}</div>`;
-  const cols=STAGES.map(st=>`<div class="kpc"><div class="mcards">${st.ids.slice(0,5).map(id=>kcard(id,null,{compact:1})).join('')}</div></div>`).join('');
+  const cols=STAGES.map(st=>`<div class="kpc">${v2col(st.title,st.k==='todo'?15:st.ids.length,st.ids.slice(0,4).map(id=>v2card(id,null)).join(''),{tone:st.k})}</div>`).join('');
   return `<div class="ph-wrap pm pkban">${`<div class="phead"><div class="phr"><span class="pbase">Base Curitiba${ic('caret-down','s14')}</span><span class="pdate">qui 26/11</span></div></div>`}<div class="stick srow">${tabs}${viewSeg('Quadro')}</div><div class="ksnap ${on==='sched'?'at2':''}">${cols}</div><div class="safe"></div></div>`;}
 
 /* ---------- Calendário: month and week, ported from the v1 design ---------- */
@@ -591,8 +603,8 @@ function web(s,dev){if(dev==='tabl'||dev==='tabp'){KCOMPACT=true;let out;
     else{const base=isVisit(s)||s==='schedule'||s==='dropok'?'board':s;out=web(base,'webs').replace('class="bd ','class="bd tpv ')+sheetFor(s);}
     KCOMPACT=false;return out;}if(s==='drag'||s==='dropno')return web('kbdrag:'+s,dev);if(s.startsWith('kbdrag:')){const st=s.slice(7);return `<div class="bd kbv ${dev==='webs'?'s':''}">${slim().replace(nokm(),segView('Por veículo')+nokm())}${kanban(st,null)}</div>`;}if(s==='dropok')s='schedule';if(s==='pk044')return withPk044(web('board',dev),0);if(STRESS[s])return stressWeb(s,dev);KITOPEN=s==='kitopen';
   const small=dev==='webs';
-  if(s==='loading') return `<div class="bd kbv"><div class="hero slim">${F.sk(48,40,12)}<div class="tx" style="display:flex;flex-direction:column;gap:8px">${F.sk(260,18)}${F.sk(180,12)}</div></div><div class="kfil"><span class="vsp"></span>${viewSeg('Quadro')}</div><div class="fx-kb kb">${STAGES.map(st=>F.kbCol({title:st.title,count:'',body:[1,2,3].map(()=>F.kbCard(F.sk('60%',15)+'<div style="height:8px"></div>'+F.sk('85%',12)+'<div style="height:10px"></div>'+F.sk(110,22,99))).join('')})).join('')}</div></div>`;
-  if(s==='empty') return `<div class="bd kbv">${vtop('Quadro')}<div class="hero slim"><span class="halo sm">${ic('calendar-check','s20')}</span><div class="tx"><h2>Frota em dia esta semana</h2><p>A próxima é a Revisão 60 mil do C-044, na qui 10/12.</p></div></div><div class="kfil"><span class="vsp"></span>${viewSeg('Quadro')}</div><div class="fx-kb kb">${F.kbCol({title:'A agendar',count:2,body:kcard('c044',null)+kcard('q6h',null)})}${F.kbCol({title:'Agendada',count:0,empty:'Nada agendado'})}${F.kbCol({title:'Na oficina',count:0,empty:'Nenhum conjunto na oficina'})}${F.kbCol({title:'Feita (7 dias)',count:2,body:kcard('d1',null)+kcard('d2',null)})}</div></div>`;
+  if(s==='loading') return `<div class="bd kbv"><div class="hero slim">${F.sk(48,40,12)}<div class="tx" style="display:flex;flex-direction:column;gap:8px">${F.sk(260,18)}${F.sk(180,12)}</div></div><div class="kfil"><span class="vsp"></span>${viewSeg('Quadro')}</div><div class="v2board">${STAGES.map(st=>v2col(st.title,'',[1,2,3].map(()=>`<div class="v2card">${F.sk('40%',12)}${F.sk('80%',16)}${F.sk('60%',20,99)}</div>`).join(''),{tone:st.k})).join('')}</div></div>`;
+  if(s==='empty') return `<div class="bd kbv">${vtop('Quadro')}<div class="hero slim"><span class="halo sm">${ic('calendar-check','s20')}</span><div class="tx"><h2>Frota em dia esta semana</h2><p>A próxima é a Revisão 60 mil do C-044, na qui 10/12.</p></div></div><div class="kfil"><span class="vsp"></span>${viewSeg('Quadro')}</div><div class="v2board">${v2col('A agendar',2,v2card('c044',null)+v2card('q6h',null),{tone:'todo'})}${v2col('Agendada',0,'',{empty:'Nada agendado',tone:'sched'})}${v2col('Na oficina',0,'',{empty:'Nenhum conjunto na oficina',tone:'shop'})}${v2col('Feita (7 dias)',2,v2card('d1',null)+v2card('d2',null),{tone:'done'})}</div></div>`;
   PICK=s==='multi'||s==='multisched';
   if(s==='first'||s==='noperm') return `<div class="bd ${small?'s':''}">${emptyBlock(s)}</div>`;
   if(s==='nores') return `<div class="bd ${small?'s':''}"><div class="hero slim"><div class="tx"><h2>Busca na Base Curitiba</h2></div>${searchOn()}</div>${emptyBlock('nores')}</div>`;
@@ -639,7 +651,7 @@ const PHONE_ONLY={ptr:1,mid:1,press:1,swipe:1};
 function phone(s){if(s==='pk044')return phone('list')+pk044Drawer(1);if(STRESS[s])return stressPhone(s,0);KITOPEN=s==='kitopen';DONE=s==='done';PICK=null;
   if(s==='first'||s==='noperm') return `<div class="ph-wrap">${emptyBlock(s,1)}</div>`;
   if(s==='nores') return `<div class="ph-wrap">${searchOn()}${emptyBlock('nores',1)}</div>`;
-  if(s==='loading') return `<div class="ph-wrap pm pkban"><div class="phead"><div class="phr"><span class="pbase">Base Curitiba${ic('caret-down','s14')}</span><span class="pdate">qui 26/11</span></div></div><div class="ksnap"><div class="kpc"><div class="mcards">${[1,2,3].map(()=>F.kbCard(F.sk('60%',15)+'<div style="height:8px"></div>'+F.sk('85%',12))).join('')}</div></div><div class="kpc"></div></div></div>`;
+  if(s==='loading') return `<div class="ph-wrap pm pkban"><div class="phead"><div class="phr"><span class="pbase">Base Curitiba${ic('caret-down','s14')}</span><span class="pdate">qui 26/11</span></div></div><div class="ksnap"><div class="kpc">${v2col('A agendar','',[1,2,3].map(()=>`<div class="v2card">${F.sk('40%',12)}${F.sk('80%',16)}${F.sk('60%',20,99)}</div>`).join(''),{tone:'todo'})}</div></div></div>`;
   if(s==='__old_loading') return `<div class="ph-wrap"><div class="hero slim"><span class="sk" style="width:40px;height:40px;border-radius:12px"></span><span class="sk" style="width:200px;height:18px"></span></div><span class="sk" style="width:100%;height:44px;border-radius:12px"></span>${[1,2,3,4].map(()=>`<div class="cd sk-cd"><span class="sk" style="width:55%;height:15px"></span><span class="sk" style="width:80%;height:12px;margin-top:10px"></span></div>`).join('')}</div>`;
   if(s==='empty') return phoneKanban('list').replace(/<div class="ksnap[\s\S]*<div class="safe">/,`<div class="bempty ph" style="margin-top:12px"><span class="halo md">${ic('calendar-check','s24')}</span><b>Frota em dia esta semana</b><p>A próxima é a Revisão 60 mil do C-044, na qui 10/12.</p></div><div class="safe">`);
   if(s==='__old_empty') return `<div class="ph-wrap"><div class="hero slim"><span class="halo sm">${ic('calendar-check','s20')}</span><div class="tx"><h2>Frota em dia esta semana</h2><p>A próxima é a Revisão 60 mil do C-044, na qui 10/12.</p></div></div><div class="stick">${tabs('next').replace('<b class="d">3</b>','<b>0</b>').replace('<b class="w">3</b>','<b>0</b>')}</div><div class="cards">${GROUPS_ALL[2].ids.map(id=>card(id,null)).join('')}<div class="more">${GROUPS_ALL[2].more}${ic('caret-down','s14')}</div></div></div>`;
