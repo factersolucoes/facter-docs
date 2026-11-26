@@ -232,7 +232,7 @@ function pkgRow(p){const st=pkState(p), off=st==='off', menu=G.menu===p.id+'|vi'
   const meta=`<span class="nw">leva ${fmtDur(p.svcs.reduce((a,sv)=>a+sv.min,0)).replace(/ /g,'&nbsp;')}&nbsp;·</span> ${trigTok} <span class="lk vin" data-ixa="m:${p.id}:vi" role="button" tabindex="0">Ver o que tem dentro</span>`;
   return `<div class="prow ${off?'off':''}"><span data-ixa="pc:${p.id}" role="checkbox" aria-checked="${!off}" tabindex="0" class="cbw">${cb3(off?'off':'on')}</span>
     <div class="prt2"><b>${p.name}${p.reg?' <span class="tag reg">Obrigatório</span>':''}</b><small>${meta}</small>${menu&&!RPH?`<div class="pop vipop" role="dialog">${insideHtml(p)}</div>`:''}</div>
-    <span class="prr"><span class="sit ${off?'n':p.t||'n'}">${p.due}</span></span>${off?`<div class="prdef">${dpill(p.id)}</div>`:''}</div>`;}
+    <span class="prr"><span class="sit ${off?'n':p.t||'n'}">${p.due}</span><span class="lk vin2" data-ixa="m:${p.id}:vi" role="button" tabindex="0">Ver o que tem dentro</span></span>${off?`<div class="prdef">${dpill(p.id)}</div>`:''}</div>`;}
 const pkgGroups=list=>[...new Set(list.map(p=>p.veh))].map(v=>`<div class="vgrp"><p class="vh">${v}</p><div class="prows">${list.filter(p=>p.veh===v).map(pkgRow).join('')}</div></div>`).join('');
 function ixBody(){
   const hist=history('Últimas manutenções deste conjunto',[['27/10','Preventiva 30 dias, 2ª carreta','OS 0998'],['02/09','Preventiva 20 mil, cavalo','OS 0954'],['12/05','Preventiva 60 mil, 2ª carreta','OS 0871']]);
