@@ -1751,3 +1751,11 @@
   .prow.off .prr .sit{display:none}
 }
 @container prows (max-width:420px){.prow .prr{flex-wrap:wrap;row-gap:6px;min-width:0}}
+.mtitle.vit{font:600 15px Inter;color:hsl(var(--foreground))}
+/* row 3 spans the whole card, starting under the checkbox */
+@container prows (max-width:420px){
+  .prow .prr{grid-column:1/-1;flex-wrap:nowrap}
+  .prow.off .prdef{grid-column:1/-1}
+  .prow .prr .vin2{white-space:nowrap}
+}
+@container prows (max-width:290px){.prow .prr .vin2 .pcx{display:none}}

@@ -223,16 +223,17 @@ function pkgCard(p){const st=pkState(p), open=!!G.open[p.id], off=st==='off';
   return `<div class="pkg ${off?'off':''} ${open?'open':''}">${head}${ed}${body}</div>`;}
 const shortTrig=p=>trig(p.trigger).replace(', o que vier primeiro','');
 function insideHtml(p){const parts=p.svcs.flatMap(sv=>sv.parts);const miss=parts.find(x=>x[3]==='w');
-  return `<div class="mtitle">${p.name}</div><p class="vimeta">${trig(p.trigger)}</p>${p.incl?`<p class="vimeta">Inclui a ${p.incl}</p>`:''}
+  return `<div class="mtitle vit">${p.name}</div><p class="vimeta">${contentsLabel(p).replace(/<[^>]+>/g,'')} · ${trig(p.trigger)}</p>${p.incl?`<p class="vimeta">Inclui a ${p.incl}</p>`:''}
   <div class="vil">${p.svcs.map(sv=>`<div class="vis"><span>${sv.n}${sv.inh?`<small> · da ${sv.inh}</small>`:''}</span><small>${fmtDur(sv.min)}</small></div>`).join('')}</div>
   ${parts.length?`<p class="vip"><b>Peças:</b> ${parts.map(([q,n])=>`${q} ${n}`).join(', ')}${miss?`<span class="vmiss">${ic('warning','s14')}falta 1 ${miss[1].replace(/^jogos/,'jogo')}, chega quinta</span>`:''}</p>`:''}
   <p class="vihint">Pular um serviço ou mexer nas peças é feito na OS.</p>`;}
+const contentsLabel=p=>{const ns=p.svcs.length,np=p.svcs.reduce((a,sv)=>a+sv.parts.length,0);return `${ns} ${ns===1?'serviço':'serviços'}${np?`<span class="pcx"> e ${np} ${np===1?'peça':'peças'}</span>`:''}`;};
 function pkgRow(p){const st=pkState(p), off=st==='off', menu=G.menu===p.id+'|vi';
   const trigTok=shortTrig(p).split(' ou ').map((x,i)=>`<span class="nw">${(i?'ou ':'')+x.replace(/ /g,'&nbsp;')}</span>`).join(' ');
-  const meta=`<span class="nw">leva ${fmtDur(p.svcs.reduce((a,sv)=>a+sv.min,0)).replace(/ /g,'&nbsp;')}&nbsp;·</span> ${trigTok} <span class="lk vin" data-ixa="m:${p.id}:vi" role="button" tabindex="0">Ver o que tem dentro</span>`;
+  const meta=`<span class="nw">leva ${fmtDur(p.svcs.reduce((a,sv)=>a+sv.min,0)).replace(/ /g,'&nbsp;')}&nbsp;·</span> ${trigTok} <span class="lk vin" data-ixa="m:${p.id}:vi" role="button" tabindex="0">${contentsLabel(p)} ›</span>`;
   return `<div class="prow ${off?'off':''}"><span data-ixa="pc:${p.id}" role="checkbox" aria-checked="${!off}" tabindex="0" class="cbw">${cb3(off?'off':'on')}</span>
     <div class="prt2"><b>${p.name}${p.reg?' <span class="tag reg">Obrigatório</span>':''}</b><small>${meta}</small>${menu&&!RPH?`<div class="pop vipop" role="dialog">${insideHtml(p)}</div>`:''}</div>
-    <span class="prr"><span class="sit ${off?'n':p.t||'n'}">${p.due}</span><span class="lk vin2" data-ixa="m:${p.id}:vi" role="button" tabindex="0">Ver o que tem dentro</span></span>${off?`<div class="prdef">${dpill(p.id)}</div>`:''}</div>`;}
+    <span class="prr"><span class="sit ${off?'n':p.t||'n'}">${p.due}</span><span class="lk vin2" data-ixa="m:${p.id}:vi" role="button" tabindex="0">${contentsLabel(p)} ›</span></span>${off?`<div class="prdef">${dpill(p.id)}</div>`:''}</div>`;}
 const pkgGroups=list=>[...new Set(list.map(p=>p.veh))].map(v=>`<div class="vgrp"><p class="vh">${v}</p><div class="prows">${list.filter(p=>p.veh===v).map(pkgRow).join('')}</div></div>`).join('');
 function ixBody(){
   const hist=history('Últimas manutenções deste conjunto',[['27/10','Preventiva 30 dias, 2ª carreta','OS 0998'],['02/09','Preventiva 20 mil, cavalo','OS 0954'],['12/05','Preventiva 60 mil, 2ª carreta','OS 0871']]);
