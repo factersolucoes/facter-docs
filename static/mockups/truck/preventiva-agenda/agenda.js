@@ -332,14 +332,40 @@ function web(s,dev){if(STRESS[s])return stressWeb(s,dev);KITOPEN=s==='kitopen';
 
 /* ---------- phone: sticky tabs, one list at a time; the overdue count stays in the first tab ---------- */
 const tabs=on=>`<div class="seg3" role="tablist">${[['over','Vencidas',N().over,'d'],['week','Semana',N().week,'w'],['next','Próximas','9','']].map(([k,l,n,t])=>`<span class="${k===on?'on':''}" role="tab">${l}<b class="${t}">${n}</b></span>`).join('')}</div>`;
+/* =====================================================================
+   Phone: one continuous list with sticky section headers; the segmented
+   control jumps between sections and follows the one in view
+   ===================================================================== */
+const CTX={c320:['s','garage','No pátio · OS 1042','Incluir'],c207:['s','garage','No pátio · OS 1051','Incluir'],dly:['n','road-horizon','Na estrada · 640 km/dia','Marcar dia'],
+  c118:['p','calendar-check','Agendado sex 27/11',''],q1a:['n','road-horizon','Na estrada · 710 km/dia','Marcar dia'],rta:['n','garage','Parada na base','Marcar dia'],
+  c072:['n','road-horizon','Na estrada · 580 km/dia','Marcar dia'],q9b:['n','road-horizon','Na estrada · 600 km/dia','Marcar dia'],c044:['n','road-horizon','Na estrada · 610 km/dia','Marcar dia'],
+  q6h:['n','road-horizon','Na estrada · 520 km/dia','Marcar dia'],rtf:['p','calendar-check','Agendado seg 14/12',''],c320d:['s','garage','No pátio · OS 1042','Incluir']};
+function mcard(id,o={}){const v=V[id];const c=CTX[id]||['n','road-horizon','Na estrada',''];
+  const body=`<div class="l1"><b title="${esc(v.name)}">${v.name}</b>${mark(v.parts)}<span class="when ${v.t}">${v.when}</span></div><div class="l2"><span>${v.svc}</span>${pillMore(v)}${v.tag?'<span class="tag">adiada · falta peça</span>':''}</div>
+    <div class="l3"><span class="cx ${c[0]}">${ic(c[1],'s14')}${c[2]}</span>${c[3]?`<span class="cact">${c[3]}</span>`:''}</div>`;
+  if(o.swipe) return `<div class="swp"><div class="swa"><span class="sw-d">${ic('clock-countdown','s16')}Adiar</span><span class="sw-p">${ic('calendar-check','s16')}Marcar dia</span></div><div class="cd mc sw" role="button">${body}</div></div>`;
+  return `<div class="cd mc ${o.sel===id?'on':''} ${o.press===id?'pressed':''}" role="button" tabindex="0">${body}</div>`;}
+function mobileList(s,o={}){
+  const g=gs(), on=s==='mid'?'week':'over';
+  const sel=o.sel, total=N().over+N().week+9;
+  const bar=`<div class="wbar">${[['d',N().over],['w',N().week],['n',9]].map(([t,n])=>`<i class="${t}" style="flex:${n}"></i>`).join('')}</div><div class="wlab"><span class="d"><b>${N().over}</b> vencidos</span><span class="w"><b>${N().week}</b> nesta semana</span><span><b>9</b> depois</span></div>`;
+  const hero=o.list?'':`<div class="hero slim mh"><span class="big">${N().big}</span><div class="tx"><h2>preventivas vencidas</h2><p>em <b>${N().veh} veículos</b>, <b>${N().yard}</b> já no pátio</p></div>${bar}</div>`;
+  const ctx=`<div class="ctxrow"><span class="basech">Base Curitiba${ic('caret-down','s14')}</span><span>qui 26/11</span></div>`;
+  const ptr=s==='ptr'?`<div class="ptr">${ic('arrows-clockwise','s16')}<span>Atualizando a agenda</span></div>`:'';
+  const jump=o.list?`<div class="fx-mtabs jump">${[['over','Vencidas',N().over,'d'],['week','Esta semana',N().week,'w'],['next','Próximas',9,'']].map(([k,t,n,c])=>`<span class="${k===on?'on':''}">${t}<b class="${c}">${n}</b></span>`).join('')}</div>`
+    :`<div class="seg3 jump" role="tablist">${[['over','Vencidas',N().over,'d'],['week','Semana',N().week,'w'],['next','Próximas',9,'']].map(([k,l,n,t])=>`<span class="${k===on?'on':''}" role="tab">${l}<b class="${t}">${n}</b></span>`).join('')}</div>`;
+  const secs=g.slice(0,3).map((gr,i)=>`<section class="msec" data-sec="${['over','week','next'][i]}"><h3 class="msh"><span class="gt ${gr.tone}">${ic(gr.icon,'s14')}</span>${gr.title}<span class="gc ${gr.tone}">${gr.count.split(' ')[0]}</span></h3><div class="mcards">${gr.ids.map((id,j)=>o.list?(s==='swipe'&&id==='dly'?`<div class="swp"><div class="swa"><span class="sw-d">${ic('clock-countdown','s16')}Adiar</span><span class="sw-p">${ic('calendar-check','s16')}Marcar dia</span></div>${lcard(id,sel).replace('fx-wocard lcard','fx-wocard lcard sw')}</div>`:lcard(id,sel).replace('fx-wocard lcard','fx-wocard lcard'+(s==='press'&&id==='c320'?' pressed':''))):mcard(id,{sel,press:s==='press'?'c320':null,swipe:s==='swipe'&&id==='dly'})).join('')}${gr.more?`<div class="more">${gr.more}${ic('caret-down','s14')}</div>`:''}</div></section>`).join('');
+  return `<div class="ph-wrap pm ${o.list?'pml':''}">${ptr}${s==='error'?errNote():''}${ctx}${hero}<div class="stick">${o.list?`<span class="fx-searchf msf">${ic('magnifying-glass','s16')}<span>Buscar placa, frota ou conjunto</span></span>`:''}${jump}</div>${secs}${nokm()}<div class="safe"></div></div>`;
+}
+const PHONE_ONLY={ptr:1,mid:1,press:1,swipe:1};
 function phone(s){if(STRESS[s])return stressPhone(s,0);KITOPEN=s==='kitopen';DONE=s==='done';PICK=null;
   if(s==='first'||s==='noperm') return `<div class="ph-wrap">${emptyBlock(s,1)}</div>`;
   if(s==='nores') return `<div class="ph-wrap">${searchOn()}${emptyBlock('nores',1)}</div>`;
   if(s==='loading') return `<div class="ph-wrap"><div class="hero slim"><span class="sk" style="width:40px;height:40px;border-radius:12px"></span><span class="sk" style="width:200px;height:18px"></span></div><span class="sk" style="width:100%;height:44px;border-radius:12px"></span>${[1,2,3,4].map(()=>`<div class="cd sk-cd"><span class="sk" style="width:55%;height:15px"></span><span class="sk" style="width:80%;height:12px;margin-top:10px"></span></div>`).join('')}</div>`;
   if(s==='empty') return `<div class="ph-wrap"><div class="hero slim"><span class="halo sm">${ic('calendar-check','s20')}</span><div class="tx"><h2>Frota em dia esta semana</h2><p>A próxima é a revisão B do C-044, na qui 10/12.</p></div></div><div class="stick">${tabs('next').replace('<b class="d">3</b>','<b>0</b>').replace('<b class="w">3</b>','<b>0</b>')}</div><div class="cards">${GROUPS_ALL[2].ids.map(id=>card(id,null)).join('')}<div class="more">${GROUPS_ALL[2].more}${ic('caret-down','s14')}</div></div></div>`;
-  DONE=s==='done';const sel=s==='list'||s==='error'?null:s==='schedule'?'dly':'c320';
-  const list=`<div class="ph-wrap">${s==='error'?errNote():''}<div class="hero slim"><span class="big">${N().big}</span><div class="tx"><h2>preventivas vencidas</h2><p>em <b>${N().veh} veículos</b>, <b>${N().yard}</b> já no pátio</p></div></div><div class="stick">${tabs('over')}</div><div class="cards">${gs()[0].ids.map(id=>card(id,sel)).join('')}</div>${nokm()}</div>`;
-  if(s==='list'||s==='error') return list;
+  DONE=s==='done';const sel=s==='list'||s==='error'||PHONE_ONLY[s]?null:s==='schedule'?'dly':'c320';
+  const list=mobileList(s,{sel});
+  if(s==='list'||s==='error'||PHONE_ONLY[s]) return list;
   const sheet=s==='schedule'
     ?`<div class="sheet-ov"><div class="sheet">${pHead(V.dly,{...HDLY,phone:1})}<div class="sb">${scheduleBody()}</div>${scheduleFoot()}</div></div>`
     :visitDrawer(s,1);
@@ -396,10 +422,10 @@ function listWeb(s){if(STRESS[s])return stressList(s);KITOPEN=s==='kitopen';DONE
   const top=(s==='nores'?lt.replace(F.search('Buscar placa, frota ou conjunto',{width:340}),searchOn()):s==='sap'?lt.replace('<div class="ltools">','<div class="ltools">'+sapChip()):lt);
   return `<div class="lv">${top}${s==='error'?errNote():''}${body}</div></div></div>${dr}${s==='multisched'?multiDrawer(0):''}${s==='multi'?selBar():''}</div>`;
 }
-function lcard(id,sel){const v=V[id],m=LM[id];
+function lcard(id,sel,o={}){const v=V[id],m=LM[id];
   return `<button type="button" class="fx-wocard lcard ${sel===id?'on':''}"><span class="l1"><b class="nm">${v.name}</b>${mark(v.parts)}<span style="flex:1"></span><span class="lwhen ${v.t}">${v.when}</span></span>
     <span class="l3">${v.svc}${v.tag?' <span class="tag">adiada · falta peça</span>':''}</span><span class="l4"><span class="trunc2">${m.pos}${/^\+\d/.test(v.more)?' · '+v.more:''}</span></span>
-    <span class="ft"><span class="trunc2 lwhere">${m.where}</span><span style="flex:1"></span><span class="lact">${m.act}${ic('caret-right','s14')}</span></span></button>`;}
+    <span class="ft">${(c=>`<span class="cx ${c[0]}">${ic(c[1],'s14')}${c[2]}</span><span style="flex:1"></span>${c[3]?`<span class="lact">${c[3]}</span>`:''}`)(CTX[id]||['n','road-horizon',m.where,m.act])}</span></button>`;}
 function listPhone(s){if(STRESS[s])return stressPhone(s,1);KITOPEN=s==='kitopen';DONE=s==='done';PICK=null;
   if(s==='first'||s==='noperm') return `<div class="fx-mlist"><div class="fx-mcards">${emptyBlock(s,1)}</div></div>`;
   const tabsM=on=>`<div class="fx-mtabs">${[['Vencidas',N().over,'d'],['Esta semana',N().week,'w'],['Próximas',9,''],['Sem km',2,'']].map(([t,n,c])=>`<span class="${t===on?'on':''}">${t}<b class="${c}">${n}</b></span>`).join('')}</div>`;
@@ -410,7 +436,9 @@ function listPhone(s){if(STRESS[s])return stressPhone(s,1);KITOPEN=s==='kitopen'
   else if(s==='first'||s==='noperm'||s==='nores') body=emptyBlock(s,1);
   if(s==='error') body=errNote()+gs()[0].ids.map(id=>lcard(id,null)).join('');
   DONE=s==='done';const sel=s==='schedule'?'dly':isVisit(s)?'c320':null;
-  if(!body) body=gs()[0].ids.map(id=>lcard(id,sel)).join('');
+  if(!body||PHONE_ONLY[s]){const list=mobileList(s,{list:1,sel:PHONE_ONLY[s]?null:sel});
+    if(!isVisit(s)&&s!=='schedule') return list;
+    return list+(s==='schedule'?`<div class="sheet-ov"><div class="sheet">${pHead(V.dly,{...HDLY,phone:1})}<div class="sb">${scheduleBody()}</div>${scheduleFoot()}</div></div>`:visitDrawer(s,1));}
   const list=`<div class="fx-mlist"><div class="fx-msticky">${s==='nores'?`<div class="fx-msearch">${searchOn()}</div>`:search}${tabsM('Vencidas').replace(s==='empty'?'<b class="d">3</b>':'@@','<b>0</b>')}</div><div class="fx-mcards">${body}</div><div style="height:72px"></div></div>`;
   if(!isVisit(s)&&s!=='schedule') return list;
   return list+(s==='schedule'
@@ -452,7 +480,8 @@ Object.assign(LM,{
   yr1:{pos:'Cavalo QRT9Z01',where:'Rodando, 300 km/dia',sub:'nov/2027',act:'Agendar'},
   nob:{pos:'Cavalo, sem base definida',where:'Sem base definida',sub:'em 14 dias',act:'Definir base'},
 });
-const R={a320:()=>phone('sBig'),a720:()=>phone('sLong'),ag:(s,dev)=>web(s,dev),phl:()=>phone('list'),phs:(s)=>{clean('phs');setTimeout(lift);return phone(s);},lg:(s)=>listWeb(s),lpl:()=>listPhone('list'),lps:(s)=>{clean('lps');setTimeout(lift);return listPhone(s);}};
+function midScroll(k,s){document.querySelectorAll(`[data-render="${k}"]`).forEach(el=>{const body=el.closest('.fx-body');if(!body)return;const st=el.querySelector('.stick');const h=st?st.offsetHeight+parseFloat(getComputedStyle(st).top||0):48;el.querySelectorAll('.msh').forEach(x=>x.style.top=h+'px');body.scrollTop=0;const t=el.querySelector('[data-sec="week"]');if(s==='mid'&&t){const z=parseFloat(getComputedStyle(body.closest('.fx-device')).zoom)||1;body.scrollTop=(t.getBoundingClientRect().top-body.getBoundingClientRect().top)/z-h-12;}});}
+const R={a320:()=>phone('sBig'),a720:()=>phone('sLong'),ag:(s,dev)=>web(s,dev),phl:()=>phone('list'),phs:(s)=>{clean('phs');setTimeout(()=>{lift();midScroll('phs',s);});return phone(s);},lg:(s)=>listWeb(s),lpl:()=>listPhone('list'),lps:(s)=>{clean('lps');setTimeout(()=>{lift();midScroll('lps',s);});return listPhone(s);}};
 function boot(){patchNav();F.bind(R);lift();views();themes();
   document.querySelectorAll('.states button').forEach(b=>b.addEventListener('click',()=>setTimeout(lift)));
   let t;window.addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(fit,120);});}
