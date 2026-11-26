@@ -552,3 +552,31 @@
 .ii.dn .okk{display:grid;place-items:center;width:20px;height:20px;margin-top:1px;border-radius:99px;background:hsl(var(--success-soft));color:hsl(var(--success-ink));flex:none}
 .tag{display:inline-flex;align-items:center;height:20px;padding:0 7px;border-radius:99px;background:hsl(var(--muted));font:500 12px Inter;color:hsl(var(--muted-foreground));white-space:nowrap;flex:none}
 .pf .fx-btn[disabled]{background:hsl(var(--muted));color:hsl(var(--muted-foreground));opacity:1}
+
+/* unhappy paths and undo */
+.notice-w{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:12px;background:hsl(var(--warning-soft));color:hsl(var(--warning-ink));font-size:14px;line-height:1.45}
+.notice-w .ic{flex:none;margin-top:2px}.notice-w b{font-weight:600}
+.dl2{font-size:13.5px;color:hsl(var(--muted-foreground))}.dl2 b{color:hsl(var(--foreground));font-weight:600}
+.done .dtx{flex:1;min-width:0}
+.undo{flex:none;display:inline-flex;align-items:center;gap:6px;font:600 14px Inter;color:hsl(var(--primary));cursor:pointer}
+.undo i{font-style:normal;font-weight:500;font-size:12.5px;color:hsl(var(--success-ink));opacity:.8}
+.dnote b{color:hsl(var(--foreground));font-weight:600}
+
+/* tighter horizontal padding in the drawer and the sheet, edge to edge */
+.drawer .ph{padding:20px 18px 0}
+.drawer .pst{padding:12px 18px 0}
+.drawer .mstrip{margin:16px 18px 0}
+.drawer .pb{padding:20px 18px 22px}
+.drawer .pf{padding:14px 18px 18px}
+.sheet .ph{padding:12px 16px 0}
+.sheet .pst{padding:12px 16px 0}
+.sheet .mstrip{margin:14px 16px 0}
+.sheet .sb{padding:18px 16px 20px}
+.sheet .pf{padding:12px 16px 28px}
+.ilist{padding:3px}
+.ii{padding:11px 12px 10px}
+.ii.ck{gap:10px}
+.defer{padding:12px}
+.spill{height:auto;min-height:30px;padding:5px 12px 5px 10px;line-height:1.35;white-space:normal;max-width:100%}
+.spill .ic{flex:none}
+.spill{border-radius:14px}
