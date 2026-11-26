@@ -97,6 +97,13 @@
         <tr><td>Profundidade</td><td>tudo no mesmo plano</td><td>4 camadas: fundo, grupo, linha escolhida, painel</td></tr>
         <tr><td>Desenho do conjunto</td><td>caminhão com rodas e sinais</td><td>um traço por veículo</td></tr>
       </tbody></table></div>
+      <div class="box" style="grid-column:1/-1"><h3>Sistema de cor</h3><table class="cmp"><thead><tr><th>Papel</th><th>Onde</th><th>Token</th></tr></thead><tbody>
+        <tr><td>Neutros (90% da tela)</td><td>Fundo; ilhas; painel interno; texto 1 (títulos e valores); texto 2 (rótulos, meta e ícones); texto 3 (horários e dicas)</td><td><code>--background</code> · <code>--card</code> · <code>--muted</code> a 50% · <code>--foreground</code> · <code>--muted-foreground</code> · <code>--muted-foreground</code> a 70%</td></tr>
+        <tr><td>Primária cheia</td><td>No notebook, só a ação principal; no celular, o topo e a ação principal; o segmento ou a aba ativa</td><td><code>--primary</code></td></tr>
+        <tr><td>Primária em texto</td><td>Links e no máximo um número-chave por ilha (Duração)</td><td><code>--primary</code></td></tr>
+        <tr><td>Primária em tinta (10%)</td><td>Quadrados de ícone e o estado selecionado ou em foco</td><td><code>--primary</code> a 10%</td></tr>
+        <tr><td>Status</td><td>Só no chip de prazo do item (ícone pequeno), no Atraso da gaveta e no traço do veículo vencido; sucesso só no ícone de "em estoque"</td><td><code>--danger</code> · <code>--warning</code> · <code>--success</code></td></tr>
+      </tbody></table></div>
       <div class="box" style="grid-column:1/-1"><h3>De onde vem cada cor</h3><table class="cmp"><thead><tr><th>Onde</th><th>Token do tema Truck</th></tr></thead><tbody>
         <tr><td><span class="tok" style="background:hsl(var(--background))"></span>Fundo da tela</td><td><code>--background</code></td></tr>
         <tr><td><span class="tok" style="background:hsl(var(--card))"></span>Grupos e painel</td><td><code>--card</code> com contorno <code>--border</code> e sombra <code>--shadow-card</code></td></tr>

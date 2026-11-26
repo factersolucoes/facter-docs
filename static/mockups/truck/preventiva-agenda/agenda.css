@@ -1194,3 +1194,53 @@
 .phead{padding-top:6px}
 .phead .ptr{margin:0;height:28px;color:hsl(var(--primary-foreground)/.85)}
 .phead .ptr{border:0}
+
+/* =====================================================================
+   Color system: neutrals carry the screen; primary in three levels
+   (solid, text, tint); status only on the due chip and the one urgency
+   ===================================================================== */
+:root,.dark{--t1:hsl(var(--foreground));--t2:hsl(var(--muted-foreground));--t3:hsl(var(--muted-foreground)/.7)}
+.fx-body.calm,.pb,.sheet .sb{background-color:hsl(var(--background))}
+.pkb,.tile,.plist .pk,.ded,.mcalw,.lcard .ft{background:hsl(var(--muted)/.5)}
+.pb>.sec.hist,.sheet .sb>.sec.hist{background:hsl(var(--muted)/.5)}
+/* hero: big number in text 1, regular weight; the week bar in neutral steps */
+.hero .big,.hero.slim .big{color:var(--t1);font-weight:400}
+.wbar i.d{background:var(--t1)}.wbar i.w{background:hsl(var(--foreground)/.45)}.wbar i.n{background:hsl(var(--muted-foreground)/.25)}
+.wlab .d b,.wlab .w b{color:var(--t1)}
+/* group headers and counts: neutral */
+.gt.d,.gt.w,.ch .gt.d,.ch .gt.w,.msh .gt.d,.msh .gt.w,.lsub .gt.d,.lsub .gt.w{background:hsl(var(--muted));color:var(--t2)}
+.gc.d,.gc.w,.ch .gc.d,.ch .gc.w,.msh .gc.d,.msh .gc.w{background:hsl(var(--muted));color:var(--t1)}
+.seg3 b.d,.seg3 b.w,.fx-mtabs b.d,.fx-mtabs b.w{background:hsl(var(--muted));color:var(--t1)}
+/* composition strokes: primary, danger only on the overdue vehicle */
+.cm i.w{background:hsl(var(--primary))}
+/* card context line and icons: text 2 */
+.cx.s,.cx.p{color:var(--t2)}
+.ic{color:inherit}
+/* tiles: values in text 1; Atraso may stay danger; one key number in primary text */
+.tl b.s,.tl b.w{color:var(--t1)}
+.tl b.w::before{content:"";display:inline-block;width:12px;height:12px;margin-right:5px;vertical-align:-1px;background:hsl(var(--warning));-webkit-mask:url(../_kit/icons/warning.svg) center/contain no-repeat;mask:url(../_kit/icons/warning.svg) center/contain no-repeat}
+.tic,.pkic,.prh .gt,.prh.pvh .gt{background:hsl(var(--primary)/.1);color:hsl(var(--primary))}
+.pvh .prt p{color:var(--t2);font-weight:400}
+/* status fills become neutral: a small tone icon carries the signal */
+.psum,.psum.w,.psum.s,.psum.d,.kchip,.kchip.w,.kchip.s,.kchip.d,.dtag,.tag{background:hsl(var(--muted));color:var(--t1)}
+.psum .ic,.kchip .ic{color:var(--t2)}.psum.w .ic,.kchip.w .ic{color:hsl(var(--warning))}.psum.s .ic,.kchip.s .ic{color:hsl(var(--success))}
+.pline .w,.ptot b.w{color:var(--t1)}
+.pline .w::before{content:"";display:inline-block;width:12px;height:12px;margin-right:4px;vertical-align:-1px;background:hsl(var(--warning));-webkit-mask:url(../_kit/icons/warning.svg) center/contain no-repeat;mask:url(../_kit/icons/warning.svg) center/contain no-repeat}
+.late{color:var(--t2)}.late .ic{color:hsl(var(--warning))}
+.notice-w{background:hsl(var(--muted)/.6);color:var(--t1)}.notice-w .ic{color:hsl(var(--warning))}
+.done{background:hsl(var(--card));box-shadow:var(--e1)}.done b,.done p{color:var(--t1)}.done .halo.sm{background:hsl(var(--primary)/.1);color:hsl(var(--primary))}
+.okk,.pk.done2 .okk,.ii.dn .okk{background:hsl(var(--muted));color:var(--t2)}
+.tg.w,.tg.d{background:hsl(var(--muted));color:var(--t1)}
+.sit.s::before{background:hsl(var(--success))}
+/* selection is tint, not solid */
+.fx-qp-b.on{background:hsl(var(--primary)/.1);box-shadow:none}
+.fx-qp-b.on b,.fx-qp-b.on span{color:hsl(var(--primary))}
+.pl.on,.spl.on{background:hsl(var(--primary)/.1);color:hsl(var(--primary));box-shadow:none}
+.cd.picked,.fx-aprow.lrow.on,.fx-aprow.lrow.picked,.mr.on{background:hsl(var(--primary)/.06)}
+/* list rows: due text stays a chip-like signal; Próximas plain */
+.fx-aprow.lrow .apst b.w{color:var(--t1)}
+.fx-aprow.lrow .apst b.w::before{content:"";display:inline-block;width:12px;height:12px;margin-right:5px;background:hsl(var(--warning));-webkit-mask:url(../_kit/icons/clock.svg) center/contain no-repeat;mask:url(../_kit/icons/clock.svg) center/contain no-repeat}
+/* weights: 600 titles and values, 500 labels and buttons, 400 body */
+.hero.slim .tx h2,.pkt>b,.ch h3,.msh,.sh h3,.prh h3{font-weight:600}
+.cd .l1 b,.tl b{font-weight:600}
+.wbar i.d{background:hsl(var(--foreground)/.7)}.wbar i.w{background:hsl(var(--foreground)/.32)}.wbar i.n{background:hsl(var(--foreground)/.12)}
