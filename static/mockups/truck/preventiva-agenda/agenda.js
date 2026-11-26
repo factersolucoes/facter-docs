@@ -222,11 +222,16 @@ function pkgCard(p){const st=pkState(p), open=!!G.open[p.id], off=st==='off';
       return `<div class="svr ${on?'':'off'}" data-ixa="sc:${p.id}:${i}" role="checkbox" aria-checked="${on}" tabindex="0">${cbx(on)}<span class="sn">${sv.n}${sv.inh?`<span class="inh"> · da ${sv.inh}</span>`:''}</span><span class="sm">${fmtDur(sv.min)}</span>${on?'':`<span class="sdf">${dpill(k)}</span>`}</div>${G.edit===k&&!on?editor(k):''}`;}).join('')}${partsLine(p)}</div>`:'';
   return `<div class="pkg ${off?'off':''} ${open?'open':''}">${head}${ed}${body}</div>`;}
 const shortTrig=p=>trig(p.trigger).replace(', o que vier primeiro','');
-function insideHtml(p){const parts=p.svcs.flatMap(sv=>sv.parts);const miss=parts.find(x=>x[3]==='w');
-  return `<div class="mtitle vit">${p.name}</div><p class="vimeta">${contentsLabel(p).replace(/<[^>]+>/g,'')} · ${trig(p.trigger)}</p>${p.incl?`<p class="vimeta">Inclui a ${p.incl}</p>`:''}
-  <div class="vil">${p.svcs.map(sv=>`<div class="vis"><span>${sv.n}${sv.inh?`<small> · da ${sv.inh}</small>`:''}</span><small>${fmtDur(sv.min)}</small></div>`).join('')}</div>
-  ${parts.length?`<p class="vip"><b>Peças:</b> ${parts.map(([q,n])=>`${q} ${n}`).join(', ')}${miss?`<span class="vmiss">${ic('warning','s14')}falta 1 ${miss[1].replace(/^jogos/,'jogo')}, chega quinta</span>`:''}</p>`:''}
-  <p class="vihint">Pular um serviço ou mexer nas peças é feito na OS.</p>`;}
+const SVC_IC=n=>/freio|lona/i.test(n)?'disc':/rolamento|cubo/i.test(n)?'circle-notch':/graxa|lubri|quinta roda/i.test(n)?'drop-half':/óleo|drenar|água/i.test(n)?'drop':/filtro/i.test(n)?'wind':/bucha|fueiro|barrote/i.test(n)?'columns':'wrench';
+function insideHtml(p){const parts=p.svcs.flatMap(sv=>sv.parts);const miss=parts.filter(x=>x[3]==='w').length;const tot=p.svcs.reduce((a,sv)=>a+sv.min,0);
+  const tile=(icn,l,v,sub,cls)=>`<div class="tile"><span class="tic">${ic(icn,'s16')}</span><span class="tlab"><small>${l}</small><b class="${cls||''}">${v}</b>${sub?`<small class="tsub">${sub}</small>`:''}</span></div>`;
+  const svcs=p.svcs.map(sv=>{const [nm,pos]=sv.n.split(/, (.+)/);return `<div class="vis2"><span class="vic">${ic(SVC_IC(sv.n),'s14')}</span><span class="vn">${nm}${pos?` <span class="vtag">${pos}</span>`:''}${sv.inh?` <span class="vtag">da ${sv.inh}</span>`:''}</span><span class="vd">${fmtDur(sv.min)}</span></div>`;}).join('');
+  const prt=parts.map(([q,n,rule,t])=>`<div class="vip2"><b class="q">${q}</b><span class="pn2">${n}${rule?` <small>${rule}</small>`:''}</span><span class="vst ${t==='w'?'w':'s'}">${ic(t==='w'?'warning':'check-circle','s12')}${t==='w'?'falta 1 · chega quinta':'em estoque'}</span></div>`).join('');
+  return `<div class="vihead"><b>${p.name}</b><span>${p.veh}</span><small>${shortTrig(p)}</small></div>
+  <div class="tiles vtiles">${tile('wrench','Serviços',String(p.svcs.length),'leva '+fmtDur(tot))}${parts.length?tile('package','Peças',String(parts.length),miss?`${ic('warning','s12')}falta ${miss}`:'todas em estoque'):''}</div>
+  <div class="visec"><div class="vish">Serviços<span class="cnt">${p.svcs.length}</span></div><div class="vilist">${svcs}</div></div>
+  ${parts.length?`<div class="visec"><div class="vish">Peças<span class="cnt">${parts.length}</span></div><div class="vilist">${prt}</div></div>`:''}
+  ${PKGS.includes(p)?`<span class="lk viact">Abrir a OS 1042 ›</span>`:''}`;}
 const contentsLabel=p=>{const ns=p.svcs.length,np=p.svcs.reduce((a,sv)=>a+sv.parts.length,0);return `${ns} ${ns===1?'serviço':'serviços'}${np?`<span class="pcx"> e ${np} ${np===1?'peça':'peças'}</span>`:''}`;};
 function pkgRow(p){const st=pkState(p), off=st==='off', menu=G.menu===p.id+'|vi';
   const trigTok=shortTrig(p).split(' ou ').map((x,i)=>`<span class="nw">${(i?'ou ':'')+x.replace(/ /g,'&nbsp;')}</span>`).join(' ');

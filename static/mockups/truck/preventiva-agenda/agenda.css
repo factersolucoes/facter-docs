@@ -1759,3 +1759,30 @@
   .prow .prr .vin2{white-space:nowrap}
 }
 @container prows (max-width:290px){.prow .prr .vin2 .pcx{display:none}}
+/* package contents: header, two tiles, services and parts as rows on white */
+.vipop{width:400px;padding:14px;max-height:520px;overflow:auto}
+.vihead{display:flex;flex-direction:column;gap:2px;padding:2px 2px 12px}
+.vihead b{font:600 17px Inter}
+.vihead span{font-size:13px;color:hsl(var(--muted-foreground))}
+.vihead small{font-size:13px;color:hsl(var(--foreground)/.75)}
+.tiles.vtiles{padding:0 0 14px;gap:8px}
+.vtiles .tile{background:hsl(var(--card))}
+.tsub{display:inline-flex;align-items:center;gap:4px;font-size:12px!important;color:hsl(var(--muted-foreground))!important}
+.tsub .ic{color:hsl(var(--warning))}
+.visec{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.vish{display:flex;align-items:center;gap:8px;font:600 14px Inter}
+.vilist{display:flex;flex-direction:column;gap:4px}
+.vis2,.vip2{display:flex;align-items:center;gap:10px;min-height:40px;padding:6px 10px;border-radius:12px;background:hsl(var(--card));box-shadow:0 1px 2px hsl(var(--foreground)/.04)}
+.vic{display:grid;place-items:center;width:28px;height:28px;flex:none;border-radius:99px;background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.vn{flex:1;min-width:0;font:500 14px Inter}
+.vtag{display:inline-flex;align-items:center;height:20px;padding:0 7px;margin-left:2px;border-radius:6px;background:hsl(var(--foreground)/.05);font:500 11.5px Inter;color:hsl(var(--muted-foreground));white-space:nowrap}
+.vd{flex:none;font-size:13px;color:hsl(var(--muted-foreground));font-variant-numeric:tabular-nums}
+.vip2 .q{width:36px;flex:none;text-align:right;font:600 14px Inter;font-variant-numeric:tabular-nums}
+.pn2{flex:1;min-width:0;font-size:14px}.pn2 small{color:hsl(var(--muted-foreground));font-size:12px}
+.vst{display:inline-flex;align-items:center;gap:4px;flex:none;height:22px;padding:0 8px;border-radius:6px;background:hsl(var(--foreground)/.05);font:500 11.5px Inter;color:hsl(var(--foreground));white-space:nowrap}
+.vst.s .ic{color:hsl(var(--success))}.vst.w .ic{color:hsl(var(--warning))}
+.viact{display:inline-block;font-size:13.5px;font-weight:500}
+.msheet .vihead{padding:4px 6px 12px}
+.msheet{background:hsl(var(--background))}
+.pop.vipop{background:hsl(var(--background))}
+.pop.vipop{max-height:340px;overflow:auto}
