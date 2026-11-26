@@ -228,7 +228,8 @@ function insideHtml(p){const parts=p.svcs.flatMap(sv=>sv.parts);const miss=parts
   ${parts.length?`<p class="vip"><b>Peças:</b> ${parts.map(([q,n])=>`${q} ${n}`).join(', ')}${miss?`<span class="vmiss">${ic('warning','s14')}falta 1 ${miss[1].replace(/^jogos/,'jogo')}, chega quinta</span>`:''}</p>`:''}
   <p class="vihint">Pular um serviço ou mexer nas peças é feito na OS.</p>`;}
 function pkgRow(p){const st=pkState(p), off=st==='off', menu=G.menu===p.id+'|vi';
-  const meta=`<span class="nw">leva ${fmtDur(p.svcs.reduce((a,sv)=>a+sv.min,0)).replace(/ /g,'&nbsp;')}&nbsp;·</span> ${shortTrig(p)} <span class="lk vin" data-ixa="m:${p.id}:vi" role="button" tabindex="0">Ver o que tem dentro</span>`;
+  const trigTok=shortTrig(p).split(' ou ').map((x,i)=>`<span class="nw">${(i?'ou ':'')+x.replace(/ /g,'&nbsp;')}</span>`).join(' ');
+  const meta=`<span class="nw">leva ${fmtDur(p.svcs.reduce((a,sv)=>a+sv.min,0)).replace(/ /g,'&nbsp;')}&nbsp;·</span> ${trigTok} <span class="lk vin" data-ixa="m:${p.id}:vi" role="button" tabindex="0">Ver o que tem dentro</span>`;
   return `<div class="prow ${off?'off':''}"><span data-ixa="pc:${p.id}" role="checkbox" aria-checked="${!off}" tabindex="0" class="cbw">${cb3(off?'off':'on')}</span>
     <div class="prt2"><b>${p.name}${p.reg?' <span class="tag reg">Obrigatório</span>':''}</b><small>${meta}</small>${menu&&!RPH?`<div class="pop vipop" role="dialog">${insideHtml(p)}</div>`:''}</div>
     <span class="prr"><span class="sit ${off?'n':p.t||'n'}">${p.due}</span></span>${off?`<div class="prdef">${dpill(p.id)}</div>`:''}</div>`;}

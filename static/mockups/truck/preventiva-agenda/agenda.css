@@ -1708,3 +1708,15 @@
 .ptex{background-image:linear-gradient(to right,hsl(var(--primary-foreground)/.11) 1px,transparent 1px),linear-gradient(to bottom,hsl(var(--primary-foreground)/.11) 1px,transparent 1px);background-size:22px 22px;background-position:-1px -1px;
   -webkit-mask-image:radial-gradient(110% 100% at 100% 0%,#000 0%,transparent 72%);mask-image:radial-gradient(110% 100% at 100% 0%,#000 0%,transparent 72%)}
 .dark .ptex{background-image:linear-gradient(to right,hsl(var(--primary-foreground)/.06) 1px,transparent 1px),linear-gradient(to bottom,hsl(var(--primary-foreground)/.06) 1px,transparent 1px)}
+/* narrow drawer and sheet: package row stacks (name, due chip, rule, contents link) */
+.prows{container-type:inline-size;container-name:prows}
+@container prows (max-width:420px){
+  .prow{grid-template-columns:16px minmax(0,1fr);row-gap:6px}
+  .prow .prt2{display:contents}
+  .prow .prt2>b{grid-column:2;grid-row:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .prow .prr{grid-column:2;grid-row:2;align-items:flex-start}
+  .prow .prt2>small{grid-column:2;grid-row:3}
+  .prow .prt2>small .vin{display:block;margin:4px 0 0}
+  .prow .prdef{grid-column:2;grid-row:4}
+  .prow .vipop{grid-column:1/-1}
+}
