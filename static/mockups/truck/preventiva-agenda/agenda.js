@@ -41,22 +41,41 @@ function row(id,sel){const v=V[id];
 function group(g,sel){
   return `<section class="grp"><header><span class="gt ${g.tone}">${ic(g.icon,'s16')}</span><h3>${g.title}</h3><span class="gc">${g.count}</span></header><div class="rows">${g.ids.map(id=>row(id,sel)).join('')}</div>${g.more?`<div class="more">${g.more}${ic('caret-down','s14')}</div>`:''}</section>`;}
 
-const ITEMS_C320=[['Lona de freio','2ª carreta · eixo 3','vencida há 1.850 km','d'],['Lubrificação geral','2ª carreta','vence hoje','w'],['Troca de óleo e filtros','Cavalo','em 1.200 km','']];
-/* visit items: the most urgent first, lifted; position as a neutral chip; state as a tone pill */
-const item=([n,pos,v,t],i)=>`<div class="ii ${i===0?'lead':''}"><div class="n"><b>${n}</b><span class="pos">${pos}</span></div><span class="tp ${t}">${v}</span></div>`;
+/* visit item: [service, position, state, tone, meter, plan]
+   meter = {u: fraction of the interval run (1 = due), l: interval and last time, over: lateness text}
+   plan = {set: composition parts, at: index of the vehicle, axles, lit: axle number} */
+const SET320=V.c320.parts.map(([p,k])=>[p,k,'']);
+const ITEMS_C320=[
+  ['Lona de freio','2ª carreta · eixo 3','vencida há 1.850 km','d',{u:1.031,l:'60 mil km · última em 12/05',over:'+1.850 km'},{at:2,axles:3,lit:3}],
+  ['Lubrificação geral','2ª carreta','vence hoje','w',{u:1,l:'30 dias · última em 27/10'},{at:2,axles:3,lit:0}],
+  ['Troca de óleo e filtros','Cavalo','em 1.200 km','',{u:.94,l:'20 mil km · última em 02/09'}],
+];
+const END=82; /* the due point sits at 82% of the bar; what is left shows how late */
+function meter(m,t){
+  const fill=Math.min(m.u,1)*END, over=m.u>1?Math.max((m.u-1)*END,2.2):0, win=END*.1;
+  return `<div class="mt" role="img" aria-label="${esc(m.l)}"><span class="tr" style="width:${END}%"></span><span class="wn" style="left:${END-win}%;width:${win}%"></span><span class="fl ${t}" style="width:${fill}%"></span>${over?`<span class="ov" style="left:${END}%;width:${over}%"></span>`:''}<span class="due" style="left:${END}%"></span><span class="pin ${t}" style="left:${fill+over}%"></span></div>
+  <div class="mtl"><span>${m.l}</span>${m.over?`<b>${m.over}</b>`:''}</div>`;}
+function plan(pl,t){
+  let x=0;const segs=SET320.map(([,k],i)=>{const w=k==='cav'?10:16, r=`<rect class="sg ${i===pl.at?'on '+t:''}" x="${x}" y="0" width="${w}" height="3" rx="1.5"/>`;x+=w+(k==='cav'?5:3);return r;}).join('');
+  const W=x-3, bodyX=2, bodyW=W-4, axles=Array.from({length:pl.axles},(_,i)=>{const ax=bodyX+bodyW-7-(pl.axles-1-i)*8, on=pl.lit===0||pl.lit===i+1;
+    return `<g class="ax ${on?'on '+t:''}"><line x1="${ax}" y1="11" x2="${ax}" y2="25"/><rect x="${ax-2}" y="8" width="4" height="4.5" rx="1"/><rect x="${ax-2}" y="23.5" width="4" height="4.5" rx="1"/></g>`;}).join('');
+  return `<svg class="plan" width="${W}" height="30" viewBox="0 0 ${W} 30" role="img" aria-label="Posição no conjunto">${segs}<rect class="bd" x="${bodyX}" y="11" width="${bodyW}" height="14" rx="3"/>${axles}</svg>`;}
+const item=([n,pos,v,t,m,pl],i)=>`<div class="ii ${i===0?'lead':''}"><div class="it1"><b>${n}</b><span class="tp sm ${t}">${v}</span></div>
+  <div class="it2"><span class="pos">${pos}</span>${pl?plan(pl,t||'n'):''}</div>${m?meter(m,t||'n'):''}</div>`;
 const items=list=>`<div class="ilist">${list.map(item).join('')}</div>`;
 const secHead=(title,right='')=>`<div class="sh"><h3>${title}</h3>${right}</div>`;
 const count=n=>`<span class="cnt">${n}</span>`;
 const pill=(tone,icon,text)=>`<span class="spill ${tone}">${ic(icon,'s16')}${text}</span>`;
 const metrics=m=>`<div class="mstrip">${m.map(([l,v,t])=>`<div><span>${l}</span><b class="${t||''}">${v}</b></div>`).join('')}</div>`;
-const parts=(ok,list,note)=>`<div class="sec">${secHead('Peças do kit',ok?`<span class="kchip s">${ic('check-circle','s16')}Tudo em estoque</span>`:`<span class="kchip w">${ic('package','s16')}${note[0]}</span>`)}<p class="sub">${list}${ok?'':`. ${note[1]}`}</p></div>`;
+const parts=(ok,list,note)=>`<div class="sec">${secHead('Peças do kit',ok?`<span class="kchip s">${ic('check-circle','s16')}Tudo em estoque</span>`:`<span class="kchip w">${ic('package','s16')}${note[0]}</span>`)}<div class="kgrid">${list.map(([q,n,has])=>`<span class="kp ${has?'':'miss'}"><b>${q}</b><span>${n}</span>${has?`<i class="okk">${ic('check','s12')}</i>`:'<i class="miss">falta</i>'}</span>`).join('')}</div>${ok?'':`<p class="sub">${note[1]}</p>`}</div>`;
+const history=(title,rows)=>`<div class="sec hist">${secHead(title)}<ol class="tl">${rows.map(([d,sv,os])=>`<li><span class="d">${d}</span><span class="s">${sv}</span><span class="o">${os}</span></li>`).join('')}</ol></div>`;
 const foot=t=>`<p class="foot">${ic('clock-counter-clockwise','s14')}<span>${t}</span></p>`;
 function pHead(v,o={}){return `<div class="phd">${o.phone?'<div class="grab"></div>':''}<div class="ph">${o.back?`<span class="xb back" role="button" aria-label="Voltar">${ic('arrow-left','s16')}</span>`:''}<div class="t"><h2>${o.title||v.full}</h2><p>${mark(v.parts)}${o.sub||v.sub}</p></div>${o.back?'':`<span class="xb" role="button" aria-label="Fechar">${ic('x','s16')}</span>`}</div>${o.status?`<div class="pst">${o.status}</div>`:''}${o.metrics?metrics(o.metrics):''}</div>`;}
 const H320={status:pill('s','garage','No pátio · OS 1042 aberta'),metrics:[['Pior atraso','1.850 km','d'],['Peças','Em estoque','s'],['Na OS','+3 h 20','']]};
 function visitBody(){
   return `<div class="sec">${secHead('Nesta visita',count(3))}${items(ITEMS_C320)}</div>
-  ${parts(1,'4 lonas, 8 molas, 38 l de óleo e 3 filtros')}
-  ${foot('Última troca da lona: 12/05, na OS 0871')}`;}
+  ${parts(1,[['4×','lona de freio',1],['8×','mola de retorno',1],['38 l','óleo 15W40',1],['3×','filtro',1]])}
+  ${history('Últimas visitas deste conjunto',[['27/10','Lubrificação geral','OS 0998'],['02/09','Troca de óleo e filtros','OS 0954'],['12/05','Lona de freio, 2ª carreta, eixo 3','OS 0871']])}`;}
 const visitFoot=()=>`<div class="pf"><div class="bb">${btn('Adiar',{variant:'outline'})}${btn('Incluir as 3 na OS 1042',{icon:'plus',action:1})}</div></div>`;
 
 const WD=['seg','ter','qua','qui','sex','sáb'];
@@ -65,8 +84,8 @@ const HDLY={title:'Agendar visita',sub:'DLY1J07 · revisão B',back:1,status:pil
 function scheduleBody(){
   return `<div class="sec cal">${secHead('Quando trazer',`<span class="hh">horas livres por dia</span>`)}
   <div class="wk">${WD.map(d=>`<span class="wd">${d}</span>`).join('')}${DAYS.map(([n,l,off,pick])=>`<div class="day ${off===2?'off past':off?'off':''} ${pick?'pick':''}"><b>${n}</b><span>${l||'&nbsp;'}</span></div>`).join('')}</div><p class="first">${ic('calendar-check','s16')}<span><b>Primeira vaga: sáb 28/11</b>, 6&nbsp;h livres</span></p></div>
-  <div class="sec">${secHead('Nesta visita',count(1))}${items([['Revisão B','Cavalo · inclui a A','vencida há 4.300 km','d']])}</div>
-  ${parts(0,'O resto do kit está em estoque',['Falta 1 filtro de ar','O filtro é pedido ao agendar'])}
+  <div class="sec">${secHead('Nesta visita',count(1))}${items([['Revisão B','Cavalo · inclui a A','vencida há 4.300 km','d',{u:1.143,l:'30 mil km · última em 03/06',over:'+4.300 km'}]])}</div>
+  ${parts(0,[['30 l','óleo 15W40',1],['1×','filtro de óleo',1],['1×','filtro de ar',0],['1×','filtro de diesel',1]],['Falta 1 filtro de ar','O filtro é pedido ao agendar.'])}
   <label class="chk"><i>${ic('check','s14')}</i>Avisar a JSL por e-mail</label>`;}
 const scheduleFoot=()=>`<div class="pf"><div class="bb">${btn('Voltar',{variant:'outline'})}${btn('Agendar para sáb 28/11',{icon:'calendar-check',action:1})}</div></div>`;
 
@@ -77,8 +96,8 @@ function skList(phone){
 }
 
 const C044={full:'Conjunto C-044',sub:'QRT2E55 com 2 carretas',parts:V.c044.parts};
-function nextPanel(){return `<aside class="pnl">${pHead(C044,{status:pill('n','road-horizon','Rodando · 610 km por dia'),metrics:[['Vence','qui 10/12',''],['Peças','Em estoque','s'],['Leva','3 h','']]})}<div class="pb"><div class="sec">${secHead('Nesta visita',count(2))}${items([['Revisão B','Cavalo','qui 10/12',''],['Lubrificação geral','1ª carreta','sáb 12/12','']])}</div>
-  ${parts(1,'38 l de óleo, 4 filtros e graxa')}</div>
+function nextPanel(){return `<aside class="pnl">${pHead(C044,{status:pill('n','road-horizon','Rodando · 610 km por dia'),metrics:[['Vence','qui 10/12',''],['Peças','Em estoque','s'],['Leva','3 h','']]})}<div class="pb"><div class="sec">${secHead('Nesta visita',count(2))}${items([['Revisão B','Cavalo','qui 10/12','',{u:.82,l:'30 mil km · última em 14/06'}],['Lubrificação geral','1ª carreta','sáb 12/12','',{u:.55,l:'30 dias · última em 12/11'}]])}</div>
+  ${parts(1,[['38 l','óleo 15W40',1],['4×','filtro',1],['1 kg','graxa',1]])}</div>
   <div class="pf"><div class="bb">${btn('Adiar',{variant:'outline'})}${btn('Agendar visita',{icon:'calendar-check',action:1})}</div></div></aside>`;}
 
 /* ---------- board: the three columns side by side, the whole week at once ---------- */
@@ -122,6 +141,70 @@ function phone(s){
   return list+sheet;
 }
 
+/* =====================================================================
+   List version: the same anatomy as the work-order list (PageHeader, KPI strip,
+   tabs, search and chips, approved row with fixed right columns, load more)
+   ===================================================================== */
+const LM={
+  c320:{pos:'2ª carreta RTE1J77',where:'No pátio, OS 1042',sub:'venceu 23/11',act:'Incluir na OS'},
+  dly:{pos:'Cavalo, frota 812',where:'Rodando, 640 km/dia',sub:'venceu 19/11',act:'Agendar'},
+  c207:{pos:'1ª carreta RTC3B19',where:'No pátio, OS 1051',sub:'venceu 23/11',act:'Incluir na OS'},
+  c118:{pos:'Cavalo QRT7C10',where:'Rodando, 650 km/dia',sub:'em 2 dias',act:'Agendar'},
+  q1a:{pos:'Cavalo, frota 820',where:'Rodando, 710 km/dia',sub:'em 3 dias',act:'Agendar'},
+  rta:{pos:'Carreta solta',where:'Parada na Base Curitiba',sub:'em 3 dias',act:'Agendar'},
+  c072:{pos:'Cavalo QRT5F80',where:'Rodando, 580 km/dia',sub:'em 11 dias',act:'Agendar'},
+  q9b:{pos:'Cavalo, frota 833',where:'Rodando, 600 km/dia',sub:'em 13 dias',act:'Agendar'},
+  c044:{pos:'Cavalo QRT2E55',where:'Rodando, 610 km/dia',sub:'em 14 dias',act:'Agendar'},
+  q6h:{pos:'Cavalo, frota 841',where:'Rodando, 520 km/dia',sub:'em 19 dias',act:'Agendar'},
+  rtf:{pos:'1ª carreta RTF2D10',where:'Rodando',sub:'em 22 dias',act:'Agendar'},
+  srt:{pos:'Carreta',where:'Sem leitura desde 12/10',sub:'sem km',act:'Informar km'},
+  rtc:{pos:'Carreta',where:'Salto de 9.800 km em um dia',sub:'a conferir',act:'Conferir km'},
+};
+const dotSep='<span class="fx-dot"></span>';
+function lrow(id,sel){const v=V[id],m=LM[id];const more=/^\+\d/.test(v.more)?`${dotSep}<span class="nw">${v.more}</span>`:'';
+  return `<div class="fx-aprow lrow ${sel===id?'on':''}" role="button" tabindex="0">
+    <div class="m"><div class="l1"><b class="nm">${v.name}</b>${mark(v.parts)}<span class="trunc2">${v.svc}</span></div>
+      <div class="l2"><span class="nw">${m.pos}</span>${more}${dotSep}<span class="trunc2">${m.where}</span></div></div>
+    <div class="apst"><b class="${v.t||'n'}">${v.when.replace('vencida há ','')}</b><span>${m.sub}</span></div>
+    <div class="apss">${btn(m.act,{variant:'secondary',size:'sm'})}</div>
+    ${ic('caret-right','s16 car')}</div>`;}
+const lsub=g=>`<div class="lsub"><span class="gt ${g.tone}">${ic(g.icon,'s14')}</span><b>${g.title}</b><span class="n">${g.count}</span></div>`;
+const LTABS=[['Todas',17],['Vencidas',3],['Esta semana',3],['Próximas',9],['Sem km',2]];
+function listTop(o={}){
+  const head=F.pageHeader('Agenda','O que trazer para a oficina, e quando.',`${F.fchip('Base Curitiba',{menu:1})}${btn('Ver planos',{variant:'outline',icon:'list-checks'})}`);
+  const kpi=`<div class="fx-kpi4">${[['Vencidas',o.zero?0:5,'d'],['Vencem esta semana',4,'w'],['Próximas semanas',14,''],['Sem km',2,'']].map(([l,v,t])=>`<div><p>${l}</p><b class="k${v?t:''}">${v}</b></div>`).join('')}</div>`;
+  const tools=`<div class="ltools">${F.search('Buscar placa, frota ou conjunto',{width:340})}${F.fchip('Todas as transportadoras',{menu:1})}${F.fchip('Todos os planos',{menu:1})}</div>`;
+  return head+`<div class="lstack">${kpi}<div class="lstack s">${F.dtabs(LTABS,o.tab||'Todas')}${tools}`;
+}
+function listWeb(s){
+  const sel=s==='schedule'?'dly':s==='visit'?'c320':null;
+  let body;
+  if(s==='loading') body=`<div style="display:flex;flex-direction:column;gap:8px">${[1,2,3,4,5].map(()=>F.sk('100%',64)).join('')}</div>`;
+  else if(s==='empty') body=`<div class="lempty">${F.empty({icon:'calendar-check',title:'Nada vencido',hint:'Uma preventiva aparece aqui quando passa do prazo. A próxima vence sáb 28/11, na revisão A do C-118.',action:btn('Ver esta semana',{variant:'outline'})})}</div>`;
+  else body=`<div class="fx-wolist llist">${GROUPS.map(g=>lsub(g)+g.ids.map(id=>lrow(id,sel)).join('')).join('')}</div>${btn('Carregar mais',{variant:'outline'}).replace('fx-btn','fx-btn lmore')}`;
+  const dr=s==='schedule'?drawer(`${pHead(V.dly,HDLY)}<div class="pb">${scheduleBody()}</div>${scheduleFoot()}`)
+    :s==='visit'?drawer(`${pHead(V.c320,H320)}<div class="pb">${visitBody()}</div>${visitFoot()}`):'';
+  return `<div class="lv">${listTop({tab:s==='empty'?'Vencidas':'Todas',zero:s==='empty'})}${body}</div></div></div>${dr}</div>`;
+}
+function lcard(id,sel){const v=V[id],m=LM[id];
+  return `<button type="button" class="fx-wocard lcard ${sel===id?'on':''}"><span class="l1"><b class="nm">${v.name}</b>${mark(v.parts)}<span style="flex:1"></span><span class="lwhen ${v.t}">${v.when}</span></span>
+    <span class="l3">${v.svc}</span><span class="l4"><span class="trunc2">${m.pos}${/^\+\d/.test(v.more)?' · '+v.more:''}</span></span>
+    <span class="ft"><span class="trunc2 lwhere">${m.where}</span><span style="flex:1"></span><span class="lact">${m.act}${ic('caret-right','s14')}</span></span></button>`;}
+function listPhone(s){
+  const tabsM=on=>`<div class="fx-mtabs">${[['Vencidas',3,'d'],['Esta semana',3,'w'],['Próximas',9,''],['Sem km',2,'']].map(([t,n,c])=>`<span class="${t===on?'on':''}">${t}<b class="${c}">${n}</b></span>`).join('')}</div>`;
+  const search=`<div class="fx-msearch"><span class="fx-searchf" style="flex:1;height:44px;font-size:14px">${ic('magnifying-glass','s16')}<span class="trunc2">Buscar placa, frota ou conjunto</span></span><span class="fx-btn outline icon" style="height:44px;width:44px">${ic('sliders-horizontal','s20')}</span></div>`;
+  let body;
+  if(s==='loading') body=[1,2,3].map(()=>`<div class="fx-wocard sk">${F.sk('40%',16)}${F.sk('60%',22)}${F.sk('100%',36)}${F.sk('100%',28)}</div>`).join('');
+  else if(s==='empty') body=F.empty({icon:'calendar-check',title:'Nada vencido',hint:'A próxima vence sáb 28/11, na revisão A do C-118.'});
+  const sel=s==='schedule'?'dly':s==='visit'?'c320':null;
+  if(!body) body=GROUPS[0].ids.map(id=>lcard(id,sel)).join('');
+  const list=`<div class="fx-mlist"><div class="fx-msticky">${search}${tabsM('Vencidas').replace(s==='empty'?'<b class="d">3</b>':'@@','<b>0</b>')}</div><div class="fx-mcards">${body}</div><div style="height:72px"></div></div>`;
+  if(s!=='visit'&&s!=='schedule') return list;
+  return list+(s==='schedule'
+    ?`<div class="sheet-ov"><div class="sheet">${pHead(V.dly,{...HDLY,phone:1})}<div class="sb">${scheduleBody()}</div>${scheduleFoot()}</div></div>`
+    :`<div class="sheet-ov"><div class="sheet">${pHead(V.c320,{...H320,phone:1})}<div class="sb">${visitBody()}</div>${visitFoot(1)}</div></div>`);
+}
+
 /* ---------- kit integration: the proposed Preventiva menu item; sheets cover the whole phone screen ---------- */
 function patchNav(){
   document.querySelectorAll('fx-app').forEach(app=>{
@@ -146,10 +229,10 @@ function themes(){
     t.closest('section').querySelectorAll('.fx-device').forEach(d=>d.classList.toggle('dark',b.dataset.t==='dark'));
   }));
 }
-function clean(){document.querySelectorAll('.fx-device.phone .fx-screen>.sheet-ov').forEach(o=>o.remove());}
-const R={ag:(s,dev)=>{clean();return dev==='phone'?phone(s):web(s,dev);},phl:()=>phone('list'),phs:(s)=>{clean();setTimeout(lift);return phone(s);}};
-R.ag=(s,dev)=>web(s,dev);
-function boot(){patchNav();F.bind(R);lift();fit();themes();
+function clean(k){document.querySelectorAll(`[data-render="${k}"]`).forEach(el=>el.closest('.fx-screen')?.querySelectorAll(':scope>.sheet-ov').forEach(o=>o.remove()));}
+function views(){const bar=document.querySelector('.viewbar');if(!bar)return;const show=v=>{bar.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v));document.querySelectorAll('section[data-view]').forEach(sec=>sec.hidden=sec.dataset.view!==v);fit();};bar.querySelectorAll('button').forEach(b=>b.onclick=()=>show(b.dataset.v));show('board');}
+const R={ag:(s,dev)=>web(s,dev),phl:()=>phone('list'),phs:(s)=>{clean('phs');setTimeout(lift);return phone(s);},lg:(s)=>listWeb(s),lpl:()=>listPhone('list'),lps:(s)=>{clean('lps');setTimeout(lift);return listPhone(s);}};
+function boot(){patchNav();F.bind(R);lift();views();themes();
   document.querySelectorAll('.states button').forEach(b=>b.addEventListener('click',()=>setTimeout(lift)));
   let t;window.addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(fit,120);});}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(boot));else setTimeout(boot);
