@@ -527,3 +527,21 @@ p,.fx-pht p,.fx-empty p,.fx-help{text-wrap:pretty}
 .fx-qp-b span{font-size:12.5px;font-variant-numeric:tabular-nums;color:hsl(var(--muted-foreground))}
 .fx-qp-b.on{border-color:hsl(var(--primary));background:hsl(var(--primary-soft));box-shadow:0 0 0 1px hsl(var(--primary))}
 .fx-qp-b.on b,.fx-qp-b.on span{color:hsl(var(--primary))}
+
+/* @facter/ds-core Kanban */
+.fx-kb{display:flex;gap:16px;overflow-x:auto;padding-bottom:16px}
+.fx-kb-col{display:flex;flex-direction:column;min-width:300px;max-width:340px;flex:1 1 0;border-radius:16px;background:hsl(var(--muted)/.2);transition:all .2s}
+.dark .fx-kb-col{background:hsl(var(--muted)/.1)}
+.fx-kb-col.kb-ok{box-shadow:0 0 0 2px hsl(var(--primary)/.4);background:hsl(var(--primary)/.05)}
+.fx-kb-col.kb-hover{box-shadow:0 0 0 2px hsl(var(--primary)/.6);background:hsl(var(--primary)/.1);transform:scale(1.01)}
+.fx-kb-col.kb-no{opacity:.4}
+.fx-kb-h{display:flex;align-items:center;gap:8px;padding:12px 16px}
+.fx-kb-h h3{flex:1;font:500 14px Inter;color:hsl(var(--foreground))}
+.fx-kb-h .n{font-size:14px;color:hsl(var(--muted-foreground));font-variant-numeric:tabular-nums}
+.fx-kb-b{flex:1;display:flex;flex-direction:column;gap:12px;padding:0 8px 8px;min-height:200px;overflow-y:auto}
+.fx-kb-empty{display:flex;align-items:center;justify-content:center;height:128px;font-size:14px;color:hsl(var(--muted-foreground)/.6)}
+.fx-kb-f{padding:0 8px 12px}
+.fx-kb-card{position:relative;border-radius:16px;border:1px solid hsl(var(--border)/.6);background:hsl(var(--card));padding:16px;box-shadow:0 2px 8px -2px hsl(var(--foreground)/.08),0 4px 16px -4px hsl(var(--foreground)/.04);transition:all .2s;cursor:grab}
+.fx-kb-card:hover{box-shadow:0 4px 16px -4px hsl(var(--foreground)/.12),0 8px 24px -8px hsl(var(--foreground)/.08);border-color:hsl(var(--border))}
+.fx-kb-card.dragging{opacity:.5;transform:scale(.96);border-color:hsl(var(--primary));box-shadow:0 0 0 2px hsl(var(--primary)/.2),0 20px 40px -12px hsl(var(--foreground)/.3)}
+.fx-kb-card.disabled{cursor:not-allowed;opacity:.6}

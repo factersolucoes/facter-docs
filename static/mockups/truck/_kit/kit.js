@@ -303,5 +303,9 @@ A.monthCal=(o)=>{
 A.quickPick=(o)=>{const n=o.presets.length+1;
   return `<div class="fx-qp" style="grid-template-columns:repeat(${n},minmax(0,1fr))">${o.presets.map(p=>`<button type="button" class="fx-qp-b ${p.on?'on':''}" aria-pressed="${!!p.on}" ${o.act?o.act(p):''}><b>${p.label}</b><span>${p.sub}</span></button>`).join('')}<button type="button" class="fx-qp-b ${o.other.on?'on':''}" aria-pressed="${!!o.other.on}" ${o.otherAct||''}><b>${ic('calendar-blank','s14')}${o.other.label}</b><span>${o.other.sub}</span></button></div>`;
 };
+/* @facter/ds-core Kanban (components/Kanban): KanbanColumn and KanbanCard.
+   kbCol({title,count,body,state:'ok'|'hover'|'no',empty,top,footer}) · kbCard(inner,{state:'dragging'|'disabled',attrs}) */
+A.kbCol=o=>`<section class="fx-kb-col ${o.state?'kb-'+o.state:''}" data-kanban-column><div class="fx-kb-h"><h3>${o.title}</h3><span class="n">${o.count}</span>${o.actions||''}</div>${o.top||''}<div class="fx-kb-b">${o.body||`<div class="fx-kb-empty">${o.empty||'Nada aqui'}</div>`}</div>${o.footer?`<div class="fx-kb-f">${o.footer}</div>`:''}</section>`;
+A.kbCard=(inner,o={})=>`<div class="fx-kb-card ${o.state||''}" draggable="${o.state==='disabled'?'false':'true'}" ${o.attrs||''}>${inner}</div>`;
 window.FX=A;
 })();
