@@ -243,19 +243,18 @@ const pkgGroups=list=>[...new Set(list.map(p=>p.veh))].map(v=>`<div class="vgrp"
 function ixBody(){
   const hist=history('Últimas manutenções deste conjunto',[['27/10','Preventiva 30 dias, 2ª carreta','OS 0998'],['02/09','Preventiva 20 mil, cavalo','OS 0954'],['12/05','Preventiva 60 mil, 2ª carreta','OS 0871']]);
   if(G.done){const inc=PKGS.filter(p=>pkOn(p)>0), dfr=PKGS.filter(p=>pkOn(p)===0);
-    const top=inc.length?`${inc.length} ${inc.length>1?'preventivas':'preventiva'} na OS 1042`:`${dfr.length} ${dfr.length>1?'preventivas adiadas':'preventiva adiada'}`;
-    const d0=dfr[0]?defOf(dfr[0].id):null;
-    const sub=dfr.length?`${dfr[0].name}, ${dfr[0].where}: ${defSentence(dfr[0].id).replace(/^A/,'a')}`:'Nada ficou para depois';
-    const r=(p,tag)=>`<div class="pk pv nock done2"><span class="okk">${tag?ic('clock','s12'):ic('check','s12')}</span><span class="pt"><b>${p.name}</b><small>${p.where==='cavalo'?'Cavalo':p.where} · ${tag?defSentence(p.id):`${pkOn(p)} de ${p.svcs.length} serviços`}</small></span><span></span><span></span></div>`;
-    return `<div class="done"><span class="halo sm">${ic('check-circle','s24')}</span><div class="dtx"><b>${top}</b><p>${sub}</p></div>${G.undo>0?`<span class="undo" data-ixa="u" role="button" tabindex="0">Desfazer <i class="cd10">${G.undo} s</i></span>`:''}</div>
-    ${inc.length?`<div class="sec">${prevHead('Na OS 1042',`${inc.length} ${inc.length>1?'preventivas':'preventiva'}`)}<div class="plist">${inc.map(p=>r(p)).join('')}</div></div>`:''}
-    ${dfr.length?`<div class="sec">${prevHead('Adiadas',`${dfr.length} · conta como atraso`)}<div class="plist">${dfr.map(p=>r(p,1)).join('')}</div></div>`:''}`;}
+    const top=inc.length?`${inc.length} ${inc.length>1?'preventivas':'preventiva'} na OS&nbsp;1042`:`${dfr.length} ${dfr.length>1?'preventivas ficaram':'preventiva ficou'} para depois`;
+    const sub=[inc.length?'leva '+fmtDur(totMin()):'',dfr.length?`${dfr.length} ${dfr.length>1?'ficaram':'ficou'} para depois · ${defOf(dfr[0].id).reason.toLowerCase()}`:'nada ficou para depois'].filter(Boolean).join(' · ');
+    const row=(p,def)=>`<div class="dnr"><span class="dni ${def?'w':''}">${ic(def?'clock':'check','s12')}</span><span class="dnt"><b>${p.name}</b><small>${p.where==='cavalo'?'Cavalo':p.where} · ${p.svcs.length} serviços</small></span>${def?`<span class="vtag">${defOf(p.id).reason.toLowerCase()}</span>`:''}</div>`;
+    return `<div class="dnok"><span class="dnc">${ic('check','s20')}</span><div class="dnx"><b>${top}</b><small>${sub}</small></div>${G.undo>0?`<span class="undo" data-ixa="u" role="button" tabindex="0">Desfazer <i class="cd10">${G.undo} s</i></span>`:''}</div>
+    ${inc.length?`<div class="dnl"><p class="vh">Na OS</p>${inc.map(p=>row(p)).join('')}</div>`:''}
+    ${dfr.length?`<div class="dnl"><p class="vh">Para depois</p>${dfr.map(p=>row(p,1)).join('')}</div>`:''}`;}
   const n=pkgsOn(), anyOff=PKGS.some(p=>pkState(p)!=='on');
   const sub=G.all?'As 3 ficam para depois':n===0?'Nenhuma marcada':n===3?'3 preventivas':`${n} de 3 marcadas`;
   const miss=lackOn()?`<p class="missl">${ic('warning','s14')}Falta 1 jogo de rebites, chega quinta</p>`:'';
   return `<div class="sec plain"><div class="sh"><h3>Preventivas para fazer agora</h3><span class="shs">${sub}</span></div>${pkgGroups(PKGS)}${anyOff?`<p class="late">${ic('clock-countdown','s14')}Conta como atraso</p>`:''}${miss}</div>`;}
 function ixFoot(){
-  if(G.done) return `<div class="pf"><div class="bb"><span data-ixa="c">${btn('Fechar',{variant:'outline'})}</span>${pkgsOn()?btn('Abrir a OS 1042',{icon:'arrow-square-out',action:1}):'<span></span>'}</div></div>`;
+  if(G.done) return `<div class="pf"><div class="bb"><span data-ixa="c">${btn('Fechar',{variant:'outline'})}</span>${pkgsOn()?btn('Abrir a OS 1042',{icon:'arrow-square-out',action:1}):''}</div></div>`;
   if(G.all) return `<div class="pf"><div class="bb"><span data-ixa="B">${btn('Voltar',{variant:'outline'})}</span><span data-ixa="ok">${btn('Adiar as 3',{icon:'clock-countdown',action:1})}</span></div></div>`;
   const n=pkgsOn(), full=PKGS.every(p=>pkState(p)!=='tri');
   const fp=PKGS.filter(p=>pkState(p)==='on').length, ps=PKGS.filter(p=>pkState(p)==='tri').reduce((x,p)=>x+pkOn(p),0);
@@ -266,7 +265,7 @@ function ixDrawer(phone){
   if(G.closed) return phone?'<div class="sheet-ov" data-ix="1" hidden></div>':'<div class="ixw" data-ix="0" hidden></div>';
   const miss=lackOn()&&!G.done;
   const metricsX=G.done?[['Na OS',`${pkgsOn()} ${pkgsOn()===1?'preventiva':'preventivas'}`,''],['Adiadas',String(3-pkgsOn()),3-pkgsOn()?'w':''],['Duração',fmtDur(totMin()),'']]:[['Atraso','1.850 km','d'],['Peças',miss?'Falta 1':'Em estoque',miss?'w':'s'],['Duração',fmtDur(totMin()),'']];
-  const head=pHead(V.c320,{status:pill('s','garage','No pátio desde ontem · OS 1042 aberta'),metrics:metricsX,phone});
+  const head=G.done?pHead(V.c320,{phone}):pHead(V.c320,{status:pill('s','garage','No pátio desde ontem · OS 1042 aberta'),metrics:metricsX,phone});
   RPH=!!phone;if(G.inside){const pk=PKGS.find(x=>x.id===G.inside)||PKG044.find(x=>x.id===G.inside);const ih=`<div class="phd">${phone?'<div class="grab"></div>':''}<div class="ph"><span class="xb back" data-ixa="bk" role="button" tabindex="0" aria-label="Voltar">${ic('arrow-left','s16')}</span><div class="t"><h2 class="bkt">Conjunto C-320</h2></div></div></div>`;const body=`${ih}<div class="${phone?'sb':'pb'} insb">${insideHtml(pk)}</div>`;return phone?`<div class="sheet-ov" data-ix="1"><div class="sheet">${body}</div></div>`:`<div class="ixw" data-ix="0">${drawer(body)}</div>`;}
   const inner=`${head.replace(/<\/div>\s*$/,'<span class="lk lastm">Últimas manutenções'+ic('caret-right','s14')+'</span></div>')}<div class="${phone?'sb':'pb'}">${ixBody()}</div>${ixFoot()}${phone?phoneMenu():''}`;
   return phone?`<div class="sheet-ov" data-ix="1"><div class="sheet">${inner}</div></div>`:`<div class="ixw" data-ix="0">${drawer(inner)}</div>`;}

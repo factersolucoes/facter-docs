@@ -1793,3 +1793,17 @@
 .insb .vihead{padding-top:0}
 .insb .viact{margin-top:4px}
 .sb.insb,.pb.insb{gap:0}
+/* done: one focal block, then quiet lists */
+.dnok{display:flex;align-items:center;gap:12px;padding:16px;border-radius:20px;background:hsl(var(--card));box-shadow:var(--e1)}
+.dnc{display:grid;place-items:center;width:40px;height:40px;flex:none;border-radius:99px;background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+.dnx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.dnx b{font:600 17px Inter}
+.dnx small{font-size:13px;color:hsl(var(--muted-foreground))}
+.dnok .undo{flex:none}
+.dnl{display:flex;flex-direction:column;gap:6px;padding:4px 2px}
+.dnr{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;background:hsl(var(--card))}
+.dni{display:grid;place-items:center;width:20px;height:20px;flex:none;border-radius:99px;background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+.dni.w{background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+.dnt{flex:1;min-width:0;display:flex;flex-direction:column}
+.dnt b{font:500 14.5px Inter;color:hsl(var(--foreground))}
+.dnt small{font-size:12.5px;color:hsl(var(--muted-foreground))}
