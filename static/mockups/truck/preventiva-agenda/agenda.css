@@ -979,3 +979,8 @@
 }
 .pkt>small.trg{color:hsl(var(--foreground)/.7)}
 .dsen .glue{white-space:nowrap}
+/* packages grouped by vehicle */
+.vgrp{display:flex;flex-direction:column;gap:6px}
+.vgrp+.vgrp{margin-top:14px}
+.vh{font:600 13px Inter;color:hsl(var(--muted-foreground))}
+.tag.reg{margin-left:6px;vertical-align:2px}
