@@ -61,7 +61,7 @@ const foot=t=>`<p class="foot">${ic('clock-counter-clockwise','s14')}<span>${t}<
 function pHead(v,o={}){return `<div class="phd">${o.phone?'<div class="grab"></div>':''}<div class="ph">${o.back?`<span class="xb back" role="button" aria-label="Voltar">${ic('arrow-left','s16')}</span>`:''}<div class="t"><h2>${o.title||v.full}</h2><p>${mark(v.parts)}${o.sub||v.sub}</p></div>${o.back?'':`<span class="xb" role="button" aria-label="Fechar">${ic('x','s16')}</span>`}</div>${o.status?`<div class="pst">${o.status}</div>`:''}${o.src?`<p class="src">${ic('arrows-left-right','s14')}${o.src}</p>`:''}${o.metrics?metrics(o.metrics):''}</div>`;}
 /* drawer modes: all = everything checked; none = nothing checked; one = one left for later;
    allDefer = "Adiar todas"; done = after including */
-const VMODE={sap:'sap',visit:'all',pick:'none',defer1:'one',deferall:'allDefer',done:'done',left:'left',closed:'closed'};
+const VMODE={kitopen:'all',sap:'sap',visit:'all',pick:'none',defer1:'one',deferall:'allDefer',done:'done',left:'left',closed:'closed'};
 const isVisit=s=>s in VMODE;
 let DONE=false; /* after "Feito" the included items leave the agenda; the deferred one moves to its real group */
 const gs=()=>DONE?[{...GROUPS_ALL[0],count:'2 veículos',ids:['dly','c207']},{...GROUPS_ALL[1],count:'4 veículos',ids:['c320d','c118','q1a','rta']},GROUPS_ALL[2],GROUPS_ALL[3]]:GROUPS_ALL;
@@ -69,25 +69,33 @@ const N=()=>DONE?{over:2,week:4,big:3,veh:2,yard:1}:{over:3,week:3,big:5,veh:3,y
 
 const DUR={all:'3 h 20',one:'2 h 10',none:'0 h',done:'2 h 10',closed:'2 h 10',left:'3 h 20'};
 const STATUS320={left:pill('n','road-horizon','Saiu do pátio às 15h10 · OS 1042 fechada como pronta'),closed:pill('n','garage','No pátio desde ontem · OS 1042 concluída')};
-/* parts grouped by preventive: each kit says its own math ("2 por lado"); availability in plain words */
-const AV={s:'tem na base',w:'falta 1, chega quinta',d:'sem estoque'};
-const kit=(title,where,rows)=>`<div class="kit"><h4>${title}<span>${where}</span></h4><ul>${rows.map(([q,n,rule,a])=>`<li><b class="q">${q}</b><span class="n">${n}${rule?` <span class="m">(${rule})</span>`:''}</span><span class="av ${a}">${a==='s'?ic('check','s14'):''}${AV[a]}</span></li>`).join('')}</ul></div>`;
-const KITS320=[
-  kit('Kit da lona de freio',' · eixo 3, os dois lados',[['4','lonas','2 por lado','s'],['8','molas de retorno','4 por lado','s'],['2','jogos de rebites','1 por lado','w']]),
-  kit('Kit da lubrificação',' · 2ª carreta',[['1 kg','de graxa','','s']]),
-  kit('Kit da troca de óleo',' · cavalo',[['38 l','de óleo 15W40','','s'],['1','filtro de óleo','','s'],['1','filtro de ar','','s'],['1','filtro de diesel','','s']]),
-];
-const partsHead=(miss,tone)=>secHead('Peças necessárias',miss?`<span class="kchip ${tone||'w'}">${ic('package','s16')}${miss}</span>`:`<span class="kchip s">${ic('check-circle','s16')}Todas na base</span>`);
-const partsNote='<p class="lede">Entram na OS como peças sugeridas. O mecânico confirma ao começar o serviço e o pedido vai para o almoxarifado.</p>';
+/* parts and supplies, the v1 work-order pattern: kits as rows that open, loose parts below.
+   Situação here is availability: Em estoque / Falta 1, chega quinta / Sem estoque */
+const SIT={s:'Em estoque',w:'Falta 1',d:'Sem estoque'};
+const TAG={s:'tem',w:'falta 1, chega qui',d:'sem estoque'};
+let KITOPEN=false;
+const sit=t=>`<span class="sit ${t}">${SIT[t]}</span>`;
+/* one compact row per kit: name and situation, then "3 peças · where"; opening shows the parts one line each */
+function kitRow(k,open){
+  const extra='';
+  return `<div class="pk ${open?'open':''}" role="button" aria-expanded="${open}"><span class="kic">${ic('stack','s14')}</span><span class="pt"><b title="${esc(k.name)}">${k.name}</b><small>${k.parts.length} peças · ${k.locd||k.loc}${extra}</small></span>${sit(k.t)}${ic('caret-down','s16 chev')}</div>
+  ${open?`<div class="pnest">${k.parts.map(([q,n,rule,t])=>`<div class="pn"><span class="q">${q}</span><span class="nm"><span>${n}</span>${rule?`<span class="m">${rule}</span>`:''}</span><span class="tg ${t}">${t==='s'?ic('check','s12'):''}${TAG[t]}</span></div>`).join('')}</div>`:''}`;}
+const looseRow=([n,l,q,t])=>`<div class="pk lo"><span class="kic">${ic('drop','s14')}</span><span class="pt"><b>${n}</b><small>${q} · ${l}</small></span>${sit(t)}<span class="chev"></span></div>`;
+function partsBox(o){
+  const stats=`<div class="prs"><span class="s">${ic('check-circle','s14')}<b>${o.ok}</b> em estoque</span>${o.miss?`<span class="${o.mt||'w'}">${ic(o.mt==='d'?'x-circle':'clock','s14')}<b>${o.miss}</b> ${o.mt==='d'?'sem estoque':'em falta'}</span>`:''}</div>`;
+  return `<div class="sec pr"><div class="prh"><span class="gt">${ic('package','s16')}</span><div><h3>Peças e insumos</h3><p>${o.items} itens (${o.kits.length} ${o.kits.length>1?'kits':'kit'})</p></div></div>${stats}
+  <p class="lede">Entram como sugeridas; o mecânico confirma e o almoxarifado entrega.</p>
+  <div class="plist">${o.kits.map((k,i)=>kitRow(k,KITOPEN&&i===0)).join('')}${(o.loose||[]).map(looseRow).join('')}</div>${o.off?`<p class="kitoff">${o.off}</p>`:''}</div>`;}
+const K_LONA={name:'Kit lona de freio',loc:'2ª carreta · eixo 3',locd:'2ª carreta, eixo 3',t:'w',parts:[['4','Lona de freio','2 por lado','s'],['8','Mola de retorno','4 por lado','s'],['2','Jogo de rebites','1 por lado','w']]};
+const K_OLEO={name:'Kit troca de óleo',loc:'Cavalo',locd:'cavalo',t:'s',parts:[['38 l','Óleo 15W40','','s'],['1','Filtro de óleo','','s'],['1','Filtro de ar','','s'],['1','Filtro de diesel','','s']]};
+const GRAXA=['Graxa','2ª carreta','1 kg','s'];
 function kits320(m){
-  if(m==='none') return `<div class="sec">${secHead('Peças necessárias')}<p class="lede">Marque uma preventiva para ver as peças dela.</p></div>`;
+  if(m==='none') return `<div class="sec">${secHead('Peças e insumos')}<p class="lede">Marque uma preventiva para ver as peças dela.</p></div>`;
   const dropOil=m==='one'||m==='closed';
-  const list=dropOil?KITS320.slice(0,2):KITS320;
-  return `<div class="sec">${partsHead('Falta 1, chega quinta')}${partsNote}<div class="kits">${list.join('')}${dropOil?'<p class="kitoff">Kit da troca de óleo fica para depois</p>':''}</div><p class="ptotal"><b>${dropOil?4:8} itens</b> · 1 em falta</p></div>`;
+  return partsBox(dropOil?{items:4,ok:3,miss:1,kits:[K_LONA],loose:[GRAXA],off:'Kit troca de óleo fica para depois, junto com a preventiva adiada.'}:{items:8,ok:7,miss:1,kits:[K_LONA,K_OLEO],loose:[GRAXA]});
 }
-const kitsDly=()=>`<div class="sec">${partsHead('1 sem estoque','d')}${partsNote}<div class="kits">${kit('Kit da revisão B',' · cavalo',[['30 l','de óleo 15W40','','s'],['1','filtro de óleo','','s'],['1','filtro de ar','','d'],['1','filtro de diesel','','s']])}</div><p class="ptotal"><b>4 itens</b> · 1 sem estoque. O pedido de compra sai junto com o agendamento.</p></div>`;
-const kits044=()=>`<div class="sec">${partsHead()}${partsNote}<div class="kits">${kit('Kit da revisão B',' · cavalo',[['30 l','de óleo 15W40','','s'],['3','filtros','','s']])}${kit('Kit da lubrificação',' · 1ª carreta',[['1 kg','de graxa','','s']])}</div><p class="ptotal"><b>3 itens</b> · todos na base</p></div>`;
-
+const kitsDly=()=>partsBox({items:4,ok:3,miss:1,mt:'d',kits:[{name:'Kit revisão B',loc:'Cavalo',locd:'cavalo',t:'d',parts:[['30 l','Óleo 15W40','','s'],['1','Filtro de óleo','','s'],['1','Filtro de ar','','d'],['1','Filtro de diesel','','s']]}]})+'<p class="ptotal">O pedido de compra do filtro de ar sai junto com o agendamento.</p>';
+const kits044=()=>partsBox({items:5,ok:5,kits:[{name:'Kit revisão B',loc:'Cavalo',locd:'cavalo',t:'s',parts:[['30 l','Óleo 15W40','','s'],['1','Filtro de óleo','','s'],['1','Filtro de ar','','s'],['1','Filtro de diesel','','s']]}],loose:[['Graxa','1ª carreta','1 kg','s']]});
 const h320=m=>({status:STATUS320[m]||pill('s','garage','No pátio desde ontem · OS 1042 aberta'),metrics:m==='done'?[['Na OS','2 preventivas',''],['Adiada','1','w'],['Duração','2 h 10','']]:[['Atraso','1.850 km','d'],['Peças','Falta 1','w'],['Duração',DUR[m]||'3 h 20','']]});
 const H320=h320('all');
 const cbx=on=>`<i class="cbx ${on?'on':''}">${on?ic('check','s14'):''}</i>`;
@@ -205,7 +213,7 @@ const multiFoot=()=>`<div class="pf"><div class="bb">${btn('Voltar',{variant:'ou
 const multiDrawer=phone=>phone?`<div class="sheet-ov"><div class="sheet">${pHead(V.dly,{...HMULTI,phone:1})}<div class="sb">${multiBody()}</div>${multiFoot()}</div></div>`:drawer(`${pHead(V.dly,HMULTI)}<div class="pb">${multiBody()}</div>${multiFoot()}`);
 let PICK=null; /* ids with a visible checkbox; the ones in MULTI are checked */
 
-function web(s,dev){
+function web(s,dev){KITOPEN=s==='kitopen';
   const small=dev==='webs';
   if(s==='loading') return skBoard();
   PICK=s==='multi'||s==='multisched';
@@ -225,7 +233,7 @@ function web(s,dev){
 
 /* ---------- phone: sticky tabs, one list at a time; the overdue count stays in the first tab ---------- */
 const tabs=on=>`<div class="seg3" role="tablist">${[['over','Vencidas',N().over,'d'],['week','Semana',N().week,'w'],['next','Próximas','9','']].map(([k,l,n,t])=>`<span class="${k===on?'on':''}" role="tab">${l}<b class="${t}">${n}</b></span>`).join('')}</div>`;
-function phone(s){DONE=s==='done';PICK=null;
+function phone(s){KITOPEN=s==='kitopen';DONE=s==='done';PICK=null;
   if(s==='first'||s==='noperm') return `<div class="ph-wrap">${emptyBlock(s,1)}</div>`;
   if(s==='nores') return `<div class="ph-wrap">${searchOn()}${emptyBlock('nores',1)}</div>`;
   if(s==='loading') return `<div class="ph-wrap"><div class="hero slim"><span class="sk" style="width:40px;height:40px;border-radius:12px"></span><span class="sk" style="width:200px;height:18px"></span></div><span class="sk" style="width:100%;height:44px;border-radius:12px"></span>${[1,2,3,4].map(()=>`<div class="cd sk-cd"><span class="sk" style="width:55%;height:15px"></span><span class="sk" style="width:80%;height:12px;margin-top:10px"></span></div>`).join('')}</div>`;
@@ -275,7 +283,7 @@ function listTop(o={}){
   const tools=`<div class="ltools">${F.search('Buscar placa, frota ou conjunto',{width:340})}${F.fchip('Todas as transportadoras',{menu:1})}${F.fchip('Todos os planos',{menu:1})}</div>`;
   return head+`<div class="lstack"><div class="lstack s">${F.dtabs([['Todas',17-(DONE?0:0)],['Vencidas',N().over],['Esta semana',N().week],['Próximas',9],['Sem km',2]],o.tab||'Todas')}${tools}`;
 }
-function listWeb(s){DONE=s==='done';PICK=s==='multi'||s==='multisched';
+function listWeb(s){KITOPEN=s==='kitopen';DONE=s==='done';PICK=s==='multi'||s==='multisched';
   if(s==='first'||s==='noperm') return `<div class="lv">${F.pageHeader('Agenda','O que trazer para a oficina, e quando.','')}${emptyBlock(s)}</div>`;
   DONE=s==='done';const sel=s==='schedule'?'dly':isVisit(s)?'c320':null;
   let body;
@@ -293,7 +301,7 @@ function lcard(id,sel){const v=V[id],m=LM[id];
   return `<button type="button" class="fx-wocard lcard ${sel===id?'on':''}"><span class="l1"><b class="nm">${v.name}</b>${mark(v.parts)}<span style="flex:1"></span><span class="lwhen ${v.t}">${v.when}</span></span>
     <span class="l3">${v.svc}${v.tag?' <span class="tag">adiada · falta peça</span>':''}</span><span class="l4"><span class="trunc2">${m.pos}${/^\+\d/.test(v.more)?' · '+v.more:''}</span></span>
     <span class="ft"><span class="trunc2 lwhere">${m.where}</span><span style="flex:1"></span><span class="lact">${m.act}${ic('caret-right','s14')}</span></span></button>`;}
-function listPhone(s){DONE=s==='done';PICK=null;
+function listPhone(s){KITOPEN=s==='kitopen';DONE=s==='done';PICK=null;
   if(s==='first'||s==='noperm') return `<div class="fx-mlist"><div class="fx-mcards">${emptyBlock(s,1)}</div></div>`;
   const tabsM=on=>`<div class="fx-mtabs">${[['Vencidas',N().over,'d'],['Esta semana',N().week,'w'],['Próximas',9,''],['Sem km',2,'']].map(([t,n,c])=>`<span class="${t===on?'on':''}">${t}<b class="${c}">${n}</b></span>`).join('')}</div>`;
   const search=`<div class="fx-msearch"><span class="fx-searchf" style="flex:1;height:44px;font-size:14px">${ic('magnifying-glass','s16')}<span class="trunc2">Buscar placa, frota ou conjunto</span></span><span class="fx-btn outline icon" style="height:44px;width:44px">${ic('sliders-horizontal','s20')}</span></div>`;
