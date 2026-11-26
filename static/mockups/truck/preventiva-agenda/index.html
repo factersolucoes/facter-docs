@@ -15,15 +15,15 @@
   </div>
 
   <section class="sc" id="notebook"><h2><span class="tag">1</span>Notebook</h2>
-    <p class="why">De cima para baixo: <b>a frase do resumo</b>, os grupos por quando e as linhas. Cada grupo é uma superfície própria com espaço entre elas; só o grupo leva cor, no ícone. Vermelho só no número vencido, âmbar só na data desta semana, azul só na ação principal, na seleção e nos links.</p>
-    <div class="states" data-for="ag"><button data-s="visit" aria-pressed="true">Visita no pátio escolhida</button><button data-s="schedule" aria-pressed="false">Agendar visita</button><button data-s="empty" aria-pressed="false">Nada vencendo</button><button data-s="loading" aria-pressed="false">Carregando</button></div>
+    <p class="why"><b>A semana inteira numa tela, sem rolar</b>: vencidas, esta semana e próximas semanas lado a lado, cada coluna com a contagem no cabeçalho. O resumo virou uma linha. Escolher um cartão abre a <b>gaveta da visita</b> por cima do quadro; fechar (ou Esc) volta. Vermelho só no vencido, âmbar só nesta semana, azul na ação e na seleção. No tablet em pé e no celular, as colunas viram abas.</p>
+    <div class="states" data-for="ag"><button data-s="board" aria-pressed="true">Quadro da semana</button><button data-s="visit" aria-pressed="false">Visita no pátio aberta</button><button data-s="schedule" aria-pressed="false">Agendar visita</button><button data-s="empty" aria-pressed="false">Nada vencendo</button><button data-s="loading" aria-pressed="false">Carregando</button></div>
     <div class="themebar"><button data-t="light" aria-pressed="true">Tema claro</button><button data-t="dark" aria-pressed="false">Tema escuro</button></div>
-    <div class="devices"><div class="dv full"><div class="devlabel">Notebook · 1440</div><fx-app device="web" section="plan" console eyebrow="Preventiva" title="Agenda" controls="&lt;span class=&quot;sel&quot;&gt;Base Curitiba&lt;/span&gt;" width="1440" height="1180"><div data-render="ag" data-device="web"></div></fx-app></div></div>
-    <div class="devices"><div class="dv full"><div class="devlabel">Notebook · 1180</div><fx-app device="web" section="plan" console eyebrow="Preventiva" title="Agenda" controls="&lt;span class=&quot;sel&quot;&gt;Base Curitiba&lt;/span&gt;" width="1180" height="1180"><div data-render="ag" data-device="webs"></div></fx-app></div></div>
+    <div class="devices"><div class="dv full"><div class="devlabel">Notebook · 1440 × 900</div><fx-app device="web" section="plan" console eyebrow="Preventiva" title="Agenda" controls="&lt;span class=&quot;sel&quot;&gt;Base Curitiba&lt;/span&gt;" width="1440" height="900"><div data-render="ag" data-device="web"></div></fx-app></div></div>
+    <div class="devices"><div class="dv full"><div class="devlabel">Notebook · 1180 × 800</div><fx-app device="web" section="plan" console eyebrow="Preventiva" title="Agenda" controls="&lt;span class=&quot;sel&quot;&gt;Base Curitiba&lt;/span&gt;" width="1180" height="800"><div data-render="ag" data-device="webs"></div></fx-app></div></div>
   </section>
 
   <section class="sc" id="celular"><h2><span class="tag">2</span>Celular</h2>
-    <p class="why">Os mesmos grupos em cartões, com as mesmas três coisas por linha. Tocar abre a <b>folha de baixo</b> com a visita inteira e a ação fixa no pé, ao alcance do polegar.</p>
+    <p class="why">Abas fixas no topo, uma lista por vez: <b>Vencidas 3 · Semana 3 · Próximas 9</b>. A contagem das vencidas fica sempre à vista. Tocar no cartão abre a <b>folha de baixo</b> com a visita e a ação fixa no pé.</p>
     <div class="states" data-for="phs"><button data-s="visit" aria-pressed="true">Visita aberta</button><button data-s="schedule" aria-pressed="false">Agendar visita</button><button data-s="empty" aria-pressed="false">Nada vencendo</button><button data-s="loading" aria-pressed="false">Carregando</button></div>
     <div class="themebar"><button data-t="light" aria-pressed="true">Tema claro</button><button data-t="dark" aria-pressed="false">Tema escuro</button></div>
     <div class="devices">
@@ -45,10 +45,10 @@
       <div class="box"><h3>Antes e agora</h3><table class="cmp"><thead><tr><th></th><th>Direção A e B</th><th>Agora</th></tr></thead><tbody>
         <tr><td>Dados por linha</td><td>8 a 11</td><td>3 (quem, o quê, quando)</td></tr>
         <tr><td>Cores de estado na lista</td><td>5, mais azul-marinho e preto inventados</td><td>2 tons: vencida e esta semana</td></tr>
-        <tr><td>Sistemas visuais na tela</td><td>5 a 6</td><td>3: resumo, grupos, painel</td></tr>
+        <tr><td>Sistemas visuais na tela</td><td>5 a 6</td><td>3: resumo, colunas, gaveta</td></tr>
         <tr><td>Menor texto</td><td>11 px, em caixa alta</td><td>12,5 px; secundário em 13,5 px</td></tr>
-        <tr><td>Altura da linha</td><td>48 px</td><td>64 px</td></tr>
-        <tr><td>Entre grupos</td><td>1 linha de 1 px</td><td>28 px e uma superfície por grupo</td></tr>
+        <tr><td>Ver a semana</td><td>rolar além das vencidas</td><td>3 colunas lado a lado, tudo na primeira tela</td></tr>
+        <tr><td>Entre grupos</td><td>1 linha de 1 px</td><td>uma coluna com fundo próprio por grupo</td></tr>
         <tr><td>Profundidade</td><td>tudo no mesmo plano</td><td>4 camadas: fundo, grupo, linha escolhida, painel</td></tr>
         <tr><td>Desenho do conjunto</td><td>caminhão com rodas e sinais</td><td>um traço por veículo</td></tr>
       </tbody></table></div>
