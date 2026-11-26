@@ -731,3 +731,10 @@
 .pnest .nm{display:flex;flex-direction:column;white-space:normal;line-height:1.3;padding:5px 0}
 .pnest .nm>span:first-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pnest .nm .m{font-size:12.5px}
+.prh .prt{flex:1;min-width:0}
+.psum{display:inline-flex;align-items:center;gap:6px;flex:none;padding:4px 10px;border-radius:999px;font-size:13px;font-weight:600;white-space:nowrap}
+.psum.s{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+.psum.w{background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+.psum.d{background:hsl(var(--danger-soft));color:hsl(var(--danger-ink))}
+.pr .lede{margin:10px 0 12px}
+.pn .tg{white-space:nowrap}

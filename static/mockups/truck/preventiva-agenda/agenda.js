@@ -72,7 +72,7 @@ const STATUS320={left:pill('n','road-horizon','Saiu do pátio às 15h10 · OS 10
 /* parts and supplies, the v1 work-order pattern: kits as rows that open, loose parts below.
    Situação here is availability: Em estoque / Falta 1, chega quinta / Sem estoque */
 const SIT={s:'Em estoque',w:'Falta 1',d:'Sem estoque'};
-const TAG={s:'tem',w:'falta 1, chega qui',d:'sem estoque'};
+const TAG={s:'tem',w:'falta 1, chega quinta',d:'sem estoque'};
 let KITOPEN=false;
 const sit=t=>`<span class="sit ${t}">${SIT[t]}</span>`;
 /* one compact row per kit: name and situation, then "3 peças · where"; opening shows the parts one line each */
@@ -82,9 +82,11 @@ function kitRow(k,open){
   ${open?`<div class="pnest">${k.parts.map(([q,n,rule,t])=>`<div class="pn"><span class="q">${q}</span><span class="nm"><span>${n}</span>${rule?`<span class="m">${rule}</span>`:''}</span><span class="tg ${t}">${t==='s'?ic('check','s12'):''}${TAG[t]}</span></div>`).join('')}</div>`:''}`;}
 const looseRow=([n,l,q,t])=>`<div class="pk lo"><span class="kic">${ic('drop','s14')}</span><span class="pt"><b>${n}</b><small>${q} · ${l}</small></span>${sit(t)}<span class="chev"></span></div>`;
 function partsBox(o){
-  const stats=`<div class="prs"><span class="s">${ic('check-circle','s14')}<b>${o.ok}</b> em estoque</span>${o.miss?`<span class="${o.mt||'w'}">${ic(o.mt==='d'?'x-circle':'clock','s14')}<b>${o.miss}</b> ${o.mt==='d'?'sem estoque':'em falta'}</span>`:''}</div>`;
-  return `<div class="sec pr"><div class="prh"><span class="gt">${ic('package','s16')}</span><div><h3>Peças e insumos</h3><p>${o.items} itens (${o.kits.length} ${o.kits.length>1?'kits':'kit'})</p></div></div>${stats}
-  <p class="lede">Entram como sugeridas; o mecânico confirma e o almoxarifado entrega.</p>
+  const nl=(o.loose||[]).length, nk=o.kits.length;
+  const comp=`${nk} ${nk>1?'kits':'kit'}${nl?` e ${nl} ${nl>1?'avulsas':'avulsa'}`:''}`;
+  const sum=o.miss?`<span class="psum ${o.mt||'w'}">${ic(o.mt==='d'?'x-circle':'clock','s14')}${o.miss} ${o.mt==='d'?'sem estoque':'em falta'}</span>`:`<span class="psum s">${ic('check-circle','s14')}Tudo em estoque</span>`;
+  return `<div class="sec pr"><div class="prh"><span class="gt">${ic('package','s16')}</span><div class="prt"><h3>Peças e insumos</h3><p>${o.items} itens, em ${comp}</p></div>${sum}</div>
+  <p class="lede">Ninguém precisa montar o pedido peça por peça.</p>
   <div class="plist">${o.kits.map((k,i)=>kitRow(k,KITOPEN&&i===0)).join('')}${(o.loose||[]).map(looseRow).join('')}</div>${o.off?`<p class="kitoff">${o.off}</p>`:''}</div>`;}
 const K_LONA={name:'Kit lona de freio',loc:'2ª carreta · eixo 3',locd:'2ª carreta, eixo 3',t:'w',parts:[['4','Lona de freio','2 por lado','s'],['8','Mola de retorno','4 por lado','s'],['2','Jogo de rebites','1 por lado','w']]};
 const K_OLEO={name:'Kit troca de óleo',loc:'Cavalo',locd:'cavalo',t:'s',parts:[['38 l','Óleo 15W40','','s'],['1','Filtro de óleo','','s'],['1','Filtro de ar','','s'],['1','Filtro de diesel','','s']]};
