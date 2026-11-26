@@ -41,27 +41,14 @@ function row(id,sel){const v=V[id];
 function group(g,sel){
   return `<section class="grp"><header><span class="gt ${g.tone}">${ic(g.icon,'s16')}</span><h3>${g.title}</h3><span class="gc">${g.count}</span></header><div class="rows">${g.ids.map(id=>row(id,sel)).join('')}</div>${g.more?`<div class="more">${g.more}${ic('caret-down','s14')}</div>`:''}</section>`;}
 
-/* visit item: [service, position, state, tone, meter, plan]
-   meter = {u: fraction of the interval run (1 = due), l: interval and last time, over: lateness text}
-   plan = {set: composition parts, at: index of the vehicle, axles, lit: axle number} */
-const SET320=V.c320.parts.map(([p,k])=>[p,k,'']);
+/* visit item: [service, where, state, tone, rule and last time]. No bars or axle drawings:
+   in the comprehension test nobody could explain them without a legend */
 const ITEMS_C320=[
-  ['Lona de freio','2ª carreta · eixo 3','vencida há 1.850 km','d',{u:1.031,l:'60 mil km · última em 12/05',over:'+1.850 km'},{at:2,axles:3,lit:3}],
-  ['Lubrificação geral','2ª carreta','vence hoje','w',{u:1,l:'30 dias · última em 27/10'},{at:2,axles:3,lit:0}],
-  ['Troca de óleo e filtros','Cavalo','em 1.200 km','',{u:.94,l:'20 mil km · última em 02/09'}],
+  ['Lona de freio','2ª carreta, eixo 3','vencida há 1.850 km','d','Troca a cada 60 mil km. Última em 12/05, com&nbsp;94.720&nbsp;km.'],
+  ['Lubrificação geral','2ª carreta','vence hoje','w','A cada 30 dias. Última em 27/10.'],
+  ['Troca de óleo e filtros','Cavalo','em 1.200 km','','A cada 20 mil km. Última em 02/09.'],
 ];
-const END=82; /* the due point sits at 82% of the bar; what is left shows how late */
-function meter(m,t){
-  const fill=Math.min(m.u,1)*END, over=m.u>1?Math.max((m.u-1)*END,2.2):0, win=END*.1;
-  return `<div class="mt" role="img" aria-label="${esc(m.l)}"><span class="tr" style="width:${END}%"></span><span class="wn" style="left:${END-win}%;width:${win}%"></span><span class="fl ${t}" style="width:${fill}%"></span>${over?`<span class="ov" style="left:${END}%;width:${over}%"></span>`:''}<span class="due" style="left:${END}%"></span><span class="pin ${t}" style="left:${fill+over}%"></span></div>
-  <div class="mtl"><span>${m.l}</span>${m.over?`<b>${m.over}</b>`:''}</div>`;}
-function plan(pl,t){
-  let x=0;const segs=SET320.map(([,k],i)=>{const w=k==='cav'?10:16, r=`<rect class="sg ${i===pl.at?'on '+t:''}" x="${x}" y="0" width="${w}" height="3" rx="1.5"/>`;x+=w+(k==='cav'?5:3);return r;}).join('');
-  const W=x-3, bodyX=2, bodyW=W-4, axles=Array.from({length:pl.axles},(_,i)=>{const ax=bodyX+bodyW-7-(pl.axles-1-i)*8, on=pl.lit===0||pl.lit===i+1;
-    return `<g class="ax ${on?'on '+t:''}"><line x1="${ax}" y1="11" x2="${ax}" y2="25"/><rect x="${ax-2}" y="8" width="4" height="4.5" rx="1"/><rect x="${ax-2}" y="23.5" width="4" height="4.5" rx="1"/></g>`;}).join('');
-  return `<svg class="plan" width="${W}" height="30" viewBox="0 0 ${W} 30" role="img" aria-label="Posição no conjunto">${segs}<rect class="bd" x="${bodyX}" y="11" width="${bodyW}" height="14" rx="3"/>${axles}</svg>`;}
-const item=([n,pos,v,t,m,pl],i)=>`<div class="ii ${i===0?'lead':''}"><div class="it1"><b>${n}</b><span class="tp sm ${t}">${v}</span></div>
-  <div class="it2"><span class="pos">${pos}</span>${pl?plan(pl,t||'n'):''}</div>${m?meter(m,t||'n'):''}</div>`;
+const item=([n,where,v,t,rule],i)=>`<div class="ii ${i===0?'lead':''}"><div class="it1"><b>${n}</b><span class="tp sm ${t}">${v}</span></div><span class="iw">${where}</span>${rule?`<span class="ir">${rule}</span>`:''}</div>`;
 const items=list=>`<div class="ilist">${list.map(item).join('')}</div>`;
 const secHead=(title,right='')=>`<div class="sh"><h3>${title}</h3>${right}</div>`;
 const count=n=>`<span class="cnt">${n}</span>`;
@@ -84,7 +71,7 @@ const HDLY={title:'Agendar visita',sub:'DLY1J07 · revisão B',back:1,status:pil
 function scheduleBody(){
   return `<div class="sec cal">${secHead('Quando trazer',`<span class="hh">horas livres por dia</span>`)}
   <div class="wk">${WD.map(d=>`<span class="wd">${d}</span>`).join('')}${DAYS.map(([n,l,off,pick])=>`<div class="day ${off===2?'off past':off?'off':''} ${pick?'pick':''}"><b>${n}</b><span>${l||'&nbsp;'}</span></div>`).join('')}</div><p class="first">${ic('calendar-check','s16')}<span><b>Primeira vaga: sáb 28/11</b>, 6&nbsp;h livres</span></p></div>
-  <div class="sec">${secHead('Nesta visita',count(1))}${items([['Revisão B','Cavalo · inclui a A','vencida há 4.300 km','d',{u:1.143,l:'30 mil km · última em 03/06',over:'+4.300 km'}]])}</div>
+  <div class="sec">${secHead('Nesta visita',count(1))}${items([['Revisão B','Cavalo, inclui a revisão A','vencida há 4.300 km','d','A cada 30 mil km. Última em 03/06, com&nbsp;182.400&nbsp;km.']])}</div>
   ${parts(0,[['30 l','óleo 15W40',1],['1×','filtro de óleo',1],['1×','filtro de ar',0],['1×','filtro de diesel',1]],['Falta 1 filtro de ar','O filtro é pedido ao agendar.'])}
   <label class="chk"><i>${ic('check','s14')}</i>Avisar a JSL por e-mail</label>`;}
 const scheduleFoot=()=>`<div class="pf"><div class="bb">${btn('Voltar',{variant:'outline'})}${btn('Agendar para sáb 28/11',{icon:'calendar-check',action:1})}</div></div>`;
@@ -96,7 +83,7 @@ function skList(phone){
 }
 
 const C044={full:'Conjunto C-044',sub:'QRT2E55 com 2 carretas',parts:V.c044.parts};
-function nextPanel(){return `<aside class="pnl">${pHead(C044,{status:pill('n','road-horizon','Rodando · 610 km por dia'),metrics:[['Vence','qui 10/12',''],['Peças','Em estoque','s'],['Leva','3 h','']]})}<div class="pb"><div class="sec">${secHead('Nesta visita',count(2))}${items([['Revisão B','Cavalo','qui 10/12','',{u:.82,l:'30 mil km · última em 14/06'}],['Lubrificação geral','1ª carreta','sáb 12/12','',{u:.55,l:'30 dias · última em 12/11'}]])}</div>
+function nextPanel(){return `<aside class="pnl">${pHead(C044,{status:pill('n','road-horizon','Rodando · 610 km por dia'),metrics:[['Vence','qui 10/12',''],['Peças','Em estoque','s'],['Leva','3 h','']]})}<div class="pb"><div class="sec">${secHead('Nesta visita',count(2))}${items([['Revisão B','Cavalo','qui 10/12','','A cada 30 mil km. Última em 14/06.'],['Lubrificação geral','1ª carreta','sáb 12/12','','A cada 30 dias. Última em 12/11.']])}</div>
   ${parts(1,[['38 l','óleo 15W40',1],['4×','filtro',1],['1 kg','graxa',1]])}</div>
   <div class="pf"><div class="bb">${btn('Adiar',{variant:'outline'})}${btn('Agendar visita',{icon:'calendar-check',action:1})}</div></div></aside>`;}
 

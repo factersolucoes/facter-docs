@@ -518,3 +518,9 @@
 .tl li{position:relative;display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:10px;font-size:13px;color:hsl(var(--muted-foreground));font-variant-numeric:tabular-nums}
 .tl li::before{content:"";position:absolute;left:-14px;top:6px;width:7px;height:7px;border-radius:99px;background:hsl(var(--card));box-shadow:0 0 0 1.5px hsl(var(--muted-foreground)/.6)}
 .tl .s{color:hsl(var(--foreground)/.8);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* visit item: service and state, where, then the rule in one plain sentence */
+.ii{gap:4px}
+.ii .it1{margin-bottom:2px}
+.ii .iw{font-size:13.5px;color:hsl(var(--foreground)/.72)}
+.ii .ir{font-size:13px;line-height:1.45;color:hsl(var(--muted-foreground));text-wrap:pretty}
