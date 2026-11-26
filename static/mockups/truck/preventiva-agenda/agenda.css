@@ -619,3 +619,22 @@
 .sapn>span{white-space:nowrap}
 .ph-wrap .notice-w.err,.fx-mcards .notice-w.err{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 10px}
 .ph-wrap .notice-w.err .fx-btn,.fx-mcards .notice-w.err .fx-btn{grid-column:2;justify-self:start}
+
+/* parts grouped by kit: quantity, part and its math, availability on the right */
+.kits{display:flex;flex-direction:column;gap:16px;margin-top:2px}
+.kit h4{font:600 14px Inter;color:hsl(var(--foreground));margin:0 0 6px}
+.kit h4 span{font-weight:400;color:hsl(var(--muted-foreground))}
+.kit ul{list-style:none;margin:0;padding:0}
+.kit li{display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:baseline;gap:10px;padding:8px 0;border-top:1px solid hsl(var(--border)/.7)}
+.kit li .q{font:600 14px Inter;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.kit li .n{font-size:14px;color:hsl(var(--foreground)/.85)}
+.kit li .m{color:hsl(var(--muted-foreground))}
+.av{justify-self:end;padding:0 8px;border-radius:999px;font:500 12.5px/22px Inter;white-space:nowrap}
+.av.s{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+.av.w{background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+.av.d{background:hsl(var(--danger-soft));color:hsl(var(--danger-ink))}
+.kitoff{display:flex;align-items:center;gap:8px;font-size:13.5px;color:hsl(var(--muted-foreground))}
+.ptotal{padding-top:10px;border-top:1px solid hsl(var(--border));font-size:13.5px;color:hsl(var(--muted-foreground))}
+.ptotal b{color:hsl(var(--foreground));font-weight:600}
+.kchip.d{background:hsl(var(--danger-soft));color:hsl(var(--danger-ink))}
+.av.s{display:inline-flex;align-items:center;gap:4px;background:none;padding:0}

@@ -69,7 +69,26 @@ const N=()=>DONE?{over:2,week:4,big:3,veh:2,yard:1}:{over:3,week:3,big:5,veh:3,y
 
 const DUR={all:'3 h 20',one:'2 h 10',none:'0 h',done:'2 h 10',closed:'2 h 10',left:'3 h 20'};
 const STATUS320={left:pill('n','road-horizon','Saiu do pátio às 15h10 · OS 1042 fechada como pronta'),closed:pill('n','garage','No pátio desde ontem · OS 1042 concluída')};
-const h320=m=>({status:STATUS320[m]||pill('s','garage','No pátio desde ontem · OS 1042 aberta'),metrics:m==='done'?[['Na OS','2 preventivas',''],['Adiada','1','w'],['Duração','2 h 10','']]:[['Atraso','1.850 km','d'],['Peças','Em estoque','s'],['Duração',DUR[m]||'3 h 20','']]});
+/* parts grouped by preventive: each kit says its own math ("2 por lado"); availability in plain words */
+const AV={s:'tem na base',w:'falta 1, chega quinta',d:'sem estoque'};
+const kit=(title,where,rows)=>`<div class="kit"><h4>${title}<span>${where}</span></h4><ul>${rows.map(([q,n,rule,a])=>`<li><b class="q">${q}</b><span class="n">${n}${rule?` <span class="m">(${rule})</span>`:''}</span><span class="av ${a}">${a==='s'?ic('check','s14'):''}${AV[a]}</span></li>`).join('')}</ul></div>`;
+const KITS320=[
+  kit('Kit da lona de freio',' · eixo 3, os dois lados',[['4','lonas','2 por lado','s'],['8','molas de retorno','4 por lado','s'],['2','jogos de rebites','1 por lado','w']]),
+  kit('Kit da lubrificação',' · 2ª carreta',[['1 kg','de graxa','','s']]),
+  kit('Kit da troca de óleo',' · cavalo',[['38 l','de óleo 15W40','','s'],['1','filtro de óleo','','s'],['1','filtro de ar','','s'],['1','filtro de diesel','','s']]),
+];
+const partsHead=(miss,tone)=>secHead('Peças necessárias',miss?`<span class="kchip ${tone||'w'}">${ic('package','s16')}${miss}</span>`:`<span class="kchip s">${ic('check-circle','s16')}Todas na base</span>`);
+const partsNote='<p class="lede">Entram na OS como peças sugeridas. O mecânico confirma ao começar o serviço e o pedido vai para o almoxarifado.</p>';
+function kits320(m){
+  if(m==='none') return `<div class="sec">${secHead('Peças necessárias')}<p class="lede">Marque uma preventiva para ver as peças dela.</p></div>`;
+  const dropOil=m==='one'||m==='closed';
+  const list=dropOil?KITS320.slice(0,2):KITS320;
+  return `<div class="sec">${partsHead('Falta 1, chega quinta')}${partsNote}<div class="kits">${list.join('')}${dropOil?'<p class="kitoff">Kit da troca de óleo fica para depois</p>':''}</div><p class="ptotal"><b>${dropOil?4:8} itens</b> · 1 em falta</p></div>`;
+}
+const kitsDly=()=>`<div class="sec">${partsHead('1 sem estoque','d')}${partsNote}<div class="kits">${kit('Kit da revisão B',' · cavalo',[['30 l','de óleo 15W40','','s'],['1','filtro de óleo','','s'],['1','filtro de ar','','d'],['1','filtro de diesel','','s']])}</div><p class="ptotal"><b>4 itens</b> · 1 sem estoque. O pedido de compra sai junto com o agendamento.</p></div>`;
+const kits044=()=>`<div class="sec">${partsHead()}${partsNote}<div class="kits">${kit('Kit da revisão B',' · cavalo',[['30 l','de óleo 15W40','','s'],['3','filtros','','s']])}${kit('Kit da lubrificação',' · 1ª carreta',[['1 kg','de graxa','','s']])}</div><p class="ptotal"><b>3 itens</b> · todos na base</p></div>`;
+
+const h320=m=>({status:STATUS320[m]||pill('s','garage','No pátio desde ontem · OS 1042 aberta'),metrics:m==='done'?[['Na OS','2 preventivas',''],['Adiada','1','w'],['Duração','2 h 10','']]:[['Atraso','1.850 km','d'],['Peças','Falta 1','w'],['Duração',DUR[m]||'3 h 20','']]});
 const H320=h320('all');
 const cbx=on=>`<i class="cbx ${on?'on':''}">${on?ic('check','s14'):''}</i>`;
 const ckItem=on=>([n,where,v,t,rule],i)=>`<label class="ii ck ${i===0&&on(i)?'lead':''} ${on(i)?'':'off'}">${cbx(on(i))}<span class="ib"><span class="it1"><b>${n}</b><span class="tp sm ${t}">${v}</span></span><span class="iw">${where}</span>${rule?`<span class="ir">${rule}</span>`:''}</span></label>`;
@@ -81,7 +100,7 @@ const deferAsk=(lead)=>`<div class="defer">${lead}
   <div class="q"><span>Quando lembrar de novo?</span>${chips(WHENS,'Na próxima vinda à oficina')}</div>
   <p class="dnote">${ic('info','s16')}<span>Fica na agenda como adiada e conta como atraso na conformidade, com o motivo.</span></p></div>`;
 function visitBodyM(m){
-  const tail=`${parts(1,[['4×','lona de freio',1],['8×','mola de retorno',1],['38 l','óleo 15W40',1],['3×','filtro',1]])}
+  const tail=`${kits320(m)}
   ${history('Últimas manutenções deste conjunto',[['27/10','Lubrificação geral','OS 0998'],['02/09','Troca de óleo e filtros','OS 0954'],['12/05','Lona de freio na 2ª carreta, eixo 3','OS 0871']])}`;
   if(m==='done') return `<div class="done"><span class="halo sm">${ic('check-circle','s24')}</span><div class="dtx"><b>2 preventivas na OS 1042</b><p>1 adiada para a próxima vinda (falta peça)</p></div><span class="undo">Desfazer <i>10 s</i></span></div>
   <div class="sec">${secHead('Na OS 1042',count(2))}<div class="ilist">${ITEMS_C320.slice(0,2).map(([n,w])=>`<div class="ii dn"><span class="okk">${ic('check','s12')}</span><span class="ib"><b>${n}</b><span class="iw">${w}</span></span></div>`).join('')}</div></div>
@@ -115,7 +134,7 @@ function scheduleBody(){
   return `<div class="sec cal">${secHead('Escolha o dia',`<span class="hh">horas livres na oficina</span>`)}
   <div class="wk">${WD.map(d=>`<span class="wd">${d}</span>`).join('')}${DAYS.map(([n,l,off,pick])=>`<div class="day ${off===2?'off past':off?'off':''} ${pick?'pick':''}"><b>${n}</b><span>${l||'&nbsp;'}</span></div>`).join('')}</div><p class="first">${ic('calendar-check','s16')}<span><b>Primeiro dia com espaço: sáb 28/11</b>, com 6&nbsp;h livres</span></p></div>
   <div class="sec">${secHead('Preventivas para fazer',count(1))}${items([['Revisão B','No cavalo, junto com a revisão A','Venceu há 4.300 km','d','Fazer a cada 30 mil km. Última em 03/06.']])}</div>
-  ${parts(0,[['30 l','óleo 15W40',1],['1×','filtro de óleo',1],['1×','filtro de ar',0],['1×','filtro de diesel',1]],['Falta 1 filtro de ar','O pedido do filtro sai junto com o agendamento.'])}
+  ${kitsDly()}
   <label class="chk"><i>${ic('check','s14')}</i>Avisar a transportadora JSL por e-mail</label>`;}
 const scheduleFoot=()=>`<div class="pf"><div class="bb">${btn('Voltar',{variant:'outline'})}${btn('Agendar para sáb 28/11',{icon:'calendar-check',action:1})}</div></div>`;
 
@@ -127,7 +146,7 @@ function skList(phone){
 
 const C044={full:'Conjunto C-044',sub:'Cavalo QRT2E55 e 2 carretas',parts:V.c044.parts};
 function nextPanel(){return `<aside class="pnl">${pHead(C044,{status:pill('n','road-horizon','Na estrada · roda 610 km por dia'),metrics:[['Vence','qui 10/12',''],['Peças','Em estoque','s'],['Duração','3 h','']]})}<div class="pb"><div class="sec">${secHead('Preventivas para fazer',count(2))}${items([['Revisão B','No cavalo','Vence qui 10/12','','Fazer a cada 30 mil km. Última em 14/06.'],['Lubrificação geral','Na 1ª carreta','Vence sáb 12/12','','Fazer a cada 30 dias. Última em 12/11.']])}</div>
-  ${parts(1,[['38 l','óleo 15W40',1],['4×','filtro',1],['1 kg','graxa',1]])}</div>
+  ${kits044()}</div>
   <div class="pf"><div class="bb">${btn('Adiar',{variant:'outline'})}${btn('Marcar dia na oficina',{icon:'calendar-check',action:1})}</div></div></aside>`;}
 
 /* ---------- board: the three columns side by side, the whole week at once ---------- */
