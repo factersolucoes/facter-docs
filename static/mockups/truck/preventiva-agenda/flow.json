@@ -1,0 +1,541 @@
+{
+  "title": "Agenda da preventiva",
+  "mockup": "index.html",
+  "lanes": [
+    {
+      "id": "main",
+      "title": "Caminho principal"
+    },
+    {
+      "id": "schedule",
+      "title": "Marcar dia"
+    },
+    {
+      "id": "fallback",
+      "title": "E se não der"
+    },
+    {
+      "id": "states",
+      "title": "Estados da tela"
+    },
+    {
+      "id": "views",
+      "title": "Outras visões"
+    },
+    {
+      "id": "stress",
+      "title": "Estresse"
+    },
+    {
+      "id": "phone",
+      "title": "Celular"
+    },
+    {
+      "id": "tablet",
+      "title": "Tablet"
+    }
+  ],
+  "frames": [
+    {
+      "id": "board",
+      "lane": "main",
+      "label": "1 · Quadro da semana",
+      "frame": "notebook-1",
+      "state": "board",
+      "hint": "A semana inteira: vencidas, esta semana e próximas lado a lado"
+    },
+    {
+      "id": "visit",
+      "lane": "main",
+      "label": "2 · Abrir o conjunto",
+      "frame": "notebook-1",
+      "state": "visit",
+      "hint": "Conjunto no pátio aberto: o que fazer agora e a ação"
+    },
+    {
+      "id": "kitopen",
+      "lane": "main",
+      "label": "3 · Ver as peças",
+      "frame": "notebook-1",
+      "state": "kitopen",
+      "hint": "Um kit aberto mostra cada peça e a conta por lado"
+    },
+    {
+      "id": "pick",
+      "lane": "main",
+      "label": "4 · Escolher o que fazer",
+      "frame": "notebook-1",
+      "state": "pick",
+      "hint": "Nada marcado: o botão principal espera a escolha"
+    },
+    {
+      "id": "done",
+      "lane": "main",
+      "label": "5 · Feito",
+      "frame": "notebook-1",
+      "state": "done",
+      "hint": "Depois de incluir: o que entrou, o que ficou e desfazer"
+    },
+    {
+      "id": "schedule",
+      "lane": "schedule",
+      "label": "1 · Veículo na estrada",
+      "frame": "notebook-1",
+      "state": "schedule",
+      "hint": "Veículo na estrada: escolher o dia com espaço na oficina"
+    },
+    {
+      "id": "multi",
+      "lane": "schedule",
+      "label": "2 · Marcar para vários",
+      "frame": "notebook-1",
+      "state": "multi",
+      "hint": "Vários marcados na agenda com a barra de baixo"
+    },
+    {
+      "id": "multisched",
+      "lane": "schedule",
+      "label": "3 · Escolher o dia para vários",
+      "frame": "notebook-1",
+      "state": "multisched",
+      "hint": "Um calendário para os 3, com o tempo somado"
+    },
+    {
+      "id": "drag",
+      "lane": "schedule",
+      "label": "Arrastando um cartão",
+      "frame": "notebook-1",
+      "state": "drag",
+      "hint": "Arrastando de A agendar: Agendada aceita, Feita não"
+    },
+    {
+      "id": "dropok",
+      "lane": "schedule",
+      "label": "Soltou em Agendada",
+      "frame": "notebook-1",
+      "state": "dropok",
+      "hint": "Soltou em Agendada: abre Marcar dia na oficina"
+    },
+    {
+      "id": "dropno",
+      "lane": "schedule",
+      "label": "Recusado: está na estrada",
+      "frame": "notebook-1",
+      "state": "dropno",
+      "hint": "Soltou em Na oficina com o conjunto na estrada"
+    },
+    {
+      "id": "defer1",
+      "lane": "fallback",
+      "label": "Adiar uma",
+      "frame": "notebook-1",
+      "state": "defer1",
+      "hint": "Uma fica para depois, com motivo e quando lembrar"
+    },
+    {
+      "id": "deferall",
+      "lane": "fallback",
+      "label": "Adiar todas",
+      "frame": "notebook-1",
+      "state": "deferall",
+      "hint": "Adiar todas com o mesmo motivo"
+    },
+    {
+      "id": "left",
+      "lane": "fallback",
+      "label": "Conjunto saiu",
+      "frame": "notebook-1",
+      "state": "left",
+      "hint": "O conjunto saiu antes de entrar na OS"
+    },
+    {
+      "id": "closed",
+      "lane": "fallback",
+      "label": "OS fechada por outra pessoa",
+      "frame": "notebook-1",
+      "state": "closed",
+      "hint": "A OS foi concluída por outra pessoa no meio do caminho"
+    },
+    {
+      "id": "sConc",
+      "lane": "fallback",
+      "label": "Duas pessoas ao mesmo tempo",
+      "frame": "notebook-1",
+      "state": "sConc",
+      "hint": "Outra pessoa incluiu parte das preventivas agora"
+    },
+    {
+      "id": "sOff",
+      "lane": "fallback",
+      "label": "Sem sinal",
+      "frame": "notebook-1",
+      "state": "sOff",
+      "hint": "Sem sinal: fica na fila e envia depois"
+    },
+    {
+      "id": "loading",
+      "lane": "states",
+      "label": "Carregando",
+      "frame": "notebook-1",
+      "state": "loading",
+      "hint": "Carregando, com o desenho da tela"
+    },
+    {
+      "id": "empty",
+      "lane": "states",
+      "label": "Nada vencendo",
+      "frame": "notebook-1",
+      "state": "empty",
+      "hint": "Nada vencendo esta semana"
+    },
+    {
+      "id": "first",
+      "lane": "states",
+      "label": "Primeira vez",
+      "frame": "notebook-1",
+      "state": "first",
+      "hint": "Ainda sem plano: por onde começar"
+    },
+    {
+      "id": "nores",
+      "lane": "states",
+      "label": "Busca sem resultado",
+      "frame": "notebook-1",
+      "state": "nores",
+      "hint": "A busca não achou, com a dica de outra base"
+    },
+    {
+      "id": "noperm",
+      "lane": "states",
+      "label": "Sem permissão",
+      "frame": "notebook-1",
+      "state": "noperm",
+      "hint": "Sem acesso: a quem pedir"
+    },
+    {
+      "id": "error",
+      "lane": "states",
+      "label": "Erro",
+      "frame": "notebook-1",
+      "state": "error",
+      "hint": "Não atualizou: mostra o que tinha e tenta de novo"
+    },
+    {
+      "id": "list",
+      "lane": "views",
+      "label": "Lista, como a listagem de OS",
+      "frame": "lista-1",
+      "state": "list",
+      "hint": "Tudo numa lista, como a listagem de OS"
+    },
+    {
+      "id": "month",
+      "lane": "views",
+      "label": "Calendário · próximas 5 semanas",
+      "frame": "calendario-1",
+      "state": "month",
+      "hint": "A partir desta semana, 5 semanas"
+    },
+    {
+      "id": "week",
+      "lane": "views",
+      "label": "Calendário · semana",
+      "frame": "calendario-1",
+      "state": "week",
+      "hint": "A semana com horários"
+    },
+    {
+      "id": "pk044",
+      "lane": "views",
+      "label": "Pacotes variados",
+      "frame": "notebook-1",
+      "state": "pk044",
+      "hint": "Um pacote que inclui outro, um obrigatório, um anual e um por horas de motor"
+    },
+    {
+      "id": "byservice",
+      "lane": "views",
+      "label": "Por serviço",
+      "frame": "notebook-1",
+      "state": "byservice",
+      "hint": "A mesma semana agrupada por serviço, para comprar peças"
+    },
+    {
+      "id": "sap",
+      "lane": "views",
+      "label": "Modo SAP",
+      "frame": "notebook-1",
+      "state": "sap",
+      "hint": "Planos do SAP: o que fica no SAP e o que fica aqui"
+    },
+    {
+      "id": "sVol",
+      "lane": "stress",
+      "label": "Frota grande",
+      "frame": "notebook-1",
+      "state": "sVol",
+      "hint": "Frota grande: 38 vencidas, colunas com página"
+    },
+    {
+      "id": "sLong",
+      "lane": "stress",
+      "label": "Textos e números longos",
+      "frame": "notebook-1",
+      "state": "sLong",
+      "hint": "Conjuntos longos, nomes longos, números grandes e dados faltando"
+    },
+    {
+      "id": "sBig",
+      "lane": "stress",
+      "label": "11 preventivas",
+      "frame": "notebook-1",
+      "state": "sBig",
+      "hint": "Um conjunto com 11 preventivas e 37 peças"
+    },
+    {
+      "id": "s320",
+      "lane": "stress",
+      "label": "Celular de 320 px · 11 preventivas",
+      "frame": "estresse-1",
+      "hint": "O menor celular com o conjunto mais carregado"
+    },
+    {
+      "id": "s720",
+      "lane": "stress",
+      "label": "Zoom de 200% · textos longos",
+      "frame": "estresse-2",
+      "hint": "Notebook 1440 com zoom de 200%: a tela vira 720 px"
+    },
+    {
+      "id": "p-list",
+      "lane": "phone",
+      "label": "1 · Lista",
+      "frame": "celular-1",
+      "hint": "Abas fixas no topo, uma lista por vez"
+    },
+    {
+      "id": "p-visit",
+      "lane": "phone",
+      "label": "2 · Abrir o conjunto",
+      "frame": "celular-2",
+      "state": "visit",
+      "hint": "Conjunto no pátio aberto: o que fazer agora e a ação"
+    },
+    {
+      "id": "p-kitopen",
+      "lane": "phone",
+      "label": "3 · Ver as peças",
+      "frame": "celular-2",
+      "state": "kitopen",
+      "hint": "Um kit aberto mostra cada peça e a conta por lado"
+    },
+    {
+      "id": "p-pick",
+      "lane": "phone",
+      "label": "4 · Escolher o que fazer",
+      "frame": "celular-2",
+      "state": "pick",
+      "hint": "Nada marcado: o botão principal espera a escolha"
+    },
+    {
+      "id": "p-done",
+      "lane": "phone",
+      "label": "5 · Feito",
+      "frame": "celular-2",
+      "state": "done",
+      "hint": "Depois de incluir: o que entrou, o que ficou e desfazer"
+    },
+    {
+      "id": "p-swipe",
+      "lane": "phone",
+      "label": "Deslizar o cartão",
+      "frame": "celular-2",
+      "state": "swipe",
+      "hint": "Deslizar o cartão mostra Adiar e Marcar dia"
+    },
+    {
+      "id": "p-schedule",
+      "lane": "phone",
+      "label": "Veículo na estrada",
+      "frame": "celular-2",
+      "state": "schedule",
+      "hint": "Veículo na estrada: escolher o dia com espaço na oficina"
+    },
+    {
+      "id": "p-dark",
+      "lane": "phone",
+      "label": "Abrir o conjunto · tema escuro",
+      "frame": "celular-2",
+      "state": "visit",
+      "hint": "Conjunto no pátio aberto: o que fazer agora e a ação",
+      "theme": "dark"
+    },
+    {
+      "id": "t-board",
+      "lane": "tablet",
+      "label": "Tablet deitado · quadro",
+      "frame": "notebook-3",
+      "state": "board",
+      "hint": "A semana inteira: vencidas, esta semana e próximas lado a lado"
+    },
+    {
+      "id": "t-visit",
+      "lane": "tablet",
+      "label": "Tablet deitado · abrir o conjunto",
+      "frame": "notebook-3",
+      "state": "visit",
+      "hint": "Conjunto no pátio aberto: o que fazer agora e a ação"
+    },
+    {
+      "id": "tp-board",
+      "lane": "tablet",
+      "label": "Tablet em pé · quadro",
+      "frame": "notebook-4",
+      "state": "board",
+      "hint": "A semana inteira: vencidas, esta semana e próximas lado a lado"
+    },
+    {
+      "id": "tp-visit",
+      "lane": "tablet",
+      "label": "Tablet em pé · abrir o conjunto",
+      "frame": "notebook-4",
+      "state": "visit",
+      "hint": "Conjunto no pátio aberto: o que fazer agora e a ação"
+    }
+  ],
+  "arrows": [
+    {
+      "from": "board",
+      "to": "visit"
+    },
+    {
+      "from": "visit",
+      "to": "kitopen"
+    },
+    {
+      "from": "kitopen",
+      "to": "pick"
+    },
+    {
+      "from": "pick",
+      "to": "done"
+    },
+    {
+      "from": "board",
+      "to": "schedule",
+      "label": "Na estrada"
+    },
+    {
+      "from": "schedule",
+      "to": "multi"
+    },
+    {
+      "from": "multi",
+      "to": "multisched"
+    },
+    {
+      "from": "multisched",
+      "to": "drag",
+      "label": "Ou arrastar"
+    },
+    {
+      "from": "drag",
+      "to": "dropok",
+      "label": "Soltou"
+    },
+    {
+      "from": "drag",
+      "to": "dropno",
+      "label": "Recusado"
+    },
+    {
+      "from": "visit",
+      "to": "defer1",
+      "label": "Adiar uma"
+    },
+    {
+      "from": "visit",
+      "to": "deferall",
+      "label": "Adiar todas"
+    },
+    {
+      "from": "visit",
+      "to": "left",
+      "label": "Saiu antes"
+    },
+    {
+      "from": "pick",
+      "to": "closed",
+      "label": "OS fechou"
+    },
+    {
+      "from": "pick",
+      "to": "sConc",
+      "label": "Outra pessoa"
+    },
+    {
+      "from": "done",
+      "to": "sOff",
+      "label": "Sem sinal"
+    },
+    {
+      "from": "p-list",
+      "to": "p-visit",
+      "label": "Toque"
+    },
+    {
+      "from": "p-visit",
+      "to": "p-kitopen"
+    },
+    {
+      "from": "p-kitopen",
+      "to": "p-pick"
+    },
+    {
+      "from": "p-pick",
+      "to": "p-done"
+    },
+    {
+      "from": "t-board",
+      "to": "t-visit"
+    },
+    {
+      "from": "tp-board",
+      "to": "tp-visit"
+    }
+  ],
+  "notes": [
+    {
+      "attach": "board",
+      "text": "A semana inteira numa tela, sem rolar. Vermelho só no vencido, âmbar só nesta semana."
+    },
+    {
+      "attach": "visit",
+      "text": "A gaveta guarda só a decisão de quem planeja: o que fazer e quando."
+    },
+    {
+      "attach": "done",
+      "text": "Desfazer em até 10 s. Tirar da OS fica no menu do serviço, na OS."
+    },
+    {
+      "attach": "schedule",
+      "text": "A carga da oficina só aparece na hora de agendar."
+    },
+    {
+      "attach": "defer1",
+      "text": "Adiar pede motivo e quando lembrar. Conta como atraso."
+    },
+    {
+      "attach": "loading",
+      "text": "Toda tela entrega todos os estados de uma vez."
+    },
+    {
+      "attach": "p-list",
+      "text": "Abas fixas no topo. A contagem das vencidas fica sempre à vista."
+    },
+    {
+      "attach": "sVol",
+      "text": "Cada coluna mostra 8 e \"Ver todas\"; a contagem fica no cabeçalho."
+    }
+  ]
+}

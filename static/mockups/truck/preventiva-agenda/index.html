@@ -14,6 +14,11 @@
     <div class="meta"><span>Em revisão · 26/11/2026</span><span>Notebook 1440 e 1180, celular 390</span><span>Só tokens do tema Truck, claro e escuro</span></div>
   </div>
 
+  <section class="sc" id="cartao"><h2><span class="tag">0</span>Cartão do quadro · os dois Kanbans do DS</h2>
+    <p class="why">Os mesmos quatro cartões em cada opção, na largura real da coluna do notebook e do celular: <b>DLY1J07</b> vencido na estrada, <b>C-320</b> vencido no pátio com mais 2 preventivas, <b>QRT1A09</b> desta semana e <b>C-072</b> das próximas semanas. Só visual que se explica sem legenda; só tokens; sem bordas.</p>
+    <div class="cmpwrap"><div data-render="cards"></div></div>
+  </section>
+
   <div class="viewbar" role="tablist"><span>Visão</span><button data-v="board" aria-pressed="true">Quadro</button><button data-v="list" aria-pressed="false">Lista</button><button data-v="cal" aria-pressed="false">Calendário</button></div>
 
   <section class="sc" id="notebook" data-view="board"><h2><span class="tag">1</span>Notebook</h2>
@@ -124,9 +129,9 @@
       </tbody></table></div>
       <div class="box" style="grid-column:1/-1"><h3>Sistema de cor</h3><table class="cmp"><thead><tr><th>Papel</th><th>Onde</th><th>Token</th></tr></thead><tbody>
         <tr><td>Neutros (90% da tela)</td><td>Fundo; ilhas; painel interno; texto 1 (títulos e valores); texto 2 (rótulos, meta e ícones); texto 3 (horários e dicas)</td><td><code>--background</code> · <code>--card</code> · <code>--muted</code> a 50% · <code>--foreground</code> · <code>--muted-foreground</code> · <code>--muted-foreground</code> a 70%</td></tr>
-        <tr><td>Primária cheia</td><td>No notebook, só a ação principal; no celular, o topo e a ação principal; o segmento ou a aba ativa</td><td><code>--primary</code></td></tr>
-        <tr><td>Primária em texto</td><td>Links e no máximo um número-chave por ilha (Duração)</td><td><code>--primary</code></td></tr>
-        <tr><td>Primária em tinta (10%)</td><td>Quadrados de ícone e o estado selecionado ou em foco</td><td><code>--primary</code> a 10%</td></tr>
+        <tr><td>Primária cheia</td><td>Só a ação principal; no celular, também o topo</td><td><code>--primary</code></td></tr>
+        <tr><td>Primária em texto</td><td>Links, o número grande do resumo e no máximo um número-chave por ilha (Duração)</td><td><code>--primary</code></td></tr>
+        <tr><td>Primária em tinta (10%)</td><td>Quadrados de ícone e todo estado selecionado: segmentos, filtros, troca de visão, foco (texto em <code>--primary-ink</code>)</td><td><code>--primary</code> a 10%</td></tr>
         <tr><td>Status</td><td>Só no chip de prazo do item (ícone pequeno), no Atraso da gaveta e no traço do veículo vencido; sucesso só no ícone de "em estoque"</td><td><code>--danger</code> · <code>--warning</code> · <code>--success</code></td></tr>
       </tbody></table></div>
       <div class="box" style="grid-column:1/-1"><h3>De onde vem cada cor</h3><table class="cmp"><thead><tr><th>Onde</th><th>Token do tema Truck</th></tr></thead><tbody>

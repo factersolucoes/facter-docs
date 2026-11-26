@@ -1,0 +1,189 @@
+{
+  "generatedAt": "2026-11-26T19:51:32.633Z",
+  "frames": {
+    "board": {
+      "width": 1440,
+      "height": 900
+    },
+    "visit": {
+      "width": 1440,
+      "height": 900
+    },
+    "kitopen": {
+      "width": 1440,
+      "height": 900
+    },
+    "pick": {
+      "width": 1440,
+      "height": 900
+    },
+    "done": {
+      "width": 1440,
+      "height": 900
+    },
+    "schedule": {
+      "width": 1440,
+      "height": 900
+    },
+    "multi": {
+      "width": 1440,
+      "height": 900
+    },
+    "multisched": {
+      "width": 1440,
+      "height": 900
+    },
+    "drag": {
+      "width": 1440,
+      "height": 900
+    },
+    "dropok": {
+      "width": 1440,
+      "height": 900
+    },
+    "dropno": {
+      "width": 1440,
+      "height": 900
+    },
+    "defer1": {
+      "width": 1440,
+      "height": 900
+    },
+    "deferall": {
+      "width": 1440,
+      "height": 900
+    },
+    "left": {
+      "width": 1440,
+      "height": 900
+    },
+    "closed": {
+      "width": 1440,
+      "height": 900
+    },
+    "sConc": {
+      "width": 1440,
+      "height": 900
+    },
+    "sOff": {
+      "width": 1440,
+      "height": 900
+    },
+    "loading": {
+      "width": 1440,
+      "height": 900
+    },
+    "empty": {
+      "width": 1440,
+      "height": 900
+    },
+    "first": {
+      "width": 1440,
+      "height": 900
+    },
+    "nores": {
+      "width": 1440,
+      "height": 900
+    },
+    "noperm": {
+      "width": 1440,
+      "height": 900
+    },
+    "error": {
+      "width": 1440,
+      "height": 900
+    },
+    "list": {
+      "width": 1440,
+      "height": 900
+    },
+    "month": {
+      "width": 1440,
+      "height": 900
+    },
+    "week": {
+      "width": 1440,
+      "height": 900
+    },
+    "pk044": {
+      "width": 1440,
+      "height": 900
+    },
+    "byservice": {
+      "width": 1440,
+      "height": 900
+    },
+    "sap": {
+      "width": 1440,
+      "height": 900
+    },
+    "sVol": {
+      "width": 1440,
+      "height": 900
+    },
+    "sLong": {
+      "width": 1440,
+      "height": 900
+    },
+    "sBig": {
+      "width": 1440,
+      "height": 900
+    },
+    "s320": {
+      "width": 344,
+      "height": 868
+    },
+    "s720": {
+      "width": 744,
+      "height": 868
+    },
+    "p-list": {
+      "width": 414,
+      "height": 868
+    },
+    "p-visit": {
+      "width": 414,
+      "height": 868
+    },
+    "p-kitopen": {
+      "width": 414,
+      "height": 868
+    },
+    "p-pick": {
+      "width": 414,
+      "height": 868
+    },
+    "p-done": {
+      "width": 414,
+      "height": 868
+    },
+    "p-swipe": {
+      "width": 414,
+      "height": 868
+    },
+    "p-schedule": {
+      "width": 414,
+      "height": 868
+    },
+    "p-dark": {
+      "width": 414,
+      "height": 868
+    },
+    "t-board": {
+      "width": 1208,
+      "height": 848
+    },
+    "t-visit": {
+      "width": 1208,
+      "height": 848
+    },
+    "tp-board": {
+      "width": 848,
+      "height": 1208
+    },
+    "tp-visit": {
+      "width": 848,
+      "height": 1208
+    }
+  }
+}
