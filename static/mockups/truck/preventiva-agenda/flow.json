@@ -7,12 +7,12 @@
       "title": "Caminho principal"
     },
     {
-      "id": "schedule",
-      "title": "Marcar dia"
-    },
-    {
       "id": "fallback",
       "title": "E se não der"
+    },
+    {
+      "id": "schedule",
+      "title": "Marcar dia"
     },
     {
       "id": "states",

@@ -1682,3 +1682,15 @@
 .kpc .v2col{height:auto}
 .bd.s .v2board{display:flex;overflow-x:auto;scroll-snap-type:x mandatory}
 .bd.s .v2board>.v2col{flex:0 0 calc(33.333% - 8px);scroll-snap-align:start}
+/* phone and tablet portrait kanban: no column chrome, cards on the canvas */
+.kpc .v2col,.bd.tpv .v2col{padding:0;background:none;border-radius:0}
+.kpc .v2h,.bd.tpv .v2h{display:none}
+.kpc .v2b,.bd.tpv .v2b{gap:8px;padding:0;overflow:visible}
+.ksnap{gap:12px;padding:12px 16px}
+.kpc{flex:0 0 calc(100% - 28px)}
+.kpc .v2card,.bd.tpv .v2card{padding:12px 14px;gap:6px}
+.kpc .v2card .v2foot,.bd.tpv .v2card .v2foot{min-height:32px;padding-top:0}
+.kpc .v2tl h3,.bd.tpv .v2tl h3{-webkit-line-clamp:2}
+.kpc .v2act,.bd.tpv .v2act{background:none}
+.kpc .v2act:active,.bd.tpv .v2act:active{background:hsl(var(--primary)/.08)}
+.kpc .v2act,.bd.tpv .v2act{margin:0;padding:4px 0}
