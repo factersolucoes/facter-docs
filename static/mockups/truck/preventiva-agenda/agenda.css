@@ -1439,3 +1439,11 @@
 .clegend .ev.sched{background:hsl(var(--muted))}
 .fx-kb-card .when.s::before{background:hsl(var(--muted-foreground))}
 .vseg.vw span.on .ic{color:currentColor}
+/* one top bar for the three views */
+.vtop{display:flex;align-items:center;gap:8px;flex:none}
+.vtop .vsp{flex:1}
+.vtop .vseg{margin-left:0}
+.vtop .vseg.vw{margin:0}
+.lv>.vtop{margin-bottom:16px}
+.mcell.oth .mevs{opacity:.6}
+.mrefuse{order:-1}

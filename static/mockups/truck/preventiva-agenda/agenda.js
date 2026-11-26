@@ -287,7 +287,8 @@ function ixAct(a){
   else if(k==='u'){G.done=0;G.undo=0;clearInterval(undoTimer);}
   else if(k==='c'){G.closed=1;}
   ixRender();}
-document.addEventListener('click',e=>{const t=e.target.closest('[data-ixa]');if(t&&t.closest('[data-ix]')){e.preventDefault();if(t.classList.contains('msheet-ov')&&e.target.closest('.msheet'))return;ixAct(t.dataset.ixa);return;}
+document.addEventListener('click',e=>{const c=e.target.closest('.fx-kb-card[data-id],.ev[data-id],.wev[data-id],.agc[data-id],.cd[data-id]');if(c&&!e.target.closest('[data-ix]')){const sec=c.closest('section.sc');const dev=c.closest('.fx-device');if(sec&&dev&&!dev.querySelector('[data-ix]:not([hidden]),.sheet-ov:not([hidden]) .sheet,.drawer')){const bar=sec.querySelector('.states');const b=bar&&bar.querySelector('button[data-s="visit"]');if(b){b.click();return;}}}
+  const t=e.target.closest('[data-ixa]');if(t&&t.closest('[data-ix]')){e.preventDefault();if(t.classList.contains('msheet-ov')&&e.target.closest('.msheet'))return;ixAct(t.dataset.ixa);return;}
   if(G.menu&&!e.target.closest('.pop,.msheet')){G.menu=null;ixRender();}
   const card=e.target.closest('[data-id="c320"]');if(card&&G.closed){G.closed=0;ixRender();}});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&G.menu){G.menu=null;ixRender();return;}if(e.key==='Escape'&&!G.closed&&document.querySelector('[data-ix]:not([hidden])')){G.closed=1;ixRender();return;}
@@ -493,6 +494,7 @@ function stressPhone(s,list){
    Three views in the product: Quadro (DS Kanban by work stage), Lista, Calendário
    ===================================================================== */
 const viewSeg=on=>`<div class="vseg vw" role="tablist">${[['Quadro','squares-four'],['Lista','rows'],['Calendário','calendar-blank']].map(([l,i])=>`<span class="${l===on?'on':''}" role="tab">${ic(i,'s14')}${l}</span>`).join('')}</div>`;
+const vtop=on=>`<div class="vtop">${viewSeg(on)}<span class="vsp"></span>${segView('Por veículo')}${nokm()}</div>`;
 Object.assign(V,{
   d1:{name:'C-512',parts:[['QRT6M30','cav',''],['RTN2B11','car','']],svc:'Preventiva 20 mil',more:'',when:'feita ter 24/11',t:'s'},
   d2:{name:'QRT3K18',parts:[['QRT3K18','cav','']],svc:'Lubrificação carreta 15 dias',more:'',when:'feita seg 23/11',t:'s'},
@@ -539,31 +541,36 @@ const EV=[
   {d:'2026-11-29',id:'rta',k:'pred',t:'w',txt:'RTA4A44 · Lubrificação 15 dias'},
   {d:'2026-12-03',id:'c072',k:'pred',t:'',txt:'C-072 · Munck 250 h'},
   {d:'2026-12-04',id:'q9b',k:'pred',t:'',txt:'QRT9B71 · Preventiva 20 mil'},
+  {d:'2026-12-10',id:'c044',k:'pred',t:'',txt:'C-044 · Revisão 60 mil'},
+  {d:'2026-12-14',id:'rtf',k:'sched',t:'',txt:'RTF2D10 · Lubrificação 15 dias'},
+  {d:'2026-12-15',id:'q6h',k:'pred',t:'',txt:'QRT6H33 · Cronotacógrafo'},
+  {d:'2026-12-18',id:'c118',k:'pred',t:'',txt:'C-118 · Preventiva 20 mil'},
 ];
 const evChip=(e,o={})=>`<span class="ev ${e.k} ${o.sel?'on':''} ${o.drag?'dragging':''}" data-id="${e.id}" title="${esc(e.txt)}${e.k==='pred'?' · prevista pelo km':''}"><i class="dot ${e.t}"></i><span>${e.txt}</span></span>`;
-const loadBar=d=>{const f=FREE[d];if(f===undefined)return '';if(f===-1)return '<span class="ld off">fechado</span>';const busy=Math.round((1-f/32)*100);return `<span class="ld ${f===0?'full':''}"><i><b style="width:${busy}%"></b></i>${f===0?'cheio':f+' h livres'}</span>`;};
+const freeOf=d=>{if(FREE[d]!==undefined)return FREE[d];if(d<'2026-11-26')return undefined;const wd=new Date(d+'T12:00:00Z').getUTCDay();return wd===0?-1:wd===6?10:[24,20,30,16,28,22][+d.slice(8)%6];};
+const loadBar=d=>{const f=freeOf(d);if(f===undefined)return '';if(f===-1)return '<span class="ld off">fechado</span>';const busy=Math.round((1-f/32)*100);return `<span class="ld ${f===0?'full':''}"><i><b style="width:${busy}%"></b></i>${f===0?'cheio':f+' h livres'}</span>`;};
 const iso=(y,m,d)=>`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-function monthView(s){const days=[];for(let i=0;i<35;i++){const dt=new Date(Date.UTC(2026,10,1+i));days.push(iso(dt.getUTCFullYear(),dt.getUTCMonth()+1,dt.getUTCDate()));}
+function monthView(s,full){const days=[];for(let i=0;i<35;i++){const dt=new Date(Date.UTC(2026,10,(full?1:22)+i));days.push(iso(dt.getUTCFullYear(),dt.getUTCMonth()+1,dt.getUTCDate()));}
   const wd=['dom','seg','ter','qua','qui','sex','sáb'];
-  return `<div class="mgrid">${wd.map(w=>`<span class="mwd">${w}</span>`).join('')}${days.map(d=>{const evs=EV.filter(e=>e.d===d);const other=d.slice(5,7)!=='11';const today=d==='2026-11-26';
+  return `<div class="mgrid">${wd.map(w=>`<span class="mwd">${w}</span>`).join('')}${days.map(d=>{const evs=EV.filter(e=>e.d===d);const other=full?d.slice(5,7)!=='11':d<'2026-11-26';const today=d==='2026-11-26';
     const over=(s==='cdrag'&&d==='2026-11-30')?'dropok':(s==='cno'&&d==='2026-11-26')?'dropno':'';
     const list=evs.map(e=>evChip(e,{sel:s==='visit'&&e.id==='c320',drag:(s==='cdrag'||s==='cno')&&e.id==='c118'})).join('');
-    return `<div class="mcell ${other?'oth':''} ${over}"><span class="mday ${today?'today':''}">${+d.slice(8)}</span><div class="mevs">${list}${over==='dropok'?`<span class="ev ghost">${ic('calendar-plus','s12')}C-118 · remarcar para seg 30/11</span>`:''}${over==='dropno'?`<span class="mrefuse">Dia cheio na oficina</span>`:''}</div>${loadBar(d)}</div>`;}).join('')}</div>`;}
+    return `<div class="mcell ${other?'oth':''} ${over}"><span class="mday ${today?'today':''}">${+d.slice(8)}</span><div class="mevs">${over==='dropno'?'<span class="mrefuse">Dia cheio na oficina</span>':''}${list}${over==='dropok'?`<span class="ev ghost">${ic('calendar-plus','s12')}C-118 · remarcar para seg 30/11</span>`:''}</div>${loadBar(d)}</div>`;}).join('')}</div>`;}
 function weekView(s){const days=['2026-11-22','2026-11-23','2026-11-24','2026-11-25','2026-11-26','2026-11-27','2026-11-28'];const hrs=[7,8,9,10,11,12,13,14,15,16,17,18];const H=44;
   const wd=['dom','seg','ter','qua','qui','sex','sáb'];
   const head=`<div class="wkh"><span></span>${days.map((d,i)=>`<div class="wkd ${d==='2026-11-26'?'today':''}"><small>${wd[i]}</small><b>${+d.slice(8)}</b>${loadBar(d)}</div>`).join('')}</div>`;
   const allday=`<div class="wkad"><span class="wkl">dia todo</span>${days.map(d=>`<div>${EV.filter(e=>e.d===d&&!e.h).map(e=>evChip(e)).join('')}</div>`).join('')}</div>`;
   const grid=`<div class="wkg" style="--H:${H}px"><div class="wkt">${hrs.map(h=>`<span>${h}h</span>`).join('')}</div>${days.map(d=>`<div class="wkc ${d==='2026-11-26'?'today':''}">${hrs.map(()=>'<i></i>').join('')}${EV.filter(e=>e.d===d&&e.h).map(e=>`<div class="wev ${e.k} ${s==='visit'&&e.id==='c320'?'on':''}" style="top:${(e.h[0]-7)*H}px;height:${(e.h[1]-e.h[0])*H-4}px" data-id="${e.id}"><i class="dot ${e.t}"></i><b>${e.txt.split(' · ')[0]}</b><span>${e.txt.split(' · ')[1]}</span><small>${e.h[0]}h às ${e.h[1]}h</small></div>`).join('')}${d==='2026-11-26'?`<div class="now" style="top:${(10.33-7)*H}px"></div>`:''}</div>`).join('')}</div>`;
   return `<div class="wkv">${head}${allday}<div class="wks">${grid}</div></div>`;}
-function calHead(mode){return `<div class="calh"><div class="today"><small>nov</small><b>26</b></div><div class="cht"><h2>${mode==='week'?'22 a 28 de novembro de 2026':'Novembro de 2026'}</h2><p>${mode==='week'?'7 preventivas na semana':'11 preventivas no mês'}</p></div><span class="cnav">${ic('caret-left','s16')}</span><span class="cnav">${ic('caret-right','s16')}</span><span class="tbtn">Hoje</span><span style="flex:1"></span>${F.fchip('Todas as transportadoras',{menu:1})}<div class="vseg">${['Mês','Semana'].map(l=>`<span class="${(l==='Semana')===(mode==='week')?'on':''}">${l}</span>`).join('')}</div></div>
+function calHead(mode){return `<div class="calh"><div class="today"><small>nov</small><b>26</b></div><div class="cht"><h2>${mode==='week'?'22 a 28 de novembro de 2026':mode==='full'?'Novembro de 2026':'22 de novembro a 26 de dezembro'}</h2><p>${mode==='week'?'7 preventivas na semana':mode==='full'?'11 preventivas no mês':'15 preventivas nas próximas 5 semanas'}</p></div><span class="cnav">${ic('caret-left','s16')}</span><span class="cnav">${ic('caret-right','s16')}</span><span class="tbtn">Hoje</span><span style="flex:1"></span>${F.fchip('Todas as transportadoras',{menu:1})}<div class="vseg">${[['Próximas 5 semanas','month'],['Mês completo','full'],['Semana','week']].map(([l,m])=>`<span class="${m===mode?'on':''}">${l}</span>`).join('')}</div></div>
   <div class="clegend"><span><i class="ev sched"></i>agendada</span><span><i class="ev pred"></i>prevista pelo km por dia</span><span><i class="ldk"></i>ocupação da oficina</span></div>`;}
 function calWeb(s,dev){
-  if(s==='loading') return `<div class="bd calv">${viewSeg('Calendário')}<div class="calbox">${F.sk('40%',28)}<div style="height:14px"></div>${F.sk('100%',560,16)}</div></div>`;
-  if(s==='empty') return `<div class="bd calv"><div class="vtop">${viewSeg('Calendário')}</div><div class="calbox">${calHead('month')}${emptyBlock('first').replace('A agenda começa com um plano','Nada marcado nem previsto neste mês').replace(/<p>Um plano[^<]*<\/p>/,'<p>As preventivas aparecem aqui quando um plano prevê a próxima pelo km por dia ou quando alguém marca um dia.</p>')}</div></div>`;
-  const mode=s==='week'?'week':'month';
+  if(s==='loading') return `<div class="bd calv">${vtop('Calendário')}<div class="calbox">${F.sk('40%',28)}<div style="height:14px"></div>${F.sk('100%',560,16)}</div></div>`;
+  if(s==='empty') return `<div class="bd calv">${vtop('Calendário')}<div class="calbox">${calHead('month')}${emptyBlock('first').replace('A agenda começa com um plano','Nada marcado nem previsto neste mês').replace(/<p>Um plano[^<]*<\/p>/,'<p>As preventivas aparecem aqui quando um plano prevê a próxima pelo km por dia ou quando alguém marca um dia.</p>')}</div></div>`;
+  const mode=s==='week'?'week':s==='full'?'full':'month';
   const note=s==='cno'?`<div class="krefuse cal">${ic('warning','s16')}<span><b>Não dá para remarcar para qui 26/11.</b> A oficina está cheia nesse dia.</span></div>`:'';
   const dr=s==='visit'?visitDrawer('visit',0):'';
-  return `<div class="bd calv"><div class="vtop">${viewSeg('Calendário')}</div><div class="calbox">${calHead(mode)}${note}${mode==='week'?weekView(s):monthView(s)}</div>${dr}</div>`;}
+  return `<div class="bd calv">${vtop('Calendário')}<div class="calbox">${calHead(mode)}${note}${mode==='week'?weekView(s):monthView(s,mode==='full')}</div>${dr}</div>`;}
 function calPhone(s){
   if(s==='visit') return calPhone('month')+visitDrawer('visit',1);
   const strip=['2026-11-22','2026-11-23','2026-11-24','2026-11-25','2026-11-26','2026-11-27','2026-11-28'];const wd=['D','S','T','Q','Q','S','S'];
@@ -574,9 +581,10 @@ function calPhone(s){
   const groups=days.map(d=>`<section class="agd"><h3 class="msh"><span>${lab[d]}</span><span class="agl">${loadBar(d)}</span></h3><div class="mcards">${EV.filter(e=>e.d===d).map(e=>`<div class="agc ${e.k}" data-id="${e.id}"><i class="dot ${e.t}"></i><div><b>${e.txt.split(' · ')[0]}</b><span>${e.txt.split(' · ')[1]}</span></div><small>${e.k==='pred'?'prevista':e.h?e.h[0]+'h às '+e.h[1]+'h':''}</small></div>`).join('')}</div></section>`).join('');
   return `<div class="ph-wrap pm">${head}${groups}<div class="safe"></div></div>`;}
 
-function web(s,dev){if(s==='drag'||s==='dropno')return web('kbdrag:'+s,dev);if(s.startsWith('kbdrag:')){const st=s.slice(7);return `<div class="bd kbv ${dev==='webs'?'s':''}">${slim().replace('<div class="hero slim">','<div class="hero slim">'+viewSeg('Quadro')).replace(nokm(),segView('Por veículo')+nokm())}${kanban(st,null)}</div>`;}if(s==='dropok')s='schedule';if(s==='pk044')return withPk044(web('board',dev),0);if(STRESS[s])return stressWeb(s,dev);KITOPEN=s==='kitopen';
+function web(s,dev){if(s==='drag'||s==='dropno')return web('kbdrag:'+s,dev);if(s.startsWith('kbdrag:')){const st=s.slice(7);return `<div class="bd kbv ${dev==='webs'?'s':''}">${vtop('Quadro')}${slim().replace(nokm(),'')}${kanban(st,null)}</div>`;}if(s==='dropok')s='schedule';if(s==='pk044')return withPk044(web('board',dev),0);if(STRESS[s])return stressWeb(s,dev);KITOPEN=s==='kitopen';
   const small=dev==='webs';
-  if(s==='loading') return skBoard();
+  if(s==='loading') return `<div class="bd kbv">${vtop('Quadro')}<div class="hero slim">${F.sk(48,40,12)}<div class="tx" style="display:flex;flex-direction:column;gap:8px">${F.sk(260,18)}${F.sk(180,12)}</div></div><div class="fx-kb kb">${STAGES.map(st=>F.kbCol({title:st.title,count:'',body:[1,2,3].map(()=>F.kbCard(F.sk('60%',15)+'<div style="height:8px"></div>'+F.sk('85%',12)+'<div style="height:10px"></div>'+F.sk(110,22,99))).join('')})).join('')}</div></div>`;
+  if(s==='empty') return `<div class="bd kbv">${vtop('Quadro')}<div class="hero slim"><span class="halo sm">${ic('calendar-check','s20')}</span><div class="tx"><h2>Frota em dia esta semana</h2><p>A próxima é a Revisão 60 mil do C-044, na qui 10/12.</p></div></div><div class="fx-kb kb">${F.kbCol({title:'A agendar',count:2,body:kcard('c044',null)+kcard('q6h',null)})}${F.kbCol({title:'Agendada',count:0,empty:'Nada agendado'})}${F.kbCol({title:'Na oficina',count:0,empty:'Nenhum conjunto na oficina'})}${F.kbCol({title:'Feita (7 dias)',count:2,body:kcard('d1',null)+kcard('d2',null)})}</div></div>`;
   PICK=s==='multi'||s==='multisched';
   if(s==='first'||s==='noperm') return `<div class="bd ${small?'s':''}">${emptyBlock(s)}</div>`;
   if(s==='nores') return `<div class="bd ${small?'s':''}"><div class="hero slim"><div class="tx"><h2>Busca na Base Curitiba</h2></div>${searchOn()}</div>${emptyBlock('nores')}</div>`;
@@ -589,7 +597,7 @@ function web(s,dev){if(s==='drag'||s==='dropno')return web('kbdrag:'+s,dev);if(s
   const top=s==='error'?errNote():'';
   const hero=s==='sap'?slim().replace(nokm(),sapChip()):slim().replace(nokm(),segView('Por veículo')+nokm());
   const md=s==='multisched'?multiDrawer(0):'';
-  return `<div class="bd kbv ${small?'s':''}">${hero.replace('<div class="hero slim">','<div class="hero slim">'+viewSeg('Quadro'))}${top}${kanban(s,sel)}${dr}${md}${s==='multi'?selBar():''}</div>`;
+  return `<div class="bd kbv ${small?'s':''}">${vtop('Quadro')}${hero.replace(segView('Por veículo')+nokm(),'').replace(sapChip(),'')}${top}${kanban(s,sel)}${dr}${md}${s==='multi'?selBar():''}</div>`;
 }
 
 /* ---------- phone: sticky tabs, one list at a time; the overdue count stays in the first tab ---------- */
@@ -623,8 +631,10 @@ const PHONE_ONLY={ptr:1,mid:1,press:1,swipe:1};
 function phone(s){if(s==='pk044')return phone('list')+pk044Drawer(1);if(STRESS[s])return stressPhone(s,0);KITOPEN=s==='kitopen';DONE=s==='done';PICK=null;
   if(s==='first'||s==='noperm') return `<div class="ph-wrap">${emptyBlock(s,1)}</div>`;
   if(s==='nores') return `<div class="ph-wrap">${searchOn()}${emptyBlock('nores',1)}</div>`;
-  if(s==='loading') return `<div class="ph-wrap"><div class="hero slim"><span class="sk" style="width:40px;height:40px;border-radius:12px"></span><span class="sk" style="width:200px;height:18px"></span></div><span class="sk" style="width:100%;height:44px;border-radius:12px"></span>${[1,2,3,4].map(()=>`<div class="cd sk-cd"><span class="sk" style="width:55%;height:15px"></span><span class="sk" style="width:80%;height:12px;margin-top:10px"></span></div>`).join('')}</div>`;
-  if(s==='empty') return `<div class="ph-wrap"><div class="hero slim"><span class="halo sm">${ic('calendar-check','s20')}</span><div class="tx"><h2>Frota em dia esta semana</h2><p>A próxima é a Revisão 60 mil do C-044, na qui 10/12.</p></div></div><div class="stick">${tabs('next').replace('<b class="d">3</b>','<b>0</b>').replace('<b class="w">3</b>','<b>0</b>')}</div><div class="cards">${GROUPS_ALL[2].ids.map(id=>card(id,null)).join('')}<div class="more">${GROUPS_ALL[2].more}${ic('caret-down','s14')}</div></div></div>`;
+  if(s==='loading') return `<div class="ph-wrap pm pkban"><div class="phead"><div class="phr"><span class="pbase">Base Curitiba${ic('caret-down','s14')}</span><span class="pdate">qui 26/11</span></div>${viewSeg('Quadro').replace('vseg vw','vseg vw ph')}</div><div class="ksnap"><div class="kpc"><div class="mcards">${[1,2,3].map(()=>F.kbCard(F.sk('60%',15)+'<div style="height:8px"></div>'+F.sk('85%',12))).join('')}</div></div><div class="kpc"></div></div></div>`;
+  if(s==='__old_loading') return `<div class="ph-wrap"><div class="hero slim"><span class="sk" style="width:40px;height:40px;border-radius:12px"></span><span class="sk" style="width:200px;height:18px"></span></div><span class="sk" style="width:100%;height:44px;border-radius:12px"></span>${[1,2,3,4].map(()=>`<div class="cd sk-cd"><span class="sk" style="width:55%;height:15px"></span><span class="sk" style="width:80%;height:12px;margin-top:10px"></span></div>`).join('')}</div>`;
+  if(s==='empty') return phoneKanban('list').replace(/<div class="ksnap[\s\S]*<div class="safe">/,`<div class="bempty ph" style="margin-top:12px"><span class="halo md">${ic('calendar-check','s24')}</span><b>Frota em dia esta semana</b><p>A próxima é a Revisão 60 mil do C-044, na qui 10/12.</p></div><div class="safe">`);
+  if(s==='__old_empty') return `<div class="ph-wrap"><div class="hero slim"><span class="halo sm">${ic('calendar-check','s20')}</span><div class="tx"><h2>Frota em dia esta semana</h2><p>A próxima é a Revisão 60 mil do C-044, na qui 10/12.</p></div></div><div class="stick">${tabs('next').replace('<b class="d">3</b>','<b>0</b>').replace('<b class="w">3</b>','<b>0</b>')}</div><div class="cards">${GROUPS_ALL[2].ids.map(id=>card(id,null)).join('')}<div class="more">${GROUPS_ALL[2].more}${ic('caret-down','s14')}</div></div></div>`;
   DONE=s==='done';const sel=s==='list'||s==='error'||PHONE_ONLY[s]?null:s==='schedule'?'dly':'c320';
   if(s==='list'||s==='kb2')return phoneKanban(s);
   const list=mobileList(s,{sel});
@@ -666,13 +676,13 @@ function lrow(id,sel){const v=V[id],m=LM[id];const pk=PICK&&MULTI.includes(id);c
 const lsub=g=>`<div class="lsub"><span class="gt ${g.tone}">${ic(g.icon,'s14')}</span><b>${g.title}</b><span class="n">${g.count}</span></div>`;
 const LTABS=[['Todas',17],['Vencidas',3],['Esta semana',3],['Próximas',9],['Sem km',2]];
 function listTop(o={}){
-  const head=F.pageHeader('Agenda','O que trazer para a oficina, e quando.',`${viewSeg('Lista')}${F.fchip('Base Curitiba',{menu:1})}${btn('Ver planos',{variant:'outline',icon:'list-checks'})}`);
+  const head=vtop('Lista')+F.pageHeader('Agenda','O que trazer para a oficina, e quando.',`${F.fchip('Base Curitiba',{menu:1})}${btn('Ver planos',{variant:'outline',icon:'list-checks'})}`);
   const kpi=`<div class="fx-kpi4">${[['Vencidas',o.zero?0:5,'d'],['Vencem esta semana',4,'w'],['Próximas semanas',14,''],['Sem km',2,'']].map(([l,v,t])=>`<div><p>${l}</p><b class="k${v?t:''}">${v}</b></div>`).join('')}</div>`;
   const tools=`<div class="ltools">${F.search('Buscar placa, frota ou conjunto',{width:340})}${F.fchip('Todas as transportadoras',{menu:1})}${F.fchip('Todos os planos',{menu:1})}</div>`;
   return head+`<div class="lstack"><div class="lstack s">${F.dtabs([['Todas',17-(DONE?0:0)],['Vencidas',N().over],['Esta semana',N().week],['Próximas',9],['Sem km',2]],o.tab||'Todas')}${tools}`;
 }
 function listWeb(s){if(s==='pk044')return withPk044(listWeb('list'),0);if(STRESS[s])return stressList(s);KITOPEN=s==='kitopen';DONE=s==='done';PICK=s==='multi'||s==='multisched';
-  if(s==='first'||s==='noperm') return `<div class="lv">${F.pageHeader('Agenda','O que trazer para a oficina, e quando.','')}${emptyBlock(s)}</div>`;
+  if(s==='first'||s==='noperm') return `<div class="lv">${vtop('Lista')}${F.pageHeader('Agenda','O que trazer para a oficina, e quando.','')}${emptyBlock(s)}</div>`;
   DONE=s==='done';const sel=s==='schedule'?'dly':isVisit(s)?'c320':null;
   let body;
   if(s==='loading') body=`<div style="display:flex;flex-direction:column;gap:8px">${[1,2,3,4,5].map(()=>F.sk('100%',64)).join('')}</div>`;
