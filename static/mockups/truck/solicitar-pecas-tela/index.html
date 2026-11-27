@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solicitar peças em tela · 3 modelos · mockups</title>
+<link rel="stylesheet" href="../_kit/kit.css">
+<style>
+[data-render]{height:100%}
+.lead .meta{display:flex;gap:14px;flex-wrap:wrap}
+.sp{display:flex;flex-direction:column;height:100%;min-height:0;gap:12px}
+.sp-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.sp-back{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:hsl(var(--muted-foreground))}
+.sp-os{display:flex;align-items:center;gap:8px;font-size:13px;color:hsl(var(--muted-foreground))}
+.sp-depot{margin-left:auto;display:flex;align-items:center;gap:10px;background:hsl(var(--muted)/.7);border-radius:12px;padding:6px 12px}
+.sp-depot small{display:block;font:600 9.5px Inter;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground))}
+.sp-depot b{font:700 13.5px Sora}
+.sp-body{flex:1;min-height:0;display:grid;gap:12px}
+.col{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.col-h{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid hsl(var(--border)/.7)}
+.col-h h3{font:700 14.5px Sora;flex:1}
+.col-b{flex:1;min-height:0;overflow:auto;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.lbl{font:700 10.5px Inter;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground));display:flex;align-items:center;gap:6px;margin-top:4px}
+.svc-lock{display:inline-flex;align-items:center;gap:6px;border-radius:9px;background:hsl(var(--primary-soft));color:hsl(var(--primary-ink));padding:4px 10px;font-size:13px;font-weight:600}
+.prow{display:flex;align-items:center;gap:10px;border:1px solid hsl(var(--border));border-radius:12px;padding:9px 10px}
+.prow .nm{flex:1;min-width:0}
+.prow .nm b{display:block;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ni{display:inline-flex;align-items:center;height:19px;border-radius:6px;background:hsl(var(--muted));padding:0 6px;font:700 11px Sora;margin-top:3px}
+.av{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;white-space:nowrap}
+.av i{width:6px;height:6px;border-radius:99px;display:inline-block}
+.av.ok{color:hsl(var(--success))}.av.ok i{background:hsl(var(--success))}
+.av.no{color:hsl(var(--danger))}.av.no i{background:hsl(var(--danger))}
+.add{width:32px;height:32px;border-radius:9px;border:1px solid hsl(var(--border));display:grid;place-items:center;color:hsl(var(--primary));flex:none}
+.add.on{background:hsl(var(--primary));color:#fff;border-color:hsl(var(--primary))}
+.kit{display:flex;align-items:center;gap:10px;border-radius:12px;padding:10px;background:hsl(var(--primary)/.05);border:1px solid hsl(var(--primary)/.18)}
+.kit .nm{flex:1;min-width:0}.kit b{font-size:13.5px}.kit small{display:block;color:hsl(var(--muted-foreground));font-size:12px}
+.grp{border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden}
+.grp-h{position:relative;display:flex;align-items:center;gap:8px;padding:10px 12px 10px 16px;border-bottom:1px solid hsl(var(--border)/.6);font-weight:600;font-size:14px}
+.grp-h:before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:4px;border-radius:0 4px 4px 0;background:hsl(var(--primary))}
+.grp-h .n{margin-left:auto}
+.line{display:grid;grid-template-columns:minmax(0,1fr) 92px 82px 24px;gap:8px;align-items:center;padding:9px 12px;border-top:1px solid hsl(var(--border)/.5);font-size:13px}
+.line:first-of-type{border-top:0}
+.line .nm b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
+.qty{display:flex;align-items:center;justify-content:space-between;border-radius:8px;background:hsl(var(--muted)/.8);height:30px;padding:0 6px;font-weight:700}
+.qty .ic{color:hsl(var(--muted-foreground))}
+.cost{text-align:right;font-weight:700}
+.foot{display:flex;align-items:center;gap:12px;border:1px solid hsl(var(--border));background:hsl(var(--card));border-radius:14px;padding:10px 12px}
+.foot .big{font:800 20px Sora}.foot .mut{color:hsl(var(--muted-foreground));font-size:13px}
+.foot .grow{flex:1}
+.svc{border:1px solid hsl(var(--border));border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:4px;cursor:default}
+.svc b{font-size:13.5px}
+.svc small{color:hsl(var(--muted-foreground));font-size:12px}
+.svc.on{border-color:hsl(var(--primary));background:hsl(var(--primary-soft));box-shadow:0 0 0 1px hsl(var(--primary))}
+.svc .meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+.tbl th{font:700 10.5px Inter;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground));text-align:left;padding:9px 12px;background:hsl(var(--muted)/.6)}
+.tbl td{padding:9px 12px;border-top:1px solid hsl(var(--border)/.6);vertical-align:middle}
+.tbl tr.in td{background:hsl(var(--primary)/.04)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.cart{position:absolute;left:12px;right:12px;bottom:12px;display:flex;align-items:center;gap:14px;background:hsl(var(--foreground));color:hsl(var(--card));border-radius:16px;padding:10px 12px 10px 18px;box-shadow:0 20px 40px -18px hsl(232 48% 15%/.6)}
+.cart .big{font:800 20px Sora}
+.cart .mut{color:hsl(0 0% 100%/.7);font-size:13px}
+.drawer{position:absolute;left:12px;right:12px;bottom:76px;max-height:58%;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;box-shadow:0 30px 60px -24px hsl(232 48% 15%/.5);display:flex;flex-direction:column;overflow:hidden}
+.empty-c{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;border:1.5px dashed hsl(var(--border));border-radius:14px;margin:4px;padding:20px;color:hsl(var(--muted-foreground));font-size:13px}
+.empty-c b{color:hsl(var(--foreground));font:700 15px Sora}
+.tab .prow{padding:13px 12px}.tab .add{width:42px;height:42px}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="lead">
+    <h1>Solicitar peças · tela em vez de painel lateral</h1>
+    <p>O pedido de peças é aberto muitas vezes por dia; o painel lateral aperta a busca e o pedido lado a lado. Os três modelos levam o mesmo conteúdo do painel aprovado (kits do plano, busca por nome ou NI, o pedido agrupado por serviço, disponibilidade sem quantidade que falta) para uma <b>tela própria</b>, com endereço (<code>/ordens-de-servico/OS-000003/pecas</code>) e voltar para a OS. Quando aberto de um serviço, o serviço vem travado, como no checklist.</p>
+    <div class="meta"><span>Em escolha · 27/11/2026</span><span>Notebook e tablet deitado</span><span>Substitui o painel do <a href="/telas/truck/montar-pedido-pecas" style="color:inherit">Montar pedido de peças</a></span></div>
+  </div>
+  <nav class="tabs"><a href="#a"><b>A</b> Busca e pedido</a><a href="#b"><b>B</b> Serviços à esquerda</a><a href="#c"><b>C</b> Tabela e carrinho</a></nav>
+
+  <section class="sc" id="a"><h2><span class="tag">A</span>Busca e pedido lado a lado · recomendado</h2>
+    <p class="why">O painel de hoje, em tela cheia: a busca ganha a largura que faltava (nome inteiro da peça, NI, marca e estoque numa linha) e o pedido fica fixo à direita, com o total e "Solicitar peças" sempre à vista. Aberto de um serviço, o serviço vem travado; aberto da aba Peças, escolhe-se o serviço no topo da busca. É a mudança menor: quem já usa o painel reconhece tudo.</p>
+    <div class="states" data-for="a"><button data-s="ok" aria-pressed="true">Com peças</button><button data-s="empty" aria-pressed="false">Pedido vazio</button><button data-s="free" aria-pressed="false">Aberto da aba Peças</button></div>
+    <div class="devices"><div class="dv full"><div class="devlabel">Notebook</div><fx-app device="web" section="os" console eyebrow="OS-000003" title="Solicitar peças" width="1360" height="760"><div data-render="a" data-device="web"></div></fx-app></div>
+      <div class="dv full"><div class="devlabel">Tablet deitado · mecânico no box</div><fx-app device="tablet-l" section="os" console eyebrow="OS-000003" title="Solicitar peças"><div data-render="a" data-device="tablet"></div></fx-app></div></div>
+  </section>
+
+  <section class="sc" id="b"><h2><span class="tag">B</span>Serviços da OS à esquerda</h2>
+    <p class="why">Três colunas: os serviços da OS (com o que cada um já pediu), a busca e o pedido do serviço escolhido. Cada serviço é um pedido, e trocar de serviço é um toque, sem sair da tela. Mais informação de uma vez; a busca fica mais estreita.</p>
+    <div class="states" data-for="b"><button data-s="ok" aria-pressed="true">Com peças</button><button data-s="empty" aria-pressed="false">Pedido vazio</button></div>
+    <div class="devices"><div class="dv full"><div class="devlabel">Notebook</div><fx-app device="web" section="os" console eyebrow="OS-000003" title="Solicitar peças" width="1360" height="760"><div data-render="b" data-device="web"></div></fx-app></div>
+      <div class="dv full"><div class="devlabel">Tablet deitado</div><fx-app device="tablet-l" section="os" console eyebrow="OS-000003" title="Solicitar peças"><div data-render="b" data-device="tablet"></div></fx-app></div></div>
+  </section>
+
+  <section class="sc" id="c"><h2><span class="tag">C</span>Catálogo em tabela e carrinho embaixo</h2>
+    <p class="why">A tela inteira é o catálogo, numa tabela com quantidade na própria linha; o pedido vira uma barra escura embaixo que abre a lista. Bom para quem pede muitas peças de uma vez; o pedido fica escondido até abrir a barra.</p>
+    <div class="states" data-for="c"><button data-s="ok" aria-pressed="true">Barra fechada</button><button data-s="open" aria-pressed="false">Pedido aberto</button></div>
+    <div class="devices"><div class="dv full"><div class="devlabel">Notebook</div><fx-app device="web" section="os" console eyebrow="OS-000003" title="Solicitar peças" width="1360" height="760"><div data-render="c" data-device="web"></div></fx-app></div>
+      <div class="dv full"><div class="devlabel">Tablet deitado</div><fx-app device="tablet-l" section="os" console eyebrow="OS-000003" title="Solicitar peças"><div data-render="c" data-device="tablet"></div></fx-app></div></div>
+  </section>
+</div>
+<script src="../_kit/kit.js"></script>
+<script>
+const F = FX;
+const I = (n, c = 's16') => F.ic(n, c);
+const PARTS = [
+  { name: 'Lona de freio 4516 Fras-le', ni: 'SP-00412', brand: 'Fras-le', on: 16, unit: 'un', cost: 'R$ 90,00' },
+  { name: 'Lona de freio 204', ni: '45192233', brand: 'Master', on: 0, unit: 'un', cost: 'R$ 82,50' },
+  { name: 'Rebite de lona 8x12', ni: 'SP-00418', brand: 'Fras-le', on: 400, unit: 'un', cost: 'R$ 0,35' },
+  { name: 'Mola de retorno da sapata', ni: 'SP-00133', brand: 'Randon', on: 0, unit: 'un', cost: 'R$ 18,90' },
+  { name: 'Cinta de freio 16,5" eixo trativo', ni: 'SP-00241', brand: 'Master', on: 3, unit: 'un', cost: 'R$ 323,95' },
+  { name: 'Graxa de rolamento 1 kg', ni: 'SP-00090', brand: 'Lubrax', on: 12, unit: 'kg', cost: 'R$ 41,00' },
+];
+const av = (p) => (p.on > 0 ? `<span class="av ok"><i></i>${p.on} em estoque</span>` : `<span class="av no"><i></i>Em falta</span>`);
+const prow = (p, added) => `<div class="prow">${F.tile('primary', 'package')}<div class="nm"><b title="${p.name}">${p.name}</b><span class="ni">NI ${p.ni}</span> <span style="font-size:12px;color:hsl(var(--muted-foreground))">· ${p.brand}</span></div>${av(p)}<span class="add ${added ? 'on' : ''}">${I(added ? 'check' : 'plus')}</span></div>`;
+const kit = () => `<div class="kit">${F.tile('primary', 'stack')}<div class="nm"><b>Kit troca de lona · eixo</b><small>4 peças · do plano do serviço</small></div>${F.btn('Adicionar kit', { variant: 'outline-primary', size: 'sm', icon: 'plus' })}</div>`;
+const line = (n, ni, q, c, out) => `<div class="line"><div class="nm"><b title="${n}">${n}</b><span class="ni">NI ${ni}</span></div><div class="qty">${I('minus', 's14')}${q}${I('plus', 's14')}</div><div class="cost">${c}${out ? `<div class="av no" style="justify-content:flex-end"><i></i>Em falta</div>` : ''}</div><span style="color:hsl(var(--muted-foreground))">${I('x', 's14')}</span></div>`;
+const group = (name, lines) => `<div class="grp"><div class="grp-h">${name}<span class="n">${F.badge(lines.length + ' peças', { variant: 'secondary', size: 'sm' })}</span></div>${lines.join('')}</div>`;
+const orderLines = () => [line('Lona de freio 4516 Fras-le', 'SP-00412', 2, 'R$ 180,00'), line('Rebite de lona 8x12', 'SP-00418', 32, 'R$ 11,20'), line('Mola de retorno da sapata', 'SP-00133', 4, 'R$ 75,60', true)];
+const foot = (empty) => `<div class="foot"><span class="big">${empty ? 0 : 3}</span><span class="mut">${empty ? 'linha' : 'linhas'}</span><span class="mut" style="border-left:1px solid hsl(var(--border));padding-left:12px">estimado <b style="color:hsl(var(--foreground))">${empty ? 'R$ 0,00' : 'R$ 266,80'}</b></span><span class="grow"></span>${F.btn('Solicitar peças', { icon: 'paper-plane-right', disabled: empty })}</div>`;
+const header = (svc) => `<div class="sp-top"><span class="sp-back">${I('arrow-left')}Voltar para a OS</span><span class="sp-os">${F.plate('PTJ0559')} Semirreboque · Base Curitiba</span>${svc ? `<span class="svc-lock">${I('wrench', 's14')}${svc}</span>` : ''}<span class="sp-depot">${I('warehouse')}<span><small>Sai do depósito</small><b>Depósito Mucuri</b></span>${I('caret-down', 's14')}</span></div>`;
+const emptyOrder = () => `<div class="empty-c">${F.tile('primary', 'shopping-cart', 'lg')}<b>Comece pelo kit</b>Adicione o kit do plano ou busque a peça; o pedido se monta aqui.</div>`;
+
+const catalog = (tablet, free) => `<div class="col"><div class="col-b ${tablet ? 'tab' : ''}">
+  ${free ? `<div style="display:flex;align-items:center;gap:10px"><span class="lbl" style="margin:0">Adicionar a</span>${F.input({ value: 'Substituir cinta de freio · Eixo 2', select: 1 })}</div>` : ''}
+  ${F.input({ icon: 'magnifying-glass', placeholder: 'Buscar peça por nome ou NI' })}
+  <span class="lbl">${I('stack', 's14')}Kits do plano</span>${kit()}
+  <span class="lbl">${I('package', 's14')}Peças</span>${PARTS.map((p, i) => prow(p, !free && i % 3 === 0 && i < 4)).join('')}
+</div></div>`;
+
+F.bind({
+  a: (s, d) => {
+    const tablet = d === 'tablet';
+    const empty = s === 'empty';
+    const order = `<div class="col"><div class="col-h"><h3>O pedido</h3>${empty ? '' : F.badge('3 linhas', { variant: 'secondary', size: 'sm' })}</div><div class="col-b">${empty ? emptyOrder() : group('Substituir cinta de freio · Eixo 2', orderLines())}</div></div>`;
+    return `<div class="sp">${header(s === 'free' ? null : 'Substituir cinta de freio · Eixo 2')}<div class="sp-body" style="grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)">${catalog(tablet, s === 'free')}${order}</div>${foot(empty)}</div>`;
+  },
+  b: (s, d) => {
+    const empty = s === 'empty';
+    const svc = (name, place, meta, on) => `<div class="svc ${on ? 'on' : ''}"><b>${name}</b><small>${place}</small><div class="meta">${meta}</div></div>`;
+    const services = `<div class="col"><div class="col-h"><h3>Serviços da OS</h3></div><div class="col-b">
+      ${svc('Substituir cinta de freio', 'Eixo 2 · os dois lados', F.badge(empty ? 'Sem pedido' : '3 no pedido', { variant: empty ? 'secondary' : 'default', size: 'sm' }), true)}
+      ${svc('Soldar ciclista', 'Chassi', F.badge('2 pedidas', { variant: 'success', size: 'sm' }))}
+      ${svc('Trocar lâmpada de lanterna', 'Traseira esquerda', F.badge('Sem pedido', { variant: 'secondary', size: 'sm' }))}
+    </div></div>`;
+    const order = `<div class="col"><div class="col-h"><h3>Pedido · Substituir cinta</h3></div><div class="col-b">${empty ? emptyOrder() : `<div class="grp">${orderLines().join('')}</div>`}</div></div>`;
+    return `<div class="sp">${header(null)}<div class="sp-body" style="grid-template-columns:${d === 'tablet' ? '220px' : '260px'} minmax(0,1.2fr) minmax(0,1fr)">${services}${catalog(d === 'tablet', false).replace('Kits do plano', 'Kits do plano · Substituir cinta')}${order}</div>${foot(empty)}</div>`;
+  },
+  c: (s) => {
+    const rows = PARTS.map((p, i) => `<tr class="${i % 3 === 0 && i < 4 ? 'in' : ''}"><td><b>${p.name}</b></td><td><span class="ni" style="margin:0">NI ${p.ni}</span></td><td>${p.brand}</td><td>${av(p)}</td><td style="text-align:right">${p.cost}</td><td style="width:120px"><div class="qty">${I('minus', 's14')}${i % 3 === 0 && i < 4 ? (i ? 4 : 2) : 0}${I('plus', 's14')}</div></td></tr>`).join('');
+    const drawer = s === 'open' ? `<div class="drawer"><div class="col-h"><h3>O pedido · Substituir cinta de freio · Eixo 2</h3>${I('caret-down')}</div><div class="col-b">${`<div class="grp">${orderLines().join('')}</div>`}</div></div>` : '';
+    return `<div class="sp" style="position:relative">${header('Substituir cinta de freio · Eixo 2')}
+      <div class="col" style="flex:1"><div class="col-h" style="gap:12px;flex-wrap:wrap">${F.input({ icon: 'magnifying-glass', placeholder: 'Buscar peça por nome ou NI' })}<div class="chips">${F.fchip('Kit do plano', { on: 1 })}${F.fchip('Freios')}${F.fchip('Todas')}</div></div>
+      <div class="col-b" style="padding:0"><table class="tbl"><thead><tr><th>Peça</th><th>NI</th><th>Marca</th><th>Estoque</th><th style="text-align:right">Custo</th><th>Qtd</th></tr></thead><tbody>${rows}</tbody></table><div style="height:80px"></div></div></div>
+      ${drawer}<div class="cart">${I('shopping-cart', 's20')}<span class="big">3</span><span class="mut">linhas · estimado <b style="color:#fff">R$ 266,80</b></span><span style="flex:1"></span>${F.btn(s === 'open' ? 'Fechar pedido' : 'Ver pedido', { variant: 'ghost' }).replace('fx-btn ghost', 'fx-btn ghost" style="color:#fff')}${F.btn('Solicitar peças', { icon: 'paper-plane-right' })}</div></div>`;
+  },
+});
+</script>
+</body>
+</html>
