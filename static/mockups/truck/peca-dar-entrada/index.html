@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dar entrada depois de cadastrar · 3 modelos · mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --foreground:240 10% 4%;--card:0 0% 100%;--background:230 20% 97.5%;
+  --primary:233 66% 52%;--primary-ink:233 70% 40%;--primary-soft:233 85% 96.5%;
+  --muted:240 5% 95%;--muted-foreground:240 4% 44%;--border:240 6% 90%;--border-strong:240 6% 83%;
+  --canvas:228 16% 90%;
+  --success:150 55% 42%;--success-soft:150 52% 94%;--success-ink:152 64% 26%;
+  --warning:36 92% 50%;--warning-soft:40 96% 92%;--warning-ink:26 85% 32%;
+}
+*{box-sizing:border-box}
+body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));font:14.5px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,p{margin:0}
+button{font:inherit;color:inherit}
+.ic{display:inline-block;width:18px;height:18px;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;flex:none}
+.s14{width:14px;height:14px}.s16{width:16px;height:16px}.s20{width:20px;height:20px}
+.i-box{--i:url(https://api.iconify.design/ph/package.svg)}
+.i-down{--i:url(https://api.iconify.design/ph/arrow-line-down.svg)}
+.i-check{--i:url(https://api.iconify.design/ph/check-circle-fill.svg)}
+.i-x{--i:url(https://api.iconify.design/ph/x.svg)}
+.i-info{--i:url(https://api.iconify.design/ph/info.svg)}
+.i-caret{--i:url(https://api.iconify.design/ph/caret-down.svg)}
+.i-minus{--i:url(https://api.iconify.design/ph/minus-bold.svg)}
+.i-plus{--i:url(https://api.iconify.design/ph/plus-bold.svg)}
+.i-trash{--i:url(https://api.iconify.design/ph/trash-simple.svg)}
+.i-search{--i:url(https://api.iconify.design/ph/magnifying-glass.svg)}
+
+.doc{max-width:1280px;margin:0 auto;padding:40px 22px 90px}
+.doc h1{font:800 29px/1.15 Sora;letter-spacing:-.02em}
+.lead{color:hsl(var(--muted-foreground));max-width:940px;margin-top:10px}
+.tabs{display:flex;gap:8px;margin-top:28px;flex-wrap:wrap}
+.tab{border:1px solid hsl(var(--border-strong));background:hsl(var(--card));border-radius:999px;padding:8px 16px;font-weight:600;cursor:pointer;display:flex;gap:8px;align-items:center}
+.tab small{font-weight:500;color:hsl(var(--muted-foreground))}
+.tab[aria-pressed=true]{background:hsl(var(--foreground));color:hsl(var(--card));border-color:hsl(var(--foreground))}
+.tab[aria-pressed=true] small{color:hsl(0 0% 100%/.7)}
+.mhead{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:18px;align-items:start;margin-top:18px}
+@media (max-width:760px){.mhead{grid-template-columns:1fr}}
+.mhead h2{font:800 22px/1.2 Sora;letter-spacing:-.015em}
+.mhead p{color:hsl(var(--muted-foreground));margin-top:6px}
+.pc{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;padding:12px 14px;font-size:13.5px}
+.pc h4{font:700 11px Inter;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));margin:4px 0}
+.pc ul{margin:0;padding-left:18px}
+.controls{display:flex;justify-content:space-between;gap:12px;margin-top:18px;flex-wrap:wrap;align-items:center}
+.steps{display:flex;gap:6px;flex-wrap:wrap}
+.step{border:1px solid hsl(var(--border-strong));background:hsl(var(--card));border-radius:10px;padding:6px 12px;font-size:13px;font-weight:600;cursor:pointer;color:hsl(var(--muted-foreground))}
+.step b{color:hsl(var(--foreground));margin-right:4px}
+.step[aria-pressed=true]{border-color:hsl(var(--primary));background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.seg{display:inline-flex;background:hsl(var(--card));border:1px solid hsl(var(--border-strong));border-radius:10px;padding:3px}
+.seg button{border:0;background:none;border-radius:7px;padding:5px 12px;font-size:13px;font-weight:600;cursor:pointer;color:hsl(var(--muted-foreground))}
+.seg button[aria-pressed=true]{background:hsl(var(--muted));color:hsl(var(--foreground))}
+.note{margin-top:10px;font-size:13px;color:hsl(var(--muted-foreground))}
+.note b{color:hsl(var(--foreground))}
+.stage{margin-top:12px;background:radial-gradient(hsl(220 8% 85%) 1px,transparent 1.4px) 0 0/22px 22px,hsl(220 10% 91.5%);border:1px solid hsl(var(--border));border-radius:18px;padding:26px 18px;display:flex;justify-content:center;overflow:auto}
+
+.frame{width:1200px;height:720px;background:hsl(var(--background));border-radius:16px;box-shadow:0 40px 90px -32px hsl(232 48% 15%/.5);overflow:hidden;display:flex;flex-direction:column;position:relative;flex:none}
+.frame.tabl{width:1024px;height:740px;border-radius:26px;border:10px solid hsl(235 20% 14%)}
+.frame.phone{width:390px;height:820px;border-radius:30px;border:8px solid hsl(235 20% 14%)}
+.bar{height:58px;flex:none;display:flex;align-items:center;gap:12px;padding:0 18px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
+.bar .tt{font:800 17px/1.15 Sora}
+.bar .org{margin-left:auto;font-size:13px;font-weight:600;color:hsl(var(--muted-foreground))}
+.page{flex:1;min-height:0;padding:12px;display:flex;flex-direction:column}
+.shell{flex:1;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;overflow:hidden}
+.trow{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 130px;gap:10px;align-items:center;padding:11px 16px;border-bottom:1px solid hsl(var(--border));font-size:13.5px}
+.trow.h{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:hsl(var(--muted-foreground))}
+.trow.new{background:hsl(var(--primary-soft))}
+.phone .trow{grid-template-columns:1fr auto}
+.phone .trow .hide{display:none}
+.zero{color:hsl(var(--warning-ink));font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;font-weight:600;font-size:14px;border:1px solid transparent;white-space:nowrap}
+.btn.pr{background:hsl(var(--primary));color:#fff}
+.btn.ol{background:hsl(var(--card));border-color:hsl(var(--border-strong))}
+.btn.sm{height:30px;padding:0 10px;font-size:12.5px;border-radius:8px}
+.btn.hot{outline:3px solid hsl(var(--warning));outline-offset:2px}
+
+.veil{position:absolute;inset:0;background:hsl(235 25% 12%/.42);display:flex;align-items:center;justify-content:center;padding:16px}
+.phone .veil{align-items:flex-end;padding:0}
+.dlg{width:760px;max-width:100%;max-height:100%;background:hsl(var(--card));border-radius:16px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 30px 80px -20px hsl(232 48% 15%/.6)}
+.phone .dlg{border-radius:18px 18px 0 0;max-height:92%}
+.dh{display:flex;gap:12px;padding:18px 22px 14px;border-bottom:1px solid hsl(var(--border));align-items:flex-start}
+.dh .di{width:38px;height:38px;border-radius:10px;background:hsl(var(--primary-soft));color:hsl(var(--primary));display:grid;place-items:center}
+.dh h3{font:700 18px Sora}
+.dh p{font-size:13px;color:hsl(var(--muted-foreground))}
+.dh .x{margin-left:auto;color:hsl(var(--muted-foreground))}
+.db{padding:18px 22px;display:flex;flex-direction:column;gap:14px;overflow:auto}
+.g{display:grid;gap:14px}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g14{grid-template-columns:1.4fr 1fr}
+.phone .g2,.phone .g3,.phone .g14{grid-template-columns:1fr}
+.f{position:relative;border:1px solid hsl(var(--border-strong));border-radius:9px;height:46px;padding:0 12px;display:flex;align-items:center;justify-content:space-between;font-size:14px}
+.f label{position:absolute;top:-9px;left:10px;background:hsl(var(--card));padding:0 4px;font-size:12px;font-weight:600}
+.f .ph{color:hsl(var(--muted-foreground))}
+.f.focus{border-color:hsl(var(--primary));box-shadow:0 0 0 3px hsl(var(--primary)/.15)}
+.stp{display:flex;align-items:center;gap:0;width:100%}
+.stp .ic{color:hsl(var(--muted-foreground))}
+.stp span{flex:1;text-align:center}
+.info{display:flex;gap:8px;border:1px solid hsl(var(--primary)/.25);background:hsl(var(--primary-soft));border-radius:9px;padding:11px 12px;font-size:13px;color:hsl(var(--foreground)/.8)}
+.info .ic{color:hsl(var(--primary));margin-top:2px}
+.df{display:flex;align-items:center;gap:10px;padding:13px 22px;border-top:1px solid hsl(var(--border));flex-wrap:wrap}
+.df .cq{margin-right:auto;font-size:13px;color:hsl(var(--muted-foreground));display:flex;gap:6px;align-items:center}
+.phone .df .cq{width:100%}
+.phone .df .btn{flex:1}
+.line{display:grid;grid-template-columns:1fr 120px 130px 100px 28px;gap:10px;align-items:center;border:1px solid hsl(var(--border));border-radius:10px;padding:10px 12px;font-size:13.5px}
+.phone .line{grid-template-columns:1fr 1fr;}
+.line .nm b{display:block}
+.line .nm small{color:hsl(var(--muted-foreground))}
+.mini{border:1px solid hsl(var(--border-strong));border-radius:8px;height:36px;display:flex;align-items:center;padding:0 10px}
+.mini.focus{border-color:hsl(var(--primary));box-shadow:0 0 0 3px hsl(var(--primary)/.15)}
+.tag{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:600;background:hsl(var(--success-soft));color:hsl(var(--success-ink));border-radius:999px;padding:1px 8px}
+.done{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:26px 10px}
+.done .ic{width:44px;height:44px;color:hsl(var(--success))}
+.done h4{font:700 18px Sora}
+.done p{color:hsl(var(--muted-foreground));max-width:420px}
+.toast{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);background:hsl(var(--foreground));color:hsl(var(--card));border-radius:12px;padding:9px 10px 9px 14px;font-size:13.5px;display:flex;gap:10px;align-items:center;white-space:nowrap}
+.toast .ic{color:hsl(var(--success))}
+.toast .act{background:hsl(0 0% 100%/.14);border-radius:8px;padding:4px 10px;font-weight:600}
+.phone .toast{white-space:normal;width:92%}
+</style>
+</head>
+<body>
+<div class="doc">
+  <h1>Dar entrada depois de cadastrar · 3 modelos</h1>
+  <p class="lead">Hoje a peça nasce com saldo zero e a quantidade entra depois, em Estoque → Entrada de compra, procurando a peça de novo. Os três modelos levam direto da peça nova para a entrada, já com ela na lista: falta só fornecedor, nota, depósito, quantidade e custo. A entrada continua sendo uma movimentação com nota; o cadastro não mexe no saldo.</p>
+
+  <div class="tabs" id="tabs"></div>
+  <div class="mhead">
+    <div><h2 id="mt"></h2><p id="md"></p></div>
+    <div class="pc" id="pc"></div>
+  </div>
+  <div class="controls">
+    <div class="steps" id="steps"></div>
+    <div class="seg" id="dev">
+      <button data-d="nb" aria-pressed="true">Notebook</button><button data-d="tabl" aria-pressed="false">Tablet</button><button data-d="phone" aria-pressed="false">Celular</button>
+    </div>
+  </div>
+  <p class="note" id="note"></p>
+  <div class="stage"><div class="frame" id="frame"></div></div>
+</div>
+
+<script>
+const MODELS = {
+  A: {
+    tab: 'Modelo A', sub: 'Salvar e dar entrada · recomendado',
+    title: 'Um botão a mais no rodapé: "Salvar e dar entrada"',
+    desc: 'Quem já tem a peça na mão escolhe na hora. Um clique salva a peça e abre a Entrada de compra com ela na lista, cursor na quantidade. "Salvar peça" continua para quem só cadastra.',
+    pros: ['Um clique, sem tela no meio', 'Quem só cadastra não vê nada novo', 'Só aparece ao criar; o editar fica como está'],
+    cons: ['Dois botões no rodapé (o principal continua sendo um)'],
+    steps: [
+      ['Nova peça preenchida', 'form', 'A'],
+      ['Entrada de compra aberta', 'entry'],
+      ['Saldo na lista', 'list', 'saved'],
+    ],
+  },
+  B: {
+    tab: 'Modelo B', sub: 'Tela de pronto',
+    title: 'Depois de salvar, o diálogo mostra "Peça cadastrada"',
+    desc: 'O diálogo não fecha ao salvar: troca para uma confirmação com três saídas: dar entrada agora, cadastrar outra peça ou fechar.',
+    pros: ['Deixa claro que o saldo está zero', '"Cadastrar outra" ajuda quem cadastra várias seguidas'],
+    cons: ['Um clique a mais para quem só cadastra (fechar)', 'Uma tela a mais no caminho'],
+    steps: [
+      ['Nova peça preenchida', 'form', 'B'],
+      ['Peça cadastrada', 'done'],
+      ['Entrada de compra aberta', 'entry'],
+    ],
+  },
+  C: {
+    tab: 'Modelo C', sub: 'Aviso com ação',
+    title: 'Salva e fecha; o aviso e a linha oferecem "Dar entrada"',
+    desc: 'O cadastro não muda. O aviso de sucesso ganha a ação "Dar entrada", e a peça nova aparece destacada na lista com o botão enquanto o saldo for zero.',
+    pros: ['Não muda o diálogo', 'Dá para voltar depois pela linha da peça'],
+    cons: ['O aviso some em segundos; fácil de perder', 'Botão a mais em cada linha sem saldo'],
+    steps: [
+      ['Nova peça preenchida', 'form', 'C'],
+      ['Aviso com ação', 'list', 'toast'],
+      ['Entrada de compra aberta', 'entry'],
+    ],
+  },
+};
+let model = 'A', step = 0, device = 'nb';
+
+const icon = (n, s = '') => `<span class="ic i-${n} ${s}"></span>`;
+const field = (label, value, cls = '') => `<div class="f ${cls}"><label>${label}</label><span class="${value ? '' : 'ph'}">${value || 'Escolha'}</span>${cls.includes('sel') ? icon('caret', 's14') : ''}</div>`;
+const stepper = (label, value) => `<div class="f"><label>${label}</label><div class="stp">${icon('minus', 's14')}<span>${value}</span>${icon('plus', 's14')}</div></div>`;
+
+function partForm(variant) {
+  const footer = variant === 'A'
+    ? `<div class="df"><span class="cq">${icon('info', 's16')}A entrada de estoque (com nota) é o próximo passo.</span><button class="btn ol">Cancelar</button><button class="btn ol hot">${icon('down', 's16')}Salvar e dar entrada</button><button class="btn pr">Salvar peça</button></div>`
+    : `<div class="df"><span class="cq">${icon('info', 's16')}A entrada de estoque (com nota) é o próximo passo.</span><button class="btn ol">Cancelar</button><button class="btn pr ${variant === 'B' || variant === 'C' ? 'hot' : ''}">Salvar peça</button></div>`;
+  return `<div class="veil"><div class="dlg">
+    <div class="dh"><span class="di">${icon('box')}</span><div><h3>Nova peça</h3><p>Entra no catálogo · o saldo começa em zero.</p></div><span class="x">${icon('x')}</span></div>
+    <div class="db">
+      <div class="g g14">${field('Nome *', 'Lona 4516')}${field('Categoria', 'Freios', 'sel')}</div>
+      <div class="g g3">${field('Marca', 'Fras-le')}${field('Modelo', '4516 AF')}${field('Fornecedor', 'Auto Peças Rodovia', 'sel')}</div>
+      <div class="g g3">${field('Unidade de estoque', 'cx · Caixa', 'sel')}${field('Unidade de consumo', 'un · Unidade', 'sel')}${stepper('Fator', '4')}</div>
+      <div class="g g2">${stepper('Custo · por unidade', 'R$ 90,00')}${stepper('Saldo mínimo · em unidade', '8')}</div>
+      <div class="info">${icon('info', 's16')}<span><b>1 caixa = 4 unidade.</b> O custo por unidade vai direto pro custo da OS.</span></div>
+    </div>${footer}</div></div>`;
+}
+
+function entry() {
+  return `<div class="veil"><div class="dlg">
+    <div class="dh"><span class="di">${icon('down')}</span><div><h3>Entrada de compra</h3><p>Registre a nota, o depósito e as peças que vieram.</p></div><span class="x">${icon('x')}</span></div>
+    <div class="db">
+      <div class="g g2">${field('Fornecedor', 'Auto Peças Rodovia', 'sel')}${field('Depósito', 'Almoxarifado Central', 'sel')}</div>
+      <div class="g g2">${field('Número da nota', '')}${field('Data da nota', '27/11/2026')}</div>
+      <div class="line">
+        <div class="nm"><b>Lona 4516</b><small>cx · <span class="tag">recém-cadastrada</span></small></div>
+        <div class="mini focus">|</div>
+        <div class="mini">R$ 360,00</div>
+        <div><b>R$ 0,00</b></div>
+        <div>${icon('trash', 's16')}</div>
+      </div>
+      <div class="f"><label>Adicionar peça</label><span class="ph">Buscar peça por nome ou SKU</span>${icon('search', 's16')}</div>
+    </div>
+    <div class="df"><span class="cq">${icon('info', 's16')}Vira movimentação e sobe o saldo.</span><button class="btn ol">Cancelar</button><button class="btn pr">Dar entrada</button></div>
+  </div></div>`;
+}
+
+function done() {
+  return `<div class="veil"><div class="dlg">
+    <div class="dh"><span class="di">${icon('box')}</span><div><h3>Nova peça</h3><p>Entra no catálogo · o saldo começa em zero.</p></div><span class="x">${icon('x')}</span></div>
+    <div class="db"><div class="done">${icon('check')}<h4>Lona 4516 cadastrada</h4><p>O saldo está zerado. Dê entrada com a nota para ela aparecer no estoque.</p></div></div>
+    <div class="df"><span class="cq"></span><button class="btn ol">Fechar</button><button class="btn ol">Cadastrar outra</button><button class="btn pr hot">${icon('down', 's16')}Dar entrada agora</button></div>
+  </div></div>`;
+}
+
+function list(kind) {
+  const isC = model === 'C';
+  const fresh = kind === 'saved'
+    ? `<div class="trow"><b>Lona 4516</b><span class="hide">Freios</span><span>3 cx · 12 un</span><span class="hide">R$ 1.080,00</span><span></span></div>`
+    : `<div class="trow new"><b>Lona 4516</b><span class="hide">Freios</span><span class="zero">0 un</span><span class="hide">R$ 0,00</span><span>${isC ? `<button class="btn ol sm ${kind === 'toast' ? 'hot' : ''}">${icon('down', 's14')}Dar entrada</button>` : ''}</span></div>`;
+  const rows = [['Filtro de óleo Scania', 'Filtros', '14 un', 'R$ 1.330,00'], ['Pastilha standard Volvo', 'Freios', '6 jogo', 'R$ 1.272,00'], ['Óleo 15W40', 'Lubrificantes', '180 L', 'R$ 4.140,00']]
+    .map((r) => `<div class="trow"><b>${r[0]}</b><span class="hide">${r[1]}</span><span>${r[2]}</span><span class="hide">${r[3]}</span><span></span></div>`).join('');
+  const toast = kind === 'toast' ? `<div class="toast">${icon('check', 's16')}Lona 4516 cadastrada.<span class="act">Dar entrada</span></div>` : kind === 'saved' ? `<div class="toast">${icon('check', 's16')}Entrada registrada: 3 cx de Lona 4516.</div>` : '';
+  return `<div class="page"><div class="shell"><div class="trow h"><span>Peça</span><span class="hide">Categoria</span><span>Saldo</span><span class="hide">Valor</span><span></span></div>${fresh}${rows}</div></div>${toast}`;
+}
+
+const NOTES = {
+  form: { A: 'Com tudo preenchido, <b>Salvar e dar entrada</b> salva e abre a entrada. <b>Salvar peça</b> continua só salvando.', B: '<b>Salvar peça</b> salva e mostra a confirmação no mesmo diálogo.', C: '<b>Salvar peça</b> salva e fecha, como hoje.' },
+  entry: 'A Entrada de compra abre com a peça na lista, o fornecedor da peça já escolhido e o custo da caixa (custo por unidade × fator). O cursor fica na <b>quantidade</b>. Sem nota, nada entra.',
+  done: 'Confirmação no lugar do formulário. <b>Dar entrada agora</b> é o botão principal; <b>Cadastrar outra</b> limpa o formulário.',
+  list: { saved: 'Depois da entrada, o saldo aparece na lista: <b>3 cx · 12 un</b>.', toast: 'O aviso traz <b>Dar entrada</b>, e a linha da peça sem saldo também.' },
+};
+
+function render() {
+  const m = MODELS[model];
+  document.getElementById('tabs').innerHTML = Object.entries(MODELS).map(([k, v]) => `<button class="tab" data-m="${k}" aria-pressed="${k === model}">${v.tab}<small>${v.sub}</small></button>`).join('');
+  document.getElementById('mt').textContent = m.title;
+  document.getElementById('md').textContent = m.desc;
+  document.getElementById('pc').innerHTML = `<h4>A favor</h4><ul>${m.pros.map((p) => `<li>${p}</li>`).join('')}</ul><h4>Contra</h4><ul>${m.cons.map((p) => `<li>${p}</li>`).join('')}</ul>`;
+  document.getElementById('steps').innerHTML = m.steps.map((s, i) => `<button class="step" data-s="${i}" aria-pressed="${i === step}"><b>${i + 1}</b>${s[0]}</button>`).join('');
+  const [, screen, arg] = m.steps[step];
+  const base = list(screen === 'list' ? arg : 'none');
+  const body = screen === 'form' ? list('none') + partForm(arg) : screen === 'entry' ? list('none') + entry() : screen === 'done' ? list('none') + done() : base;
+  const frame = document.getElementById('frame');
+  frame.className = 'frame ' + (device === 'nb' ? '' : device);
+  frame.innerHTML = `<div class="bar"><span class="tt">Estoque</span><span class="org">Transportes Exemplo</span></div><div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column">${body}</div>`;
+  const n = NOTES[screen];
+  document.getElementById('note').innerHTML = typeof n === 'string' ? n : n[arg] ?? '';
+  document.querySelectorAll('#dev button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.d === device)));
+}
+document.getElementById('tabs').addEventListener('click', (e) => { const b = e.target.closest('[data-m]'); if (b) { model = b.dataset.m; step = 0; render(); } });
+document.getElementById('steps').addEventListener('click', (e) => { const b = e.target.closest('[data-s]'); if (b) { step = Number(b.dataset.s); render(); } });
+document.getElementById('dev').addEventListener('click', (e) => { const b = e.target.closest('[data-d]'); if (b) { device = b.dataset.d; render(); } });
+render();
+</script>
+</body>
+</html>
