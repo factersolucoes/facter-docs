@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Peça por caixa e por jogo · 3 modelos · mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --foreground:240 10% 4%;--card:0 0% 100%;--background:230 20% 97.5%;
+  --primary:233 66% 52%;--primary-ink:233 70% 40%;--primary-soft:233 85% 96.5%;
+  --muted:240 5% 95%;--muted-foreground:240 4% 44%;--border:240 6% 90%;--border-strong:240 6% 83%;
+  --canvas:228 16% 90%;
+  --success:150 55% 42%;--success-soft:150 52% 94%;--success-ink:152 64% 26%;
+  --warning:36 92% 50%;--warning-soft:40 96% 92%;--warning-ink:26 85% 32%;
+  --danger:0 82% 60%;--danger-soft:0 88% 96.5%;--danger-ink:0 70% 44%;
+}
+*{box-sizing:border-box}
+body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));font:14.5px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,p{margin:0}
+button{font:inherit;color:inherit}
+.ic{display:inline-block;width:18px;height:18px;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;flex:none}
+.s12{width:12px;height:12px}.s14{width:14px;height:14px}.s16{width:16px;height:16px}.s20{width:20px;height:20px}
+.i-search{--i:url(https://api.iconify.design/ph/magnifying-glass.svg)}
+.i-box{--i:url(https://api.iconify.design/ph/package.svg)}
+.i-wrench{--i:url(https://api.iconify.design/ph/wrench.svg)}
+.i-check{--i:url(https://api.iconify.design/ph/check-bold.svg)}
+.i-x{--i:url(https://api.iconify.design/ph/x-bold.svg)}
+.i-xl{--i:url(https://api.iconify.design/ph/x.svg)}
+.i-truck{--i:url(https://api.iconify.design/ph/hand-arrow-down.svg)}
+.i-caret{--i:url(https://api.iconify.design/ph/caret-down.svg)}
+.i-right{--i:url(https://api.iconify.design/ph/caret-right.svg)}
+.i-clock{--i:url(https://api.iconify.design/ph/clock.svg)}
+.i-info{--i:url(https://api.iconify.design/ph/info.svg)}
+.i-shelf{--i:url(https://api.iconify.design/ph/stack.svg)}
+.i-minus{--i:url(https://api.iconify.design/ph/minus-bold.svg)}
+.i-plus{--i:url(https://api.iconify.design/ph/plus-bold.svg)}
+.i-list{--i:url(https://api.iconify.design/ph/list-bullets.svg)}
+.i-group{--i:url(https://api.iconify.design/ph/stack-simple.svg)}
+.i-user{--i:url(https://api.iconify.design/ph/user.svg)}
+.i-return{--i:url(https://api.iconify.design/ph/arrow-u-down-left.svg)}
+.pill.returned{background:hsl(var(--muted));color:hsl(var(--foreground))}
+.used{display:flex;gap:10px;align-items:center;font-size:12.5px;color:hsl(var(--muted-foreground))}
+.used b{color:hsl(var(--foreground));font:700 12.5px Sora}
+
+.doc{max-width:1280px;margin:0 auto;padding:40px 22px 90px}
+.doc h1{font:800 29px/1.15 Sora;letter-spacing:-.02em}
+.lead{color:hsl(var(--muted-foreground));max-width:940px;margin-top:10px}
+.rule{margin-top:18px;display:flex;gap:12px;align-items:flex-start;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;padding:14px 16px;max-width:940px}
+.rule .ic{color:hsl(var(--primary));margin-top:2px}
+.tabs{display:flex;gap:8px;margin-top:28px;flex-wrap:wrap}
+.tab{border:1px solid hsl(var(--border-strong));background:hsl(var(--card));border-radius:999px;padding:8px 16px;font-weight:600;cursor:pointer;display:flex;gap:8px;align-items:center}
+.tab small{font-weight:500;color:hsl(var(--muted-foreground))}
+.tab[aria-pressed=true]{background:hsl(var(--foreground));color:hsl(var(--card));border-color:hsl(var(--foreground))}
+.tab[aria-pressed=true] small{color:hsl(0 0% 100%/.7)}
+.model{display:none;margin-top:18px}
+.model.on{display:block}
+.mhead{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:18px;align-items:start}
+.mhead h2{font:800 22px/1.2 Sora;letter-spacing:-.015em}
+.mhead p{color:hsl(var(--muted-foreground));margin-top:6px}
+.pc{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;padding:12px 14px;font-size:13.5px}
+.pc h4{font:700 11px Inter;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));margin:4px 0}
+.pc ul{margin:0;padding-left:18px}
+.controls{display:flex;justify-content:space-between;gap:12px;margin-top:18px;flex-wrap:wrap;align-items:center}
+.steps{display:flex;gap:6px;flex-wrap:wrap}
+.step{border:1px solid hsl(var(--border-strong));background:hsl(var(--card));border-radius:10px;padding:6px 12px;font-size:13px;font-weight:600;cursor:pointer;color:hsl(var(--muted-foreground))}
+.step b{color:hsl(var(--foreground));margin-right:4px}
+.step[aria-pressed=true]{border-color:hsl(var(--primary));background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.step[aria-pressed=true] b{color:hsl(var(--primary-ink))}
+.seg{display:inline-flex;background:hsl(var(--card));border:1px solid hsl(var(--border-strong));border-radius:10px;padding:3px}
+.seg button{border:0;background:none;border-radius:7px;padding:5px 12px;font-size:13px;font-weight:600;cursor:pointer;color:hsl(var(--muted-foreground))}
+.seg button[aria-pressed=true]{background:hsl(var(--muted));color:hsl(var(--foreground))}
+.note{margin-top:10px;font-size:13px;color:hsl(var(--muted-foreground))}
+.note b{color:hsl(var(--foreground))}
+.stage{margin-top:12px;background:radial-gradient(hsl(220 8% 85%) 1px,transparent 1.4px) 0 0/22px 22px,hsl(220 10% 91.5%);border:1px solid hsl(var(--border));border-radius:18px;padding:26px 18px;display:flex;justify-content:center;overflow:auto}
+
+.frame{width:1200px;max-width:100%;height:720px;background:hsl(var(--background));border-radius:16px;box-shadow:0 40px 90px -32px hsl(232 48% 15%/.5);overflow:hidden;display:flex;flex-direction:column;container-type:inline-size;position:relative;flex:none}
+.frame.tabl{width:1024px;height:740px;border-radius:26px;border:10px solid hsl(235 20% 14%)}
+.frame.phone{width:390px;height:820px;border-radius:30px;border:8px solid hsl(235 20% 14%)}
+.bar{height:58px;flex:none;display:flex;align-items:center;gap:12px;padding:0 18px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
+.bar .eb{font:700 10px Sora;text-transform:uppercase;letter-spacing:.07em;color:hsl(var(--primary-ink))}
+.bar .tt{font:800 17px/1.15 Sora}
+.bar .org{margin-left:auto;font-size:13px;font-weight:600;color:hsl(var(--muted-foreground))}
+.screen{display:none;flex:1;min-height:0;padding:12px;position:relative}
+.screen.on{display:flex;flex-direction:column}
+.shell{flex:1;min-height:0;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;display:flex;flex-direction:column;overflow:hidden}
+
+/* toolbar and counters */
+.tools{display:flex;gap:8px;align-items:center;padding:12px 14px;border-bottom:1px solid hsl(var(--border));flex-wrap:wrap}
+.search{display:flex;align-items:center;gap:8px;height:38px;border:1px solid hsl(var(--border-strong));border-radius:10px;padding:0 11px;color:hsl(var(--muted-foreground));font-size:14px;flex:1;max-width:300px;min-width:160px}
+.counts{display:flex;gap:6px;flex-wrap:wrap}
+.count{display:inline-flex;align-items:center;gap:7px;border:1px solid hsl(var(--border-strong));border-radius:999px;padding:5px 12px;font-size:13px;font-weight:600;color:hsl(var(--muted-foreground));white-space:nowrap}
+.count b{font:800 12.5px Sora;color:hsl(var(--foreground))}
+.count.on{background:hsl(var(--foreground));border-color:hsl(var(--foreground));color:hsl(var(--card))}
+.count.on b{color:hsl(var(--card))}
+.count.w b{color:hsl(var(--warning-ink))}
+.grow{flex:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;font-weight:600;font-size:14px;border:1px solid transparent;white-space:nowrap}
+.btn.pr{background:hsl(var(--primary));color:#fff}
+.btn.ol{background:hsl(var(--card));border-color:hsl(var(--border-strong))}
+.btn.dg{background:hsl(var(--card));border-color:hsl(var(--danger)/.4);color:hsl(var(--danger-ink))}
+.btn.ok{background:hsl(var(--success));color:#fff}
+.btn.sm{height:32px;padding:0 11px;font-size:13px;border-radius:9px}
+.btn.full{width:100%}
+.scroll{flex:1;min-height:0;overflow:auto}
+
+.pill{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:1px 9px;font-size:11.5px;font-weight:600;white-space:nowrap}
+.pill.pending{background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+.pill.approved{background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.pill.partial{background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.pill.delivered{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+.pill.rejected{background:hsl(var(--danger-soft));color:hsl(var(--danger-ink))}
+.pill.m{background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.toast-r{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);background:hsl(var(--foreground));color:hsl(var(--card));border-radius:12px;padding:10px 14px;font-size:13.5px;display:flex;gap:8px;align-items:center;white-space:nowrap;z-index:7}
+.toast-r .ic{color:hsl(var(--success))}
+.ni{display:inline-flex;align-items:center;height:19px;border-radius:6px;background:hsl(var(--muted));padding:0 6px;font:700 11px Sora;white-space:nowrap}
+.osn{font:700 13.5px Sora;color:hsl(var(--primary))}
+.sub{font-size:12.5px;color:hsl(var(--muted-foreground))}
+.age{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;color:hsl(var(--muted-foreground));white-space:nowrap}
+.age.late{color:hsl(var(--warning-ink));font-weight:600}
+.cb{width:18px;height:18px;border-radius:5px;border:1.5px solid hsl(var(--border-strong));flex:none;display:grid;place-items:center}
+.cb.on{background:hsl(var(--primary));border-color:hsl(var(--primary));color:#fff}
+
+/* A: grouped by OS */
+.osgroup{border-bottom:1px solid hsl(var(--border))}
+.oshead{display:flex;align-items:center;gap:10px;padding:10px 16px;background:hsl(var(--muted)/.45)}
+.oshead .ic.s16{color:hsl(var(--muted-foreground))}
+.svc{display:flex;align-items:center;gap:8px;padding:8px 16px 4px 44px;font-size:12.5px;color:hsl(var(--muted-foreground))}
+.svc b{color:hsl(var(--foreground));font-weight:600}
+.irow{display:grid;grid-template-columns:18px minmax(0,1fr) 110px 120px 140px auto;gap:12px;align-items:center;padding:9px 16px 9px 44px;border-top:1px solid hsl(var(--border)/.6)}
+.irow .nm{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.irow .qty{font:700 13.5px Sora;text-align:right}
+.irow .qty small{font:500 12px Inter;color:hsl(var(--muted-foreground))}
+.irow .acts{display:flex;gap:6px;justify-content:flex-end}
+.ibtn{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;border:1px solid hsl(var(--border-strong));background:hsl(var(--card));color:hsl(var(--muted-foreground))}
+.ibtn.ok{color:hsl(var(--success-ink))}
+.ibtn.no{color:hsl(var(--danger-ink))}
+.bulk{flex:none;display:flex;align-items:center;gap:10px;border-top:1px solid hsl(var(--border));background:hsl(var(--primary-soft)/.6);padding:10px 16px;font-size:13.5px}
+.bulk b{font:800 14px Sora}
+
+/* side sheet */
+.scrim{position:absolute;inset:0;background:hsl(235 30% 12%/.28);z-index:5}
+.sheet{position:absolute;top:0;right:0;bottom:0;width:470px;max-width:100%;background:hsl(var(--card));z-index:6;display:flex;flex-direction:column;box-shadow:-20px 0 50px -20px hsl(232 48% 15%/.4)}
+.sh{padding:16px 18px 12px;border-bottom:1px solid hsl(var(--border))}
+.sh .top{display:flex;align-items:center;gap:10px}
+.sh h3{font:800 18px Sora}
+.sh .x{margin-left:auto;width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:8px;padding:4px 9px;font-size:12.5px;font-weight:600;background:hsl(var(--muted))}
+.chip.p{background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.sb{flex:1;overflow:auto;padding:14px 18px;display:flex;flex-direction:column;gap:10px}
+.sect{font:700 11px Inter;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground))}
+.item{border:1px solid hsl(var(--border));border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.item .r1{display:flex;align-items:center;gap:8px}
+.item .r1 b{font-weight:600;font-size:14px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item .r2{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12.5px;color:hsl(var(--muted-foreground))}
+.item .r2 .shelf{display:inline-flex;gap:4px;align-items:center;color:hsl(var(--foreground));font-weight:600}
+.stepper{display:inline-flex;align-items:center;border:1px solid hsl(var(--border-strong));border-radius:9px;overflow:hidden;margin-left:auto}
+.stepper i{width:30px;height:30px;display:grid;place-items:center;color:hsl(var(--muted-foreground))}
+.stepper b{min-width:34px;text-align:center;font:700 14px Sora}
+.reason{border:1px solid hsl(var(--border-strong));border-radius:10px;padding:9px 12px;min-height:70px;font-size:13.5px;color:hsl(var(--muted-foreground))}
+.reasons{display:flex;gap:6px;flex-wrap:wrap}
+.reasons span{border:1px solid hsl(var(--border-strong));border-radius:999px;padding:5px 11px;font-size:12.5px;font-weight:600}
+.reasons span.on{border-color:hsl(var(--danger)/.5);background:hsl(var(--danger-soft));color:hsl(var(--danger-ink))}
+.sf{border-top:1px solid hsl(var(--border));padding:12px 18px;display:flex;gap:8px;align-items:center}
+.sf .meta{font-size:12.5px;color:hsl(var(--muted-foreground));margin-right:auto}
+.notice{display:flex;gap:8px;align-items:flex-start;border-radius:10px;padding:9px 11px;font-size:13px;background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+
+/* B: board by status */
+.board{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:12px;overflow:auto;background:hsl(var(--background))}
+.col{display:flex;flex-direction:column;gap:8px;min-width:0}
+.colh{display:flex;align-items:center;gap:8px;font:700 13px Sora;padding:2px 4px}
+.colh .n{border-radius:999px;padding:0 8px;font:700 11.5px Sora;background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.colh small{margin-left:auto;font:500 12px Inter;color:hsl(var(--muted-foreground))}
+.card{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;padding:11px 12px;display:flex;flex-direction:column;gap:7px;box-shadow:0 1px 2px hsl(233 30% 20%/.05)}
+.card.sel{border-color:hsl(var(--primary));box-shadow:0 0 0 3px hsl(var(--primary)/.12)}
+.card .t{display:flex;align-items:center;gap:8px}
+.card .lines{display:flex;flex-direction:column;gap:3px;font-size:13px}
+.card .lines span{display:flex;justify-content:space-between;gap:8px}
+.card .lines span em{font-style:normal;font:700 12.5px Sora;white-space:nowrap}
+.card .f{display:flex;align-items:center;gap:8px;border-top:1px solid hsl(var(--border));padding-top:7px}
+
+/* C: list + request */
+.split{flex:1;min-height:0;display:grid;grid-template-columns:400px minmax(0,1fr)}
+.listc{border-right:1px solid hsl(var(--border));display:flex;flex-direction:column;min-height:0}
+.rowc{display:flex;gap:11px;padding:11px 14px;border-bottom:1px solid hsl(var(--border));position:relative}
+.rowc.sel{background:hsl(var(--primary-soft)/.65)}
+.rowc.sel::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:3px;border-radius:0 3px 3px 0;background:hsl(var(--primary))}
+.rowc .m{flex:1;min-width:0}
+.rowc .t1{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.rowc .t2{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.rowc .t3{display:flex;gap:8px;align-items:center;margin-top:5px}
+.detail{min-height:0;overflow:auto;background:hsl(var(--background));display:flex;flex-direction:column}
+.dh{padding:16px 20px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
+.dh h3{font:800 19px Sora;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.db{padding:14px 20px;display:flex;flex-direction:column;gap:10px;flex:1}
+.df{padding:12px 20px;background:hsl(var(--card));border-top:1px solid hsl(var(--border));display:flex;gap:8px;align-items:center}
+.df .meta{font-size:12.5px;color:hsl(var(--muted-foreground));margin-right:auto}
+.mback{display:none}
+
+@container (max-width:1040px){
+  .irow{grid-template-columns:18px minmax(0,1fr) 90px 110px auto}
+  .irow .who{display:none}
+  .split{grid-template-columns:340px minmax(0,1fr)}
+}
+@container (max-width:600px){
+  .bar .org{display:none}
+  .screen{padding:6px}
+  .search{max-width:none;flex-basis:100%}
+  .irow{grid-template-columns:18px minmax(0,1fr) auto;padding-left:16px}
+  .irow .st,.irow .who{display:none}
+  .svc{padding-left:16px}
+  .irow .acts .ibtn{width:40px;height:40px}
+  .board{grid-template-columns:1fr}
+  .split{grid-template-columns:1fr}
+  .screen:not(.picked) .detail{display:none}
+  .screen.picked .listc{display:none}
+  .mback{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:hsl(var(--muted-foreground));margin-bottom:8px}
+  .sheet{width:100%}
+}
+.recommend{margin-top:30px;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;padding:18px 20px;max-width:940px}
+.recommend h3{font:800 18px Sora}
+.recommend p{color:hsl(var(--foreground)/.85);font-size:14px;margin-top:6px}
+.recommend table{border-collapse:collapse;margin-top:12px;font-size:13.5px;width:100%}
+.recommend th,.recommend td{text-align:left;border-bottom:1px solid hsl(var(--border));padding:7px 8px;vertical-align:top}
+.recommend th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground))}
+@media (max-width:820px){.mhead{grid-template-columns:1fr}}
+/* unit conversion mockup */
+.i-ruler{--i:url(https://api.iconify.design/ph/ruler.svg)}
+.i-tire{--i:url(https://api.iconify.design/ph/tire.svg)}
+.i-arrow{--i:url(https://api.iconify.design/ph/arrow-right.svg)}
+.i-swap{--i:url(https://api.iconify.design/ph/arrows-left-right.svg)}
+.i-cart{--i:url(https://api.iconify.design/ph/shopping-cart.svg)}
+.dim{position:absolute;inset:0;background:hsl(235 30% 12%/.28);z-index:4}
+.modal{position:absolute;left:50%;top:26px;transform:translateX(-50%);width:760px;max-width:calc(100% - 24px);max-height:calc(100% - 40px);overflow:auto;background:hsl(var(--card));border-radius:18px;z-index:5;box-shadow:0 30px 70px -20px hsl(232 48% 15%/.5)}
+.mh{display:flex;gap:12px;align-items:flex-start;padding:18px 20px 14px;border-bottom:1px solid hsl(var(--border))}
+.mh .bx{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+.mh h3{font:800 19px Sora}
+.mh p{font-size:13px;color:hsl(var(--muted-foreground))}
+.mb{padding:18px 20px;display:flex;flex-direction:column;gap:14px}
+.mf{display:flex;gap:8px;justify-content:flex-end;padding:12px 20px;border-top:1px solid hsl(var(--border))}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.fld{position:relative;border:1px solid hsl(var(--border-strong));border-radius:10px;height:46px;display:flex;align-items:center;padding:0 12px;font-size:14.5px;gap:8px}
+.fld label{position:absolute;top:-9px;left:9px;background:hsl(var(--card));padding:0 4px;font-size:12px;font-weight:600;color:hsl(var(--foreground))}
+.fld .ic.i-caret{margin-left:auto;color:hsl(var(--muted-foreground))}
+.fld.on{border-color:hsl(var(--primary));box-shadow:0 0 0 3px hsl(var(--primary)/.12)}
+.fld .u{margin-left:auto;font-size:13px;color:hsl(var(--muted-foreground))}
+.sentence{border:1px solid hsl(var(--border));border-radius:14px;padding:14px 16px;background:hsl(var(--background));display:flex;flex-direction:column;gap:10px}
+.sentence .line{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:15px}
+.sentence .line b{font-weight:700}
+.inl{display:inline-flex;align-items:center;gap:6px;border:1px solid hsl(var(--border-strong));background:hsl(var(--card));border-radius:9px;height:36px;padding:0 10px;font:700 14.5px Sora}
+.inl.on{border-color:hsl(var(--primary));box-shadow:0 0 0 3px hsl(var(--primary)/.12)}
+.inl .ic{color:hsl(var(--muted-foreground))}
+.opts{display:flex;gap:6px;flex-wrap:wrap}
+.opt{border:1px solid hsl(var(--border-strong));border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600;background:hsl(var(--card))}
+.opt.on{background:hsl(var(--foreground));color:hsl(var(--card));border-color:hsl(var(--foreground))}
+.opt small{font-weight:500;opacity:.7;margin-left:4px}
+.sect2{font:700 11px Inter;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground))}
+.preview{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:13px;color:hsl(var(--muted-foreground))}
+.boxes{display:flex;gap:6px;align-items:center}
+.cx{width:46px;height:34px;border-radius:7px;border:1.5px solid hsl(var(--primary)/.5);background:hsl(var(--primary-soft));display:grid;grid-template-columns:1fr 1fr;gap:3px;padding:3px}
+.cx i{border-radius:4px;background:hsl(var(--primary)/.55)}
+.cx i.out{background:hsl(var(--card));border:1px dashed hsl(var(--primary)/.5)}
+.wheel{width:22px;height:22px;border-radius:50%;border:5px solid hsl(var(--foreground)/.75)}
+.eq{font:700 13px Sora;color:hsl(var(--foreground))}
+.stepbig{display:inline-flex;align-items:center;border:1px solid hsl(var(--border-strong));border-radius:12px;overflow:hidden}
+.stepbig i{width:44px;height:44px;display:grid;place-items:center;color:hsl(var(--muted-foreground))}
+.stepbig b{min-width:92px;text-align:center;font:800 17px Sora}
+.stepbig b small{font:600 12.5px Inter;color:hsl(var(--muted-foreground));margin-left:3px}
+.toggle{display:inline-flex;border:1px solid hsl(var(--border-strong));border-radius:10px;padding:3px;background:hsl(var(--card))}
+.toggle span{padding:5px 11px;border-radius:7px;font-size:13px;font-weight:600;color:hsl(var(--muted-foreground))}
+.toggle span.on{background:hsl(var(--muted));color:hsl(var(--foreground))}
+.partc{border:1px solid hsl(var(--border));border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.partc .t{display:flex;gap:8px;align-items:center}
+.partc .t b{font-weight:600;font-size:15px}
+.partc .q{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.hint2{font-size:12.5px;color:hsl(var(--muted-foreground))}
+.hint2 b{color:hsl(var(--foreground))}
+.quick{display:flex;gap:6px;flex-wrap:wrap}
+.quick span{border:1px solid hsl(var(--border-strong));border-radius:10px;padding:7px 12px;font-size:13px;font-weight:600;display:inline-flex;gap:6px;align-items:center;background:hsl(var(--card))}
+.quick span.on{border-color:hsl(var(--primary));background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.quick span small{font-weight:500;color:hsl(var(--muted-foreground))}
+.srow{display:grid;grid-template-columns:minmax(0,1fr) 150px 190px 120px;gap:14px;align-items:center;padding:12px 16px;border-bottom:1px solid hsl(var(--border))}
+.srow.h{font:700 11px Inter;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));padding-top:9px;padding-bottom:9px;background:hsl(var(--muted)/.45)}
+.srow .big{font:700 14px Sora}
+.srow .big small{font:500 12px Inter;color:hsl(var(--muted-foreground))}
+.srow .nm{font-weight:600}
+.loose{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:1px 9px;font-size:11.5px;font-weight:600;background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+.ans{display:flex;gap:6px;align-items:center;font-size:12.5px;color:hsl(var(--muted-foreground))}
+.ans b{color:hsl(var(--foreground));font:700 12.5px Sora}
+.menu{margin-top:-8px;width:calc((100% - 24px)/3);margin-left:calc((100% - 24px)/3 + 12px);border:1px solid hsl(var(--border));border-radius:12px;padding:5px;background:hsl(var(--card));box-shadow:0 14px 30px -12px hsl(232 48% 15%/.3);display:flex;flex-direction:column}
+.menu span{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-radius:8px;font-size:14px}
+.menu span.on{background:hsl(var(--muted));font-weight:600}
+.menu span .ic{color:hsl(var(--primary))}
+.summary{display:flex;gap:10px;align-items:flex-start;border-radius:12px;padding:11px 13px;font-size:13.5px;background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.summary .ic{margin-top:2px}
+.svcpick{display:flex;flex-direction:column}
+.svcpick .r{display:flex;gap:12px;align-items:center;padding:12px 16px;border-bottom:1px solid hsl(var(--border))}
+.svcpick .r.on{background:hsl(var(--primary-soft)/.55)}
+.svcpick .r .m{flex:1;min-width:0}
+.svcpick .r .m b{font-weight:600}
+.selbar{flex:none;display:flex;align-items:center;gap:10px;border-top:1px solid hsl(var(--border));background:hsl(var(--primary-soft)/.6);padding:10px 16px;font-size:13.5px}
+.split2{display:flex;flex-direction:column;gap:6px;border-top:1px dashed hsl(var(--border-strong));padding-top:8px}
+.split2 span{display:flex;justify-content:space-between;font-size:13px;color:hsl(var(--muted-foreground))}
+.split2 span b{color:hsl(var(--foreground));font:700 13px Sora}
+.menu1{margin-left:0}
+.menu small{font-size:12px;color:hsl(var(--muted-foreground));margin-left:8px;font-weight:500}
+.ladder{display:flex;gap:6px;flex-wrap:wrap}
+.ladder span{display:inline-flex;flex-direction:column;border:1px solid hsl(var(--border));border-radius:10px;padding:6px 12px;font-size:12.5px;color:hsl(var(--muted-foreground));background:hsl(var(--background))}
+.ladder b{font:700 13px Sora;color:hsl(var(--foreground))}
+.svchead{display:flex;flex-direction:column;gap:6px;padding:14px 18px;border-bottom:1px solid hsl(var(--border))}
+.svchead h3{font:800 18px Sora}
+@container (max-width:600px){
+  .row2,.row3{grid-template-columns:1fr}
+  .modal{top:10px}
+  .srow{grid-template-columns:minmax(0,1fr) auto}
+  .srow .hide{display:none}
+}
+</style>
+</head>
+<body>
+<div class="doc">
+  <h1>Peça por caixa e por jogo · 3 modelos</h1>
+  <p class="lead">A lona de freio <b>4516</b> é comprada por <b>caixa</b>. Uma caixa tem <b>2 jogos</b>, um jogo faz um eixo (<b>2 rodas</b>), então cada roda gasta <b>meio jogo</b>. Hoje o cadastro guarda o fator, mas o pedido, a reserva, a entrega e a devolução contam tudo em caixa: para trocar a lona de uma roda o mecânico teria que pedir <b>0,25 cx</b>. Estes modelos mostram como o sistema fala a língua de cada um: quem compra pensa em caixa, quem monta pensa em jogo ou em roda.</p>
+  <div class="rule"><span class="ic i-info s20"></span><p>Vale para todas as peças com duas unidades: óleo comprado em <b>balde</b> e usado em <b>litro</b>, eletrodo em <b>caixa</b> e usado em <b>kg</b>, abraçadeira em <b>pacote</b> e usada em <b>peça</b>. O estoque continua contando na unidade de compra; o custo da OS sai proporcional (meio jogo custa um quarto da caixa). O mecânico continua sem ver saldo (mockup aprovado <b>Solicitar peça</b>).</p></div>
+
+  <div class="tabs" id="tabs">
+    <button class="tab" data-model="a" aria-pressed="true">A · Pede em jogo <small>a conversão fica no cadastro</small></button>
+    <button class="tab" data-model="b" aria-pressed="false">B · As duas unidades à vista <small>escolhe em qual pedir</small></button>
+    <button class="tab" data-model="c" aria-pressed="false">C · Pede por roda <small>a peça sabe onde é aplicada</small></button>
+  </div>
+
+  <section class="model on" data-model="a">
+    <div class="mhead">
+      <div><h2>A · Pede em jogo, o estoque conta em caixa</h2><p>O cadastro fica com campos iguais aos outros, sem frase nem desenho: <b>Compra em</b> caixa, <b>Usa na OS em</b> jogo, <b>Cada caixa tem</b> 2 jogos, e <b>Mecânico pede por</b> roda, <b>Cada jogo faz</b> 2 rodas. Embaixo, a conta pronta: 1 roda = 0,5 jogo, 2 rodas = 1 jogo, 3 = 1,5, 4 = 2 jogos (1 caixa). <b>Cada serviço é um pedido</b>: trocar a lona de uma roda pede <b>1 roda</b> (o sistema reserva 0,5 jogo). Marcando <b>dois serviços</b> (LD e LE), sai <b>um pedido só</b> com 1 roda em cada, e o custo se divide entre eles. O almoxarife aprova em jogo e vê o saldo como <b>3 cx + 1 jogo</b>, nunca 3,5 cx.</p></div>
+      <div class="pc"><h4>A favor</h4><ul><li>Uma unidade por pessoa: ninguém faz conta.</li><li>Serve para qualquer peça (óleo, eletrodo, abraçadeira).</li><li>O menor pedido é da peça: meio jogo de lona sim, meia lâmpada não.</li></ul><h4>Contra</h4><ul><li>O mecânico não vê caixa (não precisa).</li><li>Caixa aberta aparece como "jogo solto" no saldo.</li></ul></div>
+    </div>
+    <div class="controls"><div class="steps"><button class="step" data-s="1" aria-pressed="true"><b>1</b>Cadastro da peça</button><button class="step" data-s="2" aria-pressed="false"><b>2</b>Como o mecânico pede</button><button class="step" data-s="3" aria-pressed="false"><b>3</b>Um serviço: 1 roda</button><button class="step" data-s="4" aria-pressed="false"><b>4</b>Marca dois serviços</button><button class="step" data-s="5" aria-pressed="false"><b>5</b>Pede para os dois</button><button class="step" data-s="6" aria-pressed="false"><b>6</b>Almoxarife aprova</button><button class="step" data-s="7" aria-pressed="false"><b>7</b>Saldo no estoque</button></div><div class="seg"><button data-dev="nb" aria-pressed="true">Notebook</button><button data-dev="tabl" aria-pressed="false">Tablet</button><button data-dev="phone" aria-pressed="false">Celular</button></div></div>
+    <div class="stage"><div class="frame" data-model-frame="a"></div></div>
+  </section>
+
+  <section class="model" data-model="b">
+    <div class="mhead">
+      <div><h2>B · As duas unidades à vista</h2><p>O cadastro fica como hoje (unidade de estoque, de consumo e fator), só com a frase de conferência embaixo. Na hora de pedir, uma chave <b>jogo | caixa</b> ao lado da quantidade; tudo mostra as duas: <b>½ jogo · ¼ cx</b>.</p></div>
+      <div class="pc"><h4>A favor</h4><ul><li>Pouca mudança no cadastro.</li><li>Quem quer a caixa fechada pede a caixa.</li></ul><h4>Contra</h4><ul><li>Número quebrado de caixa (¼ cx) na tela de todo mundo.</li><li>Duas unidades por linha: mais para ler no tablet.</li><li>Não diz qual é o menor pedido.</li></ul></div>
+    </div>
+    <div class="controls"><div class="steps"><button class="step" data-s="1" aria-pressed="true"><b>1</b>Cadastro da peça</button><button class="step" data-s="2" aria-pressed="false"><b>2</b>Mecânico pede</button><button class="step" data-s="3" aria-pressed="false"><b>3</b>Almoxarife aprova</button><button class="step" data-s="4" aria-pressed="false"><b>4</b>Saldo no estoque</button></div><div class="seg"><button data-dev="nb" aria-pressed="true">Notebook</button><button data-dev="tabl" aria-pressed="false">Tablet</button><button data-dev="phone" aria-pressed="false">Celular</button></div></div>
+    <div class="stage"><div class="frame" data-model-frame="b"></div></div>
+  </section>
+
+  <section class="model" data-model="c">
+    <div class="mhead">
+      <div><h2>C · Pede por roda</h2><p>O A, mais uma linha no cadastro: <b>1 jogo atende [2] rodas</b>. Quando o serviço já tem a localização (<b>1º eixo · LD</b>), o pedido vem pronto com <b>1 roda = ½ jogo</b>; um toque troca para <b>eixo inteiro = 1 jogo</b>. O almoxarife vê em jogo, como no A.</p></div>
+      <div class="pc"><h4>A favor</h4><ul><li>O mecânico nem digita: o lugar do serviço diz quanto.</li><li>Erro de quantidade quase some (lona, pastilha, pneu).</li></ul><h4>Contra</h4><ul><li>Só serve para peça de roda ou eixo; as outras ficam como no A.</li><li>Mais um campo no cadastro dessas peças.</li></ul></div>
+    </div>
+    <div class="controls"><div class="steps"><button class="step" data-s="1" aria-pressed="true"><b>1</b>Cadastro da peça</button><button class="step" data-s="2" aria-pressed="false"><b>2</b>Mecânico pede</button><button class="step" data-s="3" aria-pressed="false"><b>3</b>Almoxarife aprova</button><button class="step" data-s="4" aria-pressed="false"><b>4</b>Saldo no estoque</button></div><div class="seg"><button data-dev="nb" aria-pressed="true">Notebook</button><button data-dev="tabl" aria-pressed="false">Tablet</button><button data-dev="phone" aria-pressed="false">Celular</button></div></div>
+    <div class="stage"><div class="frame" data-model-frame="c"></div></div>
+  </section>
+
+  <div class="recommend">
+    <h3>Comparação</h3>
+    <table>
+      <tr><th></th><th>A · Pede em jogo</th><th>B · Duas à vista</th><th>C · Por roda</th></tr>
+      <tr><td>O mecânico faz conta?</td><td>Não</td><td>Às vezes (jogo ou caixa?)</td><td>Não, nem digita</td></tr>
+      <tr><td>Número quebrado de caixa na tela</td><td>Nunca</td><td>Sim (¼ cx)</td><td>Nunca</td></tr>
+      <tr><td>Serve para óleo, eletrodo etc.</td><td>Sim</td><td>Sim</td><td>Sim (como no A)</td></tr>
+      <tr><td>Menor pedido por peça</td><td>Sim</td><td>Não</td><td>Sim</td></tr>
+      <tr><td>Mudança no cadastro</td><td>Frase no lugar do fator</td><td>Quase nada</td><td>Frase + rodas por jogo</td></tr>
+    </table>
+    <p><b>Recomendação: A agora, C depois.</b> O A resolve a lona e todas as outras peças de duas unidades sem ninguém fazer conta, e o "menor pedido" fica na peça, onde faz sentido. O "pede por roda" do C é um passo a mais em cima do A, bom para lona, pastilha e pneu quando o checklist já sabe o lugar; dá para ligar depois sem refazer nada.</p>
+  </div>
+</div>
+
+<script>
+const ic = (name, size) => `<span class="ic i-${name}${size ? ' ' + size : ''}"></span>`;
+const header = (eyebrow, title) => `<div class="bar"><div><p class="eb">${eyebrow}</p><p class="tt">${title}</p></div><span class="org">Transportadora Demo</span></div>`;
+const TITLES = ['', ['Estoque', 'Peças'], ['OS-000123', 'Trocar lona de freio'], ['Estoque', 'Solicitações de peças'], ['Estoque', 'Peças']];
+
+const fld = (label, value, extra = '') => `<div class="fld ${extra}"><label>${label}</label>${value}</div>`;
+const sel = (label, value, on) => fld(label, `${value}${ic('caret', 's14')}`, on ? 'on' : '');
+const boxArt = (out) => `<span class="cx">${[0, 1].map((i) => `<i class="${i < out ? 'out' : ''}"></i>`).join('')}</span>`;
+
+function stockBehind() {
+  return `<div class="shell"><div class="tools"><span class="search">${ic('search', 's16')}Buscar peça</span><span class="grow"></span><span class="btn pr sm">${ic('plus', 's14')}Nova peça</span></div><div class="scroll"></div></div>`;
+}
+
+function cadastro(model, open = false) {
+  const name = fld('Nome <span style="color:hsl(var(--danger))">*</span>', 'Lona 4516');
+  const top = model === 'b' ? `<div class="row2">${name}${sel('Categoria', 'Freios')}</div>` : `<div class="row3">${name}${fld('NI', 'SP-00412')}${sel('Categoria', 'Freios')}</div>`;
+  let units;
+  if (model === 'b') {
+    units = `<div class="row3">${sel('Unidade de estoque', 'cx · Caixa')}${sel('Unidade de consumo', 'jogo · Jogo')}${fld('Fator', '<b style="margin:auto;font:700 15px Sora">2</b>')}</div>
+      <div class="notice">${ic('info', 's16')}<span><b>1 cx = 2 jogos.</b> No pedido dá para escolher jogo ou caixa.</span></div>`;
+  } else {
+    const num = (value, unit) => `<b style="font:700 15px Sora">${value}</b><span class="u">${unit}</span>`;
+    units = `<p class="sect2">Como compra e como usa</p>
+      <div class="row3">${sel('Compra em', 'Caixa')}${sel('Usa na OS em', 'Jogo')}${fld('Cada caixa tem', num(2, 'jogos'))}</div>
+      <div class="row3">${sel('Mecânico pede por', 'Roda', open)}${fld('Cada jogo faz', num(2, 'rodas'))}${fld('Saldo mínimo', num(2, 'caixas'))}</div>
+      ${open ? `<div class="menu menu1"><span>Jogo</span><span class="on">Roda ${ic('check', 's14')}</span><span>Eixo</span></div>` : ''}
+      <div class="ladder">${[[1, '0,5 jogo'], [2, '1 jogo'], [3, '1,5 jogo'], [4, '2 jogos · 1 caixa']].map(([n, j]) => `<span><b>${n} ${n === 1 ? 'roda' : 'rodas'}</b>${j}</span>`).join('')}</div>`;
+  }
+  const min = model === 'b' ? `<div class="row2">${fld('NI', 'SP-00412')}${fld('Saldo mínimo · em jogo', `<b style="margin:auto;font:700 15px Sora">2</b>`)}</div>` : '';
+  const cost = model === 'b'
+    ? `<div class="notice">${ic('info', 's16')}<span>Custo da caixa R$ 268,00 → <b>R$ 134,00 por jogo</b>. Sai proporcional no custo da OS.</span></div>`
+    : `<div class="summary">${ic('info', 's16')}<span><b>1 caixa = 2 jogos.</b> O estoque conta em caixa; o mecânico pede em roda e o sistema converte (1 roda = 0,5 jogo). Caixa a R$ 268,00 → cada roda entra <b>R$ 67,00</b> na OS.</span></div>`;
+  return `${stockBehind()}<div class="dim"></div><div class="modal"><div class="mh"><span class="bx">${ic('box', 's20')}</span><div><h3>Nova peça</h3><p>Entra no catálogo · o saldo começa em zero.</p></div><span class="ic i-xl s20" style="margin-left:auto;color:hsl(var(--muted-foreground))"></span></div><div class="mb">${top}${units}${min}${cost}</div><div class="mf"><span class="btn ol">Cancelar</span><span class="btn pr">Salvar peça</span></div></div>`;
+}
+const cadastroOpen = (model) => cadastro(model, true);
+
+function pedido(model) {
+  let qty;
+  if (model === 'a') {
+    qty = `<div class="q"><span class="stepbig"><i>${ic('minus', 's16')}</i><b>1<small>roda</small></b><i>${ic('plus', 's16')}</i></span><span class="hint2">= <b>0,5 jogo</b></span></div>`;
+  } else if (model === 'b') {
+    qty = `<div class="q"><span class="stepbig"><i>${ic('minus', 's16')}</i><b>0,5</b><i>${ic('plus', 's16')}</i></span><span class="toggle"><span class="on">jogo</span><span>caixa</span></span><span class="hint2">= <b>0,25 cx</b></span></div>`;
+  } else {
+    qty = `<p class="hint2">O serviço é no <b>1º eixo · LD</b>: uma roda.</p><div class="quick"><span class="on">${ic('tire', 's16')}1 roda <small>½ jogo</small></span><span>${ic('tire', 's16')}Eixo inteiro <small>1 jogo</small></span><span>Outra quantidade</span></div>`;
+  }
+  const part = `<div class="partc"><div class="t"><b>Lona 4516</b><span class="ni">NI SP-00412</span></div>${qty}</div>`;
+  const side = `<div class="sheet"><div class="sh"><div class="top"><span class="bx" style="width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:hsl(var(--primary-soft));color:hsl(var(--primary))">${ic('box', 's20')}</span><h3>Pedir peça</h3><span class="x">${ic('xl', 's16')}</span></div><div class="chips"><span class="chip p">OS-000123 · Em manutenção</span><span class="chip">${ic('wrench', 's12')}Trocar lona de freio · 1º eixo · LD · PTJ0458</span></div></div><div class="sb"><p class="sect">Peças</p>${part}<span class="btn ol sm" style="align-self:flex-start">${ic('plus', 's14')}Outra peça</span></div><div class="sf"><span class="meta">Depósito Mucuri</span><span class="btn ol">Cancelar</span><span class="btn pr">Pedir</span></div></div>`;
+  const behind = `<div class="shell"><div class="svchead"><h3>Trocar lona de freio</h3><p class="sub">1º eixo · LD · PTJ0458 (2º reboque) · Conjunto 22500</p></div><div class="scroll"></div></div>`;
+  return `${behind}<div class="scrim"></div>${side}`;
+}
+
+const SERVICES = [
+  ['Trocar lona de freio', '1º eixo · LD', true],
+  ['Trocar lona de freio', '1º eixo · LE', true],
+  ['Regular freio', '2º eixo · LD', false],
+  ['Soldar ciclista', 'Lado esquerdo', false],
+];
+function servicesList(withSheet) {
+  const rows = SERVICES.map(([name, where, on]) => `<div class="r${on ? ' on' : ''}"><span class="cb${on ? ' on' : ''}">${on ? ic('check', 's12') : ''}</span><div class="m"><b>${name}</b><p class="sub">${where} · PTJ0458 (2º reboque)</p></div><span class="pill m">A fazer</span></div>`).join('');
+  const bar = `<div class="selbar"><b>2 serviços</b><span class="sub">marcados</span><span class="grow"></span><span class="btn ol sm">Desmarcar</span><span class="btn pr sm">${ic('box', 's14')}Pedir peça</span></div>`;
+  return `<div class="shell"><div class="svchead"><h3>OS-000123 · Serviços</h3><p class="sub">Conjunto 22500 · PTJ0458 (2º reboque)</p></div><div class="scroll"><div class="svcpick">${rows}</div></div>${bar}</div>`;
+}
+const pickServices = () => servicesList(false);
+function pedidoDois() {
+  const part = `<div class="partc"><div class="t"><b>Lona 4516</b><span class="ni">NI SP-00412</span></div><div class="q"><span class="stepbig"><i>${ic('minus', 's16')}</i><b>1<small>roda</small></b><i>${ic('plus', 's16')}</i></span><span class="hint2"><b>em cada serviço</b> · 2 rodas = 1 jogo no total</span></div><div class="split2"><span>Trocar lona de freio · 1º eixo · LD<b>1 roda · 0,5 jogo</b></span><span>Trocar lona de freio · 1º eixo · LE<b>1 roda · 0,5 jogo</b></span></div></div>`;
+  const side = `<div class="sheet"><div class="sh"><div class="top"><span class="bx" style="width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:hsl(var(--primary-soft));color:hsl(var(--primary))">${ic('box', 's20')}</span><h3>Pedir peça</h3><span class="x">${ic('xl', 's16')}</span></div><div class="chips"><span class="chip p">OS-000123 · Em manutenção</span><span class="chip">${ic('wrench', 's12')}Trocar lona de freio · 1º eixo · LD e LE</span></div></div><div class="sb"><p class="sect">Peças</p>${part}<div class="notice">${ic('info', 's16')}<span>Vai num pedido só. O custo cai metade em cada serviço.</span></div></div><div class="sf"><span class="meta">Depósito Mucuri</span><span class="btn ol">Cancelar</span><span class="btn pr">Pedir</span></div></div>`;
+  return `${servicesList(true)}<div class="scrim"></div>${side}`;
+}
+
+function aprova(model) {
+  if (model === 'a') return aprovaDois();
+
+  const qty = model === 'b' ? `½ jogo <small>· ¼ cx</small>` : `½ <small>jogo</small>`;
+  const row = `<div class="osgroup"><div class="oshead"><span class="osn">OS-000123</span><span class="pill m">Em manutenção</span><span class="sub">Conjunto 22500</span></div><div class="svc">${ic('wrench', 's14')}<b>Trocar lona de freio</b><span>1º eixo · LD · PTJ0458 (2º reboque)</span></div><div class="irow" style="grid-template-columns:minmax(0,1fr) 140px 120px auto;padding-left:44px"><div><p class="nm">Lona 4516</p><p class="sub"><span class="ni">NI SP-00412</span> Rafael · ${ic('clock', 's12')} 20 min</p></div><p class="qty">${qty}</p><span>${'<span class="pill pending">Pendente</span>'}</span><span class="acts"><span class="ibtn ok">${ic('check', 's16')}</span><span class="ibtn no">${ic('x', 's16')}</span></span></div></div>`;
+  const stockLine = model === 'b'
+    ? `<span>Pediu <b style="color:hsl(var(--foreground))">0,5 jogo (0,25 cx)</b></span><span>saldo 3,5 cx (7 jogos)</span>`
+    : `<span>Pediu ½ jogo${model === 'c' ? ' · 1 roda' : ''}</span><span>saldo <b style="color:hsl(var(--foreground))">3 cx + 1 jogo</b></span>`;
+  const stepper = model === 'b' ? `<span class="stepper"><i>${ic('minus', 's12')}</i><b>0,5</b><i>${ic('plus', 's12')}</i></span><span class="toggle"><span class="on">jogo</span><span>cx</span></span>` : `<span class="stepper"><i>${ic('minus', 's12')}</i><b>½</b><i>${ic('plus', 's12')}</i></span><span class="hint2">jogo</span>`;
+  const pick = model === 'b' ? 'Abrir 1 caixa, tirar 0,5 jogo.' : 'Pegar o <b>jogo solto</b> da caixa aberta e cortar ao meio; não abre caixa nova.';
+  const sheet = `<div class="sheet"><div class="sh"><div class="top"><span class="bx" style="width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:hsl(var(--primary-soft));color:hsl(var(--primary))">${ic('box', 's20')}</span><h3>Aprovar pedido</h3><span class="x">${ic('xl', 's16')}</span></div><div class="chips"><span class="chip p">OS-000123 · Em manutenção</span><span class="chip">${ic('wrench', 's12')}Trocar lona de freio · 1º eixo · LD · PTJ0458</span><span class="chip">${ic('user', 's12')}Rafael</span></div></div><div class="sb"><p class="sect">Peças · quanto sai</p><div class="item"><div class="r1"><b>Lona 4516</b>${stepper}</div><div class="r2"><span class="ni">NI SP-00412</span>${stockLine}</div></div><div class="notice">${ic('info', 's16')}<span>${pick} Entra R$ 67,00 no custo da OS-000123.</span></div></div><div class="sf"><span class="btn ol">Cancelar</span><span class="btn pr">${ic('check', 's14')}Aprovar</span></div></div>`;
+  return `<div class="shell"><div class="tools"><span class="search">${ic('search', 's16')}Peça, NI, OS ou placa</span><div class="counts"><span class="count on">Para aprovar <b>1</b></span><span class="count">Para separar <b>0</b></span><span class="count">Entregues <b>3</b></span></div></div><div class="scroll">${row}</div></div><div class="scrim"></div>${sheet}`;
+}
+
+function aprovaDois() {
+  const row = (where, qty, sub) => `<div class="irow" style="grid-template-columns:minmax(0,1fr) 140px 120px auto;padding-left:44px"><div><p class="nm">Lona 4516</p><p class="sub"><span class="ni">NI SP-00412</span> Rafael · ${ic('clock', 's12')} ${sub}</p></div><p class="qty">${qty} <small>jogo</small><br><small>${qty === '1' ? '2 rodas' : '1 roda'}</small></p><span><span class="pill pending">Pendente</span></span><span class="acts"><span class="ibtn ok">${ic('check', 's16')}</span><span class="ibtn no">${ic('x', 's16')}</span></span></div>`;
+  const list = `<div class="osgroup"><div class="oshead"><span class="osn">OS-000123</span><span class="pill m">Em manutenção</span><span class="sub">Conjunto 22500</span></div><div class="svc">${ic('wrench', 's14')}<b>Trocar lona de freio</b><span>1º eixo · LD e LE · PTJ0458 (2º reboque)</span></div>${row('', '1', '5 min')}<div class="svc">${ic('wrench', 's14')}<b>Trocar lona de freio</b><span>2º eixo · LD · PTJ0458 (2º reboque)</span></div>${row('', '0,5', '20 min')}</div>`;
+  const sheet = `<div class="sheet"><div class="sh"><div class="top"><span class="bx" style="width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:hsl(var(--primary-soft));color:hsl(var(--primary))">${ic('box', 's20')}</span><h3>Aprovar pedido</h3><span class="x">${ic('xl', 's16')}</span></div><div class="chips"><span class="chip p">OS-000123 · Em manutenção</span><span class="chip">${ic('wrench', 's12')}Trocar lona de freio · 1º eixo · LD e LE</span><span class="chip">${ic('user', 's12')}Rafael</span></div></div><div class="sb"><p class="sect">Peças · quanto sai</p><div class="item"><div class="r1"><b>Lona 4516</b><span class="stepper"><i>${ic('minus', 's12')}</i><b>1</b><i>${ic('plus', 's12')}</i></span><span class="hint2">jogo</span></div><div class="r2"><span class="ni">NI SP-00412</span><span>Pediu 2 rodas · 1 em cada serviço</span><span>saldo <b style="color:hsl(var(--foreground))">3 cx + 1 jogo</b></span></div></div><div class="notice">${ic('info', 's16')}<span>Pega o <b>jogo solto</b> da caixa aberta; não abre caixa nova. Entra R$ 134,00 na OS-000123, R$ 67,00 em cada serviço.</span></div></div><div class="sf"><span class="btn ol">Cancelar</span><span class="btn pr">${ic('check', 's14')}Aprovar</span></div></div>`;
+  return `<div class="shell"><div class="tools"><span class="search">${ic('search', 's16')}Peça, NI, OS ou placa</span><div class="counts"><span class="count on">Para aprovar <b>2</b></span><span class="count">Para separar <b>0</b></span><span class="count">Entregues <b>3</b></span></div></div><div class="scroll">${list}</div></div><div class="scrim"></div>${sheet}`;
+}
+
+function saldo(model) {
+  const bal = model === 'b'
+    ? `<p class="big">3,5 <small>cx</small></p><p class="sub">7 jogos</p>`
+    : `<p class="big">3 <small>cx</small> + 1 <small>jogo</small></p><span class="loose">${boxArt(1)} 1 caixa aberta</span>`;
+  const head = `<div class="srow h"><span>Peça</span><span class="hide">Compra · uso</span><span>Saldo</span><span class="hide">Valor</span></div>`;
+  const lona = `<div class="srow"><div><p class="nm">Lona 4516</p><p class="sub"><span class="ni">NI SP-00412</span> Freios</p></div><div class="hide sub">cx · usa em jogo<br><b style="color:hsl(var(--foreground))">1 cx = 2 jogos</b>${model === 'c' ? ' · 1 jogo = 2 rodas' : ''}</div><div>${bal}</div><div class="hide big">R$ 938,00</div></div>`;
+  const oil = `<div class="srow"><div><p class="nm">Óleo 15W40</p><p class="sub"><span class="ni">NI SP-00098</span> Lubrificantes</p></div><div class="hide sub">balde · usa em L<br><b style="color:hsl(var(--foreground))">1 balde = 20 L</b></div><div>${model === 'b' ? '<p class="big">4,6 <small>baldes</small></p><p class="sub">92 L</p>' : '<p class="big">4 <small>baldes</small> + 12 <small>L</small></p><span class="loose">1 balde aberto</span>'}</div><div class="hide big">R$ 2.024,00</div></div>`;
+  const filt = `<div class="srow"><div><p class="nm">Filtro de ar RS 5362</p><p class="sub"><span class="ni">NI SP-00210</span> Filtros</p></div><div class="hide sub">un</div><div><p class="big">6 <small>un</small></p></div><div class="hide big">R$ 1.842,00</div></div>`;
+  return `<div class="shell"><div class="tools"><span class="search">${ic('search', 's16')}Buscar peça</span><span class="grow"></span><span class="btn pr sm">${ic('cart', 's14')}Entrada de compra</span></div><div class="scroll">${head}${lona}${oil}${filt}</div></div>`;
+}
+
+const T = { stock: ['Estoque', 'Peças'], service: ['OS-000123', 'Trocar lona de freio'], services: ['OS-000123', 'Serviços'], board: ['Estoque', 'Solicitações de peças'] };
+const FLOWS = {
+  a: [[cadastro, T.stock], [cadastroOpen, T.stock], [pedido, T.service], [pickServices, T.services], [pedidoDois, T.services], [aprova, T.board], [saldo, T.stock]],
+  b: [[cadastro, T.stock], [pedido, T.service], [aprova, T.board], [saldo, T.stock]],
+  c: [[cadastro, T.stock], [pedido, T.service], [aprova, T.board], [saldo, T.stock]],
+};
+document.querySelectorAll('[data-model-frame]').forEach((frame) => {
+  const model = frame.dataset.modelFrame;
+  const flow = FLOWS[model];
+  let html = header(...flow[0][1]);
+  flow.forEach(([render], index) => {
+    html += `<div class="screen${index === 0 ? ' on' : ''}" data-s="${index + 1}">${render(model)}</div>`;
+  });
+  frame.innerHTML = html;
+});
+
+function setTitle(model, step) {
+  const frame = model.querySelector('.frame');
+  const [eyebrow, title] = FLOWS[model.dataset.model][step - 1][1];
+  frame.querySelector('.bar .eb').textContent = eyebrow;
+  frame.querySelector('.bar .tt').textContent = title;
+}
+const tabs = document.querySelectorAll('#tabs .tab');
+tabs.forEach((tab) => tab.addEventListener('click', () => {
+  tabs.forEach((other) => other.setAttribute('aria-pressed', String(other === tab)));
+  document.querySelectorAll('.model').forEach((model) => model.classList.toggle('on', model.dataset.model === tab.dataset.model));
+}));
+document.querySelectorAll('.model').forEach((model) => {
+  const steps = model.querySelectorAll('.step');
+  steps.forEach((step) => step.addEventListener('click', () => {
+    steps.forEach((other) => other.setAttribute('aria-pressed', String(other === step)));
+    model.querySelectorAll('.screen').forEach((screen) => screen.classList.toggle('on', screen.dataset.s === step.dataset.s));
+    setTitle(model, Number(step.dataset.s));
+  }));
+  const devices = model.querySelectorAll('[data-dev]');
+  devices.forEach((device) => device.addEventListener('click', () => {
+    devices.forEach((other) => other.setAttribute('aria-pressed', String(other === device)));
+    const frame = model.querySelector('.frame'); frame.classList.remove('phone', 'tabl'); if (device.dataset.dev !== 'nb') frame.classList.add(device.dataset.dev);
+  }));
+});
+</script>
+</body>
+</html>
