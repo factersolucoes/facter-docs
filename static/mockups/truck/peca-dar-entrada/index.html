@@ -91,8 +91,8 @@ button{font:inherit;color:inherit}
 .dh .x{margin-left:auto;color:hsl(var(--muted-foreground))}
 .db{padding:18px 22px;display:flex;flex-direction:column;gap:14px;overflow:auto}
 .g{display:grid;gap:14px}
-.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g14{grid-template-columns:1.4fr 1fr}
-.phone .g2,.phone .g3,.phone .g14{grid-template-columns:1fr}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g14{grid-template-columns:1.4fr 1fr}.gni{grid-template-columns:1.4fr .8fr 1fr}
+.phone .g2,.phone .g3,.phone .g14,.phone .gni{grid-template-columns:1fr}
 .f{position:relative;border:1px solid hsl(var(--border-strong));border-radius:9px;height:46px;padding:0 12px;display:flex;align-items:center;justify-content:space-between;font-size:14px}
 .f label{position:absolute;top:-9px;left:10px;background:hsl(var(--card));padding:0 4px;font-size:12px;font-weight:600}
 .f .ph{color:hsl(var(--muted-foreground))}
@@ -108,6 +108,9 @@ button{font:inherit;color:inherit}
 .phone .df .btn{flex:1}
 .line{display:grid;grid-template-columns:1fr 120px 130px 100px 28px;gap:10px;align-items:center;border:1px solid hsl(var(--border));border-radius:10px;padding:10px 12px;font-size:13.5px}
 .phone .line{grid-template-columns:1fr 1fr;}
+.line.lh{border:0;padding:0 12px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:hsl(var(--muted-foreground))}
+.phone .line.lh{display:none}
+.mini small{color:hsl(var(--muted-foreground))}
 .line .nm b{display:block}
 .line .nm small{color:hsl(var(--muted-foreground))}
 .mini{border:1px solid hsl(var(--border-strong));border-radius:8px;height:36px;display:flex;align-items:center;padding:0 10px}
@@ -185,7 +188,7 @@ const MODELS = {
 let model = 'A', step = 0, device = 'nb';
 
 const icon = (n, s = '') => `<span class="ic i-${n} ${s}"></span>`;
-const field = (label, value, cls = '') => `<div class="f ${cls}"><label>${label}</label><span class="${value ? '' : 'ph'}">${value || 'Escolha'}</span>${cls.includes('sel') ? icon('caret', 's14') : ''}</div>`;
+const field = (label, value, cls = '', ph = 'Escolha') => `<div class="f ${cls}"><label>${label}</label><span class="${value ? '' : 'ph'}">${value || ph}</span>${cls.includes('sel') ? icon('caret', 's14') : ''}</div>`;
 const stepper = (label, value) => `<div class="f"><label>${label}</label><div class="stp">${icon('minus', 's14')}<span>${value}</span>${icon('plus', 's14')}</div></div>`;
 
 function partForm(variant) {
@@ -195,7 +198,7 @@ function partForm(variant) {
   return `<div class="veil"><div class="dlg">
     <div class="dh"><span class="di">${icon('box')}</span><div><h3>Nova peça</h3><p>Entra no catálogo · o saldo começa em zero.</p></div><span class="x">${icon('x')}</span></div>
     <div class="db">
-      <div class="g g14">${field('Nome *', 'Lona 4516')}${field('Categoria', 'Freios', 'sel')}</div>
+      <div class="g gni">${field('Nome *', 'Lona 4516')}${field('NI', 'SP-00412')}${field('Categoria', 'Freios', 'sel')}</div>
       <div class="g g3">${field('Marca', 'Fras-le')}${field('Modelo', '4516 AF')}${field('Fornecedor', 'Auto Peças Rodovia', 'sel')}</div>
       <div class="g g3">${field('Unidade de estoque', 'cx · Caixa', 'sel')}${field('Unidade de consumo', 'un · Unidade', 'sel')}${stepper('Fator', '4')}</div>
       <div class="g g2">${stepper('Custo · por unidade', 'R$ 90,00')}${stepper('Saldo mínimo · em unidade', '8')}</div>
@@ -207,13 +210,14 @@ function entry() {
   return `<div class="veil"><div class="dlg">
     <div class="dh"><span class="di">${icon('down')}</span><div><h3>Entrada de compra</h3><p>Registre a nota, o depósito e as peças que vieram.</p></div><span class="x">${icon('x')}</span></div>
     <div class="db">
-      <div class="g g2">${field('Fornecedor', 'Auto Peças Rodovia', 'sel')}${field('Depósito', 'Almoxarifado Central', 'sel')}</div>
-      <div class="g g2">${field('Número da nota', '')}${field('Data da nota', '27/11/2026')}</div>
+      <div class="g g2">${field('Fornecedor', 'Auto Peças Rodovia', 'sel')}${field('Depósito', '', 'sel', 'Escolha o depósito')}</div>
+      <div class="g g2">${field('Número da nota', '', '', 'Ex.: 4513')}${field('Data da nota', '27/11/2026')}</div>
+      <div class="line lh"><span>Peça</span><span>Qtd</span><span>Custo unit.</span><span>Total</span><span></span></div>
       <div class="line">
-        <div class="nm"><b>Lona 4516</b><small>cx · <span class="tag">recém-cadastrada</span></small></div>
-        <div class="mini focus">|</div>
-        <div class="mini">R$ 360,00</div>
-        <div><b>R$ 0,00</b></div>
+        <div class="nm"><b>Lona 4516</b><small>NI SP-00412 · <span class="tag">recém-cadastrada</span></small></div>
+        <div class="mini focus">12 <small>&nbsp;un</small></div>
+        <div class="mini">R$ 90,00</div>
+        <div><b>R$ 1.080,00</b></div>
         <div>${icon('trash', 's16')}</div>
       </div>
       <div class="f"><label>Adicionar peça</label><span class="ph">Buscar peça por nome ou SKU</span>${icon('search', 's16')}</div>
@@ -243,7 +247,7 @@ function list(kind) {
 
 const NOTES = {
   form: { A: 'Com tudo preenchido, <b>Salvar e dar entrada</b> salva e abre a entrada. <b>Salvar peça</b> continua só salvando.', B: '<b>Salvar peça</b> salva e mostra a confirmação no mesmo diálogo.', C: '<b>Salvar peça</b> salva e fecha, como hoje.' },
-  entry: 'A Entrada de compra abre com a peça na lista, o fornecedor da peça já escolhido e o custo da caixa (custo por unidade × fator). O cursor fica na <b>quantidade</b>. Sem nota, nada entra.',
+  entry: 'A Entrada de compra abre com a peça na lista, o <b>NI</b> embaixo do nome, o fornecedor da peça já escolhido e o custo por unidade do cadastro. O cursor fica na <b>quantidade</b>, contada na unidade de consumo (3 caixas = 12 un). Sem nota e depósito, nada entra.',
   done: 'Confirmação no lugar do formulário. <b>Dar entrada agora</b> é o botão principal; <b>Cadastrar outra</b> limpa o formulário.',
   list: { saved: 'Depois da entrada, o saldo aparece na lista: <b>3 cx · 12 un</b>.', toast: 'O aviso traz <b>Dar entrada</b>, e a linha da peça sem saldo também.' },
 };
