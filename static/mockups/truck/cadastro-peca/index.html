@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cadastro de peça · 3 modelos · mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --foreground:240 10% 4%;--card:0 0% 100%;--background:230 20% 97.5%;
+  --primary:233 66% 52%;--primary-ink:233 70% 40%;--primary-soft:233 85% 96.5%;
+  --muted:240 5% 95%;--muted-foreground:240 4% 44%;--border:240 6% 90%;--border-strong:240 6% 83%;
+  --canvas:228 16% 90%;
+  --success:150 55% 42%;--success-soft:150 52% 94%;--success-ink:152 64% 26%;
+  --warning:36 92% 50%;--warning-soft:40 96% 92%;--warning-ink:26 85% 32%;
+  --danger:0 82% 60%;--danger-soft:0 88% 96.5%;--danger-ink:0 70% 44%;
+}
+*{box-sizing:border-box}
+body{margin:0;background:hsl(var(--canvas));color:hsl(var(--foreground));font:14.5px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,p{margin:0}
+button{font:inherit;color:inherit}
+.ic{display:inline-block;width:18px;height:18px;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;flex:none}
+.s12{width:12px;height:12px}.s14{width:14px;height:14px}.s16{width:16px;height:16px}.s20{width:20px;height:20px}
+.i-search{--i:url(https://api.iconify.design/ph/magnifying-glass.svg)}
+.i-box{--i:url(https://api.iconify.design/ph/package.svg)}
+.i-wrench{--i:url(https://api.iconify.design/ph/wrench.svg)}
+.i-check{--i:url(https://api.iconify.design/ph/check-bold.svg)}
+.i-x{--i:url(https://api.iconify.design/ph/x-bold.svg)}
+.i-xl{--i:url(https://api.iconify.design/ph/x.svg)}
+.i-truck{--i:url(https://api.iconify.design/ph/hand-arrow-down.svg)}
+.i-caret{--i:url(https://api.iconify.design/ph/caret-down.svg)}
+.i-right{--i:url(https://api.iconify.design/ph/caret-right.svg)}
+.i-clock{--i:url(https://api.iconify.design/ph/clock.svg)}
+.i-info{--i:url(https://api.iconify.design/ph/info.svg)}
+.i-shelf{--i:url(https://api.iconify.design/ph/stack.svg)}
+.i-minus{--i:url(https://api.iconify.design/ph/minus-bold.svg)}
+.i-plus{--i:url(https://api.iconify.design/ph/plus-bold.svg)}
+.i-list{--i:url(https://api.iconify.design/ph/list-bullets.svg)}
+.i-group{--i:url(https://api.iconify.design/ph/stack-simple.svg)}
+.i-user{--i:url(https://api.iconify.design/ph/user.svg)}
+.i-return{--i:url(https://api.iconify.design/ph/arrow-u-down-left.svg)}
+.pill.returned{background:hsl(var(--muted));color:hsl(var(--foreground))}
+.used{display:flex;gap:10px;align-items:center;font-size:12.5px;color:hsl(var(--muted-foreground))}
+.used b{color:hsl(var(--foreground));font:700 12.5px Sora}
+
+.doc{max-width:1280px;margin:0 auto;padding:40px 22px 90px}
+.doc h1{font:800 29px/1.15 Sora;letter-spacing:-.02em}
+.lead{color:hsl(var(--muted-foreground));max-width:940px;margin-top:10px}
+.rule{margin-top:18px;display:flex;gap:12px;align-items:flex-start;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;padding:14px 16px;max-width:940px}
+.rule .ic{color:hsl(var(--primary));margin-top:2px}
+.tabs{display:flex;gap:8px;margin-top:28px;flex-wrap:wrap}
+.tab{border:1px solid hsl(var(--border-strong));background:hsl(var(--card));border-radius:999px;padding:8px 16px;font-weight:600;cursor:pointer;display:flex;gap:8px;align-items:center}
+.tab small{font-weight:500;color:hsl(var(--muted-foreground))}
+.tab[aria-pressed=true]{background:hsl(var(--foreground));color:hsl(var(--card));border-color:hsl(var(--foreground))}
+.tab[aria-pressed=true] small{color:hsl(0 0% 100%/.7)}
+.model{display:none;margin-top:18px}
+.model.on{display:block}
+.mhead{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:18px;align-items:start}
+.mhead h2{font:800 22px/1.2 Sora;letter-spacing:-.015em}
+.mhead p{color:hsl(var(--muted-foreground));margin-top:6px}
+.pc{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;padding:12px 14px;font-size:13.5px}
+.pc h4{font:700 11px Inter;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));margin:4px 0}
+.pc ul{margin:0;padding-left:18px}
+.controls{display:flex;justify-content:space-between;gap:12px;margin-top:18px;flex-wrap:wrap;align-items:center}
+.steps{display:flex;gap:6px;flex-wrap:wrap}
+.step{border:1px solid hsl(var(--border-strong));background:hsl(var(--card));border-radius:10px;padding:6px 12px;font-size:13px;font-weight:600;cursor:pointer;color:hsl(var(--muted-foreground))}
+.step b{color:hsl(var(--foreground));margin-right:4px}
+.step[aria-pressed=true]{border-color:hsl(var(--primary));background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.step[aria-pressed=true] b{color:hsl(var(--primary-ink))}
+.seg{display:inline-flex;background:hsl(var(--card));border:1px solid hsl(var(--border-strong));border-radius:10px;padding:3px}
+.seg button{border:0;background:none;border-radius:7px;padding:5px 12px;font-size:13px;font-weight:600;cursor:pointer;color:hsl(var(--muted-foreground))}
+.seg button[aria-pressed=true]{background:hsl(var(--muted));color:hsl(var(--foreground))}
+.note{margin-top:10px;font-size:13px;color:hsl(var(--muted-foreground))}
+.note b{color:hsl(var(--foreground))}
+.stage{margin-top:12px;background:radial-gradient(hsl(220 8% 85%) 1px,transparent 1.4px) 0 0/22px 22px,hsl(220 10% 91.5%);border:1px solid hsl(var(--border));border-radius:18px;padding:26px 18px;display:flex;justify-content:center;overflow:auto}
+
+.frame{width:1200px;max-width:100%;height:720px;background:hsl(var(--background));border-radius:16px;box-shadow:0 40px 90px -32px hsl(232 48% 15%/.5);overflow:hidden;display:flex;flex-direction:column;container-type:inline-size;position:relative;flex:none}
+.frame.tabl{width:1024px;height:740px;border-radius:26px;border:10px solid hsl(235 20% 14%)}
+.frame.phone{width:390px;height:820px;border-radius:30px;border:8px solid hsl(235 20% 14%)}
+.bar{height:58px;flex:none;display:flex;align-items:center;gap:12px;padding:0 18px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
+.bar .eb{font:700 10px Sora;text-transform:uppercase;letter-spacing:.07em;color:hsl(var(--primary-ink))}
+.bar .tt{font:800 17px/1.15 Sora}
+.bar .org{margin-left:auto;font-size:13px;font-weight:600;color:hsl(var(--muted-foreground))}
+.screen{display:none;flex:1;min-height:0;padding:12px;position:relative}
+.screen.on{display:flex;flex-direction:column}
+.shell{flex:1;min-height:0;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;display:flex;flex-direction:column;overflow:hidden}
+
+/* toolbar and counters */
+.tools{display:flex;gap:8px;align-items:center;padding:12px 14px;border-bottom:1px solid hsl(var(--border));flex-wrap:wrap}
+.search{display:flex;align-items:center;gap:8px;height:38px;border:1px solid hsl(var(--border-strong));border-radius:10px;padding:0 11px;color:hsl(var(--muted-foreground));font-size:14px;flex:1;max-width:300px;min-width:160px}
+.counts{display:flex;gap:6px;flex-wrap:wrap}
+.count{display:inline-flex;align-items:center;gap:7px;border:1px solid hsl(var(--border-strong));border-radius:999px;padding:5px 12px;font-size:13px;font-weight:600;color:hsl(var(--muted-foreground));white-space:nowrap}
+.count b{font:800 12.5px Sora;color:hsl(var(--foreground))}
+.count.on{background:hsl(var(--foreground));border-color:hsl(var(--foreground));color:hsl(var(--card))}
+.count.on b{color:hsl(var(--card))}
+.count.w b{color:hsl(var(--warning-ink))}
+.grow{flex:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;font-weight:600;font-size:14px;border:1px solid transparent;white-space:nowrap}
+.btn.pr{background:hsl(var(--primary));color:#fff}
+.btn.ol{background:hsl(var(--card));border-color:hsl(var(--border-strong))}
+.btn.dg{background:hsl(var(--card));border-color:hsl(var(--danger)/.4);color:hsl(var(--danger-ink))}
+.btn.ok{background:hsl(var(--success));color:#fff}
+.btn.sm{height:32px;padding:0 11px;font-size:13px;border-radius:9px}
+.btn.full{width:100%}
+.scroll{flex:1;min-height:0;overflow:auto}
+
+.pill{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:1px 9px;font-size:11.5px;font-weight:600;white-space:nowrap}
+.pill.pending{background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+.pill.approved{background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.pill.partial{background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.pill.delivered{background:hsl(var(--success-soft));color:hsl(var(--success-ink))}
+.pill.rejected{background:hsl(var(--danger-soft));color:hsl(var(--danger-ink))}
+.pill.m{background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.toast-r{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);background:hsl(var(--foreground));color:hsl(var(--card));border-radius:12px;padding:10px 14px;font-size:13.5px;display:flex;gap:8px;align-items:center;white-space:nowrap;z-index:7}
+.toast-r .ic{color:hsl(var(--success))}
+.ni{display:inline-flex;align-items:center;height:19px;border-radius:6px;background:hsl(var(--muted));padding:0 6px;font:700 11px Sora;white-space:nowrap}
+.osn{font:700 13.5px Sora;color:hsl(var(--primary))}
+.sub{font-size:12.5px;color:hsl(var(--muted-foreground))}
+.age{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;color:hsl(var(--muted-foreground));white-space:nowrap}
+.age.late{color:hsl(var(--warning-ink));font-weight:600}
+.cb{width:18px;height:18px;border-radius:5px;border:1.5px solid hsl(var(--border-strong));flex:none;display:grid;place-items:center}
+.cb.on{background:hsl(var(--primary));border-color:hsl(var(--primary));color:#fff}
+
+/* A: grouped by OS */
+.osgroup{border-bottom:1px solid hsl(var(--border))}
+.oshead{display:flex;align-items:center;gap:10px;padding:10px 16px;background:hsl(var(--muted)/.45)}
+.oshead .ic.s16{color:hsl(var(--muted-foreground))}
+.svc{display:flex;align-items:center;gap:8px;padding:8px 16px 4px 44px;font-size:12.5px;color:hsl(var(--muted-foreground))}
+.svc b{color:hsl(var(--foreground));font-weight:600}
+.irow{display:grid;grid-template-columns:18px minmax(0,1fr) 110px 120px 140px auto;gap:12px;align-items:center;padding:9px 16px 9px 44px;border-top:1px solid hsl(var(--border)/.6)}
+.irow .nm{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.irow .qty{font:700 13.5px Sora;text-align:right}
+.irow .qty small{font:500 12px Inter;color:hsl(var(--muted-foreground))}
+.irow .acts{display:flex;gap:6px;justify-content:flex-end}
+.ibtn{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;border:1px solid hsl(var(--border-strong));background:hsl(var(--card));color:hsl(var(--muted-foreground))}
+.ibtn.ok{color:hsl(var(--success-ink))}
+.ibtn.no{color:hsl(var(--danger-ink))}
+.bulk{flex:none;display:flex;align-items:center;gap:10px;border-top:1px solid hsl(var(--border));background:hsl(var(--primary-soft)/.6);padding:10px 16px;font-size:13.5px}
+.bulk b{font:800 14px Sora}
+
+/* side sheet */
+.scrim{position:absolute;inset:0;background:hsl(235 30% 12%/.28);z-index:5}
+.sheet{position:absolute;top:0;right:0;bottom:0;width:470px;max-width:100%;background:hsl(var(--card));z-index:6;display:flex;flex-direction:column;box-shadow:-20px 0 50px -20px hsl(232 48% 15%/.4)}
+.sh{padding:16px 18px 12px;border-bottom:1px solid hsl(var(--border))}
+.sh .top{display:flex;align-items:center;gap:10px}
+.sh h3{font:800 18px Sora}
+.sh .x{margin-left:auto;width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:8px;padding:4px 9px;font-size:12.5px;font-weight:600;background:hsl(var(--muted))}
+.chip.p{background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.sb{flex:1;overflow:auto;padding:14px 18px;display:flex;flex-direction:column;gap:10px}
+.sect{font:700 11px Inter;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground))}
+.item{border:1px solid hsl(var(--border));border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.item .r1{display:flex;align-items:center;gap:8px}
+.item .r1 b{font-weight:600;font-size:14px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item .r2{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12.5px;color:hsl(var(--muted-foreground))}
+.item .r2 .shelf{display:inline-flex;gap:4px;align-items:center;color:hsl(var(--foreground));font-weight:600}
+.stepper{display:inline-flex;align-items:center;border:1px solid hsl(var(--border-strong));border-radius:9px;overflow:hidden;margin-left:auto}
+.stepper i{width:30px;height:30px;display:grid;place-items:center;color:hsl(var(--muted-foreground))}
+.stepper b{min-width:34px;text-align:center;font:700 14px Sora}
+.reason{border:1px solid hsl(var(--border-strong));border-radius:10px;padding:9px 12px;min-height:70px;font-size:13.5px;color:hsl(var(--muted-foreground))}
+.reasons{display:flex;gap:6px;flex-wrap:wrap}
+.reasons span{border:1px solid hsl(var(--border-strong));border-radius:999px;padding:5px 11px;font-size:12.5px;font-weight:600}
+.reasons span.on{border-color:hsl(var(--danger)/.5);background:hsl(var(--danger-soft));color:hsl(var(--danger-ink))}
+.sf{border-top:1px solid hsl(var(--border));padding:12px 18px;display:flex;gap:8px;align-items:center}
+.sf .meta{font-size:12.5px;color:hsl(var(--muted-foreground));margin-right:auto}
+.notice{display:flex;gap:8px;align-items:flex-start;border-radius:10px;padding:9px 11px;font-size:13px;background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+
+/* B: board by status */
+.board{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:12px;overflow:auto;background:hsl(var(--background))}
+.col{display:flex;flex-direction:column;gap:8px;min-width:0}
+.colh{display:flex;align-items:center;gap:8px;font:700 13px Sora;padding:2px 4px}
+.colh .n{border-radius:999px;padding:0 8px;font:700 11.5px Sora;background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.colh small{margin-left:auto;font:500 12px Inter;color:hsl(var(--muted-foreground))}
+.card{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:14px;padding:11px 12px;display:flex;flex-direction:column;gap:7px;box-shadow:0 1px 2px hsl(233 30% 20%/.05)}
+.card.sel{border-color:hsl(var(--primary));box-shadow:0 0 0 3px hsl(var(--primary)/.12)}
+.card .t{display:flex;align-items:center;gap:8px}
+.card .lines{display:flex;flex-direction:column;gap:3px;font-size:13px}
+.card .lines span{display:flex;justify-content:space-between;gap:8px}
+.card .lines span em{font-style:normal;font:700 12.5px Sora;white-space:nowrap}
+.card .f{display:flex;align-items:center;gap:8px;border-top:1px solid hsl(var(--border));padding-top:7px}
+
+/* C: list + request */
+.split{flex:1;min-height:0;display:grid;grid-template-columns:400px minmax(0,1fr)}
+.listc{border-right:1px solid hsl(var(--border));display:flex;flex-direction:column;min-height:0}
+.rowc{display:flex;gap:11px;padding:11px 14px;border-bottom:1px solid hsl(var(--border));position:relative}
+.rowc.sel{background:hsl(var(--primary-soft)/.65)}
+.rowc.sel::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:3px;border-radius:0 3px 3px 0;background:hsl(var(--primary))}
+.rowc .m{flex:1;min-width:0}
+.rowc .t1{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.rowc .t2{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.rowc .t3{display:flex;gap:8px;align-items:center;margin-top:5px}
+.detail{min-height:0;overflow:auto;background:hsl(var(--background));display:flex;flex-direction:column}
+.dh{padding:16px 20px;background:hsl(var(--card));border-bottom:1px solid hsl(var(--border))}
+.dh h3{font:800 19px Sora;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.db{padding:14px 20px;display:flex;flex-direction:column;gap:10px;flex:1}
+.df{padding:12px 20px;background:hsl(var(--card));border-top:1px solid hsl(var(--border));display:flex;gap:8px;align-items:center}
+.df .meta{font-size:12.5px;color:hsl(var(--muted-foreground));margin-right:auto}
+.mback{display:none}
+
+@container (max-width:1040px){
+  .irow{grid-template-columns:18px minmax(0,1fr) 90px 110px auto}
+  .irow .who{display:none}
+  .split{grid-template-columns:340px minmax(0,1fr)}
+}
+@container (max-width:600px){
+  .bar .org{display:none}
+  .screen{padding:6px}
+  .search{max-width:none;flex-basis:100%}
+  .irow{grid-template-columns:18px minmax(0,1fr) auto;padding-left:16px}
+  .irow .st,.irow .who{display:none}
+  .svc{padding-left:16px}
+  .irow .acts .ibtn{width:40px;height:40px}
+  .board{grid-template-columns:1fr}
+  .split{grid-template-columns:1fr}
+  .screen:not(.picked) .detail{display:none}
+  .screen.picked .listc{display:none}
+  .mback{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:hsl(var(--muted-foreground));margin-bottom:8px}
+  .sheet{width:100%}
+}
+.recommend{margin-top:30px;background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;padding:18px 20px;max-width:940px}
+.recommend h3{font:800 18px Sora}
+.recommend p{color:hsl(var(--foreground)/.85);font-size:14px;margin-top:6px}
+.recommend table{border-collapse:collapse;margin-top:12px;font-size:13.5px;width:100%}
+.recommend th,.recommend td{text-align:left;border-bottom:1px solid hsl(var(--border));padding:7px 8px;vertical-align:top}
+.recommend th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground))}
+@media (max-width:820px){.mhead{grid-template-columns:1fr}}
+/* unit conversion mockup */
+.i-ruler{--i:url(https://api.iconify.design/ph/ruler.svg)}
+.i-tire{--i:url(https://api.iconify.design/ph/tire.svg)}
+.i-arrow{--i:url(https://api.iconify.design/ph/arrow-right.svg)}
+.i-swap{--i:url(https://api.iconify.design/ph/arrows-left-right.svg)}
+.i-cart{--i:url(https://api.iconify.design/ph/shopping-cart.svg)}
+.dim{position:absolute;inset:0;background:hsl(235 30% 12%/.28);z-index:4}
+.modal{position:absolute;left:50%;top:26px;transform:translateX(-50%);width:760px;max-width:calc(100% - 24px);max-height:calc(100% - 40px);overflow:auto;background:hsl(var(--card));border-radius:18px;z-index:5;box-shadow:0 30px 70px -20px hsl(232 48% 15%/.5)}
+.mh{display:flex;gap:12px;align-items:flex-start;padding:18px 20px 14px;border-bottom:1px solid hsl(var(--border))}
+.mh .bx{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:hsl(var(--primary-soft));color:hsl(var(--primary))}
+.mh h3{font:800 19px Sora}
+.mh p{font-size:13px;color:hsl(var(--muted-foreground))}
+.mb{padding:18px 20px;display:flex;flex-direction:column;gap:14px}
+.mf{display:flex;gap:8px;justify-content:flex-end;padding:12px 20px;border-top:1px solid hsl(var(--border))}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.fld{position:relative;border:1px solid hsl(var(--border-strong));border-radius:10px;height:46px;display:flex;align-items:center;padding:0 12px;font-size:14.5px;gap:8px}
+.fld label{position:absolute;top:-9px;left:9px;background:hsl(var(--card));padding:0 4px;font-size:12px;font-weight:600;color:hsl(var(--foreground))}
+.fld .ic.i-caret{margin-left:auto;color:hsl(var(--muted-foreground))}
+.fld.on{border-color:hsl(var(--primary));box-shadow:0 0 0 3px hsl(var(--primary)/.12)}
+.fld .u{margin-left:auto;font-size:13px;color:hsl(var(--muted-foreground))}
+.sentence{border:1px solid hsl(var(--border));border-radius:14px;padding:14px 16px;background:hsl(var(--background));display:flex;flex-direction:column;gap:10px}
+.sentence .line{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:15px}
+.sentence .line b{font-weight:700}
+.inl{display:inline-flex;align-items:center;gap:6px;border:1px solid hsl(var(--border-strong));background:hsl(var(--card));border-radius:9px;height:36px;padding:0 10px;font:700 14.5px Sora}
+.inl.on{border-color:hsl(var(--primary));box-shadow:0 0 0 3px hsl(var(--primary)/.12)}
+.inl .ic{color:hsl(var(--muted-foreground))}
+.opts{display:flex;gap:6px;flex-wrap:wrap}
+.opt{border:1px solid hsl(var(--border-strong));border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600;background:hsl(var(--card))}
+.opt.on{background:hsl(var(--foreground));color:hsl(var(--card));border-color:hsl(var(--foreground))}
+.opt small{font-weight:500;opacity:.7;margin-left:4px}
+.sect2{font:700 11px Inter;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground))}
+.preview{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:13px;color:hsl(var(--muted-foreground))}
+.boxes{display:flex;gap:6px;align-items:center}
+.cx{width:46px;height:34px;border-radius:7px;border:1.5px solid hsl(var(--primary)/.5);background:hsl(var(--primary-soft));display:grid;grid-template-columns:1fr 1fr;gap:3px;padding:3px}
+.cx i{border-radius:4px;background:hsl(var(--primary)/.55)}
+.cx i.out{background:hsl(var(--card));border:1px dashed hsl(var(--primary)/.5)}
+.wheel{width:22px;height:22px;border-radius:50%;border:5px solid hsl(var(--foreground)/.75)}
+.eq{font:700 13px Sora;color:hsl(var(--foreground))}
+.stepbig{display:inline-flex;align-items:center;border:1px solid hsl(var(--border-strong));border-radius:12px;overflow:hidden}
+.stepbig i{width:44px;height:44px;display:grid;place-items:center;color:hsl(var(--muted-foreground))}
+.stepbig b{min-width:92px;text-align:center;font:800 17px Sora}
+.stepbig b small{font:600 12.5px Inter;color:hsl(var(--muted-foreground));margin-left:3px}
+.toggle{display:inline-flex;border:1px solid hsl(var(--border-strong));border-radius:10px;padding:3px;background:hsl(var(--card))}
+.toggle span{padding:5px 11px;border-radius:7px;font-size:13px;font-weight:600;color:hsl(var(--muted-foreground))}
+.toggle span.on{background:hsl(var(--muted));color:hsl(var(--foreground))}
+.partc{border:1px solid hsl(var(--border));border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.partc .t{display:flex;gap:8px;align-items:center}
+.partc .t b{font-weight:600;font-size:15px}
+.partc .q{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.hint2{font-size:12.5px;color:hsl(var(--muted-foreground))}
+.hint2 b{color:hsl(var(--foreground))}
+.quick{display:flex;gap:6px;flex-wrap:wrap}
+.quick span{border:1px solid hsl(var(--border-strong));border-radius:10px;padding:7px 12px;font-size:13px;font-weight:600;display:inline-flex;gap:6px;align-items:center;background:hsl(var(--card))}
+.quick span.on{border-color:hsl(var(--primary));background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.quick span small{font-weight:500;color:hsl(var(--muted-foreground))}
+.srow{display:grid;grid-template-columns:minmax(0,1fr) 150px 190px 120px;gap:14px;align-items:center;padding:12px 16px;border-bottom:1px solid hsl(var(--border))}
+.srow.h{font:700 11px Inter;text-transform:uppercase;letter-spacing:.06em;color:hsl(var(--muted-foreground));padding-top:9px;padding-bottom:9px;background:hsl(var(--muted)/.45)}
+.srow .big{font:700 14px Sora}
+.srow .big small{font:500 12px Inter;color:hsl(var(--muted-foreground))}
+.srow .nm{font-weight:600}
+.loose{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:1px 9px;font-size:11.5px;font-weight:600;background:hsl(var(--warning-soft));color:hsl(var(--warning-ink))}
+.ans{display:flex;gap:6px;align-items:center;font-size:12.5px;color:hsl(var(--muted-foreground))}
+.ans b{color:hsl(var(--foreground));font:700 12.5px Sora}
+.menu{margin-top:-8px;width:calc((100% - 24px)/3);margin-left:calc((100% - 24px)/3 + 12px);border:1px solid hsl(var(--border));border-radius:12px;padding:5px;background:hsl(var(--card));box-shadow:0 14px 30px -12px hsl(232 48% 15%/.3);display:flex;flex-direction:column}
+.menu span{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-radius:8px;font-size:14px}
+.menu span.on{background:hsl(var(--muted));font-weight:600}
+.menu span .ic{color:hsl(var(--primary))}
+.summary{display:flex;gap:10px;align-items:flex-start;border-radius:12px;padding:11px 13px;font-size:13.5px;background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.summary .ic{margin-top:2px}
+.svcpick{display:flex;flex-direction:column}
+.svcpick .r{display:flex;gap:12px;align-items:center;padding:12px 16px;border-bottom:1px solid hsl(var(--border))}
+.svcpick .r.on{background:hsl(var(--primary-soft)/.55)}
+.svcpick .r .m{flex:1;min-width:0}
+.svcpick .r .m b{font-weight:600}
+.selbar{flex:none;display:flex;align-items:center;gap:10px;border-top:1px solid hsl(var(--border));background:hsl(var(--primary-soft)/.6);padding:10px 16px;font-size:13.5px}
+.split2{display:flex;flex-direction:column;gap:6px;border-top:1px dashed hsl(var(--border-strong));padding-top:8px}
+.split2 span{display:flex;justify-content:space-between;font-size:13px;color:hsl(var(--muted-foreground))}
+.split2 span b{color:hsl(var(--foreground));font:700 13px Sora}
+.menu1{margin-left:0}
+.menu small{font-size:12px;color:hsl(var(--muted-foreground));margin-left:8px;font-weight:500}
+.ladder{display:flex;gap:6px;flex-wrap:wrap}
+.ladder span{display:inline-flex;flex-direction:column;border:1px solid hsl(var(--border));border-radius:10px;padding:6px 12px;font-size:12.5px;color:hsl(var(--muted-foreground));background:hsl(var(--background))}
+.ladder b{font:700 13px Sora;color:hsl(var(--foreground))}
+.svchead{display:flex;flex-direction:column;gap:6px;padding:14px 18px;border-bottom:1px solid hsl(var(--border))}
+.svchead h3{font:800 18px Sora}
+@container (max-width:600px){
+  .row2,.row3{grid-template-columns:1fr}
+  .modal{top:10px}
+  .srow{grid-template-columns:minmax(0,1fr) auto}
+  .srow .hide{display:none}
+}
+.i-plus2{--i:url(https://api.iconify.design/ph/plus.svg)}
+.i-tag{--i:url(https://api.iconify.design/ph/tag.svg)}
+.i-barcode{--i:url(https://api.iconify.design/ph/barcode.svg)}
+.i-chain{--i:url(https://api.iconify.design/ph/link-simple.svg)}
+.modal{width:820px}
+.mb{gap:12px}
+.ta{position:relative;border:1px solid hsl(var(--border-strong));border-radius:10px;min-height:62px;padding:12px;font-size:14px;color:hsl(var(--muted-foreground))}
+.ta label{position:absolute;top:-9px;left:9px;background:hsl(var(--card));padding:0 4px;font-size:12px;font-weight:600;color:hsl(var(--foreground))}
+.fld .ph{color:hsl(var(--muted-foreground))}
+.linkbtn{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;color:hsl(var(--primary));align-self:flex-start}
+.chain{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border:1px solid hsl(var(--border));border-radius:14px;padding:12px 14px;background:hsl(var(--background))}
+.chain .eq{font:700 14px Sora;color:hsl(var(--muted-foreground))}
+.link{display:flex;align-items:center;gap:6px}
+.link .n{width:58px;height:40px;border:1px solid hsl(var(--border-strong));border-radius:9px;background:hsl(var(--card));display:grid;place-items:center;font:700 15px Sora}
+.link .n.on{border-color:hsl(var(--primary));box-shadow:0 0 0 3px hsl(var(--primary)/.12)}
+.link .u{height:40px;border:1px solid hsl(var(--border-strong));border-radius:9px;background:hsl(var(--card));display:flex;align-items:center;gap:8px;padding:0 10px;font-weight:600;font-size:14px}
+.link .u .ic{color:hsl(var(--muted-foreground))}
+.link .u.fixed{background:hsl(var(--muted));border-color:transparent}
+.addlink{height:40px;border:1px dashed hsl(var(--border-strong));border-radius:9px;display:inline-flex;align-items:center;gap:6px;padding:0 12px;font-size:13px;font-weight:600;color:hsl(var(--muted-foreground))}
+.xs{font-size:12px;color:hsl(var(--muted-foreground))}
+.asks{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700;background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.mtabs{display:flex;gap:4px;padding:0 20px;border-bottom:1px solid hsl(var(--border))}
+.mtabs span{padding:10px 12px;font-size:13.5px;font-weight:600;color:hsl(var(--muted-foreground));border-bottom:2px solid transparent;margin-bottom:-1px}
+.mtabs span.on{color:hsl(var(--foreground));border-color:hsl(var(--primary))}
+.mtabs span small{margin-left:6px;font-size:11px;color:hsl(var(--primary-ink));background:hsl(var(--primary-soft));border-radius:999px;padding:1px 7px}
+.ctl{display:inline-flex;border:1px solid hsl(var(--border-strong));border-radius:10px;padding:3px}
+.ctl span{padding:6px 12px;border-radius:7px;font-size:13px;font-weight:600;color:hsl(var(--muted-foreground))}
+.ctl span.on{background:hsl(var(--muted));color:hsl(var(--foreground))}
+.row4{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.sentence2{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:14.5px}
+.sentence2 b{font-weight:700}
+@container (max-width:600px){.row4{grid-template-columns:1fr}.chain{gap:6px}}
+</style>
+</head>
+<body>
+<div class="doc">
+  <h1>Cadastro de peça · 3 modelos</h1>
+  <div class="rule" style="border-color:hsl(var(--success)/.4)"><span class="ic i-check s20" style="color:hsl(var(--success-ink))"></span><p><b>Modelo A aprovado em 27/11/2026</b>, sem o campo Descrição.</p></div>
+  <p class="lead">Refaz o formulário de <b>Nova peça</b> com duas correções: a <b>unidade aparece uma vez só</b> (hoje são três campos que pedem unidade: Compra em, Usa na OS em e Mecânico pede por), e o cadastro ganha o que o <b>v1</b> tinha e o v2 perdeu: <b>marca, modelo e fornecedor</b>. Continua valendo o aprovado em <b>Peça por caixa e por jogo</b>: a lona é comprada por caixa, usada em jogo e pedida por roda (1 caixa = 2 jogos, 1 jogo = 2 rodas).</p>
+  <div class="rule"><span class="ic i-info s20"></span><p>Do v1 ficam de fora, de propósito: <b>quantidade em estoque</b> (o saldo nasce da entrada de compra, não do cadastro), <b>número de série</b> por peça (no v2 é de cada unidade, como o pneu: o cadastro só diz se a peça é controlada por série) e <b>localização/status</b> (são da unidade física, não do catálogo). O <b>preço de venda</b> entra opcional, para a oficina que cobra o cliente.</p></div>
+
+  <div class="tabs" id="tabs">
+    <button class="tab" data-model="a" aria-pressed="true">A · Uma unidade, o resto se precisar <small>um link abre a conversão</small></button>
+    <button class="tab" data-model="b" aria-pressed="false">B · A conversão numa linha <small>caixa → jogo → roda</small></button>
+    <button class="tab" data-model="c" aria-pressed="false">C · Em abas <small>dados, unidade, custo</small></button>
+  </div>
+
+  <section class="model on" data-model="a">
+    <div class="mhead">
+      <div><h2>A · Uma unidade, o resto se precisar</h2><p>Só um campo de unidade: <b>Unidade</b> (como compra e guarda). Peça que sai do mesmo jeito que entra (filtro, lâmpada) para aí. Para a lona, o link <b>"Usa em outra unidade na OS"</b> abre uma frase: <b>1 caixa tem [2] [jogos]</b>; e o link <b>"Pede por roda"</b> completa: <b>1 jogo faz [2] rodas</b>. Os dados do v1 ficam em cima, em duas linhas.</p></div>
+      <div class="pc"><h4>A favor</h4><ul><li>Peça comum: um campo de unidade só.</li><li>A conversão só aparece para quem precisa.</li><li>Lê como se fala no pátio.</li></ul><h4>Contra</h4><ul><li>Quem não sabe do link pode não achar.</li></ul></div>
+    </div>
+    <div class="controls"><div class="steps"><button class="step" data-s="1" aria-pressed="true"><b>1</b>Peça comum (filtro)</button><button class="step" data-s="2" aria-pressed="false"><b>2</b>Lona: caixa, jogo, roda</button></div><div class="seg"><button data-dev="nb" aria-pressed="true">Notebook</button><button data-dev="phone" aria-pressed="false">Celular</button></div></div>
+    <div class="stage"><div class="frame" data-model-frame="a"></div></div>
+  </section>
+
+  <section class="model" data-model="b">
+    <div class="mhead">
+      <div><h2>B · A conversão numa linha</h2><p>A unidade vira uma <b>corrente</b>: começa com o que se compra (<b>Caixa</b>) e cada <b>"+ divide em"</b> acrescenta um elo (<b>2 Jogos</b>, depois <b>2 Rodas</b>). O <b>último elo é como o mecânico pede</b>, marcado em azul. Sem campo "Mecânico pede por" separado.</p></div>
+      <div class="pc"><h4>A favor</h4><ul><li>Uma linha mostra a peça inteira: caixa → jogo → roda.</li><li>Não tem como as unidades se contradizerem.</li></ul><h4>Contra</h4><ul><li>A ideia de "corrente" precisa ser vista uma vez para ser entendida.</li><li>No celular, quebra em duas linhas.</li></ul></div>
+    </div>
+    <div class="controls"><div class="steps"><button class="step" data-s="1" aria-pressed="true"><b>1</b>Peça comum (filtro)</button><button class="step" data-s="2" aria-pressed="false"><b>2</b>Lona: caixa, jogo, roda</button></div><div class="seg"><button data-dev="nb" aria-pressed="true">Notebook</button><button data-dev="phone" aria-pressed="false">Celular</button></div></div>
+    <div class="stage"><div class="frame" data-model-frame="b"></div></div>
+  </section>
+
+  <section class="model" data-model="c">
+    <div class="mhead">
+      <div><h2>C · Em abas</h2><p>O diálogo ganha três abas: <b>Dados</b> (nome, NI, marca, modelo, fornecedor, categoria), <b>Unidade</b> (a frase do A) e <b>Custo e estoque</b>. Cada aba é curta; a aba mostra um selo quando a peça tem conversão.</p></div>
+      <div class="pc"><h4>A favor</h4><ul><li>Cabe tudo do v1 sem rolar.</li><li>Quem só cadastra nome e NI nem abre as outras.</li></ul><h4>Contra</h4><ul><li>Esconde o custo e a unidade atrás de um toque.</li><li>Erro numa aba fechada fica escondido.</li></ul></div>
+    </div>
+    <div class="controls"><div class="steps"><button class="step" data-s="1" aria-pressed="true"><b>1</b>Dados</button><button class="step" data-s="2" aria-pressed="false"><b>2</b>Unidade (lona)</button><button class="step" data-s="3" aria-pressed="false"><b>3</b>Custo e estoque</button></div><div class="seg"><button data-dev="nb" aria-pressed="true">Notebook</button><button data-dev="phone" aria-pressed="false">Celular</button></div></div>
+    <div class="stage"><div class="frame" data-model-frame="c"></div></div>
+  </section>
+
+  <div class="recommend">
+    <h3>Comparação</h3>
+    <table>
+      <tr><th></th><th>A · Se precisar</th><th>B · Corrente</th><th>C · Abas</th></tr>
+      <tr><td>Campos de unidade numa peça comum</td><td>1</td><td>1</td><td>1 (em outra aba)</td></tr>
+      <tr><td>Lona (caixa → jogo → roda)</td><td>2 frases</td><td>1 linha</td><td>2 frases na aba</td></tr>
+      <tr><td>Vê tudo sem trocar de aba</td><td>Sim</td><td>Sim</td><td>Não</td></tr>
+      <tr><td>Dados do v1 (marca, modelo, fornecedor)</td><td>Sim</td><td>Sim</td><td>Sim</td></tr>
+    </table>
+    <p><b>Recomendação: A.</b> Peça comum fica com um campo de unidade só, a lona lê como se fala ("1 caixa tem 2 jogos", "1 jogo faz 2 rodas") e tudo fica numa tela. O B é bonito, mas a corrente pede explicação; o C esconde custo e unidade.</p>
+  </div>
+</div>
+
+<script>
+const ic = (name, size) => `<span class="ic i-${name}${size ? ' ' + size : ''}"></span>`;
+const header = `<div class="bar"><div><p class="eb">Estoque</p><p class="tt">Peças</p></div><span class="org">Transportadora Demo</span></div>`;
+const fld = (label, value, extra = '') => `<div class="fld ${extra}"><label>${label}</label>${value}</div>`;
+const sel = (label, value, extra = '') => fld(label, `${value}${ic('caret', 's14')}`, extra);
+const ph = (text) => `<span class="ph">${text}</span>`;
+const num = (value, unit) => `<b style="font:700 15px Sora">${value}</b>${unit ? `<span class="u">${unit}</span>` : ''}`;
+const sect = (text) => `<p class="sect2">${text}</p>`;
+const behind = `<div class="shell"><div class="tools"><span class="search">${ic('search', 's16')}Buscar peça</span><span class="grow"></span><span class="btn pr sm">${ic('plus', 's14')}Nova peça</span></div><div class="scroll"></div></div>`;
+
+const PARTS = {
+  filter: { name: 'Filtro de ar RS 5362', ni: 'SP-00210', brand: 'Mann', model: 'C 25 860', supplier: 'Distribuidora Paraná', category: 'Filtros', description: 'Filtro primário do Scania R450', unit: 'Unidade', cost: 'R$ 307,00', costUnit: 'un', min: '4' },
+  lining: { name: 'Lona 4516', ni: 'SP-00412', brand: 'Fras-le', model: '4516 · 1ª', supplier: 'Freios Sul', category: 'Freios', description: 'Lona de tambor para eixo de carreta, jogo com 8 peças', unit: 'Caixa', cost: 'R$ 134,00', costUnit: 'jogo', min: '2' },
+};
+
+function identity(part) {
+  return `<div class="row3">${fld('Nome <span style="color:hsl(var(--danger))">*</span>', part.name)}${fld('NI', part.ni)}${sel('Categoria', part.category)}</div>
+    <div class="row3">${fld('Marca', part.brand)}${fld('Modelo', part.model)}${sel('Fornecedor', part.supplier)}</div>`;
+}
+const control = `<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span class="xs">Controle</span><span class="ctl"><span class="on">Por quantidade</span><span>Por número de série</span></span><span class="xs">Série é para peça acompanhada uma a uma (pneu, turbina).</span></div>`;
+function money(part, lining) {
+  return `${sect('Custo e estoque')}<div class="row3">${fld(`Custo · por ${part.costUnit}`, num(part.cost))}${fld('Preço de venda', ph('Opcional'))}${fld(`Saldo mínimo · em ${part.costUnit}`, num(part.min))}</div>`;
+}
+const ladder = `<div class="ladder">${[[1, '0,5 jogo'], [2, '1 jogo'], [3, '1,5 jogo'], [4, '2 jogos · 1 caixa']].map(([n, j]) => `<span><b>${n} ${n === 1 ? 'roda' : 'rodas'}</b>${j}</span>`).join('')}</div>`;
+
+function unitA(lining) {
+  if (!lining) return `${sect('Unidade')}<div class="row3">${sel('Unidade', 'Unidade')}</div><span class="linkbtn">${ic('plus2', 's14')}Usa em outra unidade na OS</span>`;
+  return `${sect('Unidade')}<div class="row3">${sel('Unidade', 'Caixa')}</div>
+    <div class="sentence">
+      <div class="sentence2"><b>1 caixa tem</b><span class="inl on">2</span><span class="inl">Jogos ${ic('caret', 's14')}</span><span class="xs" style="margin-left:auto">${ic('xl', 's12')} tirar</span></div>
+      <div class="sentence2"><b>1 jogo faz</b><span class="inl on">2</span><b>rodas</b><span class="asks">o mecânico pede por roda</span><span class="xs" style="margin-left:auto">${ic('xl', 's12')} tirar</span></div>
+    </div>${ladder}`;
+}
+function unitB(lining) {
+  if (!lining) return `${sect('Como compra e como sai')}<div class="chain"><div class="link"><span class="u">Unidade ${ic('caret', 's14')}</span></div><span class="addlink">${ic('plus2', 's14')}divide em</span><span class="asks" style="margin-left:auto">o mecânico pede por unidade</span></div>`;
+  return `${sect('Como compra e como sai')}<div class="chain"><div class="link"><span class="u fixed">1</span><span class="u">Caixa ${ic('caret', 's14')}</span></div><span class="eq">=</span><div class="link"><span class="n on">2</span><span class="u">Jogos ${ic('caret', 's14')}</span></div><span class="eq">=</span><div class="link"><span class="n on">4</span><span class="u" style="border-color:hsl(var(--primary));background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))">Rodas ${ic('caret', 's14')}</span></div><span class="addlink">${ic('plus2', 's14')}divide em</span></div><p class="xs">Compra em <b>caixa</b>, usa em <b>jogo</b>, o mecânico pede por <b>roda</b> (o último elo). 1 roda = 0,5 jogo.</p>`;
+}
+const summary = (lining) => lining
+  ? `<div class="summary">${ic('info', 's16')}<span><b>1 caixa = 2 jogos = 4 rodas.</b> O estoque conta em caixa; o mecânico pede por roda. Caixa a R$ 268,00 → cada roda entra <b>R$ 67,00</b> na OS.</span></div>`
+  : `<div class="summary">${ic('info', 's16')}<span>Sai na OS como entra: <b>1 unidade</b>. O custo vai direto para a OS.</span></div>`;
+
+function modal(body, tabs = '') {
+  return `${behind}<div class="dim"></div><div class="modal"><div class="mh"><span class="bx">${ic('box', 's20')}</span><div><h3>Nova peça</h3><p>Entra no catálogo · o saldo começa em zero.</p></div><span class="ic i-xl s20" style="margin-left:auto;color:hsl(var(--muted-foreground))"></span></div>${tabs}<div class="mb">${body}</div><div class="mf"><span class="btn ol">Cancelar</span><span class="btn pr">Salvar peça</span></div></div>`;
+}
+function screenA(step) {
+  const lining = step === 2;
+  const part = lining ? PARTS.lining : PARTS.filter;
+  return modal(`${identity(part)}${unitA(lining)}${money(part, lining)}${summary(lining)}${control}`);
+}
+function screenB(step) {
+  const lining = step === 2;
+  const part = lining ? PARTS.lining : PARTS.filter;
+  return modal(`${identity(part)}${unitB(lining)}${money(part, lining)}${summary(lining)}${control}`);
+}
+function screenC(step) {
+  const part = PARTS.lining;
+  const tabs = `<div class="mtabs">${['Dados', 'Unidade', 'Custo e estoque'].map((name, i) => `<span class="${i + 1 === step ? 'on' : ''}">${name}${i === 1 ? '<small>caixa → roda</small>' : ''}</span>`).join('')}</div>`;
+  const bodies = [identity(part) + control, unitA(true) + summary(true), money(part, true)];
+  return modal(bodies[step - 1], tabs);
+}
+
+const SCREENS = { a: [screenA, 2], b: [screenB, 2], c: [screenC, 3] };
+document.querySelectorAll('[data-model-frame]').forEach((frame) => {
+  const [render, count] = SCREENS[frame.dataset.modelFrame];
+  let html = header;
+  for (let step = 1; step <= count; step++) html += `<div class="screen${step === 1 ? ' on' : ''}" data-s="${step}">${render(step)}</div>`;
+  frame.innerHTML = html;
+});
+const tabs = document.querySelectorAll('#tabs .tab');
+tabs.forEach((tab) => tab.addEventListener('click', () => {
+  tabs.forEach((other) => other.setAttribute('aria-pressed', String(other === tab)));
+  document.querySelectorAll('.model').forEach((model) => model.classList.toggle('on', model.dataset.model === tab.dataset.model));
+}));
+document.querySelectorAll('.model').forEach((model) => {
+  const steps = model.querySelectorAll('.step');
+  steps.forEach((step) => step.addEventListener('click', () => {
+    steps.forEach((other) => other.setAttribute('aria-pressed', String(other === step)));
+    model.querySelectorAll('.screen').forEach((screen) => screen.classList.toggle('on', screen.dataset.s === step.dataset.s));
+  }));
+  const devices = model.querySelectorAll('[data-dev]');
+  devices.forEach((device) => device.addEventListener('click', () => {
+    devices.forEach((other) => other.setAttribute('aria-pressed', String(other === device)));
+    const frame = model.querySelector('.frame'); frame.classList.remove('phone', 'tabl'); if (device.dataset.dev !== 'nb') frame.classList.add(device.dataset.dev);
+  }));
+});
+</script>
+</body>
+</html>
