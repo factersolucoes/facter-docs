@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kit de peças do serviço · 3 modelos · mockups</title>
+<link rel="stylesheet" href="../_kit/kit.css">
+<style>
+[data-render]{height:100%}
+.lead .meta{display:flex;gap:14px;flex-wrap:wrap}
+.sp{display:flex;flex-direction:column;height:100%;min-height:0;gap:12px;position:relative}
+.sp-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.sp-back{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:hsl(var(--muted-foreground))}
+.sp-body{flex:1;min-height:0;display:grid;gap:12px}
+.col{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:16px;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.col-h{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid hsl(var(--border)/.7)}
+.col-h h3{font:700 14.5px Sora;flex:1}
+.col-b{flex:1;min-height:0;overflow:auto;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.lbl{font:700 10.5px Inter;letter-spacing:.06em;text-transform:uppercase;color:hsl(var(--muted-foreground));display:flex;align-items:center;gap:6px;margin-top:4px}
+.prow{display:flex;align-items:center;gap:10px;border:1px solid hsl(var(--border));border-radius:12px;padding:9px 10px}
+.prow .nm{flex:1;min-width:0}
+.prow .nm b{display:block;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ni{display:inline-flex;align-items:center;height:19px;border-radius:6px;background:hsl(var(--muted));padding:0 6px;font:700 11px Sora;margin-top:3px}
+.sub{font-size:12px;color:hsl(var(--muted-foreground))}
+.add{width:32px;height:32px;border-radius:9px;border:1px solid hsl(var(--border));display:grid;place-items:center;color:hsl(var(--primary));flex:none}
+.add.on{background:hsl(var(--primary));color:#fff;border-color:hsl(var(--primary))}
+.line{display:grid;grid-template-columns:minmax(0,1fr) 112px 86px 24px;gap:10px;align-items:center;padding:10px 12px;border-top:1px solid hsl(var(--border)/.5);font-size:13px}
+.line:first-child{border-top:0}
+.line .nm b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
+.qty{display:flex;align-items:center;justify-content:space-between;border-radius:8px;background:hsl(var(--muted)/.8);height:30px;padding:0 6px;font-weight:700;gap:4px}
+.qty small{font-weight:500;color:hsl(var(--muted-foreground))}
+.qty .ic{color:hsl(var(--muted-foreground))}
+.cost{text-align:right;font-weight:700}
+.box{border:1px solid hsl(var(--border));border-radius:14px;overflow:hidden}
+.foot{display:flex;align-items:center;gap:12px;border:1px solid hsl(var(--border));background:hsl(var(--card));border-radius:14px;padding:10px 12px}
+.foot .big{font:800 20px Sora}.foot .mut{color:hsl(var(--muted-foreground));font-size:13px}
+.grow{flex:1}
+.empty-c{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;border:1.5px dashed hsl(var(--border));border-radius:14px;margin:4px;padding:20px;color:hsl(var(--muted-foreground));font-size:13px}
+.empty-c b{color:hsl(var(--foreground));font:700 15px Sora}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+.tbl th{font:700 10.5px Inter;letter-spacing:.05em;text-transform:uppercase;color:hsl(var(--muted-foreground));text-align:left;padding:9px 12px;background:hsl(var(--muted)/.6)}
+.tbl td{padding:10px 12px;border-top:1px solid hsl(var(--border)/.6);vertical-align:middle}
+.tbl tr.sel td{background:hsl(var(--primary)/.05)}
+.kitpill{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:2px 9px;font-size:12px;font-weight:600;background:hsl(var(--primary-soft));color:hsl(var(--primary-ink))}
+.kitpill.none{background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+.kcard{border:1px solid hsl(var(--border));border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;background:hsl(var(--card))}
+.kcard.on{border-color:hsl(var(--primary));box-shadow:0 0 0 1px hsl(var(--primary))}
+.kcard b{font-size:14px}
+.kcard .parts{font-size:12.5px;color:hsl(var(--muted-foreground));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kcard .row{display:flex;gap:8px;align-items:center;font-size:12px;color:hsl(var(--muted-foreground))}
+.side{position:absolute;top:0;right:0;bottom:0;width:520px;background:hsl(var(--card));border-left:1px solid hsl(var(--border));box-shadow:-30px 0 60px -30px hsl(232 48% 15%/.4);display:flex;flex-direction:column}
+.side .col-b{padding:14px}
+.bar{height:8px;border-radius:99px;background:hsl(var(--muted));overflow:hidden;width:110px}
+.bar i{display:block;height:100%;background:hsl(var(--primary))}
+.sug{display:grid;grid-template-columns:minmax(0,1fr) 130px 120px 112px 40px;gap:12px;align-items:center;padding:10px 12px;border-top:1px solid hsl(var(--border)/.5);font-size:13px}
+.sug:first-child{border-top:0}
+.sug.in{background:hsl(var(--primary)/.04)}
+.check{width:22px;height:22px;border-radius:6px;border:1.5px solid hsl(var(--border));display:grid;place-items:center}
+.check.on{background:hsl(var(--primary));border-color:hsl(var(--primary));color:#fff}
+.hint{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:hsl(var(--muted-foreground));background:hsl(var(--primary)/.05);border:1px solid hsl(var(--primary)/.18);border-radius:10px;padding:9px 11px}
+.hint .ic{color:hsl(var(--primary));margin-top:1px}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="lead">
+    <h1>Kit de peças do serviço · 3 modelos</h1>
+    <p>O kit é a lista de peças que um tipo de serviço costuma usar, com a quantidade de cada uma. No <b>Solicitar peças</b>, "Adicionar kit" põe todas de uma vez e o mecânico só ajusta. Hoje o sistema já usa o kit, mas <b>não há onde montá-lo</b>. Os três modelos mostram onde e como a empresa monta e mantém os kits.</p>
+    <div class="meta"><span>Em escolha · 27/11/2026</span><span>Notebook (é tela de gestão)</span><span>Substitui o kit do mockup Catálogos</span></div>
+  </div>
+  <nav class="tabs"><a href="#a"><b>A</b> Tela do kit</a><a href="#b"><b>B</b> Kits no Estoque</a><a href="#c"><b>C</b> Kit a partir do uso</a></nav>
+
+  <section class="sc" id="a"><h2><span class="tag">A</span>Tela do kit, igual ao Solicitar peças · recomendado</h2>
+    <p class="why">Em Configurações → Catálogos → Tipos de serviço, cada linha mostra se o serviço tem kit. "Montar kit" abre uma tela com o mesmo desenho do Solicitar peças: busca por nome ou NI à esquerda, o kit à direita com a quantidade de cada peça e o custo estimado. Quem pede peça já sabe usar; não há tela nova para aprender.</p>
+    <div class="states" data-for="a"><button data-s="list" aria-pressed="true">Lista de tipos</button><button data-s="ok" aria-pressed="false">Montando o kit</button><button data-s="empty" aria-pressed="false">Kit vazio</button></div>
+    <div class="devices"><div class="dv full"><div class="devlabel">Notebook</div><fx-app device="web" section="settings" console eyebrow="Catálogos" title="Tipos de serviço" width="1360" height="740"><div data-render="a" data-device="web"></div></fx-app></div></div>
+  </section>
+
+  <section class="sc" id="b"><h2><span class="tag">B</span>Aba Kits no Estoque</h2>
+    <p class="why">Os kits moram no Estoque, ao lado de Peças e Depósitos, porque quem cuida deles é o almoxarife. Um cartão por kit, com as peças e o custo; tocar num cartão abre o editor numa folha lateral. Um kit pode servir a mais de um tipo de serviço.</p>
+    <div class="states" data-for="b"><button data-s="ok" aria-pressed="true">Kits</button><button data-s="edit" aria-pressed="false">Editando um kit</button></div>
+    <div class="devices"><div class="dv full"><div class="devlabel">Notebook</div><fx-app device="web" section="stock" console eyebrow="Estoque" title="Kits" width="1360" height="740"><div data-render="b" data-device="web"></div></fx-app></div></div>
+  </section>
+
+  <section class="sc" id="c"><h2><span class="tag">C</span>Kit a partir do uso</h2>
+    <p class="why">O sistema olha as OS já feitas e sugere o kit: as peças pedidas para esse serviço, em quantas OS cada uma apareceu e a quantidade mais comum. A pessoa marca o que entra e ajusta. Rápido para quem já tem histórico; quem está começando cai na busca, como no A.</p>
+    <div class="states" data-for="c"><button data-s="ok" aria-pressed="true">Sugestões do histórico</button><button data-s="new" aria-pressed="false">Sem histórico</button></div>
+    <div class="devices"><div class="dv full"><div class="devlabel">Notebook</div><fx-app device="web" section="settings" console eyebrow="Tipos de serviço" title="Kit · Troca de lona de freio" width="1360" height="740"><div data-render="c" data-device="web"></div></fx-app></div></div>
+  </section>
+</div>
+<script src="../_kit/kit.js"></script>
+<script>
+const F = FX;
+const I = (n, c = 's16') => F.ic(n, c);
+const KIT = [
+  { name: 'Lona de freio 4516 Fras-le', ni: 'SP-00412', q: 4, u: 'un', cost: 'R$ 360,00' },
+  { name: 'Rebite de lona 8x12', ni: 'SP-00418', q: 32, u: 'un', cost: 'R$ 11,20' },
+  { name: 'Mola de retorno da sapata', ni: 'SP-00133', q: 4, u: 'un', cost: 'R$ 75,60' },
+  { name: 'Graxa de rolamento 1 kg', ni: 'SP-00090', q: 1, u: 'kg', cost: 'R$ 41,00' },
+];
+const SEARCH = [
+  { name: 'Lona de freio 4516 Fras-le', ni: 'SP-00412', brand: 'Fras-le', in: true },
+  { name: 'Lona de freio 204', ni: '45192233', brand: 'Master' },
+  { name: 'Rebite de lona 8x12', ni: 'SP-00418', brand: 'Fras-le', in: true },
+  { name: 'Mola de retorno da sapata', ni: 'SP-00133', brand: 'Randon', in: true },
+  { name: 'Cinta de freio 16,5" eixo trativo', ni: 'SP-00241', brand: 'Master' },
+  { name: 'Graxa de rolamento 1 kg', ni: 'SP-00090', brand: 'Lubrax', in: true },
+];
+const line = (p) => `<div class="line"><div class="nm"><b title="${p.name}">${p.name}</b><span class="ni">NI ${p.ni}</span></div><div class="qty">${I('minus', 's14')}<span>${p.q} <small>${p.u}</small></span>${I('plus', 's14')}</div><div class="cost">${p.cost}</div><span style="color:hsl(var(--muted-foreground))">${I('x', 's14')}</span></div>`;
+const prow = (p, empty) => `<div class="prow">${F.tile('primary', 'package')}<div class="nm"><b title="${p.name}">${p.name}</b><span class="ni">NI ${p.ni}</span> <span class="sub">· ${p.brand}</span></div><span class="add ${p.in && !empty ? 'on' : ''}">${I(p.in && !empty ? 'check' : 'plus')}</span></div>`;
+const emptyKit = (text) => `<div class="empty-c">${F.tile('primary', 'stack', 'lg')}<b>Kit sem peças</b>${text}</div>`;
+const total = (empty) => `<div class="foot"><span class="big">${empty ? 0 : 4}</span><span class="mut">${empty ? 'peça' : 'peças'}</span><span class="mut" style="border-left:1px solid hsl(var(--border));padding-left:12px">custo estimado <b style="color:hsl(var(--foreground))">${empty ? 'R$ 0,00' : 'R$ 487,80'}</b></span><span class="grow"></span>${F.btn('Cancelar', { variant: 'outline' })}${F.btn('Salvar kit', { icon: 'check', disabled: empty })}</div>`;
+
+const types = [
+  ['Troca de lona de freio', 'Freios', 'Eixo e lado', '4 peças', 42],
+  ['Regulagem de freio', 'Freios', 'Eixo', null, 11],
+  ['Substituir cinta de freio', 'Freios', 'Eixo e lado', '3 peças', 9],
+  ['Soldar ciclista', 'Estrutura', 'Veículo todo', null, 6],
+  ['Troca de óleo do motor', 'Motor', 'Veículo todo', '3 peças', 31],
+  ['Trocar lâmpada de lanterna', 'Elétrica', 'Lado', '1 peça', 14],
+];
+
+F.bind({
+  a: (s) => {
+    if (s === 'list') {
+      const rows = types.map((r, i) => `<tr class="${i === 0 ? 'sel' : ''}"><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3] ? `<span class="kitpill">${I('stack', 's14')}${r[3]}</span>` : '<span class="kitpill none">Sem kit</span>'}</td><td>${r[4]} OS</td><td style="text-align:right">${F.btn(r[3] ? 'Editar kit' : 'Montar kit', { variant: r[3] ? 'outline' : 'outline-primary', size: 'sm', icon: 'stack' })}</td></tr>`).join('');
+      return `<div class="sp"><div class="sp-top">${F.tabs(['Tipos de serviço', 'Componentes', 'Categorias', 'Motivos de parada'], 'Tipos de serviço')}<span class="grow"></span>${F.btn('Novo tipo de serviço', { icon: 'plus' })}</div>
+        <div class="col" style="flex:1"><div class="col-h">${F.input({ icon: 'magnifying-glass', placeholder: 'Buscar tipo de serviço' })}<div style="display:flex;gap:6px">${F.fchip('Todos', { on: 1 })}${F.fchip('Sem kit')}</div></div>
+        <div class="col-b" style="padding:0"><table class="tbl"><thead><tr><th>Serviço</th><th>Categoria</th><th>Onde marca</th><th>Kit</th><th>Uso em 90 dias</th><th></th></tr></thead><tbody>${rows}</tbody></table></div></div></div>`;
+    }
+    const empty = s === 'empty';
+    return `<div class="sp"><div class="sp-top"><span class="sp-back">${I('arrow-left')}Tipos de serviço</span><b style="font:700 15px Sora">Kit · Troca de lona de freio</b>${F.badge('Freios', { variant: 'secondary', size: 'sm' })}<span class="sub">Eixo e lado · 42 OS em 90 dias</span></div>
+      <div class="sp-body" style="grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)">
+        <div class="col"><div class="col-b">${F.input({ icon: 'magnifying-glass', placeholder: 'Buscar peça por nome ou NI' })}<span class="lbl">${I('package', 's14')}Peças</span>${SEARCH.map((p) => prow(p, empty)).join('')}</div></div>
+        <div class="col"><div class="col-h"><h3>O kit</h3>${empty ? '' : F.badge('4 peças', { variant: 'secondary', size: 'sm' })}</div><div class="col-b">${empty ? emptyKit('Busque as peças que este serviço costuma usar e ajuste a quantidade.') : `<div class="box">${KIT.map(line).join('')}</div><div class="hint">${I('info', 's14')}<span>A quantidade é por serviço: um eixo, os dois lados. No pedido, o mecânico ajusta se o caso for diferente.</span></div>`}</div></div>
+      </div>${total(empty)}</div>`;
+  },
+  b: (s) => {
+    const kits = [
+      ['Troca de lona · eixo', 'Lona 4516 ×4 · Rebite ×32 · Mola ×4 · Graxa ×1', 'R$ 487,80', 'Troca de lona de freio'],
+      ['Cinta de freio · eixo', 'Cinta 16,5" ×2 · Rebite ×24 · Mola ×4', 'R$ 734,30', 'Substituir cinta de freio'],
+      ['Troca de óleo · Scania', 'Óleo 15W40 ×38 L · Filtro de óleo ×2 · Filtro de diesel ×1', 'R$ 1.180,00', 'Troca de óleo do motor'],
+      ['Lâmpada de lanterna', 'Lâmpada 24V 21W ×1', 'R$ 8,90', 'Trocar lâmpada de lanterna'],
+    ];
+    const cards = kits.map((k, i) => `<div class="kcard ${s === 'edit' && i === 0 ? 'on' : ''}"><div style="display:flex;gap:10px;align-items:center">${F.tile('primary', 'stack')}<b style="flex:1">${k[0]}</b><b style="font:700 13px Sora">${k[2]}</b></div><div class="parts">${k[1]}</div><div class="row">${I('wrench', 's14')}${k[3]}</div></div>`).join('');
+    const side = s === 'edit' ? `<div class="side"><div class="col-h"><h3>Troca de lona · eixo</h3>${I('x')}</div><div class="col-b">
+      ${F.input({ label: 'Nome do kit', value: 'Troca de lona · eixo' })}${F.input({ label: 'Usado em', value: 'Troca de lona de freio', select: 1 })}
+      <span class="lbl">Peças</span><div class="box">${KIT.map(line).join('')}</div>${F.input({ icon: 'magnifying-glass', placeholder: 'Adicionar peça por nome ou NI' })}</div>
+      <div class="col-h" style="border-top:1px solid hsl(var(--border));border-bottom:0"><span class="sub" style="flex:1">custo estimado <b style="color:hsl(var(--foreground))">R$ 487,80</b></span>${F.btn('Cancelar', { variant: 'outline' })}${F.btn('Salvar kit', { icon: 'check' })}</div></div>` : '';
+    return `<div class="sp"><div class="sp-top">${F.tabs(['Peças', 'Requisições', 'Depósitos', 'Movimentações', 'Kits', 'Categorias', 'Fornecedores'], 'Kits')}<span class="grow"></span>${F.btn('Novo kit', { icon: 'plus' })}</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;align-content:start;flex:1">${cards}</div>${side}</div>`;
+  },
+  c: (s) => {
+    if (s === 'new') {
+      return `<div class="sp"><div class="sp-top"><span class="sp-back">${I('arrow-left')}Tipos de serviço</span><span class="sub">Freios · Eixo e lado</span></div>
+        <div class="col" style="flex:1"><div class="col-b" style="align-items:center;justify-content:center">${F.empty({ icon: 'clock-counter-clockwise', title: 'Ainda sem histórico', hint: 'Quando este serviço tiver pedidos de peça nas OS, as mais usadas aparecem aqui. Por enquanto, monte pela busca.', action: F.btn('Buscar peças', { variant: 'secondary', icon: 'magnifying-glass' }) })}</div></div></div>`;
+    }
+    const sug = [
+      [true, 'Lona de freio 4516 Fras-le', 'SP-00412', 38, '4 un'],
+      [true, 'Rebite de lona 8x12', 'SP-00418', 36, '32 un'],
+      [true, 'Mola de retorno da sapata', 'SP-00133', 29, '4 un'],
+      [true, 'Graxa de rolamento 1 kg', 'SP-00090', 22, '1 kg'],
+      [false, 'Tambor de freio 16,5"', 'SP-00510', 6, '2 un'],
+      [false, 'Lona de freio 204', '45192233', 4, '4 un'],
+    ].map(([on, n, ni, os, q]) => `<div class="sug ${on ? 'in' : ''}"><div class="nm" style="display:flex;gap:10px;align-items:center"><span class="check ${on ? 'on' : ''}">${on ? I('check', 's14') : ''}</span><div style="min-width:0"><b style="display:block;font-weight:500">${n}</b><span class="ni">NI ${ni}</span></div></div><div style="display:flex;align-items:center;gap:8px"><span class="bar"><i style="width:${Math.round((os / 42) * 100)}%"></i></span></div><span class="sub">em <b style="color:hsl(var(--foreground))">${os} de 42</b> OS</span><div class="qty">${I('minus', 's14')}<span>${q}</span>${I('plus', 's14')}</div><span style="color:hsl(var(--muted-foreground))">${on ? '' : ''}</span></div>`).join('');
+    return `<div class="sp"><div class="sp-top"><span class="sp-back">${I('arrow-left')}Tipos de serviço</span><span class="sub">Freios · Eixo e lado · 42 OS em 90 dias</span><span class="grow"></span>${F.btn('Buscar outra peça', { variant: 'outline', icon: 'magnifying-glass' })}</div>
+      <div class="hint">${I('sparkle', 's14')}<span><b style="color:hsl(var(--foreground))">Sugerido pelas últimas 42 OS.</b> Já marcamos as peças que aparecem em mais da metade delas, com a quantidade mais pedida. Marque, desmarque e ajuste.</span></div>
+      <div class="col" style="flex:1"><div class="col-h"><h3>Peças pedidas para este serviço</h3><span class="sub">quantidade mais comum</span></div><div class="col-b" style="padding:0"><div>${sug}</div></div></div>${total(false)}</div>`;
+  },
+});
+</script>
+</body>
+</html>
